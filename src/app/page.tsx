@@ -15,7 +15,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            { process.env.NEXT_PUBLIC_BASE_URL }
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
