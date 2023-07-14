@@ -7,7 +7,7 @@ import axios from "axios";
 export const SampleAnimation = () => {
 
     React.useEffect(() => {
-        axios.get('rootonweb-dev-be.qburst.build/blogs').then(() => {
+        axios.get('https://rootonweb-dev-be.qburst.build/blogs').then(() => {
             console.log('API call success')
         }).catch(() => {
             console.error('API call failed')
