@@ -7,7 +7,7 @@ import axios from "axios";
 export const SampleAnimation = () => {
 
     React.useEffect(() => {
-        axios.get('https://rootonweb-dev-be.qburst.build/blogs').then(() => {
+        axios.get(process.env.NEXT_PUBLIC_API_BASE_URL + 'blogs').then(() => {
             console.log('API call success')
         }).catch(() => {
             console.error('API call failed')
@@ -23,5 +23,5 @@ export const SampleAnimation = () => {
             damping: 20
         }}
         className=" text-[48px]"
-    >Welcome to Root On {process.env.NEXT_PUBLIC_BASE_URL}</motion.h1>
+    >Welcome to Root On</motion.h1>
 };
