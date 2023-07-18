@@ -1,3 +1,108 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@next/next/recommended",
+    "airbnb",
+    "prettier",
+    "next/core-web-vitals"
+  ],
+  "plugins": ["react", "@next/next", "prettier", "@typescript-eslint"],
+  "rules": {
+    "no-unused-vars": "error",
+    "no-var": "error",
+    "no-console": "warn",
+    "no-alert": "error",
+    "no-eval": "error",
+    "no-undef": "error",
+    "no-restricted-syntax": ["error", "WithStatement"],
+    "no-underscore-dangle": "off",
+    "prefer-const": "error",
+    "no-unused-expressions": "error",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "always"],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "react/require-default-props": "off",
+    "indent": ["error", 2],
+    "comma-dangle": ["error", "always-multiline"],
+    "max-len": [
+      "warn",
+      {
+        "code": 120,
+        "ignoreUrls": true
+      }
+    ],
+    "newline-per-chained-call": [
+      "error",
+      {
+        "ignoreChainWithDepth": 3
+      }
+    ],
+    "no-trailing-spaces": "error",
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "no-multi-spaces": "error",
+    "no-extra-parens": "error",
+    "arrow-parens": ["error", "always"],
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-empty-interface": "off",
+    "react/jsx-curly-brace-presence": [
+      "off"
+      // { props: 'never', children: 'never' },
+    ],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "{}": false
+        },
+        "extendDefaults": true
+      }
+    ],
+    "camelcase": [
+      "error",
+      {
+        "properties": "always",
+        "ignoreDestructuring": true,
+        "ignoreImports": true,
+        "ignoreGlobals": true
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "tsx": "always"
+      }
+    ],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "allow",
+        "unnamedComponents": "allow"
+      }
+    ],
+    "arrow-body-style": ["error", "as-needed"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
