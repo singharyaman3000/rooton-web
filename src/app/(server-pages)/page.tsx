@@ -1,4 +1,4 @@
-import { SampleAnimation } from '@/components/sample-animation';
+import SampleAnimation from '@/components/sample-animation';
 import Image from 'next/image';
 
 export default function Home() {

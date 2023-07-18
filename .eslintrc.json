@@ -88,16 +88,11 @@
       "error",
       "never",
       {
-        "tsx": "always"
+        "tsx": "never"
       }
     ],
-    "react/function-component-definition": [
-      "error",
-      {
-        "namedComponents": "allow",
-        "unnamedComponents": "allow"
-      }
-    ],
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": "off",
     "arrow-body-style": ["error", "as-needed"]
   },
   "settings": {

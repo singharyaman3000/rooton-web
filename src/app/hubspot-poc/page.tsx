@@ -1,7 +1,9 @@
-import { HubspotContactForm } from "@/components/hubspot-from";
+import HubspotContactForm from '@/components/hubspot-from';
 
 export default function HubSpotPOCPage() {
-    return <div className="">
-        <HubspotContactForm />
-    </div>   
+  return (
+    <div className="">
+      <HubspotContactForm />
+    </div>
+  );
 }

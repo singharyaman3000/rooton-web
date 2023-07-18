@@ -1,4 +1,3 @@
-
 export default function Page() {
-    return <>about page</>
-} 
+  return <>about page</>;
+}
