@@ -1,5 +1,5 @@
-import { SampleAnimation } from "@/components/sample-animation";
-import Image from "next/image";
+import SampleAnimation from '@/components/sample-animation';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -7,5 +7,5 @@ export default function Home() {
       <Image width={100} height={100} src={'/next.svg'} alt="next" />
       <SampleAnimation />
     </main>
-  )
+  );
 }
