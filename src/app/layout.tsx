@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const inter = Inter({ subsets: [ 'latin' ] });
@@ -13,7 +15,53 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header>
+          <nav>
+            <div
+              className="
+                flex
+                justify-between
+                px-20
+                py-3
+              "
+            >
+              <div>
+                <Image width={173} height={53} alt="Root On logo" src={'/r-oot-on-logo-svg.svg'} />
+              </div>
+              <div
+                className="
+                  gap-[62px]
+                  flex
+                  justify-end
+                  items-center
+                  text-white
+                "
+              >
+                <span>
+                  <Link href={'/'}> About Us </Link>
+                </span>
+                <span>
+                  <Link href={'/'}> Services </Link>
+                </span>
+                <span>
+                  <Link href={'/'}> Coaching </Link>
+                </span>
+                <span>
+                  <Link href={'/'}> Blogs </Link>
+                </span>
+                <span>
+                  <Link href={'/'}> Contact Us </Link>
+                </span>
+                <span>
+                  <Link href={'/'}> Tools </Link>
+                </span>
+              </div>
+            </div>
+          </nav>
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
