@@ -1,8 +1,13 @@
+:root{
+  --font-color-orange: #f59723;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*Remove when starting development >>>*/
+
 body {
   width: 100vw;
   height: 100vh;
@@ -12,10 +17,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, #d0e, #91f);
 }
 
-.container {
+.gradient-text {
+  background-image: linear-gradient(108deg, #e5de31 2%, #ffaf00 75%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* .container {
   width: 150px;
   height: 150px;
   display: grid;
@@ -33,6 +43,6 @@ body {
 .item {
   background: white;
   border-radius: 100%;
-}
+} */
 
 /*<<< Remove when starting development*/
