@@ -3,7 +3,7 @@
 import { ReactNode } from 'react'
 import { ThemeProvider } from 'next-themes'
 
-const DarkThemeProvider = ({ children }: { children: React.ReactNode })=> {
+const ThemeSwitchProvider = ({ children }: { children: React.ReactNode })=> {
     return (
       <ThemeProvider defaultTheme='dark' >
         {children}
@@ -11,4 +11,4 @@ const DarkThemeProvider = ({ children }: { children: React.ReactNode })=> {
     )
   }
 
-  export default DarkThemeProvider
+  export default ThemeSwitchProvider
