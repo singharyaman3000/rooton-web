@@ -36,3 +36,11 @@ body {
 }
 
 /*<<< Remove when starting development*/
+
+
+/*Google translator layout*/
+
+
+.skiptranslate{
+  display: none !important;
+}
