@@ -33,7 +33,7 @@ const Translator = () => {
 
   useEffect(() => {
     if (!window.googleTranslateElementInit) {
-      var addScript = document.createElement('script');
+      const addScript = document.createElement('script');
       addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
