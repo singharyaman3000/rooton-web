@@ -7,7 +7,7 @@ export interface ILanguage {
   label: string;
 }
 
-export const languages = [
+export const languages : ILanguage[] = [
   { key: 'en', label: 'English' },
   { key: 'es', label: 'Spanish' },
   { key: 'pu', label: 'Punjabi' },
@@ -15,6 +15,7 @@ export const languages = [
   { key: 'fr', label: 'France' },
   { key: 'it', label: 'Italian' },
   { key: 'de', label: 'German' },
+  {key : 'gu' , label : 'Gujarati'}
 ];
 
 const Translator = () => {
@@ -23,7 +24,7 @@ const Translator = () => {
     new window.google.translate.TranslateElement(
       {
         pageLanguage: 'en',
-        includedLanguages: 'en,pa,pt,es,hi,it,de', // include this for selected languages
+        includedLanguages: 'en,pa,pt,es,hi,it,de,gu', // include this for selected languages
         // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
       'google_translate_element',
