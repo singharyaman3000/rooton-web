@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
+:root{
+  --grey :#f9f9f9;
+  --golden-yellow: #f59723;
+  --primary-text:#000;
+  --primary-white:#fff;
+}
+
+
+
 /*Remove when starting development >>>*/
 body {
   width: 100vw;
