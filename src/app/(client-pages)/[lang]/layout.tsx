@@ -1,6 +1,6 @@
 'use client';
 
-import useClient from '@/app/hooks/useClient';
+import useClient from '@/hooks/useClient';
 import React, { ReactNode, useState } from 'react';
 import Translator from './translator';
 
