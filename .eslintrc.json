@@ -10,6 +10,7 @@
   ],
   "plugins": ["react", "@next/next", "prettier", "@typescript-eslint"],
   "rules": {
+    "jsx-a11y/click-events-have-key-events": "off",
     "no-unused-vars": "error",
     "no-var": "error",
     "no-console": "warn",
@@ -27,7 +28,7 @@
       }
     ],
     "object-curly-spacing": ["error", "always"],
-    "array-bracket-spacing": ["error", "always"],
+    "array-bracket-spacing": "off",
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "react/require-default-props": "off",
