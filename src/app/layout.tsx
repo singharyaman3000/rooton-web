@@ -1,15 +1,16 @@
 import FacebookIcon from '@/icons/facebook.icon';
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import Image from 'next/image';
-import React from 'react';
 import TwitterIcon from '@/icons/twitter.icon';
 import LinkedInIcon from '@/icons/linkedin.icon';
 import YoutubeIcon from '@/icons/youtube.icon';
 import Header from '@/components/header';
+import './globals.css';
+import type { Metadata } from 'next';
+import { Plus_Jakarta_Sans } from 'next/font/google';
+import React from 'react';
+import ThemeSwitchProvider from '../providers/themeProviders';
 
-const inter = Inter({ subsets: ['latin'] });
+const jakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--jakarta-sans' });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,11 +20,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        {children}
-        <footer
-          className="
+      <body className={jakartaSans.className}>
+        <ThemeSwitchProvider>
+          <Header />
+          {children}
+          <footer
+            className="
             pb-[225px]
             lg:flex
             lg:border-t
@@ -34,9 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             lg:gap-[80px]
             xl:gap-[153px]
           "
-        >
-          <div
-            className="
+          >
+            <div
+              className="
               border-t
               border-b
               lg:border-0
@@ -49,30 +51,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               lg:justify-around
               justify-center
             "
-          >
-            <div className=" lg:flex lg:flex-col justify-between">
-              <Image width={180} height={54} alt="logo" src={'/r-oot-on-logo-black.svg'} className=" mb-6 mx-auto" />
-              <div className=" flex flex-col gap-8 mb-7">
-                <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
-                <div className=" flex gap-12 justify-center">
-                  <span>
-                    <FacebookIcon />
-                  </span>
-                  <span>
-                    <TwitterIcon />
-                  </span>
-                  <span>
-                    <LinkedInIcon />
-                  </span>
-                  <span>
-                    <YoutubeIcon />
-                  </span>
+            >
+              <div className=" lg:flex lg:flex-col justify-between">
+                <Image width={180} height={54} alt="logo" src={'/r-oot-on-logo-black.svg'} className=" mb-6 mx-auto" />
+                <div className=" flex flex-col gap-8 mb-7">
+                  <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
+                  <div className=" flex gap-12 justify-center">
+                    <span>
+                      <FacebookIcon />
+                    </span>
+                    <span>
+                      <TwitterIcon />
+                    </span>
+                    <span>
+                      <LinkedInIcon />
+                    </span>
+                    <span>
+                      <YoutubeIcon />
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className=" hidden w-[1px] h-[312px] bg-[#d8d8d8] lg:block ml-[128px] mr-20" />
-            <div
-              className="
+              <div className=" hidden w-[1px] h-[312px] bg-[#d8d8d8] lg:block ml-[128px] mr-20" />
+              <div
+                className="
                 flex
                 lg:flex-col
                 gap-10
@@ -84,25 +86,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 lg:w-[145px]
                 lg:justify-start
               "
-            >
-              <div className=" flex flex-col gap-3">
-                <p>Careers</p>
-                <p>Privacy Policy</p>
-                <p>Terms & Condition</p>
-                <p>FAQs</p>
-                <p>QnA Forum</p>
-              </div>
-              <div className=" flex flex-col gap-3">
-                <p>Book a Meeting RCIC</p>
-                <p>Disclaimer</p>
-                <p>GCKey vs APR </p>
-                <p>Affiliate Program</p>
-                <p>Sitemap</p>
+              >
+                <div className=" flex flex-col gap-3">
+                  <p>Careers</p>
+                  <p>Privacy Policy</p>
+                  <p>Terms & Condition</p>
+                  <p>FAQs</p>
+                  <p>QnA Forum</p>
+                </div>
+                <div className=" flex flex-col gap-3">
+                  <p>Book a Meeting RCIC</p>
+                  <p>Disclaimer</p>
+                  <p>GCKey vs APR </p>
+                  <p>Affiliate Program</p>
+                  <p>Sitemap</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            className="
+            <div
+              className="
               py-5
               px-6
               flex
@@ -111,23 +113,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               lg:justify-between
               lg:gap-[6px]
             "
-          >
-            <div>
-              <div className=" mb-[6px]">flag</div>
-              <p className=" text-sm mb-[4px] font-bold">Canada Headquarters</p>
-              <p className=" text-sm mb-[4px]">706-1800, Blvd, Rene-Levesque Ouest,</p>
-              <p className=" text-sm">Montreal Quebec, H3H 2H2.</p>
+            >
+              <div>
+                <div className=" mb-[6px]">flag</div>
+                <p className=" text-sm mb-[4px] font-bold">Canada Headquarters</p>
+                <p className=" text-sm mb-[4px]">706-1800, Blvd, Rene-Levesque Ouest,</p>
+                <p className=" text-sm">Montreal Quebec, H3H 2H2.</p>
+              </div>
+              <div>
+                <div className=" mt-8">flag</div>
+                <p className=" text-sm font-bold mb-[4px]">Indian Headquarters</p>
+                <p className=" text-sm mb-[4px]">
+                  202-203, Velocity Business Hub, LP Savani Rd, nr. Madhuvan Circle, TGB, Adajan,
+                </p>
+                <p className=" text-sm">Surat, Gujarat 395009</p>
+              </div>
             </div>
-            <div>
-              <div className=" mt-8">flag</div>
-              <p className=" text-sm font-bold mb-[4px]">Indian Headquarters</p>
-              <p className=" text-sm mb-[4px]">
-                202-203, Velocity Business Hub, LP Savani Rd, nr. Madhuvan Circle, TGB, Adajan,
-              </p>
-              <p className=" text-sm">Surat, Gujarat 395009</p>
-            </div>
-          </div>
-        </footer>
+          </footer>
+        </ThemeSwitchProvider>
       </body>
     </html>
   );

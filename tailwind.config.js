@@ -11,11 +11,17 @@ module.exports = {
       'lg': '1024px',
       'xl': '1280px',
     },
+    fontFamily:{
+      jakartaSans: ['var(--jakarta-sans)'],
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      colors: {
+        'font-color-orange': 'var(--font-color-orange)',
       },
     },
   },
