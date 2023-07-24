@@ -5,6 +5,10 @@ import HamburgerIcon from '@/icons/hamburger.icon';
 import LightModeIcon from '@/icons/lightmode.icon';
 import { useState } from 'react';
 
+type ThemeToggleAndHamburger = {
+  
+}
+
 export default function ThemeToggleAndHamburger() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import ThemeToggleAndHamburger from './theme-toggle-and-hamburger';
 
 export default function Header() {
-  const [srolledEnough, setSrolledEnough] = useState(false);
+  const [scrolledEnough, setscrolledEnough] = useState(false);
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -14,9 +14,9 @@ export default function Header() {
 
     function showOrHideHeader(scrollPos: number) {
       if (scrollPos > 80) {
-        setSrolledEnough(true);
+        setscrolledEnough(true);
       } else {
-        setSrolledEnough(false);
+        setscrolledEnough(false);
       }
     }
 
@@ -41,7 +41,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`${ srolledEnough ? ' fixed w-full' : ' relative text' }`}>
+    <header className={`${scrolledEnough ? ' fixed w-full text-black bg-white' : ' relative text-white'}`}>
       <nav>
         <div
           className="
@@ -55,21 +55,32 @@ export default function Header() {
           xl:pb-4
         "
         >
-          <div>
-            <Image
-              className=" lg:w-[173px] lg:h-[52px]"
-              width={120}
-              height={36}
-              alt="Root On logo"
-              src={'/r-oot-on-logo-svg.svg'}
-            />
-          </div>
+          {scrolledEnough ? (
+            <div>
+              <Image
+                className=" lg:w-[173px] lg:h-[52px]"
+                width={120}
+                height={36}
+                alt="Root On logo"
+                src={'/r-oot-on-logo-black.svg'}
+              />
+            </div>
+          ) : (
+            <div>
+              <Image
+                className=" lg:w-[173px] lg:h-[52px]"
+                width={120}
+                height={36}
+                alt="Root On logo"
+                src={'/r-oot-on-logo-svg.svg'}
+              />
+            </div>
+          )}
           <div
             className="
             gap-[62px]
             justify-end
             items-center
-            text-white
             text-base
             font-bold
             hidden
