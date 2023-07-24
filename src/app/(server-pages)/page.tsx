@@ -1,5 +1,11 @@
+import Container from "@/components/common-container";
+import Credibility from "@/components/credibility/credibility"
+
 export default function Home() {
   return (
-    <main className="flex h-screen items-center justify-center p-24" />
+    <Container>
+      <Credibility description="hi"></Credibility>
+    </Container>
+      
   );
 }

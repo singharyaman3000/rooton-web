@@ -22,6 +22,7 @@ module.exports = {
       },
       colors: {
         'font-color-orange': 'var(--font-color-orange)',
+        'font-color-light-gray': 'var(--font-color-light-gray)',
       },
     },
   },
