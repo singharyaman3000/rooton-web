@@ -10,7 +10,7 @@ import LinkedInIcon from '@/icons/linkedin.icon';
 import YoutubeIcon from '@/icons/youtube.icon';
 import ThemeToggleAndHamburger from '@/components/theme-toggle-and-hamburger';
 
-const inter = Inter({ subsets: [ 'latin' ] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -30,13 +30,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 px-6
                 py-3
                 relative
-                lg:px-20
-                lg:pt-3
-                lg:pb-4
+                xl:px-20
+                xl:pt-3
+                xl:pb-4
               "
             >
               <div>
-                <Image width={173} height={53} alt="Root On logo" src={'/r-oot-on-logo-svg.svg'} />
+                <Image
+                  className=" lg:w-[173px] lg:h-[52px]"
+                  width={120}
+                  height={36}
+                  alt="Root On logo"
+                  src={'/r-oot-on-logo-svg.svg'}
+                />
               </div>
               <div
                 className="
@@ -78,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   h-0
                   mx-6
                   opacity-50
-                  lg:mx-20
+                  xl:mx-20
                 "
             />
           </nav>
@@ -86,15 +92,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <footer
           className="
-            mb-[76px]
+            pb-[225px]
             lg:flex
             lg:border-t
-            lg:border-b
             border-[#d2d2d2]
-            lg:px-[120px]
+            xl:px-[120px]
             lg:pt-[60px]
-            lg:pb-[150px]
-            lg:gap-[153px]
+            lg:pb-[141px]
+            lg:gap-[80px]
+            xl:gap-[153px]
           "
         >
           <div
@@ -115,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className=" lg:flex lg:flex-col justify-between">
               <Image width={180} height={54} alt="logo" src={'/r-oot-on-logo-black.svg'} className=" mb-6 mx-auto" />
               <div className=" flex flex-col gap-8 mb-7">
-                <p className=" m-auto text-sm">Follow us on</p>
+                <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
                 <div className=" flex gap-12 justify-center">
                   <span>
                     <FacebookIcon />
@@ -132,7 +138,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
             </div>
-            <div className=' hidden w-[1px] h-[312px] bg-[#d8d8d8] lg:block ml-[128px] mr-20' />
+            <div className=" hidden w-[1px] h-[312px] bg-[#d8d8d8] lg:block ml-[128px] mr-20" />
             <div
               className="
                 flex
@@ -142,7 +148,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 flex-wrap
                 justify-between
                 text-sm
-                font-semibold lg:w-[145px]
+                font-semibold
+                lg:w-[145px]
+                lg:justify-start
               "
             >
               <div className=" flex flex-col gap-3">
@@ -163,26 +171,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
           <div
             className="
-              border-b
-              border-[#d2d2d2]
-              lg:border-0
               py-5
               px-6
               flex
               flex-col
               justify-center
+              lg:justify-between
+              lg:gap-[6px]
             "
           >
-            <div className=" mb-[6px]">flag</div>
-            <p className=" text-sm mb-[4px] font-bold">Canada Headquarters</p>
-            <p className=" text-sm mb-[4px]">706-1800, Blvd, Rene-Levesque Ouest,</p>
-            <p className=" text-sm">Montreal Quebec, H3H 2H2.</p>
-            <div className=" mt-8">flag</div>
-            <p className=" text-sm font-bold mb-[4px]">Indian Headquarters</p>
-            <p className=" text-sm mb-[4px]">
-              202-203, Velocity Business Hub, LP Savani Rd, nr. Madhuvan Circle, TGB, Adajan,
-            </p>
-            <p className=" text-sm">Surat, Gujarat 395009</p>
+            <div>
+              <div className=" mb-[6px]">flag</div>
+              <p className=" text-sm mb-[4px] font-bold">Canada Headquarters</p>
+              <p className=" text-sm mb-[4px]">706-1800, Blvd, Rene-Levesque Ouest,</p>
+              <p className=" text-sm">Montreal Quebec, H3H 2H2.</p>
+            </div>
+            <div>
+              <div className=" mt-8">flag</div>
+              <p className=" text-sm font-bold mb-[4px]">Indian Headquarters</p>
+              <p className=" text-sm mb-[4px]">
+                202-203, Velocity Business Hub, LP Savani Rd, nr. Madhuvan Circle, TGB, Adajan,
+              </p>
+              <p className=" text-sm">Surat, Gujarat 395009</p>
+            </div>
           </div>
         </footer>
       </body>
