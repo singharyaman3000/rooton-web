@@ -61,7 +61,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough }: ThemeToggleA
         )}
       </div>
       <span className=" lg:hidden">
-        <HamburgerIcon />
+        <HamburgerIcon fill={scrolledEnough ? '#000' : '#FFF'} />
       </span>
     </div>
   );
