@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import React, { ReactElement } from 'react';
-
+import './styles.css'
 export interface IsliderProps {
   pageNum: number;
   children: Array<ReactElement>;
@@ -36,6 +36,7 @@ const Slider = ({ pageNum, children, slideClass , slideParentClass }: IsliderPro
               </motion.article>
             );
           })}
+          <div className='w-[15%] absolute h-full  right-[0] slide-shader'></div>
         </div>
       </div>
     </div>
