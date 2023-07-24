@@ -1,7 +1,22 @@
+:root{
+  --font-color-orange: #f59723;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   background-color: gray;
+}
+
+.gradient-text {
+  background-image: linear-gradient(108deg, #e5de31 2%, #ffaf00 75%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*Google translator layout*/
+.skiptranslate{
+  display: none !important;
 }
