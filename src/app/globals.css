@@ -8,6 +8,7 @@
   --golden-yellow: #f59723;
   --primary-text:#000;
   --primary-white:#fff;
+  --deep-yellow:#ffaf00;
 }
 
 
@@ -23,6 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   background: linear-gradient(180deg, #d0e, #91f);
+  color: var(--primary-text);
 }
 
 .container {
