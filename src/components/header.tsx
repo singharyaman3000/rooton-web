@@ -106,7 +106,7 @@ export default function Header() {
               <Link href={'/'}> Tools </Link>
             </span>
           </div>
-          <ThemeToggleAndHamburger />
+          <ThemeToggleAndHamburger scrolledEnough={scrolledEnough} />
         </div>
         <div
           className="
