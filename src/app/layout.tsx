@@ -2,11 +2,11 @@
 
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import {Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
 
-const inter = Inter({ subsets: [ 'latin' ] });
+const jakartaSans = Plus_Jakarta_Sans({subsets:['latin'], variable: '--jakarta-sans'})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
