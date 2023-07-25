@@ -9,7 +9,7 @@
   --header-font-color-scrolled-enough: #000;
 
   --primary-border: #d8d8d84d;
-  --secondary-border: #d2d2d24d;
+  --secondary-border: #d2d2d2;
 }
 
 [data-theme='dark'] {
@@ -23,7 +23,7 @@
   --header-font-color-scrolled-enough: #FFF;
 
   --primary-border: #d8d8d84d;
-  --secondary-border: #d2d2d24d;
+  --secondary-border: #d2d2d2;
 }
 
 @tailwind base;
