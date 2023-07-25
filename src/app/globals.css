@@ -8,8 +8,8 @@
   --header-font-color: #FFF;
   --header-font-color-scrolled-enough: #000;
 
-  --primary-border: #d8d8d8;
-  --secondary-border: #d2d2d2;
+  --primary-border: #d8d8d84d;
+  --secondary-border: #d2d2d24d;
 }
 
 [data-theme='dark'] {
@@ -22,8 +22,8 @@
   --header-font-color: #000;
   --header-font-color-scrolled-enough: #FFF;
 
-  --primary-border: #d8d8d8;
-  --secondary-border: #d2d2d2;
+  --primary-border: #d8d8d84d;
+  --secondary-border: #d2d2d24d;
 }
 
 @tailwind base;
