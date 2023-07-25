@@ -20,6 +20,7 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'credibility-grid': "url('/images/homePage/credibilityBgGrid.png')"
       },
       colors: {
         'font-color-orange': 'var(--font-color-orange)',
