@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -17,12 +18,24 @@ module.exports = {
         'golden-yellow': 'var(--golden-yellow)',
         'primary-text': 'var(--primary-text)',
         'primary-white':'var(--primary-white)',
-        'deep-yellow': 'var(--deep-yellow)'
+        'deep-yellow': 'var(--deep-yellow)',
+        'secondary-grey' : 'var(--secondary-grey)'
       },
       fontFamily : {
         "jakarta" : ["var(--font-jakarta)"],
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin((function({matchUtilities}){
+      matchUtilities({
+        'square':(value)=>{
+          return {
+            width : value,
+            height : value
+          }
+        }
+      })
+    }))
+  ],
 }

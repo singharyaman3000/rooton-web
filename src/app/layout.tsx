@@ -24,7 +24,7 @@ const FontJakarta = Plus_Jakarta_Sans({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${FontJakarta.variable}`}>
+      <body className={`${FontJakarta.variable} ${FontJakarta.className}`}>
         <ThemeSwitchProvider>
         {children}
         </ThemeSwitchProvider>

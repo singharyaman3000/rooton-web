@@ -4,14 +4,18 @@ export const CLICKED_ON_PAGE = 'CLICKED_ON_PAGE';
 export const CLICKED_ON_LEFT = 'CLICKED_ON_LEFT';
 export const CLICKED_ON_RIGHT = 'CLICKED_ON_RIGHT';
 
+export interface IUseSlider {
+  slidesLength: number;
+  initialPage: number;
+}
+
+
 const useSliderPagination = ({
   slidesLength,
   initialPage,
-}: {
-  slidesLength: number;
-  initialPage: number;
-}) => {
+}: IUseSlider) => {
   const [pageNum, setPageNum] = useState(initialPage);
+  console.log(slidesLength)
 
   const updatePage = (clickedPageNum: number, type: string) => {
     switch (type) {
