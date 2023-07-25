@@ -5,13 +5,12 @@ import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/icons/close.icon';
 
 type SliderOverlayProps = {
-    open: boolean;
-    // eslint-disable-next-line no-unused-vars
-    setOpen: (open: boolean) => void
+  open: boolean;
+  // eslint-disable-next-line no-unused-vars
+  setOpen: (open: boolean) => void;
 };
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
-
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -40,19 +39,98 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className=" relative w-screen max-w-md">
-                  <div className="absolute z-10 right-0 top-0 flex p-[28px]">
-                    <button
-                      type="button"
-                      className="
+                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-7 shadow-xl">
+                    <div className="flex justify-end px-7">
+                      <button
+                        type="button"
+                        className="
                             cursor-pointer
                         "
-                      onClick={() => setOpen(false)}
-                    >
-                      <CloseIcon />
-                    </button>
-                  </div>
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                    <div className="relative flex-1 px-[28px] py-[40px] sm:px-6">{/* Your content */}</div>
+                        onClick={() => setOpen(false)}
+                      >
+                        <CloseIcon />
+                      </button>
+                    </div>
+                    <div className="relative flex-1 px-[28px] py-[40px] sm:px-6">
+                      <div
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        About Us
+                      </div>
+                      <div
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        Services
+                      </div>
+                      <div
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        Coaching
+                      </div>
+                      <div
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        Blogs
+                      </div>
+                      <div
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        Contact Us
+                      </div>
+                      <div
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        Tools
+                      </div>
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
