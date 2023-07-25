@@ -4,22 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './theme-toggle-and-hamburger';
+import SliderOverlay from './slider-overlay';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
 
   const headerRef = useRef<HTMLHeadElement>(null);
-
-  const animateHeader = () => {
-    const easeDown = [{ top: '-5rem' }, { top: '0' }];
-
-    const easeDownTiming = {
-      duration: 500,
-      iterations: 1,
-    };
-
-    headerRef.current!.animate(easeDown, easeDownTiming);
-  };
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -27,11 +18,15 @@ export default function Header() {
 
     function showOrHideHeader(scrollPos: number) {
       if (scrollPos > 80) {
-        setscrolledEnough(true);
-        animateHeader();
+        setscrolledEnough((scrolled) => {
+          if (!scrolled) animateHeader();
+          return true;
+        });
       } else {
-        setscrolledEnough(false);
-        animateHeader();
+        setscrolledEnough((scrolled) => {
+          if (scrolled) animateHeader();
+          return false;
+        });
       }
     }
 
@@ -57,11 +52,31 @@ export default function Header() {
     };
   }, []);
 
+  function animateHeader() {
+    const easeDown = [{ top: '-5rem' }, { top: '0' }];
+
+    const easeDownTiming = {
+      duration: 300,
+      iterations: 1,
+    };
+
+    headerRef.current!.animate(easeDown, easeDownTiming);
+  };
+
+  const toggleSlideOverlay = () => {
+    setOpen((o) => !o);
+  };
+
   return (
     <header
       ref={headerRef}
-      className={`${scrolledEnough ? ' fixed w-full text-black bg-white' : ' relative text-white'}`}
+      className={`${
+        scrolledEnough
+          ? ' fixed w-full text-header-font-color-scrolled-enough bg-primary'
+          : ' relative text-header-font-color'
+      }`}
     >
+      <SliderOverlay open={open} setOpen={setOpen} />
       <nav>
         <div
           className="
@@ -126,12 +141,12 @@ export default function Header() {
               <Link href={'/'}> Tools </Link>
             </span>
           </div>
-          <ThemeToggleAndHamburger scrolledEnough={scrolledEnough} />
+          <ThemeToggleAndHamburger toggleSlideOverlay={toggleSlideOverlay} scrolledEnough={scrolledEnough} />
         </div>
         <div
           className="
             border-b
-            border-[#d8d8d8]
+            border-primary-border
             h-0
             mx-6
             opacity-50
