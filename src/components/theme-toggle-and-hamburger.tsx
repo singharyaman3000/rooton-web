@@ -47,7 +47,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              isDarkMode ? 'bg-toggle-dark-bg' : 'bg-[#00000036]'
+              isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
             <DarkModeIcon fill={isDarkMode ? '#FFF' : '#000'} />
@@ -57,7 +57,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-[#00000036]'
+              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
             <LightModeIcon fill={!isDarkMode ? '#FFF' : '#000'} />
