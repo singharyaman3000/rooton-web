@@ -39,7 +39,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className=" relative w-screen max-w-md">
-                  <div className="flex h-full flex-col overflow-y-scroll bg-primary py-7 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll bg-primary  py-7 shadow-xl">
                     <div className="flex justify-end px-7">
                       <button
                         type="button"
