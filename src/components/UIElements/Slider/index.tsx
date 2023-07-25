@@ -7,16 +7,20 @@ export interface IsliderProps {
   children: Array<ReactElement>;
   slideClass?: string;
   slideParentClass?:string;
+  id:string;
+  scrollPercent?:string|number;
 }
 
-const Slider = ({ pageNum, children, slideClass , slideParentClass }: IsliderProps) => {
+const Slider = ({ pageNum, children, slideClass , slideParentClass  , id , scrollPercent}: IsliderProps) => {
   return (
     <div className="relative mx-[-12px]">
       <div className="relative overflow-hidden">
         <div
+          
           className={`flex justify-between  w-full transition-transform md:delay-100 md:duration-300 snap-x snap-mandatory ${slideParentClass}`}
-          style={{ transform: `translateX(${-pageNum * 100 + '%'})` }}
+          style={{ transform: `translateX(${ scrollPercent ? scrollPercent :  -pageNum * 100 + '%'})` }}
           //   {...handlers}
+          id={id}
         >
           {children?.map((child, index) => {
             return (
@@ -36,8 +40,9 @@ const Slider = ({ pageNum, children, slideClass , slideParentClass }: IsliderPro
               </motion.article>
             );
           })}
-          <div className='w-[15%] absolute h-full  right-[0] slide-shader'></div>
+        
         </div>
+        <div className='w-[15%] absolute h-full  right-[0] slide-shader top-0'></div>
       </div>
     </div>
   );

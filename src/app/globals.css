@@ -9,6 +9,7 @@
   --primary-text:#000;
   --primary-white:#fff;
   --deep-yellow:#ffaf00;
+  --secondary-grey:#f3f3f3;
 }
 
 
@@ -25,6 +26,8 @@ body {
   align-items: center;
   background: linear-gradient(180deg, #d0e, #91f);
   color: var(--primary-text);
+  font-family: var(--font-jakarta);
+  overflow-y: auto;
 }
 
 .container {
