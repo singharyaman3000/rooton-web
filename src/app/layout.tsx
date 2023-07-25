@@ -1,5 +1,4 @@
 import FacebookIcon from '@/icons/facebook.icon';
-import Image from 'next/image';
 import TwitterIcon from '@/icons/twitter.icon';
 import LinkedInIcon from '@/icons/linkedin.icon';
 import YoutubeIcon from '@/icons/youtube.icon';
@@ -8,6 +7,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
+import FooterLogo from '@/components/footer-logo';
 import ThemeSwitchProvider from '../providers/themeProviders';
 
 const jakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--jakarta-sans' });
@@ -20,12 +20,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={jakartaSans.className}>
+      <body className={`${jakartaSans.className} bg-primary`}>
         <ThemeSwitchProvider>
           <Header />
           {children}
           <footer
             className="
+            bg-primary
             pb-[225px]
             lg:flex
             lg:border-t
@@ -53,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "
             >
               <div className=" lg:flex lg:flex-col justify-between">
-                <Image width={180} height={54} alt="logo" src={'/r-oot-on-logo-black.svg'} className=" mb-6 mx-auto" />
+                <FooterLogo />
                 <div className=" flex flex-col gap-8 mb-7">
                   <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
                   <div className=" flex gap-12 justify-center">

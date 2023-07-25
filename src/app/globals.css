@@ -15,7 +15,7 @@
 [data-theme='dark'] {
   --primary-bg: #000;
   --toggle-dark-bg: #FFF;
-  --tansparent-bg: #00000036;
+  --tansparent-bg: #3c3c3ca1;
 
   --font-color-orange: #f59723;
   --primary-font-color: #FFF;
@@ -29,10 +29,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  background-color: gray;
-}
 
 .gradient-text {
   background-image: linear-gradient(108deg, #e5de31 2%, #ffaf00 75%);

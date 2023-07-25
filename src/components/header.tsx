@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './theme-toggle-and-hamburger';
 import SliderOverlay from './slider-overlay';
@@ -11,6 +12,7 @@ export default function Header() {
 
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -61,7 +63,7 @@ export default function Header() {
     };
 
     headerRef.current!.animate(easeDown, easeDownTiming);
-  };
+  }
 
   const toggleSlideOverlay = () => {
     setOpen((o) => !o);
@@ -97,7 +99,7 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={'/r-oot-on-logo-black.svg'}
+                src={theme === 'light' ? '/r-oot-on-logo-black.svg' : '/r-oot-on-logo-svg.svg' }
               />
             </div>
           ) : (
@@ -107,12 +109,14 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={'/r-oot-on-logo-svg.svg'}
+                src={ theme === 'dark' ? '/r-oot-on-logo-svg.svg' : '/r-oot-on-logo-black.svg' }
               />
             </div>
           )}
           <div
             className="
+            xl:ml-[116px]
+            lg:ml-[50px]
             gap-[62px]
             justify-end
             items-center
@@ -120,6 +124,7 @@ export default function Header() {
             font-bold
             hidden
             lg:flex
+            text-header-font-color-scrolled-enough
           "
           >
             <span>
