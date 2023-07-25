@@ -74,7 +74,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
         )}
       </div>
       <button type="button" onClick={toggleSlideOverlay} className=" lg:hidden">
-        <HamburgerIcon fill={scrolledEnough ? '#000' : '#FFF'} />
+        <HamburgerIcon />
       </button>
     </div>
   );
