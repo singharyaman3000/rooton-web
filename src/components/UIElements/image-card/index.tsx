@@ -15,7 +15,7 @@ const ImageCard = ({
   altText: string;
 }) => {
   return (
-    <div className={'h-[120px] md:h-[240px] w-[86.666vw] max-w-[408.19px] shadow-lg md:w-full  border flex flex-col justify-center'}>
+    <div className={'h-[120px] md:h-[240px] w-[86.666vw] max-w-[408.19px] shadow-lg md:w-full bg-white  border flex flex-col justify-center'}>
         <div className={`${cssClass} relative`}>
           <NextImage
             sizes={sizes}
