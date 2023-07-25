@@ -12,6 +12,20 @@
   --secondary-border: #d2d2d2;
 }
 
+[data-theme='dark'] {
+  --primary-bg: #000;
+  --toggle-dark-bg: #FFF;
+  --tansparent-bg: #00000036;
+
+  --font-color-orange: #f59723;
+  --primary-font-color: #FFF;
+  --header-font-color: #000;
+  --header-font-color-scrolled-enough: #FFF;
+
+  --primary-border: #d8d8d8;
+  --secondary-border: #d2d2d2;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

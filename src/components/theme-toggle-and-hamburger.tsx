@@ -3,7 +3,8 @@
 import DarkModeIcon from '@/icons/darkmode.icon';
 import HamburgerIcon from '@/icons/hamburger.icon';
 import LightModeIcon from '@/icons/lightmode.icon';
-import { useState } from 'react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 type ThemeToggleAndHamburgerProps = {
   scrolledEnough: boolean;
@@ -13,9 +14,15 @@ type ThemeToggleAndHamburgerProps = {
 export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOverlay }: ThemeToggleAndHamburgerProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  const { theme, setTheme } = useTheme();
+
   const toggleTheme = () => {
-    setIsDarkMode((state) => !state);
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  useEffect(() => {
+    setIsDarkMode((state) => !state);
+  }, [theme]);
 
   return (
     <div
@@ -66,7 +73,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
           </span>
         )}
       </div>
-      <button type='button' onClick={toggleSlideOverlay} className=" lg:hidden">
+      <button type="button" onClick={toggleSlideOverlay} className=" lg:hidden">
         <HamburgerIcon fill={scrolledEnough ? '#000' : '#FFF'} />
       </button>
     </div>
