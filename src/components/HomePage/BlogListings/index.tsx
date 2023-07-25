@@ -5,44 +5,13 @@ import Button from '@/components/UIElements/Button';
 import BlogCard from '@/components/UIElements/Cards/BlogCard';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import Slider from '@/components/UIElements/Slider';
-import useSliderPagination from '@/components/UIElements/Slider/hooks/useSlider';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
-import React, { useEffect, useState } from 'react';
+import React, {  } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 const BlogListings = () => {
-  // const [scrollAmt, setScrollAmt] = useState(0);
-  // const [unitPageWidth, setPageWidth] = useState(0);
-  // const [totalPages, setTotalPages] = useState(0);
   const {totalPages , incrementPage ,decrementPage , pageNum ,scrollAmt} = useSliderData({slideId :'news-listing' });
-  // const { pageNum, incrementPage, decrementPage } = useSliderPagination();
-
-  // useEffect(() => {
-  //   setScrollAmt(unitPageWidth * pageNum);
-  // }, [pageNum]);
-
-  // useEffect(() => {
-  //   const slide = document.getElementById('news-listing');
-  //   if (slide) {
-  //     let totalWidth = 0;
-  //     let itemsPerPage = 0;
-  //     const children = slide.children;
-  //     if (children && children.length > 0) {
-  //       for (const key in children) {
-  //         if (children[key].clientWidth) {
-  //           if (totalWidth + children[key].clientWidth < slide.clientWidth) {
-  //             totalWidth = totalWidth + children[key].clientWidth;
-  //             itemsPerPage += 1;
-  //           }
-  //         }
-  //       }
-  //     }
-  //     setTotalPages(Math.ceil(slide.childElementCount / itemsPerPage));
-  //     setPageWidth(totalWidth);
-  //   }
-  // }, []);
-
   const handlers = useSwipeable({
     onSwipedLeft: () => {
      incrementPage()  
