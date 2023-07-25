@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             pb-[225px]
             lg:flex
             lg:border-t
-            border-[#d2d2d2]
+            border-secondary-border
             xl:px-[120px]
             lg:pt-[60px]
             lg:pb-[141px]
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               border-t
               border-b
               lg:border-0
-              border-[#d2d2d2]
+              border-secondary-border
               py-5
               px-6
               flex
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </div>
                 </div>
               </div>
-              <div className=" hidden w-[1px] h-[312px] bg-[#d8d8d8] lg:block ml-[128px] mr-20" />
+              <div className=" hidden w-[1px] h-[312px] bg-primary-border lg:block ml-[128px] mr-20" />
               <div
                 className="
                 flex
