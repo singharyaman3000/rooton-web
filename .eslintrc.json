@@ -11,6 +11,7 @@
   "plugins": ["react", "@next/next", "prettier", "@typescript-eslint"],
   "rules": {
     "jsx-a11y/click-events-have-key-events": "off",
+    "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "error",
     "no-var": "error",
     "no-console": "warn",
