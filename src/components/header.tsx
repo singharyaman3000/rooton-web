@@ -2,11 +2,24 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './theme-toggle-and-hamburger';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
+
+  const headerRef = useRef<HTMLHeadElement>(null);
+
+  const animateHeader = () => {
+    const easeDown = [{ top: '-5rem' }, { top: '0' }];
+
+    const easeDownTiming = {
+      duration: 500,
+      iterations: 1,
+    };
+
+    headerRef.current!.animate(easeDown, easeDownTiming);
+  };
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -15,8 +28,10 @@ export default function Header() {
     function showOrHideHeader(scrollPos: number) {
       if (scrollPos > 80) {
         setscrolledEnough(true);
+        animateHeader();
       } else {
         setscrolledEnough(false);
+        animateHeader();
       }
     }
 
@@ -35,13 +50,18 @@ export default function Header() {
 
     document.addEventListener('scroll', onScroll);
 
+    animateHeader();
+
     return () => {
       document.removeEventListener('scroll', onScroll);
     };
   }, []);
 
   return (
-    <header className={`${scrolledEnough ? ' fixed w-full text-black bg-white' : ' relative text-white'}`}>
+    <header
+      ref={headerRef}
+      className={`${scrolledEnough ? ' fixed w-full text-black bg-white' : ' relative text-white'}`}
+    >
       <nav>
         <div
           className="
