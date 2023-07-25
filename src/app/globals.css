@@ -10,6 +10,22 @@ body {
   background-color: gray;
 }
 
+/**
+header animation
+**/
+@keyframes header-ease-down-keyframes {
+  from {top: -5rem;}
+  to {top: 0;}
+}
+.header-ease-down {
+  animation-name: header-ease-down-keyframes;
+  animation-duration: 5000ms;
+}
+/**
+end header animation
+**/
+
+
 .gradient-text {
   background-image: linear-gradient(108deg, #e5de31 2%, #ffaf00 75%);
   -webkit-background-clip: text;
