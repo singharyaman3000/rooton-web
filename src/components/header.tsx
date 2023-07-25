@@ -74,8 +74,8 @@ export default function Header() {
       ref={headerRef}
       className={`${
         scrolledEnough
-          ? ' fixed w-full text-header-font-color-scrolled-enough bg-primary'
-          : ' relative text-header-font-color'
+          ? ' fixed top-0 w-full text-header-font-color-scrolled-enough bg-primary'
+          : ' absolute top-0 w-full'
       }`}
     >
       <SliderOverlay open={open} setOpen={setOpen} />
@@ -109,12 +109,12 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={ theme === 'dark' ? '/r-oot-on-logo-svg.svg' : '/r-oot-on-logo-black.svg' }
+                src={'/r-oot-on-logo-svg.svg'}
               />
             </div>
           )}
           <div
-            className="
+            className={`
             xl:ml-[116px]
             lg:ml-[50px]
             gap-[62px]
@@ -124,8 +124,8 @@ export default function Header() {
             font-bold
             hidden
             lg:flex
-            text-header-font-color-scrolled-enough
-          "
+            ${scrolledEnough ? 'text-header-font-color': ' text-white'}
+          `}
           >
             <span>
               <Link href={'/'}> About Us </Link>

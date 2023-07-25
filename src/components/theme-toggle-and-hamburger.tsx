@@ -38,10 +38,10 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              isDarkMode ? ' bg-primary' : ' bg-tansparent-bg'
+              isDarkMode ? ' bg-white' : ' bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <DarkModeIcon fill={isDarkMode ? '#000' : '#FFF'} />
+            <DarkModeIcon />
           </span>
         ) : (
           <span
@@ -50,7 +50,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
               isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <DarkModeIcon fill={isDarkMode ? '#FFF' : '#000'} />
+            <DarkModeIcon />
           </span>
         )}
         {scrolledEnough ? (
@@ -60,7 +60,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
               !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <LightModeIcon fill={!isDarkMode ? '#FFF' : '#000'} />
+            <LightModeIcon />
           </span>
         ) : (
           <span
@@ -69,7 +69,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
               !isDarkMode ? 'bg-primary' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <LightModeIcon fill={!isDarkMode ? '#000' : '#FFF'} />
+            <LightModeIcon />
           </span>
         )}
       </div>
