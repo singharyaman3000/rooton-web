@@ -8,6 +8,8 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import FooterLogo from '@/components/footer-logo';
+import FlagCanadaIcon from '@/icons/flag-canada.icon';
+import FlagIndiaIcon from '@/icons/flag-india.icon';
 import ThemeSwitchProvider from '../providers/themeProviders';
 
 const jakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--jakarta-sans' });
@@ -116,13 +118,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "
             >
               <div>
-                <div className=" mb-[6px]">flag</div>
+                <div className=" mb-[6px]">
+                  <FlagCanadaIcon />
+                </div>
                 <p className=" text-sm mb-[4px] font-bold">Canada Headquarters</p>
                 <p className=" text-sm mb-[4px]">706-1800, Blvd, Rene-Levesque Ouest,</p>
                 <p className=" text-sm">Montreal Quebec, H3H 2H2.</p>
               </div>
               <div>
-                <div className=" mt-8">flag</div>
+                <div className=" mt-8 mb-[6px]">
+                  <FlagIndiaIcon />
+                </div>
                 <p className=" text-sm font-bold mb-[4px]">Indian Headquarters</p>
                 <p className=" text-sm mb-[4px]">
                   202-203, Velocity Business Hub, LP Savani Rd, nr. Madhuvan Circle, TGB, Adajan,
