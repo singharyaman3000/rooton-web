@@ -7,17 +7,17 @@ import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import Slider from '@/components/UIElements/Slider';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
-import React, {  } from 'react';
+import React from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 const BlogListings = () => {
-  const {totalPages , incrementPage ,decrementPage , pageNum ,scrollAmt} = useSliderData({slideId :'news-listing' });
+  const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({ slideId: 'news-listing' });
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-     incrementPage()  
+      incrementPage();
     },
-    onSwipedRight: () => {      
-      decrementPage()
+    onSwipedRight: () => {
+      decrementPage();
     },
   });
 
