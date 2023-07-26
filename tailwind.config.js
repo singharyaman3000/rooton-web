@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,10 +16,29 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-      colors: {
-        'font-color-orange': 'var(--font-color-orange)',
+      colors: { 
+        'grey' : 'var(--grey)',
+        'golden-yellow': 'var(--golden-yellow)',
+        'primary-text': 'var(--primary-text)',
+        'primary-white':'var(--primary-white)',
+        'deep-yellow': 'var(--deep-yellow)',
+        'secondary-grey' : 'var(--secondary-grey)'
+      },
+      fontFamily : {
+        "jakarta" : ["var(--font-jakarta)"],
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin((function({matchUtilities}){
+      matchUtilities({
+        'square':(value)=>{
+          return {
+            width : value,
+            height : value
+          }
+        }
+      })
+    }))
+  ],
 }
