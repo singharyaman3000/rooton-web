@@ -33,6 +33,8 @@ module.exports = {
         'header-font-color-scrolled-enough': 'var(--header-font-color-scrolled-enough)',
         'primary-border': 'var(--primary-border)',
         'secondary-border': 'var(--secondary-border)',
+        'cicc-border': 'var(--cicc-border)',
+        'capic-border': 'var(--capic-border)'
       },
     },
   },
