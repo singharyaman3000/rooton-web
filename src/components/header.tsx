@@ -83,6 +83,7 @@ export default function Header() {
         <div
           className="
           flex
+          gap-5
           justify-between
           px-6
           py-3
@@ -117,13 +118,15 @@ export default function Header() {
             className={`
             xl:ml-[116px]
             lg:ml-[50px]
-            gap-[62px]
+            xl:gap-[62px]
+            lg:gap-12
             justify-end
             items-center
             text-base
             font-bold
             hidden
             lg:flex
+            flex-shrink-0
             ${scrolledEnough ? 'text-header-font-color': ' text-white'}
           `}
           >

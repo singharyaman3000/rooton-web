@@ -32,6 +32,9 @@ module.exports = {
         'primary-border': 'var(--primary-border)',
         'secondary-border': 'var(--secondary-border)',
       },
+      boxShadow: {
+        'language-dropdown': 'var(--language-dropdown-shadow)',
+      },
     },
   },
   plugins: [],

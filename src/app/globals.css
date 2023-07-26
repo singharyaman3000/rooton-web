@@ -10,6 +10,8 @@
 
   --primary-border: #d8d8d85C;
   --secondary-border: #d2d2d2;
+
+  --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
 }
 
 [data-theme='dark'] {
@@ -24,6 +26,8 @@
 
   --primary-border: #d8d8d85C;
   --secondary-border: #d2d2d25c;
+
+  --language-dropdown-shadow : 0 2px 60px 0 rgba(255,255,255,0.5);
 }
 
 @tailwind base;

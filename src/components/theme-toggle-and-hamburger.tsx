@@ -5,6 +5,7 @@ import HamburgerIcon from '@/icons/hamburger.icon';
 import LightModeIcon from '@/icons/lightmode.icon';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import RTONLanguageDropDown from './RTONLanguageDropDown';
 
 type ThemeToggleAndHamburgerProps = {
   scrolledEnough: boolean;
@@ -33,6 +34,9 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
         gap-4
       "
     >
+      <div className=' hidden mr-[19px] lg:block'>
+        <RTONLanguageDropDown scrolledEnough={scrolledEnough} />
+      </div>
       <div className=" flex gap-0 w-12 lg:w-16 lg:h-8 h-6" role="button" tabIndex={0} onClick={toggleTheme}>
         {!scrolledEnough ? (
           <span
