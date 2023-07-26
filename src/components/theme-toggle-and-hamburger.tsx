@@ -41,7 +41,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
               isDarkMode ? ' bg-white' : ' bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <DarkModeIcon />
+            <DarkModeIcon isScrolled={scrolledEnough} />
           </span>
         ) : (
           <span
@@ -50,7 +50,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
               isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <DarkModeIcon />
+            <DarkModeIcon isScrolled={scrolledEnough} />
           </span>
         )}
         {scrolledEnough ? (
@@ -60,7 +60,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
               !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <LightModeIcon />
+            <LightModeIcon isScrolled={scrolledEnough} />
           </span>
         ) : (
           <span
@@ -69,12 +69,12 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
               !isDarkMode ? 'bg-white' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
-            <LightModeIcon />
+            <LightModeIcon isScrolled={scrolledEnough} />
           </span>
         )}
       </div>
       <button type="button" onClick={toggleSlideOverlay} className=" lg:hidden">
-        <HamburgerIcon />
+        <HamburgerIcon isScrolled={scrolledEnough} />
       </button>
     </div>
   );
