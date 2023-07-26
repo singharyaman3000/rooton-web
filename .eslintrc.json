@@ -27,7 +27,7 @@
       }
     ],
     "object-curly-spacing": ["error", "always"],
-    "array-bracket-spacing": ["error", "always"],
+    "array-bracket-spacing": "off",
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "react/require-default-props": "off",
@@ -92,9 +92,7 @@
       }
     ],
     "react/function-component-definition": "off",
-    "react/jsx-filename-extension": "off",
-    "arrow-body-style": ["error", "as-needed"]
-  },
+    "react/jsx-filename-extension": "off"  },
   "settings": {
     "react": {
       "version": "detect"
