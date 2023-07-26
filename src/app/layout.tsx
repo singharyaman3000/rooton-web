@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={jakartaSans.className}>
+      <body className={`${jakartaSans.className} bg-primary-bg`}>
         <ThemeSwitchProvider>
           <Header />
           {children}
