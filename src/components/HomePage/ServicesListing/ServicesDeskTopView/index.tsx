@@ -22,7 +22,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
     });
   };
   return (
-    <Tabs onTabChange={(data) => updateTab(data)} selectedTab={tab} headerData={serviceData} tabBody={getServises()} />
+    <Tabs cssClass='hidden md:block' onTabChange={(data) => updateTab(data)} selectedTab={tab} headerData={serviceData} tabBody={getServises()} />
   );
 };
 

@@ -16,7 +16,7 @@ const Tabs = ({ headerData  , cssClass , tabBody  , onTabChange , selectedTab}: 
   return (
     <div className={cssClass}>
       <TabHeader
-        selectedTab={selectedTab as ITabData}
+        selectedTab={selectedTab}
         handleOnClick={(selectedTab) => onTabChange(selectedTab)}
         headerData={headerData}
       />

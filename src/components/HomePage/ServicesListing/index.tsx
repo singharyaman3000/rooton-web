@@ -80,7 +80,7 @@ const ServicesListing = () => {
         <div >
             <ServicesDeskTopView serviceData={servicedata}/>
             {/* <Tabs cssClass='hidden md:block' headerData={servicedata}/> */}
-            {/* <ServicesMobileView  /> */}
+            <ServicesMobileView serviceData={servicedata}  />
 
         </div>
       </SectionContainer>
