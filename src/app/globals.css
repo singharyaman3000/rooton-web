@@ -44,6 +44,13 @@
   -webkit-text-fill-color: transparent;
 }
 
+@media (min-width: 1024px) {
+
+  .open-work-permit {
+    background-image: linear-gradient(238deg, #ffda00 36%, #ffca6c 1%);
+  }
+}
+
 /*Google translator layout*/
 .skiptranslate{
   display: none !important;
