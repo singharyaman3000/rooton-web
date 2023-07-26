@@ -66,7 +66,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              !isDarkMode ? 'bg-primary' : 'bg-tansparent-bg'
+              !isDarkMode ? 'bg-white' : 'bg-tansparent-bg'
             } flex justify-center items-center`}
           >
             <LightModeIcon />
