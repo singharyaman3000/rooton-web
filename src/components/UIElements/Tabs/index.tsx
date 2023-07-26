@@ -3,6 +3,8 @@ import React from 'react';
 import TabHeader, { ITabData, ITabHeader } from './TabsHeader';
 import NextImage from '../NextImage';
 import TabOverlay from '../../../../public/images/overlay/services-tab-overlay.png';
+import { motion } from 'framer-motion';
+
 
 export type ITabs = Pick<ITabHeader, 'headerData'> & {
   cssClass?:string;
@@ -26,9 +28,18 @@ const Tabs = ({ headerData  , cssClass , tabBody  , onTabChange , selectedTab}: 
              return <div>{body}</div>
            })}
         </div>
-        <div className="absolute top-0 w-[20.875rem] h-full right-0">
+        <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.7,
+                          delay: 0.3,
+                          ease: [0, 0.71, 0.2, 1.01],
+                        }}
+                        viewport={{ once: true }}
+        className="absolute top-0 w-[20.875rem] h-full right-0">
           <NextImage src={TabOverlay} fill={true} altText="" title="" sizes="100vw" style={{ objectFit: 'contain' }} />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
