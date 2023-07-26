@@ -12,7 +12,7 @@ const Credibility = () => {
     subtitle:string,
     title:string,
     description:string,
-    licenseImages:{imageUrl:string, altText:string, title:string} []
+    licenseImages:{imageUrl:string, altText:string, title:string, iconClass: string} []
   }
 
   const CredibilityContent:ICredibilitycontent = CredibilityContentsJson;
@@ -33,6 +33,7 @@ const Credibility = () => {
                 sizes={'30vw'}
                 title={lisenseImage?.title}
                 altText={lisenseImage?.altText}
+                iconClass={lisenseImage?.iconClass}
               />
             ))}
           </div>
