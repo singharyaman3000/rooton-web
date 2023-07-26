@@ -1,10 +1,20 @@
-:root{
-  --font-color-orange: #f59723;
-}
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root{
+  --grey :#f9f9f9;
+  --golden-yellow: #f59723;
+  --primary-text:#000;
+  --primary-white:#fff;
+  --deep-yellow:#ffaf00;
+  --secondary-grey:#f3f3f3;
+}
+
+
 
 /*Remove when starting development >>>*/
 
@@ -17,6 +27,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(180deg, #d0e, #91f);
+  color: var(--primary-text);
+  font-family: var(--font-jakarta);
+  overflow-y: auto;
 }
 
 .gradient-text {
