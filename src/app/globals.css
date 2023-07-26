@@ -19,6 +19,7 @@
   --tansparent-bg: #00000036;
 
   --font-color-orange: #f59723;
+  --font-color-light-gray: #ffffff;
   --primary-font-color: #FFF;
   --header-font-color: #000;
   --header-font-color-scrolled-enough: #FFF;
@@ -32,7 +33,6 @@
 @tailwind utilities;
 
 body {
-  background-color: white;
   margin: 0;
   padding: 0;
 }
