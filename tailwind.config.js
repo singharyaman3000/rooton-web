@@ -42,6 +42,9 @@ module.exports = {
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
+        'secondary-grey' : 'var(--secondary-grey)',
+        'primary-black' : 'var(--primary-black)',
+        'pale-yellow':'var(--pale-yellow)'
       },
     },
   },
