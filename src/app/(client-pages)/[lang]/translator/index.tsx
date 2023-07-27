@@ -7,7 +7,7 @@ export interface ILanguage {
   label: string;
 }
 
-export const languages : ILanguage[] = [
+export const languages: ILanguage[] = [
   { key: 'en', label: 'English' },
   { key: 'es', label: 'Spanish' },
   { key: 'pu', label: 'Punjabi' },
@@ -15,7 +15,7 @@ export const languages : ILanguage[] = [
   { key: 'fr', label: 'France' },
   { key: 'it', label: 'Italian' },
   { key: 'de', label: 'German' },
-  {key : 'gu' , label : 'Gujarati'}
+  { key: 'gu', label: 'Gujarati' },
 ];
 
 const Translator = () => {
@@ -37,7 +37,7 @@ const Translator = () => {
       addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
-      const language = languages.find((lan)=>lan.key === params.lang)
+      const language = languages.find((lan) => lan.key === params.lang);
       document.cookie = `googtrans=/en/${language ? language.key : 'en'}`;
     }
   }, [params]);
