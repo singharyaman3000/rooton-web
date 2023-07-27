@@ -14,6 +14,13 @@
 
   --cicc-border: #e22826;
   --capic-border: #123474;
+
+  --grey :#f9f9f9;
+  --golden-yellow: #f59723;
+  --primary-text:#000;
+  --primary-white:#fff;
+  --deep-yellow:#ffaf00;
+  --secondary-grey:#f3f3f3;
 }
 
 [data-theme='dark'] {
@@ -36,9 +43,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   margin: 0;
   padding: 0;
+  color: var(--primary-text);
+  font-family: var(--font-jakarta);
 }
 
 .border-cicc {
