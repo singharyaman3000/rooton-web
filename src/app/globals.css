@@ -39,6 +39,9 @@
   --primary-border: #d8d8d8;
   --secondary-border: #d2d2d2;
 
+  --primary-text:#fff;
+  --primary-white:#000;
+
 }
 
 @tailwind base;

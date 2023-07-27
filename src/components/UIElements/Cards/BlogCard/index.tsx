@@ -9,7 +9,7 @@ const BlogCard = () => {
       <div className="h-[10rem] md:min-h-[252px] md:h-[15.75rem] relative">
         <NextImage sizes="" src={'/images/blog.png'} title="" fill style={{ objectFit: 'cover' }} altText="" />
       </div>
-      <div className="p-[16px] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-primary-white ">
+      <div className="p-[16px] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white ">
         <h5 className="text-xs text-primary-text font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
           Five Provinces Invited Candidates in Provincial Immigration Draws from June 30 to July 7
         </h5>
