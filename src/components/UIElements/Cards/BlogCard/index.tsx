@@ -14,15 +14,15 @@ const BlogCard = () => {
           Five Provinces Invited Candidates in Provincial Immigration Draws from June 30 to July 7
         </h5>
         <div className="flex flex-wrap md:flex-nowrap items-center w-full justify-between">
-          <Button label="Read More" ariaLabel={`Read More`} handleOnClick={() => null} tabIndex={0} />
+          <Button label='Read More' ariaLabel='Read More' handleOnClick={() => null} tabIndex={0} />
           <div className="text-xs mt-[8px] md:mt-0 order-2 md:order-1  not-italic leading-[normal] tracking-[normal] md:text-sm">
             <span className="mr-[8px]  opacity-[0.36] text-primary-text">Last updated:</span>
-            <span className=''>16 Jul 2020</span>
+            <span className="">16 Jul 2020</span>
           </div>
         </div>
       </div>
       <div className="absolute">
-      <NextImage src={gridOverlay} altText='' title='' fill={false} sizes='' />
+        <NextImage src={gridOverlay} altText="" title="" fill={false} sizes="" />
       </div>
     </div>
   );

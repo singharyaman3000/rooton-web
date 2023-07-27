@@ -23,14 +23,15 @@ const Accordion = ({
 }: IAccordion) => {
   return (
     <div className={cssClass}>
-      <div className={`p-[21px] pb-0 ${openAccordion ? 'bg-primary-black text-primary-white  ': 'bg-transparent'}`}>
+      <div className={`p-[21px] pb-0 ${openAccordion ? 'bg-primary-black text-primary-white  ' : 'bg-transparent'}`}>
         <button
+          type="button"
           className="w-full flex items-center justify-between pb-[21px]"
           onClick={() => handleOnClick(accordionId)}
         >
-          <div className='text-base font-bold not-italic leading-[normal] tracking-[normal]'>{header}</div>
+          <div className="text-base font-bold not-italic leading-[normal] tracking-[normal]">{header}</div>
           <div className={`${openAccordion ? 'rotate-180' : 'rotate-0'}  transition-all delay-75`}>
-          <DropDownCaret />
+            <DropDownCaret />
           </div>
         </button>
         <div className="w-full h-[1px] bg-[#b17900] opacity-20"></div>
