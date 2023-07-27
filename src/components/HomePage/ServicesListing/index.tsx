@@ -5,15 +5,6 @@ import React from 'react';
 import ServicesMobileView from './ServicesMobileView';
 import ServicesDeskTopView from './ServicesDeskTopView';
 
-export interface IService {
-  service: string;
-  icon: string;
-  services: string[];
-}
-export interface IServiceData {
-  serviceData: IService[];
-}
-
 const servicedata = [
   {
     service: 'Temporary Residence',
@@ -76,7 +67,6 @@ const ServicesListing = () => {
         </div>
         <div>
           <ServicesDeskTopView serviceData={servicedata} />
-          {/* <Tabs cssClass='hidden md:block' headerData={servicedata}/> */}
           <ServicesMobileView serviceData={servicedata} />
         </div>
       </SectionContainer>

@@ -1,6 +1,6 @@
 import NextImage from '@/components/UIElements/NextImage';
 import React from 'react';
-import { IService } from '../..';
+import { IService } from '../../interafces';
 
 export const AccordionHeader = ({ service, icon }: IService) => {
   return (

@@ -1,5 +1,5 @@
-import React from "react"
-import NextImage from "../NextImage"
+import React from 'react';
+import NextImage from '../NextImage';
 
 const ImageCard = ({
   imageUrl,
@@ -7,7 +7,7 @@ const ImageCard = ({
   sizes,
   title,
   altText,
-  iconClass
+  iconClass,
 }: {
   imageUrl: string;
   cssClass: string;
@@ -22,7 +22,9 @@ const ImageCard = ({
         'h-[120px] md:h-[240px] w-[86.666vw] max-w-[408.19px] shadow-lg md:w-full bg-white  border flex flex-col justify-center relative'
       }
     >
-      <div className={`${iconClass} absolute top-0 right-0 mt-[13.6px] mr-[13.6px] lg:mt-[20px] lg:mr-[20px] border-t-[15px] border-l-[15px] lg:border-l-[22px]  lg:border-t-[22px] w-[15px] h-[15px] lg:w-[22px] lg:h-[22px]`}></div>
+      <div
+        className={`${iconClass} absolute top-0 right-0 mt-[13.6px] mr-[13.6px] lg:mt-[20px] lg:mr-[20px] border-t-[15px] border-l-[15px] lg:border-l-[22px]  lg:border-t-[22px] w-[15px] h-[15px] lg:w-[22px] lg:h-[22px]`}
+      ></div>
       <div className={`${cssClass} relative`}>
         <NextImage sizes={sizes} src={imageUrl} title={title} fill style={{ objectFit: 'contain' }} altText={altText} />
       </div>
@@ -30,4 +32,4 @@ const ImageCard = ({
   );
 };
 
-export default ImageCard
+export default ImageCard;
