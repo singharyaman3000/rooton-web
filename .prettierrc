@@ -5,5 +5,7 @@
   "tabWidth": 2,
   "semi": true,
   "printWidth": 120,
-  "arrayBracketSpacing": true
+  "arrayBracketSpacing": true,
+  "proseWrap": "always",
+  "maxEmptyLines":1
 }
