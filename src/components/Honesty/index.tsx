@@ -1,7 +1,3 @@
-const Honesty = () => {
-    return(<>
+// const Honesty = () => (
 
-    </>)
-}
-
-export default Honesty
+// export default Honesty
