@@ -24,7 +24,19 @@ export default function RTONBanner({
             : '',
         }}
       >
-        <div className=" lg:bg-banner-grid-overlay px-6 pb-9 w-full h-full flex flex-col justify-end xl:p-20">
+        <div className="
+            lg:bg-banner-grid-overlay
+            lg:bg-cover
+            px-6
+            pb-9
+            w-full
+            h-full
+            flex
+            flex-col
+            justify-end
+            xl:p-20
+          "
+        >
           <h1
             className="
                     open-work-permit
