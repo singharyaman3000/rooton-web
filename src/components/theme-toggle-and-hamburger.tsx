@@ -17,6 +17,10 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
 
   const { theme, setTheme } = useTheme();
 
+  useEffect(() => {
+    setTheme(theme ?? '');
+  }, [theme, setTheme]);
+
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };

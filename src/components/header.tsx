@@ -74,7 +74,7 @@ export default function Header() {
       ref={headerRef}
       className={`${
         scrolledEnough
-          ? ' fixed top-0 w-full text-header-font-color-scrolled-enough bg-primary'
+          ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
           : ' absolute top-0 w-full'
       }`}
     >
@@ -100,7 +100,7 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={theme === 'light' ? '/r-oot-on-logo-black.svg' : '/r-oot-on-logo-svg.svg' }
+                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg' }
               />
             </div>
           ) : (

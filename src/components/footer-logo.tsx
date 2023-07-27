@@ -18,7 +18,7 @@ export default function FooterLogo() {
       width={180}
       height={54}
       alt="logo"
-      src={themeState === 'light' ? '/r-oot-on-logo-black.svg' : '/r-oot-on-logo-svg.svg'}
+      src={themeState === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
       className=" mb-6 mx-auto"
     />
   );
