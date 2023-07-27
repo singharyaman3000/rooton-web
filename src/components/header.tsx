@@ -72,7 +72,7 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`z-50 ${
+      className={`z-[999] ${
         scrolledEnough
           ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
           : ' absolute top-0 w-full'
