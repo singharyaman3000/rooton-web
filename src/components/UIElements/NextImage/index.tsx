@@ -1,4 +1,4 @@
-// import { getAssetUrl } from '@/utils';
+import { getAssetUrl } from '@/utils';
 import { OnLoadingComplete, PlaceholderValue, StaticImageData } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import React, { CSSProperties } from 'react';
@@ -35,7 +35,6 @@ const NextImage = ({
   classSelector,
   title
 }: INextImage) => {
-    const getAssetUrl = (src:string) => src
   return (
     <Image
       className={classSelector}

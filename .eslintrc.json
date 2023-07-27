@@ -94,9 +94,7 @@
       }
     ],
     "react/function-component-definition": "off",
-    "react/jsx-filename-extension": "off",
-    "arrow-body-style": ["error", "as-needed"]
-  },
+    "react/jsx-filename-extension": "off"  },
   "settings": {
     "react": {
       "version": "detect"
