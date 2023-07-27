@@ -4,11 +4,11 @@ export const NEWS_TITLE = {
 };
 
 export const TESTIMONIAL_TITLE = {
-   title :'TESTIMONIALS',
-   subTitle :'Hear it from our valued Customers',
-}
+  title: 'TESTIMONIALS',
+  subTitle: 'Hear it from our valued Customers',
+};
 
 export const SERVICES_TITLE = {
-    title : 'SERVICES',
-    subTitle: 'Our Expertise'
-}
+  title: 'SERVICES',
+  subTitle: 'Our Expertise',
+};
