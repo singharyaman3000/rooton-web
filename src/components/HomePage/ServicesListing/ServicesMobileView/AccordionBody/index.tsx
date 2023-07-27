@@ -1,6 +1,6 @@
 import React from 'react';
 import ArrowIcon from '@/components/Icons/ArrowIcon';
-import { IServiceData } from '../..';
+import { IServiceData } from '../../interafces';
 
 const AccordionBody = ({ serviceData }: IServiceData) => {
   return serviceData.map((service) => {

@@ -2,9 +2,9 @@
 
 import Accordion from '@/components/UIElements/Accordions';
 import React, { useState } from 'react';
-import { IServiceData } from '..';
 import { AccordionHeader } from './AccordionHeader';
 import AccordionBody from './AccordionBody';
+import { IServiceData } from '../interafces';
 
 export interface IServicesMobileView extends IServiceData {}
 

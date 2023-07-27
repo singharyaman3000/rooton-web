@@ -7,6 +7,7 @@ interface IAccordion {
   accordionBody: React.ReactNode;
   accordionBodyCss?: string;
   openAccordion: boolean;
+  // eslint-disable-next-line no-unused-vars
   handleOnClick: (accordionId: string) => void;
   accordionId: string;
   cssClass?: string;
