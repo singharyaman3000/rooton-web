@@ -2,16 +2,23 @@
 
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default function FooterLogo() {
   const { theme } = useTheme();
+
+  const [themeState, setThemeState] = useState('light');
+
+  useEffect(() => {
+    setThemeState(theme ?? '');
+  }, [theme, setThemeState]);
 
   return (
     <Image
       width={180}
       height={54}
       alt="logo"
-      src={theme === 'light' ? '/r-oot-on-logo-black.svg' : '/r-oot-on-logo-svg.svg'}
+      src={themeState === 'light' ? '/r-oot-on-logo-black.svg' : '/r-oot-on-logo-svg.svg'}
       className=" mb-6 mx-auto"
     />
   );
