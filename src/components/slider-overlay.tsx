@@ -14,7 +14,7 @@ type SliderOverlayProps = {
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {}}>
+      <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
