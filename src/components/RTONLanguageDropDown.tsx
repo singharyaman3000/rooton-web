@@ -7,6 +7,7 @@ import GermanyFlagIcon from '@/icons/GermanyFlagIcon';
 import ItalyFlagIcon from '@/icons/ItalyFlagIcon';
 import IndiaFlagIconSm from '@/icons/IndiaFlagIconSm';
 import PortugalFlagIcon from '@/icons/PortugalFlagIcon';
+import DownArrowIcon from '@/icons/downArrow.icon';
 import FranceFlagIcon from '../icons/FranceFlagIcon';
 
 type RTONLanguageDropDownProps = {
@@ -30,7 +31,9 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
     >
       <UKFlagIcon />
       <p className={`text-base font-medium ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}>EN</p>
-      <p className={`text-base ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}> &gt; </p>
+      <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
+        <DownArrowIcon isScrolled={scrolledEnough} />
+      </span>
       {isOpen && (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div
