@@ -10,6 +10,15 @@
 
   --primary-border: #d8d8d85C;
   --secondary-border: #d2d2d2;
+  
+  --grey :#f9f9f9;
+  --golden-yellow: #f59723;
+  --primary-text:#000;
+  --primary-white:#fff;
+  --deep-yellow:#ffaf00;
+  --secondary-grey:#f3f3f3;
+  --primary-black:#000;
+  --pale-yellow:#fff6e7;
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
 }
@@ -58,4 +67,13 @@
 /*Google translator layout*/
 .skiptranslate{
   display: none !important;
+}
+
+/*Services tabs design*/
+.service svg {
+  fill: var(--deep-yellow);
+}
+
+.service:hover svg{
+fill: #fff;
 }
