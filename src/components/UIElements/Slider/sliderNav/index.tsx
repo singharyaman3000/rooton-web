@@ -4,13 +4,14 @@ export interface ISliderNav {
   cssClass?: string;
   leftNav?: boolean;
   disable?: boolean;
-  handleOnClick :()=>void
+  handleOnClick: () => void;
 }
 
-const SliderNav = ({ cssClass, disable, leftNav  , handleOnClick}: ISliderNav) => {
+const SliderNav = ({ cssClass, disable, leftNav, handleOnClick }: ISliderNav) => {
   return (
     <button
-      onClick={()=>handleOnClick()}
+      type="button"
+      onClick={() => handleOnClick()}
       aria-label={`${leftNav ? 'Previous' : 'Next'}`}
       className={`w-11 h-11 px-[17px] py-[13px] bg-primary-white ${cssClass} ${
         leftNav ? 'rotate-180  right-[24px]   md:right-[-9px]' : 'left-[24px] md:left-[-9px]'

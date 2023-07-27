@@ -1,9 +1,11 @@
 'use client';
+
 import Tabs from '@/components/UIElements/Tabs';
 import React, { useState } from 'react';
+import { ITabData } from '@/components/UIElements/Tabs/TabsHeader';
 import ServicesListing from './TabBody';
 import { IServiceData } from '..';
-import { ITabData } from '@/components/UIElements/Tabs/TabsHeader';
+
 
 export interface IServicesDeskTopView extends IServiceData {}
 
@@ -22,7 +24,13 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
     });
   };
   return (
-    <Tabs cssClass='hidden md:block' onTabChange={(data) => updateTab(data)} selectedTab={tab} headerData={serviceData} tabBody={getServises()} />
+    <Tabs
+      cssClass="hidden md:block"
+      onTabChange={(data) => updateTab(data)}
+      selectedTab={tab}
+      headerData={serviceData}
+      tabBody={getServises()}
+    />
   );
 };
 

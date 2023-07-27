@@ -1,4 +1,5 @@
 'use client';
+
 import { NEWS_TITLE } from '@/app/constants/textConstants';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import Button from '@/components/UIElements/Button';
@@ -38,9 +39,10 @@ const BlogListings = () => {
             </div>
           </div>
         </div>
+        {/* eslint-disable react/jsx-props-no-spreading */}
         <div className="pt-[24px] md:pt-[80px]" {...handlers}>
           <Slider
-            scrollPercent={-scrollAmt + 'px'}
+            scrollPercent={`${-scrollAmt}px`}
             id="news-listing"
             pageNum={pageNum}
             slideClass="!w-[73.4%] !min-w-[264px] md:!w-[29.2%] w-full md:!min-w-[404px] !md:max-w-[400px]"

@@ -9,9 +9,10 @@ module.exports = {
   ],
   theme: {
     screens: {
-      xs: '320px',
-      lg: '1024px',
-      xl: '1280px',
+      'xs': '320px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
     },
     fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],
@@ -25,7 +26,11 @@ module.exports = {
       },
       colors: {
         'font-color-orange': 'var(--font-color-orange)',
-        primary: 'var(--primary-bg)',
+        'primary': 'var(--primary-bg)',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'credibility-grid': 'url(\'/images/homePage/credibilityBgGrid.png\')',
+        'font-color-light-gray': 'var(--font-color-light-gray)',
         'primary-font-color': 'var(--primary-font-color)',
         'toggle-dark-bg': 'var(--toggle-dark-bg)',
         'tansparent-bg': 'var(--tansparent-bg)',
@@ -33,7 +38,9 @@ module.exports = {
         'header-font-color-scrolled-enough': 'var(--header-font-color-scrolled-enough)',
         'primary-border': 'var(--primary-border)',
         'secondary-border': 'var(--secondary-border)',
-        grey: 'var(--grey)',
+        'cicc-border': 'var(--cicc-border)',
+        'capic-border': 'var(--capic-border)',
+        'grey' : 'var(--grey)',
         'golden-yellow': 'var(--golden-yellow)',
         'primary-text': 'var(--primary-text)',
         'primary-white': 'var(--primary-white)',

@@ -1,31 +1,32 @@
 'use client';
+
 import { motion } from 'framer-motion';
 import React, { ReactElement } from 'react';
-import './styles.css'
+
+import './styles.css';
+
 export interface IsliderProps {
   pageNum: number;
   children: Array<ReactElement>;
   slideClass?: string;
-  slideParentClass?:string;
-  id:string;
-  scrollPercent?:string|number;
+  slideParentClass?: string;
+  id: string;
+  scrollPercent?: string | number;
 }
 
-const Slider = ({ pageNum, children, slideClass , slideParentClass  , id , scrollPercent}: IsliderProps) => {
+const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPercent }: IsliderProps) => {
   return (
     <div className="relative mx-[-12px]">
       <div className="relative overflow-hidden">
         <div
-          
           className={`flex justify-between  w-full transition-transform md:delay-100 md:duration-300 snap-x snap-mandatory ${slideParentClass}`}
-          style={{ transform: `translateX(${ scrollPercent ? scrollPercent :  -pageNum * 100 + '%'})` }}
-          //   {...handlers}
+          style={{ transform: `translateX(${scrollPercent ?? `${-pageNum * 100}%`})` }}
           id={id}
         >
-          {children?.map((child, index) => {
+          {children?.map((child) => {
             return (
               <motion.article
-                key={index}
+                key={Date.now().toString()}
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{
@@ -40,9 +41,8 @@ const Slider = ({ pageNum, children, slideClass , slideParentClass  , id , scrol
               </motion.article>
             );
           })}
-        
         </div>
-        <div className='w-[15%] absolute h-full  right-[0] slide-shader top-0'></div>
+        <div className="w-[15%] absolute h-full  right-[0] slide-shader top-0"></div>
       </div>
     </div>
   );

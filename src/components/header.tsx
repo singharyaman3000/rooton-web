@@ -110,7 +110,7 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={'/r-oot-on-logo-svg.svg'}
+                src={'/root-on-logo-svg.svg'}
               />
             </div>
           )}

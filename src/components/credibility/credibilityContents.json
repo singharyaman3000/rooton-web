@@ -1,0 +1,17 @@
+{
+    "subtitle": "credibility",
+    "title": "We are <span class='gradient-text'> Licenced,</span> </br> we are CICC members!",
+    "description": "It is good to seek guidance from an immigration consultant while planning for Canada. Still, it is exceptional to hire a licensed consultant who is a member of The College of Immigration and Citizenship Consultants (CICC) ensuring an unparalleled level of trust and credibility.<br></br> With more than a decade of extensive experience, CICC members have gained enough experience to handle your immigration needs, making them the most reliable choice for a seamless and successful process.",
+    "licenseImages": [{
+        "imageUrl" : "/images/college_of_immigration_and_citizenship_consultants.png",
+        "altText": "college of immigration and citizenship consultants image",
+        "title": "college of immigration and citizenship consultants image",
+        "iconClass": "border-cicc"
+    },
+    {
+        "imageUrl" : "/images/canadian_association_of_professional_immigration_consultants.png",
+        "altText": "canadian association of professional immigration consultants image",
+        "title": "canadian association of professional immigration consultants image",
+        "iconClass": "border-capic"
+    }]
+}

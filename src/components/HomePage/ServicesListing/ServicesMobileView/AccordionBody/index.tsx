@@ -1,17 +1,12 @@
 import React from 'react';
-import { IServiceData } from '../..';
 import ArrowIcon from '@/components/Icons/ArrowIcon';
+import { IServiceData } from '../..';
 
 const AccordionBody = ({ serviceData }: IServiceData) => {
   return serviceData.map((service) => {
     return (
-      <div className="w-full" 
-      key={service.service}
-      
-      >
-        <div
-          className="py-[24px] flex items-center justify-between text-sm font-bold not-italic leading-[normal] tracking-[normal] text-black"
-        >
+      <div className="w-full" key={service.service}>
+        <div className="py-[24px] flex items-center justify-between text-sm font-bold not-italic leading-[normal] tracking-[normal] text-black">
           {service.service}
           <ArrowIcon cssClas="fill-golden-yellow" />
         </div>
