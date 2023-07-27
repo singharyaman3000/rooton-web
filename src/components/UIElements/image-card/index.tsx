@@ -1,5 +1,6 @@
 import React from 'react';
 import NextImage from '../NextImage';
+import { motion } from 'framer-motion';
 
 const ImageCard = ({
   imageUrl,
@@ -8,6 +9,7 @@ const ImageCard = ({
   title,
   altText,
   iconClass,
+  index,
 }: {
   imageUrl: string;
   cssClass: string;
@@ -15,9 +17,21 @@ const ImageCard = ({
   title: string;
   altText: string;
   iconClass: string;
+  index: number;
 }) => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: index % 2 === 0 ? 100 : -100 }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+      }}
+      transition={{
+        ease: 'easeInOut',
+        duration: 0.6,
+        delay: 0.12,
+      }}
+      viewport={{ once: true }}
       className={
         'h-[120px] md:h-[240px] w-[86.666vw] max-w-[408.19px] shadow-lg md:w-full bg-white  border flex flex-col justify-center relative'
       }
@@ -28,7 +42,7 @@ const ImageCard = ({
       <div className={`${cssClass} relative`}>
         <NextImage sizes={sizes} src={imageUrl} title={title} fill style={{ objectFit: 'contain' }} altText={altText} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

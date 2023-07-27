@@ -1,5 +1,6 @@
 import React from 'react';
 import NextImage from '../../NextImage';
+import { motion } from 'framer-motion';
 
 export interface ITabData {
   service: string;
@@ -12,12 +13,34 @@ export interface ITabHeader {
   selectedTab: ITabData;
 }
 
+const containerVarient = {
+  // hidden: { rotate: 90 },
+  show: {
+      rotate: 0,
+      transition: {
+          staggerChildren: 0.1,
+          delayChildren: 0.3
+      }
+  }
+};
+
+const btnVarient  = {
+  hidden: { scale: 0, top: 100 },
+  show: { scale: 1, top: 30 }
+};
+
+
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
   return (
-    <div className="flex items-center">
+    <motion.div
+    variants={containerVarient}
+    initial="hidden"
+    animate="show"
+    className="flex items-center">
       {headerData.map(({ icon, service, services }) => {
         return (
-          <button
+          <motion.button
+            variants={btnVarient}
             type="button"
             onClick={() => handleOnClick({ icon, service, services })}
             className={`p-[15px] text-primary-text  w-[180px] flex items-center flex-col ${
@@ -37,10 +60,10 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
               />
             </div>
             <div className="text-lg not-italic leading-[normal] tracking-[normal] text-center">{service}</div>
-          </button>
+          </motion.button>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 
