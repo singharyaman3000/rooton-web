@@ -1,5 +1,7 @@
-'use client'
+'use client';
+
 import { useState } from 'react';
+
 export const CLICKED_ON_PAGE = 'CLICKED_ON_PAGE';
 export const CLICKED_ON_LEFT = 'CLICKED_ON_LEFT';
 export const CLICKED_ON_RIGHT = 'CLICKED_ON_RIGHT';
@@ -9,33 +11,27 @@ export interface IUseSlider {
   initialPage: number;
 }
 
-
-const useSliderPagination = ({
-  slidesLength,
-  initialPage,
-}: IUseSlider) => {
+const useSliderPagination = ({ slidesLength, initialPage }: IUseSlider) => {
   const [pageNum, setPageNum] = useState(initialPage);
-  console.log(slidesLength)
+  console.log(slidesLength);
 
   const updatePage = (clickedPageNum: number, type: string) => {
     switch (type) {
-      case CLICKED_ON_LEFT:
-        if (clickedPageNum !== initialPage) {
-          setPageNum(clickedPageNum - 1);
-        }
-        break;
-      case CLICKED_ON_RIGHT:
-        if (clickedPageNum !== slidesLength - 1) {
-          setPageNum(clickedPageNum + 1);
-        }
-        break;
-
-      case CLICKED_ON_PAGE:
-        setPageNum(clickedPageNum);
-        break;
-
-      default:
-        break;
+    case CLICKED_ON_LEFT:
+      if (clickedPageNum !== initialPage) {
+        setPageNum(clickedPageNum - 1);
+      }
+      break;
+    case CLICKED_ON_RIGHT:
+      if (clickedPageNum !== slidesLength - 1) {
+        setPageNum(clickedPageNum + 1);
+      }
+      break;
+    case CLICKED_ON_PAGE:
+      setPageNum(clickedPageNum);
+      break;
+    default:
+      break;
     }
   };
 
