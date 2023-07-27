@@ -21,6 +21,8 @@
   --primary-white:#fff;
   --deep-yellow:#ffaf00;
   --secondary-grey:#f3f3f3;
+  --primary-black:#000;
+  --pale-yellow:#fff6e7;
 }
 
 [data-theme='dark'] {
@@ -68,4 +70,13 @@ body {
 /*Google translator layout*/
 .skiptranslate{
   display: none !important;
+}
+
+/*Services tabs design*/
+.service svg {
+  fill: var(--deep-yellow);
+}
+
+.service:hover svg{
+fill: #fff;
 }
