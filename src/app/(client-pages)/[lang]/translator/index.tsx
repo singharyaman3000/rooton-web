@@ -1,4 +1,5 @@
 'use client';
+
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 
@@ -21,6 +22,7 @@ export const languages: ILanguage[] = [
 const Translator = () => {
   const params = useParams();
   const googleTranslateElementInit = () => {
+    // eslint-disable-next-line no-new
     new window.google.translate.TranslateElement(
       {
         pageLanguage: 'en',

@@ -1,8 +1,7 @@
 import React from 'react';
+import PlayButton from '@/components/Icons/PlayButton';
 import NextImage from '../../NextImage';
 import artistThumbnail from '../../../../../public/images/user.png';
-import QuoteIcon from '../../../../../public/images/icons/quote.png';
-import PlayButton from '@/components/Icons/PlayButton';
 
 export interface ITestimonial {
   type?: 'video' | 'text';
@@ -12,15 +11,17 @@ const TestimonialCard = ({ type }: ITestimonial) => {
   return (
     <div className={`h-[32.5rem] p-[12.8px] md:p-[20px] relative ${type === 'text' ? 'bg-secondary-grey' : ''}`}>
       <div className=" relative h-full">
-        {type === 'text'&& <div className='text-xs font-medium p-[20px] md:p-[36px] not-italic !leading-[1.67] tracking-[normal] md:text-sm text-primary-text'>
-          <p>
-            "I got admission to Meng Mechanical at the University of Windsor. And I got my PPR in 11 Days. Yes, it is
-            true. It was a great experience to work with Root On. They give personalized attention to every detail of my
-            profile. They regularly keep in touch with me and give regular updates on the University administration
-            process to till date I have received my PPR. Thank you Mehulsir, Anjali ma'am, and Ronaksir for everything.
-            This means a lot."
-          </p>
-        </div>}
+        {type === 'text' && (
+          <div className="text-xs font-medium p-[20px] md:p-[36px] not-italic !leading-[1.67] tracking-[normal] md:text-sm text-primary-text">
+            <p>
+              I got admission to Meng Mechanical at the University of Windsor. And I got my PPR in 11 Days. Yes, it is
+              true. It was a great experience to work with Root On. They give personalized attention to every detail of
+              my profile. They regularly keep in touch with me and give regular updates on the University administration
+              process to till date I have received my PPR. Thank you Mehulsir, Anjali ma`&apos;`am, and Ronaksir for
+              everything. This means a lot.
+            </p>
+          </div>
+        )}
         <div className="absolute flex  items-center z-[10] left-0 bottom-0 bg-white p-[10px] md:p-[16px] w-full">
           <div className="relative w-full flex items-center">
             <div className="absolute right-0">
@@ -43,7 +44,7 @@ const TestimonialCard = ({ type }: ITestimonial) => {
             <div className="square-[30.7px] mr-[14px] rounded-full overflow-hidden md:square-[48px] relative">
               <NextImage
                 src={artistThumbnail}
-                fill={true}
+                fill
                 title="Artist"
                 altText={'at'}
                 style={{ objectFit: 'cover' }}
@@ -63,23 +64,24 @@ const TestimonialCard = ({ type }: ITestimonial) => {
           </div>
         </div>
       </div>
-      {type === 'video' &&<div className='w-full h-full absolute flex flex-col justify-center items-center left-0 top-0'>
-            <NextImage src={'/images/tempImages/testimonial.png'} altText='testimonial video' fill={true}
-              style={{ objectFit: 'cover' }}
-              title=''
-              sizes="
+      {type === 'video' && (
+        <div className="w-full h-full absolute flex flex-col justify-center items-center left-0 top-0">
+          <NextImage
+            src={'/images/tempImages/testimonial.png'}
+            altText="testimonial video"
+            fill
+            style={{ objectFit: 'cover' }}
+            title=""
+            sizes="
               (max-width: 768px)100vw,
                33vw"
-            />
-            <div className='absolute w-full h-full top-0 bg-black opacity-[0.32]'>
-
-            </div>
-             <button className='relative z-10'>
-             <PlayButton/>
-
-             </button>
-            
-            </div>}
+          />
+          <div className="absolute w-full h-full top-0 bg-black opacity-[0.32]"></div>
+          <button className="relative z-10" type="button">
+            <PlayButton />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

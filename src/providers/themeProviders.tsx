@@ -1,15 +1,11 @@
+'use client';
 
-'use client'
-import { ReactNode } from 'react'
-import { ThemeProvider } from 'next-themes'
-import { themes } from '@/app/constants/themeConstants'
+import React from 'react';
+import { ThemeProvider } from 'next-themes';
+import { themes } from '@/app/constants/themeConstants';
 
-const ThemeSwitchProvider = ({ children }: { children: React.ReactNode })=> {
-    return (
-      <ThemeProvider defaultTheme={themes.light} >
-        {children}
-      </ThemeProvider>
-    )
-  }
+const ThemeSwitchProvider = ({ children }: { children: React.ReactNode }) => {
+  return <ThemeProvider defaultTheme={themes.light}>{children}</ThemeProvider>;
+};
 
-  export default ThemeSwitchProvider
+export default ThemeSwitchProvider;

@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+
+import { useEffect, useState } from 'react';
 
 const useClient = () => {
   const [isClient, setClient] = useState(false);
