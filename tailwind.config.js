@@ -39,12 +39,11 @@ module.exports = {
         'primary-white': 'var(--primary-white)',
         'deep-yellow': 'var(--deep-yellow)',
         'secondary-grey': 'var(--secondary-grey)',
+        'primary-black' : 'var(--primary-black)',
+        'pale-yellow':'var(--pale-yellow)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
-        'secondary-grey' : 'var(--secondary-grey)',
-        'primary-black' : 'var(--primary-black)',
-        'pale-yellow':'var(--pale-yellow)'
       },
     },
   },
