@@ -16,15 +16,26 @@ export default function RTONBanner({
   button,
 }: RTONBannerProps) {
   return (
-    <div className=" w-full mt-0 h-[640px]" style={{ backgroundImage: backgroundImageUrl }}>
-      <div className=' w-full h-full'
+    <div
+      className="
+        w-full
+        mt-0
+        h-[67.5vh]
+        max-h-[640px]
+        min-h-[380px]
+      "
+      style={{ backgroundImage: backgroundImageUrl }}
+    >
+      <div
+        className=" w-full h-full"
         style={{
           backgroundImage: addGradient
             ? 'linear-gradient(190deg, rgb(0 0 0 / 43%) 10%, rgb(0 0 0 / 59%) 42%, #0009 10%)'
             : '',
         }}
       >
-        <div className="
+        <div
+          className="
             lg:bg-banner-grid-overlay
             lg:bg-cover
             px-6

@@ -4,11 +4,13 @@ type RTONButtonProps = {
   onClick: () => void;
   text: string;
   icon: ReactElement;
+  ariaLabel: string;
 };
 
-export default function RTONButton({ onClick, text, icon }: RTONButtonProps) {
+export default function RTONButton({ ariaLabel, onClick, text, icon }: RTONButtonProps) {
   return (
     <button
+      aria-label={ariaLabel}
       type="button"
       onClick={onClick}
       className="
