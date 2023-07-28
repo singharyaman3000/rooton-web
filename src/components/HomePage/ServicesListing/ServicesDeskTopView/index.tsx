@@ -4,8 +4,7 @@ import Tabs from '@/components/UIElements/Tabs';
 import React, { useState } from 'react';
 import { ITabData } from '@/components/UIElements/Tabs/TabsHeader';
 import ServicesListing from './TabBody';
-import { IServiceData } from '..';
-
+import { IServiceData } from '../interafces';
 
 export interface IServicesDeskTopView extends IServiceData {}
 

@@ -1,24 +1,47 @@
 import React from 'react';
 import NextImage from '../../NextImage';
-
-export interface ITabHeader {
-  headerData: ITabData[];
-  handleOnClick: (tabData: ITabData) => void;
-  selectedTab: ITabData;
-}
+import { motion } from 'framer-motion';
 
 export interface ITabData {
   service: string;
   icon: string;
   services: string[];
 }
+export interface ITabHeader {
+  headerData: ITabData[];
+  handleOnClick: (tabData: ITabData) => void; // eslint-disable-line no-unused-vars
+  selectedTab: ITabData;
+}
+
+const containerVarient = {
+  // hidden: { rotate: 90 },
+  show: {
+      rotate: 0,
+      transition: {
+          staggerChildren: 0.1,
+          delayChildren: 0.3
+      }
+  }
+};
+
+const btnVarient  = {
+  hidden: { scale: 0, top: 100 },
+  show: { scale: 1, top: 30 }
+};
+
 
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
   return (
-    <div className="flex items-center">
+    <motion.div
+    variants={containerVarient}
+    initial="hidden"
+    animate="show"
+    className="flex items-center">
       {headerData.map(({ icon, service, services }) => {
         return (
-          <button
+          <motion.button
+            variants={btnVarient}
+            type="button"
             onClick={() => handleOnClick({ icon, service, services })}
             className={`p-[15px] text-primary-text  w-[180px] flex items-center flex-col ${
               service === selectedTab.service ? 'bg-primary-black text-primary-white' : ''
@@ -32,15 +55,15 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
                 altText={`${service}-icon`}
                 title={`${service}-icon`}
                 src={icon}
-                fill={true}
+                fill
                 style={{ objectFit: 'cover' }}
               />
             </div>
             <div className="text-lg not-italic leading-[normal] tracking-[normal] text-center">{service}</div>
-          </button>
+          </motion.button>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 
