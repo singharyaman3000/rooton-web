@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Container = ({ children }: { children: React.ReactNode }) => (
-  <section className=" z-0 h-auto mx-auto xl:bg-credibility-grid  bg-contain">
-    <div className="flex mx-auto px-6 md:px-20">{children}</div>
+const Container = ({ children, cssBgClass }: { children: React.ReactNode, cssBgClass?:string }) => (
+  <section className={`${cssBgClass} z-0 h-auto max-w-[2560px] mx-auto`}>
+    <div className="flex flex-col mx-auto px-6 md:px-20">{children}</div>
   </section>
 );
 

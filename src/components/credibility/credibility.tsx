@@ -1,13 +1,15 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
+
 import SubTitle from '../home-contents/SubTitle';
 import TitleWrapper from '../home-contents/Title';
 import Description from '../home-contents/Description';
 import ImageCard from '../UIElements/image-card';
-import CredibilityContentsJson from './credibilityContents.json';
 import Container from '../UIElements/wrapper-container';
-import { motion } from 'framer-motion';
+
+import CredibilityContentsJson from './credibilityContents.json';
 
 const Credibility = () => {
   interface ICredibilitycontent {
@@ -20,7 +22,7 @@ const Credibility = () => {
   const CredibilityContent: ICredibilitycontent = CredibilityContentsJson;
 
   return (
-    <Container>
+    <Container cssBgClass='credibilityGrid'>
       <div className="mt-10 md:flex md:justify-between md:w-full xl:max-h-[534px]">
         <motion.div
           initial={{ opacity: 0, y: 100 }}
