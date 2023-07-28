@@ -1,6 +1,7 @@
 import React from 'react';
-import NextImage from '../NextImage';
 import { motion } from 'framer-motion';
+
+import NextImage from '../NextImage';
 
 const ImageCard = ({
   imageUrl,

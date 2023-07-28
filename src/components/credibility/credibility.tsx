@@ -1,13 +1,10 @@
 'use client';
 
 import React from 'react';
-import SubTitle from '../home-contents/SubTitle';
-import TitleWrapper from '../home-contents/Title';
+import { motion } from 'framer-motion';
 import Description from '../home-contents/Description';
 import ImageCard from '../UIElements/image-card';
-import CredibilityContentsJson from './credibilityContents.json';
 import Container from '../UIElements/wrapper-container';
-import { motion } from 'framer-motion';
 import SectionTitle from '../UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '../UIElements/SectionHeadings/SubSectiontitle';
 
@@ -15,11 +12,11 @@ interface ICredibilitycontent {
   sub_title: string;
   title: string;
   description: string;
-  media_url :IMediaUrl
+  media_url: IMediaUrl;
 }
 
 export interface IMediaUrl {
-  data?: (IMediaData)[] | null;
+  data?: IMediaData[] | null;
 }
 export interface IMediaData {
   id: number;
@@ -32,12 +29,9 @@ export interface IMediaAttribute {
   url: string;
 }
 
-const Credibility = ({description , title , sub_title , media_url}:ICredibilitycontent) => {
-
-
-
+const Credibility = ({ description, title, sub_title, media_url }: ICredibilitycontent) => {
   return (
-    <Container>
+    <Container cssBgClass="credibilityGrid">
       <div className="mt-10 md:flex md:justify-between md:w-full xl:max-h-[534px]">
         <motion.div
           initial={{ opacity: 0, y: 100 }}

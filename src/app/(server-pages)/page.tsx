@@ -1,5 +1,7 @@
 import Credibility from '@/components/credibility/credibility';
 import BlogListings from '@/components/HomePage/BlogListings';
+import Honesty from '@/components/HomePage/Honesty';
+import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import Testimonials from '@/components/HomePage/Testimonials';
 import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
@@ -42,6 +44,8 @@ export default async function Home() {
   return (
     <>
       {getComponents()}
+      <Honesty/>
+      <PartnerShip/>
       <BlogListings />
       <Testimonials />
     </>
