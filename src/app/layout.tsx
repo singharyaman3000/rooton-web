@@ -10,6 +10,7 @@ import React from 'react';
 import FooterLogo from '@/components/footer-logo';
 import FlagCanadaIcon from '@/icons/flag-canada.icon';
 import FlagIndiaIcon from '@/icons/flag-india.icon';
+import Link from 'next/link';
 import ThemeSwitchProvider from '../providers/themeProviders';
 import { LAYOUT } from './constants/textConstants';
 
@@ -127,19 +128,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div className=" mb-[6px]">
                   <FlagCanadaIcon />
                 </div>
-                <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
-                <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
-                <p className=" text-sm">{LAYOUT.addressCanada.line2}</p>
-                <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</p>
+                <Link href={'/'} className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</Link>
+                <Link href={'/'} className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</Link >
+                <Link href={'/'} className=" text-sm">{LAYOUT.addressCanada.line2}</Link >
+                <Link href={'/'} className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</Link>
               </div>
               <div>
                 <div className=" mt-8 mb-[6px]">
                   <FlagIndiaIcon />
                 </div>
-                <p className=" text-sm font-bold mb-[4px]">{LAYOUT.addressIndia.title}</p>
-                <p className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</p>
-                <p className=" text-sm">{LAYOUT.addressIndia.line2}</p>
-                <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressIndia.phone}</p>
+                <Link href={'/'} className=" text-sm font-bold mb-[4px]">{LAYOUT.addressIndia.title}</Link>
+                <Link href={'/'} className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</Link>
+                <Link href={'/'} className=" text-sm">{LAYOUT.addressIndia.line2}</Link>
+                <Link href={'/'} className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressIndia.phone}</Link>
               </div>
             </div>
           </footer>
