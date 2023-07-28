@@ -2,15 +2,14 @@ import React from 'react';
 import NextImage from '../../NextImage';
 import { motion } from 'framer-motion';
 
-export interface ITabData {
+export interface ITabHeaderData {
   service: string;
   icon: string;
-  services: string[];
 }
 export interface ITabHeader {
-  headerData: ITabData[];
-  handleOnClick: (tabData: ITabData) => void; // eslint-disable-line no-unused-vars
-  selectedTab: ITabData;
+  headerData: ITabHeaderData[];
+  handleOnClick: (tabData:{service:string}) => void; // eslint-disable-line no-unused-vars
+  selectedTab: ITabHeaderData;
 }
 
 const containerVarient = {
@@ -31,18 +30,19 @@ const btnVarient  = {
 
 
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
+  console.log(headerData , "000000000000000")
   return (
     <motion.div
     variants={containerVarient}
     initial="hidden"
     animate="show"
     className="flex items-center">
-      {headerData.map(({ icon, service, services }) => {
+      {headerData.map(({ icon, service }) => {
         return (
           <motion.button
             variants={btnVarient}
             type="button"
-            onClick={() => handleOnClick({ icon, service, services })}
+            onClick={() => handleOnClick({service})}
             className={`p-[15px] text-primary-text  w-[180px] flex items-center flex-col ${
               service === selectedTab.service ? 'bg-primary-black text-primary-white' : ''
             }`}
@@ -50,14 +50,14 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
             aria-label={service}
           >
             <div className="relative square-[30px] mb-[8px]">
-              <NextImage
+             {icon && <NextImage
                 sizes="100vw"
                 altText={`${service}-icon`}
                 title={`${service}-icon`}
                 src={icon}
                 fill
                 style={{ objectFit: 'cover' }}
-              />
+              />}
             </div>
             <div className="text-lg not-italic leading-[normal] tracking-[normal] text-center">{service}</div>
           </motion.button>
