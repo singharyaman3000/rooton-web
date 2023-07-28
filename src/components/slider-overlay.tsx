@@ -43,6 +43,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                   <div className="flex h-full flex-col overflow-y-scroll bg-primary  py-7 shadow-xl">
                     <div className="flex justify-end px-7">
                       <button
+                        aria-label='Slider dialog close'
                         type="button"
                         className="
                             cursor-pointer

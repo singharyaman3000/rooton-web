@@ -81,7 +81,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
           </span>
         )}
       </div>
-      <button type="button" onClick={toggleSlideOverlay} className=" lg:hidden">
+      <button aria-label='Hamburger menu open' type="button" onClick={toggleSlideOverlay} className=" lg:hidden">
         <HamburgerIcon isScrolled={scrolledEnough} />
       </button>
     </div>
