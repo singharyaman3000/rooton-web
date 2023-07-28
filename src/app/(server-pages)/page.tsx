@@ -6,7 +6,7 @@ import Testimonials from '@/components/HomePage/Testimonials';
 export default function Home() {
   return (
     <>
-      <Credibility/>
+      <Credibility />
       <ServicesListing />
       <BlogListings />
       <Testimonials />

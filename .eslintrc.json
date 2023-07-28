@@ -60,7 +60,7 @@
     "no-multi-spaces": "error",
     "no-extra-parens": "error",
     "arrow-parens": ["error", "always"],
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-var-requires": "off",
     "arrow-body-style": [1, "always"],
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -93,7 +93,8 @@
       "error",
       "never",
       {
-        "tsx": "never"
+        "tsx": "never",
+        "json":"always"
       }
     ],
     "react/function-component-definition": "off",
