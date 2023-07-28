@@ -1,32 +1,53 @@
+'use client'
+
 import React from 'react';
-
 import Container from '@/components/UIElements/wrapper-container';
-import SubTitle from '@/components/home-contents/SubTitle';
-import TitleWrapper from '@/components/home-contents/Title';
 import Description from '@/components/home-contents/Description';
-import HonestyCard from './honestyCard';
+import HonestyCard, { IWhyRootON } from './honestyCard';
+import { ITitleAttributes } from '../ServicesListing/interafces';
+import SectionTitle from '@/components/UIElements/SectionHeadings/SectionTitle';
+import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
+import { motion } from 'framer-motion';
 
-import HonestContentJSON from './honestyContent.json';
+export interface IHonesty extends ITitleAttributes {
+  json_content: IJsonContent;
+}
+export type IJsonContent = {
+  [key in 'why-rooton']: IWhyRootON[] | null;
+};
 
-const Honesty = () => (
+const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
   <>
     <Container cssBgClass="honestyGrid">
-      <div className="lg:flex lg:flex-row justify-between mb-11 lg:mb-14">
+      <motion.div
+       className="lg:flex lg:flex-row justify-between mb-11 lg:mb-14">
         <div className="mb-2.5 lg:w-[24.58vw]">
-          <SubTitle subtitle={HonestContentJSON?.subtitle} />
-          <TitleWrapper title={HonestContentJSON?.title} />
+          <SectionTitle title={title} />
+          <SubSectionTitle title={sub_title} />
         </div>
-        <div className="lg:w-[56.875vw] ">
-          <Description cssClass="mt-6" description={HonestContentJSON?.description} />
-        </div>
-      </div>
+        <motion.div
+          transition={{
+            ease: 'easeInOut',
+            duration: 0.6,
+            delay: 0.02,
+          }}
+        className="lg:w-[56.875vw] ">
+          <Description cssClass="mt-6" description={description ?? ''} />
+        </motion.div>
+      </motion.div>
     </Container>
     <Container>
-      <div className="container mx-auto">
+      <div className="mb-[40px]  lg:mb-[100px]">
         <div className=" grid grid-cols-1 divide-y border-1 border-white lg:divide-x md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {HonestContentJSON?.cards?.map((card) => (
-            <HonestyCard key={card?.title} iconUrl={card?.iconUrl} cardDescription={card?.description} cardTitle={card?.title} />
+          {json_content?.['why-rooton']?.map((whyRootOn) => (
+            <HonestyCard
+              key={whyRootOn?.key}
+              value={whyRootOn.value}
+              icon={process.env.NEXT_ASSETS_BASEURL + whyRootOn.icon}
+              position={whyRootOn.position}
+            />
           ))}
+
         </div>
       </div>
     </Container>

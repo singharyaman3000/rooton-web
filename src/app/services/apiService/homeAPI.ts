@@ -1,12 +1,15 @@
 import { getFetch } from '@/utils/apiUtils';
 import { HOME_API } from './apiUrl/homePage';
-import { ValueOf } from 'next/dist/shared/lib/constants';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
+import { IHonesty } from '@/components/HomePage/Honesty';
+import { IOurProcess, IOurProcessData } from '@/components/HomePage/OurProcess';
 
 
 export const CONTENT_TYPES = {
     SERVICES  : 'services',
-    CREDIBILITY :'credibility'
+    CREDIBILITY :'credibility',
+    WHY_ROOT_ON :'why_rooton',
+    OUR_PROCESSES : 'processes'
 }
 
 // { next: { revalidate: 1200 }
@@ -98,7 +101,7 @@ export interface IHomePageData {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
-    // json_content?: JsonContent | null;
+    json_content: IHonesty | IOurProcessData;
     blogs: Blogs;
     core_services: ICoreServices;
     media_url: MediaUrl;

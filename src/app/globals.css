@@ -101,5 +101,14 @@ fill: #fff;
   .honestyGrid{
     background-image: url("/images/homePage/honestyBgGrid.svg");
   }
+  .partnersGrid {
+    background-image: url(/images/homePage/partnersBgGrid.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
+.divider {
+  background-image: linear-gradient(to left, rgba(255, 243, 224, 0), #fddaa1 91%, #fddaa1 11%, rgba(254, 244, 228, 0));
+}

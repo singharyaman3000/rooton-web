@@ -10,6 +10,9 @@
 export interface ITitleAttributes {
   title: string;
   sub_title: string;
+  CTA_text?:string;
+  CTA_link? :string;
+  description?:string;
 }
 
 export interface IService extends ITitleAttributes {
