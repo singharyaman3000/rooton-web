@@ -64,7 +64,10 @@ body {
   border-color: var(--capic-border);
   border-left: solid transparent;
 }
-.gradient-text {
+
+
+
+.gradient-text span{
   background-image: linear-gradient(108deg, #e5de31 2%, #ffaf00 75%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

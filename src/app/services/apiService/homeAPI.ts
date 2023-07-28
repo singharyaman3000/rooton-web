@@ -1,13 +1,23 @@
 import { getFetch } from '@/utils/apiUtils';
 import { HOME_API } from './apiUrl/homePage';
+import { ValueOf } from 'next/dist/shared/lib/constants';
+import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
 
 
+export const CONTENT_TYPES = {
+    SERVICES  : 'services',
+    CREDIBILITY :'credibility'
+}
+
+// { next: { revalidate: 1200 }
 
 
 export const getHomePageContents = async () => {
-  const apiRes = await getFetch<IHomePageData>(HOME_API, { next: { revalidate: 1200 } });
-  return apiRes.data;
+  const apiRes = await getFetch<IHomePageData>(HOME_API );
+  console.log(apiRes.data , "--------------------------")
+  return apiRes.data
 };
+
 
 
 
@@ -18,9 +28,9 @@ export interface IHomePageData {
   }
   export interface Data {
     id: number;
-    attributes: Attributes;
+    attributes: IAttributes;
   }
-  export interface Attributes {
+  export interface IAttributes {
     title: string;
     sub_title: string;
     CTA_text: string;
@@ -84,13 +94,13 @@ export interface IHomePageData {
     CTA_text?: null;
     CTA_link?: null;
     content_position: number;
-    content_name?: string | null;
+    content_name?: TContentTypes | null;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
     // json_content?: JsonContent | null;
     blogs: Blogs;
-    core_services: CoreServices;
+    core_services: ICoreServices;
     media_url: MediaUrl;
   }
 //   export interface JsonContent {
@@ -159,3 +169,5 @@ export interface IHomePageData {
   export interface Meta {
   }
   
+
+  type TContentTypes = typeof CONTENT_TYPES[keyof typeof CONTENT_TYPES];

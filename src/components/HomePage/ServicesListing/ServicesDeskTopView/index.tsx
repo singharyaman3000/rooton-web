@@ -2,32 +2,51 @@
 
 import Tabs from '@/components/UIElements/Tabs';
 import React, { useState } from 'react';
-import { ITabData } from '@/components/UIElements/Tabs/TabsHeader';
+import { ITabHeader, ITabHeaderData } from '@/components/UIElements/Tabs/TabsHeader';
 import ServicesListing from './TabBody';
-import { IServiceData } from '../interafces';
+import { ICoreServices, IService, IServiceData } from '../interafces';
 
-export interface IServicesDeskTopView extends IServiceData {}
+export interface IServicesDeskTopView {
+  serviceData: ICoreServices;
+}
 
-const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
-  const [tab, updateTab] = useState<ITabData>(serviceData[0]);
+const ServicesDeskTopView = ({ serviceData, ...res }: IServicesDeskTopView) => {
+  const getHeaderData = (): ITabHeaderData[] => {
+    const headerdata = serviceData.data?.map((res) => {
+      return {
+        service: res.attributes.title,
+        icon: '',
+      };
+    });
+    return headerdata ?? [];
+  };
+
+  const [tab, updateTab] = useState<ITabHeaderData>(getHeaderData()[0]);
 
   const getServises = () => {
-    return serviceData.map((service) => {
+    console.log(tab);
+    return serviceData.data?.map((service) => {
       return (
         <ServicesListing
-          cssClass={tab.service === service.service ? 'block' : 'hidden'}
-          key={service.service}
-          services={service.services}
+          cssClass={service.attributes.title === tab.service ? 'block' : 'hidden'}
+          key={service.attributes.title}
+          services={service.attributes.sub_services.data ?? []}
         />
       );
     });
   };
+
+  const changeSelectedTab = (data: { service: string }) => {
+    const updatedTabData = serviceData.data?.find((service) => service.attributes.title === data.service);
+    updateTab({ service: updatedTabData?.attributes.title ?? '', icon: '' });
+  };
+
   return (
     <Tabs
       cssClass="hidden md:block"
-      onTabChange={(data) => updateTab(data)}
+      onTabChange={(data) => changeSelectedTab(data)}
       selectedTab={tab}
-      headerData={serviceData}
+      headerData={getHeaderData()}
       tabBody={getServises()}
     />
   );
