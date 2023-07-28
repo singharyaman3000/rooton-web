@@ -11,6 +11,7 @@ import FooterLogo from '@/components/footer-logo';
 import FlagCanadaIcon from '@/icons/flag-canada.icon';
 import FlagIndiaIcon from '@/icons/flag-india.icon';
 import ThemeSwitchProvider from '../providers/themeProviders';
+import { LAYOUT } from './constants/textConstants';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -126,19 +127,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div className=" mb-[6px]">
                   <FlagCanadaIcon />
                 </div>
-                <p className=" text-sm mb-[4px] font-bold">Canada Headquarters</p>
-                <p className=" text-sm mb-[4px]">706-1800, Blvd, Rene-Levesque Ouest,</p>
-                <p className=" text-sm">Montreal Quebec, H3H 2H2.</p>
+                <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
+                <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
+                <p className=" text-sm">{LAYOUT.addressCanada.line2}</p>
+                <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</p>
               </div>
               <div>
                 <div className=" mt-8 mb-[6px]">
                   <FlagIndiaIcon />
                 </div>
-                <p className=" text-sm font-bold mb-[4px]">Indian Headquarters</p>
-                <p className=" text-sm mb-[4px]">
-                  202-203, Velocity Business Hub, LP Savani Rd, nr. Madhuvan Circle, TGB, Adajan,
-                </p>
-                <p className=" text-sm">Surat, Gujarat 395009</p>
+                <p className=" text-sm font-bold mb-[4px]">{LAYOUT.addressIndia.title}</p>
+                <p className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</p>
+                <p className=" text-sm">{LAYOUT.addressIndia.line2}</p>
+                <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressIndia.phone}</p>
               </div>
             </div>
           </footer>
