@@ -7,7 +7,16 @@ import { getHomePageContents } from '../services/apiService/homeAPI';
 export default async function Home() {
   const apiRes = await getHomePageContents();
 
-  console.log(apiRes)
+  // const getComponents = ()=>{
+  //   switch (key) {
+  //     case value:
+        
+  //       break;
+    
+  //     default:
+  //       break;
+  //   }
+  // }
 
   return (
     <>
