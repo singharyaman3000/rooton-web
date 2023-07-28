@@ -13,7 +13,6 @@ export interface ITabHeader {
 }
 
 const containerVarient = {
-  // hidden: { rotate: 90 },
   show: {
       rotate: 0,
       transition: {

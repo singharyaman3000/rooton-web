@@ -5,7 +5,7 @@ import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import Testimonials from '@/components/HomePage/Testimonials';
 import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
-import { IService, IServiceData } from '@/components/HomePage/ServicesListing/interafces';
+import OurProcess, { IOurProcessData } from '@/components/HomePage/OurProcess';
 
 export default async function Home() {
   const apiRes = await getHomePageContents();
@@ -14,17 +14,49 @@ export default async function Home() {
     // console.log(88888888888888888888888888 , apiRes.data)
 
     return apiRes?.attributes?.home_page_contents?.data?.map((contents) => {
+      const { title, sub_title, description } = contents.attributes;
       switch (contents.attributes.content_name) {
         case CONTENT_TYPES.SERVICES:
           return (
             <ServicesListing
-              title={contents.attributes.title}
-              sub_title={contents.attributes.sub_title}
+              title={title}
+              sub_title={sub_title}
               core_services={contents.attributes.core_services || []}
             />
           );
-          case CONTENT_TYPES.CREDIBILITY:
-        return  <Credibility   description={contents.attributes.description ?? ''} title={contents.attributes.title} sub_title={contents.attributes.sub_title} media_url={contents.attributes.media_url} />
+        case CONTENT_TYPES.CREDIBILITY:
+          return (
+            <Credibility
+              description={description ?? ''}
+              title={title}
+              sub_title={sub_title}
+              media_url={contents.attributes.media_url}
+            />
+          );
+
+        case CONTENT_TYPES.WHY_ROOT_ON:
+          return (
+            <>
+              <Honesty
+                title={title}
+                description={description ?? ''}
+                sub_title={sub_title}
+                json_content={contents.attributes.json_content}
+              />
+            </>
+          );
+
+          case CONTENT_TYPES.OUR_PROCESSES:
+            return (
+              <>
+                  <OurProcess title={title} sub_title={sub_title} json_content={contents.attributes.json_content as IOurProcessData} />
+
+              </>
+            );
+
+        case null:
+          return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
+
         default:
           break;
       }
@@ -44,8 +76,6 @@ export default async function Home() {
   return (
     <>
       {getComponents()}
-      <Honesty/>
-      <PartnerShip/>
       <BlogListings />
       <Testimonials />
     </>
