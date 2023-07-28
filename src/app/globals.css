@@ -86,3 +86,20 @@ body {
 .service:hover svg{
 fill: #fff;
 }
+
+/* background grid container css*/
+@media screen and (min-width: 1280px) {
+
+  .credibilityGrid,.honestyGrid{
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .credibilityGrid{
+    background-image: url("/images/homePage/credibilityBgGrid.png");
+  }
+  .honestyGrid{
+    background-image: url("/images/homePage/honestyBgGrid.svg");
+  }
+}
+
