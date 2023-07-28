@@ -1,0 +1,37 @@
+{
+    "subtitle": "Honesty",
+    "title": "Why Root On?",
+    "description": "What seems impossible to others has been made possible by Root On. We have a successful approval rate of more than 70%, considering the fact that a large portion of our clients have complex profiles like - an education gap of more than 5-10 years, multiple previous refusals, poor academic backgrounds, inability to get admission from above average institutions, etc. Want to know how?",
+    "cards":[
+        {
+            "title": "Exclusively for Canada",
+            "description": "Specialized in Canadian immigration, we navigate the specific complexities of the Canadian system with ease.",
+            "iconUrl": "/images/homePage/exclusively_for_canada.svg"
+        },
+        {
+            "title": "More than 14 Years of Expertise",
+            "description": "Leveraging over 14 years of experience, we offer unparalleled expertise in Canadian immigration.",
+            "iconUrl": "/images/homePage/more_than_14_years.svg"
+        },
+        {
+            "title": "More than 14 Years of Expertise",
+            "description": "Leveraging over 14 years of experience, we offer unparalleled expertise in Canadian immigration.",
+            "iconUrl": "/images/homePage/more_than_14_years.svg"
+        },
+        {
+            "title": "More than 14 Years of Expertise",
+            "description": "Leveraging over 14 years of experience, we offer unparalleled expertise in Canadian immigration.",
+            "iconUrl": "/images/homePage/more_than_14_years.svg"
+        },
+        {
+            "title": "More than 14 Years of Expertise",
+            "description": "Leveraging over 14 years of experience, we offer unparalleled expertise in Canadian immigration.",
+            "iconUrl": "/images/homePage/more_than_14_years.svg"
+        },
+        {
+            "title": "More than 14 Years of Expertise",
+            "description": "Leveraging over 14 years of experience, we offer unparalleled expertise in Canadian immigration.",
+            "iconUrl": "/images/homePage/more_than_14_years.svg"
+        }
+    ]
+}
