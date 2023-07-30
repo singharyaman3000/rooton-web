@@ -9,7 +9,7 @@ const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; 
         return (
           <div
             className={
-              'items-center service justify-between w-[45%] delay-75 cursor-pointer hover:text-white transition-all hover:bg-deep-yellow  hover:[&svg]:fill-white [&>svg]:fill-deep-yellow p-[24px_24px_0px_24px] text-primary-text text-lg font-bold not-italic leading-[normal] tracking-[normal] flex-shrink-0'
+              'items-center service justify-between w-[45%] delay-75 cursor-pointer text-black hover:text-white transition-all hover:bg-deep-yellow  hover:[&svg]:fill-white [&>svg]:fill-deep-yellow p-[24px_24px_0px_24px]  text-lg font-bold not-italic leading-[normal] tracking-[normal] flex-shrink-0'
             }
             key={service.attributes.title}
           >

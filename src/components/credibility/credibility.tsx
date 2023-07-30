@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
+import { MediaUrl } from '@/app/services/apiService/interfaces';
 import { motion } from 'framer-motion';
 import Description from '../home-contents/Description';
 import ImageCard from '../UIElements/image-card';
 import Container from '../UIElements/wrapper-container';
 import SectionTitle from '../UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '../UIElements/SectionHeadings/SubSectiontitle';
-import { MediaUrl } from '@/app/services/apiService/interfaces';
 
 interface ICredibilitycontent {
   sub_title: string;

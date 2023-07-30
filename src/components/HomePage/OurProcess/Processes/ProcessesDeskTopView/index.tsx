@@ -50,14 +50,13 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
   }, [refs]);
 
   return (
-    <div className="mt-[48px] mb-[120px] relative hidden md:block">
+    <div className="mt-[48px] mb-[120px] relative hidden md:block processes">
       {process.map(({ key, value, position }, index) => {
         return (
           <>
             <div
-              className={`flex py-[26px] px-[32px] ease-linear transition-all ${
-                selectedElem.toString() === position.toString() && 'bg-pale-yellow'
-              }`}
+              style={{ background: selectedElem.toString() === position.toString() ? 'var(--selector-bg)' : '' }}
+              className={`flex py-[26px] px-[32px] ease-linear transition-all`}
               key={`${position}-desktop`}
               id={position}
               ref={refs[index]}
@@ -66,10 +65,12 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
                 <span className=" mr-[30px] text-[40px] font-light not-italic leading-[normal] tracking-[normal] text-[#e3a430]">
                   {position}
                 </span>
-                <h5 className="text-xl font-bold not-italic leading-normal tracking-[normal] text-black">{key}</h5>
+                <h5 className="text-xl font-bold not-italic leading-normal tracking-[normal] text-primary-font-color">
+                  {key}
+                </h5>
               </div>
               <div className="pl-[70px] pr-[30px]">
-                <p className=" opacity-[0.7] text-lg font-medium not-italic leading-[1.67] tracking-[normal] text-black">
+                <p className=" opacity-[0.7] text-lg font-medium not-italic leading-[1.67] tracking-[normal] text-primary-font-color">
                   {value}
                 </p>
               </div>

@@ -10,6 +10,7 @@ import HonestyCard, { IWhyRootON } from './honestyCard';
 import { ITitleAttributes } from '../ServicesListing/interafces';
 
 export type IJsonContent = {
+  /* eslint-disable no-unused-vars */
   [key in 'why-rooton']: IWhyRootON[] | null;
 };
 

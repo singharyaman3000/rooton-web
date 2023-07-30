@@ -10,15 +10,16 @@ import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import React from 'react';
 import { useSwipeable } from 'react-swipeable';
+import { ITitleAttributes } from '../ServicesListing/interafces';
 
-export interface IBlogCard {
+export interface IBlogCard  {
   data: IBlogCardData[];
 }
-export interface IBlogListing {
+export interface IBlogListing extends ITitleAttributes {
   blogs: IBlogCard;
 }
 
-const BlogListings = ({ blogs }: IBlogListing) => {
+const BlogListings = ({ blogs , title , sub_title }: IBlogListing) => {
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'news-listing',
     sliderData: blogs.data,
@@ -33,11 +34,11 @@ const BlogListings = ({ blogs }: IBlogListing) => {
   });
 
   return (
-    <section className="w-full bg-secondary-grey">
+    <section className="w-full blogs-listing">
       <SectionContainer cssClass="!pr-[0px]">
         <div className="flex items-center justify-between md:pr-[80px]">
           <div>
-            <SectionHeadings title={NEWS_TITLE.title} subTitle={NEWS_TITLE.subTitle} />
+            <SectionHeadings title={title} subTitle={sub_title} />
           </div>
           <div className="items-center hidden md:flex">
             <div className="mr-[30px]">

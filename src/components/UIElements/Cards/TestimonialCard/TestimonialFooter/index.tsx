@@ -1,4 +1,4 @@
-import { IMediaAttributes, IMediaUrlData } from '@/app/services/apiService/interfaces';
+import { IMediaAttributes } from '@/app/services/apiService/interfaces';
 import NextImage from '@/components/UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import React from 'react';
@@ -41,10 +41,10 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college }: TTe
         />
       </div>
       <div className="">
-        <div className="text-bold font-bold text-[11.2px] text-primary-text  not-italic leading-[normal] tracking-[normal] md:text-base ">
+        <div className="text-bold font-bold text-[11.2px] text-black  not-italic leading-[normal] tracking-[normal] md:text-base ">
           {name}
         </div>
-        <div className="text-[10px] text-primary-text  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
+        <div className="text-[10px] text-[#2f2f2f;]  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
           {college}
         </div>
       </div>

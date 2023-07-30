@@ -1,6 +1,8 @@
+'use client';
+
 import DropDownCaret from '@/components/Icons/DropDownCaret';
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface IAccordion {
   header: React.ReactNode;
@@ -11,6 +13,8 @@ interface IAccordion {
   handleOnClick: (accordionId: string) => void;
   accordionId: string;
   cssClass?: string;
+  customSpacer?: ReactNode;
+  customToggle?: ReactNode;
 }
 
 const Accordion = ({
@@ -21,6 +25,8 @@ const Accordion = ({
   accordionBodyCss,
   openAccordion,
   accordionId,
+  customSpacer,
+  customToggle,
 }: IAccordion) => {
   return (
     <div className={cssClass}>
@@ -31,11 +37,13 @@ const Accordion = ({
           onClick={() => handleOnClick(accordionId)}
         >
           <div className="text-base font-bold not-italic leading-[normal] tracking-[normal]">{header}</div>
-          <div className={`${openAccordion ? 'rotate-180' : 'rotate-0'}  transition-all delay-75`}>
-            <DropDownCaret />
-          </div>
+          {customToggle ?? (
+            <div className={`${openAccordion ? 'rotate-180' : 'rotate-0'}  transition-all delay-75`}>
+              <DropDownCaret />
+            </div>
+          )}
         </button>
-        <div className="w-full h-[1px] bg-[#b17900] opacity-20"></div>
+        {customSpacer ?? <div className="w-full h-[1px] bg-[#b17900] opacity-20"></div>}
       </div>
       <AnimatePresence initial={false}>
         {openAccordion && (
