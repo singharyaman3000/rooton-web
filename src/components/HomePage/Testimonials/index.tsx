@@ -17,7 +17,7 @@ import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import VideoElement from '@/components/UIElements/VideoElement';
 import { appendAssetUrl } from '@/utils';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 export interface ITestimonials {
@@ -45,8 +45,6 @@ const Testimonials = () => {
     setPopUpData(videoData);
     showPopUp();
   };
-
-  const hideVideoPoUp = ()=>hidePopUp()
 
   return (
     <section className="w-full bg-primary-white ">

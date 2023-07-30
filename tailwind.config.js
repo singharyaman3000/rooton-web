@@ -43,7 +43,11 @@ module.exports = {
         'deep-yellow': 'var(--deep-yellow)',
         'secondary-grey' : 'var(--secondary-grey)',
         'primary-black' : 'var(--primary-black)',
-        'pale-yellow':'var(--pale-yellow)'
+        'pale-yellow':'var(--pale-yellow)',
+        'pale-yellow-black':'var(--pale-yellow-black)',
+        'faded-black': 'var(--faded-black)',
+        'light-brown':'var(--light-brown)',
+        'sandal':'var(--sandal)'
       },
       fontFamily : {
         "jakarta" : ["var(--font-jakarta)"],

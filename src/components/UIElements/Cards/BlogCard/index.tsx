@@ -1,9 +1,9 @@
 import React from 'react';
 import { appendAssetUrl, formatDate } from '@/utils';
+import { IAttributes } from '@/app/services/apiService/interfaces';
 import NextImage from '../../NextImage';
 import Button from '../../Button';
 import gridOverlay from '../../../../../public/images/overlay/card-grid-overlay.png';
-import { IAttributes } from '@/app/services/apiService/interfaces';
 
 export interface IBlogCardData {
   id: number;
@@ -24,14 +24,14 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
         />
       </div>
       <div className="p-[16px] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white ">
-        <h5 className="text-xs text-primary-text font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
+        <h5 className="text-xs text-black font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
           {attributes.title}
         </h5>
         <div className="flex flex-wrap md:flex-nowrap items-center w-full justify-between">
-          <Button label="Read More" ariaLabel="Read More" handleOnClick={() => null} tabIndex={0} />
+          <Button label="Read More" ariaLabel="Read More" cssClass='text-black' handleOnClick={() => null} tabIndex={0} />
           <div className="text-xs mt-[8px] md:mt-0 order-2 md:order-1  not-italic leading-[normal] tracking-[normal] md:text-sm">
-            <span className="mr-[8px]  opacity-[0.36] text-primary-text">Last updated:</span>
-            <span className="">{formatDate(attributes.updatedAt)}</span>
+            <span className="mr-[8px]  opacity-[0.36] text-black">Last updated:</span>
+            <span className="text-black">{formatDate(attributes.updatedAt)}</span>
           </div>
         </div>
       </div>

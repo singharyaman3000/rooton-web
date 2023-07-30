@@ -21,7 +21,8 @@ export interface ITestimonialAttributes {
 
 export interface ITestimonial {
   type?: 'video' | 'text';
-  handleOnClick : (attributes:ITestimonialAttributes)=>void
+  /* eslint-disable no-unused-vars */
+  handleOnClick: (attributes: ITestimonialAttributes) => void;
 }
 
 export interface ITestimonialData extends ITestimonial {
@@ -29,15 +30,12 @@ export interface ITestimonialData extends ITestimonial {
   attributes: ITestimonialAttributes;
 }
 
-const TestimonialCard = ({
-  attributes,
-  type,handleOnClick
-}: ITestimonialData) => {
+const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) => {
   return (
     <div className={`h-[32.5rem] p-[12.8px] md:p-[20px] relative ${type === 'text' ? 'bg-secondary-grey' : ''}`}>
       <div className=" relative h-full">
         {type === 'text' && (
-          <div className="text-xs font-medium p-[20px] md:p-[36px] not-italic !leading-[1.67] tracking-[normal] md:text-sm text-primary-text">
+          <div className="text-xs font-medium p-[20px] md:p-[36px] not-italic !leading-[1.67] tracking-[normal] md:text-sm text-black">
             <p>{HtmlParser(attributes?.description)}</p>
           </div>
         )}
@@ -64,7 +62,7 @@ const TestimonialCard = ({
                33vw"
           />
           <div className="absolute w-full h-full top-0 bg-black opacity-[0.32]"></div>
-          <button className="relative z-10" type="button" onClick={()=>handleOnClick(attributes)}>
+          <button className="relative z-10" type="button" onClick={() => handleOnClick(attributes)}>
             <PlayButton />
           </button>
         </div>

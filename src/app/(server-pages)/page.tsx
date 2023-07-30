@@ -9,8 +9,9 @@ import { appendAssetUrl } from '@/utils';
 import RootOnBarBtn from '@/components/HomePage/RootOnBanner/RootOnBarBtn';
 import FlightIcon from '@/components/Icons/FlightIcon';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
-import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
 import Testimonials from '@/components/HomePage/Testimonials';
+import ChallengesListing, { IChallenges } from '@/components/HomePage/IChallengesListing';
+import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
 
 export default async function Home() {
   const apiRes = await getHomePageContents();
@@ -53,11 +54,18 @@ export default async function Home() {
           />
         );
       case CONTENT_TYPES.BLOG:
-        return <BlogListings blogs={contents.attributes.blogs} />;
-
+        return <BlogListings blogs={contents.attributes.blogs} title={title} sub_title={sub_title} />;
+      case CONTENT_TYPES.CHALLENGES:
+        return (
+          <ChallengesListing
+            description={description ?? ''}
+            sub_title={sub_title}
+            title={title}
+            json_content={contents.attributes.json_content as IChallenges}
+          />
+        );
       case null:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
-
       default:
         return null;
       }

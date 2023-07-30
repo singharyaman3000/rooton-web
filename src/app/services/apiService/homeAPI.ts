@@ -3,6 +3,7 @@ import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces'
 import { IHonesty, IJsonContent } from '@/components/HomePage/Honesty';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import { IBlogCard } from '@/components/HomePage/BlogListings';
+import { IChallenges } from '@/components/HomePage/IChallengesListing';
 import { HOME_API } from './apiUrl/homePage';
 import { MediaUrl } from './interfaces';
 
@@ -12,6 +13,7 @@ export const CONTENT_TYPES = {
   WHY_ROOT_ON: 'why_rooton',
   OUR_PROCESSES: 'processes',
   BLOG: 'blogs',
+  CHALLENGES: 'challenges',
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
@@ -27,7 +29,7 @@ export interface Attributes2 {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  json_content: IHonesty | IOurProcessData | IJsonContent;
+  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges;
   blogs: IBlogCard;
   core_services: ICoreServices;
   media_url: MediaUrl;

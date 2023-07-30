@@ -37,7 +37,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
             type="button"
             onClick={() => handleOnClick({ service })}
             className={`p-[15px] text-primary-text  w-[180px] flex items-center flex-col ${
-              service === selectedTab.service ? 'bg-primary-black text-primary-white' : ''
+              service === selectedTab.service ? 'tab-selectedBg text-primary-white' : ''
             }`}
             key={service}
             aria-label={service}
