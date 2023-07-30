@@ -112,3 +112,24 @@ fill: #fff;
 .divider {
   background-image: linear-gradient(to left, rgba(255, 243, 224, 0), #fddaa1 91%, #fddaa1 11%, rgba(254, 244, 228, 0));
 }
+
+.movable-wrapper{
+  position: absolute;
+  width: 59.2px;
+  height: 59.2px;
+  opacity: 0.22;
+  top: 12px;
+  left: 16px;
+  -webkit-filter: blur(16px);
+  filter: blur(16px);
+  background-color: #000000a8;
+ }
+
+ .processes-mobile-view  > div:last-child{
+  display: none;
+ }
+
+ .popup {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 11px 15px -7px, rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px;
+  background: #fff;   
+}

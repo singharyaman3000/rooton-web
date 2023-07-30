@@ -2,15 +2,15 @@
 
 import Tabs from '@/components/UIElements/Tabs';
 import React, { useState } from 'react';
-import { ITabHeader, ITabHeaderData } from '@/components/UIElements/Tabs/TabsHeader';
+import { ITabHeaderData } from '@/components/UIElements/Tabs/TabsHeader';
 import ServicesListing from './TabBody';
-import { ICoreServices, IService, IServiceData } from '../interafces';
+import { ICoreServices } from '../interafces';
 
 export interface IServicesDeskTopView {
   serviceData: ICoreServices;
 }
 
-const ServicesDeskTopView = ({ serviceData, ...res }: IServicesDeskTopView) => {
+const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
   const getHeaderData = (): ITabHeaderData[] => {
     const headerdata = serviceData.data?.map((res) => {
       return {

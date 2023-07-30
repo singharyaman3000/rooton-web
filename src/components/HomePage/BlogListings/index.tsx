@@ -3,7 +3,7 @@
 import { NEWS_TITLE } from '@/app/constants/textConstants';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import Button from '@/components/UIElements/Button';
-import BlogCard from '@/components/UIElements/Cards/BlogCard';
+import BlogCard, { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import Slider from '@/components/UIElements/Slider';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
@@ -11,8 +11,18 @@ import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import React from 'react';
 import { useSwipeable } from 'react-swipeable';
 
-const BlogListings = () => {
-  const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({ slideId: 'news-listing' });
+export interface IBlogCard {
+  data: IBlogCardData[];
+}
+export interface IBlogListing {
+  blogs: IBlogCard;
+}
+
+const BlogListings = ({ blogs }: IBlogListing) => {
+  const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
+    slideId: 'news-listing',
+    sliderData: blogs.data,
+  });
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       incrementPage();
@@ -47,12 +57,9 @@ const BlogListings = () => {
             pageNum={pageNum}
             slideClass="!w-[73.4%] !min-w-[264px] md:!w-[29.2%] w-full md:!min-w-[404px] !md:max-w-[400px]"
           >
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
+            {blogs?.data?.map((blogData) => {
+              return <BlogCard id={blogData.id} key={blogData.id} attributes={blogData.attributes} />;
+            })}
           </Slider>
         </div>
       </SectionContainer>

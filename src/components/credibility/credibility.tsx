@@ -7,26 +7,13 @@ import ImageCard from '../UIElements/image-card';
 import Container from '../UIElements/wrapper-container';
 import SectionTitle from '../UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '../UIElements/SectionHeadings/SubSectiontitle';
+import { MediaUrl } from '@/app/services/apiService/interfaces';
 
 interface ICredibilitycontent {
   sub_title: string;
   title: string;
   description: string;
-  media_url: IMediaUrl;
-}
-
-export interface IMediaUrl {
-  data?: IMediaData[] | null;
-}
-export interface IMediaData {
-  id: number;
-  attributes: IMediaAttribute;
-}
-export interface IMediaAttribute {
-  name: string;
-  alternativeText?: null;
-  caption?: null;
-  url: string;
+  media_url: MediaUrl;
 }
 
 const Credibility = ({ description, title, sub_title, media_url }: ICredibilitycontent) => {

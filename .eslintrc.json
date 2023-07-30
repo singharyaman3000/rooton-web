@@ -80,15 +80,7 @@
         "extendDefaults": true
       }
     ],
-    "camelcase": [
-      "error",
-      {
-        "properties": "always",
-        "ignoreDestructuring": true,
-        "ignoreImports": true,
-        "ignoreGlobals": true
-      }
-    ],
+    "camelcase": "off",
     "import/extensions": [
       "error",
       "never",
