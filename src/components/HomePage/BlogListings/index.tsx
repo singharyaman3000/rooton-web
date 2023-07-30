@@ -1,6 +1,5 @@
 'use client';
 
-import { NEWS_TITLE } from '@/app/constants/textConstants';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import Button from '@/components/UIElements/Button';
 import BlogCard, { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
@@ -12,14 +11,14 @@ import React from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { ITitleAttributes } from '../ServicesListing/interafces';
 
-export interface IBlogCard  {
+export interface IBlogCard {
   data: IBlogCardData[];
 }
 export interface IBlogListing extends ITitleAttributes {
   blogs: IBlogCard;
 }
 
-const BlogListings = ({ blogs , title , sub_title }: IBlogListing) => {
+const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'news-listing',
     sliderData: blogs.data,
