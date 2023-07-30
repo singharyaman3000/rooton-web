@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        BASE_URL: process.env.API_BASE_URL,
+        NEXT_API_BASE_URL: process.env.NEXT_API_BASE_URL,
         NEXT_ASSETS_BASEURL : process.env.NEXT_ASSETS_BASEURL,
         NEXT_APP_ENVIRONMENT : process.env.NEXT_APP_ENVIRONMENT
     },

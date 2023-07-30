@@ -1,4 +1,3 @@
-import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import React from 'react';

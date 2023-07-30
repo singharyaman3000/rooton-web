@@ -1,6 +1,6 @@
 import React from 'react';
-import { ISectionTitle } from '../SectionTitle';
 import ReactHtmlParser from 'react-html-parser';
+import { ISectionTitle } from '../SectionTitle';
 
 const SubSectionTitle = ({ title, cssClass }: ISectionTitle) => {
   return (

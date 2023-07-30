@@ -70,10 +70,10 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`${
+      className={` fixed w-full top-0 z-50 ${
         scrolledEnough
           ? ' fixed w-full text-header-font-color-scrolled-enough bg-primary'
-          : ' relative text-header-font-color'
+          : ' text-header-font-color'
       }`}
     >
       <SliderOverlay open={open} setOpen={setOpen} />

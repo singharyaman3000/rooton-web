@@ -1,19 +1,37 @@
 'use client';
 
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
+import { getTestimonials } from '@/app/services/testimonialAPI';
 import SectionContainer from '@/components/Containers/SectionContainers';
-import TestimonialCard from '@/components/UIElements/Cards/TestimonialCard';
+import TestimonialCard, {
+  ITestimonialAttributes,
+  ITestimonialData,
+} from '@/components/UIElements/Cards/TestimonialCard';
+import TestimonialFooter from '@/components/UIElements/Cards/TestimonialCard/TestimonialFooter';
+import PopUp from '@/components/UIElements/PopUp';
+import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import Slider from '@/components/UIElements/Slider';
+import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
-import React from 'react';
+import VideoElement from '@/components/UIElements/VideoElement';
+import { appendAssetUrl } from '@/utils';
+import React, { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
+export interface ITestimonials {
+  testimonials: ITestimonialData[];
+}
+
 const Testimonials = () => {
+  const { data } = useClientAPI({ apiFn: getTestimonials });
+  const { showPopUp, hidePopUp, poupState } = usePopUp();
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',
+    sliderData: data,
   });
+  const [popUpData, setPopUpData] = useState<ITestimonialAttributes>();
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       incrementPage();
@@ -22,6 +40,13 @@ const Testimonials = () => {
       decrementPage();
     },
   });
+
+  const showVideoPopUP = (videoData: ITestimonialAttributes) => {
+    setPopUpData(videoData);
+    showPopUp();
+  };
+
+  const hideVideoPoUp = ()=>hidePopUp()
 
   return (
     <section className="w-full bg-primary-white ">
@@ -45,12 +70,39 @@ const Testimonials = () => {
             pageNum={pageNum}
             slideClass="!w-[73.4%] !min-w-[264px] md:!w-[29.2%] w-full md:!min-w-[404px] !md:max-w-[400px]"
           >
-            <TestimonialCard type="video" />
-            <TestimonialCard type="text" />
-            <TestimonialCard type="text" />
-            <TestimonialCard type="text" />
+            {(data ?? []).map(({ attributes, id }) => {
+              return (
+                <TestimonialCard
+                  handleOnClick={showVideoPopUP}
+                  id={id}
+                  attributes={attributes}
+                  key={id}
+                  type={attributes.media_url.data?.[0]?.attributes.ext === '.mp4' ? 'video' : 'text'}
+                />
+              );
+            })}
           </Slider>
         </div>
+        <PopUp
+          onClose={hidePopUp}
+          showPopuUp={poupState}
+          body={
+            <VideoElement
+              cssClass={'object-cover absolute h-full top-0'}
+              poster=""
+              src={appendAssetUrl(popUpData?.media_url.data[0].attributes.url ?? '')}
+            />
+          }
+          header={
+            <TestimonialFooter
+              name={popUpData?.name ?? ''}
+              college={popUpData?.college ?? ''}
+              caption={popUpData?.profile_picture.data.attributes.caption ?? ''}
+              url={popUpData?.profile_picture.data.attributes.url ?? ''}
+              alternativeText={popUpData?.profile_picture.data.attributes.alternativeText ?? ''}
+            />
+          }
+        />
       </SectionContainer>
     </section>
   );

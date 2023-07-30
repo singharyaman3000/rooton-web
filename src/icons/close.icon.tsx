@@ -4,7 +4,7 @@ export default function CloseIcon() {
       <path
         d="M1.846 24 0 22.154 10.154 12 0 1.846 1.846 0 12 10.154 22.154 0 24 1.846 13.846 12 24 22.154 22.154 24 12 13.846z"
         fill="#000"
-        fill-rule="nonzero"
+        fillRule="nonzero"
       />
     </svg>
   );
