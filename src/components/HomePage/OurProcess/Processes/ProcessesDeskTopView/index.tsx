@@ -56,7 +56,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
           <>
             <div
               style={{ background: selectedElem.toString() === position.toString() ? 'var(--selector-bg)' : '' }}
-              className={`flex py-[26px] px-[32px] ease-linear transition-all`}
+              className='flex py-[26px] px-[32px] ease-linear transition-all'
               key={`${position}-desktop`}
               id={position}
               ref={refs[index]}
