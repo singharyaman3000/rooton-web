@@ -56,6 +56,10 @@ module.exports = {
         'light-brown':'var(--light-brown)',
         'sandal':'var(--sandal)',
       },
+      lineHeight: {
+        'primary': '1.71',
+        'heading': '1.43',
+      },
     },
   },
   plugins: [
