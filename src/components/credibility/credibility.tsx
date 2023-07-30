@@ -1,26 +1,24 @@
 'use client';
 
 import React from 'react';
-import SubTitle from '../home-contents/SubTitle';
-import TitleWrapper from '../home-contents/Title';
+import { MediaUrl } from '@/app/services/apiService/interfaces';
+import { motion } from 'framer-motion';
 import Description from '../home-contents/Description';
 import ImageCard from '../UIElements/image-card';
-import CredibilityContentsJson from './credibilityContents.json';
 import Container from '../UIElements/wrapper-container';
-import { motion } from 'framer-motion';
+import SectionTitle from '../UIElements/SectionHeadings/SectionTitle';
+import SubSectionTitle from '../UIElements/SectionHeadings/SubSectiontitle';
 
-const Credibility = () => {
-  interface ICredibilitycontent {
-    subtitle: string;
-    title: string;
-    description: string;
-    licenseImages: { imageUrl: string; altText: string; title: string; iconClass: string }[];
-  }
+interface ICredibilitycontent {
+  sub_title: string;
+  title: string;
+  description: string;
+  media_url: MediaUrl;
+}
 
-  const CredibilityContent: ICredibilitycontent = CredibilityContentsJson;
-
+const Credibility = ({ description, title, sub_title, media_url }: ICredibilitycontent) => {
   return (
-    <Container>
+    <Container cssBgClass="credibilityGrid">
       <div className="mt-10 md:flex md:justify-between md:w-full xl:max-h-[534px]">
         <motion.div
           initial={{ opacity: 0, y: 100 }}
@@ -35,21 +33,21 @@ const Credibility = () => {
           }}
           className="w-full md:w-[50vw] xl:w-[40vw] max-w-[576px]"
         >
-          <SubTitle subtitle={CredibilityContent?.subtitle} />
-          <TitleWrapper title={CredibilityContent?.title} />
-          <Description cssClass="mt-6" description={CredibilityContent?.description} />
+          <SectionTitle title={title} />
+          <SubSectionTitle title={sub_title} />
+          <Description cssClass="mt-6" description={description} />
         </motion.div>
         <div className="flex flex-col gap-6 lg:gap-[52px] mt-8 lg:mt-0 items-center md:w-[27.7vw] max-w-[399px] xl:mr-[120px] lg:h-full">
-          {CredibilityContent?.licenseImages?.map((lisenseImage, index) => (
+          {media_url.data?.map((lisenseImage, index) => (
             <ImageCard
               index={index}
-              key={`${lisenseImage?.title}`}
+              key={`${lisenseImage?.id}`}
               cssClass="h-[50.7px] sm:w-[80%] md:w-full"
-              imageUrl={lisenseImage?.imageUrl}
+              imageUrl={lisenseImage?.attributes.url}
               sizes={'30vw'}
-              title={lisenseImage?.title}
-              altText={lisenseImage?.altText}
-              iconClass={lisenseImage?.iconClass}
+              title={lisenseImage?.attributes.caption ?? ''}
+              altText={lisenseImage?.attributes.alternativeText ?? ''}
+              iconClass={''}
             />
           ))}
         </div>

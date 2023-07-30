@@ -13,7 +13,7 @@ const DropDownCaret = ({ cssClas }: IIcon) => {
       <path
         d="m12.581 0 1.194 1.194-7 7L0 1.419 1.267.153l5.548 5.55L12.52 0h.062z"
         fill="#FFAF00"
-        fill-rule="nonzero"
+        fillRule="nonzero"
       />
     </svg>
   );

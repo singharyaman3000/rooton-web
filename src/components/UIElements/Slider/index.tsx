@@ -19,14 +19,16 @@ const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPer
     <div className="relative mx-[-12px]">
       <div className="relative overflow-hidden">
         <div
-          className={`flex justify-between  w-full transition-transform md:delay-100 md:duration-300 snap-x snap-mandatory ${slideParentClass}`}
+          className={`flex justify-between  
+          w-full transition-transform md:delay-100 
+          md:duration-300 snap-x snap-mandatory ${slideParentClass}`}
           style={{ transform: `translateX(${scrollPercent ?? `${-pageNum * 100}%`})` }}
           id={id}
         >
           {children?.map((child) => {
             return (
               <motion.article
-                key={child.props.key}
+                key={child.key}
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{

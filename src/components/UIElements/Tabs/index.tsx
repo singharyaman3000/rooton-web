@@ -2,15 +2,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import TabHeader, { ITabData, ITabHeader } from './TabsHeader';
+import TabHeader, { ITabHeader, ITabHeaderData } from './TabsHeader';
 import NextImage from '../NextImage';
 import TabOverlay from '../../../../public/images/overlay/services-tab-overlay.png';
 
 export type ITabs = Pick<ITabHeader, 'headerData'> & {
   cssClass?: string;
-  tabBody: React.ReactNode[];
-  selectedTab: ITabData;
-  onTabChange: (selectedTabData: ITabData) => void; // eslint-disable-line no-unused-vars
+  tabBody: React.ReactNode[] | undefined;
+  selectedTab: ITabHeaderData;
+  onTabChange: (selectedTabData: {service:string}) => void; // eslint-disable-line no-unused-vars
 };
 
 const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs) => {

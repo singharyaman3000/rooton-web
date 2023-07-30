@@ -8,6 +8,7 @@
   --primary-font-color: #000;
   --header-font-color: #000;
   --header-font-color-scrolled-enough: #000;
+  --faded-black:rgba(0, 0, 0, 0.7);
 
   --primary-border: #d8d8d85C;
   --secondary-border: #d2d2d2;
@@ -25,6 +26,9 @@
   --pale-yellow:#fff6e7;
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
+  --pale-yellow-black:#fff6e7;
+  --light-brown:#717171;
+  --sandal:rgba(234, 213, 169, 1);
 }
 
 [data-theme='dark'] {
@@ -39,11 +43,17 @@
   --primary-font-color: #FFF;
   --header-font-color: #FFF;
   --header-font-color-scrolled-enough: #FFF;
+  --faded-black:#fff;
 
   --primary-border: #d8d8d85C;
   --secondary-border: #d2d2d25c;
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(255,255,255,0.5);
+  --pale-yellow-black:#000;
+  --light-brown :#fff;
+  --sandal:rgba(234, 213, 169, 0.32);
+  
+
 }
 
 @tailwind base;
@@ -74,7 +84,10 @@ body {
   border-color: var(--capic-border);
   border-left: solid transparent;
 }
-.gradient-text {
+
+
+
+.gradient-text span{
   background-image: linear-gradient(108deg, #e5de31 2%, #ffaf00 75%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,4 +112,102 @@ body {
 
 .service:hover svg{
 fill: #fff;
+}
+
+/* background grid container css*/
+@media screen and (min-width: 1280px) {
+
+  .credibilityGrid,.honestyGrid{
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .credibilityGrid{
+    background-image: url("/images/homePage/credibilityBgGrid.png");
+  }
+  .honestyGrid{
+    background-image: url("/images/homePage/honestyBgGrid.svg");
+  }
+  .partnersGrid {
+    background-image: url(/images/homePage/partnersBgGrid.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.divider {
+  background-image: linear-gradient(to left, rgba(255, 243, 224, 0), #fddaa1 91%, #fddaa1 11%, rgba(254, 244, 228, 0));
+}
+
+
+
+.movable-wrapper{
+  position: absolute;
+  width: 59.2px;
+  height: 59.2px;
+  opacity: 0.22;
+  top: 12px;
+  left: 16px;
+  -webkit-filter: blur(16px);
+  filter: blur(16px);
+  background-color: #000000a8;
+  margin: 11.8px 0 0 11.8px;
+  padding: 5.6px 27.2px 28px 4px;
+ }
+
+ [data-theme='dark'] .movable-wrapper {
+  opacity: 0.42;
+  -webkit-filter: blur(16px);
+  filter: blur(16px);
+  background-color: #ffbb4e;
+ }
+
+
+ .processes{
+  --selector-bg:var(--pale-yellow);
+ }
+ [data-theme='dark'] .processes {
+  --selector-bg : rgba(256 , 256, 256 ,0.1);
+ }
+
+ [data-theme='dark'] .processes > svg {
+  opacity: 0.28;
+ }
+
+
+ .processes-mobile-view  > div:last-child{
+  display: none;
+ }
+
+ .popup {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 11px 15px -7px, rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px;
+  background: #fff;   
+}
+
+.challenges-accordion button{
+  padding-bottom: 0px !important;
+}
+
+.challenges-accordion >div{
+  padding: 0px !important;
+  background: transparent !important;
+  color:var(--primary-text);
+}
+
+
+.blogs-listing{
+  background: var(--secondary-grey);
+}
+
+[data-theme='dark'] .blogs-listing{
+  background: #000;
+}
+
+.tab-selectedBg{
+  background: #000;
+}
+
+[data-theme='dark'] .tab-selectedBg{
+  background: #fff6e7;
 }

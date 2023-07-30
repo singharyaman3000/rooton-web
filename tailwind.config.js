@@ -51,6 +51,10 @@ module.exports = {
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
+        'pale-yellow-black':'var(--pale-yellow-black)',
+        'faded-black': 'var(--faded-black)',
+        'light-brown':'var(--light-brown)',
+        'sandal':'var(--sandal)',
       },
     },
   },
