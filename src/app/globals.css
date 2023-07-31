@@ -64,16 +64,9 @@ body {
   padding: 0;
   color: var(--primary-text);
   font-family: var(--font-jakarta);
+  background-color: var(--primary-bg);
 }
 
-.border-cicc {
-  border-color: var(--cicc-border);
-  border-left: solid transparent;
-}
-.border-capic {
-  border-color: var(--capic-border);
-  border-left: solid transparent;
-}
 
 
 
