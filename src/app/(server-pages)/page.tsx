@@ -12,6 +12,23 @@ import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import Testimonials from '@/components/HomePage/Testimonials';
 import ChallengesListing, { IChallenges } from '@/components/HomePage/IChallengesListing';
 import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'ROOT ON',
+  description: 'Root On',
+  openGraph: {
+    // url : appendAssetUrl('/root-on-logo-svg.svg')
+    title: 'Root On',
+    description: 'Root On',
+    type: 'article',
+  },
+  twitter: {
+    title: 'ROOT ON',
+    description: 'Root On',
+    card: 'summary_large_image',
+  },
+};
 
 export default async function Home() {
   const apiRes = await getHomePageContents();

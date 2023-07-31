@@ -40,7 +40,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
     </Container>
     <Container>
       <div className="mb-[40px]  lg:mb-[100px]">
-        <div className=" grid grid-cols-1 divide-y border-1 border-white lg:divide-x md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className=" grid grid-cols-1 border-1 border-white md:grid-cols-2 lg:grid-cols-3 gap-6">
           {json_content?.['why-rooton']?.map((whyRootOn) => (
             <HonestyCard
               key={whyRootOn?.key}
