@@ -3,7 +3,8 @@ const nextConfig = {
     env: {
         NEXT_API_BASE_URL: process.env.NEXT_API_BASE_URL,
         NEXT_ASSETS_BASEURL : process.env.NEXT_ASSETS_BASEURL,
-        NEXT_APP_ENVIRONMENT : process.env.NEXT_APP_ENVIRONMENT
+        NEXT_APP_ENVIRONMENT : process.env.NEXT_APP_ENVIRONMENT,
+        NEXT_APP_BASE_URL : process.env.NEXT_APP_BASE_URL,
     },
     images:{
         domains :process.env.NEXT_APP_ENVIRONMENT === "development" ?  ['rootonweb-dev-be.qburst.build'] : [''],
