@@ -47,7 +47,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="w-full bg-primary-white ">
+    <section className="w-full bg-primary-white overflow-x-hidden">
       <SectionContainer cssClass="!pr-[0px]">
         <div className="flex items-center justify-between md:pr-[80px]">
           <div>
