@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     url : `${process.env.NEXT_APP_BASE_URL}`,
     title: 'Root On',
-    images :`${process.env.NEXT_APP_BASE_URL}/images/root-on-logo.png`,
+    images :`${process.env.NEXT_APP_BASE_URL}/images/og-image.png`,
     description: 'Root On',
     type: 'article',
   },
