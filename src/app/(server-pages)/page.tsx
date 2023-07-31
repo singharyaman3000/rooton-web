@@ -1,4 +1,4 @@
-import Credibility from '@/components/credibility/credibility';
+import Credibility from '@/components/HomePage/credibility/credibility';
 import BlogListings from '@/components/HomePage/BlogListings';
 import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
