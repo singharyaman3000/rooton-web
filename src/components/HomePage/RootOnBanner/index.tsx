@@ -51,7 +51,7 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
           >
             <h1
               className="
-                    open-work-permit
+                    banner-text
                     text-[37.2px]
                     lg:text-[62px]
                     mr-9
@@ -59,6 +59,7 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
                     leading-[normal]
                     text-white
                     font-jakartaSans
+                    banner-text
                 "
             >
               {ReactHtmlParser(heroText)}

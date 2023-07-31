@@ -5,7 +5,7 @@ import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import { IBlogCard } from '@/components/HomePage/BlogListings';
 import { IChallenges } from '@/components/HomePage/IChallengesListing';
 import { HOME_API } from './apiUrl/homePage';
-import { MediaUrl } from './interfaces';
+import { IMediaUrlData, MediaUrl } from './interfaces';
 
 export const CONTENT_TYPES = {
   SERVICES: 'services',
@@ -60,6 +60,14 @@ export interface Data {
 }
 export interface IHomePageData {
   data: Data;
+  footers :{data:{
+    attributes :{
+      name:string;
+      location:string;
+      phone : string;
+    }
+    media_url:IMediaUrlData
+  }[]}
   // meta: Meta;
 }
 

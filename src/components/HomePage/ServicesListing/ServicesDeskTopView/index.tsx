@@ -3,9 +3,9 @@
 import Tabs from '@/components/UIElements/Tabs';
 import React, { useState } from 'react';
 import { ITabHeaderData } from '@/components/UIElements/Tabs/TabsHeader';
+import { appendAssetUrl } from '@/utils';
 import ServicesListing from './TabBody';
 import { ICoreServices } from '../interafces';
-import { appendAssetUrl } from '@/utils';
 
 export interface IServicesDeskTopView {
   serviceData: ICoreServices;
@@ -16,7 +16,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
     const headerdata = serviceData.data?.map((res) => {
       return {
         service: res.attributes.title,
-        icon: appendAssetUrl(res.attributes.media_url.data[0].attributes.url)
+        icon: appendAssetUrl(res.attributes.media_url.data[0].attributes.url),
       };
     });
     return headerdata ?? [];
