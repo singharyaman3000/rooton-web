@@ -30,7 +30,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
         <ServicesListing
           cssClass={service.attributes.title === tab.service ? 'block' : 'hidden'}
           key={service.attributes.title}
-          services={service.attributes.sub_services.data ?? []}
+          services={service.attributes.sub_services?.data ?? []}
         />
       );
     });

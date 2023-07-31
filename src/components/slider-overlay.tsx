@@ -3,6 +3,7 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/icons/close.icon';
+import RTONLanguageDropDown from './RTONLanguageDropDown';
 
 type SliderOverlayProps = {
   open: boolean;
@@ -13,7 +14,7 @@ type SliderOverlayProps = {
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -28,7 +29,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full">
+            <div className="fixed inset-y-0 right-0 flex max-w-full">
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-500 sm:duration-700"
@@ -39,9 +40,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className=" relative w-screen max-w-md">
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-7 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll bg-primary  py-7 shadow-xl">
                     <div className="flex justify-end px-7">
                       <button
+                        aria-label='Slider dialog close'
                         type="button"
                         className="
                             cursor-pointer
@@ -129,6 +131,19 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                         "
                       >
                         Tools
+                      </div>
+                      <div
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        <RTONLanguageDropDown scrolledEnough />
                       </div>
                     </div>
                   </div>
