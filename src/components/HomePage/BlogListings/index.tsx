@@ -21,7 +21,7 @@ export interface IBlogListing extends ITitleAttributes {
 const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'news-listing',
-    sliderData: blogs.data,
+    sliderData: blogs?.data,
   });
   const handlers = useSwipeable({
     onSwipedLeft: () => {

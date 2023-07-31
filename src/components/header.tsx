@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './theme-toggle-and-hamburger';
 import SliderOverlay from './slider-overlay';
@@ -11,6 +12,7 @@ export default function Header() {
 
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -61,7 +63,7 @@ export default function Header() {
     };
 
     headerRef.current!.animate(easeDown, easeDownTiming);
-  };
+  }
 
   const toggleSlideOverlay = () => {
     setOpen((o) => !o);
@@ -70,10 +72,10 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={` fixed w-full top-0 z-50 ${
+      className={`z-[999] ${
         scrolledEnough
-          ? ' fixed w-full text-header-font-color-scrolled-enough bg-primary'
-          : ' text-header-font-color'
+          ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
+          : ' absolute top-0 w-full'
       }`}
     >
       <SliderOverlay open={open} setOpen={setOpen} />
@@ -81,6 +83,7 @@ export default function Header() {
         <div
           className="
           flex
+          gap-5
           justify-between
           px-6
           py-3
@@ -97,7 +100,7 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={'/root-on-logo-black.svg'}
+                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg' }
               />
             </div>
           ) : (
@@ -112,15 +115,20 @@ export default function Header() {
             </div>
           )}
           <div
-            className="
-            gap-[62px]
+            className={`
+            xl:ml-[116px]
+            lg:ml-[50px]
+            xl:gap-[62px]
+            lg:gap-12
             justify-end
             items-center
             text-base
             font-bold
             hidden
             lg:flex
-          "
+            flex-shrink-0
+            ${scrolledEnough ? 'text-header-font-color': ' text-white'}
+          `}
           >
             <span>
               <Link href={'/'}> About Us </Link>

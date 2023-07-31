@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { ITabHeaderData } from '@/components/UIElements/Tabs/TabsHeader';
 import ServicesListing from './TabBody';
 import { ICoreServices } from '../interafces';
+import { appendAssetUrl } from '@/utils';
 
 export interface IServicesDeskTopView {
   serviceData: ICoreServices;
@@ -15,7 +16,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
     const headerdata = serviceData.data?.map((res) => {
       return {
         service: res.attributes.title,
-        icon: '',
+        icon: appendAssetUrl(res.attributes.media_url.data[0].attributes.url)
       };
     });
     return headerdata ?? [];
@@ -30,7 +31,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
         <ServicesListing
           cssClass={service.attributes.title === tab.service ? 'block' : 'hidden'}
           key={service.attributes.title}
-          services={service.attributes.sub_services.data ?? []}
+          services={service.attributes.sub_services?.data ?? []}
         />
       );
     });
@@ -38,7 +39,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
 
   const changeSelectedTab = (data: { service: string }) => {
     const updatedTabData = serviceData.data?.find((service) => service.attributes.title === data.service);
-    updateTab({ service: updatedTabData?.attributes.title ?? '', icon: '' });
+    updateTab({ service: updatedTabData?.attributes.title ?? '', icon:appendAssetUrl(updatedTabData?.attributes.media_url.data[0].attributes.url??'') });
   };
 
   return (
