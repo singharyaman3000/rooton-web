@@ -243,3 +243,13 @@ fill: #fff;
   height: auto !important;
   position: relative !important;
 }
+
+.challenges_toggle{
+  --icon-bg:#FFE5C5;
+  --icon-path: #000;
+}
+
+[data-theme='dark'] .challenges_toggle{
+  --icon-bg:#424242;
+  --icon-path: #FFE5C5;
+} 
