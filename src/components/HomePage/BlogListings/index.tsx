@@ -33,7 +33,7 @@ const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
   });
 
   return (
-    <section className="w-full blogs-listing">
+    <section className="w-full blogs-listing overflow-x-hidden">
       <SectionContainer cssClass="!pr-[0px]">
         <div className="flex items-center justify-between md:pr-[80px]">
           <div>
