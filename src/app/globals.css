@@ -178,6 +178,8 @@ fill: #fff;
   color:var(--primary-text);
 }
 
+/*Blogs listing styling*/
+
 
 .blogs-listing{
   background: var(--secondary-grey);
@@ -185,6 +187,18 @@ fill: #fff;
 
 [data-theme='dark'] .blogs-listing{
   background: #000;
+}
+
+
+
+/*Tabs styling*/
+
+.tab-header ::after{
+  background: #979797;
+}
+
+[data-theme='dark'] .tab-header ::after{
+  background: #d8d8d8;
 }
 
 .tab-selectedBg{
