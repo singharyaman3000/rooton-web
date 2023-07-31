@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require('tailwindcss/plugin')
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,20 +14,23 @@ module.exports = {
       'lg': '1024px',
       'xl': '1280px',
     },
-    fontFamily:{
+    fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],
+      jakarta: ['var(--font-jakarta)'],
     },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'credibility-grid': "url('/images/homePage/credibilityBgGrid.png')"
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'banner-grid-overlay': 'url("/banner-grid-cverlay.svg")',
       },
       colors: {
         'font-color-orange': 'var(--font-color-orange)',
-        'font-color-light-gray': 'var(--font-color-light-gray)',
         'primary': 'var(--primary-bg)',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'credibility-grid': 'url(\'/images/homePage/credibilityBgGrid.png\')',
+        'font-color-light-gray': 'var(--font-color-light-gray)',
         'primary-font-color': 'var(--primary-font-color)',
         'toggle-dark-bg': 'var(--toggle-dark-bg)',
         'tansparent-bg': 'var(--tansparent-bg)',
@@ -39,9 +43,9 @@ module.exports = {
         'grey' : 'var(--grey)',
         'golden-yellow': 'var(--golden-yellow)',
         'primary-text': 'var(--primary-text)',
-        'primary-white':'var(--primary-white)',
+        'primary-white': 'var(--primary-white)',
         'deep-yellow': 'var(--deep-yellow)',
-        'secondary-grey' : 'var(--secondary-grey)',
+        'secondary-grey': 'var(--secondary-grey)',
         'primary-black' : 'var(--primary-black)',
         'pale-yellow':'var(--pale-yellow)',
         'pale-yellow-black':'var(--pale-yellow-black)',
@@ -49,22 +53,19 @@ module.exports = {
         'light-brown':'var(--light-brown)',
         'sandal':'var(--sandal)'
       },
-      fontFamily : {
-        "jakarta" : ["var(--font-jakarta)"],
-      }
+      boxShadow: {
+        'language-dropdown': 'var(--language-dropdown-shadow)',
+      },
     },
   },
   plugins: [
-    plugin((function({matchUtilities}){
+    plugin(({ matchUtilities }) => {
       matchUtilities({
-        'square':(value)=>{
-          return {
-            width : value,
-            height : value
-          }
-        }
-      })
-    }))
+        square: (value) => ({
+          width: value,
+          height: value,
+        }),
+      });
+    }),
   ],
 };
-

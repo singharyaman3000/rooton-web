@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Divider from './Divider';
 import MoverIcon from './MoverIcon';
 import { IOurProcessData } from '../../interfaces';
+import MoverArrow from './MoverArrow';
+import FlightPath from './FlightPath';
 
 const APPROX_NAV_BAR_HEIGHT = 80;
 const APPROX_MOVER_HALF_HEIGHT = 32;
@@ -83,8 +85,12 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
         <div className="square-[64px] bg-white flex items-center justify-center z-[1] relative ">
           <MoverIcon />
         </div>
+        <div className='absolute left-0 top-0'>
+        <MoverArrow/>
+        </div>
         <div className="movable-wrapper"></div>
       </div>
+      <FlightPath/>
     </div>
   );
 };
