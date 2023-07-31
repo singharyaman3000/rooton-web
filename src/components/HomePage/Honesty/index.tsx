@@ -8,6 +8,7 @@ import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiont
 import { motion } from 'framer-motion';
 import HonestyCard, { IWhyRootON } from './honestyCard';
 import { ITitleAttributes } from '../ServicesListing/interafces';
+import HonestyGrid from './HonestyGrid';
 
 export type IJsonContent = {
   /* eslint-disable no-unused-vars */
@@ -20,8 +21,11 @@ export interface IHonesty extends ITitleAttributes {
 
 const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
   <>
-    <Container cssBgClass="honestyGrid">
-      <motion.div className="lg:flex lg:flex-row justify-between mb-11 lg:mb-14">
+    <Container>
+      <motion.div className="lg:flex lg:flex-row justify-between mb-11 lg:mb-14 relative">
+          <div className='absolute top-0 left-0'>
+              <HonestyGrid/>
+      </div>
         <div className="mb-2.5 lg:w-[24.58vw]">
           <SectionTitle title={title} />
           <SubSectionTitle title={sub_title} />
@@ -37,18 +41,18 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
           <Description cssClass="mt-6" description={description ?? ''} />
         </motion.div>
       </motion.div>
-    </Container>
-    <Container>
       <div className="mb-[40px]  lg:mb-[100px]">
         <div className=" grid grid-cols-1 divide-y border-1 border-white lg:divide-x md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {json_content?.['why-rooton']?.map((whyRootOn) => (
+          {json_content?.['why-rooton']?.map((whyRootOn) => {
+            return (
             <HonestyCard
               key={whyRootOn?.key}
+              title={whyRootOn?.key}
               value={whyRootOn.value}
               icon={process.env.NEXT_ASSETS_BASEURL + whyRootOn.icon}
               position={whyRootOn.position}
             />
-          ))}
+          )})}
         </div>
       </div>
     </Container>
