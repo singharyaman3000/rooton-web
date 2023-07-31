@@ -21,8 +21,9 @@ export const metadata: Metadata = {
     url : `${process.env.NEXT_APP_BASE_URL}`,
     title: 'Root On',
     images :`${process.env.NEXT_APP_BASE_URL}/images/og-image.png`,
-    description: 'Root On',
+    description: 'What seems impossible to others has been made possible by Root On.',
     type: 'article',
+    
   },
   twitter: {
     title: 'ROOT ON',
