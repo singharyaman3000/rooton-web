@@ -201,3 +201,10 @@ fill: #fff;
 [data-theme='dark'] .tab-selectedBg{
   background: #fff6e7;
 }
+
+/* honesty section styling */
+
+.honestyBackground {
+  background-image: linear-gradient(to right, rgba(238, 238, 238, 0), rgba(233, 233, 233, 0.57) 15%, #e5e5e5 51%, rgba(219, 219, 219, 0.21) 85%, rgba(216, 216, 216, 0));
+
+}
