@@ -17,12 +17,12 @@ const ServicesMobileView = ({ serviceData }: IServicesMobileView) => {
       <Accordion
         cssClass={'block md:hidden'}
         handleOnClick={(accordionId) => updateAccordion(accordionId === clickedAccordionId ? null : accordionId)}
-        accordionId={sevice.attributes.title}
-        openAccordion={clickedAccordionId === sevice.attributes.title}
+        accordionId={sevice.attributes?.title}
+        openAccordion={clickedAccordionId === sevice?.attributes?.title}
         accordionBodyCss="bg-pale-yellow py-0"
-        accordionBody={<AccordionBody data={sevice.attributes.sub_services?.data} />}
-        key={sevice.attributes.title}
-        header={<AccordionHeader service={sevice.attributes.title} icon={''} />}
+        accordionBody={<AccordionBody data={sevice.attributes?.sub_services?.data} />}
+        key={sevice.attributes?.title}
+        header={<AccordionHeader service={sevice.attributes?.title} icon={''} />}
       />
     );
   });
