@@ -2,6 +2,7 @@
 
 import Accordion from '@/components/UIElements/Accordions';
 import React, { useState } from 'react';
+import { appendAssetUrl } from '@/utils';
 import { AccordionHeader } from './AccordionHeader';
 import AccordionBody from './AccordionBody';
 import { ICoreServices } from '../interafces';
@@ -22,7 +23,7 @@ const ServicesMobileView = ({ serviceData }: IServicesMobileView) => {
         accordionBodyCss="bg-pale-yellow py-0"
         accordionBody={<AccordionBody data={sevice.attributes?.sub_services?.data} />}
         key={sevice.attributes?.title}
-        header={<AccordionHeader service={sevice.attributes?.title} icon={''} />}
+        header={<AccordionHeader service={sevice.attributes?.title} icon={appendAssetUrl(sevice.attributes?.media_url?.data[0]?.attributes?.url)} />}
       />
     );
   });

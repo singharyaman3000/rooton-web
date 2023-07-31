@@ -60,12 +60,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.open-work-permit {
+.open-work-permit , .banner-text span {
   background-image: linear-gradient(204deg, #ffda00 73%, #ffca6c -12%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+
 
 
 
@@ -235,4 +237,10 @@ fill: #fff;
 .bar-btn button:hover + svg {
   top: -17px;
   right: -17px;
+}
+
+
+.autoh-image img{
+  height: auto !important;
+  position: relative !important;
 }

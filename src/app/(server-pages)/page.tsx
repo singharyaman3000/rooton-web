@@ -11,14 +11,13 @@ import FlightIcon from '@/components/Icons/FlightIcon';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import Testimonials from '@/components/HomePage/Testimonials';
 import ChallengesListing, { IChallenges } from '@/components/HomePage/IChallengesListing';
-import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
 import { Metadata } from 'next';
+import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
 
 export const metadata: Metadata = {
   title: 'ROOT ON',
   description: 'Root On',
   openGraph: {
-    // url : appendAssetUrl('/root-on-logo-svg.svg')
     title: 'Root On',
     description: 'Root On',
     type: 'article',
@@ -79,6 +78,7 @@ export default async function Home() {
             sub_title={sub_title}
             title={title}
             json_content={contents.attributes.json_content as IChallenges}
+            media_url={contents.attributes.media_url}
           />
         );
       case null:

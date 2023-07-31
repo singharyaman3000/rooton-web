@@ -16,11 +16,11 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
       <div className="h-[10rem] md:min-h-[252px] md:h-[15.75rem] relative">
         <NextImage
           sizes=""
-          src={appendAssetUrl(attributes.media_url.data[0].attributes.url)}
+          src={appendAssetUrl(attributes.media_url?.data[0].attributes.url)}
           title=""
           fill
           style={{ objectFit: 'cover' }}
-          altText={attributes.media_url.data[0].attributes.alternativeText}
+          altText={attributes.media_url?.data[0].attributes.alternativeText}
         />
       </div>
       <div className="p-[16px] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white ">
