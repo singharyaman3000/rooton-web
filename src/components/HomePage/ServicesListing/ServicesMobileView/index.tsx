@@ -20,7 +20,7 @@ const ServicesMobileView = ({ serviceData }: IServicesMobileView) => {
         accordionId={sevice.attributes.title}
         openAccordion={clickedAccordionId === sevice.attributes.title}
         accordionBodyCss="bg-pale-yellow py-0"
-        accordionBody={<AccordionBody data={sevice.attributes.sub_services.data} />}
+        accordionBody={<AccordionBody data={sevice.attributes.sub_services?.data} />}
         key={sevice.attributes.title}
         header={<AccordionHeader service={sevice.attributes.title} icon={''} />}
       />
