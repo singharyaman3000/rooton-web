@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   title: 'ROOT ON',
   description: 'Root On',
   openGraph: {
-    url : `${process.env.NEXT_APP_BASE_URL}`,
+    url: `${process.env.NEXT_APP_BASE_URL}`,
     title: 'Root On',
-    images :`${process.env.NEXT_APP_BASE_URL}/images/og-image.png`,
+    images: `${process.env.NEXT_APP_BASE_URL}/images/og-image.png`,
     description: 'What seems impossible to others has been made possible by Root On.',
-    type: 'article',    
+    type: 'article',
   },
   twitter: {
     title: 'ROOT ON',
