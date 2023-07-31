@@ -21,7 +21,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
         handleOnClick={(selectedTabData) => onTabChange(selectedTabData)}
         headerData={headerData}
       />
-      <div className="min-h-[28.125rem] mt-[15px] bg-pale-yellow relative">
+      <div className="min-h-[28.125rem] mt-[26px] bg-pale-yellow relative">
         <div className="w-[67%] p-[24px] flex items-center flex-wrap justify-between">
           {tabBody}
         </div>

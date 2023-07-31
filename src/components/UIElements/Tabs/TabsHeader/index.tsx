@@ -24,7 +24,7 @@ const containerVarient = {
 
 const btnVarient = {
   hidden: { scale: 0, top: 100 },
-  show: { scale: 1, top: 30 },
+  show: { scale: 1, top: 0 },
 };
 
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
@@ -36,13 +36,14 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
             variants={btnVarient}
             type="button"
             onClick={() => handleOnClick({ service })}
-            className={`p-[15px] text-primary-text  w-[180px] flex items-center flex-col ${
+            className={`relative p-[15px] tab-header text-primary-text  w-[180px] flex items-center flex-col ${
               service === selectedTab.service ? 'tab-selectedBg text-primary-white' : ''
             }`}
             key={service}
             aria-label={service}
           >
-            <div className="relative square-[30px] mb-[8px]">
+            <div className='relative after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
+            <div className="relative w-[30px] h-[25px] mb-[8px]">
               {icon && (
                 <NextImage
                   sizes="100vw"
@@ -55,6 +56,8 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
               )}
             </div>
             <div className="text-lg not-italic leading-[normal] tracking-[normal] text-center">{service}</div>
+            </div>
+            { service === selectedTab.service  && <span  className='absolute tab-selectedBg  rotate-45 square-[18px] bottom-[-9px]'></span>}
           </motion.button>
         );
       })}
