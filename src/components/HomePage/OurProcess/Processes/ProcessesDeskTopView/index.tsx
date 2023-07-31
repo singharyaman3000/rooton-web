@@ -86,7 +86,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
           <MoverIcon />
         </div>
         <div className='absolute left-0 top-0'>
-        <MoverArrow/>
+          <MoverArrow/>
         </div>
         <div className="movable-wrapper"></div>
       </div>

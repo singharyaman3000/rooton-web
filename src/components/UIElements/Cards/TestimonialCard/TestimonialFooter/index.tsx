@@ -44,8 +44,10 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college }: TTe
         <div className="text-bold font-bold text-[11.2px] text-black  not-italic leading-[normal] tracking-[normal] md:text-base ">
           {name}
         </div>
-        <div className="text-[10px] text-[#2f2f2f;]  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
-          {college}
+        <div className="flex items-center">
+          <div className="text-[10px] text-[#2f2f2f;]  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
+            {college}
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { MediaUrl } from "@/app/services/apiService/interfaces";
+import { MediaUrl } from '@/app/services/apiService/interfaces';
 
 export interface ITitleAttributes {
   title: string;
@@ -35,7 +35,7 @@ export interface IAttributes {
   updatedAt: string;
   publishedAt: string;
   sub_services: ISubServices;
-   media_url:MediaUrl
+  media_url: MediaUrl;
 }
 export interface IServiceData {
   id: number;
