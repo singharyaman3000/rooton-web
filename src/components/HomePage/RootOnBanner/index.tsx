@@ -69,7 +69,7 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
             </p>
           </motion.div>
 
-          <div className=" mt-[57.8px] max-w-[420px]">{button}</div>
+          <div className=" mt-[57.8px] max-w-[418px]">{button}</div>
         </div>
       </div>
       <NextImage
