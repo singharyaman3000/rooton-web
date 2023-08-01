@@ -82,7 +82,7 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
         title=""
       />
       <Image alt="" priority fill src="/images/overlay/banner-overlay.png" style={{ objectFit: 'cover' }} />
-      <div className="absolute bottom-0 right-0">
+      <div className="absolute bottom-0 right-0 hidden md:block">
         <BannerGrids />
       </div>
     </div>
