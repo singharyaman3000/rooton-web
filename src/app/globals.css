@@ -27,6 +27,7 @@
   --pale-yellow-black:#fff6e7;
   --light-brown:#717171;
   --sandal:rgba(234, 213, 169, 1);
+  --pale-sandal: #fddba2;
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
 }
@@ -51,6 +52,7 @@
   --pale-yellow-black:#000;
   --light-brown :#fff;
   --sandal:rgba(234, 213, 169, 0.32);
+  --pale-sandal: #fddba2;
   
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(255,255,255,0.5);
