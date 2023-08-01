@@ -6,7 +6,7 @@ import LinkedInIcon from '@/components/Icons/LinkedInIcon';
 import TwitterIcon from '@/components/Icons/TwitterIcon';
 import YoutubeIcon from '@/components/Icons/YouTubeIcon';
 import Link from 'next/link';
-import FooterLogo from './footer-logo';
+import FooterLogo from './FooterLogo';
 
 export default function Footer() {
   return (

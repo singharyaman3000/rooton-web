@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Container from '@/components/UIElements/wrapper-container';
-import Description from '@/components/home-contents/Description';
+import Description from '@/components/UIElements/Description';
 import SectionTitle from '@/components/UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
 import { motion } from 'framer-motion';

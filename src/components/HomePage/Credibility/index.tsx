@@ -3,7 +3,7 @@
 import React from 'react';
 import { MediaUrl } from '@/app/services/apiService/interfaces';
 import { motion } from 'framer-motion';
-import Description from '../../home-contents/Description';
+import Description from '../../UIElements/Description';
 import ImageCard from '../../UIElements/image-card';
 import Container from '../../UIElements/wrapper-container';
 import SectionTitle from '../../UIElements/SectionHeadings/SectionTitle';
