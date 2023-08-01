@@ -4,8 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
-import ThemeToggleAndHamburger from './theme-toggle-and-hamburger';
-import SliderOverlay from './slider-overlay';
+import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
+import SliderOverlay from './SliderOverlay';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
