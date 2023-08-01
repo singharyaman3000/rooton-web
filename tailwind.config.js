@@ -51,7 +51,8 @@ module.exports = {
         'pale-yellow-black':'var(--pale-yellow-black)',
         'faded-black': 'var(--faded-black)',
         'light-brown':'var(--light-brown)',
-        'sandal':'var(--sandal)'
+        'sandal':'var(--sandal)',
+        'pale-sandal': 'var(--pale-sandal)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
