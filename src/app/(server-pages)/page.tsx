@@ -83,7 +83,7 @@ export default async function Home() {
             media_url={contents.attributes.media_url}
           />
         );
-      case CONTENT_TYPES.PARTNERSHIP:
+      case CONTENT_TYPES.PARTNERSHIPS:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
       default:
         return null;
