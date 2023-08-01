@@ -1,5 +1,8 @@
 import { IServicePageContent, getServicePageContent } from '@/app/services/apiService/serviceAPI';
 import { H2 } from '@/components/H2';
+import OurProcess from '@/components/HomePage/OurProcess';
+import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
+import Testimonials from '@/components/HomePage/Testimonials';
 import { Li } from '@/components/Li';
 import RTONBanner from '@/components/RTONBanner';
 import BookAnAppointmentButton from '@/components/ServicePage/BookAnAppointmentButton';
@@ -23,6 +26,10 @@ export default async function ServicePage() {
 
   const leadForm = response.data.attributes.sub_services_contents.data.find((i) => {
     return i.attributes.position === 4;
+  });
+
+  const process = response.data.attributes.sub_services_contents.data.find((i) => {
+    return i.attributes.position === 3;
   });
 
   return (
@@ -52,14 +59,20 @@ export default async function ServicePage() {
               return <Li key={e.position + e.key}> {e.value} </Li>;
             })}
           </Ul>
+          <div className=' mt-20'>
+            <OurProcess
+              title={''}
+              sub_title={process?.attributes.title ?? ''}
+              json_content={process?.attributes.json_content as IOurProcessData}
+            />
+          </div>
           <div className=" mt-20">
-            <H2>{ leadForm?.attributes.title ?? '' }</H2>
+            <H2>{leadForm?.attributes.title ?? ''}</H2>
             <div className=" mt-8">
-              <LeadFormSection
-                forms={leadForm?.attributes.json_content.lead_forms ?? []}
-              />
+              <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
             </div>
           </div>
+          <Testimonials />
         </>
       </ServicePageWrapper>
     </>
