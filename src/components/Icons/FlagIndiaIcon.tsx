@@ -1,7 +1,7 @@
 export default function FlagIndiaIcon() {
   return (
     <svg width="30" height="20" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
-      <g fill-rule="nonzero" fill="none">
+      <g fillRule="nonzero" fill="none">
         <path fill="#FFF" d="M0 0h30v20H0z" />
         <path fill="#F15B25" d="M0 0h30v6.667H0z" />
         <path fill="#006934" d="M0 13.333h30V20H0z" />

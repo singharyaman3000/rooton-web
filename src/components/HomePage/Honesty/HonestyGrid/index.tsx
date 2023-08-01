@@ -19,16 +19,16 @@ const HonestyGrid = () => {
           gradientTransform="rotate(2.276 -.85 .034) scale(1 .3198)"
           id="3kawbkcmic"
         >
-          <stop stop-color="#959595" offset="0%" />
-          <stop stop-color="#FFF" stop-opacity="0" offset="100%" />
+          <stop stopColor="#959595" offset="0%" />
+          <stop stopColor="#FFF" stopOpacity="0" offset="100%" />
         </radialGradient>
         <path id="j35266fgta" d="M0 0h1440v314H0z" />
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <mask id="hozfk6be6b" fill="#fff">
           <use xlinkHref="#j35266fgta" />
         </mask>
-        <use fill-opacity="0" fill="#D8D8D8" xlinkHref="#j35266fgta" />
+        <use fillOpacity="0" fill="#D8D8D8" xlinkHref="#j35266fgta" />
         <g mask="url(#hozfk6be6b)">
           <path fill="none" d="M0 0h1441v1441H0z" />
           <path

@@ -56,7 +56,7 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
             altText={attributes?.icon.data[0].attributes.alternativeText}
             fill
             style={{ objectFit: 'cover' }}
-            title=""
+            title="Video thumbnail"
             sizes="
               (max-width: 768px)100vw,
                33vw"

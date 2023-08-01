@@ -15,9 +15,9 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
     <div className="py-[3px] relative flex flex-col h-full">
       <div className="h-[10rem] md:min-h-[252px] md:h-[15.75rem] relative">
         <NextImage
-          sizes=""
+          sizes="(max-width: 768px) 100vw,  25vw"
           src={appendAssetUrl(attributes.media_url?.data[0].attributes.url)}
-          title=""
+          title="Blog Image"
           fill
           style={{ objectFit: 'cover' }}
           altText={attributes.media_url?.data[0].attributes.alternativeText}
@@ -36,7 +36,7 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
         </div>
       </div>
       <div className="absolute">
-        <NextImage src={gridOverlay} altText="" title="" fill={false} sizes="" />
+        <NextImage src={gridOverlay} altText="Overlay image" title="" fill={false} sizes="100vw" />
       </div>
     </div>
   );
