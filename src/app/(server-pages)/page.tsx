@@ -1,4 +1,4 @@
-import Credibility from '@/components/HomePage/credibility/credibility';
+import Credibility from '@/components/HomePage/Credibility';
 import BlogListings from '@/components/HomePage/BlogListings';
 import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
@@ -18,8 +18,10 @@ export const metadata: Metadata = {
   title: 'ROOT ON',
   description: 'Root On',
   openGraph: {
+    url: `${process.env.NEXT_APP_BASE_URL}`,
     title: 'Root On',
-    description: 'Root On',
+    images: `${process.env.NEXT_APP_BASE_URL}/images/og-image.png`,
+    description: 'What seems impossible to others has been made possible by Root On.',
     type: 'article',
   },
   twitter: {

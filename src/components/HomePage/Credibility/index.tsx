@@ -3,7 +3,7 @@
 import React from 'react';
 import { MediaUrl } from '@/app/services/apiService/interfaces';
 import { motion } from 'framer-motion';
-import Description from '../../home-contents/Description';
+import Description from '../../UIElements/Description';
 import ImageCard from '../../UIElements/image-card';
 import Container from '../../UIElements/wrapper-container';
 import SectionTitle from '../../UIElements/SectionHeadings/SectionTitle';
@@ -19,7 +19,7 @@ interface ICredibilitycontent {
 
 const Credibility = ({ description, title, sub_title, media_url }: ICredibilitycontent) => {
   return (
-    <div className='relative'>
+    <div className='relative overflow-x-hidden'>
       <Container>
         <div className="mt-10 lg:mt-[120px] md:flex md:justify-between md:w-full xl:max-h-[534px]">
           <motion.div

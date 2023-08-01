@@ -194,6 +194,10 @@ fill: #fff;
   color:var(--primary-text);
 }
 
+.challenges-accordion button > div > div{
+  text-align: left;
+}
+
 /*Blogs listing styling*/
 
 

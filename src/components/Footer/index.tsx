@@ -1,12 +1,12 @@
 import { LAYOUT } from '@/app/constants/textConstants';
-import FacebookIcon from '@/icons/facebook.icon';
-import FlagCanadaIcon from '@/icons/flag-canada.icon';
-import FlagIndiaIcon from '@/icons/flag-india.icon';
-import LinkedInIcon from '@/icons/linkedin.icon';
-import TwitterIcon from '@/icons/twitter.icon';
-import YoutubeIcon from '@/icons/youtube.icon';
+import FacebookIcon from '@/components/Icons/FaceBookIcon';
+import FlagCanadaIcon from '@/components/Icons/FlagCanadaIcon';
+import FlagIndiaIcon from '@/components/Icons/FlagIndiaIcon';
+import LinkedInIcon from '@/components/Icons/LinkedInIcon';
+import TwitterIcon from '@/components/Icons/TwitterIcon';
+import YoutubeIcon from '@/components/Icons/YouTubeIcon';
 import Link from 'next/link';
-import FooterLogo from './footer-logo';
+import FooterLogo from './FooterLogo';
 
 export default function Footer() {
   return (
@@ -105,35 +105,19 @@ export default function Footer() {
           <div className=" mb-[6px]">
             <FlagCanadaIcon />
           </div>
-          <p className=" text-sm mb-[4px] font-bold">
-            {LAYOUT.addressCanada.title}
-          </p>
-          <p className=" text-sm mb-[4px]">
-            {LAYOUT.addressCanada.line1}
-          </p>
-          <p className=" text-sm">
-            {LAYOUT.addressCanada.line2}
-          </p>
-          <p className=" text-sm mb-[4px] font-bold mt-2">
-            Phone {LAYOUT.addressCanada.phone}
-          </p>
+          <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
+          <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
+          <p className=" text-sm">{LAYOUT.addressCanada.line2}</p>
+          <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</p>
         </div>
         <div>
           <div className=" mt-8 mb-[6px]">
             <FlagIndiaIcon />
           </div>
-          <p className=" text-sm font-bold mb-[4px]">
-            {LAYOUT.addressIndia.title}
-          </p>
-          <p className=" text-sm mb-[4px]">
-            {LAYOUT.addressIndia.line1}
-          </p>
-          <p className=" text-sm">
-            {LAYOUT.addressIndia.line2}
-          </p>
-          <p className=" text-sm mb-[4px] font-bold mt-2">
-            Phone {LAYOUT.addressIndia.phone}
-          </p>
+          <p className=" text-sm font-bold mb-[4px]">{LAYOUT.addressIndia.title}</p>
+          <p className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</p>
+          <p className=" text-sm">{LAYOUT.addressIndia.line2}</p>
+          <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressIndia.phone}</p>
         </div>
       </div>
     </footer>
