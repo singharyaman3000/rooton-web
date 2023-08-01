@@ -34,7 +34,7 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
               delay: 0.12,
             }}
             viewport={{ once: true }}
-            className="py-[37px] gap-y-[15.3px] gap-x-[6.38%] grid grid-cols-2  content-center items-center border-1 md:grid-cols-3 lg:grid-cols-4 lg:gap-[5%]"
+            className="py-[37px] lg:pb-[106px] lg:pt-[110px] gap-y-[15.3px] gap-x-[6.38%] grid grid-cols-2  content-center items-center border-1 md:grid-cols-3 lg:grid-cols-4 lg:gap-[5%]"
           >
             {data?.map((card) => <ImageCard key={card.attributes.url} attributes={card.attributes} />)}
           </motion.div>
