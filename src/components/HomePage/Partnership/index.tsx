@@ -39,7 +39,7 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
             {data?.map((card) => <ImageCard key={card.attributes.url} attributes={card.attributes} />)}
           </motion.div>
       </Container>
-      <div className="mt-[87px] absolute top-0 z-[-1] w-full overflow-clip">
+      <div className="mt-[87px] absolute top-0 z-[-1] w-full hidden lg:block overflow-clip">
         <PartnerShipGrid />
       </div>
     </div>
