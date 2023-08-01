@@ -55,12 +55,12 @@ export interface IAttributes {
   home_page_contents: HomePageContents;
 }
 
-export interface Data {
+export interface IHomePageData {
   id: number;
   attributes: IAttributes;
 }
-export interface IHomePageData {
-  data: Data;
+export interface IHomePageDataRes {
+  data: IHomePageData;
   footers :{data:{
     attributes :{
       name:string;
@@ -73,7 +73,7 @@ export interface IHomePageData {
 }
 
 export const getHomePageContents = async () => {
-  const apiRes = await getFetch<IHomePageData>(HOME_API, { next: { revalidate: 1200 } });
+  const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 1200 } });
   return apiRes.data;
 };
 
