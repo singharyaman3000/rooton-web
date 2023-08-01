@@ -10,20 +10,20 @@ export default function IndiaFlagIconSm() {
       <defs>
         <path id="kg4g6iqu2a" d="M0 0h16v16H0z" />
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <mask id="aj4z1oswob" fill="#fff">
           <use xlinkHref="#kg4g6iqu2a" />
         </mask>
         <use fill="#D8D8D8" xlinkHref="#kg4g6iqu2a" />
         <g mask="url(#aj4z1oswob)">
           <g transform="translate(-4)">
-            <path fill="#FFF" fill-rule="nonzero" d="M0 0h24v16H0z" />
-            <path fill="#F15B25" fill-rule="nonzero" d="M0 0h24v5.333H0z" />
-            <path fill="#006934" fill-rule="nonzero" d="M0 10.667h24V16H0z" />
-            <circle fill="#2C2C6F" fill-rule="nonzero" cx="12" cy="8" r="2.467" />
-            <circle fill="#FFF" fill-rule="nonzero" cx="12" cy="8" r="2.133" />
-            <circle fill="#2C2C6F" fill-rule="nonzero" cx="12" cy="8" r="1" />
-            <g fill="#2C2C6F" fill-rule="nonzero">
+            <path fill="#FFF" fillRule="nonzero" d="M0 0h24v16H0z" />
+            <path fill="#F15B25" fillRule="nonzero" d="M0 0h24v5.333H0z" />
+            <path fill="#006934" fillRule="nonzero" d="M0 10.667h24V16H0z" />
+            <circle fill="#2C2C6F" fillRule="nonzero" cx="12" cy="8" r="2.467" />
+            <circle fill="#FFF" fillRule="nonzero" cx="12" cy="8" r="2.133" />
+            <circle fill="#2C2C6F" fillRule="nonzero" cx="12" cy="8" r="1" />
+            <g fill="#2C2C6F" fillRule="nonzero">
               <g transform="translate(11.867 5.78)">
                 <path d="m.133.086.08 1.284-.08.636-.08-.636z" />
                 <circle transform="rotate(7.5 .412 .105)" cx=".412" cy=".105" r="1" />
@@ -63,7 +63,7 @@ export default function IndiaFlagIconSm() {
                 </g>
               </g>
             </g>
-            <g fill="#2C2C6F" fill-rule="nonzero">
+            <g fill="#2C2C6F" fillRule="nonzero">
               <g transform="rotate(60 1.06 15.387)">
                 <path d="m.133.086.08 1.284-.08.636-.08-.636z" />
                 <circle transform="rotate(7.5 .412 .105)" cx=".412" cy=".105" r="1" />
@@ -103,7 +103,7 @@ export default function IndiaFlagIconSm() {
                 </g>
               </g>
             </g>
-            <g fill="#2C2C6F" fill-rule="nonzero">
+            <g fill="#2C2C6F" fillRule="nonzero">
               <g transform="rotate(120 4.398 8.535)">
                 <path d="m.133.086.08 1.284-.08.636-.08-.636z" />
                 <circle transform="rotate(7.5 .412 .105)" cx=".412" cy=".105" r="1" />

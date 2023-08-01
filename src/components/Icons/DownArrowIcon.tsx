@@ -31,7 +31,7 @@ export default function DownArrowIcon({ isScrolled }: DownArrowIconProps) {
       viewBox="0 0 10.043 5.979"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path fill={fillColor} d="m9.146 0 .897.897L4.96 5.979 0 1.018.92.099l4.063 4.063L9.146 0z" fill-rule="nonzero" />
+      <path fill={fillColor} d="m9.146 0 .897.897L4.96 5.979 0 1.018.92.099l4.063 4.063L9.146 0z" fillRule="nonzero" />
     </svg>
   );
 }

@@ -10,12 +10,12 @@ export default function GermanyFlagIcon() {
       <defs>
         <path id="9bsiiljzta" d="M0 0h16v16H0z" />
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <mask id="v2kt8m564b" fill="#fff">
           <use xlinkHref="#9bsiiljzta" />
         </mask>
         <use fill="#D8D8D8" xlinkHref="#9bsiiljzta" />
-        <g mask="url(#v2kt8m564b)" fill-rule="nonzero">
+        <g mask="url(#v2kt8m564b)" fillRule="nonzero">
           <path fill="#000" d="M-5.6 0h26.4v16H-5.6z" />
           <path fill="#D00" d="M-5.6 5.333h26.4V16H-5.6z" />
           <path fill="#FFCE00" d="M-5.6 10.667h26.4V16H-5.6z" />
