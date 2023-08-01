@@ -3,7 +3,7 @@ import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces'
 import { IHonesty, IJsonContent } from '@/components/HomePage/Honesty';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import { IBlogCard } from '@/components/HomePage/BlogListings';
-import { IChallenges } from '@/components/HomePage/IChallengesListing';
+import { IChallenges } from '@/components/HomePage/ChallengesListing';
 import { HOME_API } from './apiUrl/homePage';
 import { IMediaUrlData, MediaUrl } from './interfaces';
 

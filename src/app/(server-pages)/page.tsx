@@ -10,7 +10,7 @@ import RootOnBarBtn from '@/components/HomePage/RootOnBanner/RootOnBarBtn';
 import FlightIcon from '@/components/Icons/FlightIcon';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import Testimonials from '@/components/HomePage/Testimonials';
-import ChallengesListing, { IChallenges } from '@/components/HomePage/IChallengesListing';
+import ChallengesListing, { IChallenges } from '@/components/HomePage/ChallengesListing';
 import { Metadata } from 'next';
 import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
 
