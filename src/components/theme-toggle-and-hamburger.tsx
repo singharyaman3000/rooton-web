@@ -1,8 +1,8 @@
 'use client';
 
-import DarkModeIcon from '@/icons/darkmode.icon';
-import HamburgerIcon from '@/icons/hamburger.icon';
-import LightModeIcon from '@/icons/lightmode.icon';
+import DarkModeIcon from '@/components/Icons/DarkModeIcon';
+import HamburgerIcon from '@/components/Icons/HamBurgerIcon';
+import LightModeIcon from '@/components/Icons/LightModeIcon';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import RTONLanguageDropDown from './RTONLanguageDropDown';
