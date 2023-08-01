@@ -44,7 +44,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
             </p>
             <div className='relative autoh-image'>
               <NextImage
-                sizes="100vw"
+               sizes="(max-width: 768px) 100vw, 50vw"
                 title={media_url?.data[0].attributes.alternativeText}
                 altText={media_url?.data[0].attributes.alternativeText}
                 fill

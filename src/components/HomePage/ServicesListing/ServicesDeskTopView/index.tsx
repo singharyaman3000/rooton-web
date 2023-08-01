@@ -25,7 +25,6 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
   const [tab, updateTab] = useState<ITabHeaderData>(getHeaderData()[0]);
 
   const getServises = () => {
-    console.log(tab);
     return serviceData.data?.map((service) => {
       return (
         <ServicesListing

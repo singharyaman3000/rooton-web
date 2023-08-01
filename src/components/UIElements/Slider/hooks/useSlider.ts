@@ -13,7 +13,6 @@ export interface IUseSlider {
 
 const useSliderPagination = ({ slidesLength, initialPage }: IUseSlider) => {
   const [pageNum, setPageNum] = useState(initialPage);
-  console.log(slidesLength);
 
   const updatePage = (clickedPageNum: number, type: string) => {
     switch (type) {
