@@ -1,14 +1,14 @@
 'use client';
 
-import UKFlagIcon from '@/icons/UKFlagIcon';
+import UKFlagIcon from '@/components/Icons/UKFlagIcon';
 import { MouseEvent, useState } from 'react';
-import SpainflagIcon from '@/icons/SpainflagIcon';
-import GermanyFlagIcon from '@/icons/GermanyFlagIcon';
-import ItalyFlagIcon from '@/icons/ItalyFlagIcon';
-import IndiaFlagIconSm from '@/icons/IndiaFlagIconSm';
-import PortugalFlagIcon from '@/icons/PortugalFlagIcon';
-import DownArrowIcon from '@/icons/downArrow.icon';
-import FranceFlagIcon from '../icons/FranceFlagIcon';
+import SpainflagIcon from '@/components/Icons/SpainflagIcon';
+import GermanyFlagIcon from '@/components/Icons/GermanyFlagIcon';
+import ItalyFlagIcon from '@/components/Icons/ItalyFlagIcon';
+import IndiaFlagIconSm from '@/components/Icons/IndiaFlagIconSm';
+import PortugalFlagIcon from '@/components/Icons/PortugalFlagIcon';
+import DownArrowIcon from '@/components/Icons/DownArrowIcon';
+import FranceFlagIcon from '@/components/Icons/FranceFlagIcon';
 
 type RTONLanguageDropDownProps = {
   scrolledEnough: boolean;

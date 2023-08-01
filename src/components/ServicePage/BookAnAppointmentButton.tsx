@@ -1,6 +1,6 @@
 'use client';
 
-import CalenderIcon from '@/icons/CalenderIcon';
+import CalenderIcon from '@/components/Icons/CalenderIcon';
 import RTONButton from '../RTONButton';
 
 export default function BookAnAppointmentButton() {
