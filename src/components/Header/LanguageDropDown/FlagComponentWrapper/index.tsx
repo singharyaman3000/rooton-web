@@ -44,7 +44,7 @@ const FlagItems = [
 
 const FlagComponentWrapper = () => {
   return FlagItems?.map((item) => (
-    <div className="hover:bg-hover-lang-dropdown" key={item.label}>
+    <div className="hover:bg-hover-lang-dropdown" key={item?.label}>
       <span className="mx-[18px] flex gap-2 items-center p-2" key={item?.label}>
         {item?.component}
         <p className=" text-base font-medium">{item?.label}</p>
