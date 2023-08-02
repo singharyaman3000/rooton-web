@@ -9,7 +9,7 @@ import IndiaFlagIconSm from '@/components/Icons/IndiaFlagIconSm';
 import PortugalFlagIcon from '@/components/Icons/PortugalFlagIcon';
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
 import FranceFlagIcon from '@/components/Icons/FranceFlagIcon';
-import FlagComponentWrapper from './LanguageDropDown/FlagComponentWrapper';
+import FlagComponentWrapper from './FlagComponentWrapper';
 
 type RTONLanguageDropDownProps = {
   scrolledEnough: boolean;
@@ -45,18 +45,18 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
                 w-[180px]
                 bg-primary
                 shadow-language-dropdown
-                px-[18px]
                 pt-[17px]
                 pb-[15px]
                 flex
                 flex-col
-                gap-5
+                gap-[2px]
                 left-[100px]
                 lg:top-[45px]
                 lg:-left-6
+                z-1
             "
         >
-          {/* <FlagComponentWrapper/> */}
+          {<FlagComponentWrapper/>}
         </div>
       )}
     </button>
