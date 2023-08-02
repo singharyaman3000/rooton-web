@@ -34,7 +34,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
     <section className="bg-pale-yellow-black">
       <SectionContainer>
         <div className="md:flex">
-          <div className="md:w-[48%] md:pr-[80px]">
+          <div className="md:w-[48.8%] md:pr-[80px]">
             <SectionHeadings title={title} subTitle={sub_title} />
             <p
               className="mt-[34px] md:mt-[24px] text-light-brown md:text-faded-black text-sm font-medium not-italic leading-[1.71] tracking-[normal]
@@ -54,7 +54,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
               />
             </div>
           </div>
-          <div className="md:w-[52%]">
+          <div className="md:w-[43.8%]">
             {json_content.challenges.map((challengObj) => {
               return (
                 <Accordion

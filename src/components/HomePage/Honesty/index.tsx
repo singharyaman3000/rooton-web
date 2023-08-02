@@ -22,7 +22,7 @@ export interface IHonesty extends ITitleAttributes {
 const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
   <div className="relative pt-[73px]">
     <Container>
-      <motion.div className="lg:flex lg:flex-row justify-between mb-11 lg:mb-14 relative">
+      <motion.div className="lg:flex lg:flex-row justify-between mb-11 lg:mb-[21px] relative">
         <div className="mb-2.5 lg:w-[24.58vw]">
           <SectionTitle title={title} />
           <SubSectionTitle title={sub_title} />
@@ -35,7 +35,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
           }}
           className="lg:w-[56.875vw] "
         >
-          <Description cssClass="mt-6" description={description ?? ''} />
+          <Description cssClass="mt-[34px] md:mt-0" description={description ?? ''} />
         </motion.div>
       </motion.div>
       <div className="mb-[40px]  lg:mb-[100px]">
