@@ -13,9 +13,9 @@ const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; 
             }
             key={service.attributes.title}
           >
-            <div className="w-full pb-[25px] flex items-center justify-between">
-              {service.attributes.title}
-              <ArrowIcon />
+            <div className="w-full pb-[25px] flex items-center justify-between ">
+             <span className='line-clamp-1 '>{service.attributes.title}</span> 
+              <ArrowIcon cssClas='ml-[8px] flex-shrink-0' />
             </div>
             <div className="w-full h-[1px] bg-[#b17900] opacity-20"></div>
           </div>
