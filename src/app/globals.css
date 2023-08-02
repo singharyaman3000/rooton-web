@@ -193,13 +193,21 @@ fill: #fff;
 }
 
 .challenges-accordion >div{
-  padding: 0px !important;
   background: transparent !important;
   color:var(--primary-text);
+  padding: 0px !important ;
 }
 
 .challenges-accordion button > div > div{
   text-align: left;
+}
+
+.challenges-listing {
+  background: var(--pale-yellow);
+}
+
+[data-theme='dark'] .challenges-listing{
+  background: #121212;
 }
 
 /*Blogs listing styling*/
@@ -267,3 +275,10 @@ fill: #fff;
     .honestyBackground{
       background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);  }
   }
+
+
+
+  [data-theme='dark'] .slider-nav {
+   background-color: rgba(256, 256, 256, 0.14);
+  }
+
