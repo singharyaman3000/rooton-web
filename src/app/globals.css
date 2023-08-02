@@ -211,3 +211,8 @@ fill: #fff;
 [data-theme='dark'] .tab-selectedBg{
   background: #fff6e7;
 }
+
+.huform {
+  background-color: #e22826;
+  color: #f59723;
+}

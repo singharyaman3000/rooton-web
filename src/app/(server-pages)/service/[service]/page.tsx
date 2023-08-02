@@ -67,7 +67,7 @@ export default async function ServicePage() {
             />
           </div>
           <div className=" mt-20">
-            <H2>{leadForm?.attributes.title ?? ''}</H2>
+            <H2>{'We would love to know more about you'}</H2>
             <div className=" mt-8">
               <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
             </div>
