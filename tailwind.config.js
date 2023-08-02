@@ -53,6 +53,7 @@ module.exports = {
         'light-brown':'var(--light-brown)',
         'sandal':'var(--sandal)',
         'pale-sandal': 'var(--pale-sandal)',
+        'hover-lang-dropdown': 'var(--hover-lang-dropdown)'
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
