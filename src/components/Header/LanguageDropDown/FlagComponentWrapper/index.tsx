@@ -1,11 +1,11 @@
-import FranceFlagIcon from "@/components/Icons/FranceFlagIcon";
-import GermanyFlagIcon from "@/components/Icons/GermanyFlagIcon";
-import IndiaFlagIconSm from "@/components/Icons/IndiaFlagIconSm";
-import ItalyFlagIcon from "@/components/Icons/ItalyFlagIcon";
-import PortugalFlagIcon from "@/components/Icons/PortugalFlagIcon";
-import SpainflagIcon from "@/components/Icons/SpainflagIcon";
-import UKFlagIcon from "@/components/Icons/UKFlagIcon";
-import React from "react";
+import FranceFlagIcon from '@/components/Icons/FranceFlagIcon';
+import GermanyFlagIcon from '@/components/Icons/GermanyFlagIcon';
+import IndiaFlagIconSm from '@/components/Icons/IndiaFlagIconSm';
+import ItalyFlagIcon from '@/components/Icons/ItalyFlagIcon';
+import PortugalFlagIcon from '@/components/Icons/PortugalFlagIcon';
+import SpainflagIcon from '@/components/Icons/SpainflagIcon';
+import UKFlagIcon from '@/components/Icons/UKFlagIcon';
+import React from 'react';
 
 const FlagItems = [
   {
@@ -43,13 +43,13 @@ const FlagItems = [
 ];
 
 const FlagComponentWrapper = () => {
-    return FlagItems?.map((item) => (
-      <div className="hover:bg-hover-lang-dropdown">
-        <span className="mx-[18px] flex gap-2 items-center p-2" key={item?.label}>
-          {item?.component}
-          <p className=" text-base font-medium">{item?.label}</p>
-        </span>
-      </div>
-    ));
-}
-export default FlagComponentWrapper
+  return FlagItems?.map((item) => (
+    <div className="hover:bg-hover-lang-dropdown" key={item.label}>
+      <span className="mx-[18px] flex gap-2 items-center p-2" key={item?.label}>
+        {item?.component}
+        <p className=" text-base font-medium">{item?.label}</p>
+      </span>
+    </div>
+  ));
+};
+export default FlagComponentWrapper;

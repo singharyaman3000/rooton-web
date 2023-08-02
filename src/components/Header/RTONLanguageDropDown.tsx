@@ -2,14 +2,7 @@
 
 import UKFlagIcon from '@/components/Icons/UKFlagIcon';
 import { MouseEvent, useState } from 'react';
-import SpainflagIcon from '@/components/Icons/SpainflagIcon';
-import GermanyFlagIcon from '@/components/Icons/GermanyFlagIcon';
-import ItalyFlagIcon from '@/components/Icons/ItalyFlagIcon';
-import IndiaFlagIconSm from '@/components/Icons/IndiaFlagIconSm';
-import PortugalFlagIcon from '@/components/Icons/PortugalFlagIcon';
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
-import FranceFlagIcon from '@/components/Icons/FranceFlagIcon';
-import FlagComponentWrapper from './LanguageDropDown/FlagComponentWrapper';
 
 type RTONLanguageDropDownProps = {
   scrolledEnough: boolean;
@@ -24,7 +17,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
 
   return (
     <button
-      aria-label='Language dropdown button'
+      aria-label="Language dropdown button"
       type="button"
       onClick={() => {
         setIsOpen((o) => !o);

@@ -12,7 +12,7 @@ export interface IOurProcess extends ITitleAttributes {
 
 const OurProcess = ({ title, sub_title, json_content }: IOurProcess) => {
   return (
-    <section className="relative">
+    <section className="relative overflow-y-hidden">
       <SectionContainer>
         <SectionHeadings title={title} subTitle={sub_title} />
         <Processes process={json_content.process} />

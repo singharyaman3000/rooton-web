@@ -13,3 +13,5 @@ export const formatDate = (dateString: string): string => {
 
   return `${day}  ${month}  ${year}`;
 };
+
+export const isVideo = (url: string):boolean => url?.includes('video');
