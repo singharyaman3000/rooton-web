@@ -12,8 +12,9 @@ import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import Testimonials from '@/components/HomePage/Testimonials';
 import ChallengesListing, { IChallenges } from '@/components/HomePage/IChallengesListing';
 import { Metadata } from 'next';
-import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
 import NewsLetter from '@/components/HomePage/NewsLetter';
+
+import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
 
 export const metadata: Metadata = {
   title: 'ROOT ON',
