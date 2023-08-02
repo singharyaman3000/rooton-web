@@ -34,7 +34,7 @@ const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
 
   return (
     <section className="w-full blogs-listing overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px]">
+      <SectionContainer cssClass="!pr-[0px] py-10 md:py-[80px]">
         <div className="flex items-center justify-between md:pr-[80px]">
           <div>
             <SectionHeadings title={title} subTitle={sub_title} />

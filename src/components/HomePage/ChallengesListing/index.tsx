@@ -32,7 +32,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
 
   return (
     <section className="bg-pale-yellow-black">
-      <SectionContainer>
+      <SectionContainer cssClass='pt-10 pb-[39px] md:py-[80px]'>
         <div className="md:flex">
           <div className="md:w-[48.8%] md:pr-[80px]">
             <SectionHeadings title={title} subTitle={sub_title} />
