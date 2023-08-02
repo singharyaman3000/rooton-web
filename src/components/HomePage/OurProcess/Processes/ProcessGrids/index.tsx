@@ -19,11 +19,11 @@ const ProcessGrids = () => {
           id="jeysyyj5fc"
         >
           <stop stopColor="#959595" offset="0%" />
-          <stop stopColor="#FFF" stop-Opacity="0" offset="100%" />
+          <stop stopColor="#FFF" stopOpacity="0" offset="100%" />
         </radialGradient>
         <path id="qy9tvut3na" d="M0 0h1440v314H0z" />
       </defs>
-      <g transform="matrix(-1 0 0 1 1440 0)" fill="none" fill-rule="evenodd">
+      <g transform="matrix(-1 0 0 1 1440 0)" fill="none" fillRule="evenodd">
         <mask id="fks83obieb" fill="#fff">
           <use xlinkHref="#qy9tvut3na" />
         </mask>

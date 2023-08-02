@@ -51,7 +51,7 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
           >
             <h1
               className="
-                    open-work-permit
+                    banner-text
                     text-[37.2px]
                     lg:text-[62px]
                     mr-9
@@ -59,6 +59,7 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
                     leading-[normal]
                     text-white
                     font-jakartaSans
+                    banner-text
                 "
             >
               {ReactHtmlParser(heroText)}
@@ -68,20 +69,20 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
             </p>
           </motion.div>
 
-          <div className=" mt-[57.8px] max-w-[420px]">{button}</div>
+          <div className=" mt-[57.8px] max-w-[418px]">{button}</div>
         </div>
       </div>
       <NextImage
-        sizes=""
+        sizes="100vw"
         priority
         src={backgroundImageUrl}
         fill
         style={{ objectFit: 'cover' }}
         altText="root-on-banner-image"
-        title=""
+        title="Banner Image"
       />
       <Image alt="" priority fill src="/images/overlay/banner-overlay.png" style={{ objectFit: 'cover' }} />
-      <div className="absolute bottom-0 right-0">
+      <div className="absolute bottom-0 right-0 hidden md:block">
         <BannerGrids />
       </div>
     </div>

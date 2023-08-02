@@ -48,13 +48,14 @@ module.exports = {
         'secondary-grey': 'var(--secondary-grey)',
         'primary-black' : 'var(--primary-black)',
         'pale-yellow':'var(--pale-yellow)',
-      },
-      boxShadow: {
-        'language-dropdown': 'var(--language-dropdown-shadow)',
         'pale-yellow-black':'var(--pale-yellow-black)',
         'faded-black': 'var(--faded-black)',
         'light-brown':'var(--light-brown)',
         'sandal':'var(--sandal)',
+        'pale-sandal': 'var(--pale-sandal)',
+      },
+      boxShadow: {
+        'language-dropdown': 'var(--language-dropdown-shadow)',
       },
       lineHeight: {
         'primary': '1.71',

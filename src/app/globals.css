@@ -24,11 +24,12 @@
   --secondary-grey:#f3f3f3;
   --primary-black:#000;
   --pale-yellow:#fff6e7;
-
-  --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
+  --pale-sandal: #fddba2;
+  --sandal:rgba(234, 213, 169, 1);
   --pale-yellow-black:#fff6e7;
   --light-brown:#717171;
-  --sandal:rgba(234, 213, 169, 1);
+
+  --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
 }
 
 [data-theme='dark'] {
@@ -52,15 +53,14 @@
   --pale-yellow-black:#000;
   --light-brown :#fff;
   --sandal:rgba(234, 213, 169, 0.32);
-  
-
+  --pale-sandal: #fddba2;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.open-work-permit {
+.open-work-permit , .banner-text span {
   background-image: linear-gradient(204deg, #ffda00 73%, #ffca6c -12%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -69,21 +69,17 @@
 
 
 
+
+
 body {
   margin: 0;
+  top: 0 !important;
   padding: 0;
   color: var(--primary-text);
   font-family: var(--font-jakarta);
+  background-color: var(--primary-bg);
 }
 
-.border-cicc {
-  border-color: var(--cicc-border);
-  border-left: solid transparent;
-}
-.border-capic {
-  border-color: var(--capic-border);
-  border-left: solid transparent;
-}
 
 
 
@@ -180,6 +176,10 @@ fill: #fff;
   display: none;
  }
 
+ .processes svg.divider:last-child{
+  display: none;
+ }
+
  .popup {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 11px 15px -7px, rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px;
   background: #fff;   
@@ -195,6 +195,12 @@ fill: #fff;
   color:var(--primary-text);
 }
 
+.challenges-accordion button > div > div{
+  text-align: left;
+}
+
+/*Blogs listing styling*/
+
 
 .blogs-listing{
   background: var(--secondary-grey);
@@ -202,6 +208,18 @@ fill: #fff;
 
 [data-theme='dark'] .blogs-listing{
   background: #000;
+}
+
+
+
+/*Tabs styling*/
+
+.tab-header ::after{
+  background: #979797;
+}
+
+[data-theme='dark'] .tab-header ::after{
+  background: #d8d8d8;
 }
 
 .tab-selectedBg{
@@ -212,7 +230,37 @@ fill: #fff;
   background: #fff6e7;
 }
 
-.huform {
-  background-color: #e22826;
-  color: #f59723;
+/* honesty section styling */
+
+.honestyBackground {
+  background-image: linear-gradient(to right, rgba(238, 238, 238, 0), rgba(233, 233, 233, 0.57) 15%, #e5e5e5 51%, rgba(219, 219, 219, 0.21) 85%, rgba(216, 216, 216, 0));
 }
+/*Bar Btn styling*/
+
+.bar-btn button:hover + svg {
+  top: -17px;
+  right: -17px;
+}
+
+
+
+.autoh-image img{
+  height: auto !important;
+  position: relative !important;
+}
+
+.challenges_toggle{
+  --icon-bg:#FFE5C5;
+  --icon-path: #000;
+}
+
+[data-theme='dark'] .challenges_toggle{
+  --icon-bg:#424242;
+  --icon-path: #FFE5C5;
+} 
+
+  /* media queries */
+  @media screen and (min-width: 768px) {
+    .honestyBackground{
+      background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);  }
+  }

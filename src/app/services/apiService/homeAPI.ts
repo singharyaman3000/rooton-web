@@ -3,9 +3,9 @@ import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces'
 import { IHonesty, IJsonContent } from '@/components/HomePage/Honesty';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import { IBlogCard } from '@/components/HomePage/BlogListings';
-import { IChallenges } from '@/components/HomePage/IChallengesListing';
+import { IChallenges } from '@/components/HomePage/ChallengesListing';
 import { HOME_API } from './apiUrl/homePage';
-import { MediaUrl } from './interfaces';
+import { IMediaUrlData, MediaUrl } from './interfaces';
 
 export const CONTENT_TYPES = {
   SERVICES: 'services',
@@ -14,6 +14,7 @@ export const CONTENT_TYPES = {
   OUR_PROCESSES: 'processes',
   BLOG: 'blogs',
   CHALLENGES: 'challenges',
+  PARTNERSHIPS: 'partnerships',
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
@@ -54,17 +55,25 @@ export interface IAttributes {
   home_page_contents: HomePageContents;
 }
 
-export interface Data {
+export interface IHomePageData {
   id: number;
   attributes: IAttributes;
 }
-export interface IHomePageData {
-  data: Data;
+export interface IHomePageDataRes {
+  data: IHomePageData;
+  footers :{data:{
+    attributes :{
+      name:string;
+      location:string;
+      phone : string;
+    }
+    media_url:IMediaUrlData
+  }[]}
   // meta: Meta;
 }
 
 export const getHomePageContents = async () => {
-  const apiRes = await getFetch<IHomePageData>(HOME_API, { next: { revalidate: 1200 } });
+  const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 1200 } });
   return apiRes.data;
 };
 

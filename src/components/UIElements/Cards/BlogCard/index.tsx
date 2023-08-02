@@ -12,18 +12,18 @@ export interface IBlogCardData {
 
 const BlogCard = ({ attributes }: IBlogCardData) => {
   return (
-    <div className="py-[3px] relative">
+    <div className="py-[3px] relative flex flex-col h-full">
       <div className="h-[10rem] md:min-h-[252px] md:h-[15.75rem] relative">
         <NextImage
-          sizes=""
-          src={appendAssetUrl(attributes.media_url.data[0].attributes.url)}
-          title=""
+          sizes="(max-width: 768px) 100vw,  25vw"
+          src={appendAssetUrl(attributes.media_url?.data[0].attributes.url)}
+          title="Blog Image"
           fill
           style={{ objectFit: 'cover' }}
-          altText={attributes.media_url.data[0].attributes.alternativeText}
+          altText={attributes.media_url?.data[0].attributes.alternativeText}
         />
       </div>
-      <div className="p-[16px] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white ">
+      <div className="p-[16px] flex-grow-[1] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white ">
         <h5 className="text-xs text-black font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
           {attributes.title}
         </h5>
@@ -36,7 +36,7 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
         </div>
       </div>
       <div className="absolute">
-        <NextImage src={gridOverlay} altText="" title="" fill={false} sizes="" />
+        <NextImage src={gridOverlay} altText="Overlay image" title="" fill={false} sizes="100vw" />
       </div>
     </div>
   );
