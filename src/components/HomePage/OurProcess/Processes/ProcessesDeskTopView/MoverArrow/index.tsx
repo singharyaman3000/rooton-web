@@ -12,8 +12,8 @@ const MoverArrow = () => {
     >
       <defs>
         <linearGradient x1="24.1155192%" y1="28.4593967%" x2="82.8780017%" y2="85.6326223%" id="linearGradient-1">
-          <stop stop-color="#FFDA00" offset="0%" />
-          <stop stop-color="#E3A430" offset="100%" />
+          <stop stopColor="#FFDA00" offset="0%" />
+          <stop stopColor="#E3A430" offset="100%" />
         </linearGradient>
       </defs>
       <g id="Home" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

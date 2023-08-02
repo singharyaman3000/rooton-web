@@ -69,17 +69,17 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
             </p>
           </motion.div>
 
-          <div className=" mt-[57.8px] max-w-[420px]">{button}</div>
+          <div className=" mt-[57.8px] max-w-[418px]">{button}</div>
         </div>
       </div>
       <NextImage
-        sizes=""
+        sizes="100vw"
         priority
         src={backgroundImageUrl}
         fill
         style={{ objectFit: 'cover' }}
         altText="root-on-banner-image"
-        title=""
+        title="Banner Image"
       />
       <Image alt="" priority fill src="/images/overlay/banner-overlay.png" style={{ objectFit: 'cover' }} />
       <div className="absolute bottom-0 right-0 hidden md:block">
