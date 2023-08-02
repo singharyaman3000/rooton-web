@@ -1,12 +1,17 @@
 'use client';
 
-import { InlineWidget } from 'react-calendly';
+import { InlineWidget, useCalendlyEventListener } from 'react-calendly';
 
 type BookAppointmentProps = {
   url: string;
+  onEventTypeViewed: () => void;
 };
 
-export default function BookAppointment({ url }: BookAppointmentProps) {
+export default function BookAppointment({ url, onEventTypeViewed }: BookAppointmentProps) {
+
+  useCalendlyEventListener({
+    onEventTypeViewed,
+  });
 
   return (
     <div className=" w-full">

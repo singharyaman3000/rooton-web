@@ -14,7 +14,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <>
+    <div className=" bg-[#fff6e7]">
       <div className={`${isLoading ? 'hidden' : 'block'} w-full h-full`}>
         {(forms[step].type ?? '') === 'form' ? (
           <LeadForm
@@ -22,11 +22,10 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
             region={forms[step].region ?? ''}
             portalId={forms[step].portalId ?? ''}
             formId={forms[step].formId ?? ''}
-            onFormSubmitted={() => {
-            }}
+            onFormSubmitted={() => {}}
             onFormSubmit={() => {
-              if(forms[step + 1].type === 'calendly') {
-                setIsLoading(false);
+              if (forms[step + 1].type === 'calendly') {
+                setIsLoading(true);
                 setStep((s) => {
                   return s + 1;
                 });
@@ -45,7 +44,12 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
             target={`studyvisa${forms[step].formId}`}
           />
         ) : (
-          <BookAppointment url={forms[step].url ?? ''} />
+          <BookAppointment
+            url={forms[step].url ?? ''}
+            onEventTypeViewed={() => {
+              setIsLoading(false);
+            }}
+          />
         )}
       </div>
       <div
@@ -53,7 +57,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
       >
         Loading...
       </div>
-    </>
+    </div>
   );
 };
 
