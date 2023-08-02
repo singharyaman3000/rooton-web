@@ -13,7 +13,7 @@ export interface IOurProcess extends ITitleAttributes {
 const OurProcess = ({ title, sub_title, json_content }: IOurProcess) => {
   return (
     <section className="relative">
-      <SectionContainer>
+      <SectionContainer cssClass='pt-10 md:pt-[100px]'>
         <SectionHeadings title={title} subTitle={sub_title} />
         <Processes process={json_content.process} />
         <div className="animate-pulse  absolute top-0 w-[1440px] overflow-y-hidden hidden  md:block  right-[-1px]">

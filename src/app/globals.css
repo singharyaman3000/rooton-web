@@ -202,6 +202,10 @@ fill: #fff;
   text-align: left;
 }
 
+.challenges-accordion:last-child{
+  border-bottom: 0;
+}
+
 /*Blogs listing styling*/
 
 
@@ -238,6 +242,7 @@ fill: #fff;
 .honestyBackground {
   background-image: linear-gradient(to right, rgba(238, 238, 238, 0), rgba(233, 233, 233, 0.57) 15%, #e5e5e5 51%, rgba(219, 219, 219, 0.21) 85%, rgba(216, 216, 216, 0));
 }
+
 /*Bar Btn styling*/
 
 .bar-btn button:hover + svg {
@@ -263,7 +268,33 @@ fill: #fff;
 } 
 
   /* media queries */
-  @media screen and (min-width: 768px) {
-    .honestyBackground{
-      background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);  }
-  }
+    @media screen and (min-width: 768px) {
+      .honestyBackground {
+        background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);
+      }
+  
+      
+    }
+
+    @media screen and (min-width: 768px ) and (max-width: 1023px) {
+      .honestyCard:nth-child(odd) {
+        padding-left: 0;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .honestyCard{
+        padding-left: 0;
+      }
+    }
+
+
+    @media screen and (min-width: 1024px) {
+      .honestyCard:nth-child(1),
+      .honestyCard:nth-child(4n) {
+        padding-left: 0;
+      }
+    }
+
+
+
