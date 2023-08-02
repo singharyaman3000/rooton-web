@@ -76,6 +76,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
 
   return (
     <>
+    
       <RootOnBanner
         backgroundImageUrl={appendAssetUrl(homePageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={homePageConfig?.attributes?.title}

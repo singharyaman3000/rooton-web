@@ -1,14 +1,11 @@
 'use client';
 
 import UKFlagIcon from '@/components/Icons/UKFlagIcon';
-import { MouseEvent, useState } from 'react';
-import SpainflagIcon from '@/components/Icons/SpainflagIcon';
-import GermanyFlagIcon from '@/components/Icons/GermanyFlagIcon';
-import ItalyFlagIcon from '@/components/Icons/ItalyFlagIcon';
-import IndiaFlagIconSm from '@/components/Icons/IndiaFlagIconSm';
-import PortugalFlagIcon from '@/components/Icons/PortugalFlagIcon';
+import { MouseEvent, useEffect, useState } from 'react';
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
-import FranceFlagIcon from '@/components/Icons/FranceFlagIcon';
+import { languages } from '@/app/(client-pages)/[lang]/translator';
+import { useParams  , useRouter , usePathname } from 'next/navigation';
+
 
 type RTONLanguageDropDownProps = {
   scrolledEnough: boolean;
@@ -16,14 +13,25 @@ type RTONLanguageDropDownProps = {
 
 export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDropDownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const params = useParams();
+  const routes = useRouter();
+  const path  = usePathname();
+
 
   const dropdownContainerOnClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    setIsOpen(false);
+    const nextRoute = path.replace(params.lang ,( e.target as HTMLElement).id);
+    window.location.href =  nextRoute
   };
+
+
+
+
 
   return (
     <button
-      aria-label='Language dropdown button'
+      aria-label="Language dropdown button"
       type="button"
       onClick={() => {
         setIsOpen((o) => !o);
@@ -55,38 +63,14 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
                 lg:-left-6
             "
         >
-          <span className=" flex gap-2 items-center">
-            <UKFlagIcon />
-            <p className=" text-base font-medium">English</p>
-          </span>
-          <span className=" flex gap-2 items-center">
-            <FranceFlagIcon />
-            <p className=" text-base font-medium">French</p>
-          </span>
-          <span className=" flex gap-2 items-center">
-            <SpainflagIcon />
-            <p className=" text-base font-medium">Spanish</p>
-          </span>
-          <span className=" flex gap-2 items-center">
-            <GermanyFlagIcon />
-            <p className=" text-base font-medium">German</p>
-          </span>
-          <span className=" flex gap-2 items-center">
-            <ItalyFlagIcon />
-            <p className=" text-base font-medium">Italian</p>
-          </span>
-          <span className=" flex gap-2 items-center">
-            <IndiaFlagIconSm />
-            <p className=" text-base font-medium">Punjabi</p>
-          </span>
-          <span className=" flex gap-2 items-center">
-            <IndiaFlagIconSm />
-            <p className=" text-base font-medium">Hindi</p>
-          </span>
-          <span className=" flex gap-2 items-center">
-            <PortugalFlagIcon />
-            <p className=" text-base font-medium">Portuguese</p>
-          </span>
+          {languages.map(({ icon, label  , key}) => {
+            return (
+              <span className=" flex gap-2 items-center" key={label} >
+                {icon}
+                <p className=" text-base font-medium" id={key}>{label}</p>
+              </span>
+            );
+          })}
         </div>
       )}
     </button>
