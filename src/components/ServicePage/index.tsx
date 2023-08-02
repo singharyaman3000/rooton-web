@@ -1,7 +1,6 @@
 'use client';
 
 import { IServicePageContent } from '@/app/services/apiService/serviceAPI';
-import { useEffect, useState } from 'react';
 import { H2 } from '../H2';
 import OurProcess from '../HomePage/OurProcess';
 import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
@@ -21,12 +20,6 @@ type ServicePageProps = {
 };
 
 export const ServicePageComponent = ({ response }: ServicePageProps) => {
-  const [test, setTest] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setTest(true), 2000);
-  }, []);
-
   const whyChooseOpen = response.data.attributes.sub_services_contents.data.find((i) => {
     return i.attributes.position === 1;
   });
@@ -76,14 +69,12 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
               json_content={process?.attributes.json_content as IOurProcessData}
             />
           </div>
-          {test && (
-            <div className=" mt-20">
-              <H2>{leadForm?.attributes.title ?? ''}</H2>
-              <div className=" mt-8">
-                <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
-              </div>
+          <div className=" mt-20">
+            <H2>{leadForm?.attributes.title ?? ''}</H2>
+            <div className=" mt-8">
+              <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
             </div>
-          )}
+          </div>
           <Testimonials />
         </>
       </ServicePageWrapper>

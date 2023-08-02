@@ -11,7 +11,7 @@ type LeadFormSectionProps = {
 
 const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
   const [step, setStep] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <div className=" bg-[#fff6e7]">
