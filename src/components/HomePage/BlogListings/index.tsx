@@ -35,13 +35,19 @@ const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
   return (
     <section className="w-full blogs-listing overflow-x-hidden">
       <SectionContainer cssClass="!pr-[0px]">
-        <div className="flex items-center justify-between md:pr-[80px]">
+        <div className="flex items-end justify-between md:pr-[80px]">
           <div>
             <SectionHeadings title={title} subTitle={sub_title} />
           </div>
-          <div className="items-center hidden md:flex">
+          <div className="items-center hidden md:flex md:mb-[8px]">
             <div className="mr-[30px]">
-              <Button label="More" tabIndex={0} handleOnClick={() => null} ariaLabel="More  News" />
+              <Button
+                cssClass="border-0 slider-nav bg-white font-bold"
+                label="More"
+                tabIndex={0}
+                handleOnClick={() => null}
+                ariaLabel="More  News"
+              />
             </div>
             <div>
               <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
@@ -50,7 +56,7 @@ const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="pt-[24px] md:pt-[80px]" {...handlers}>
+        <div className="pt-[24px] md:pt-[48px]" {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id="news-listing"

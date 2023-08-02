@@ -3,7 +3,7 @@ import { appendAssetUrl, formatDate } from '@/utils';
 import { IAttributes } from '@/app/services/apiService/interfaces';
 import NextImage from '../../NextImage';
 import Button from '../../Button';
-import gridOverlay from '../../../../../public/images/overlay/card-grid-overlay.png';
+import gridOverlay from '../../../../../public/images/overlay/card-grid-overlay.svg';
 
 export interface IBlogCardData {
   id: number;
@@ -28,15 +28,21 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
           {attributes.title}
         </h5>
         <div className="flex flex-wrap md:flex-nowrap items-center w-full justify-between">
-          <Button label="Read More" ariaLabel="Read More" cssClass='text-black' handleOnClick={() => null} tabIndex={0} />
+          <Button
+            label="Read More"
+            ariaLabel="Read More"
+            cssClass="text-black"
+            handleOnClick={() => null}
+            tabIndex={0}
+          />
           <div className="text-xs mt-[8px] md:mt-0 order-2 md:order-1  not-italic leading-[normal] tracking-[normal] md:text-sm">
             <span className="mr-[8px]  opacity-[0.36] text-black">Last updated:</span>
             <span className="text-black">{formatDate(attributes.updatedAt)}</span>
           </div>
         </div>
-      </div>
-      <div className="absolute">
-        <NextImage src={gridOverlay} altText="Overlay image" title="" fill={false} sizes="100vw" />
+        <div className="absolute right-0">
+          <NextImage src={gridOverlay} altText="Overlay image" title="" fill={false} sizes="100vw" />
+        </div>
       </div>
     </div>
   );

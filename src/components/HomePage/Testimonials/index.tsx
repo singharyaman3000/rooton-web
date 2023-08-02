@@ -49,11 +49,11 @@ const Testimonials = () => {
   return (
     <section className="w-full bg-primary-white overflow-x-hidden">
       <SectionContainer cssClass="!pr-[0px]">
-        <div className="flex items-center justify-between md:pr-[80px]">
+        <div className="flex items-end justify-between md:pr-[80px]">
           <div>
             <SectionHeadings title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
           </div>
-          <div className="items-center hidden md:flex">
+          <div className="items-center hidden md:flex md:mb-[8px]">
             <div>
               <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
               <SliderNav handleOnClick={incrementPage} disable={pageNum === totalPages - 1} />
@@ -61,7 +61,7 @@ const Testimonials = () => {
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="pt-[24px] md:pt-[80px]" {...handlers}>
+        <div className="pt-[24px] md:pt-[48px]" {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id="testimonial-listing"

@@ -31,7 +31,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
   const [accordionId, setAccordionId] = useState<string | null>(null);
 
   return (
-    <section className="bg-pale-yellow-black">
+    <section className="challenges-listing">
       <SectionContainer>
         <div className="md:flex">
           <div className="md:w-[48.8%] md:pr-[80px]">
@@ -63,9 +63,10 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
                   handleOnClick={(selectedAccordionId) => {
                     setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId);
                   }}
+                  accordionBodyCss={'md:!pb-[24px]'}
                   customToggle={<ToggleIcon isOpen={challengObj?.position.toString() === accordionId} />}
                   customSpacer={<span></span>}
-                  cssClass="challenges-accordion border-b-[1px] border-b-sandal "
+                  cssClass="challenges-accordion border-b-[1px] md:p-[0px_12px] border-b-sandal "
                   key={challengObj?.position}
                   header={<AccordionHeader value={challengObj?.key}/>}
                   accordionBody={<AccordionBody value={challengObj?.value}/>}
