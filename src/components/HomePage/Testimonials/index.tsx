@@ -48,7 +48,7 @@ const Testimonials = () => {
 
   return (
     <section className="w-full bg-primary-white overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px]">
+      <SectionContainer cssClass="!pr-[0px] py-10 md:py-[80px]">
         <div className="flex items-end justify-between md:pr-[80px]">
           <div>
             <SectionHeadings title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
