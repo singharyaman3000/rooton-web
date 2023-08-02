@@ -6,7 +6,7 @@ import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import OurProcess from '@/components/HomePage/OurProcess';
 import { CONTENT_TYPES, IHomePageData } from '@/app/services/apiService/homeAPI';
-import { appendAssetUrl } from '@/utils';
+import { appendAssetUrl, isVideo } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -77,6 +77,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   return (
     <>
       <RootOnBanner
+        isVideoBanner={isVideo(homePageConfig.attributes.media_url.data[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(homePageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={homePageConfig?.attributes?.title}
         description={homePageConfig?.attributes?.sub_title}

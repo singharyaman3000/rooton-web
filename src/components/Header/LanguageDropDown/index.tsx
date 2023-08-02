@@ -2,7 +2,6 @@
 
 import UKFlagIcon from '@/components/Icons/UKFlagIcon';
 import { MouseEvent, useState } from 'react';
-
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
 import FlagComponentWrapper from './FlagComponentWrapper';
 
@@ -19,7 +18,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
 
   return (
     <button
-      aria-label='Language dropdown button'
+      aria-label="Language dropdown button"
       type="button"
       onClick={() => {
         setIsOpen((o) => !o);
@@ -51,7 +50,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
                 z-1
             "
         >
-          {<FlagComponentWrapper/>}
+          {<FlagComponentWrapper />}
         </div>
       )}
     </button>
