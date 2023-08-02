@@ -1,21 +1,23 @@
-import { IServicePageContent, getServicePageContent } from '@/app/services/apiService/serviceAPI';
-import { H2 } from '@/components/H2';
-import OurProcess from '@/components/HomePage/OurProcess';
-import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
-import Testimonials from '@/components/HomePage/Testimonials';
-import { Li } from '@/components/Li';
-import RTONBanner from '@/components/RTONBanner';
-import BookAnAppointmentButton from '@/components/ServicePage/BookAnAppointmentButton';
-import { ServiceDescription } from '@/components/ServicePage/Description';
-import LeadFormSection from '@/components/ServicePage/LeadFormSection';
-import { WhyChoose } from '@/components/ServicePage/WhyChoose';
-import { WhyRooton } from '@/components/ServicePage/WhyRooton';
-import { ServicePageWrapper } from '@/components/ServicePage/Wrapper';
-import { Ul } from '@/components/Ul';
+import { IServicePageContent } from '@/app/services/apiService/serviceAPI';
+import { H2 } from '../H2';
+import OurProcess from '../HomePage/OurProcess';
+import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
+import Testimonials from '../HomePage/Testimonials';
+import { Li } from '../Li';
+import RTONBanner from '../RTONBanner';
+import { Ul } from '../Ul';
+import BookAnAppointmentButton from './BookAnAppointmentButton';
+import { ServiceDescription } from './Description';
+import LeadFormSection from './LeadFormSection';
+import { WhyChoose } from './WhyChoose';
+import { WhyRooton } from './WhyRooton';
+import { ServicePageWrapper } from './Wrapper';
 
-export default async function ServicePage() {
-  const response = (await getServicePageContent(1)) as IServicePageContent;
+type ServicePageProps = {
+    response: IServicePageContent
+}
 
+export const ServicePageComponent = ({ response }: ServicePageProps) => {
   const whyChooseOpen = response.data.attributes.sub_services_contents.data.find((i) => {
     return i.attributes.position === 1;
   });
@@ -31,7 +33,6 @@ export default async function ServicePage() {
   const process = response.data.attributes.sub_services_contents.data.find((i) => {
     return i.attributes.position === 3;
   });
-
   return (
     <>
       <RTONBanner
@@ -56,10 +57,10 @@ export default async function ServicePage() {
           />
           <Ul>
             {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
-              return <Li key={e.position + e.key}> {e.value } </Li>;
+              return <Li key={e.position + e.key}> {e.value} </Li>;
             })}
           </Ul>
-          <div className=' mt-20'>
+          <div className=" mt-20">
             <OurProcess
               title={''}
               sub_title={process?.attributes.title ?? ''}
@@ -77,4 +78,4 @@ export default async function ServicePage() {
       </ServicePageWrapper>
     </>
   );
-}
+};
