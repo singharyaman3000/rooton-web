@@ -2,7 +2,6 @@
 
 import UKFlagIcon from '@/components/Icons/UKFlagIcon';
 import { MouseEvent, useState } from 'react';
-
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
 
 type RTONLanguageDropDownProps = {

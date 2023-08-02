@@ -5,11 +5,12 @@ export interface IVideoElement {
   poster: string;
   constrols?: boolean;
   loop?: boolean;
-  cssClass: string;
+  cssClass?: string;
+  muted?:boolean
 }
 
-const VideoElement = ({ src, constrols = true, loop = false, cssClass }: IVideoElement) => {
-  return <video className={cssClass} controls={constrols} src={src} autoPlay muted loop={loop} preload="metadata" />;
+const VideoElement = ({ src, constrols = true, loop = false, cssClass , muted }: IVideoElement) => {
+  return <video className={cssClass} controls={constrols} src={src} autoPlay muted={muted} loop={loop} preload="metadata" />;
 };
 
 export default VideoElement;
