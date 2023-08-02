@@ -10,6 +10,7 @@ import { appendAssetUrl } from '@/utils';
 import { MediaUrl } from '@/app/services/apiService/interfaces';
 import { ITitleAttributes } from '../ServicesListing/interafces';
 import ToggleIcon from './ToggleIcon';
+import { AccordionBody, AccordionHeader } from './ChallengeListingElements';
 
 export interface IChallenge {
   key: string;
@@ -33,7 +34,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
     <section className="bg-pale-yellow-black">
       <SectionContainer>
         <div className="md:flex">
-          <div className="md:w-[48%] md:pr-[80px]">
+          <div className="md:w-[48.8%] md:pr-[80px]">
             <SectionHeadings title={title} subTitle={sub_title} />
             <p
               className="mt-[34px] md:mt-[24px] text-light-brown md:text-faded-black text-sm font-medium not-italic leading-[1.71] tracking-[normal]
@@ -45,29 +46,29 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
             <div className="relative autoh-image">
               <NextImage
                 sizes="(max-width: 768px) 100vw, 50vw"
-                title={media_url?.data[0].attributes.alternativeText}
-                altText={media_url?.data[0].attributes.alternativeText}
+                title={media_url?.data?.[0]?.attributes?.alternativeText}
+                altText={media_url?.data?.[0]?.attributes?.alternativeText}
                 fill
                 style={{ objectFit: 'contain' }}
-                src={appendAssetUrl(media_url?.data[0].attributes.url)}
+                src={appendAssetUrl(media_url?.data?.[0]?.attributes?.url)}
               />
             </div>
           </div>
-          <div className="md:w-[52%]">
+          <div className="md:w-[43.8%]">
             {json_content.challenges.map((challengObj) => {
               return (
                 <Accordion
-                  openAccordion={challengObj.position.toString() === accordionId}
-                  accordionId={challengObj.position.toString()}
+                  openAccordion={challengObj?.position.toString() === accordionId}
+                  accordionId={challengObj?.position.toString()}
                   handleOnClick={(selectedAccordionId) => {
                     setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId);
                   }}
-                  customToggle={<ToggleIcon isOpen={challengObj.position.toString() === accordionId} />}
+                  customToggle={<ToggleIcon isOpen={challengObj?.position.toString() === accordionId} />}
                   customSpacer={<span></span>}
                   cssClass="challenges-accordion border-b-[1px] border-b-sandal "
-                  key={challengObj.position}
-                  header={<div className="pt-[16px] pb-[19px] md:py-[24px]">{challengObj.key}</div>}
-                  accordionBody={<div className="pb-[18px] md:pb-[24px]">{challengObj.value}</div>}
+                  key={challengObj?.position}
+                  header={<AccordionHeader value={challengObj?.key}/>}
+                  accordionBody={<AccordionBody value={challengObj?.value}/>}
                 />
               );
             })}

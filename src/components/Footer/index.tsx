@@ -78,7 +78,6 @@ export default function Footer() {
             <Link href={'/'}>Careers</Link>
             <Link href={'/'}>Privacy Policy</Link>
             <Link href={'/'}>Terms & Condition</Link>
-            <Link href={'/'}>FAQs</Link>
             <Link href={'/'}>QnA Forum</Link>
           </div>
           <div className=" flex flex-col gap-3">

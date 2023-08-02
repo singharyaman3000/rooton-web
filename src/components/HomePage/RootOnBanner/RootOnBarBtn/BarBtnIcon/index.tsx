@@ -19,7 +19,7 @@ const BarBtnIcon = () => {
         d="M432 0v1.666h-28.333L403.666 30H402V0h30z"
         transform="matrix(-1 0 0 1 432 0)"
         fill="url(#xy6bnl2g1a)"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       />
     </svg>
   );

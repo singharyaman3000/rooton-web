@@ -36,7 +36,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
           viewport={{ once: true }}
           className="absolute top-0 w-[20.875rem] h-full right-0"
         >
-          <NextImage src={TabOverlay} fill altText="" title="" sizes="100vw" style={{ objectFit: 'contain' }} />
+          <NextImage src={TabOverlay} fill altText="Tab background image" title="" sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'contain' }} />
         </motion.div>
       </div>
     </div>

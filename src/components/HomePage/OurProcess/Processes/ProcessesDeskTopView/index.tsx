@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import Divider from './Divider';
 import MoverIcon from './MoverIcon';
 import { IOurProcessData } from '../../interfaces';
@@ -55,11 +55,10 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
     <div className="mt-[48px] mb-[120px] relative hidden md:block processes">
       {process.map(({ key, value, position }, index) => {
         return (
-          <>
+          <Fragment key={`${position}-desktop`}>
             <div
               style={{ background: selectedElem.toString() === position.toString() ? 'var(--selector-bg)' : '' }}
-              className='flex py-[26px] px-[32px] ease-linear transition-all'
-              key={`${position}-desktop`}
+              className="flex py-[26px] px-[32px] ease-linear transition-all"
               id={position}
               ref={refs[index]}
             >
@@ -78,7 +77,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
               </div>
             </div>
             <Divider />
-          </>
+          </Fragment>
         );
       })}
       <div className="absolute p-[8px] transition-all  duration-1700 left-[35%]" style={{ top: movableTop }}>
