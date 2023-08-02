@@ -24,7 +24,7 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
         />
       </div>
       <div className="p-[16px] flex-grow-[1] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white ">
-        <h5 className="text-xs text-black font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
+        <h5 className="text-xs line-clamp-3 text-black font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
           {attributes.title}
         </h5>
         <div className="flex flex-wrap md:flex-nowrap items-center w-full justify-between">

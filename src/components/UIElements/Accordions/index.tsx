@@ -38,7 +38,7 @@ const Accordion = ({
         >
           <div className="text-base font-bold not-italic leading-[normal] tracking-[normal]">{header}</div>
           {customToggle ?? (
-            <div className={`${openAccordion ? 'rotate-180' : 'rotate-0'}  transition-all delay-75`}>
+            <div className={`${openAccordion ? 'rotate-180' : 'rotate-0'} line-clamp-2 flex-shrink-0 ml-[10px]  transition-all delay-75`}>
               <DropDownCaret />
             </div>
           )}
