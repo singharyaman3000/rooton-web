@@ -28,6 +28,7 @@ export default function RTONBanner({
       style={{ backgroundImage: backgroundImageUrl }}
     >
       <Breadcrumbs
+        className=' hidden lg:flex'
         data={[
           {
             title: 'Home',

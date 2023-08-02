@@ -8,10 +8,11 @@ type IEligibility = {
 };
 
 export type ILeadForm = {
-  type: 'form' | 'calendly';
-  region: string;
-  portalId: string;
-  formId: string;
+  type?: 'form' | 'calendly';
+  region?: string;
+  portalId?: string;
+  formId?: string;
+  url?: string;
 };
 
 type IProcess = {

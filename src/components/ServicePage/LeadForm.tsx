@@ -58,7 +58,7 @@ export const LeadForm = ({
     };
 
     initHubSpot();
-  }, [region, portalId, formId, target, onFormSubmit, onFormSubmitted, onFormReady]);
+  }, []);
 
   return <FormTarget target={target} />;
 };

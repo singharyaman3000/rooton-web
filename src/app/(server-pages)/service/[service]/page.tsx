@@ -56,7 +56,7 @@ export default async function ServicePage() {
           />
           <Ul>
             {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
-              return <Li key={e.position + e.key}> {e.value} </Li>;
+              return <Li key={e.position + e.key}> {e.value } </Li>;
             })}
           </Ul>
           <div className=' mt-20'>

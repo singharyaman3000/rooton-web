@@ -1,5 +1,5 @@
 type LiProps = {
-  children: string;
+  children: string | string[];
 };
 
 export const Li = ({ children }: LiProps) => {
