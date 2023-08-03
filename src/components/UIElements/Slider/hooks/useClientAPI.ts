@@ -6,7 +6,7 @@ const useClientAPI = <T>({ apiFn }: { apiFn: () => Promise<T> }) => {
   const [error, isError] = useState();
 
   useEffect(() => {
-    isLoading(false);
+    isLoading(true);
     isError(undefined);
     apiFn()
       .then((apiRes) => {

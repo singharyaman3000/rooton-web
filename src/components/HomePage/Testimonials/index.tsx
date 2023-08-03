@@ -8,6 +8,7 @@ import TestimonialCard, {
   ITestimonialData,
 } from '@/components/UIElements/Cards/TestimonialCard';
 import TestimonialFooter from '@/components/UIElements/Cards/TestimonialCard/TestimonialFooter';
+import TestimonialPreLoader from '@/components/UIElements/Cards/TestimonialCard/TestimonialPreLoader';
 import PopUp from '@/components/UIElements/PopUp';
 import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
@@ -25,7 +26,7 @@ export interface ITestimonials {
 }
 
 const Testimonials = () => {
-  const { data } = useClientAPI({ apiFn: getTestimonials });
+  const { data , loading } = useClientAPI({ apiFn: getTestimonials });
   const { showPopUp, hidePopUp, poupState } = usePopUp();
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',
@@ -66,6 +67,8 @@ const Testimonials = () => {
             scrollPercent={`${-scrollAmt}px`}
             id="testimonial-listing"
             pageNum={pageNum}
+            loading={loading}
+            loadingUI={<TestimonialPreLoader/>}
             slideClass="!w-[73.4%] !min-w-[264px] md:!w-[29.2%] w-full md:!min-w-[404px] !md:max-w-[400px]"
           >
             {(data ?? []).map(({ attributes, id }) => {

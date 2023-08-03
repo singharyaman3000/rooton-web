@@ -31,6 +31,7 @@
   --hover-lang-dropdown: #efefef;
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
+  --preloader-overlay:hsl(252deg 9% 6% / 18%),hsl(252deg 3% 16% / 19%),hsl(0deg 2% 5% / 15%);
 }
 
 [data-theme='dark'] {
@@ -58,6 +59,7 @@
   
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(255,255,255,0.5);
+  --preloader-overlay : rgb(228 228 228), hsl(0deg 0% 89% / 43%), rgb(228 228 228) ;
 }
 
 @tailwind base;
@@ -186,6 +188,10 @@ fill: #fff;
  .popup {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 11px 15px -7px, rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px;
   background: #fff;   
+}
+
+.challenges-accordion{
+  @apply md:!p-[0px] ;
 }
 
 .challenges-accordion button{
@@ -317,3 +323,20 @@ fill: #fff;
 
 
 
+    .skeleton {
+      background: linear-gradient(
+        90deg,
+        var(--preloader-overlay )
+      );
+      background-size: 200%;
+      animation: loader 1s infinite reverse;
+    }
+
+    @keyframes loader {
+      from {
+        background-position: -100% 0;
+      }
+      to {
+        background-position: 100% 0;
+      }
+    }
