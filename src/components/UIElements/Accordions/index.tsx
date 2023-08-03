@@ -36,7 +36,7 @@ const Accordion = ({
           className="w-full flex items-center justify-between pb-[21px]"
           onClick={() => handleOnClick(accordionId)}
         >
-          <div className="text-base font-bold not-italic leading-[normal] tracking-[normal]">{header}</div>
+          <div className="w-full text-base font-bold not-italic leading-[normal] tracking-[normal]">{header}</div>
           {customToggle ?? (
             <div className={`${openAccordion ? 'rotate-180' : 'rotate-0'} line-clamp-2 flex-shrink-0 ml-[10px]  transition-all delay-75`}>
               <DropDownCaret />
