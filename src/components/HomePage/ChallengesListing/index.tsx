@@ -32,7 +32,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
 
   return (
     <section className="challenges-listing">
-      <SectionContainer  cssClass='pt-10 pb-[39px] md:py-[80px]'>
+      <SectionContainer cssClass="pt-10 pb-[39px] md:py-[80px]">
         <div className="md:flex">
           <div className="md:w-[48.8%] md:pr-[80px]">
             <SectionHeadings title={title} subTitle={sub_title} />
@@ -43,7 +43,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
             >
               {HtmlParser(description ?? '')}
             </p>
-            <div className="relative autoh-image">
+            <div className="relative autoh-image mb-[12px] md:mb-[0px]">
               <NextImage
                 sizes="(max-width: 768px) 100vw, 50vw"
                 title={media_url?.data?.[0]?.attributes?.alternativeText}
@@ -57,20 +57,24 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
           <div className="md:w-[43.8%]">
             {json_content.challenges.map((challengObj) => {
               return (
-                <Accordion
-                  openAccordion={challengObj?.position.toString() === accordionId}
-                  accordionId={challengObj?.position.toString()}
-                  handleOnClick={(selectedAccordionId) => {
-                    setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId);
-                  }}
-                  accordionBodyCss={'md:!pb-[24px]'}
-                  customToggle={<ToggleIcon isOpen={challengObj?.position.toString() === accordionId} />}
-                  customSpacer={<span></span>}
-                  cssClass="challenges-accordion border-b-[1px] md:p-[0px_12px] border-b-sandal "
+                <div
+                  className="w-full border-b-sandal last:border-b-0 border-b-[1px] pt-[5px] pb-[8px] md:p-[12px_0px]"
                   key={challengObj?.position}
-                  header={<AccordionHeader value={challengObj?.key}/>}
-                  accordionBody={<AccordionBody value={challengObj?.value}/>}
-                />
+                >
+                  <Accordion
+                    openAccordion={challengObj?.position.toString() === accordionId}
+                    accordionId={challengObj?.position.toString()}
+                    handleOnClick={(selectedAccordionId) => {
+                      setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId);
+                    }}
+                    accordionBodyCss={'md:!pb-[24px]'}
+                    customToggle={<ToggleIcon isOpen={challengObj?.position.toString() === accordionId} />}
+                    customSpacer={<span></span>}
+                    cssClass="challenges-accordion  md:p-[0px_12px]  "
+                    header={<AccordionHeader value={challengObj?.key} />}
+                    accordionBody={<AccordionBody value={challengObj?.value} />}
+                  />
+                </div>
               );
             })}
           </div>
