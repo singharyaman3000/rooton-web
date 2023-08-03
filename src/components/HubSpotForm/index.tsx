@@ -1,5 +1,6 @@
 'use client';
 
+import { HUBSPOT } from '@/app/constants/textConstants';
 import React, { useEffect } from 'react';
 
 interface IHubSpotForm {
@@ -10,7 +11,7 @@ interface IHubSpotForm {
 const HubSpotForm = ({ region, portalId, formId }: IHubSpotForm) => {
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = process.env.NEXT_PUBLIC_HUBSPOT_SRC as string;
+    script.src = HUBSPOT.src;
     document.body.appendChild(script);
 
     script.addEventListener('load', () => {
