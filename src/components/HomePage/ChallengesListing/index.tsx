@@ -53,7 +53,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
               tabIndex={0}
               icon={<CalenderIconYellow />}
             />
-            <div className="relative autoh-image mb-[12px] md:mb-[0px]">
+            <div className="relative autoh-image mb-[12px] md:mb-[0px] max-w-[500px] lg:max-w-unset">
               <NextImage
                 sizes="(max-width: 768px) 100vw, 50vw"
                 title={media_url?.data?.[0]?.attributes?.alternativeText}

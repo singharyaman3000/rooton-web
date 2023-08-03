@@ -12,7 +12,7 @@ const PopUp = ({ header, body, showPopuUp, onClose }: IPopUp) => {
     showPopuUp && (
       <div className="fixed square-[100%] top-0 left-0 z-[1000]  flex  justify-center items-center">
         <div className="bg-[rgba(0,_0,_0,_0.5)] w-full h-full absolute"></div>
-        <div className="p-[20px] popup w-[60vw] z-[10] rounded-sm  max-w-[600px] ">
+        <div className="p-[20px] popup w-[90vw] md:w-[60vw] z-[10] rounded-sm  max-w-[600px] ">
           <div className="mb-[10px] justify-between flex items-center">
             {typeof header === 'string' ? <h4>{header}</h4> : header}{' '}
             <div>

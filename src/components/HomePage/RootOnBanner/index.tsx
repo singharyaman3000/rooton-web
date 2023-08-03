@@ -42,7 +42,8 @@ export default function RootOnBanner({
           relative z-[10]
           px-[24px]
           whitespace-pre-wrap
-          md:px-[80px]
+          md:px-[48px]
+          lg:px-[80px]
           "
         >
           <motion.div

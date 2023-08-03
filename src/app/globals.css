@@ -74,6 +74,9 @@
 }
 
 
+html,body{
+ font-size: 16px;
+}
 
 
 
@@ -166,10 +169,10 @@ fill: #fff;
  }
 
 
- .processes{
+ .processes ,.processes-mobile-view{
   --selector-bg:var(--pale-yellow);
  }
- [data-theme='dark'] .processes {
+ [data-theme='dark'] .processes , [data-theme='dark'] .processes-mobile-view  {
   --selector-bg : rgba(256 , 256, 256 ,0.1);
  }
 
@@ -195,7 +198,7 @@ fill: #fff;
   @apply md:!p-[0px] ;
 }
 
-.challenges-accordion button ,  .faq-accordion button{
+.challenges-accordion .header-btn ,  .faq-accordion .header-btn{
   padding-bottom: 0px !important;
 }
 
@@ -208,7 +211,7 @@ fill: #fff;
 
 
 
-.challenges-accordion button > div > div , .faq-accordion button > div > div{
+.challenges-accordion .header-btn > div > div , .faq-accordion .header-btn > div > div{
   text-align: left;
 }
 
@@ -347,3 +350,18 @@ fill: #fff;
         background-position: 100% 0;
       }
     }
+
+
+.open-mobile-accordion .accordion-header{
+  background: var(--toggle-dark-bg);
+}
+
+
+.accordion-spacer {
+  background: #b17900;
+}
+
+[data-theme='dark'] .accordion-spacer{
+  background: #fff;
+}
+

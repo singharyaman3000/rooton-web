@@ -54,7 +54,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
         </div>
       </div>
     </Container>
-    <div className="absolute top-0 left-0 hidden lg:block">
+    <div className="absolute top-0 left-0 hidden lg:block w-full overflow-y-hidden">
       <HonestyGrid />
     </div>
   </div>
