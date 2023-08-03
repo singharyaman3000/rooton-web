@@ -198,11 +198,14 @@ fill: #fff;
   padding-bottom: 0px !important;
 }
 
-.challenges-accordion >div{
+.challenges-accordion >div , .faq-accordion  > div{
   background: transparent !important;
   color:var(--primary-text);
   padding: 0px !important ;
 }
+
+
+
 
 .challenges-accordion button > div > div{
   text-align: left;

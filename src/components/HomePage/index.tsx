@@ -14,6 +14,7 @@ import RootOnBarBtn from './RootOnBanner/RootOnBarBtn';
 import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
+import FaqListing, { IFaQListing, IFaqData } from './FaqListings';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponents = () => {
@@ -68,7 +69,9 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         );
       case CONTENT_TYPES.PARTNERSHIPS:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
-      default:
+      case CONTENT_TYPES.QUESTIONS:
+        return <FaqListing sub_title={sub_title} title={title} json_content={contents.attributes.json_content as IFaqData} />;
+        default:
         return null;
       }
     });

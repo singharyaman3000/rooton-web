@@ -6,6 +6,7 @@ import { IBlogCard } from '@/components/HomePage/BlogListings';
 import { IChallenges } from '@/components/HomePage/ChallengesListing';
 import { HOME_API } from './apiUrl/homePage';
 import { IMediaUrlData, MediaUrl } from './interfaces';
+import { IFaQListing, IFaqData } from '@/components/HomePage/FaqListings';
 
 export const CONTENT_TYPES = {
   SERVICES: 'services',
@@ -15,6 +16,7 @@ export const CONTENT_TYPES = {
   BLOG: 'blogs',
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
+  QUESTIONS : 'questions'
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
@@ -30,7 +32,7 @@ export interface Attributes2 {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges;
+  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges | IFaqData;
   blogs: IBlogCard;
   core_services: ICoreServices;
   media_url: MediaUrl;
