@@ -1,6 +1,6 @@
 import React from 'react';
 import SectionContainer from '@/components/Containers/SectionContainers';
-import { FormConstants } from '@/constants/hubspotConfig';
+import { FormConstants } from '@/app/constants/hubspotConfig';
 import NewsLetterGrid from './NewsLetterGrid';
 import HubSpotForm from '../../HubSpotForm';
 
