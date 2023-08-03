@@ -12,7 +12,7 @@ const APPROX_MOVER_HALF_HEIGHT = 32;
 
 const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
   const refs = useMemo(() => process.map(() => React.createRef<HTMLDivElement>()), [process]);
-  const processLength:number = process?.length
+  const processLength: number = process?.length;
   const [selectedElem, updateSelectELem] = useState('1');
   const [movableTop, setMovableTop] = useState('0');
 
@@ -76,7 +76,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
                 </p>
               </div>
             </div>
-              {index < processLength-1 && <Divider />}
+            {index < processLength - 1 && <Divider />}
           </Fragment>
         );
       })}
@@ -84,12 +84,12 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
         <div className="square-[64px] bg-white flex items-center justify-center z-[1] relative ">
           <MoverIcon />
         </div>
-        <div className='absolute left-0 top-0'>
-          <MoverArrow/>
+        <div className="absolute left-0 top-0">
+          <MoverArrow />
         </div>
         <div className="movable-wrapper"></div>
       </div>
-      <FlightPath/>
+      <FlightPath />
     </div>
   );
 };
