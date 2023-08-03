@@ -9,7 +9,7 @@ type FormTargetProps = {
 const FormTarget = ({ target }: FormTargetProps) => {
   return (
     <div className=" h-full w-full">
-      <div className="bg-[#fff6e7] p-5 h-full w-full" id={target} />
+      <div className=" p-5 h-full w-full" id={target} />
     </div>
   );
 };

@@ -16,6 +16,7 @@ export const WhyRooton = ({ title, description }: WhyRootonProps) => {
         text-sm
         leading-primary
         text-font-color-light-gray
+        lg:text-lg
       "
       >
         {description}

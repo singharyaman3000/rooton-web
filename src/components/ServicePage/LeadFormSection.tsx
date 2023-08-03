@@ -14,7 +14,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className=" bg-[#fff6e7]">
+    <div className=" bg-[#fff]">
       <div className={`${isLoading ? 'hidden' : 'block'} w-full h-full`}>
         {(forms[step].type ?? '') === 'form' ? (
           <LeadForm
@@ -53,7 +53,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
         )}
       </div>
       <div
-        className={` min-h-[350px] bg-[#fff6e7] ${isLoading ? ' flex' : ' hidden'} flex justify-center items-center`}
+        className={` min-h-[350px] bg-[#fff] ${isLoading ? ' flex' : ' hidden'} flex justify-center items-center`}
       >
         Loading...
       </div>

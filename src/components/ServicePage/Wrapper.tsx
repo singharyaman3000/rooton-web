@@ -1,12 +1,13 @@
 import { ReactElement } from 'react';
 
 type ServicePageWrapperProps = {
-    children: ReactElement
+    children: ReactElement;
+    className: string;
 };
 
-export const ServicePageWrapper = ({ children }: ServicePageWrapperProps) => {
+export const ServicePageWrapper = ({ children, className }: ServicePageWrapperProps) => {
   return (
-    <div className=" pt-10 pb-[68px] px-6">
+    <div className={className}>
       { children }
     </div>
   );

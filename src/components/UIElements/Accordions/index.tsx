@@ -30,7 +30,7 @@ const Accordion = ({
 }: IAccordion) => {
   return (
     <div className={cssClass}>
-      <div className={`p-[21px] pb-0 ${openAccordion ? 'bg-primary-black text-primary-white  ' : 'bg-transparent'}`}>
+      <div className={`p-[21px] pb-0 ${openAccordion ? 'bg-primary-black text-primary-white ' : 'bg-transparent'}`}>
         <button
           type="button"
           className="w-full flex items-center justify-between pb-[21px]"
