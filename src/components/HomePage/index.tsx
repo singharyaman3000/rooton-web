@@ -79,7 +79,6 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
 
   return (
     <>
-    
       <RootOnBanner
         isVideoBanner={isVideo(homePageConfig.attributes.media_url.data[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(homePageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}

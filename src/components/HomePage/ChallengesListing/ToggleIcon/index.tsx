@@ -5,13 +5,6 @@ export interface IToggleIcon {
 }
 
 const ToggleIcon = ({ isOpen }: IToggleIcon) => {
-  // const { theme } = useTheme();
-
-  //  const [theme , updateTheme] = useState<string| undefined>(undefined)
-
-  //  useEffect(()=>{
-  //     updateTheme(theme)
-  //  } , [theme])
 
   return isOpen ? (
     <svg xmlns="http://www.w3.org/2000/svg" className="challenges_toggle flex-shrink-0 ml-[10px]" width="24" height="24" viewBox="0 0 24 24">
