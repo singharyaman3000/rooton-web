@@ -8,6 +8,8 @@ import Accordion from '@/components/UIElements/Accordions';
 import NextImage from '@/components/UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import { MediaUrl } from '@/app/services/apiService/interfaces';
+import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
+import Button from '@/components/UIElements/Button';
 import { ITitleAttributes } from '../ServicesListing/interafces';
 import ToggleIcon from './ToggleIcon';
 import { AccordionBody, AccordionHeader } from './ChallengeListingElements';
@@ -43,6 +45,14 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
             >
               {HtmlParser(description ?? '')}
             </p>
+            <Button
+              label="Get your queries solved"
+              ariaLabel="Get your queries solved"
+              cssClass="text-white bg-black border-0 !pb-[18px] mt-5 mb-3 gap-[16px]"
+              handleOnClick={() => null}
+              tabIndex={0}
+              icon={<CalenderIconYellow />}
+            />
             <div className="relative autoh-image mb-[12px] md:mb-[0px]">
               <NextImage
                 sizes="(max-width: 768px) 100vw, 50vw"
