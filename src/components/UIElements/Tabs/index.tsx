@@ -2,15 +2,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import TabHeader, { ITabData, ITabHeader } from './TabsHeader';
+import TabHeader, { ITabHeader, ITabHeaderData } from './TabsHeader';
 import NextImage from '../NextImage';
 import TabOverlay from '../../../../public/images/overlay/services-tab-overlay.png';
 
 export type ITabs = Pick<ITabHeader, 'headerData'> & {
   cssClass?: string;
-  tabBody: React.ReactNode[];
-  selectedTab: ITabData;
-  onTabChange: (selectedTabData: ITabData) => void; // eslint-disable-line no-unused-vars
+  tabBody: React.ReactNode[] | undefined;
+  selectedTab: ITabHeaderData;
+  onTabChange: (selectedTabData: {service:string}) => void; // eslint-disable-line no-unused-vars
 };
 
 const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs) => {
@@ -21,7 +21,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
         handleOnClick={(selectedTabData) => onTabChange(selectedTabData)}
         headerData={headerData}
       />
-      <div className="min-h-[28.125rem] mt-[15px] bg-pale-yellow relative">
+      <div className="min-h-[28.125rem] mt-[26px] bg-pale-yellow relative">
         <div className="w-[67%] p-[24px] flex items-center flex-wrap justify-between">
           {tabBody}
         </div>
@@ -36,7 +36,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
           viewport={{ once: true }}
           className="absolute top-0 w-[20.875rem] h-full right-0"
         >
-          <NextImage src={TabOverlay} fill altText="" title="" sizes="100vw" style={{ objectFit: 'contain' }} />
+          <NextImage src={TabOverlay} fill altText="Tab background image" title="" sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'contain' }} />
         </motion.div>
       </div>
     </div>

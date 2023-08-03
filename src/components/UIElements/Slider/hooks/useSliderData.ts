@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import useSliderPagination from './useSlider';
 
-// export interface IUseSliderData  extends IUseSlider {slideId:string}
-
 type IUseSliderData = {
   slideId: string;
+  sliderData: unknown;
 };
 
-const useSliderData = ({ slideId }: IUseSliderData) => {
+const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
   const [scrollAmt, setScrollAmt] = useState(0);
   const [unitPageWidth, setPageWidth] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -16,26 +15,29 @@ const useSliderData = ({ slideId }: IUseSliderData) => {
   useEffect(() => {
     setScrollAmt(unitPageWidth * pageNum);
   }, [pageNum]);
+
   useEffect(() => {
-    const slide = document.getElementById(slideId);
-    if (slide) {
-      let totalWidth = 0;
-      let itemsPerPage = 0;
-      const { children = [] } = slide;
-      if (children && children.length > 0) {
-        for (const key in children) {
-          if (children[key].clientWidth) {
-            if (totalWidth + children[key].clientWidth < slide.clientWidth) {
-              totalWidth += children[key].clientWidth;
-              itemsPerPage += 1;
+    if (sliderData) {
+      const slide = document.getElementById(slideId);
+      if (slide) {
+        let totalWidth = 0;
+        let itemsPerPage = 0;
+        const { children = [] } = slide;
+        if (children && children.length > 0) {
+          for (const key in children) {
+            if (children[key].clientWidth) {
+              if (totalWidth + children[key].clientWidth < slide.clientWidth) {
+                totalWidth += children[key].clientWidth;
+                itemsPerPage += 1;
+              }
             }
           }
         }
+        setTotalPages(Math.ceil(slide.childElementCount / itemsPerPage));
+        setPageWidth(totalWidth);
       }
-      setTotalPages(Math.ceil(slide.childElementCount / itemsPerPage));
-      setPageWidth(totalWidth);
     }
-  }, []);
+  }, [sliderData]);
 
   return { totalPages, pageNum, incrementPage, decrementPage, scrollAmt };
 };

@@ -1,73 +1,22 @@
-import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import React from 'react';
 import ServicesMobileView from './ServicesMobileView';
 import ServicesDeskTopView from './ServicesDeskTopView';
+import { IService } from './interafces';
 
-const servicedata = [
-  {
-    service: 'Temporary Residence',
-    icon: '/images/tempImages/service-icon.svg',
-    services: [
-      'Study Visa',
-      'Work Permit(Open and Closed)',
-      'Visitor Visa',
-      'Super Visa',
-      'Visitor Visa',
-      'Post-graduation Work Permit',
-      'CAQ Extension',
-      'Bridging Open Work Permit',
-      'TRV for Inside Canada Permit',
-      'Co-op Work Permit',
-    ],
-  },
-  {
-    service: 'Permanent Residence',
-    icon: '/images/tempImages/service-icon.svg',
-    services: [
-      'Study Visa',
-      'Work Permit(Open and Closed)',
-      'Visitor Visa',
-      'Super Visa',
-      'Visitor Visa',
-      'Post-graduation Work Permit',
-      'CAQ Extension',
-      'Bridging Open Work Permit',
-      'TRV for Inside Canada Permit',
-      'Co-op Work Permit',
-    ],
-  },
-  {
-    service: 'Family Sponsorship',
-    icon: '/images/tempImages/service-icon.svg',
-    services: [
-      'Study Visa',
-      'Work Permit(Open and Closed)',
-      'Visitor Visa',
-      'Super Visa',
-      'Visitor Visa',
-      'Post-graduation Work Permit',
-      'CAQ Extension',
-      'Bridging Open Work Permit',
-      'TRV for Inside Canada Permit',
-      'Co-op Work Permit',
-    ],
-  },
-];
-
-const ServicesListing = () => {
+const ServicesListing = ({ core_services, title, sub_title }: IService) => {
   return (
     <section className="w-full bg-primary-white ">
-      <SectionContainer>
+      <SectionContainer cssClass='py-[80px] md:pt-[106px] md:pb-[27px]'>
         <div className="flex items-center justify-between md:pr-[80px] mb-[54px]">
           <div>
-            <SectionHeadings title={SERVICES_TITLE.title} subTitle={SERVICES_TITLE.subTitle} />
+            <SectionHeadings title={title} subTitle={sub_title} />
           </div>
         </div>
         <div>
-          <ServicesDeskTopView serviceData={servicedata} />
-          <ServicesMobileView serviceData={servicedata} />
+          <ServicesDeskTopView serviceData={core_services} />
+          <ServicesMobileView serviceData={core_services} />
         </div>
       </SectionContainer>
     </section>

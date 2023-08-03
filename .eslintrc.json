@@ -59,6 +59,7 @@
     ],
     "no-multi-spaces": "error",
     "no-extra-parens": "error",
+    "react/no-unused-prop-types": "off",
     "arrow-parens": ["error", "always"],
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-var-requires": "off",
@@ -67,6 +68,8 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-empty-interface": "off",
+    "jsx-a11y/media-has-caption":"off",
+    "import/no-cycle": "warn",
     "react/jsx-curly-brace-presence": [
       "off"
       // { props: 'never', children: 'never' },
@@ -80,15 +83,7 @@
         "extendDefaults": true
       }
     ],
-    "camelcase": [
-      "error",
-      {
-        "properties": "always",
-        "ignoreDestructuring": true,
-        "ignoreImports": true,
-        "ignoreGlobals": true
-      }
-    ],
+    "camelcase": "off",
     "import/extensions": [
       "error",
       "never",

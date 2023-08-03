@@ -1,65 +1,67 @@
 import React from 'react';
-import NextImage from '../../NextImage';
 import { motion } from 'framer-motion';
+import NextImage from '../../NextImage';
 
-export interface ITabData {
+export interface ITabHeaderData {
   service: string;
   icon: string;
-  services: string[];
 }
 export interface ITabHeader {
-  headerData: ITabData[];
-  handleOnClick: (tabData: ITabData) => void; // eslint-disable-line no-unused-vars
-  selectedTab: ITabData;
+  headerData: ITabHeaderData[];
+  handleOnClick: (tabData: { service: string }) => void; // eslint-disable-line no-unused-vars
+  selectedTab: ITabHeaderData;
 }
 
 const containerVarient = {
-  // hidden: { rotate: 90 },
   show: {
-      rotate: 0,
-      transition: {
-          staggerChildren: 0.1,
-          delayChildren: 0.3
-      }
-  }
+    rotate: 0,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
 };
 
-const btnVarient  = {
+const btnVarient = {
   hidden: { scale: 0, top: 100 },
-  show: { scale: 1, top: 30 }
+  show: { scale: 1, top: 0 },
 };
-
 
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
   return (
-    <motion.div
-    variants={containerVarient}
-    initial="hidden"
-    animate="show"
-    className="flex items-center">
-      {headerData.map(({ icon, service, services }) => {
+    <motion.div variants={containerVarient} initial="hidden" animate="show" className="flex items-center">
+      {headerData.map(({ icon, service }) => {
         return (
           <motion.button
             variants={btnVarient}
             type="button"
-            onClick={() => handleOnClick({ icon, service, services })}
-            className={`p-[15px] text-primary-text  w-[180px] flex items-center flex-col ${
-              service === selectedTab.service ? 'bg-primary-black text-primary-white' : ''
+            onClick={() => handleOnClick({ service })}
+            className={`relative p-[15px] tab-header text-primary-text  w-[180px] flex items-center flex-col ${
+              service === selectedTab.service ? 'tab-selectedBg text-primary-white font-bold' : ''
             }`}
             key={service}
             aria-label={service}
           >
-            <div className="relative square-[30px] mb-[8px]">
-              <NextImage
-                sizes="100vw"
-                altText={`${service}-icon`}
-                title={`${service}-icon`}
-                src={icon}
-                fill
-                style={{ objectFit: 'cover' }}
-              />
+            <div className='relative after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
+              <div className="relative w-[30px] my-0 mx-auto h-[30px] ">
+                {icon && (
+                  <NextImage
+                    sizes="100vw"
+                    altText={`${service}-icon`}
+                    title={`${service}-icon`}
+                    src={icon}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                )}
+              </div>
+              <div className="mt-[8px] text-lg not-italic leading-[normal] line-clamp-2 tracking-[normal] text-center">
+                {service}
+              </div>
             </div>
-            <div className="text-lg not-italic leading-[normal] tracking-[normal] text-center">{service}</div>
+            {service === selectedTab.service && (
+              <span className="absolute tab-selectedBg  rotate-45 square-[18px] bottom-[-9px]"></span>
+            )}
           </motion.button>
         );
       })}

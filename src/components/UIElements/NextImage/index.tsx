@@ -30,7 +30,7 @@ const NextImage = ({
       sizes={sizes}
       src={typeof src === 'string' ? getAssetUrl(src) : src || ''}
       fill={fill}
-      alt={altText}
+      alt={altText??''}
       priority={priority}
       title={title}
       style={style}
