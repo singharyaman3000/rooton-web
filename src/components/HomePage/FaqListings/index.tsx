@@ -30,7 +30,7 @@ const FaqListing = ({ json_content, title, sub_title }: IFaQListing) => {
                 accordionId={position.toString()}
                 header={<AccordionHeader value={key} />}
                 openAccordion={position.toString() === accordionId}
-                handleOnClick={(selectedAccordionId) => {       
+                handleOnClick={(selectedAccordionId) => {
                   setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId.toString());
                 }}
                 cssClass="faq-accordion md:p-[0px_12px] "
