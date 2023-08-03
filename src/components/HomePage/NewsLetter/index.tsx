@@ -7,12 +7,12 @@ import HubSpotForm from '../../HubSpotForm';
 const NewsLetter = () => {
   return (
     <SectionContainer cssClass='pt-10 pb-20 md:pt-0 md:pb-0'>
-      <div className="md:mb-[52px] bg-pale-sandal  py-6 px-5 md:pt-16 md:pb-[71px] md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative">
+      <div className="md:mb-[52px] bg-pale-sandal  py-6 px-5 md:pt-16 md:pb-0 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative">
         <div className=" w-full md:w-[30.347vw]">
-          <h4 className="text-2xl lg:text-[40px] gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] mb-2 md:mb-[11px]">
+          <h4 className="text-2xl lg:text-[40px] gradient-text text-black font-extrabold not-italic !leading-[1.42] tracking-[normal] mb-2 md:mb-[11px]">
             Sign up for Newsletter
           </h4>
-          <p className="text-xs md:text-lg md:leading-[1.83rem]">
+          <p className="text-xs text-black md:text-lg md:leading-[1.83rem]">
             Let us keep you updated on what&apos;s happening in Canada and on how you can broaden your horizons.
           </p>
         </div>

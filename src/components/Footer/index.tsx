@@ -32,6 +32,8 @@ export default function Footer() {
       border-secondary-border
       py-5
       px-6
+      xl:pl-0
+      xl:py-0
       flex
       flex-col
       lg:flex-row
@@ -41,7 +43,7 @@ export default function Footer() {
       >
         <div className=" lg:flex lg:flex-col justify-between">
           <FooterLogo />
-          <div className=" flex flex-col gap-8 mb-7">
+          <div className=" flex flex-col gap-8 mb-7 xl:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center">
               <Link href={'/'}>
@@ -93,6 +95,7 @@ export default function Footer() {
         className="
       py-5
       px-6
+      xl:pb-0
       flex
       flex-col
       justify-center
