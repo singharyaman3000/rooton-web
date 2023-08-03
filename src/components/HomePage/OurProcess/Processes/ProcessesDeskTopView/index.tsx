@@ -6,51 +6,18 @@ import MoverIcon from './MoverIcon';
 import { IOurProcessData } from '../../interfaces';
 import MoverArrow from './MoverArrow';
 import FlightPath from './FlightPath';
+import useScrollHeighLight from '../hooks/useScrollHeighLight';
 
 const APPROX_NAV_BAR_HEIGHT = 80;
-const APPROX_MOVER_HALF_HEIGHT = 32;
 
 const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
   const refs = useMemo(() => process.map(() => React.createRef<HTMLDivElement>()), [process]);
   const processLength: number = process?.length;
-  const [selectedElem, updateSelectELem] = useState('1');
-  const [movableTop, setMovableTop] = useState('0');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const divElems = refs;
-      const visibleElems = divElems.filter((elems) => {
-        if (elems.current) {
-          const boundingTop = elems.current?.getBoundingClientRect().top ?? 0;
-          return boundingTop - APPROX_NAV_BAR_HEIGHT > 0;
-        }
-        return false;
-      });
-      if (visibleElems.length > 0) {
-        const nearestElem = visibleElems.reduce<React.RefObject<HTMLDivElement>>((prev, current) => {
-          const prevElementTop = prev.current?.offsetTop ?? 0;
-          const currentElementTop = current.current?.offsetTop ?? 0;
-          return prevElementTop < currentElementTop ? prev : current;
-        }, visibleElems[0]);
-
-        if (nearestElem.current) {
-          const nearestElemTop = nearestElem.current?.offsetTop ?? 0;
-          const nearesteElemHeight = nearestElem.current?.offsetHeight;
-
-          const topValue = nearestElemTop + (nearesteElemHeight / 2 - APPROX_MOVER_HALF_HEIGHT);
-
-          setMovableTop(`${topValue}px`);
-          updateSelectELem(nearestElem.current?.id);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [refs]);
-
+  const { selectedElem, movableTop } = useScrollHeighLight({
+    isMobile: false,
+    approxNavBarHeight: APPROX_NAV_BAR_HEIGHT + 10,
+    refs: refs,
+  });
   return (
     <div className="mt-[48px] mb-[120px] relative hidden md:block processes">
       {process.map(({ key, value, position }, index) => {
@@ -70,8 +37,8 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
                   {key}
                 </h5>
               </div>
-              <div className="pl-[70px] pr-[30px]">
-                <p className=" opacity-[0.7] text-lg font-medium not-italic leading-[1.67] tracking-[normal] text-primary-font-color">
+              <div className="pl-[70px] pr-[30px] min-h-[60px]">
+                <p className=" opacity-[0.7] text-lg  font-medium not-italic leading-[1.67] tracking-[normal] text-primary-font-color">
                   {value}
                 </p>
               </div>

@@ -10,7 +10,7 @@ const AccordionBody = ({ data }: ISubServices) => {
           {service.attributes.title}
           <ArrowIcon cssClas="fill-golden-yellow" />
         </div>
-        <div className="w-full h-[1px] bg-[#b17900] opacity-20"></div>
+        <div className="w-full h-[1px] bg-[#b17900] opacity-[0.27]"></div>
       </div>
     );
   });

@@ -13,7 +13,8 @@ export default function Footer() {
     <footer
       className="
     bg-primary
-    pb-[225px]
+    pb-[40px]
+    md:pb-[225px]
     lg:flex
     lg:border-t
     border-secondary-border

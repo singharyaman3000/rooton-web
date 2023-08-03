@@ -50,8 +50,8 @@ const Testimonials = () => {
   return (
     <section className="w-full bg-primary-white overflow-x-hidden">
       <SectionContainer cssClass="!pr-[0px] py-10 md:py-[80px]">
-        <div className="flex items-end justify-between md:pr-[80px]">
-          <div>
+        <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
+          <div className='md:max-w-[70%] lg:max-w-none'>
             <SectionHeadings title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
           </div>
           <div className="items-center hidden md:flex md:mb-[8px]">
@@ -62,14 +62,15 @@ const Testimonials = () => {
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="pt-[24px] md:pt-[48px]" {...handlers}>
+        <div className="pt-[40px] md:pt-[48px]" {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id="testimonial-listing"
             pageNum={pageNum}
+            slideParentClass='!justify-start'
             loading={loading}
             loadingUI={<TestimonialPreLoader/>}
-            slideClass="!w-[73.4%] !min-w-[264px] md:!w-[29.2%] w-full md:!min-w-[404px] !md:max-w-[400px]"
+            slideClass="!w-[73.4%] px-[8px] md:px-[15px] !min-w-[264px] md:!w-[29.6%] w-full md:!min-w-[380px] md:!max-w-[430px]"
           >
             {(data ?? []).map(({ attributes, id }) => {
               return (
@@ -96,6 +97,7 @@ const Testimonials = () => {
           }
           header={
             <TestimonialFooter
+              college_photo={appendAssetUrl(popUpData?.icon.data[0].attributes.url ?? '')}
               name={popUpData?.name ?? ''}
               college={popUpData?.college ?? ''}
               caption={popUpData?.profile_picture.data.attributes.caption ?? ''}

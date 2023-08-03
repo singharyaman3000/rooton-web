@@ -9,7 +9,7 @@ const ServicesListing = ({ core_services, title, sub_title }: IService) => {
   return (
     <section className="w-full bg-primary-white ">
       <SectionContainer cssClass='py-[80px] md:pt-[106px] md:pb-[27px]'>
-        <div className="flex items-center justify-between md:pr-[80px] mb-[54px]">
+        <div className="flex items-center justify-between md:pr-[80px] mb-[4px] md:mb-[54px]">
           <div>
             <SectionHeadings title={title} subTitle={sub_title} />
           </div>

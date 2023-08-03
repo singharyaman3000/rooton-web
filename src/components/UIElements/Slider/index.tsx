@@ -18,7 +18,17 @@ export interface IsliderProps {
 
 const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPercent , loading , loadingUI }: IsliderProps) => {
   return (
-    <div className="relative mx-[-12px]">
+    <motion.div className="relative mx-[-12px]"
+    initial={{ opacity: 0, scale: 0.5 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{
+      duration: 0.5,
+      delay: 0.3,
+      ease: [0, 0.71, 0.2, 1.01],
+    }}
+    viewport={{ once: true }}
+    
+    >
       <div className="relative overflow-hidden">
         <div
           className={`flex justify-between  
@@ -33,14 +43,6 @@ const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPer
               return (
                 <motion.article
                   key={child.key}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.3,
-                    ease: [0, 0.71, 0.2, 1.01],
-                  }}
-                  viewport={{ once: true }}
                   className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass}`}
                 >
                   {child}
@@ -50,7 +52,7 @@ const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPer
         </div>
         {/* <div className="w-[15%] absolute h-full  right-[0] slide-shader top-0"></div> */}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
