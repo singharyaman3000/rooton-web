@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ILeadForm } from '@/app/services/apiService/serviceAPI';
 import { LeadForm } from './LeadForm';
 import BookAppointment from '../book-appointment';
@@ -12,6 +12,7 @@ type LeadFormSectionProps = {
 const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const email = useRef<string>('');
 
   return (
     <div className=" bg-[#fff]">
@@ -24,7 +25,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
             formId={forms[step].formId ?? ''}
             onFormSubmitted={() => {}}
             onFormSubmit={(data) => {
-              console.log(data);
+              email.current = (data.querySelector('input[name="email"]') as HTMLInputElement).value;
               if (forms[step + 1].type === 'calendly') {
                 setIsLoading(true);
                 setStep((s) => {
@@ -38,7 +39,8 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
               }
             }}
             onFormReady={(form) => {
-              console.log(form);
+              // eslint-disable-next-line no-param-reassign
+              (form.querySelector('input[name="email"]') as HTMLInputElement).value = email.current;
               if (isLoading) {
                 setIsLoading(false);
               }
@@ -54,9 +56,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
           />
         )}
       </div>
-      <div
-        className={` min-h-[350px] bg-[#fff] ${isLoading ? ' flex' : ' hidden'} flex justify-center items-center`}
-      >
+      <div className={` min-h-[350px] bg-[#fff] ${isLoading ? ' flex' : ' hidden'} flex justify-center items-center`}>
         Loading...
       </div>
     </div>

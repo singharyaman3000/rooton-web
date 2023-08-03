@@ -19,11 +19,11 @@ type LeadFormProps = {
   portalId: string;
   formId: string;
   target: string;
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-explicit-any
-  onFormSubmit: (data: any) => void;
+  // eslint-disable-next-line no-unused-vars
+  onFormSubmit: (data: HTMLFormElement) => void;
   onFormSubmitted: () => void;
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-explicit-any
-  onFormReady: (form: any) => void;
+  // eslint-disable-next-line no-unused-vars
+  onFormReady: (form: HTMLFormElement) => void;
 };
 
 export const LeadForm = ({
