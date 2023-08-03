@@ -190,11 +190,11 @@ fill: #fff;
   background: #fff;   
 }
 
-.challenges-accordion{
+.challenges-accordion, .faq-accordion{
   @apply md:!p-[0px] ;
 }
 
-.challenges-accordion button{
+.challenges-accordion button ,  .faq-accordion button{
   padding-bottom: 0px !important;
 }
 
@@ -207,7 +207,7 @@ fill: #fff;
 
 
 
-.challenges-accordion button > div > div{
+.challenges-accordion button > div > div , .faq-accordion button > div > div{
   text-align: left;
 }
 

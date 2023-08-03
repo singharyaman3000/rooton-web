@@ -4,9 +4,9 @@ import { IHonesty, IJsonContent } from '@/components/HomePage/Honesty';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import { IBlogCard } from '@/components/HomePage/BlogListings';
 import { IChallenges } from '@/components/HomePage/ChallengesListing';
+import { IFaqData } from '@/components/HomePage/FaqListings';
 import { HOME_API } from './apiUrl/homePage';
 import { IMediaUrlData, MediaUrl } from './interfaces';
-import { IFaQListing, IFaqData } from '@/components/HomePage/FaqListings';
 
 export const CONTENT_TYPES = {
   SERVICES: 'services',
@@ -16,7 +16,7 @@ export const CONTENT_TYPES = {
   BLOG: 'blogs',
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
-  QUESTIONS : 'questions'
+  QUESTIONS: 'questions',
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
@@ -63,14 +63,16 @@ export interface IHomePageData {
 }
 export interface IHomePageDataRes {
   data: IHomePageData;
-  footers :{data:{
-    attributes :{
-      name:string;
-      location:string;
-      phone : string;
-    }
-    media_url:IMediaUrlData
-  }[]}
+  footers: {
+    data: {
+      attributes: {
+        name: string;
+        location: string;
+        phone: string;
+      };
+      media_url: IMediaUrlData;
+    }[];
+  };
   // meta: Meta;
 }
 
