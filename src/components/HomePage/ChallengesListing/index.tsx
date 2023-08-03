@@ -8,6 +8,8 @@ import Accordion from '@/components/UIElements/Accordions';
 import NextImage from '@/components/UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import { MediaUrl } from '@/app/services/apiService/interfaces';
+import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
+import Button from '@/components/UIElements/Button';
 import { ITitleAttributes } from '../ServicesListing/interafces';
 import ToggleIcon from './ToggleIcon';
 import { AccordionBody, AccordionHeader } from './ChallengeListingElements';
@@ -31,8 +33,8 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
   const [accordionId, setAccordionId] = useState<string | null>(null);
 
   return (
-    <section className="bg-pale-yellow-black">
-      <SectionContainer>
+    <section className="challenges-listing">
+      <SectionContainer cssClass="pt-10 pb-[39px] md:py-[80px]">
         <div className="md:flex">
           <div className="md:w-[48.8%] md:pr-[80px]">
             <SectionHeadings title={title} subTitle={sub_title} />
@@ -43,7 +45,15 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
             >
               {HtmlParser(description ?? '')}
             </p>
-            <div className="relative autoh-image">
+            <Button
+              label="Get your queries solved"
+              ariaLabel="Get your queries solved"
+              cssClass="text-white bg-black border-0 !pb-[18px] mt-5 mb-3 gap-[16px]"
+              handleOnClick={() => null}
+              tabIndex={0}
+              icon={<CalenderIconYellow />}
+            />
+            <div className="relative autoh-image mb-[12px] md:mb-[0px]">
               <NextImage
                 sizes="(max-width: 768px) 100vw, 50vw"
                 title={media_url?.data?.[0]?.attributes?.alternativeText}
@@ -57,19 +67,24 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
           <div className="md:w-[43.8%]">
             {json_content.challenges.map((challengObj) => {
               return (
-                <Accordion
-                  openAccordion={challengObj?.position.toString() === accordionId}
-                  accordionId={challengObj?.position.toString()}
-                  handleOnClick={(selectedAccordionId) => {
-                    setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId);
-                  }}
-                  customToggle={<ToggleIcon isOpen={challengObj?.position.toString() === accordionId} />}
-                  customSpacer={<span></span>}
-                  cssClass="challenges-accordion border-b-[1px] border-b-sandal "
+                <div
+                  className="w-full border-b-sandal last:border-b-0 border-b-[1px] pt-[5px] pb-[8px] md:p-[12px_0px]"
                   key={challengObj?.position}
-                  header={<AccordionHeader value={challengObj?.key}/>}
-                  accordionBody={<AccordionBody value={challengObj?.value}/>}
-                />
+                >
+                  <Accordion
+                    openAccordion={challengObj?.position.toString() === accordionId}
+                    accordionId={challengObj?.position.toString()}
+                    handleOnClick={(selectedAccordionId) => {
+                      setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId);
+                    }}
+                    accordionBodyCss={'md:!pb-[24px]'}
+                    customToggle={<ToggleIcon isOpen={challengObj?.position.toString() === accordionId} />}
+                    customSpacer={<span></span>}
+                    cssClass="challenges-accordion  md:p-[0px_12px]  "
+                    header={<AccordionHeader value={challengObj?.key} />}
+                    accordionBody={<AccordionBody value={challengObj?.value} />}
+                  />
+                </div>
               );
             })}
           </div>

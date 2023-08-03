@@ -6,7 +6,7 @@ interface ISectionContiners {
 }
 
 const SectionContainer = ({ cssClass, children }: ISectionContiners) => (
-  <div className={`md:p-[80px] px-[24px] py-[40px] ${cssClass}`}>{children}</div>
+  <div className={`md:px-[80px] px-[24px] ${cssClass}`}>{children}</div>
 );
 
 export default SectionContainer;

@@ -3,7 +3,7 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
-import RTONLanguageDropDown from './RTONLanguageDropDown';
+import RTONLanguageDropDown from './LanguageDropDown';
 
 type SliderOverlayProps = {
   open: boolean;

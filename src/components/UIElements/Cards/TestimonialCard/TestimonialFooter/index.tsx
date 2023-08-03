@@ -40,7 +40,7 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college }: TTe
                25vw"
         />
       </div>
-      <div className="">
+      <div className="max-w-[72%]">
         <div className="text-bold line-clamp-1 font-bold text-[11.2px] text-black  not-italic leading-[normal] tracking-[normal] md:text-base ">
           {name}
         </div>

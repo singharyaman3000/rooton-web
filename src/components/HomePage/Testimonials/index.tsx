@@ -8,6 +8,7 @@ import TestimonialCard, {
   ITestimonialData,
 } from '@/components/UIElements/Cards/TestimonialCard';
 import TestimonialFooter from '@/components/UIElements/Cards/TestimonialCard/TestimonialFooter';
+import TestimonialPreLoader from '@/components/UIElements/Cards/TestimonialCard/TestimonialPreLoader';
 import PopUp from '@/components/UIElements/PopUp';
 import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
@@ -25,7 +26,7 @@ export interface ITestimonials {
 }
 
 const Testimonials = () => {
-  const { data } = useClientAPI({ apiFn: getTestimonials });
+  const { data , loading } = useClientAPI({ apiFn: getTestimonials });
   const { showPopUp, hidePopUp, poupState } = usePopUp();
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',
@@ -48,12 +49,12 @@ const Testimonials = () => {
 
   return (
     <section className="w-full bg-primary-white overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px]">
-        <div className="flex items-center justify-between md:pr-[80px]">
+      <SectionContainer cssClass="!pr-[0px] py-10 md:py-[80px]">
+        <div className="flex items-end justify-between md:pr-[80px]">
           <div>
             <SectionHeadings title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
           </div>
-          <div className="items-center hidden md:flex">
+          <div className="items-center hidden md:flex md:mb-[8px]">
             <div>
               <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
               <SliderNav handleOnClick={incrementPage} disable={pageNum === totalPages - 1} />
@@ -61,11 +62,13 @@ const Testimonials = () => {
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="pt-[24px] md:pt-[80px]" {...handlers}>
+        <div className="pt-[24px] md:pt-[48px]" {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id="testimonial-listing"
             pageNum={pageNum}
+            loading={loading}
+            loadingUI={<TestimonialPreLoader/>}
             slideClass="!w-[73.4%] !min-w-[264px] md:!w-[29.2%] w-full md:!min-w-[404px] !md:max-w-[400px]"
           >
             {(data ?? []).map(({ attributes, id }) => {

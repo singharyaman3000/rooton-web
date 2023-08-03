@@ -28,8 +28,10 @@
   --light-brown:#717171;
   --sandal:rgba(234, 213, 169, 1);
   --pale-sandal: #fddba2;
+  --hover-lang-dropdown: #efefef;
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
+  --preloader-overlay:hsl(252deg 9% 6% / 18%),hsl(252deg 3% 16% / 19%),hsl(0deg 2% 5% / 15%);
 }
 
 [data-theme='dark'] {
@@ -53,9 +55,11 @@
   --light-brown :#fff;
   --sandal:rgba(234, 213, 169, 0.32);
   --pale-sandal: #fddba2;
+  --hover-lang-dropdown: #282828;
   
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(255,255,255,0.5);
+  --preloader-overlay : rgb(228 228 228), hsl(0deg 0% 89% / 43%), rgb(228 228 228) ;
 }
 
 @tailwind base;
@@ -187,18 +191,37 @@ fill: #fff;
   background: #fff;   
 }
 
-.challenges-accordion button{
+.challenges-accordion, .faq-accordion{
+  @apply md:!p-[0px] ;
+}
+
+.challenges-accordion button ,  .faq-accordion button{
   padding-bottom: 0px !important;
 }
 
-.challenges-accordion >div{
-  padding: 0px !important;
+.challenges-accordion >div , .faq-accordion  > div{
   background: transparent !important;
   color:var(--primary-text);
+  padding: 0px !important ;
 }
 
-.challenges-accordion button > div > div{
+
+
+
+.challenges-accordion button > div > div , .faq-accordion button > div > div{
   text-align: left;
+}
+
+
+.challenges-listing {
+  background: var(--pale-yellow);
+}
+
+[data-theme='dark'] .challenges-listing{
+  background: #121212;
+}
+.challenges-accordion:last-child{
+  border-bottom: 0;
 }
 
 /*Blogs listing styling*/
@@ -237,12 +260,16 @@ fill: #fff;
 .honestyBackground {
   background-image: linear-gradient(to right, rgba(238, 238, 238, 0), rgba(233, 233, 233, 0.57) 15%, #e5e5e5 51%, rgba(219, 219, 219, 0.21) 85%, rgba(216, 216, 216, 0));
 }
+
 /*Bar Btn styling*/
 
 .bar-btn button:hover + svg {
   top: -17px;
   right: -17px;
 }
+
+
+/* process section css */
 
 
 
@@ -266,3 +293,57 @@ fill: #fff;
     .honestyBackground{
       background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);  }
   }
+
+
+
+  [data-theme='dark'] .slider-nav {
+   background-color: rgba(256, 256, 256, 0.14);
+  }
+
+    @media screen and (min-width: 768px) {
+      .honestyBackground {
+        background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);
+      }
+  
+      
+    }
+
+    @media screen and (min-width: 768px ) and (max-width: 1023px) {
+      .honestyCard:nth-child(odd) {
+        padding-left: 0;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .honestyCard{
+        padding-left: 0;
+      }
+    }
+
+
+    @media screen and (min-width: 1024px) {
+      .honestyCard:nth-child(1),
+      .honestyCard:nth-child(4n) {
+        padding-left: 0;
+      }
+    }
+
+
+
+    .skeleton {
+      background: linear-gradient(
+        90deg,
+        var(--preloader-overlay )
+      );
+      background-size: 200%;
+      animation: loader 1s infinite reverse;
+    }
+
+    @keyframes loader {
+      from {
+        background-position: -100% 0;
+      }
+      to {
+        background-position: 100% 0;
+      }
+    }
