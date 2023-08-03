@@ -23,7 +23,8 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
             portalId={forms[step].portalId ?? ''}
             formId={forms[step].formId ?? ''}
             onFormSubmitted={() => {}}
-            onFormSubmit={() => {
+            onFormSubmit={(data) => {
+              console.log(data);
               if (forms[step + 1].type === 'calendly') {
                 setIsLoading(true);
                 setStep((s) => {
@@ -36,7 +37,8 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
                 });
               }
             }}
-            onFormReady={() => {
+            onFormReady={(form) => {
+              console.log(form);
               if (isLoading) {
                 setIsLoading(false);
               }
