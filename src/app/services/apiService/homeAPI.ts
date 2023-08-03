@@ -73,50 +73,9 @@ export interface IHomePageDataRes {
       media_url: IMediaUrlData;
     }[];
   };
-  // meta: Meta;
 }
 
 export const getHomePageContents = async () => {
   const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 1200 } });
   return apiRes.data;
 };
-
-// export interface MediaUrl {
-//   data?: (DataEntity)[] | null;
-// }
-// export interface DataEntity {
-//   id: number;
-//   attributes: Attributes1;
-// }
-// export interface Attributes1 {
-//   name: string;
-//   alternativeText?: null;
-//   caption?: null;
-//   width: number;
-//   height: number;
-//   formats: Formats;
-//   hash: string;
-//   ext: string;
-//   mime: string;
-//   size: number;
-//   url: string;
-//   previewUrl?: null;
-//   provider: string;
-//   provider_metadata?: null;
-//   createdAt: string;
-//   updatedAt: string;
-// }
-// export interface Formats {
-//   thumbnail: Thumbnail;
-// }
-// export interface Thumbnail {
-//   ext: string;
-//   url: string;
-//   hash: string;
-//   mime: string;
-//   name: string;
-//   path?: null;
-//   size: number;
-//   width: number;
-//   height: number;
-// }
