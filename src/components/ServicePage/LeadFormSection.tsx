@@ -13,6 +13,8 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const email = useRef<string>('');
+  const name = useRef<string>('');
+  const phone = useRef<string>('');
 
   return (
     <div className=" bg-[#fff]">
@@ -26,6 +28,9 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
             onFormSubmitted={() => {}}
             onFormSubmit={(data) => {
               email.current = (data.querySelector('input[name="email"]') as HTMLInputElement).value;
+              name.current ||= (data.querySelector('input[name="full_name"]') as HTMLInputElement).value;
+              phone.current ||= (data.querySelector('input[name="phone"]') as HTMLInputElement).value;
+
               if (forms[step + 1].type === 'calendly') {
                 setIsLoading(true);
                 setStep((s) => {
@@ -49,7 +54,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
           />
         ) : (
           <BookAppointment
-            url={forms[step].url ?? ''}
+            url={`${forms[step].url}?email=${email.current}&name=${name.current}&phone_number=${phone.current}` ?? ''}
             onEventTypeViewed={() => {
               setIsLoading(false);
             }}
