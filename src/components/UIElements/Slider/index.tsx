@@ -48,7 +48,7 @@ const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPer
               );
             })}
         </div>
-        <div className="w-[15%] absolute h-full  right-[0] slide-shader top-0"></div>
+        {/* <div className="w-[15%] absolute h-full  right-[0] slide-shader top-0"></div> */}
       </div>
     </div>
   );

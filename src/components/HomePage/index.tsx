@@ -6,7 +6,7 @@ import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import OurProcess from '@/components/HomePage/OurProcess';
 import { CONTENT_TYPES, IHomePageData } from '@/app/services/apiService/homeAPI';
-import { appendAssetUrl, isVideo } from '@/utils';
+import { appendAssetUrl, getSectionData, isVideo } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -14,7 +14,7 @@ import RootOnBarBtn from './RootOnBanner/RootOnBarBtn';
 import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
-import FaqListing, { IFaQListing, IFaqData } from './FaqListings';
+import FaqListing, { IFaqData } from './FaqListings';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponents = () => {
@@ -69,13 +69,13 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         );
       case CONTENT_TYPES.PARTNERSHIPS:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
-      case CONTENT_TYPES.QUESTIONS:
-        return <FaqListing sub_title={sub_title} title={title} json_content={contents.attributes.json_content as IFaqData} />;
-        default:
+      default:
         return null;
       }
     });
   };
+
+  const faqData = getSectionData(homePageConfig , CONTENT_TYPES.QUESTIONS );
 
   return (
     <>
@@ -95,6 +95,14 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       />
       {getComponents()}
       <Testimonials />
+      {faqData && (
+        <FaqListing
+          sub_title={faqData?.attributes?.sub_title}
+          title={faqData?.attributes?.title}
+          json_content={faqData?.attributes?.json_content as IFaqData}
+        />
+      )}
+      ;
       <NewsLetter />
     </>
   );
