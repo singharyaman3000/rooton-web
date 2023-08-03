@@ -1,12 +1,12 @@
 import React from 'react';
-
 import SectionContainer from '@/components/Containers/SectionContainers';
+import { FormConstants } from '@/constants/hubspotConfig';
 import NewsLetterGrid from './NewsLetterGrid';
 import HubSpotForm from '../../HubSpotForm';
 
 const NewsLetter = () => {
   return (
-    <SectionContainer cssClass='pt-10 pb-20 md:pt-0 md:pb-0'>
+    <SectionContainer cssClass="pt-10 pb-20 md:pt-0 md:pb-0">
       <div className="md:mb-[52px] bg-pale-sandal  py-6 px-5 md:pt-16 md:pb-0 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative">
         <div className=" w-full md:w-[30.347vw]">
           <h4 className="text-2xl lg:text-[40px] gradient-text text-black font-extrabold not-italic !leading-[1.42] tracking-[normal] mb-2 md:mb-[11px]">
@@ -17,7 +17,11 @@ const NewsLetter = () => {
           </p>
         </div>
         <div className="mt-[19px] mb-[21px] w-full md:w-[47.22%] p-6 z-[1]">
-          <HubSpotForm region="na1" portalId="7535538" formId="6c79b7c2-a0bc-4f4e-a8ce-322859294240" />
+          <HubSpotForm
+            region={FormConstants.NEWS_LETTER.region}
+            portalId={FormConstants.NEWS_LETTER.portalId}
+            formId={FormConstants.NEWS_LETTER.formId}
+          />
         </div>
         <div className="top-0 right-0 hidden lg:block absolute z-[0]">
           <NewsLetterGrid />
