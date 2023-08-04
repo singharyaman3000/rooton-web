@@ -5,8 +5,6 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
-import SliderOverlay from './SliderOverlay';
-import { useHeaderFooterContext } from '@/providers/globalStoreProvider';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -14,7 +12,6 @@ export default function Header() {
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
-
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -71,7 +68,6 @@ export default function Header() {
     setOpen((o) => !o);
   };
 
-
   return (
     <header
       ref={headerRef}
@@ -103,7 +99,7 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg' }
+                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
               />
             </div>
           ) : (
@@ -130,7 +126,7 @@ export default function Header() {
             hidden
             lg:flex
             flex-shrink-0
-            ${scrolledEnough ? 'text-header-font-color': ' text-white'}
+            ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
           `}
           >
             <span>

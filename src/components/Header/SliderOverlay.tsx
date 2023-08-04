@@ -145,7 +145,7 @@ export default function SliderOverlay({ open, setOpen , languageData }: SliderOv
                           mb-5
                         "
                       >
-                        <RTONLanguageDropDown languageData={languageData}  scrolledEnough />
+                        <RTONLanguageDropDown  scrolledEnough />
                       </div>
                     </div>
                   </div>

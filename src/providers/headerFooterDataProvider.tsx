@@ -27,10 +27,9 @@ export const HeaderFooterDataProvider = ({
 }) => {
   const [headerFooterData, setData] = useState<IHeaderFooterData | undefined>(headerFooterAPIData);
 
-  useEffect(()=>{
-   setData(headerFooterAPIData)
-  } , [headerFooterAPIData])
-
+  useEffect(() => {
+    setData(headerFooterAPIData);
+  }, [headerFooterAPIData]);
 
   const contextValue = useMemo(() => ({ headerFooterData, setData }), [headerFooterData]);
 

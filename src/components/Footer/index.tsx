@@ -1,15 +1,12 @@
 'use client';
 
-import { LAYOUT } from '@/app/constants/textConstants';
 import FacebookIcon from '@/components/Icons/FaceBookIcon';
-import FlagCanadaIcon from '@/components/Icons/FlagCanadaIcon';
-import FlagIndiaIcon from '@/components/Icons/FlagIndiaIcon';
 import LinkedInIcon from '@/components/Icons/LinkedInIcon';
 import TwitterIcon from '@/components/Icons/TwitterIcon';
 import YoutubeIcon from '@/components/Icons/YouTubeIcon';
 import Link from 'next/link';
 import FooterLogo from './FooterLogo';
-import { useHeaderFooterContext } from '@/providers/globalStoreProvider';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import NextImage from '../UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import HtmlParser from 'react-html-parser';

@@ -1,6 +1,6 @@
 import { IMediaUrlData } from '@/app/services/apiService/interfaces';
 import NextImage from '@/components/UIElements/NextImage';
-import { useHeaderFooterContext } from '@/providers/globalStoreProvider';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { appendAssetUrl } from '@/utils';
 import React from 'react';
 

@@ -6,7 +6,7 @@ import FlagComponentWrapper, { ILanguageData } from './FlagComponentWrapper';
 import { useParams, usePathname } from 'next/navigation';
 import { appendAssetUrl, getDetraslatedURL, getFlagUrl } from '@/utils';
 import NextImage from '@/components/UIElements/NextImage';
-import { useHeaderFooterContext } from '@/providers/globalStoreProvider';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 
 interface RTONLanguageDropDownProps {
   scrolledEnough: boolean;

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactElement, ReactNode, useContext } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useContext, useMemo } from 'react';
 
 interface ILoaderContext {
   loader: boolean;
@@ -7,12 +7,12 @@ interface ILoaderContext {
 const LoaderContext = createContext<ILoaderContext | undefined>(undefined);
 
 export const useTranslationLoader = () => {
-    const context = useContext(LoaderContext);
-    if (!context) {
-      throw new Error('useLoader must be used within a LoaderProvider');
-    }
-    return context;
-  };
+  const context = useContext(LoaderContext);
+  if (!context) {
+    throw new Error('useLoader must be used within a LoaderProvider');
+  }
+  return context;
+};
 
 export const TranslationLoadingProvider = ({ children }: { children: ReactNode }) => {
   const [loader, setLoader] = useState<boolean>(true);
@@ -24,5 +24,7 @@ export const TranslationLoadingProvider = ({ children }: { children: ReactNode }
     return () => clearTimeout(timer);
   }, []);
 
-  return <LoaderContext.Provider value={{ loader }}>{children}</LoaderContext.Provider>;
+  const loaderValue = useMemo(() => ({ loader }), [loader]);
+
+  return <LoaderContext.Provider value={loaderValue}>{children}</LoaderContext.Provider>;
 };
