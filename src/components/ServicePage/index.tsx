@@ -85,7 +85,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
   return (
     <div>
       <RTONBanner
-        backgroundImageUrl={response.data.attributes.CTA_link}
+        backgroundImageUrl={response.data.attributes.media_url.data ?? ''}
         addGradient
         heroText={response.data.attributes.title}
         description={response.data.attributes.sub_title}
@@ -130,7 +130,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
               <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
             </div>
           </div>
-          <div className=" hidden lg:block w-[25%] h-[712px] relative">
+          <div className=" hidden lg:block w-[25%] h-[714px] relative">
             <NextImage
               classSelector=' object-right'
               src={'/images/my-project-46@3x.png'}
