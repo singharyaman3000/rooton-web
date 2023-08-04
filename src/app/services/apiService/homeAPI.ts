@@ -4,6 +4,7 @@ import { IHonesty, IJsonContent } from '@/components/HomePage/Honesty';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import { IBlogCard } from '@/components/HomePage/BlogListings';
 import { IChallenges } from '@/components/HomePage/ChallengesListing';
+import { IFaqData } from '@/components/HomePage/FaqListings';
 import { HOME_API } from './apiUrl/homePage';
 import { IMediaUrlData, MediaUrl } from './interfaces';
 
@@ -15,6 +16,7 @@ export const CONTENT_TYPES = {
   BLOG: 'blogs',
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
+  QUESTIONS: 'questions',
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
@@ -30,7 +32,7 @@ export interface Attributes2 {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges;
+  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges | IFaqData;
   blogs: IBlogCard;
   core_services: ICoreServices;
   media_url: MediaUrl;
@@ -61,58 +63,19 @@ export interface IHomePageData {
 }
 export interface IHomePageDataRes {
   data: IHomePageData;
-  footers :{data:{
-    attributes :{
-      name:string;
-      location:string;
-      phone : string;
-    }
-    media_url:IMediaUrlData
-  }[]}
-  // meta: Meta;
+  footers: {
+    data: {
+      attributes: {
+        name: string;
+        location: string;
+        phone: string;
+      };
+      media_url: IMediaUrlData;
+    }[];
+  };
 }
 
 export const getHomePageContents = async () => {
   const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 1200 } });
   return apiRes.data;
 };
-
-// export interface MediaUrl {
-//   data?: (DataEntity)[] | null;
-// }
-// export interface DataEntity {
-//   id: number;
-//   attributes: Attributes1;
-// }
-// export interface Attributes1 {
-//   name: string;
-//   alternativeText?: null;
-//   caption?: null;
-//   width: number;
-//   height: number;
-//   formats: Formats;
-//   hash: string;
-//   ext: string;
-//   mime: string;
-//   size: number;
-//   url: string;
-//   previewUrl?: null;
-//   provider: string;
-//   provider_metadata?: null;
-//   createdAt: string;
-//   updatedAt: string;
-// }
-// export interface Formats {
-//   thumbnail: Thumbnail;
-// }
-// export interface Thumbnail {
-//   ext: string;
-//   url: string;
-//   hash: string;
-//   mime: string;
-//   name: string;
-//   path?: null;
-//   size: number;
-//   width: number;
-//   height: number;
-// }

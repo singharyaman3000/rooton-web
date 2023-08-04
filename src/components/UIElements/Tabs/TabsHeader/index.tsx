@@ -43,7 +43,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
             aria-label={service}
           >
             <div className='relative after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
-              <div className="relative w-[30px] my-0 mx-auto h-[25px] ">
+              <div className="relative w-[30px] my-0 mx-auto h-[30px] ">
                 {icon && (
                   <NextImage
                     sizes="100vw"
@@ -55,7 +55,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
                   />
                 )}
               </div>
-              <div className="mt-[8px] text-lg not-italic leading-[normal] tracking-[normal] text-center">
+              <div className="mt-[8px] text-lg not-italic leading-[normal] line-clamp-2 tracking-[normal] text-center">
                 {service}
               </div>
             </div>

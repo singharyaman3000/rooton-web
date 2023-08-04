@@ -6,13 +6,14 @@ import React from 'react';
 export type TTestimonialFooter = Pick<IMediaAttributes, 'alternativeText' | 'url' | 'caption'> & {
   name: string;
   college: string;
+  college_photo: string;
 };
 
-const TestimonialFooter = ({ alternativeText, url, caption, name, college }: TTestimonialFooter) => {
+const TestimonialFooter = ({ alternativeText, url, caption, name, college, college_photo }: TTestimonialFooter) => {
   return (
     <div className="relative w-full flex items-center">
-      <div className="absolute right-0">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48.5" height="39.99" viewBox="0 0 48.5 39.99">
+      <div className="absolute right-0 w-[30px] h-[24px] md:w-[47.5px] md:h-[38px]">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.5 39.99">
           <defs>
             <linearGradient x1="0%" y1="113.297%" x2="193.447%" y2="18%" id="2udtthevka">
               <stop stopColor="#C8C8C8" stopOpacity="0" offset="0%" />
@@ -28,7 +29,7 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college }: TTe
           />
         </svg>
       </div>
-      <div className="square-[30.7px] mr-[14px] rounded-full overflow-hidden md:square-[48px] relative">
+      <div className="square-[30.7px] flex-shrink-0 mr-[14px] rounded-full overflow-hidden md:square-[48px] relative">
         <NextImage
           src={appendAssetUrl(url)}
           fill
@@ -40,12 +41,22 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college }: TTe
                25vw"
         />
       </div>
-      <div className="">
-        <div className="text-bold font-bold text-[11.2px] text-black  not-italic leading-[normal] tracking-[normal] md:text-base ">
+      <div className="max-w-[72%]">
+        <div className="text-bold line-clamp-1 font-bold text-[11.2px] text-black  not-italic leading-[normal] tracking-[normal] md:text-base ">
           {name}
         </div>
-        <div className="flex items-center">
-          <div className="text-[10px] text-[#2f2f2f;]  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
+        <div className="flex items-center relative ">
+          <div className="h-[14px] relative w-[12px] md:w-[20px] md:h-[20px] mr-[5px] md:mr-[6px]">
+            <NextImage
+              src={college_photo}
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="100vw"
+              altText="college photo"
+              title=""
+            />
+          </div>
+          <div className="text-[10px] line-clamp-1 text-[#2f2f2f;]  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
             {college}
           </div>
         </div>

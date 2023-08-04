@@ -12,11 +12,32 @@ export interface IsliderProps {
   slideParentClass?: string;
   id: string;
   scrollPercent?: string | number;
+  loadingUI?: ReactElement;
+  loading?: boolean;
 }
 
-const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPercent }: IsliderProps) => {
+const Slider = ({
+  pageNum,
+  children,
+  slideClass,
+  slideParentClass,
+  id,
+  scrollPercent,
+  loading,
+  loadingUI,
+}: IsliderProps) => {
   return (
-    <div className="relative mx-[-12px]">
+    <motion.div
+      className="relative mx-[-12px]"
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.5,
+        delay: 0.3,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+      viewport={{ once: true }}
+    >
       <div className="relative overflow-hidden">
         <div
           className={`flex justify-between  
@@ -25,28 +46,19 @@ const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPer
           style={{ transform: `translateX(${scrollPercent ?? `${-pageNum * 100}%`})` }}
           id={id}
         >
-          {children?.map((child) => {
-            return (
-              <motion.article
-                key={child.key}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.3,
-                  ease: [0, 0.71, 0.2, 1.01],
-                }}
-                viewport={{ once: true }}
-                className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass}`}
-              >
-                {child}
-              </motion.article>
-            );
-          })}
+          {loading
+            ? loadingUI
+            : children?.map((child) => {
+              return (
+                <motion.article key={child.key} className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass}`}>
+                  {child}
+                </motion.article>
+              );
+            })}
         </div>
-        <div className="w-[15%] absolute h-full  right-[0] slide-shader top-0"></div>
+        {/* <div className="w-[15%] absolute h-full  right-[0] slide-shader top-0"></div> */}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

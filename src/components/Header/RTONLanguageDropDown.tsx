@@ -4,8 +4,7 @@ import UKFlagIcon from '@/components/Icons/UKFlagIcon';
 import { MouseEvent, useEffect, useState } from 'react';
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
 import { languages } from '@/app/(client-pages)/[lang]/translator';
-import { useParams  , useRouter , usePathname } from 'next/navigation';
-
+import { useParams, useRouter, usePathname } from 'next/navigation';
 
 type RTONLanguageDropDownProps = {
   scrolledEnough: boolean;
@@ -15,19 +14,14 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
   const [isOpen, setIsOpen] = useState(false);
   const params = useParams();
   const routes = useRouter();
-  const path  = usePathname();
-
+  const path = usePathname();
 
   const dropdownContainerOnClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setIsOpen(false);
-    const nextRoute = path.replace(params.lang ,( e.target as HTMLElement).id);
-    window.location.href =  nextRoute
+    const nextRoute = path.replace(params.lang, (e.target as HTMLElement).id);
+    window.location.href = nextRoute;
   };
-
-
-
-
 
   return (
     <button
@@ -63,11 +57,13 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
                 lg:-left-6
             "
         >
-          {languages.map(({ icon, label  , key}) => {
+          {languages.map(({ icon, label, key }) => {
             return (
-              <span className=" flex gap-2 items-center" key={label} >
+              <span className=" flex gap-2 items-center" key={label}>
                 {icon}
-                <p className=" text-base font-medium" id={key}>{label}</p>
+                <p className=" text-base font-medium" id={key}>
+                  {label}
+                </p>
               </span>
             );
           })}

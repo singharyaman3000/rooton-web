@@ -5,7 +5,7 @@ import HamburgerIcon from '@/components/Icons/HamBurgerIcon';
 import LightModeIcon from '@/components/Icons/LightModeIcon';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import RTONLanguageDropDown from './RTONLanguageDropDown';
+import RTONLanguageDropDown from './LanguageDropDown';
 
 type ThemeToggleAndHamburgerProps = {
   scrolledEnough: boolean;
@@ -55,7 +55,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg'
+              isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg opacity-[0.23]'
             } flex justify-center items-center`}
           >
             <DarkModeIcon isScrolled={scrolledEnough} />

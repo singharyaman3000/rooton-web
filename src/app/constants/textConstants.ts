@@ -27,3 +27,7 @@ export const LAYOUT = {
     phone: '+91 261 351 7408',
   },
 };
+
+export const HUBSPOT = {
+  src: 'https://js.hsforms.net/forms/embed/v2.js',
+};

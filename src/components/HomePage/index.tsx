@@ -6,7 +6,7 @@ import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import OurProcess from '@/components/HomePage/OurProcess';
 import { CONTENT_TYPES, IHomePageData } from '@/app/services/apiService/homeAPI';
-import { appendAssetUrl } from '@/utils';
+import { appendAssetUrl, getSectionData, isVideo } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -14,6 +14,7 @@ import RootOnBarBtn from './RootOnBanner/RootOnBarBtn';
 import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
+import FaqListing, { IFaqData } from './FaqListings';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponents = () => {
@@ -74,10 +75,12 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
     });
   };
 
+  const faqData = getSectionData(homePageConfig , CONTENT_TYPES.QUESTIONS );
+
   return (
     <>
-    
       <RootOnBanner
+        isVideoBanner={isVideo(homePageConfig.attributes.media_url.data[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(homePageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={homePageConfig?.attributes?.title}
         description={homePageConfig?.attributes?.sub_title}
@@ -92,6 +95,14 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       />
       {getComponents()}
       <Testimonials />
+      {faqData && (
+        <FaqListing
+          sub_title={faqData?.attributes?.sub_title}
+          title={faqData?.attributes?.title}
+          json_content={faqData?.attributes?.json_content as IFaqData}
+        />
+      )}
+      ;
       <NewsLetter />
     </>
   );

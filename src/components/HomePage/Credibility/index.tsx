@@ -19,7 +19,7 @@ interface ICredibilitycontent {
 
 const Credibility = ({ description, title, sub_title, media_url }: ICredibilitycontent) => {
   return (
-    <div className='relative overflow-x-hidden'>
+    <div className='relative overflow-x-hidden overflow-y-hidden'>
       <Container>
         <div className="mt-10 lg:mt-[120px] md:flex md:justify-between md:w-full xl:max-h-[534px]">
           <motion.div

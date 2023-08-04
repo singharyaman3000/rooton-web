@@ -19,7 +19,7 @@ export default function FooterLogo() {
       height={54}
       alt="logo"
       src={themeState === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
-      className=" mb-6 mx-auto"
+      className=" mb-[30px] mx-auto xl:mx-0"
     />
   );
 }

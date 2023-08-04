@@ -5,6 +5,7 @@ import { ReactElement } from 'react';
 import Image from 'next/image';
 import ReactHtmlParser from 'react-html-parser';
 import { motion } from 'framer-motion';
+import VideoElement from '@/components/UIElements/VideoElement';
 import BannerGrids from './BannerGrid';
 
 type RTONBannerProps = {
@@ -12,9 +13,16 @@ type RTONBannerProps = {
   heroText: string;
   description: string;
   button: ReactElement;
+  isVideoBanner: boolean;
 };
 
-export default function RootOnBanner({ backgroundImageUrl, heroText, description, button }: RTONBannerProps) {
+export default function RootOnBanner({
+  backgroundImageUrl,
+  isVideoBanner,
+  heroText,
+  description,
+  button,
+}: RTONBannerProps) {
   return (
     <div
       className="
@@ -34,7 +42,8 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
           relative z-[10]
           px-[24px]
           whitespace-pre-wrap
-          md:px-[80px]
+          md:px-[48px]
+          lg:px-[80px]
           "
         >
           <motion.div
@@ -72,15 +81,26 @@ export default function RootOnBanner({ backgroundImageUrl, heroText, description
           <div className=" mt-[57.8px] max-w-[418px]">{button}</div>
         </div>
       </div>
-      <NextImage
-        sizes="100vw"
-        priority
-        src={backgroundImageUrl}
-        fill
-        style={{ objectFit: 'cover' }}
-        altText="root-on-banner-image"
-        title="Banner Image"
-      />
+      {isVideoBanner ? (
+        <VideoElement
+          constrols={false}
+          muted
+          poster=""
+          cssClass="top-0 object-cover w-full h-full absolute top-0"
+          loop
+          src={backgroundImageUrl}
+        />
+      ) : (
+        <NextImage
+          sizes="100vw"
+          priority
+          src={backgroundImageUrl}
+          fill
+          style={{ objectFit: 'cover' }}
+          altText="root-on-banner-image"
+          title="Banner Image"
+        />
+      )}
       <Image alt="" priority fill src="/images/overlay/banner-overlay.png" style={{ objectFit: 'cover' }} />
       <div className="absolute bottom-0 right-0 hidden md:block">
         <BannerGrids />

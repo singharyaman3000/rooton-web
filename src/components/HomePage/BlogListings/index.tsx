@@ -34,28 +34,35 @@ const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
 
   return (
     <section className="w-full blogs-listing overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px]">
-        <div className="flex items-center justify-between md:pr-[80px]">
-          <div>
+      <SectionContainer cssClass="!pr-[0px] py-10 md:py-[80px]">
+        <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
+          <div className='md:max-w-[70%] lg:max-w-none'>
             <SectionHeadings title={title} subTitle={sub_title} />
           </div>
-          <div className="items-center hidden md:flex">
+          <div className="items-center  flex md:mb-[8px]">
             <div className="mr-[30px]">
-              <Button label="More" tabIndex={0} handleOnClick={() => null} ariaLabel="More  News" />
+              <Button
+                cssClass="border-0 slider-nav bg-white font-bold"
+                label="More"
+                tabIndex={0}
+                handleOnClick={() => null}
+                ariaLabel="More  News"
+              />
             </div>
-            <div>
+            <div className=' hidden md:block'>
               <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
               <SliderNav handleOnClick={incrementPage} disable={pageNum === totalPages - 1} />
             </div>
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="pt-[24px] md:pt-[80px]" {...handlers}>
+        <div className="pt-[24px] md:pt-[48px]" {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id="news-listing"
+            slideParentClass='!justify-start'
             pageNum={pageNum}
-            slideClass="!w-[73.4%] !min-w-[264px] md:!w-[29.2%] w-full md:!min-w-[404px] !md:max-w-[400px]"
+            slideClass="!w-[73.4%] md:px-[15px] !min-w-[264px] md:!w-[29.6%] max-w-[380px] w-full md:!min-w-[380px] md:!max-w-[430px] "
           >
             {blogs?.data?.map((blogData) => {
               return <BlogCard id={blogData.id} key={blogData.id} attributes={blogData.attributes} />;

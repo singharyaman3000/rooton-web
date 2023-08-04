@@ -38,7 +38,10 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
 
   const changeSelectedTab = (data: { service: string }) => {
     const updatedTabData = serviceData.data?.find((service) => service.attributes.title === data.service);
-    updateTab({ service: updatedTabData?.attributes.title ?? '', icon:appendAssetUrl(updatedTabData?.attributes.media_url.data[0].attributes.url??'') });
+    updateTab({
+      service: updatedTabData?.attributes.title ?? '',
+      icon: appendAssetUrl(updatedTabData?.attributes.media_url.data[0].attributes.url ?? ''),
+    });
   };
 
   return (
