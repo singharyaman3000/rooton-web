@@ -102,7 +102,6 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           json_content={faqData?.attributes?.json_content as IFaqData}
         />
       )}
-      ;
       <NewsLetter />
     </>
   );
