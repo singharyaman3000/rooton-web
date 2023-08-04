@@ -21,7 +21,8 @@ type LeadFormProps = {
   target: string;
   // eslint-disable-next-line no-unused-vars
   onFormSubmit: (data: HTMLFormElement) => void;
-  onFormSubmitted: () => void;
+  // eslint-disable-next-line no-unused-vars
+  onFormSubmitted: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
   onFormReady: (form: HTMLFormElement) => void;
 };

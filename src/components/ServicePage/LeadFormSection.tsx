@@ -25,11 +25,7 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
             region={forms[step].region ?? ''}
             portalId={forms[step].portalId ?? ''}
             formId={forms[step].formId ?? ''}
-            onFormSubmitted={() => {}}
-            onFormSubmit={(data) => {
-              email.current = (data.querySelector('input[name="email"]') as HTMLInputElement).value;
-              name.current ||= (data.querySelector('input[name="full_name"]') as HTMLInputElement).value;
-              phone.current ||= (data.querySelector('input[name="phone"]') as HTMLInputElement).value;
+            onFormSubmitted={() => {
 
               if (forms[step + 1].type === 'calendly') {
                 setIsLoading(true);
@@ -42,6 +38,23 @@ const LeadFormSection = ({ forms }: LeadFormSectionProps) => {
                   return s + 1;
                 });
               }
+            }}
+            onFormSubmit={(data) => {
+              email.current = (data.querySelector('input[name="email"]') as HTMLInputElement).value;
+              name.current ||= (data.querySelector('input[name="full_name"]') as HTMLInputElement).value;
+              phone.current ||= (data.querySelector('input[name="phone"]') as HTMLInputElement).value;
+
+              // if (forms[step + 1].type === 'calendly') {
+              //   setIsLoading(true);
+              //   setStep((s) => {
+              //     return s + 1;
+              //   });
+              // } else {
+              //   setIsLoading(true);
+              //   setStep((s) => {
+              //     return s + 1;
+              //   });
+              // }
             }}
             onFormReady={(form) => {
               // eslint-disable-next-line no-param-reassign
