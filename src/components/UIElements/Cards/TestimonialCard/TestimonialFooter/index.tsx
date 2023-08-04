@@ -13,7 +13,7 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college, colle
   return (
     <div className="relative w-full flex items-center">
       <div className="absolute right-0 w-[30px] h-[24px] md:w-[47.5px] md:h-[38px]">
-        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48.5 39.99">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.5 39.99">
           <defs>
             <linearGradient x1="0%" y1="113.297%" x2="193.447%" y2="18%" id="2udtthevka">
               <stop stopColor="#C8C8C8" stopOpacity="0" offset="0%" />

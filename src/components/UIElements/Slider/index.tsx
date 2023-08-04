@@ -12,22 +12,31 @@ export interface IsliderProps {
   slideParentClass?: string;
   id: string;
   scrollPercent?: string | number;
-  loadingUI?:ReactElement;
-  loading?:boolean;
+  loadingUI?: ReactElement;
+  loading?: boolean;
 }
 
-const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPercent , loading , loadingUI }: IsliderProps) => {
+const Slider = ({
+  pageNum,
+  children,
+  slideClass,
+  slideParentClass,
+  id,
+  scrollPercent,
+  loading,
+  loadingUI,
+}: IsliderProps) => {
   return (
-    <motion.div className="relative mx-[-12px]"
-    initial={{ opacity: 0, scale: 0.5 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    transition={{
-      duration: 0.5,
-      delay: 0.3,
-      ease: [0, 0.71, 0.2, 1.01],
-    }}
-    viewport={{ once: true }}
-    
+    <motion.div
+      className="relative mx-[-12px]"
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.5,
+        delay: 0.3,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+      viewport={{ once: true }}
     >
       <div className="relative overflow-hidden">
         <div
@@ -41,10 +50,7 @@ const Slider = ({ pageNum, children, slideClass, slideParentClass, id, scrollPer
             ? loadingUI
             : children?.map((child) => {
               return (
-                <motion.article
-                  key={child.key}
-                  className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass}`}
-                >
+                <motion.article key={child.key} className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass}`}>
                   {child}
                 </motion.article>
               );

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { IOurProcessData } from '../../interfaces';
 import MobileDivider from './Divider';
 import useScrollHeighLight from '../hooks/useScrollHeighLight';
@@ -10,7 +10,7 @@ const ProcessesMobileView = ({ process }: IOurProcessData) => {
 
   const { selectedElem } = useScrollHeighLight({
     isMobile: true,
-    refs: refs,
+    refs,
     approxNavBarHeight: APPROX_NAV_BAR_HEIGHT,
   });
 

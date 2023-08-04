@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Fragment, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import Divider from './Divider';
 import MoverIcon from './MoverIcon';
 import { IOurProcessData } from '../../interfaces';
@@ -16,7 +16,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
   const { selectedElem, movableTop } = useScrollHeighLight({
     isMobile: false,
     approxNavBarHeight: APPROX_NAV_BAR_HEIGHT + 10,
-    refs: refs,
+    refs,
   });
   return (
     <div className="mt-[48px] mb-[120px] relative hidden md:block processes">

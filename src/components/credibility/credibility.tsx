@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import SubTitle from '../home-contents/SubTitle';
 import TitleWrapper from '../home-contents/Title';
 import Description from '../home-contents/Description';
 import ImageCard from '../UIElements/image-card';
 import CredibilityContentsJson from './credibilityContents.json';
 import Container from '../UIElements/wrapper-container';
-import { motion } from 'framer-motion';
 
 const Credibility = () => {
   interface ICredibilitycontent {
