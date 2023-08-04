@@ -8,8 +8,8 @@ type FormTargetProps = {
 
 const FormTarget = ({ target }: FormTargetProps) => {
   return (
-    <div className=" h-full w-full">
-      <div className=" p-5 h-full w-full" id={target} />
+    <div className="mt-12 h-full w-full">
+      <div className=" h-full w-full" id={target} />
     </div>
   );
 };

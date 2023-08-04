@@ -59,6 +59,7 @@ module.exports = {
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
+        'hubspot-form-shadow': 'var(--hubspot-form-shadow)',
       },
       lineHeight: {
         'primary': '1.71',

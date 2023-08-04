@@ -19,6 +19,7 @@ import Accordion from '../UIElements/Accordions';
 import ToggleIcon from '../HomePage/ChallengesListing/ToggleIcon';
 import { AccordionBody, AccordionHeader } from '../HomePage/ChallengesListing/ChallengeListingElements';
 import BlogListings from '../HomePage/BlogListings';
+import NextImage from '../UIElements/NextImage';
 
 const FAQS = [
   {
@@ -117,15 +118,32 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           json_content={process?.attributes.json_content as IOurProcessData}
         />
       </div>
-      <ServicePageWrapper className="px-6 xl:px-20 m-auto max-w-screen-2k">
-        <div>
-          <H2>{leadForm?.attributes.title ?? ''}</H2>
-          <div className=" mt-8">
-            <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
+      <ServicePageWrapper className="p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-[1440px]">
+        <div
+          className="
+            flex gap-[34px] shadow-hubspot-form-shadow border border-golden-yellow justify-between
+          "
+        >
+          <div className='lg:pl-[60px] w-[75%] lg:pt-12 lg:pb-16'>
+            <H2>{leadForm?.attributes.title ?? ''}</H2>
+            <div className="">
+              <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
+            </div>
+          </div>
+          <div className=" hidden lg:block w-[25%] h-[712px] relative">
+            <NextImage
+              classSelector=' object-right'
+              src={'/images/my-project-46@3x.png'}
+              style={{ objectFit: 'contain' }}
+              altText="a man"
+              sizes="100vw"
+              fill
+              title=""
+            />
           </div>
         </div>
       </ServicePageWrapper>
-      <div className=' m-auto max-w-screen-2k'>
+      <div className=" m-auto max-w-screen-2k">
         <Testimonials />
       </div>
       <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k">
@@ -150,8 +168,8 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           })}
         </>
       </ServicePageWrapper>
-      <div className=' w-full bg-secondary-grey'>
-        <div className=' mt-20 m-auto max-w-screen-2k'>
+      <div className=" w-full bg-secondary-grey">
+        <div className=" mt-20 m-auto max-w-screen-2k">
           <BlogListings
             blogs={{
               data: [],
