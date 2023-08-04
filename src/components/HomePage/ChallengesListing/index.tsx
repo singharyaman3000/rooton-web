@@ -65,10 +65,10 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
             </div>
           </div>
           <div className="md:w-[43.8%]">
-            {json_content.challenges.map((challengObj) => {
+            {json_content.challenges.map((challengObj,index) => {
               return (
                 <div
-                  className="w-full border-b-sandal last:border-b-0 border-b-[1px] pt-[5px] pb-[8px] md:p-[12px_0px]"
+                  className="w-full border-b-sandal last:border-b-0 border-b-[1px] pt-[5px] pb-[8px] md:p-[12px_0px] md:pt-0"
                   key={challengObj?.position}
                 >
                   <Accordion
@@ -81,7 +81,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
                     customToggle={<ToggleIcon isOpen={challengObj?.position.toString() === accordionId} />}
                     customSpacer={<span></span>}
                     cssClass="challenges-accordion  md:p-[0px_12px]  "
-                    header={<AccordionHeader value={challengObj?.key} />}
+                    header={<AccordionHeader value={challengObj?.key} index={index} />}
                     accordionBody={<AccordionBody value={challengObj?.value} />}
                   />
                 </div>

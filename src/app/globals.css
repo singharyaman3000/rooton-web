@@ -306,6 +306,10 @@ fill: #fff;
       .honestyBackground {
         background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);
       }
+
+      .accordionHeaderChallenges:nth-child(1){
+        padding-top: 0;
+      }
   
       
     }
