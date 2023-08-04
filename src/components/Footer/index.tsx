@@ -106,7 +106,7 @@ export default function Footer() {
       >
         <div>
           <div className=" mb-[6px]">
-            <FlagCanadaIcon />
+            <FlagIndiaIcon />
           </div>
           <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
           <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
@@ -115,7 +115,7 @@ export default function Footer() {
         </div>
         <div>
           <div className=" mt-8 mb-[6px]">
-            <FlagIndiaIcon />
+            <FlagCanadaIcon />
           </div>
           <p className=" text-sm font-bold mb-[4px]">{LAYOUT.addressIndia.title}</p>
           <p className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</p>
