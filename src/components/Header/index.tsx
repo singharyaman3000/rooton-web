@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import SliderOverlay from './SliderOverlay';
+import { useHeaderFooterContext } from '@/providers/globalStoreProvider';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -13,6 +14,7 @@ export default function Header() {
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
+
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -69,6 +71,7 @@ export default function Header() {
     setOpen((o) => !o);
   };
 
+
   return (
     <header
       ref={headerRef}
@@ -78,7 +81,7 @@ export default function Header() {
           : ' absolute top-0 w-full'
       }`}
     >
-      <SliderOverlay open={open} setOpen={setOpen} />
+      {/* <SliderOverlay open={open} setOpen={setOpen} /> */}
       <nav>
         <div
           className="

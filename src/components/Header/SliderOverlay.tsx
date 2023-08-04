@@ -4,14 +4,16 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
+import { ILanguageData } from './LanguageDropDown/FlagComponentWrapper';
 
-type SliderOverlayProps = {
+interface SliderOverlayProps{
   open: boolean;
   // eslint-disable-next-line no-unused-vars
   setOpen: (open: boolean) => void;
+  languageData:ILanguageData
 };
 
-export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
+export default function SliderOverlay({ open, setOpen , languageData }: SliderOverlayProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
@@ -143,7 +145,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           mb-5
                         "
                       >
-                        <RTONLanguageDropDown scrolledEnough />
+                        <RTONLanguageDropDown languageData={languageData}  scrolledEnough />
                       </div>
                     </div>
                   </div>

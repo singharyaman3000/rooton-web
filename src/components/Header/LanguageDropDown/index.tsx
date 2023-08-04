@@ -1,19 +1,41 @@
 'use client';
 
-import UKFlagIcon from '@/components/Icons/UKFlagIcon';
 import { MouseEvent, useState } from 'react';
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
-import FlagComponentWrapper from './FlagComponentWrapper';
+import FlagComponentWrapper, { ILanguageData } from './FlagComponentWrapper';
+import { useParams, usePathname } from 'next/navigation';
+import { appendAssetUrl, getDetraslatedURL, getFlagUrl } from '@/utils';
+import NextImage from '@/components/UIElements/NextImage';
+import { useHeaderFooterContext } from '@/providers/globalStoreProvider';
 
-type RTONLanguageDropDownProps = {
+interface RTONLanguageDropDownProps {
   scrolledEnough: boolean;
-};
+}
 
 export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDropDownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const params = useParams();
+  const path = usePathname();
+  const { headerFooterData } = useHeaderFooterContext();
+  const selectedLang = getFlagUrl(headerFooterData, params.lang);
 
   const dropdownContainerOnClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+  };
+
+  const onLanguageChange = (selectedLanguage: ILanguageData) => {
+    let nextRoute = '';
+    if (params.lang) {
+      if (selectedLanguage.attributes.code === 'en') {
+        nextRoute = getDetraslatedURL(path, params.lang);
+      } else {
+        nextRoute = path.replace(params.lang, selectedLanguage.attributes.code);
+      }
+    } else {
+      nextRoute = (process.env.NEXT_APP_BASE_URL ?? '') + selectedLanguage.attributes.code + path;
+    }
+    window.location.href = nextRoute;
+    // window.location.href = nextRoute;
   };
 
   return (
@@ -25,7 +47,18 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
       }}
       className=" flex gap-2 items-center relative"
     >
-      <UKFlagIcon />
+      <div className="w-[16px] h-[16px] relative">
+        {selectedLang && (
+          <NextImage
+            src={appendAssetUrl(selectedLang?.attributes?.media_url?.data?.attributes?.url)}
+            altText={selectedLang.attributes?.media_url?.data?.attributes?.alternativeText}
+            title=""
+            sizes="100vw"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        )}
+      </div>
       <p className={`text-base font-medium ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}>EN</p>
       <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
         <DownArrowIcon isScrolled={scrolledEnough} />
@@ -50,7 +83,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
                 z-1
             "
         >
-          {<FlagComponentWrapper />}
+          {<FlagComponentWrapper handleOnClick={onLanguageChange} />}
         </div>
       )}
     </button>

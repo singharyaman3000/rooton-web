@@ -12,7 +12,7 @@ type ThemeToggleAndHamburgerProps = {
   toggleSlideOverlay: () => void;
 };
 
-export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOverlay }: ThemeToggleAndHamburgerProps) {
+export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOverlay  }: ThemeToggleAndHamburgerProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const { theme, setTheme } = useTheme();
@@ -39,7 +39,7 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
       "
     >
       <div className=' hidden mr-[19px] lg:block'>
-        <RTONLanguageDropDown scrolledEnough={scrolledEnough} />
+        <RTONLanguageDropDown scrolledEnough={scrolledEnough}  />
       </div>
       <div className=" flex gap-0 w-12 lg:w-16 lg:h-8 h-6" role="button" tabIndex={0} onClick={toggleTheme}>
         {!scrolledEnough ? (
