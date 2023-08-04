@@ -104,6 +104,17 @@ body {
   }
 }
 
+/* credibility border */
+
+.capic-logo{
+  border-top-color: #123474;
+
+}
+
+.cicc-logo{
+border-top-color: #e22826;
+}
+
 /*Google translator layout*/
 .skiptranslate{
   display: none !important;

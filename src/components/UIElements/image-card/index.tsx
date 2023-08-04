@@ -11,6 +11,7 @@ const ImageCard = ({
   altText,
   iconClass,
   index,
+  borderClass,
 }: {
   imageUrl: string;
   cssClass: string;
@@ -19,6 +20,7 @@ const ImageCard = ({
   altText: string;
   iconClass: string;
   index: number;
+  borderClass?: string;
 }) => {
   return (
     <motion.div
@@ -33,15 +35,20 @@ const ImageCard = ({
         delay: 0.12,
       }}
       viewport={{ once: true }}
-      className={
-        'h-[120px] md:h-[240px] w-[86.666vw] max-w-[408.19px] shadow-lg md:w-full bg-white  border flex flex-col justify-center relative'
-      }
+      className='h-[120px] md:h-[240px] w-[86.666vw] max-w-[408.19px] shadow-lg md:w-full bg-white  border flex flex-col justify-center relative'
     >
       <div
-        className={`${iconClass} absolute top-0 right-0 mt-[13.6px] mr-[13.6px] lg:mt-[20px] lg:mr-[20px] border-l-transparent border-t-[15px] border-l-[15px] lg:border-l-[22px]  lg:border-t-[22px] w-[15px] h-[15px] lg:w-[22px] lg:h-[22px]`}
+        className={`${iconClass} ${borderClass?.replace('.png', '')} absolute top-0 right-0 mt-[13.6px] mr-[13.6px] lg:mt-[20px] lg:mr-[20px] border-l-transparent border-t-[15px] border-l-[15px] lg:border-l-[22px]  lg:border-t-[22px] w-[15px] h-[15px] lg:w-[22px] lg:h-[22px]`}
       ></div>
       <div className={`${cssClass} relative`}>
-        <NextImage sizes={sizes} src={process.env.NEXT_ASSETS_BASEURL + imageUrl} title={title} fill style={{ objectFit: 'contain' }} altText={altText} />
+        <NextImage
+          sizes={sizes}
+          src={process.env.NEXT_ASSETS_BASEURL + imageUrl}
+          title={title}
+          fill
+          style={{ objectFit: 'contain' }}
+          altText={altText}
+        />
       </div>
     </motion.div>
   );
