@@ -41,7 +41,6 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
           </motion.div>
           <div className="z-10 mx-auto lg:mx-0 flex flex-col gap-6 lg:gap-[52px] mt-8 lg:mt-0 items-center md:w-[27.7vw] max-w-[399px] xl:mr-[120px] lg:h-full">
             {media_url.data?.map((lisenseImage, index) => {
-              console.log(lisenseImage);
               return (
                 <ImageCard
                   index={index}
