@@ -105,15 +105,6 @@ export default function Footer() {
     "
       >
         <div>
-          <div className=" mb-[6px]">
-            <FlagIndiaIcon />
-          </div>
-          <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
-          <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
-          <p className=" text-sm">{LAYOUT.addressCanada.line2}</p>
-          <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</p>
-        </div>
-        <div>
           <div className=" mt-8 mb-[6px]">
             <FlagCanadaIcon />
           </div>
@@ -121,6 +112,15 @@ export default function Footer() {
           <p className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</p>
           <p className=" text-sm">{LAYOUT.addressIndia.line2}</p>
           <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressIndia.phone}</p>
+        </div>
+        <div>
+          <div className=" mb-[6px]">
+            <FlagIndiaIcon />
+          </div>
+          <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
+          <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
+          <p className=" text-sm">{LAYOUT.addressCanada.line2}</p>
+          <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</p>
         </div>
       </div>
     </footer>
