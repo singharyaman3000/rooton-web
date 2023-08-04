@@ -47,14 +47,14 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college, colle
         </div>
         <div className="flex items-center relative ">
           <div className="h-[14px] relative w-[12px] md:w-[20px] md:h-[20px] mr-[5px] md:mr-[6px]">
-            <NextImage
+            {college_photo && <NextImage
               src={college_photo}
               fill
               style={{ objectFit: 'cover' }}
               sizes="100vw"
               altText="college photo"
               title=""
-            />
+            />}
           </div>
           <div className="text-[10px] line-clamp-1 text-[#2f2f2f;]  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
             {college}
