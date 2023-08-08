@@ -13,7 +13,7 @@ const Button = ({ ariaLabel, label, handleOnClick, tabIndex = 0, icon, cssClass 
   return (
     <button
       type="button"
-      className={`p-[8px_12px] md:p-[10px_16px] border border-solid border-deep-yellow flex items-center text-xs font-medium not-italic leading-[normal] tracking-[normal] md:text-sm ${cssClass}`}
+      className={`${cssClass} p-[8px_12px] md:p-[10px_16px] border border-solid border-deep-yellow flex items-center text-xs font-medium not-italic leading-[normal] tracking-[normal] md:text-sm`}
       aria-label={ariaLabel ?? ''}
       onClick={handleOnClick}
       tabIndex={tabIndex}
