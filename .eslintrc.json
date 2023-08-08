@@ -1,3 +1,102 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@next/next/recommended",
+    "airbnb",
+    "prettier",
+    "next/core-web-vitals"
+  ],
+  "plugins": ["react", "@next/next", "prettier", "@typescript-eslint"],
+  "rules": {
+    "jsx-a11y/click-events-have-key-events": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-unused-vars": "error",
+    "react/self-closing-comp": "off",
+    "import/prefer-default-export": "off",
+    "no-var": "error",
+    "no-console": "warn",
+    "no-alert": "error",
+    "no-eval": "error",
+    "no-undef": "error",
+    "no-restricted-syntax": ["error", "WithStatement"],
+    "no-underscore-dangle": "off",
+    "prefer-const": "error",
+    "no-unused-expressions": "error",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": "off",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "react/require-default-props": "off",
+    "indent": ["error", 2],
+    "comma-dangle": ["error", "always-multiline"],
+    "max-len": [
+      "warn",
+      {
+        "code": 120,
+        "ignoreUrls": true
+      }
+    ],
+    "newline-per-chained-call": [
+      "error",
+      {
+        "ignoreChainWithDepth": 3
+      }
+    ],
+    "no-trailing-spaces": "error",
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "no-multi-spaces": "error",
+    "no-extra-parens": "error",
+    "react/no-unused-prop-types": "off",
+    "arrow-parens": ["error", "always"],
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "arrow-body-style": [1, "always"],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-empty-interface": "off",
+    "jsx-a11y/media-has-caption":"off",
+    "import/no-cycle": "warn",
+    "react/jsx-curly-brace-presence": [
+      "off"
+      // { props: 'never', children: 'never' },
+    ],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "{}": false
+        },
+        "extendDefaults": true
+      }
+    ],
+    "camelcase": "off",
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "tsx": "never",
+        "json":"always"
+      }
+    ],
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": "off"  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
