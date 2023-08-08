@@ -104,6 +104,17 @@ body {
   }
 }
 
+/* credibility border */
+
+.capic-logo{
+  border-top-color: #123474;
+
+}
+
+.cicc-logo{
+border-top-color: #e22826;
+}
+
 /*Google translator layout*/
 .skiptranslate{
   display: none !important;
@@ -305,6 +316,10 @@ fill: #fff;
     @media screen and (min-width: 768px) {
       .honestyBackground {
         background-image: radial-gradient(circle at 50% 53%, #e5e5e5, rgba(219, 219, 219, 0.21) 79%, rgba(216, 216, 216, 0) 93%);
+      }
+
+      .accordionHeaderChallenges:nth-child(1){
+        padding-top: 0;
       }
   
       
