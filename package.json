@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start --port 8012",
+    "start": "cross-env PORT=$(cat .env | grep PORT= | cut -d '=' -f2) next start",
     "lint": "next lint",
-    "start-stg":"next start --port 8014"
+    "start-stg": "next start --port 8014"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
@@ -35,6 +35,8 @@
     "@types/react-html-parser": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.2.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.3.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
@@ -42,6 +44,5 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.0.0"
-
   }
 }
