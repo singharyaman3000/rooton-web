@@ -82,6 +82,7 @@ html,body{
 
 body {
   margin: 0;
+  top: 0 !important;
   padding: 0;
   color: var(--primary-text);
   font-family: var(--font-jakarta);
@@ -379,3 +380,8 @@ fill: #fff;
   background: #fff;
 }
 
+
+font {
+  background: transparent !important;
+  box-shadow: none !important;
+}

@@ -1,3 +1,4 @@
+import { IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { IHomePageData } from '@/app/services/apiService/homeAPI';
 
 export const getAssetUrl = (url = '') => {
@@ -22,4 +23,13 @@ export const getSectionData = (data: IHomePageData, content_name: string) => {
   return data.attributes.home_page_contents.data?.find((contents) => {
     return contents.attributes.content_name === content_name;
   });
+};
+
+export const getDetraslatedURL = (url: string, lang: string) => {
+  const modifiedUrl = url.replace(`/${lang}`, '');
+  return process.env.NEXT_APP_BASE_URL + modifiedUrl;
+};
+
+export const getFlagUrl = (flagData: IHeaderFooterData | undefined, langcode = 'en') => {
+  return flagData?.attributes.languages.data?.find(({ attributes }) => attributes.code === langcode);
 };

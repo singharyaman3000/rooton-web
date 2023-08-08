@@ -1,9 +1,7 @@
-import Header from '@/components/Header';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
-import Footer from '@/components/Footer';
 import ThemeSwitchProvider from '../providers/themeProviders';
 
 export const metadata: Metadata = {
@@ -23,9 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning lang="en">
       <body className={`${FontJakarta.variable} ${FontJakarta.className} bg-primary-bg`}>
         <ThemeSwitchProvider>
-          <Header />
           {children}
-          <Footer />
         </ThemeSwitchProvider>
       </body>
     </html>

@@ -1,53 +1,37 @@
-import FranceFlagIcon from '@/components/Icons/FranceFlagIcon';
-import GermanyFlagIcon from '@/components/Icons/GermanyFlagIcon';
-import IndiaFlagIconSm from '@/components/Icons/IndiaFlagIconSm';
-import ItalyFlagIcon from '@/components/Icons/ItalyFlagIcon';
-import PortugalFlagIcon from '@/components/Icons/PortugalFlagIcon';
-import SpainflagIcon from '@/components/Icons/SpainflagIcon';
-import UKFlagIcon from '@/components/Icons/UKFlagIcon';
+import { IMediaUrlData } from '@/app/services/apiService/interfaces';
+import NextImage from '@/components/UIElements/NextImage';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
+import { appendAssetUrl } from '@/utils';
 import React from 'react';
 
-const FlagItems = [
-  {
-    component: <UKFlagIcon />,
-    label: 'English',
-  },
-  {
-    component: <FranceFlagIcon />,
-    label: 'French',
-  },
-  {
-    component: <SpainflagIcon />,
-    label: 'Spanish',
-  },
-  {
-    component: <GermanyFlagIcon />,
-    label: 'German',
-  },
-  {
-    component: <ItalyFlagIcon />,
-    label: 'Italian',
-  },
-  {
-    component: <IndiaFlagIconSm />,
-    label: 'Punjabi',
-  },
-  {
-    component: <IndiaFlagIconSm />,
-    label: 'Hindi',
-  },
-  {
-    component: <PortugalFlagIcon />,
-    label: 'Portuguese',
-  },
-];
+export interface ILanguageAttributes {
+  name: string;
+  code: string;
+  media_url: { data: IMediaUrlData };
+}
+export interface ILanguageData {
+  id: number;
+  attributes: ILanguageAttributes;
+}
+/* eslint-disable no-unused-vars */
+const FlagComponentWrapper = ({ handleOnClick }: { handleOnClick: (selectedLanguage: ILanguageData) => void }) => {
+  const { headerFooterData } = useHeaderFooterContext();
 
-const FlagComponentWrapper = () => {
-  return FlagItems?.map((item) => (
-    <div className="hover:bg-hover-lang-dropdown" key={item?.label}>
-      <span className="mx-[18px] flex gap-2 items-center p-2" key={item?.label}>
-        {item?.component}
-        <p className=" text-base font-medium">{item?.label}</p>
+  return headerFooterData?.attributes.languages.data?.map((item) => (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div className="hover:bg-hover-lang-dropdown" key={item?.attributes.name} onClick={() => handleOnClick(item)}>
+      <span className="mx-[18px] flex gap-2 items-center p-2" key={item?.attributes.name}>
+        <div className="w-[30px]  h-[20px] relative">
+          <NextImage
+            src={appendAssetUrl(item.attributes?.media_url?.data?.attributes?.url)}
+            altText={item.attributes?.media_url?.data?.attributes?.alternativeText}
+            title=""
+            sizes="100vw"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
+        <p className=" text-base font-medium">{item?.attributes.name}</p>
       </span>
     </div>
   ));

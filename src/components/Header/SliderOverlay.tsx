@@ -5,11 +5,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
 
-type SliderOverlayProps = {
+interface SliderOverlayProps {
   open: boolean;
   // eslint-disable-next-line no-unused-vars
   setOpen: (open: boolean) => void;
-};
+}
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
   return (
@@ -43,7 +43,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                   <div className="flex h-full flex-col overflow-y-scroll bg-primary  py-7 shadow-xl">
                     <div className="flex justify-end px-7">
                       <button
-                        aria-label='Slider dialog close'
+                        aria-label="Slider dialog close"
                         type="button"
                         className="
                             cursor-pointer
