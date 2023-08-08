@@ -1,4 +1,3 @@
-
 import SectionContainer from '@/components/Containers/SectionContainers';
 import React from 'react';
 import Button from '@/components/UIElements/Button';
@@ -9,12 +8,10 @@ import BookAppointmentGridRight from './BookAppointmentGridRight';
 import BookAppointmentGridLeft from './BookAppointmentLeft';
 
 const BookAnAppointment = () => {
-
   const BookAnAppointmentContent = {
     title: 'Streamline Your Immigration Journey with Experts',
     btnLabel: 'Book an Appointment now',
   };
-  
 
   const src = ' /images/homepage/bookanappointment.png';
   console.log(typeof '' === 'string' ? getAssetUrl(src) : src || '');

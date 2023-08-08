@@ -13,7 +13,7 @@ export const AccordionHeader = ({ value, index }: { value: string; index?: numbe
 };
 
 export const AccordionBody = ({ value, containerWidth, fontSizeMd }: { value: string, containerWidth?: string, fontSizeMd?: string }) => (
-  <div className={`pb-[10px] ${containerWidth ? containerWidth : 'max-w-[80%]'}   text-left  md:pb-[12px] ${fontSizeMd ? fontSizeMd:'md:text-base' } text-xs font-normal not-italic leading-[1.67] tracking-[normal]`}>
+  <div className={`pb-[10px] ${containerWidth || 'max-w-[80%]'}   text-left  md:pb-[12px] ${fontSizeMd || 'md:text-base' } text-xs font-normal not-italic leading-[1.67] tracking-[normal]`}>
     {ReactHtmlParser(value)}
   </div>
 );
