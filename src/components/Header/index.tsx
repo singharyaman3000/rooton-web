@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
+import SliderOverlay from './SliderOverlay';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -77,7 +78,7 @@ export default function Header() {
           : ' absolute top-0 w-full'
       }`}
     >
-      {/* <SliderOverlay open={open} setOpen={setOpen} /> */}
+      <SliderOverlay open={open} setOpen={setOpen} />
       <nav>
         <div
           className="

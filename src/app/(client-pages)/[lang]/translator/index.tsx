@@ -42,12 +42,12 @@ const Translator = () => {
   };
 
   useEffect(() => {
-      const addScript = document.createElement('script');
-      addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
-      document.body.appendChild(addScript);
-      window.googleTranslateElementInit = googleTranslateElementInit;
-      const language = languages.find((lan) => lan.key === params.lang);
-      document.cookie = `googtrans=/en/${language ? language.key : 'en'}`;
+    const addScript = document.createElement('script');
+    addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
+    const language = languages.find((lan) => lan.key === params.lang);
+    document.cookie = `googtrans=/en/${language ? language.key : 'en'}`;
   }, [params]);
 
   return <div id="google_translate_element"></div>;

@@ -24,7 +24,13 @@ const ServicesMobileView = ({ serviceData }: IServicesMobileView) => {
         // customSpacer={<span></span>}
         accordionBody={<AccordionBody data={sevice.attributes?.sub_services?.data} />}
         key={sevice.attributes?.title}
-        header={<AccordionHeader cssClass={`${clickedAccordionId === sevice?.attributes?.title ? 'font-bold' : 'font-normal'}`}  service={sevice.attributes?.title} icon={appendAssetUrl(sevice.attributes?.media_url?.data[0]?.attributes?.url)} />}
+        header={
+          <AccordionHeader
+            cssClass={`${clickedAccordionId === sevice?.attributes?.title ? 'font-bold' : 'font-normal'}`}
+            service={sevice.attributes?.title}
+            icon={appendAssetUrl(sevice.attributes?.media_url?.data[0]?.attributes?.url)}
+          />
+        }
       />
     );
   });

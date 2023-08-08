@@ -1,35 +1,36 @@
 import { getFetch } from '@/utils/apiUtils';
 import { HEADER_FOOTER_API } from './apiUrl/homePage';
-import { IMediaUrlData, MediaUrl } from './interfaces';
+import { IMediaUrlData } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 
-export interface IHeaderFooterRes {
-  data: IHeaderFooterData;
+export interface ILanguages {
+  data?: ILanguageData[] | null;
 }
-export interface IHeaderFooterData {
-  id: number;
-  attributes: Attributes;
-}
-export interface Attributes {
-  addresses: Addresses;
-  languages: Languages;
-}
-export interface Addresses {
-  data?: DataEntity[] | null;
-}
-export interface DataEntity {
-  id: number;
-  attributes: Attributes1;
-}
-export interface Attributes1 {
+export interface IAddressAttributes {
   name: string;
   location: string;
   phone_number: string;
-  media_url: {data:IMediaUrlData};
+  media_url: { data: IMediaUrlData };
 }
 
-export interface Languages {
-  data?: ILanguageData[] | null;
+export interface IAddressData {
+  id: number;
+  attributes: IAddressAttributes;
+}
+
+export interface IAddresses {
+  data?: IAddressData[] | null;
+}
+export interface IAttributes {
+  addresses: IAddresses;
+  languages: ILanguages;
+}
+export interface IHeaderFooterData {
+  id: number;
+  attributes: IAttributes;
+}
+export interface IHeaderFooterRes {
+  data: IHeaderFooterData;
 }
 
 export const getHeaderFooterData = async () => {

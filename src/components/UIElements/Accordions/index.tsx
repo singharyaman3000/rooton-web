@@ -28,16 +28,35 @@ const Accordion = ({
   customSpacer,
   customToggle,
 }: IAccordion) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const { key } = event;
+    if (key === 'Enter' || key === ' ') {
+      handleOnClick(accordionId);
+    }
+  };
+
   return (
     <div className={cssClass}>
-      <div className={`p-[21px] accordion-header pb-0 ${openAccordion ? 'bg-primary-black text-primary-white  ' : 'bg-transparent'}`}>
+      <div
+        className={`p-[21px] accordion-header pb-0 ${
+          openAccordion ? 'bg-primary-black text-primary-white  ' : 'bg-transparent'
+        }`}
+      >
+        {/* eslint-disable jsx-a11y/no-static-element-interactions */}
+        {/* eslint-disable  jsx-a11y/no-noninteractive-tabindex */}
         <div
-          className="w-full flex items-center justify-between pb-[21px] header-btn"
+          className="w-full flex items-center justify-between cursor-pointer pb-[21px] header-btn"
           onClick={() => handleOnClick(accordionId)}
+          tabIndex={0}
+          onKeyDown={handleKeyPress}
         >
           <div className="w-full text-base font-bold not-italic leading-[normal] tracking-[normal]">{header}</div>
           {customToggle ?? (
-            <div className={`${openAccordion ? 'rotate-180' : 'rotate-0'} line-clamp-2 flex-shrink-0 ml-[10px]  transition-all delay-75`}>
+            <div
+              className={`${
+                openAccordion ? 'rotate-180' : 'rotate-0'
+              } line-clamp-2 flex-shrink-0 ml-[10px]  transition-all delay-75`}
+            >
               <DropDownCaret />
             </div>
           )}

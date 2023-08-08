@@ -10,6 +10,7 @@ import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import NextImage from '../UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import HtmlParser from 'react-html-parser';
+import FooterGrid from './FooterGrid';
 
 export default function Footer() {
   const { headerFooterData } = useHeaderFooterContext();
@@ -24,10 +25,11 @@ export default function Footer() {
     lg:border-t
     border-secondary-border
     xl:px-[120px]
-    lg:pt-[60px]
+    lg:pt-[38px]
     lg:pb-[141px]
     lg:gap-[80px]
     xl:gap-[153px]
+    relative
   "
     >
       <div
@@ -101,6 +103,7 @@ export default function Footer() {
         className="
       py-5
       px-6
+      xl:pt-0
       xl:pb-0
       flex
       flex-col
@@ -111,27 +114,28 @@ export default function Footer() {
       >
         {headerFooterData?.attributes.addresses.data?.map((address) => {
           return (
-            <>
-              <div>
-                <div className=" mb-[6px]">
-                  <div className="w-[32px] h-[16px] relative">
-                    <NextImage
-                      src={appendAssetUrl(address?.attributes?.media_url?.data?.attributes?.url)}
-                      altText={address?.attributes?.media_url?.data?.attributes?.alternativeText}
-                      title=""
-                      sizes="100vw"
-                      fill
-                      style={{ objectFit: 'cover' }}
-                    />
-                  </div>
+            <div key={address.id}>
+              <div className=" mb-[6px]">
+                <div className="w-[32px] h-[16px] relative">
+                  <NextImage
+                    src={appendAssetUrl(address?.attributes?.media_url?.data?.attributes?.url)}
+                    altText={address?.attributes?.media_url?.data?.attributes?.alternativeText}
+                    title=""
+                    sizes="100vw"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
                 </div>
-                <p className=" text-sm mb-[4px] font-bold">{address?.attributes.name}</p>
-                <p className=" text-sm mb-[4px]">{HtmlParser(address?.attributes?.location)}</p>
-                <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
               </div>
-            </>
+              <p className=" text-sm mb-[4px] font-bold">{address?.attributes.name}</p>
+              <p className=" text-sm mb-[4px]">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
+            </div>
           );
         })}
+      </div>
+      <div className="absolute top-0 left-0 hidden w-full overflow-hidden xl:block">
+        <FooterGrid />
       </div>
     </footer>
   );

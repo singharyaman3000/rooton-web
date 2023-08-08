@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Footer from '@/components/Footer';
 import { getHeaderFooterData } from '../services/apiService/headerFooterAPI';
 import { HeaderFooterDataProvider } from '@/providers/headerFooterDataProvider';

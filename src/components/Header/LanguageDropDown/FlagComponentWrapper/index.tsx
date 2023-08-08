@@ -4,23 +4,22 @@ import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { appendAssetUrl } from '@/utils';
 import React from 'react';
 
-export interface ILanguageData {
-  id: number;
-  attributes: ILanguageAttributes;
-}
-
 export interface ILanguageAttributes {
   name: string;
   code: string;
   media_url: { data: IMediaUrlData };
 }
-
-const FlagComponentWrapper = ({handleOnClick}:{handleOnClick:(selectedLanguage:ILanguageData)=>void}) => {
+export interface ILanguageData {
+  id: number;
+  attributes: ILanguageAttributes;
+}
+/* eslint-disable no-unused-vars */
+const FlagComponentWrapper = ({ handleOnClick }: { handleOnClick: (selectedLanguage: ILanguageData) => void }) => {
   const { headerFooterData } = useHeaderFooterContext();
 
-
   return headerFooterData?.attributes.languages.data?.map((item) => (
-    <div className="hover:bg-hover-lang-dropdown" key={item?.attributes.name} onClick={()=>handleOnClick(item)}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div className="hover:bg-hover-lang-dropdown" key={item?.attributes.name} onClick={() => handleOnClick(item)}>
       <span className="mx-[18px] flex gap-2 items-center p-2" key={item?.attributes.name}>
         <div className="w-[30px]  h-[20px] relative">
           <NextImage

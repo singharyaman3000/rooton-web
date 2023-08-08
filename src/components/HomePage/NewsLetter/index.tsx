@@ -7,7 +7,7 @@ import HubSpotForm from '../../HubSpotForm';
 const NewsLetter = () => {
   return (
     <SectionContainer cssClass="pt-10 pb-20 md:pt-0 md:pb-0">
-      <div className="md:mb-[52px] bg-pale-sandal  py-6 px-5 md:pt-16 md:pb-0 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative">
+      <div className="md:mb-[52px] bg-pale-sandal md:min-h-[] py-6 px-5 md:pt-16 md:pb-0 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative">
         <div className=" w-full md:w-[30.347vw]">
           <h4 className="text-2xl lg:text-[40px] gradient-text text-black font-extrabold not-italic !leading-[1.42] tracking-[normal] mb-2 md:mb-[11px]">
             Sign up for Newsletter
