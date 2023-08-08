@@ -1,3 +1,5 @@
+'use client';
+
 import SectionContainer from '@/components/Containers/SectionContainers';
 import React from 'react';
 import Button from '@/components/UIElements/Button';
@@ -28,7 +30,7 @@ const BookAnAppointment = () => {
               label={BookAnAppointmentContent?.btnLabel}
               ariaLabel={BookAnAppointmentContent?.btnLabel}
               cssClass="text-white bg-black border-0 !py-[17px] gap-[16px]"
-              handleOnClick={() => null}
+              handleOnClick={() => null }
               tabIndex={0}
               icon={<CalenderIconYellow />}
             />
