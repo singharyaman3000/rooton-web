@@ -35,10 +35,15 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
       nextRoute = (process.env.NEXT_APP_BASE_URL ?? '') + selectedLanguage.attributes.code + path;
     }
     window.location.href = nextRoute;
-    // window.location.href = nextRoute;
   };
 
+  const handleClose = ()=>{
+    setIsOpen(false);
+    console.log("ooooo")
+  }
+
   return (
+    <>
     <button
       aria-label="Language dropdown button"
       type="button"
@@ -63,11 +68,13 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
       <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
         <DownArrowIcon isScrolled={scrolledEnough} />
       </span>
+    
       {isOpen && (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div
           onClick={(e) => dropdownContainerOnClick(e)}
           className="
+                z-[1001]
                 absolute
                 w-[180px]
                 bg-primary
@@ -87,5 +94,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         </div>
       )}
     </button>
+      {isOpen && <div onClick={handleClose} className='fixed top-0 left-0 square-[100%] z-[1000]'></div>}
+      </>
   );
 }

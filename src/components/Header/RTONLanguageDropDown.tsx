@@ -24,9 +24,6 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
   };
 
 
-
-
-
   return (
     <button
       aria-label="Language dropdown button"

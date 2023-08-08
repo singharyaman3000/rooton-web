@@ -365,3 +365,8 @@ fill: #fff;
   background: #fff;
 }
 
+
+font {
+  background: transparent !important;
+  box-shadow: none !important;
+}
