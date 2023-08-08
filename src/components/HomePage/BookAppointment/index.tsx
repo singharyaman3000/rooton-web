@@ -1,34 +1,23 @@
-'use client'
 
 import SectionContainer from '@/components/Containers/SectionContainers';
-import React, { useEffect, useState } from 'react';
-import BookAppointmentGridRight from './BookAppointmentGridRight';
-import BookAppointmentGridLeft from './BookAppointmentLeft';
+import React from 'react';
 import Button from '@/components/UIElements/Button';
 import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
 import NextImage from '@/components/UIElements/NextImage';
 import { getAssetUrl } from '@/utils';
+import BookAppointmentGridRight from './BookAppointmentGridRight';
+import BookAppointmentGridLeft from './BookAppointmentLeft';
 
 const BookAnAppointment = () => {
 
-  const [GridWidth, setGridWidth] =  useState(1280);
- 
   const BookAnAppointmentContent = {
     title: 'Streamline Your Immigration Journey with Experts',
     btnLabel: 'Book an Appointment now',
   };
-  const ReferenceGridWidthInPercentage = 88.88;
-  useEffect(()=>{
-    const windowWidth = window?.innerWidth;
-    if(windowWidth){
-      const expectedWidth = (ReferenceGridWidthInPercentage * windowWidth)/100;
-      console.log(expectedWidth,windowWidth);
-      setGridWidth(expectedWidth)
-    }
-  })
+  
 
-  const src=' /images/homepage/bookanappointment.png'
-  console.log(typeof '' === 'string' ? getAssetUrl(src) : src || '')
+  const src = ' /images/homepage/bookanappointment.png';
+  console.log(typeof '' === 'string' ? getAssetUrl(src) : src || '');
 
   return (
     <SectionContainer cssClass="md:mb-20">
@@ -66,7 +55,6 @@ const BookAnAppointment = () => {
         <div className="absolute z-[0] top-0 left-0 hidden lg:block">
           <BookAppointmentGridLeft />
         </div>
-        
       </div>
     </SectionContainer>
   );
