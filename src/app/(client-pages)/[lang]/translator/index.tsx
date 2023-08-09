@@ -34,8 +34,8 @@ const Translator = () => {
       window.googleTranslateElementInit = googleTranslateElementInit;
       const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
       const domain = window.location.hostname;
-      document.cookie = 'googtrans=;Path=/; ';
-      document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'};domain=${domain}`;
+      // document.cookie = 'googtrans=;Path=/; ';
+      document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; domain=${domain}; path=/`;
     }
   }, [params]);
 
