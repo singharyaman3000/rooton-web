@@ -35,7 +35,7 @@ const Translator = () => {
       const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
       // const domain = window.location.hostname;
       // document.cookie = 'googtrans=;Path=/; ';
-      document.cookie = "googtrans=;" + new Date + ";path=/;domain=.qburst.build";
+      document.cookie = `googtrans=en/${language ? language.attributes.code : 'en'}; + new Date + ";path=/;domain=.qburst.build`;
       document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; path=/`;
     }
   }, [params]);
