@@ -3,8 +3,25 @@
 import UKFlagIcon from '@/components/Icons/UKFlagIcon';
 import { MouseEvent, useState } from 'react';
 import DownArrowIcon from '@/components/Icons/DownArrowIcon';
-import { languages } from '@/app/(client-pages)/[lang]/translator';
+import { ILanguage } from '@/app/(client-pages)/[lang]/translator';
 import { useParams, usePathname } from 'next/navigation';
+import IndiaFlagIconSm from '../Icons/IndiaFlagIconSm';
+import GermanyFlagIcon from '../Icons/GermanyFlagIcon';
+import PortugalFlagIcon from '../Icons/PortugalFlagIcon';
+import SpainflagIcon from '../Icons/SpainflagIcon';
+import FranceFlagIcon from '../Icons/FranceFlagIcon';
+import ItalyFlagIcon from '../Icons/ItalyFlagIcon';
+
+export const languages: ILanguage[] = [
+  { key: 'en', label: 'English', icon: <UKFlagIcon /> },
+  { key: 'es', label: 'Spanish', icon: <SpainflagIcon /> },
+  { key: 'pu', label: 'Punjabi', icon: <IndiaFlagIconSm /> },
+  { key: 'pt', label: 'Portuguese', icon: <PortugalFlagIcon /> },
+  { key: 'fr', label: 'France', icon: <FranceFlagIcon /> },
+  { key: 'it', label: 'Italian', icon: <ItalyFlagIcon /> },
+  { key: 'de', label: 'German', icon: <GermanyFlagIcon /> },
+  { key: 'gu', label: 'Gujarati', icon: <IndiaFlagIconSm /> },
+];
 
 type RTONLanguageDropDownProps = {
   scrolledEnough: boolean;
