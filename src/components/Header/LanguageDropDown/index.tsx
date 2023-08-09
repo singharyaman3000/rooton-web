@@ -24,6 +24,12 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
   };
 
   const onLanguageChange = (selectedLanguage: ILanguageData) => {
+    const cookes = document.cookie.split(';');
+    cookes.forEach( (cookie)=> {
+      const cookieParts = cookie.split('=');
+      const cookieName = cookieParts[0].trim();
+      document.cookie = `${cookieName}=; expires=${new Date(0).toUTCString()}; path=/`;
+    });
     let nextRoute = '';
     if (params.lang) {
       if (selectedLanguage.attributes.code === 'en') {
@@ -34,11 +40,6 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
     } else {
       nextRoute = (process.env.NEXT_APP_BASE_URL ?? '') + selectedLanguage.attributes.code + path;
     }
-    document.cookie.split(';').forEach(function(cookie) {
-      const cookieParts = cookie.split('=');
-      const cookieName = cookieParts[0].trim();
-      document.cookie = `${cookieName}=; expires=${new Date(0).toUTCString()}; path=/`;
-    });
     window.location.href = nextRoute;
   };
 
