@@ -15,10 +15,7 @@ import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
-<<<<<<< HEAD
 import BookAnAppointment from './BookAppointment';
-=======
->>>>>>> f3ded367e4e89ef42b6177c73a1bbc623f7f8faf
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
@@ -75,7 +72,6 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
     });
   };
 
-<<<<<<< HEAD
   const getComponentsAfterBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
       const { title, sub_title } = contents.attributes;
@@ -91,9 +87,6 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   };
 
   const faqData = getSectionData(homePageConfig, CONTENT_TYPES.QUESTIONS);
-=======
-  const faqData = getSectionData(homePageConfig , CONTENT_TYPES.QUESTIONS );
->>>>>>> f3ded367e4e89ef42b6177c73a1bbc623f7f8faf
 
   return (
     <>
@@ -122,10 +115,6 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           json_content={faqData?.attributes?.json_content as IFaqData}
         />
       )}
-<<<<<<< HEAD
-=======
-      ;
->>>>>>> f3ded367e4e89ef42b6177c73a1bbc623f7f8faf
       <NewsLetter />
     </>
   );
