@@ -10,9 +10,11 @@ module.exports = {
   theme: {
     screens: {
       'xs': '320px',
+      'sm': '480px',
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
+      '2k': '2048px',
     },
     fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],
@@ -57,6 +59,13 @@ module.exports = {
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
+        'hubspot-form-shadow': 'var(--hubspot-form-shadow)',
+      },
+      lineHeight: {
+        'primary': '1.71',
+        'primary-lg': '1.67',
+        'heading': '1.43',
+        'heading-lg': '1.42',
       },
     },
   },

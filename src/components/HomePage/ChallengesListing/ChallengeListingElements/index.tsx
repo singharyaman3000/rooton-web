@@ -17,3 +17,10 @@ export const AccordionBody = ({ value, containerWidth, fontSizeMd }: { value: st
     {ReactHtmlParser(value)}
   </div>
 );
+<<<<<<< HEAD
+=======
+
+export const AccordionBody = ({ value }: { value: string }) => (
+  <div className="pb-[10px] max-w-[80%]  text-left  md:pb-[12px] text-xs md:text-lg font-normal not-italic leading-[1.67] tracking-[normal]">{ReactHtmlParser(value)}</div>
+);
+>>>>>>> f3ded367e4e89ef42b6177c73a1bbc623f7f8faf
