@@ -84,6 +84,7 @@ export default function Header() {
           className="
           flex
           gap-5
+          lg:gap-[3.33vw]
           justify-between
           px-6
           py-3
@@ -116,10 +117,8 @@ export default function Header() {
           )}
           <div
             className={`
-            xl:ml-[116px]
-            lg:ml-[50px]
             xl:gap-[62px]
-            lg:gap-12
+            lg:gap-[3.4vw]
             justify-end
             items-center
             text-base
@@ -150,6 +149,9 @@ export default function Header() {
             </span>
           </div>
           <ThemeToggleAndHamburger toggleSlideOverlay={toggleSlideOverlay} scrolledEnough={scrolledEnough} />
+          <div className='hidden lg:block'>
+            Talk to Expert
+          </div>
         </div>
         <div
           className="
