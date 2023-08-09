@@ -16,8 +16,9 @@ const Translator = () => {
 
   const googleTranslateElementInit = () => {
     const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
+    const domain = window.location.hostname;
     document.cookie = 'googtrans=;Path=/; ';
-    document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'};`;
+    document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'};domain=${domain}`;
     // eslint-disable-next-line no-new
     new window.google.translate.TranslateElement(
       {
