@@ -32,7 +32,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         nextRoute = path.replace(params.lang, selectedLanguage.attributes.code);
       }
     } else {
-      nextRoute = (process.env.NEXT_APP_BASE_URL ?? '') + selectedLanguage.attributes.code + path;
+      nextRoute = (process.env.NEXT_APP_BASE_URL ?? '') + `/${selectedLanguage.attributes.code}` + path;
     }
     window.location.href = nextRoute;
   };
