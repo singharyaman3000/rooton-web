@@ -35,8 +35,11 @@ const Translator = () => {
       const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
       // const domain = window.location.hostname;
       // document.cookie = 'googtrans=;Path=/; ';
-      document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; + new Date + ";path=/;domain=${window.location.hostname}`;
-      document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; path=/`;
+      // var parts = location.hostname.split('.');
+      // var sndleveldomain = parts.slice(-2).join('.');
+      const appMainDomain = process.env.NEXT_APP_MAIN_DOMAIN
+      document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; + new Date + ";path=/;domain=${appMainDomain}`;
+      // document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; path=/`;
     }
   }, [params]);
 
