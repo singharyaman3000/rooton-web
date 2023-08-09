@@ -17,14 +17,14 @@ const ClientPageLayout = ({ children }: { children: ReactNode }) => {
   return (
     <section>
       {isClient && (
-        <TranslationLoadingProvider>
-          <HeaderFooterDataProvider headerFooterAPIData={data}>
-            <Header />
+        <HeaderFooterDataProvider headerFooterAPIData={data}>
+          <TranslationLoadingProvider>
             <Translator />
+            <Header />
             {children}
             <Footer />
-          </HeaderFooterDataProvider>
-        </TranslationLoadingProvider>
+          </TranslationLoadingProvider>
+        </HeaderFooterDataProvider>
       )}
     </section>
   );

@@ -34,6 +34,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
     } else {
       nextRoute = (process.env.NEXT_APP_BASE_URL ?? '') + selectedLanguage.attributes.code + path;
     }
+    document.cookie = `googtrans=''; path=/`;
     window.location.href = nextRoute;
   };
 
