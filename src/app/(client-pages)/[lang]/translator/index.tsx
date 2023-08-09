@@ -32,6 +32,7 @@ const Translator = () => {
     document.body.appendChild(addScript);
     window.googleTranslateElementInit = googleTranslateElementInit;
     const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
+    document.cookie = 'googtrans=';
     document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}`;
   }, [params]);
 
