@@ -129,6 +129,17 @@ border-top-color: #e22826;
 fill: #fff;
 }
 
+/* services listing */
+.servicesListingOnAdvice::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.servicesListingOnAdvice {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 /* background grid container css*/
 @media screen and (min-width: 1280px) {
 
