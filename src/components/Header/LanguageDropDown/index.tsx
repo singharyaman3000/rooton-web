@@ -34,8 +34,10 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
     } else {
       nextRoute = (process.env.NEXT_APP_BASE_URL ?? '') + selectedLanguage.attributes.code + path;
     }
-    document.cookie.split(';').forEach(function (c) {
-      document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
+    document.cookie.split(';').forEach(function(cookie) {
+      const cookieParts = cookie.split('=');
+      const cookieName = cookieParts[0].trim();
+      document.cookie = `${cookieName}=; expires=${new Date(0).toUTCString()}; path=/`;
     });
     window.location.href = nextRoute;
   };
