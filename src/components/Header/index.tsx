@@ -85,7 +85,8 @@ export default function Header() {
           className="
           flex
           gap-5
-          lg:gap-[3.33vw]
+          lg:gap-[1.33vw]
+          xl:gap-[3.33vw]
           justify-between
           px-6
           py-3
@@ -118,7 +119,8 @@ export default function Header() {
           )}
           <div
             className={`
-            lg:gap-[3.33vw]
+            lg:gap-[1.33vw]
+            xl:gap-[3.33vw]
             justify-end
             items-center
             text-base
@@ -149,7 +151,7 @@ export default function Header() {
             </span>
           </div>
           <ThemeToggleAndHamburger toggleSlideOverlay={toggleSlideOverlay} scrolledEnough={scrolledEnough} />
-          <TalkToOurExpert/>
+          {scrolledEnough && <TalkToOurExpert />}
         </div>
         <div
           className="

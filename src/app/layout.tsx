@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
-import ServiceListingOnAdviceMobile from '@/components/HomePage/ServiceListingOnAdvice/ServiceListOnAdviceMobile';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

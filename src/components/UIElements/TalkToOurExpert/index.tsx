@@ -9,20 +9,17 @@ const TalkToOurExpert = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log('here');
     const handleClickOutside = (event: MouseEvent): void => {
-      // debugger;
       if (isOpen) {
-       console.log('here ', wrapperRef.current, event.target, !wrapperRef?.current?.contains(event.target as Node));
         if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
           if (buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
             setIsOpen(false);
-          }else{
+          } else {
             setIsOpen(true);
           }
         }
       }
-    }
+    };
 
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -31,15 +28,15 @@ const TalkToOurExpert = () => {
     };
   }, [wrapperRef, buttonRef, isOpen]);
 
-  
   return (
-    <div className="relative">
+    <div className="relative hidden lg:block">
       <button
+        type='button'
         ref={buttonRef}
         onClick={() => {
-          setIsOpen((isOpen) => !isOpen);
+          setIsOpen((prevState) => !prevState);
         }}
-        className="hidden text-sm font-bold h-[52px] text-white lg:block bg-black lg:w-[157px] px-5 py-4"
+        className="text-sm font-bold h-[52px] text-white bg-black lg:w-[157px] px-5 py-4"
       >
         Talk to our Expert
       </button>

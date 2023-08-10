@@ -1,9 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ListHeading from '../ListHeading';
 import ListContainer from '../ListContainer';
-import { useEffect } from 'react';
+import CloseIcon from '@/components/Icons/MobileCoreServicesCloseIcon';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
+import { motion } from 'framer-motion';
 
 export interface IserviceList {
   serviceType: string;
@@ -11,77 +14,77 @@ export interface IserviceList {
 }
 
 const ServiceListingOnAdviceMobile = () => {
+  const { headerFooterData } = useHeaderFooterContext();
+  const { isModalShown, toggleModalShown } = useContext(ModalShowContextname);
+  const [xValue, setxValue] = useState(0);
+  useEffect(() => {
+    if (isModalShown) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'auto';
+    }
 
-    useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isModalShown]);
 
-        const appBody = document.getElementById('appBody') as HTMLDivElement
-        appBody.style.overflow = 'hidden';
-    }, []);
+  useEffect(() => {
+    if (window?.innerWidth) {
+      const screenWidth = window.innerWidth;
+      const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
+      console.log(xvalue);
+      setxValue(xvalue);
+    }
+  }, []);
 
-  const serviceListObjectStructure:IserviceList[] = [
-    {
-      serviceType: 'Temporary residence',
-      services: [
-        'Study Visa',
-        'Closed Work Permit (LMIA Based)',
-        ' Open Work Permit (LMIA Based)',
-        'Visitor Visa',
-        'Super Visa',
-        'Study Permit Extension',
-        'Post-graduation Work Permit',
-        'Post-graduation Work Permit',
-        'CAQ Extension',
-        'Bridging Open Work Permit',
-        'TRV for Inside Canada Permit',
-        'Co-op Work Permit',
-      ],
-    },
-    {
-      serviceType: 'Permanent Residence',
-      services: ['Express Entry - FSW', 'Express Entry CEC', 'Express Entry - FSTP', 'PNP', 'QSWP'],
-    },
-    {
-      serviceType: 'Family Sponsorship',
-      services: ['Parents & grandparents', 'Spousal Sponsorship'],
-    },
-    {
-      serviceType: 'Business Immigration',
-      services: ['Start-up Visa', 'Self - Employed', 'Investors', 'Entrepreneurs', 'Provincial Nomination Program'],
-    },
-    {
-      serviceType: 'Business Immigration',
-      services: ['Start-up Visa', 'Self - Employed', 'Investors', 'Entrepreneurs', 'Provincial Nomination Program'],
-    },
-    {
-      serviceType: 'Business Immigration',
-      services: ['Start-up Visa', 'Self - Employed', 'Investors', 'Entrepreneurs', 'Provincial Nomination Program'],
-    },
-    {
-      serviceType: 'Business Immigration',
-      services: ['Start-up Visa', 'Self - Employed', 'Investors', 'Entrepreneurs', 'Provincial Nomination Program'],
-    },
-  ];
-  const getServiceListing = (): any => {
-    return serviceListObjectStructure.map((serviceListIem) => {
+  const getServiceListing = () => {
+    const ServicesList = headerFooterData?.attributes?.core_services;
+    return ServicesList?.data?.map((listItem) => {
       return (
-        <div className="mb-7">
-          <ListHeading serviceTitle={serviceListIem?.serviceType} />
-          <ListContainer services={serviceListIem?.services} />
+        <div className="mb-7" key={listItem?.id}>
+          <ListHeading serviceTitle={listItem?.attributes?.title || ''} />
+          <ListContainer services={listItem?.attributes?.sub_services || []} />
         </div>
       );
     });
   };
 
- 
   return (
-    <div className="fixed z-[1000] md:hidden w-[100vw] h-[100vh] bg-white  pl-9  pt-[41px]  pb-[36px]">
-      <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
-        Select a service for which you need advice on.
-      </h1>
-      <div className="servicesListingOnAdvice flex flex-col gap-[6.8vw] overflow-y-scroll">
-        {getServiceListing()}
-      </div>
-    </div>
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
+      {isModalShown && headerFooterData?.attributes?.core_services && (
+        <motion.div
+          initial={{ opacity: 1, x: window?.innerWidth }}
+          whileInView={{
+            opacity: 1,
+            /* eslint-disable no-unsafe-optional-chaining */
+            x: xValue,
+          }}
+          transition={{
+            ease: 'easeInOut',
+            duration: 0.5,
+            delay: 0,
+          }}
+          className="fixed px-5 pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white  pl-9 pb-[36px]"
+        >
+          <button
+            type="button"
+            className="w-full flex justify-end"
+            onClick={() => {
+              toggleModalShown();
+            }}
+          >
+            <CloseIcon />
+          </button>
+          <div className="hideScrollBar max-h-[calc(100vh-96px)] my-6 overflow-y-scroll">
+            <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
+              Select a service for which you need advice on.
+            </h1>
+            <div className="flex flex-col">{getServiceListing()}</div>
+          </div>
+        </motion.div>
+      )}
+    </>
   );
 };
 

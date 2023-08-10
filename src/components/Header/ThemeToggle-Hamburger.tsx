@@ -36,6 +36,8 @@ export default function ThemeToggleAndHamburger({ scrolledEnough, toggleSlideOve
         items-center
         hover:cursor-pointer
         gap-[3.33vw]
+        lg:gap-[1.33vw]
+        xl:gap-[3.33vw]
       "
     >
       <div className=' hidden lg:block'>

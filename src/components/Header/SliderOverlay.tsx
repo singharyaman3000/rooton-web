@@ -1,9 +1,10 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
 interface SliderOverlayProps {
   open: boolean;
@@ -12,21 +13,11 @@ interface SliderOverlayProps {
 }
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
+
+  const { toggleModalShown } = useContext(ModalShowContextname);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-in-out duration-500"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in-out duration-500"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 transition-opacity" />
-        </Transition.Child>
-
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="fixed inset-y-0 right-0 flex max-w-full">
@@ -132,6 +123,23 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         Tools
                       </div>
+                      <button
+                        type="button"
+                        className="
+                      text-primary-font-color
+                      pb-5
+                      text-xl
+                      font-bold
+                      border-b
+                      border-primary-border
+                      mb-5
+                    "
+                        onClick={() => {
+                          toggleModalShown();
+                        }}
+                      >
+                        Talk to our Expert
+                      </button>
                       <div
                         className="
                           text-primary-font-color

@@ -1,17 +1,16 @@
 import React from 'react';
 import ListHeading from '../ListHeading';
 import ListContainer from '../ListContainer';
-import { IserviceList } from '..';
+import { IServiceData } from '../../ServicesListing/interafces';
 
-const ListWrapper = ({ listContent }: { listContent: IserviceList[] }) => {
-  console.log(listContent);
+const ListWrapper = ({ services }: { services: IServiceData[] }) => {
   return (
     <div>
-      {listContent?.map((item) => {
+      {services?.map((item: IServiceData) => {
         return (
-          <div className="mb-7">
-            <ListHeading serviceTitle={item?.serviceType} />
-            <ListContainer services={item?.services} />
+          <div className="mb-7" key={item?.id}>
+            <ListHeading serviceTitle={item?.attributes?.title} />
+            <ListContainer services={item?.attributes?.sub_services} />
           </div>
         );
       })}
