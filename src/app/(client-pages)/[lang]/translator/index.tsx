@@ -33,13 +33,10 @@ const Translator = () => {
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
       const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
-      console.log(language)
-       // const domain = window.location.hostname;
-      // document.cookie = 'googtrans=;Path=/; ';
-      // var parts = location.hostname.split('.');
-      // var sndleveldomain = parts.slice(-2).join('.');
-      const appMainDomain = process.env.NEXT_APP_MAIN_DOMAIN
-      document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; + new Date + ;path=/;domain=${appMainDomain}`;
+      const appMainDomain = process.env.NEXT_APP_MAIN_DOMAIN;
+      document.cookie = `googtrans=/en/${
+        language ? language.attributes.code : 'en'
+      }; + new Date + ;path=/;domain=${appMainDomain}`;
       document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; path=/`;
     }
   }, [params]);
