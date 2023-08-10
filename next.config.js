@@ -4,6 +4,10 @@ const withPWA = require('next-pwa')({
     dest: 'public'
   })
 
+  
+
+
+
 
 const nextConfig = withPWA({
     env: {
@@ -13,7 +17,7 @@ const nextConfig = withPWA({
         NEXT_APP_BASE_URL : process.env.NEXT_APP_BASE_URL,
     },
     images:{
-        domains :process.env.NEXT_APP_ENVIRONMENT === "development" ?  ['rootonweb-dev-be.qburst.build'] : [''],
+        domains : [process.env.NEXT_IMAGE_DOMAIN],
         minimumCacheTTL: 60 * 60
       }
 });
