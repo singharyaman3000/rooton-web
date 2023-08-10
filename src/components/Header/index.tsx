@@ -95,23 +95,27 @@ export default function Header() {
         >
           {scrolledEnough ? (
             <div>
-              <Image
-                className=" lg:w-[173px] lg:h-[52px]"
-                width={120}
-                height={36}
-                alt="Root On logo"
-                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg' }
-              />
+              <Link href={'/'}>
+                <Image
+                  className=" lg:w-[173px] lg:h-[52px]"
+                  width={120}
+                  height={36}
+                  alt="Root On logo"
+                  src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
+                />
+              </Link>
             </div>
           ) : (
             <div>
-              <Image
-                className=" lg:w-[173px] lg:h-[52px]"
-                width={120}
-                height={36}
-                alt="Root On logo"
-                src={'/root-on-logo-svg.svg'}
-              />
+              <Link href={'/'}>
+                <Image
+                  className=" lg:w-[173px] lg:h-[52px]"
+                  width={120}
+                  height={36}
+                  alt="Root On logo"
+                  src={'/root-on-logo-svg.svg'}
+                />
+              </Link>
             </div>
           )}
           <div
@@ -127,7 +131,7 @@ export default function Header() {
             hidden
             lg:flex
             flex-shrink-0
-            ${scrolledEnough ? 'text-header-font-color': ' text-white'}
+            ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
           `}
           >
             <span>

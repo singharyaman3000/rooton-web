@@ -38,7 +38,7 @@ const Accordion = ({
   return (
     <div className={cssClass}>
       <div
-        className={`p-[21px] accordion-header pb-0 ${
+        className={`p-[21px] accordion-header pb-0 cursor-pointer ${
           openAccordion ? 'bg-primary-black text-primary-white  ' : 'bg-transparent'
         }`}
       >

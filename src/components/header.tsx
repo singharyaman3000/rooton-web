@@ -123,7 +123,7 @@ export default function Header() {
           "
           >
             <span>
-              <Link href={'/'}> About Us </Link>
+              <Link href={'/'}> About Usa </Link>
             </span>
             <span>
               <Link href={'/'}> Services </Link>
