@@ -32,6 +32,7 @@
 
   --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
   --preloader-overlay:hsl(252deg 9% 6% / 18%),hsl(252deg 3% 16% / 19%),hsl(0deg 2% 5% / 15%);
+  --hubspot-form-shadow: 0 22px 60px 0 rgba(0, 0, 0, 0.1);
 }
 
 [data-theme='dark'] {
@@ -82,6 +83,7 @@ html,body{
 
 body {
   margin: 0;
+  top: 0 !important;
   padding: 0;
   color: var(--primary-text);
   font-family: var(--font-jakarta);
@@ -284,7 +286,6 @@ fill: #fff;
 .honestyBackground {
   background-image: linear-gradient(to right, rgba(238, 238, 238, 0), rgba(233, 233, 233, 0.57) 15%, #e5e5e5 51%, rgba(219, 219, 219, 0.21) 85%, rgba(216, 216, 216, 0));
 }
-
 /*Bar Btn styling*/
 
 .bar-btn button:hover + svg {
@@ -390,3 +391,8 @@ fill: #fff;
   background: #fff;
 }
 
+
+font {
+  background: transparent !important;
+  box-shadow: none !important;
+}

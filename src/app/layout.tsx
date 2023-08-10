@@ -1,9 +1,7 @@
-import Header from '@/components/Header';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
-import Footer from '@/components/Footer';
 import ThemeSwitchProvider from '../providers/themeProviders';
 import ServiceListingOnAdviceMobile from '@/components/HomePage/ServiceListingOnAdvice/ServiceListOnAdviceMobile';
 
@@ -25,12 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${FontJakarta.variable} ${FontJakarta.className} bg-primary-bg`}>
 
         <ThemeSwitchProvider>
-        <ServiceListingOnAdviceMobile />
-        <div id='appBody'>
-          <Header />
-         {children}
-          <Footer />
-          </div>
+          {children}
         </ThemeSwitchProvider>
       </body>
     </html>

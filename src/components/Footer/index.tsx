@@ -1,15 +1,20 @@
-import { LAYOUT } from '@/app/constants/textConstants';
+'use client';
+
 import FacebookIcon from '@/components/Icons/FaceBookIcon';
-import FlagCanadaIcon from '@/components/Icons/FlagCanadaIcon';
-import FlagIndiaIcon from '@/components/Icons/FlagIndiaIcon';
 import LinkedInIcon from '@/components/Icons/LinkedInIcon';
 import TwitterIcon from '@/components/Icons/TwitterIcon';
 import YoutubeIcon from '@/components/Icons/YouTubeIcon';
 import Link from 'next/link';
 import FooterLogo from './FooterLogo';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
+import NextImage from '../UIElements/NextImage';
+import { appendAssetUrl } from '@/utils';
+import HtmlParser from 'react-html-parser';
 import FooterGrid from './FooterGrid';
 
 export default function Footer() {
+  const { headerFooterData } = useHeaderFooterContext();
+
   return (
     <footer
       className="
@@ -107,24 +112,27 @@ export default function Footer() {
       lg:gap-[6px]
     "
       >
-        <div>
-          <div className="mb-[6px]">
-            <FlagCanadaIcon />
-          </div>
-          <p className=" text-sm font-bold mb-[4px]">{LAYOUT.addressIndia.title}</p>
-          <p className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</p>
-          <p className=" text-sm">{LAYOUT.addressIndia.line2}</p>
-          <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressIndia.phone}</p>
-          <div>
-            <div className=" mt-8 mb-[6px]">
-              <FlagIndiaIcon />
+        {headerFooterData?.attributes.addresses.data?.map((address) => {
+          return (
+            <div key={address.id}>
+              <div className=" mb-[6px]">
+                <div className="w-[32px] h-[16px] relative">
+                  <NextImage
+                    src={appendAssetUrl(address?.attributes?.media_url?.data?.attributes?.url)}
+                    altText={address?.attributes?.media_url?.data?.attributes?.alternativeText}
+                    title=""
+                    sizes="100vw"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
+              </div>
+              <p className=" text-sm mb-[4px] font-bold">{address?.attributes.name}</p>
+              <p className=" text-sm mb-[4px]">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
             </div>
-            <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
-            <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
-            <p className=" text-sm">{LAYOUT.addressCanada.line2}</p>
-            <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</p>
-          </div>
-        </div>
+          );
+        })}
       </div>
       <div className="absolute top-0 left-0 hidden w-full overflow-hidden xl:block">
         <FooterGrid />

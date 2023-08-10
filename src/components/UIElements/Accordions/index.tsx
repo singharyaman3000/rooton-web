@@ -45,7 +45,7 @@ const Accordion = ({
         {/* eslint-disable jsx-a11y/no-static-element-interactions */}
         {/* eslint-disable  jsx-a11y/no-noninteractive-tabindex */}
         <div
-          className="w-full flex items-center justify-between pb-[21px] header-btn"
+          className="w-full flex items-center justify-between cursor-pointer pb-[21px] header-btn"
           onClick={() => handleOnClick(accordionId)}
           tabIndex={0}
           onKeyDown={handleKeyPress}

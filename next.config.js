@@ -11,6 +11,7 @@ const nextConfig = withPWA({
         NEXT_ASSETS_BASEURL : process.env.NEXT_ASSETS_BASEURL,
         NEXT_APP_ENVIRONMENT : process.env.NEXT_APP_ENVIRONMENT,
         NEXT_APP_BASE_URL : process.env.NEXT_APP_BASE_URL,
+        NEXT_APP_MAIN_DOMAIN :process.env.NEXT_APP_MAIN_DOMAIN
     },
     images:{
         domains :process.env.NEXT_APP_ENVIRONMENT === "development" ?  ['rootonweb-dev-be.qburst.build'] : [''],

@@ -25,7 +25,7 @@ const FaqListing = ({ json_content, title, sub_title }: IFaQListing) => {
         <SectionHeadings subCssClass="mb-[2px] md:mb-[38px]" title={title} subTitle={sub_title} />
         {json_content?.faq?.map(({ key, value, position }) => {
           return (
-            <div key={key} className="border-b-sandal  border-b-[1px] pt-[5px] pb-[8px] md:p-[12px_0px]">
+            <div key={key} className="border-b-sandal border-b-[1px] pt-[5px] pb-[8px] md:p-[12px_0px]">
               <Accordion
                 accordionId={position.toString()}
                 header={<AccordionHeader value={key} />}
@@ -34,7 +34,7 @@ const FaqListing = ({ json_content, title, sub_title }: IFaQListing) => {
                   setAccordionId(selectedAccordionId === accordionId ? null : selectedAccordionId.toString());
                 }}
                 cssClass="faq-accordion md:p-[0px_12px] "
-                accordionBody={<AccordionBody value={value} />}
+                accordionBody={<AccordionBody value={value} fontSizeMd='md:text-lg' containerWidth='max-w-[87vw]'/>}
                 accordionBodyCss={'md:!pb-[24px]'}
                 customToggle={<ToggleIcon isOpen={position.toString() === accordionId} />}
                 customSpacer={<span></span>}

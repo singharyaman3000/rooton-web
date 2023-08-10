@@ -1,26 +1,19 @@
 'use client';
 
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { useParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 
 export interface ILanguage {
   key: string;
   label: string;
+  icon: ReactNode;
 }
-
-export const languages: ILanguage[] = [
-  { key: 'en', label: 'English' },
-  { key: 'es', label: 'Spanish' },
-  { key: 'pu', label: 'Punjabi' },
-  { key: 'pt', label: 'Portuguese' },
-  { key: 'fr', label: 'France' },
-  { key: 'it', label: 'Italian' },
-  { key: 'de', label: 'German' },
-  { key: 'gu', label: 'Gujarati' },
-];
 
 const Translator = () => {
   const params = useParams();
+  const { headerFooterData } = useHeaderFooterContext();
+
   const googleTranslateElementInit = () => {
     // eslint-disable-next-line no-new
     new window.google.translate.TranslateElement(
@@ -34,13 +27,17 @@ const Translator = () => {
   };
 
   useEffect(() => {
-    if (!window.googleTranslateElementInit) {
+    if (params.lang) {
       const addScript = document.createElement('script');
       addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
-      const language = languages.find((lan) => lan.key === params.lang);
-      document.cookie = `googtrans=/en/${language ? language.key : 'en'}`;
+      const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
+      const appMainDomain = process.env.NEXT_APP_MAIN_DOMAIN;
+      document.cookie = `googtrans=/en/${
+        language ? language.attributes.code : 'en'
+      }; + new Date + ;path=/;domain=${appMainDomain}`;
+      document.cookie = `googtrans=/en/${language ? language.attributes.code : 'en'}; path=/`;
     }
   }, [params]);
 

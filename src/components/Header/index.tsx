@@ -102,7 +102,7 @@ export default function Header() {
                 width={120}
                 height={36}
                 alt="Root On logo"
-                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg' }
+                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
               />
             </div>
           ) : (
@@ -126,7 +126,7 @@ export default function Header() {
             hidden
             lg:flex
             flex-shrink-0
-            ${scrolledEnough ? 'text-header-font-color': ' text-white'}
+            ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
           `}
           >
             <span>
