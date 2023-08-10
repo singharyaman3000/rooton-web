@@ -17,7 +17,7 @@ const nextConfig = withPWA({
         NEXT_APP_BASE_URL : process.env.NEXT_APP_BASE_URL,
     },
     images:{
-        domains : [process.env.NEXT_IMAGE_DOMAIN],
+        domains : [process.env.NEXT_ASSET_DOMAIN.toString()],
         minimumCacheTTL: 60 * 60
       }
 });
