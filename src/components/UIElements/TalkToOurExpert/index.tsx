@@ -6,13 +6,19 @@ import React, { useEffect, useRef, useState } from 'react';
 const TalkToOurExpert = () => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent): void {
+    console.log('here');
+    const handleClickOutside = (event: MouseEvent): void => {
+      // debugger;
       if (isOpen) {
+       console.log('here ', wrapperRef.current, event.target, !wrapperRef?.current?.contains(event.target as Node));
         if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
           if (buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
             setIsOpen(false);
+          }else{
+            setIsOpen(true);
           }
         }
       }
@@ -23,9 +29,9 @@ const TalkToOurExpert = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [wrapperRef]);
+  }, [wrapperRef, buttonRef, isOpen]);
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  
   return (
     <div className="relative">
       <button
