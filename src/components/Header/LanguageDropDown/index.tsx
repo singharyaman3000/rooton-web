@@ -22,24 +22,24 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
 
   return (
     <>
-    <button
-      aria-label="Language dropdown button"
-      type="button"
-      onClick={() => {
-        setIsOpen((o) => !o);
-      }}
-      className=" flex gap-2 items-center relative"
-    >
-      <UKFlagIcon />
-      <p className={`text-base font-medium ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}>EN</p>
-      <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
-        <DownArrowIcon isScrolled={scrolledEnough} />
-      </span>
-      {isOpen && (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div
-          onClick={(e) => dropdownContainerOnClick(e)}
-          className="
+      <button
+        aria-label="Language dropdown button"
+        type="button"
+        onClick={() => {
+          setIsOpen((o) => !o);
+        }}
+        className=" flex gap-2 items-center relative"
+      >
+        <UKFlagIcon />
+        <p className={`text-base font-medium ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}>EN</p>
+        <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
+          <DownArrowIcon isScrolled={scrolledEnough} />
+        </span>
+        {isOpen && (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+          <div
+            onClick={(e) => dropdownContainerOnClick(e)}
+            className="
                 z-[1001]
                 absolute
                 w-[180px]
@@ -55,15 +55,15 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
                 lg:-left-6
                 z-1
             "
-        >
-          {<FlagComponentWrapper />}
-        </div>
-      )}
-    </button>
-        {isOpen && (
-          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-          <div onClick={handleClose} className="fixed top-0 left-0 square-[100%] z-[1000]"></div>
+          >
+            {<FlagComponentWrapper />}
+          </div>
         )}
-        </>
+      </button>
+      {isOpen && (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div onClick={handleClose} className="fixed top-0 left-0 square-[100%] z-[1000]"></div>
+      )}
+    </>
   );
 }
