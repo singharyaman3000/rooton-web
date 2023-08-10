@@ -5,6 +5,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import Footer from '@/components/Footer';
 import ThemeSwitchProvider from '../providers/themeProviders';
+import WhatsAppButton from '@/components/WhatsApp-Integration/whatsappIntegration';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeSwitchProvider>
           <Header />
           {children}
+          <WhatsAppButton />
           <Footer />
         </ThemeSwitchProvider>
       </body>
