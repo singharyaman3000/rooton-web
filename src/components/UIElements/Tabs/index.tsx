@@ -21,7 +21,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
         handleOnClick={(selectedTabData) => onTabChange(selectedTabData)}
         headerData={headerData}
       />
-      <div className="min-h-[33.4vw] max-h-[500px] mt-[26px] bg-pale-yellow relative">
+      <div className="min-h-[550px] max-h-[500px] mt-[26px] bg-pale-yellow relative">
         <div className="w-[67%] p-[24px] flex items-center flex-wrap justify-between">{tabBody}</div>
         <motion.div
           initial={{ opacity: 0, y: -10 }}
