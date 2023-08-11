@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       {(loader || loading) && <LoadingUI />}
-      {data && <HomePage homePageConfig={data} />}
+      {data && <HomePage homePageConfig={data[0]} />}
     </>
   );
 }

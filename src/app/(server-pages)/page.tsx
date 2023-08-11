@@ -21,5 +21,5 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const apiRes = await getHomePageContents();
-  return <HomePage homePageConfig={apiRes[0]} />;
+  return <HomePage  homePageConfig={apiRes[0]} />;
 }
