@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+const withPWA = require('next-pwa')({
+    dest: 'public'
+  })
+
+
+const nextConfig = withPWA({
     env: {
         NEXT_API_BASE_URL: process.env.NEXT_API_BASE_URL,
         NEXT_ASSETS_BASEURL : process.env.NEXT_ASSETS_BASEURL,
@@ -11,6 +17,6 @@ const nextConfig = {
         domains :process.env.NEXT_APP_ENVIRONMENT === "development" ?  ['rootonweb-dev-be.qburst.build'] : [''],
         minimumCacheTTL: 60 * 60
       }
-};
+});
 
 module.exports = nextConfig;
