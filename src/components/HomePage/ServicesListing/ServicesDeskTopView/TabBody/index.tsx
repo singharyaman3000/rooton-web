@@ -1,6 +1,7 @@
 import React from 'react';
 import ArrowIcon from '@/components/Icons/ArrowIcon';
 import { ISubServiceData } from '../../interafces';
+import Markdown from 'marked-react';
 
 const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; cssClass?: string }) => {
   return (
@@ -14,7 +15,7 @@ const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; 
             key={service.attributes.title}
           >
             <div className="w-full pb-[25px] flex items-center justify-between ">
-              <span className="line-clamp-1 ">{service.attributes.title}</span>
+              <span className="line-clamp-1 ">{<Markdown>{service.attributes.title}</Markdown>}</span>
               <ArrowIcon cssClas="ml-[8px] flex-shrink-0" />
             </div>
             <div className="w-full h-[1px] bg-[#b17900] opacity-20"></div>
