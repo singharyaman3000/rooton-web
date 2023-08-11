@@ -19,7 +19,7 @@ const Translator = () => {
     new window.google.translate.TranslateElement(
       {
         pageLanguage: 'en',
-        includedLanguages: 'en,pa,pt,es,hi,it,de,gu', // include this for selected languages
+        // includedLanguages: 'en,pa,pt,es,hi,it,de,gu', // include this for selected languages
         // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
       'google_translate_element',

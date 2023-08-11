@@ -10,7 +10,6 @@ import SectionTitle from '../../UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '../../UIElements/SectionHeadings/SubSectiontitle';
 import CredibilityGrid from './CredibilityGrid';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
-import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import useSliderPagination from '@/components/UIElements/Slider/hooks/useSlider';
 
 interface ICredibilitycontent {
@@ -29,18 +28,27 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
   const isVisible = (index: number) => {
     const isLastPage = Math.ceil(media_url.data.length / 2);
     if (pageNum + 1 === isLastPage) {
-      return index === pageNum * 2 - 1 || index === pageNum * 2;
-    } else {
-      const currentIndex = pageNum * 2;
-      const nextIndex = pageNum * 2 + 1;
-      return currentIndex === index || nextIndex === index || currentIndex + 1 === media_url.data.length;
+      return index === media_url.data.length - 1;
     }
+    const currentIndex = pageNum * 2;
+    const nextIndex = pageNum * 2 + 1;
+    return currentIndex === index || nextIndex === index || currentIndex + 1 === media_url.data.length;
+  };
+
+  const getPosition = (index: number) => {
+    if (index === media_url.data.length - 1) {
+      return 'md:top-[29%]';
+    }
+    if (index % 2 === 0) {
+      return 'top-0';
+    }
+    return 'bottom-0';
   };
 
   return (
     <div className="relative overflow-x-hidden overflow-y-hidden">
       <Container>
-        <div className="mt-10 lg:mt-[120px] md:flex md:justify-between md:w-full xl:max-h-[534px]">
+        <div className="mt-10 lg:mt-[120px] md:flex md:justify-between md:w-full">
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             whileInView={{
@@ -58,28 +66,25 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
             <SubSectionTitle title={sub_title} />
             <Description cssClass="mt-6" description={description} />
           </motion.div>
-          <div className="z-10 mx-auto relative  md:!h-[520px]  md:w-[43.8%] md:mr-[40px]  mt-8 lg:mt-0 items-center  lg:h-full">
+          <div className="z-10 mx-auto relative h-[264px]  md:!h-[530px] mb-[50px]  md:w-[43.8%] md:mr-[40px]  mt-8 lg:mt-0 items-center  lg:h-full">
             {media_url.data?.map((lisenseImage, index) => {
               return (
                 <motion.div
                   initial={{ opacity: 0, x: index % 2 === 0 ? 100 : -100 }}
-                  whileInView={{
-                    opacity: isVisible(index) ? 1 : 0,
-                    x: isVisible(index) ? 0 : index % 2 === 0 ? 100 : -100,
-                  }}
+                  whileInView={
+                    isVisible(index) ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? 100 : -100 }
+                  }
                   transition={{
                     ease: 'easeInOut',
-                    duration: 0.6,
-                    delay: 0.12,
+                    duration: 0.3,
+                    delay: 0.01,
                   }}
-                  className={`w-full  ${index % 2 === 0 ? 'top-0' : 'bottom-0'} absolute `}
+                  className={`w-full  ${getPosition(index)} absolute `}
                   key={`${lisenseImage?.id}`}
                 >
-                  {index}
                   <ImageCard
-                    index={index}
                     key={`${lisenseImage?.id}`}
-                    cssClass={`h-[50.7px] sm:w-[80%] md:h-[16.7vw] mx-auto my-0 flex item-center`}
+                    cssClass='h-[120px] sm:w-full md:h-[240px] mx-auto my-0 flex item-center'
                     borderClass={`${lisenseImage?.attributes?.name}`}
                     imageUrl={lisenseImage?.attributes.url}
                     sizes={'30vw'}
@@ -97,7 +102,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
               handleOnClick={() => decrementPage()}
             />
             <SliderNav
-              disable={pageNum === Math.ceil(media_url.data.length - 1 / 2)}
+              disable={pageNum === Math.ceil(media_url.data.length / 2) - 1}
               cssClass="absolute top-[46%] -right-[40px] !left-[unset]"
               handleOnClick={() => incrementPage()}
             />
