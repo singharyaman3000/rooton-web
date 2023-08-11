@@ -67,7 +67,6 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
           <DownArrowIcon isScrolled={scrolledEnough} />
         </span>
-
         {isOpen && (
           // eslint-disable-next-line jsx-a11y/no-static-element-interactions
           <div

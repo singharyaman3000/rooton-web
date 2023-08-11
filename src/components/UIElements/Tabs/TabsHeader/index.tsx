@@ -29,13 +29,13 @@ const btnVarient = {
 
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
   return (
-    <motion.div variants={containerVarient} initial="hidden" animate="show" className="flex items-center">
+    <motion.div variants={containerVarient} initial="hidden" animate="show" className="flex items-center cursor-pointer">
       {headerData.map(({ icon, service }) => {
         return (
           <motion.button
             variants={btnVarient}
             type="button"
-            onClick={() => handleOnClick({ service })}
+            onHoverStart={() => handleOnClick({ service })}
             className={`relative p-[15px] tab-header text-primary-text  w-[180px] flex items-center flex-col ${
               service === selectedTab.service ? 'tab-selectedBg text-primary-white font-bold' : ''
             }`}
