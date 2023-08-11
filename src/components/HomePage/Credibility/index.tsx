@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MediaUrl } from '@/app/services/apiService/interfaces';
 import { motion } from 'framer-motion';
 import Description from '../../UIElements/Description';
@@ -11,6 +11,7 @@ import SubSectionTitle from '../../UIElements/SectionHeadings/SubSectiontitle';
 import CredibilityGrid from './CredibilityGrid';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import useSliderPagination from '@/components/UIElements/Slider/hooks/useSlider';
+import Paginator from './Paginator';
 
 interface ICredibilitycontent {
   sub_title: string;
@@ -20,7 +21,7 @@ interface ICredibilitycontent {
 }
 
 const Credibility = ({ description, title, sub_title, media_url }: ICredibilitycontent) => {
-  const { pageNum, incrementPage, decrementPage } = useSliderPagination({
+  const { pageNum, incrementPage, decrementPage, jumpToPage } = useSliderPagination({
     slidesLength: media_url.data.length ? Math.ceil(media_url.data.length - 1 / 2) : 0,
     initialPage: 0,
   });
@@ -37,13 +38,35 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
 
   const getPosition = (index: number) => {
     if (index === media_url.data.length - 1) {
-      return 'md:top-[29%]';
+      return 'top-[35%] md:top-[calc(50%_-_120px)]';
     }
     if (index % 2 === 0) {
       return 'top-0';
     }
     return 'bottom-0';
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    let intervalId: NodeJS.Timeout | null = null;
+
+    if (window.innerWidth < 768) {
+      intervalId = setInterval(() => {
+        const isLastPage = Math.ceil(media_url.data.length / 2);
+        if (pageNum + 1 === isLastPage) {
+          jumpToPage(0);
+        } else {
+          incrementPage();
+        }
+      }, 2500);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [pageNum, media_url.data.length]);
 
   return (
     <div className="relative overflow-x-hidden overflow-y-hidden">
@@ -79,12 +102,12 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
                     duration: 0.3,
                     delay: 0.01,
                   }}
-                  className={`w-full  ${getPosition(index)} absolute `}
+                  className={`w-full h-[46%]  md:h-auto  ${getPosition(index)} absolute `}
                   key={`${lisenseImage?.id}`}
                 >
                   <ImageCard
                     key={`${lisenseImage?.id}`}
-                    cssClass='h-[120px] sm:w-full md:h-[240px] mx-auto my-0 flex item-center'
+                    cssClass="!h-[120px] w-full md:!h-[240px] mx-auto my-0 flex item-center"
                     borderClass={`${lisenseImage?.attributes?.name}`}
                     imageUrl={lisenseImage?.attributes.url}
                     sizes={'30vw'}
@@ -97,19 +120,20 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
             })}
             <SliderNav
               disable={pageNum === 0}
-              cssClass="absolute top-[46%] !right-[unset] -left-[40px]"
+              cssClass="absolute hidden md:block top-[calc(50%_-_22px)] !right-[unset] -left-[40px]"
               leftNav
               handleOnClick={() => decrementPage()}
             />
             <SliderNav
               disable={pageNum === Math.ceil(media_url.data.length / 2) - 1}
-              cssClass="absolute top-[46%] -right-[40px] !left-[unset]"
+              cssClass="absolute hidden md:block  top-[calc(50%_-_22px)] -right-[40px] !left-[unset]"
               handleOnClick={() => incrementPage()}
             />
           </div>
         </div>
+        <Paginator totalPages={Math.ceil(media_url.data.length / 2)} selectedIndex={pageNum} />
       </Container>
-      <div className="absolute bottom-0 right-0 hidden lg:block">
+      <div className="absolute top-[118px] overflow-hidden bottom-0 right-0 hidden lg:block">
         <CredibilityGrid />
       </div>
     </div>
