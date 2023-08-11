@@ -20,11 +20,11 @@ const ServiceListingOnAdvice = () => {
   };
 
   return (
-    <div className="w-100vw h-100vh  w-[703px]  h-[741px]  shadow-lg bg-white  pl-9  pt-[41px]  pb-[36px]">
-      <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
+    <div className="w-100vw h-100vh  md:w-[703px] md:max-h-[80vh]  md:h-[741px]  shadow-lg bg-white  pl-9  pt-[41px]  pb-[36px]">
+      <h1 className="mb-10 text-[22px] tracking-normal font-bold text-black ">
         Select a service for which you need advice on.
       </h1>
-      <div className="hideScrollBar flex  flex-row  gap-[6.8vw] overflow-y-scroll  h-[590px]">
+      <div className="hideScrollBar flex  flex-row  gap-[6.8vw] overflow-y-scroll  h-[90%]">
         {getServiceListing()}
       </div>
     </div>
