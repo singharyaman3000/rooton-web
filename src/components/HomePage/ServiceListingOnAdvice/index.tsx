@@ -6,7 +6,7 @@ import { IServiceData } from '../ServicesListing/interafces';
 const ServiceListingOnAdvice = () => {
   const { headerFooterData } = useHeaderFooterContext();
   const getServiceListing = () => {
-    const ServicesList = headerFooterData?.attributes?.core_services;
+    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services;
     const ServiceListright: IServiceData[] = [];
     const ServiceListLeft: IServiceData[] = [];
     ServicesList?.data?.forEach((listItem, index: number) => {

@@ -32,13 +32,12 @@ const ServiceListingOnAdviceMobile = () => {
     if (window?.innerWidth) {
       const screenWidth = window.innerWidth;
       const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
-      console.log(xvalue);
       setxValue(xvalue);
     }
   }, []);
 
   const getServiceListing = () => {
-    const ServicesList = headerFooterData?.attributes?.core_services;
+    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services;
     return ServicesList?.data?.map((listItem) => {
       return (
         <div className="mb-7" key={listItem?.id}>
@@ -52,7 +51,7 @@ const ServiceListingOnAdviceMobile = () => {
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {isModalShown && headerFooterData?.attributes?.core_services && (
+      {isModalShown && headerFooterData && headerFooterData[0]?.attributes?.core_services && (
         <motion.div
           initial={{ opacity: 1, x: window?.innerWidth }}
           whileInView={{

@@ -112,7 +112,7 @@ export default function Footer() {
       lg:gap-[6px]
     "
       >
-        {headerFooterData?.attributes.addresses.data?.map((address) => {
+        {headerFooterData && headerFooterData[0]?.attributes.addresses.data?.map((address) => {
           return (
             <div key={address.id}>
               <div className=" mb-[6px]">

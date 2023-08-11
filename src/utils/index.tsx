@@ -30,6 +30,6 @@ export const getDetraslatedURL = (url: string, lang: string) => {
   return process.env.NEXT_APP_BASE_URL + modifiedUrl;
 };
 
-export const getFlagUrl = (flagData: IHeaderFooterData | undefined, langcode = 'en') => {
-  return flagData?.attributes.languages.data?.find(({ attributes }) => attributes.code === langcode);
+export const getFlagUrl = (flagData: IHeaderFooterData[] | undefined, langcode = 'en') => {
+  return flagData && flagData[0]?.attributes.languages.data?.find(({ attributes }) => attributes.code === langcode);
 };
