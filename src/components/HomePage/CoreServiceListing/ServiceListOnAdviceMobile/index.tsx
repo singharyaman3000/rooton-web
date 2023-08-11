@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useContext, useEffect, useState } from 'react';
-import ListHeading from '../ListHeading';
-import ListContainer from '../ListContainer';
-import CloseIcon from '@/components/Icons/MobileCoreServicesCloseIcon';
+import ListHeading from '../UIElements/ListHeading';
+import ListContainer from '../UIElements/ListContainer';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 import { motion } from 'framer-motion';
+import CloseIconButton from '../UIElements/CloseIcon';
 
 export interface IserviceList {
   serviceType: string;
@@ -17,6 +17,7 @@ const ServiceListingOnAdviceMobile = () => {
   const { headerFooterData } = useHeaderFooterContext();
   const { isModalShown, toggleModalShown } = useContext(ModalShowContextname);
   const [xValue, setxValue] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
   useEffect(() => {
     if (isModalShown) {
       document.body.style.overflow = 'hidden';
@@ -30,6 +31,7 @@ const ServiceListingOnAdviceMobile = () => {
 
   useEffect(() => {
     if (window?.innerWidth) {
+      setWindowWidth(window?.innerWidth);
       const screenWidth = window.innerWidth;
       const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
       setxValue(xvalue);
@@ -53,7 +55,7 @@ const ServiceListingOnAdviceMobile = () => {
     <>
       {isModalShown && headerFooterData && headerFooterData[0]?.attributes?.core_services && (
         <motion.div
-          initial={{ opacity: 1, x: window?.innerWidth }}
+          initial={{ opacity: 1, x: windowWidth }}
           whileInView={{
             opacity: 1,
             /* eslint-disable no-unsafe-optional-chaining */
@@ -66,15 +68,7 @@ const ServiceListingOnAdviceMobile = () => {
           }}
           className="fixed px-5 pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white  pl-9 pb-[36px]"
         >
-          <button
-            type="button"
-            className="w-full flex justify-end"
-            onClick={() => {
-              toggleModalShown();
-            }}
-          >
-            <CloseIcon />
-          </button>
+          <CloseIconButton onClick={toggleModalShown} />
           <div className="hideScrollBar max-h-[calc(100vh-96px)] my-6 overflow-y-scroll">
             <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
               Select a service for which you need advice on.

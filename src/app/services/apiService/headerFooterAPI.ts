@@ -38,6 +38,5 @@ export interface IHeaderFooterRes {
 
 export const getHeaderFooterData = async () => {
   const apiRes = await getFetch<IHeaderFooterRes>(HEADER_FOOTER_API, { next: { revalidate: 1200 } });
-  console.log(apiRes);
   return apiRes.data;
 };
