@@ -21,7 +21,7 @@ const ImageCard = ({
   borderClass?: string;
 }) => {
   return (
-    <motion.div className=" md:w-full bg-white   flex flex-col justify-center relative">
+    <motion.div className="h-full md:h-auto md:w-full bg-white   flex flex-col justify-center relative">
       <div
         className={`${iconClass} ${borderClass?.replace(
           '.png',
@@ -29,7 +29,7 @@ const ImageCard = ({
         )} absolute top-0 right-0 mt-[13.6px] mr-[13.6px] lg:mt-[20px] lg:mr-[20px] border-l-transparent border-t-[15px] border-l-[15px] lg:border-l-[22px]  lg:border-t-[22px] w-[15px] h-[15px] lg:w-[22px] lg:h-[22px]`}
       ></div>
       <div className={`${cssClass} relative h-full bg-primary z-[111] flex justify-center`}>
-        <div className="w-[80%] relative mx-0 h-full my-auto">
+        <div className="w-[78%] md:w-[80%] relative mx-0 h-full my-auto">
           <NextImage
             sizes={sizes}
             src={process.env.NEXT_ASSETS_BASEURL + imageUrl}
@@ -40,7 +40,7 @@ const ImageCard = ({
           />
         </div>
       </div>
-      <div className="ss"></div>
+      <div className=" w-[66%] mx-auto my-0 h-[89%] blur-[34.1px] md:w-[84%] md:h-[72%] absolute md:m-auto md:opacity-31 md:blur-[50px] bg-gray-300 bottom-0 right-0 left-0"></div>
     </motion.div>
   );
 };
