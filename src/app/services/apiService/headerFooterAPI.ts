@@ -2,10 +2,12 @@ import { getFetch } from '@/utils/apiUtils';
 import { HEADER_FOOTER_API } from './apiUrl/homePage';
 import { IMediaUrlData } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
+import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
 
 export interface ILanguages {
   data?: ILanguageData[] | null;
 }
+
 export interface IAddressAttributes {
   name: string;
   location: string;
@@ -24,6 +26,7 @@ export interface IAddresses {
 export interface IAttributes {
   addresses: IAddresses;
   languages: ILanguages;
+  core_services: ICoreServices;
 }
 export interface IHeaderFooterData {
   id: number;

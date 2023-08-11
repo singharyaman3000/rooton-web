@@ -67,6 +67,12 @@ module.exports = {
         'heading': '1.43',
         'heading-lg': '1.42',
       },
+      keyframes: {
+        slideRtoL: {'100%': {left:0}}
+      },
+      animation:{
+        'slideRToL' : 'slideRtoL 1s ease-in'
+      }
     },
   },
   plugins: [

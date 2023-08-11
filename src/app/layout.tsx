@@ -20,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html suppressHydrationWarning lang="en">
       <body className={`${FontJakarta.variable} ${FontJakarta.className} bg-primary-bg`}>
+
         <ThemeSwitchProvider>
           {children}
         </ThemeSwitchProvider>
