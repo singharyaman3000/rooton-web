@@ -10,7 +10,6 @@ import SectionTitle from '../../UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '../../UIElements/SectionHeadings/SubSectiontitle';
 import CredibilityGrid from './CredibilityGrid';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
-import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import useSliderPagination from '@/components/UIElements/Slider/hooks/useSlider';
 
 interface ICredibilitycontent {
@@ -29,12 +28,21 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
   const isVisible = (index: number) => {
     const isLastPage = Math.ceil(media_url.data.length / 2);
     if (pageNum + 1 === isLastPage) {
-      return index === media_url.data.length -1;
-    } else {
-      const currentIndex = pageNum * 2;
-      const nextIndex = pageNum * 2 + 1;
-      return currentIndex === index || nextIndex === index || currentIndex + 1 === media_url.data.length;
+      return index === media_url.data.length - 1;
     }
+    const currentIndex = pageNum * 2;
+    const nextIndex = pageNum * 2 + 1;
+    return currentIndex === index || nextIndex === index || currentIndex + 1 === media_url.data.length;
+  };
+
+  const getPosition = (index: number) => {
+    if (index === media_url.data.length - 1) {
+      return 'md:top-[29%]';
+    }
+    if (index % 2 === 0) {
+      return 'top-0';
+    }
+    return 'bottom-0';
   };
 
   return (
@@ -71,13 +79,12 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
                     duration: 0.3,
                     delay: 0.01,
                   }}
-                  className={`w-full  ${index === media_url.data.length -1 ? 'md:top-[29%]' :   index % 2 === 0 ? 'top-0' : 'bottom-0'} absolute `}
+                  className={`w-full  ${getPosition(index)} absolute `}
                   key={`${lisenseImage?.id}`}
                 >
                   <ImageCard
-                    index={index}
                     key={`${lisenseImage?.id}`}
-                    cssClass={`h-[120px] sm:w-full md:h-[240px] mx-auto my-0 flex item-center`}
+                    cssClass='h-[120px] sm:w-full md:h-[240px] mx-auto my-0 flex item-center'
                     borderClass={`${lisenseImage?.attributes?.name}`}
                     imageUrl={lisenseImage?.attributes.url}
                     sizes={'30vw'}

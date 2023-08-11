@@ -46,7 +46,7 @@ const useSliderPagination = ({ slidesLength, initialPage }: IUseSlider) => {
     updatePage(pageNum, CLICKED_ON_LEFT);
   };
 
-  return { jumpToPage, incrementPage, decrementPage, pageNum, setPageNum  };
+  return { jumpToPage, incrementPage, decrementPage, pageNum, setPageNum };
 };
 
 export default useSliderPagination;
