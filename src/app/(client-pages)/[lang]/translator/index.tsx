@@ -32,7 +32,7 @@ const Translator = () => {
       addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
-      const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
+      const language = headerFooterData?.[0]?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
       const appMainDomain = process.env.NEXT_APP_MAIN_DOMAIN;
       document.cookie = `googtrans=/en/${
         language ? language.attributes.code : 'en'
