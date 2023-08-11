@@ -87,6 +87,8 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
                 lg:top-[45px]
                 lg:-left-6
                 z-1
+                h-[250px]
+                overflow-y-scroll
             "
           >
             {<FlagComponentWrapper handleOnClick={onLanguageChange} />}
