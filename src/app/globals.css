@@ -313,6 +313,68 @@ fill: #fff;
   --icon-path: #FFE5C5;
 } 
 
+
+/* CSS for hubspot forms */
+
+#hubspotForm .hs-form-private {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+#hubspotForm .form-columns-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  border: 0;
+  max-width: none;
+}
+
+#hubspotForm .hs-form-field {
+  width: auto; 
+  float: none;
+}
+
+#hubspotForm .input {
+  margin: 0;
+}
+
+#hubspotForm .hs-input {
+  width: 100%;
+  padding: 15px 16px;
+  background-color: #fff;
+}
+
+#hubspotForm .hs-input::placeholder {
+  opacity: 0.52;
+  font-size: 14px;
+  color: #0c0c0c;
+}
+
+#hubspotForm .hs-error-msg {
+  font-size: 15px;
+  color: #ff0000;
+}
+
+#hubspotForm .actions .hs-button {
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+  background-color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-image: url('/images/icons/top-right-arrow.svg');
+  background-repeat: no-repeat;
+  background-position: calc(50% + 32px);
+  background-size: 8px;
+}
+
+#hubspotForm .hs_error_rollup {
+  display: none;
+}
+
+
   /* media queries */
   @media screen and (min-width: 768px) {
     .honestyBackground{
@@ -357,7 +419,26 @@ fill: #fff;
       }
     }
 
+    @media screen and (min-width: 1440px) {
+      /*media CSS for hubspot forms */
 
+      #hubspotForm .hs-form-private, #hubspotForm .form-columns-2  {
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      #hubspotForm .hs-input {
+        width: 260px;
+        height: 60px;
+      }
+
+      #hubspotForm .actions .hs-button {
+        display: flex;
+        justify-content: center;
+        width: 120px;
+        height: 60px;
+      }
+    }
 
     .skeleton {
       background: linear-gradient(
