@@ -1,7 +1,7 @@
 import React from 'react';
-import ListHeading from '../ListHeading';
-import ListContainer from '../ListContainer';
-import { IServiceData } from '../../ServicesListing/interafces';
+import ListHeading from '../../UIElements/ListHeading';
+import ListContainer from '../../UIElements/ListContainer';
+import { IServiceData } from '@/components/HomePage/ServicesListing/interafces';
 
 const ListWrapper = ({ services }: { services: IServiceData[] }) => {
   return (

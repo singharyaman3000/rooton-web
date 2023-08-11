@@ -1,6 +1,6 @@
 'use client';
 
-import ServiceListingOnAdvice from '@/components/HomePage/ServiceListingOnAdvice';
+import ServiceListingOnAdvice from '@/components/HomePage/CoreServiceListing/ServiceListingOnAdvice';
 import React, { useEffect, useRef, useState } from 'react';
 
 const TalkToOurExpert = () => {
