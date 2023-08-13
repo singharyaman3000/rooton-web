@@ -1,6 +1,7 @@
 import { getFetch } from '@/utils/apiUtils';
 import { getServiceAPIUrl } from './apiUrl/servicePage';
 import { IMediaUrlData } from './interfaces';
+import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 
 type IEligibility = {
   key: string;
@@ -23,16 +24,16 @@ type IProcess = {
 };
 
 type IFaq = {
-  title: string,
-  position: number,
-  description: string,
+  title: string;
+  position: number;
+  description: string;
 };
 
 type ISubServiceJSONContent = {
   eligibility?: IEligibility[];
   process?: IProcess[];
   lead_forms?: ILeadForm[];
-  faq?: IFaq[]
+  faq?: IFaq[];
 };
 
 type ISubServiceAttributes = {
@@ -67,6 +68,7 @@ type IAttributes = {
     data: IMediaUrlData[];
   };
   sub_services_contents: ISubServiceSContents;
+  blogs?: { data: IBlogCardData[] };
 };
 
 type IServicePageContentResponse = {

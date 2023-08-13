@@ -1,6 +1,5 @@
 import { H2 } from '../H2';
 import CallIcon from '../Icons/CallIcon';
-import RTONButtonBlack from '../RTONButtonBlack';
 import RTONButtonBlackThemed from '../RTONButtonBlackThemed';
 import NextImage from '../UIElements/NextImage';
 

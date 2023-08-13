@@ -52,6 +52,8 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
     return i.attributes.position === 5;
   })?.attributes.json_content.faq;
 
+  const blogs = response.data.attributes.blogs ?? [];
+
   return (
     <div>
       <RootOnBanner
@@ -155,7 +157,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
         <div className=" mt-20 m-auto max-w-screen-2k">
           <BlogListings
             blogs={{
-              data: [],
+              data: blogs?.data ?? [],
             }}
             title={''}
             sub_title={SERVICES_TITLE.blogs.title}
