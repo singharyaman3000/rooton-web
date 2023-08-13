@@ -22,10 +22,17 @@ type IProcess = {
   position: string;
 };
 
+type IFaq = {
+  title: string,
+  position: number,
+  description: string,
+};
+
 type ISubServiceJSONContent = {
   eligibility?: IEligibility[];
   process?: IProcess[];
   lead_forms?: ILeadForm[];
+  faq?: IFaq[]
 };
 
 type ISubServiceAttributes = {

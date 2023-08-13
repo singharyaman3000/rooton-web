@@ -11,6 +11,16 @@ export const TESTIMONIAL_TITLE = {
 export const SERVICES_TITLE = {
   title: 'SERVICES',
   subTitle: 'Our Expertise',
+  testimonial: {
+    title: '',
+    subtitle: 'Testimonials',
+  },
+  faq: {
+    title: 'FAQs',
+  },
+  blogs: {
+    title: 'Blogs',
+  },
 };
 
 export const LAYOUT = {

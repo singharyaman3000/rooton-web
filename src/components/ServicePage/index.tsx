@@ -21,45 +21,9 @@ import BlogListings from '../HomePage/BlogListings';
 import NextImage from '../UIElements/NextImage';
 import RootOnBanner from '../HomePage/RootOnBanner';
 import { appendAssetUrl, isVideo } from '@/utils';
-
-const FAQS = [
-  {
-    id: '1',
-    question: 'Can I know more about Root On Immigration Consultants?',
-    answer:
-      'Root On Immigration Consultants is a licensed immigration firm based in Montreal, Quebec and in Surat, India. You can get more details at our Instagram handle @rootonofficial.i',
-  },
-  {
-    id: '2',
-    question: 'Why should I get the Curated Programs List?',
-    answer:
-      'Root On Immigration Consultants is a licensed immigration firm based in Montreal, Quebec and in Surat, India. You can get more details at our Instagram handle @rootonofficial.i',
-  },
-  {
-    id: '3',
-    question: 'Where will I get the my programs list?',
-    answer:
-      'Root On Immigration Consultants is a licensed immigration firm based in Montreal, Quebec and in Surat, India. You can get more details at our Instagram handle @rootonofficial.i',
-  },
-  {
-    id: '4',
-    question: 'Who will select programs for me?',
-    answer:
-      'Root On Immigration Consultants is a licensed immigration firm based in Montreal, Quebec and in Surat, India. You can get more details at our Instagram handle @rootonofficial.i',
-  },
-  {
-    id: '5',
-    question: 'I need to discuss my profile with me. Can I?',
-    answer:
-      'Root On Immigration Consultants is a licensed immigration firm based in Montreal, Quebec and in Surat, India. You can get more details at our Instagram handle @rootonofficial.i',
-  },
-  {
-    id: '6',
-    question: 'Can I book a counselling session?',
-    answer:
-      'Root On Immigration Consultants is a licensed immigration firm based in Montreal, Quebec and in Surat, India. You can get more details at our Instagram handle @rootonofficial.i',
-  },
-];
+import CalenderIconYellow from '../Icons/CalendarIconYellow';
+import { SERVICES_TITLE } from '@/app/constants/textConstants';
+import RootOnCTAWrapper from './RootOnCTAWrapper';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -83,6 +47,11 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
   const process = response.data.attributes.sub_services_contents.data.find((i) => {
     return i.attributes.position === 3;
   });
+
+  const faqs = response.data.attributes.sub_services_contents.data.find((i) => {
+    return i.attributes.position === 5;
+  })?.attributes.json_content.faq;
+
   return (
     <div>
       <RootOnBanner
@@ -114,6 +83,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
       </ServicePageWrapper>
       <div className=" mt-20 m-auto max-w-screen-2k">
         <OurProcess
+          className=" !py-0"
           title={''}
           sub_title={process?.attributes.title ?? ''}
           json_content={process?.attributes.json_content as IOurProcessData}
@@ -125,7 +95,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
             flex gap-[34px] shadow-hubspot-form-shadow border border-golden-yellow justify-between
           "
         >
-          <div className='lg:pl-[60px] w-[75%] lg:pt-12 lg:pb-16'>
+          <div className="lg:pl-[60px] w-[75%] lg:pt-12 lg:pb-16">
             <H2>{leadForm?.attributes.title ?? ''}</H2>
             <div className="">
               <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
@@ -133,7 +103,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           </div>
           <div className=" hidden lg:block w-[25%] h-[714px] relative">
             <NextImage
-              classSelector=' object-right'
+              classSelector=" object-right"
               src={'/images/my-project-46@3x.png'}
               style={{ objectFit: 'contain' }}
               altText="a man"
@@ -144,26 +114,38 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           </div>
         </div>
       </ServicePageWrapper>
-      <div className=" m-auto max-w-screen-2k">
-        <Testimonials />
+      <ServicePageWrapper className="m-auto max-w-screen-2k">
+        <RootOnCTAWrapper
+          buttonAriaLabel="Book an Appointment now"
+          buttonText="Book an Appointment now"
+          buttonIcon={<CalenderIconYellow />}
+          onClick={() => {}}
+          imageSrc='/images/servicePage/my-project-44@3x.png'
+          imageAlt='A lady'
+          imageTitle='A lady'
+          heading={<>Explore Your Options: <br /> Book an Appointment</>}
+        />
+      </ServicePageWrapper>
+      <div className=" mt-10 m-auto max-w-screen-2k">
+        <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
       </div>
       <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k">
         <>
-          <H2>{'FAQs'}</H2>
-          {FAQS.map((faq) => {
+          <H2>{SERVICES_TITLE.faq.title}</H2>
+          {faqs?.map((faq) => {
             return (
               <Accordion
-                openAccordion={faq.id === selectedAccordionId}
-                accordionId={faq.id}
+                openAccordion={faq.position.toString() === selectedAccordionId}
+                accordionId={faq.position.toString()}
                 handleOnClick={(id) => {
                   setSelectedAccordionId(id === selectedAccordionId ? null : id);
                 }}
-                customToggle={<ToggleIcon isOpen={faq.id === selectedAccordionId} />}
+                customToggle={<ToggleIcon isOpen={faq.position.toString() === selectedAccordionId} />}
                 customSpacer={<span></span>}
                 cssClass="challenges-accordion border-b-[1px] border-b-sandal "
-                key={faq.id}
-                header={<AccordionHeader value={faq.question} />}
-                accordionBody={<AccordionBody value={faq.answer} />}
+                key={faq.position}
+                header={<AccordionHeader value={faq.title} />}
+                accordionBody={<AccordionBody value={faq.description} />}
               />
             );
           })}
@@ -176,11 +158,22 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
               data: [],
             }}
             title={''}
-            sub_title={'Immigration'}
+            sub_title={SERVICES_TITLE.blogs.title}
           />
         </div>
       </div>
-      ;
+      <ServicePageWrapper className="m-auto max-w-screen-2k pb-20 xl:px-20">
+        <RootOnCTAWrapper
+          buttonAriaLabel="Book an Appointment now"
+          buttonText="Book an Appointment now"
+          buttonIcon={<CalenderIconYellow />}
+          onClick={() => {}}
+          imageSrc='/images/servicePage/man-and-women.png'
+          imageAlt='man-and-women'
+          imageTitle='Man and Women'
+          heading={<>Streamline Your Immigration <br /> Journey with Experts</>}
+        />
+      </ServicePageWrapper>
     </div>
   );
 };
