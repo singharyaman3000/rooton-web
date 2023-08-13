@@ -61,7 +61,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
         description={response.data?.attributes?.sub_title}
         button={<BookAnAppointmentButton />}
       />
-      <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k">
+      <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <>
           <ServiceDescription text={response.data.attributes.description} />
           <WhyChoose
@@ -129,7 +129,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
       <div className=" mt-10 m-auto max-w-screen-2k">
         <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
       </div>
-      <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k">
+      <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <>
           <H2>{SERVICES_TITLE.faq.title}</H2>
           {faqs?.map((faq) => {

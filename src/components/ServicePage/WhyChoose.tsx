@@ -1,6 +1,7 @@
 import { H2 } from '../H2';
 import CallIcon from '../Icons/CallIcon';
 import RTONButtonBlack from '../RTONButtonBlack';
+import RTONButtonBlackThemed from '../RTONButtonBlackThemed';
 import NextImage from '../UIElements/NextImage';
 
 type WhyChooseProps = {
@@ -52,9 +53,10 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl }: WhyChooseP
         <div
           className="
             mt-5
+            lg:w-[189px]
           "
         >
-          <RTONButtonBlack
+          <RTONButtonBlackThemed
             onClick={() => {}}
             ariaLabel="Talk-to-our-Expert"
             text="Talk to our Expert"
