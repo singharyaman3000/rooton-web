@@ -1,5 +1,6 @@
 import { getFetch } from '@/utils/apiUtils';
 import { getServiceAPIUrl } from './apiUrl/servicePage';
+import { IMediaUrlData } from './interfaces';
 
 type IEligibility = {
   key: string;
@@ -56,7 +57,7 @@ type IAttributes = {
   CTA_link: string;
   sub_title: string;
   media_url: {
-    data: null;
+    data: IMediaUrlData[];
   };
   sub_services_contents: ISubServiceSContents;
 };

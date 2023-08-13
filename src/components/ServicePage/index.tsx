@@ -7,7 +7,6 @@ import OurProcess from '../HomePage/OurProcess';
 import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 import Testimonials from '../HomePage/Testimonials';
 import { Li } from '../Li';
-import RTONBanner from '../RTONBanner';
 import { Ul } from '../Ul';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { ServiceDescription } from './Description';
@@ -20,6 +19,8 @@ import ToggleIcon from '../HomePage/ChallengesListing/ToggleIcon';
 import { AccordionBody, AccordionHeader } from '../HomePage/ChallengesListing/ChallengeListingElements';
 import BlogListings from '../HomePage/BlogListings';
 import NextImage from '../UIElements/NextImage';
+import RootOnBanner from '../HomePage/RootOnBanner';
+import { appendAssetUrl, isVideo } from '@/utils';
 
 const FAQS = [
   {
@@ -84,11 +85,11 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
   });
   return (
     <div>
-      <RTONBanner
-        backgroundImageUrl={response.data.attributes.media_url.data ?? ''}
-        addGradient
-        heroText={response.data.attributes.title}
-        description={response.data.attributes.sub_title}
+      <RootOnBanner
+        isVideoBanner={isVideo(response.data?.attributes.media_url?.data[0].attributes.mime)}
+        backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
+        heroText={response.data?.attributes?.title}
+        description={response.data?.attributes?.sub_title}
         button={<BookAnAppointmentButton />}
       />
       <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k">
