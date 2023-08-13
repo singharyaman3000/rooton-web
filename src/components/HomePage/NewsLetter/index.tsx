@@ -7,16 +7,16 @@ import HubSpotForm from '../../HubSpotForm';
 const NewsLetter = () => {
   return (
     <SectionContainer cssClass="pt-10 pb-20 md:pt-0 md:pb-0">
-      <div className="md:mb-[52px] bg-pale-sandal md:min-h-[] py-6 px-5 md:pt-16 md:pb-0 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative">
-        <div className=" w-full md:w-[30.347vw]">
+      <div className="md:mb-[52px] bg-pale-sandal  py-6 px-5 md:pt-16 md:pb-16 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative lg:pb-[110px]">
+        <div className=" w-full">
           <h4 className="text-2xl lg:text-[40px] gradient-text text-black font-extrabold not-italic !leading-[1.42] tracking-[normal] mb-2 md:mb-[11px]">
             Sign up for Newsletter
           </h4>
-          <p className="text-xs text-black md:text-lg md:leading-[1.83rem]">
+          <p className="text-xs text-black leading-5 md:text-lg md:leading-[1.83rem]">
             Let us keep you updated on what&apos;s happening in Canada and on how you can broaden your horizons.
           </p>
         </div>
-        <div className="mt-[19px] mb-[21px] w-full md:w-[47.22%] p-6 z-[1]">
+        <div className="min-h-[174px] mt-[19px] w-full z-[1] md:min-h-0 md:mt-5 lg:mt-[30px] xl:mt-[46px]">
           <HubSpotForm
             region={FormConstants.NEWS_LETTER.region}
             portalId={FormConstants.NEWS_LETTER.portalId}

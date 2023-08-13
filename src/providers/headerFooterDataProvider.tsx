@@ -4,8 +4,8 @@ import { IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import React, { createContext, useState, ReactNode, useContext, useMemo, useEffect } from 'react';
 
 interface IHeaderFooterDataContextValue {
-  headerFooterData: IHeaderFooterData | undefined;
-  setData: React.Dispatch<React.SetStateAction<IHeaderFooterData | undefined>>;
+  headerFooterData: IHeaderFooterData[] | undefined;
+  setData: React.Dispatch<React.SetStateAction<IHeaderFooterData[] | undefined>>;
 }
 
 const HeaderFooterContext = createContext<IHeaderFooterDataContextValue | undefined>(undefined);
@@ -23,9 +23,9 @@ export const HeaderFooterDataProvider = ({
   headerFooterAPIData,
 }: {
   children: ReactNode;
-  headerFooterAPIData: IHeaderFooterData | undefined;
+  headerFooterAPIData: IHeaderFooterData[] | undefined;
 }) => {
-  const [headerFooterData, setData] = useState<IHeaderFooterData | undefined>(headerFooterAPIData);
+  const [headerFooterData, setData] = useState<IHeaderFooterData[] | undefined>(headerFooterAPIData);
 
   useEffect(() => {
     setData(headerFooterAPIData);

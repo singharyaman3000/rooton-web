@@ -62,7 +62,7 @@ export interface IHomePageData {
   attributes: IAttributes;
 }
 export interface IHomePageDataRes {
-  data: IHomePageData;
+  data: IHomePageData[];
   footers: {
     data: {
       attributes: {

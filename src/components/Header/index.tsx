@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import SliderOverlay from './SliderOverlay';
+import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -84,6 +85,8 @@ export default function Header() {
           className="
           flex
           gap-5
+          lg:gap-[1.33vw]
+          xl:gap-[3.33vw]
           justify-between
           px-6
           py-3
@@ -116,14 +119,12 @@ export default function Header() {
           )}
           <div
             className={`
-            xl:ml-[116px]
-            lg:ml-[50px]
-            xl:gap-[62px]
-            lg:gap-12
+            lg:gap-[1.33vw]
+            xl:gap-[3.33vw]
             justify-end
             items-center
             text-base
-            font-bold
+            font-medium
             hidden
             lg:flex
             flex-shrink-0
@@ -150,6 +151,7 @@ export default function Header() {
             </span>
           </div>
           <ThemeToggleAndHamburger toggleSlideOverlay={toggleSlideOverlay} scrolledEnough={scrolledEnough} />
+          {scrolledEnough && <TalkToOurExpert />}
         </div>
         <div
           className="

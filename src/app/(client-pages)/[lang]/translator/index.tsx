@@ -19,7 +19,7 @@ const Translator = () => {
     new window.google.translate.TranslateElement(
       {
         pageLanguage: 'en',
-        includedLanguages: 'en,pa,pt,es,hi,it,de,gu', // include this for selected languages
+        // includedLanguages: 'en,pa,pt,es,hi,it,de,gu', // include this for selected languages
         // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
       'google_translate_element',
@@ -32,7 +32,7 @@ const Translator = () => {
       addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
-      const language = headerFooterData?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
+      const language = headerFooterData?.[0]?.attributes.languages.data?.find((lan) => lan.attributes.code === params.lang);
       const appMainDomain = process.env.NEXT_APP_MAIN_DOMAIN;
       document.cookie = `googtrans=/en/${
         language ? language.attributes.code : 'en'

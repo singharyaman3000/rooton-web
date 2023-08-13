@@ -17,7 +17,7 @@ export interface ILanguageData {
 const FlagComponentWrapper = ({ handleOnClick }: { handleOnClick: (selectedLanguage: ILanguageData) => void }) => {
   const { headerFooterData } = useHeaderFooterContext();
 
-  return headerFooterData?.attributes.languages.data?.map((item) => (
+  return headerFooterData && headerFooterData[0]?.attributes.languages.data?.map((item) => (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div className="hover:bg-hover-lang-dropdown" key={item?.attributes.name} onClick={() => handleOnClick(item)}>
       <span className="mx-[18px] flex gap-2 items-center p-2" key={item?.attributes.name}>
