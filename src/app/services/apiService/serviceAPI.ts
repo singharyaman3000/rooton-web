@@ -68,7 +68,7 @@ type IAttributes = {
     data: IMediaUrlData[];
   };
   sub_services_contents: ISubServiceSContents;
-  blogs?: { data: IBlogCardData[] };
+  blogs: { data: IBlogCardData[] };
 };
 
 type IServicePageContentResponse = {
