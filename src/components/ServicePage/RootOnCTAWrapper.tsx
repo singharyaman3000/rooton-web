@@ -24,7 +24,7 @@ export default function RootOnCTAWrapper({
   heading,
 }: RootOnCTAWrapperProps) {
   return (
-    <div className=" bg-pale-sandal mx-6 mt-20 px-6 pt-6 flex flex-col gap-5 md:flex-row-reverse md: justify-center">
+    <div className=" bg-pale-sandal mt-20 px-6 pt-6 flex flex-col gap-5 md:flex-row-reverse md: justify-center">
       <div className=' m-auto md:m-0 flex flex-col gap-5 lg:gap-12 md:justify-center'>
         <h4 className=" text-lg text-black font-extrabold leading-primary-lg">
           {heading}

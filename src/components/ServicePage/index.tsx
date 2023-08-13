@@ -114,7 +114,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           </div>
         </div>
       </ServicePageWrapper>
-      <ServicePageWrapper className="m-auto max-w-screen-2k">
+      <ServicePageWrapper className="m-auto max-w-screen-2k lg:px-[80px]">
         <RootOnCTAWrapper
           buttonAriaLabel="Book an Appointment now"
           buttonText="Book an Appointment now"
@@ -162,7 +162,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           />
         </div>
       </div>
-      <ServicePageWrapper className="m-auto max-w-screen-2k pb-20 xl:px-20">
+      <ServicePageWrapper className="m-auto max-w-screen-2k pb-20 lg:px-[80px]">
         <RootOnCTAWrapper
           buttonAriaLabel="Book an Appointment now"
           buttonText="Book an Appointment now"
