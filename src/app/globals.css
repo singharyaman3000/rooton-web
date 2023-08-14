@@ -514,3 +514,21 @@ font {
 .huform .hs-form-field:nth-child(n+0) {
   display: none;
 }
+
+.huform .actions {
+  float: right;
+  width: 100px;
+  display: flex;
+  justify-content: end;
+  position: relative;
+  top: 4rem;
+}
+
+.hufrom, .actions input {
+  background-color: black;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: white;
+}
