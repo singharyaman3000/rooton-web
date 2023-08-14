@@ -16,7 +16,7 @@ const BookAnAppointment = () => {
   };
 
   const { toggleModalShown } = useContext(ModalShowContextname);
-  const {toggleModalShown : toggleMobileModalShown}  = useContext(MobileModalShowContextname)
+  const { toggleModalShown: toggleMobileModalShown } = useContext(MobileModalShowContextname);
 
   return (
     <SectionContainer cssClass="mb-20">
@@ -26,10 +26,13 @@ const BookAnAppointment = () => {
             <h1 className="md:w-[316px] text-black text-lg md:text-xl leading-[1.5] font-extrabold mb-5 md:mb-12">
               {BookAnAppointmentContent?.title}{' '}
             </h1>
-            <BookAnApptButton cssClass='w-full md:w-fit' handleOnClick={() => {
-              toggleModalShown();
-              toggleMobileModalShown()
-            }}/>
+            <BookAnApptButton
+              cssClass="w-full md:w-fit"
+              handleOnClick={() => {
+                toggleModalShown();
+                toggleMobileModalShown();
+              }}
+            />
           </div>
           <div className="flex flex-col items-center md:hidden">
             <div className="relative w-[264px] h-[240px]">

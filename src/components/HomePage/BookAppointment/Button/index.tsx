@@ -1,6 +1,5 @@
-
 import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 export interface IButton {
   handleOnClick: () => void;
@@ -17,7 +16,7 @@ const BookAnApptButton = ({ handleOnClick, cssClass }: IButton) => {
     >
       {'Book an Appointment now'}
       <div className="ml-[16px]">
-      <CalenderIconYellow />
+        <CalenderIconYellow />
       </div>
     </button>
   );
