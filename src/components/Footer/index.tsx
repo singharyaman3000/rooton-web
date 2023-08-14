@@ -114,7 +114,7 @@ export default function Footer() {
       >
         {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
           return (
-            <div key={address.id}>
+            <div key={address.id} className='odd:mb-[31px]'>
               <div className=" mb-[6px]">
                 <div className="w-[32px] h-[16px] relative">
                   <NextImage

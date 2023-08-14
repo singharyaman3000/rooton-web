@@ -34,7 +34,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
       variants={containerVarient}
       initial="hidden"
       animate="show"
-      className="flex items-center cursor-pointer"
+      className="flex items-strech cursor-pointer"
     >
       {headerData.map(({ icon, service }) => {
         return (
@@ -49,7 +49,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
             aria-label={service}
             title={service}
           >
-            <div className='relative flex items-center w-full flex-col justify-center after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
+            <div className='relative flex items-center w-full flex-col h-full after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
               <div className="relative w-[30px] my-0 mx-auto h-[30px] ">
                 {icon && (
                   <NextImage
