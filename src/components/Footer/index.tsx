@@ -128,7 +128,7 @@ export default function Footer() {
                 </div>
               </div>
               <p className=" text-sm mb-[4px] whitespace-pre font-bold">{address?.attributes.name}</p>
-              <p className=" text-sm mb-[4px] whitespace-pre">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] whitespace-pre whitespace-pre-font">{HtmlParser(address?.attributes?.location)}</p>
               <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
             </div>
           );
