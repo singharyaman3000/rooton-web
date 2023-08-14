@@ -34,7 +34,7 @@ export interface IChallengesListing extends ITitleAttributes {
 const ChallengesListing = ({ title, sub_title, description, json_content, media_url }: IChallengesListing) => {
   const [accordionId, setAccordionId] = useState<string | null>(null);
   const { toggleModalShown } = useContext(ModalShowContextname);
-  const {toggleModalShown: toggleModalShownMobile} = useContext(MobileModalShowContextname);
+  const { toggleModalShown: toggleModalShownMobile } = useContext(MobileModalShowContextname);
 
   return (
     <section className="challenges-listing">
