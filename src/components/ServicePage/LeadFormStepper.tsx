@@ -35,14 +35,7 @@ type LeadFormStepperProps = {
   onFormSubmitted?: (data: HTMLFormElement) => void;
 };
 
-const LeadFormStepper = ({
-  region,
-  portalId,
-  formId,
-  target,
-  onFormSubmit,
-  onFormSubmitted,
-}: LeadFormStepperProps) => {
+const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFormSubmitted }: LeadFormStepperProps) => {
   const noOfFieldsAtaTime = 7;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(7);
@@ -60,14 +53,26 @@ const LeadFormStepper = ({
   };
 
   const onNextClick = () => {
-    showFrom.current += noOfFieldsAtaTime;
-    showTo.current += noOfFieldsAtaTime;
+    const el = document.querySelectorAll('.hs-form-field');
+    if (showFrom.current < el.length - noOfFieldsAtaTime) {
+      showFrom.current += noOfFieldsAtaTime;
+    }
+
+    if (showTo.current < el.length) {
+      showTo.current += noOfFieldsAtaTime;
+    }
     formReady();
   };
 
   const onBackClick = () => {
-    showFrom.current -= noOfFieldsAtaTime;
-    showTo.current -= noOfFieldsAtaTime;
+    if (showFrom.current > 0) {
+      showFrom.current -= noOfFieldsAtaTime;
+    }
+
+    const el = document.querySelectorAll('.hs-form-field');
+    if (showTo.current < el.length + noOfFieldsAtaTime && showTo.current > noOfFieldsAtaTime) {
+      showTo.current -= noOfFieldsAtaTime;
+    }
     formReady();
   };
 
