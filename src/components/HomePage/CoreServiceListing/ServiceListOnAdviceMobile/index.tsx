@@ -7,6 +7,7 @@ import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 import { motion } from 'framer-motion';
 import CloseIconButton from '../UIElements/CloseIcon';
+import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
 
 export interface IserviceList {
   serviceType: string;
@@ -15,7 +16,7 @@ export interface IserviceList {
 
 const ServiceListingOnAdviceMobile = () => {
   const { headerFooterData } = useHeaderFooterContext();
-  const { isModalShown, toggleModalShown } = useContext(ModalShowContextname);
+  const { isModalShown, toggleModalShown } = useContext(MobileModalShowContextname);
   const [xValue, setxValue] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   useEffect(() => {
@@ -66,14 +67,14 @@ const ServiceListingOnAdviceMobile = () => {
             duration: 0.5,
             delay: 0,
           }}
-          className="fixed px-5 pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white  pl-9 pb-[36px]"
+          className="fixed pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white  pl-9"
         >
-          <CloseIconButton onClick={toggleModalShown} />
-          <div className="hideScrollBar max-h-[calc(100vh-96px)] my-6 overflow-y-scroll">
+          <CloseIconButton onClick={toggleModalShown} cssClass='px-5' />
+          <div className="max-h-[calc(100vh-96px)] px-5 my-6 overflow-y-scroll">
             <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
               Select a service for which you need advice on.
             </h1>
-            <div className="flex flex-col">{getServiceListing()}</div>
+            <div className="flex flex-col pb-[36px]">{getServiceListing()}</div>
           </div>
         </motion.div>
       )}

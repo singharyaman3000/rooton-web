@@ -4,7 +4,7 @@ import { Fragment, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
-import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
+import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
 
 interface SliderOverlayProps {
   open: boolean;
@@ -14,7 +14,7 @@ interface SliderOverlayProps {
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
 
-  const { toggleModalShown } = useContext(ModalShowContextname);
+  const { toggleModalShown } = useContext(MobileModalShowContextname);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
