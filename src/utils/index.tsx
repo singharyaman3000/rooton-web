@@ -19,9 +19,9 @@ export const formatDate = (dateString: string): string => {
 
 export const isVideo = (url: string): boolean => url?.includes('video');
 
-export const getSectionData = (data: IHomePageData, content_name: string) => {
+export const getSectionData = (data: IHomePageData, unique_identifier_name: string) => {
   return data.attributes.home_page_contents.data?.find((contents) => {
-    return contents.attributes.content_name === content_name;
+    return contents.attributes.unique_identifier_name === unique_identifier_name;
   });
 };
 
