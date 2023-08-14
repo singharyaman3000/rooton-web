@@ -17,7 +17,7 @@ const ServiceListingOnAdviceMobile = () => {
   const { headerFooterData } = useHeaderFooterContext();
   const { isModalShown, toggleModalShown } = useContext(MobileModalShowContextname);
   const [xValue, setxValue] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(window?.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0);
   useEffect(() => {
     if (isModalShown) {
       document.body.style.overflow = 'hidden';
@@ -30,10 +30,9 @@ const ServiceListingOnAdviceMobile = () => {
   }, [isModalShown]);
 
   useEffect(() => {
-    
     const updateWidth = () => {
-      if (window.innerWidth) {
-        const screenWidth = window.innerWidth;
+      if (window?.innerWidth) {
+        const screenWidth = window?.innerWidth;
         setWindowWidth(window?.innerWidth);
         const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
         setxValue(xvalue);
@@ -42,9 +41,9 @@ const ServiceListingOnAdviceMobile = () => {
 
     updateWidth();
 
-    window.addEventListener("resize", updateWidth);
+    window?.addEventListener('resize', updateWidth);
 
-    return () => window.removeEventListener("resize", updateWidth);
+    return () => window?.removeEventListener('resize', updateWidth);
   }, []);
 
   const getServiceListing = () => {
@@ -77,7 +76,9 @@ const ServiceListingOnAdviceMobile = () => {
           }}
           className="fixed pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white"
         >
-          <CloseIconButton onClick={toggleModalShown} cssClass='px-5' />
+          <div className='w-full flex justify-end px-5'>
+            <CloseIconButton onClick={toggleModalShown} />
+          </div>
           <div className="max-h-[calc(100vh-96px)] px-5 my-6 overflow-y-scroll">
             <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
               Select a service for which you need advice on.

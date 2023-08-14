@@ -5,7 +5,7 @@ const CloseIconButton = ({ onClick, cssClass }: { onClick: () => void, cssClass?
   return (
     <button
       type="button"
-      className={`w-full flex justify-end ${cssClass}`}
+      className={`w-fit ${cssClass}`}
       onClick={() => {
         onClick();
       }}
