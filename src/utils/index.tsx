@@ -33,3 +33,10 @@ export const getDetraslatedURL = (url: string, lang: string) => {
 export const getFlagUrl = (flagData: IHeaderFooterData[] | undefined, langcode = 'en') => {
   return flagData && flagData[0]?.attributes.languages.data?.find(({ attributes }) => attributes.code === langcode);
 };
+
+export const scrollIntoView = (id:string) => {
+  const element = document?.getElementById(id);
+  if(element){
+    element?.scrollIntoView();
+  }
+}

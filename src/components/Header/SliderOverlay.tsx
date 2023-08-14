@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
 import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
+import { scrollIntoView } from '@/utils';
 
 interface SliderOverlayProps {
   open: boolean;
@@ -13,6 +14,9 @@ interface SliderOverlayProps {
 }
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
+
+
+  
 
   const { toggleModalShown } = useContext(MobileModalShowContextname);
   return (
@@ -59,6 +63,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                         About Us
                       </div>
                       <div
+                        onClick={()=>{scrollIntoView('servicesHomePage'); setOpen(false)}}
                         className="
                           text-primary-font-color
                           pb-5
@@ -67,6 +72,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-b
                           border-primary-border
                           mb-5
+                          cursor-pointer
                         "
                       >
                         Services
