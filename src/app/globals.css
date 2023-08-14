@@ -506,3 +506,14 @@ font {
   border-radius: 8px;
   height: 6px
 }
+
+
+.line-wrap-1{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-wrap-2{
+  @apply line-clamp-2;
+}
