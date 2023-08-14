@@ -30,12 +30,20 @@ const ServiceListingOnAdviceMobile = () => {
   }, [isModalShown]);
 
   useEffect(() => {
-    if (window?.innerWidth) {
-      setWindowWidth(window?.innerWidth);
-      const screenWidth = window.innerWidth;
-      const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
-      setxValue(xvalue);
-    }
+    const updateWidth = () => {
+      if (window?.innerWidth) {
+        const screenWidth = window?.innerWidth;
+        setWindowWidth(window?.innerWidth);
+        const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
+        setxValue(xvalue);
+      }
+    };
+
+    updateWidth();
+
+    window?.addEventListener('resize', updateWidth);
+
+    return () => window?.removeEventListener('resize', updateWidth);
   }, []);
 
   const getServiceListing = () => {
@@ -66,9 +74,11 @@ const ServiceListingOnAdviceMobile = () => {
             duration: 0.5,
             delay: 0,
           }}
-          className="fixed pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white  pl-9"
+          className="fixed pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white"
         >
-          <CloseIconButton onClick={toggleModalShown} cssClass='px-5' />
+          <div className='w-full flex justify-end px-5'>
+            <CloseIconButton onClick={toggleModalShown} />
+          </div>
           <div className="max-h-[calc(100vh-96px)] px-5 my-6 overflow-y-scroll">
             <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
               Select a service for which you need advice on.
