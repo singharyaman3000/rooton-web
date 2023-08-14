@@ -32,6 +32,7 @@ type ServicePageProps = {
 
 export const ServicePageComponent = ({ response }: ServicePageProps) => {
   const [selectedAccordionId, setSelectedAccordionId] = useState<string | null>(null);
+  const [formStepperProgress, setFormStepperProgress] = useState(0);
 
   const whyChooseOpen = response.data.attributes.sub_services_contents.data.find((i) => {
     return i.attributes.position === 1;
@@ -95,13 +96,24 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
       <ServicePageWrapper className="p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-[1440px]">
         <div
           className="
-            flex gap-[34px] shadow-hubspot-form-shadow border border-golden-yellow justify-between
+            flex
+            gap-[34px]
+            shadow-hubspot-form-shadow
+            border
+            border-golden-yellow
+            justify-between
+            relative
+            overflow-hidden
           "
         >
-          <div className="lg:pl-[60px] w-[75%] lg:pt-12 lg:pb-16">
+          <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
+          <div className="pl-[60px] w-[75%] py-12 lg:pb-16">
             <H2>{leadForm?.attributes.title ?? ''}</H2>
-            <div className="" id='lead-form'>
+            <div className="" id="lead-form">
               <LeadFormStepper
+                onProgress={(progress) => {
+                  setFormStepperProgress(progress);
+                }}
                 region={
                   (leadForm?.attributes.json_content.lead_forms &&
                     leadForm?.attributes.json_content.lead_forms[0].region) ??

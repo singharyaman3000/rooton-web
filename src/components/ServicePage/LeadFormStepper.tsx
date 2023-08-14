@@ -41,35 +41,39 @@ type LeadFormStepperProps = {
   onFormSubmit?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
   onFormSubmitted?: (data: HTMLFormElement) => void;
+  // eslint-disable-next-line no-unused-vars
+  onProgress: (progress: number) => void;
 };
 
-const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFormSubmitted }: LeadFormStepperProps) => {
+const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onProgress }: LeadFormStepperProps) => {
   const noOfFieldsAtaTime = 7;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(7);
 
   const [disableNextButton, setDisableNextButton] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
+  const stepNo = useRef<number>(1);
+  const formLength = useRef<number>(0);
 
-  const isThereAnyValidationErrors = () => {
-    const errors = document.querySelectorAll('.hs-error-msgs');
-    errors.forEach((err) => {
-      console.log((err as HTMLUListElement).style.display);
-      if ((err as HTMLUListElement).style.display === 'block') {
-        console.log('True');
-      } else {
-        console.log('False');
-      }
-    });
+  // const isThereAnyValidationErrors = () => {
+  //   const errors = document.querySelectorAll('.hs-error-msgs');
+  //   errors.forEach((err) => {
+  //     console.log((err as HTMLUListElement).style.display);
+  //     if ((err as HTMLUListElement).style.display === 'block') {
+  //       console.log('True');
+  //     } else {
+  //       console.log('False');
+  //     }
+  //   });
+  // };
+
+  const calculateProgress = () => {
+    const progress = (stepNo.current / formLength.current) * 100;
+    console.log('pro', progress);
+    onProgress(progress);
   };
 
-  const formReady = () => {
-    const formEl = document.querySelector('.huform');
-    formEl?.addEventListener('change', () => {
-      setTimeout(() => {
-        return isThereAnyValidationErrors();
-      }, 100);
-    });
+  const handleMultiStep = (formEl: HTMLFormElement) => {
     for (let i = 0; i < (formEl?.children?.length ?? 0); i += 1) {
       const child = formEl?.children[i];
       if (child?.tagName === 'DIV' && i < showTo.current && i >= showFrom.current) {
@@ -78,12 +82,26 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
         (child as HTMLDivElement).style.display = 'none';
       }
     }
+    calculateProgress();
+  };
+
+  const formReady = () => {
+    const formEl = document.querySelector('.huform');
+    const el = document.querySelectorAll('.hs-form-field');
+    formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime + 1;
+    // formEl?.addEventListener('change', () => {
+    //   setTimeout(() => {
+    //     return isThereAnyValidationErrors();
+    //   }, 100);
+    // });
+    handleMultiStep(formEl as HTMLFormElement);
   };
 
   const onNextClick = () => {
     const el = document.querySelectorAll('.hs-form-field');
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
       showFrom.current += noOfFieldsAtaTime;
+      stepNo.current += 1;
     }
 
     if (showTo.current >= el.length - noOfFieldsAtaTime) {
@@ -93,6 +111,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
     if (showTo.current < el.length) {
       showTo.current += noOfFieldsAtaTime;
     }
+
     formReady();
   };
 
@@ -100,12 +119,14 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
     setDisableNextButton(false);
     if (showFrom.current > 0) {
       showFrom.current -= noOfFieldsAtaTime;
+      stepNo.current -= 1;
     }
 
     const el = document.querySelectorAll('.hs-form-field');
     if (showTo.current < el.length + noOfFieldsAtaTime && showTo.current > noOfFieldsAtaTime) {
       showTo.current -= noOfFieldsAtaTime;
     }
+
     formReady();
   };
 
@@ -127,6 +148,8 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
             onFormSubmitted: () => {
               // show calender
               setShowCalender(true);
+              stepNo.current += 1;
+              calculateProgress();
             },
             onFormReady: formReady,
             cssClass: 'huform',
@@ -146,7 +169,9 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
       target={target}
     />
   ) : (
-    <div>cal</div>
+    <div className=' h-[54rem]'>
+      <iframe className=' w-full h-full' title='AA' src='https://meetings.hubspot.com/ajesh-ajayan' />
+    </div>
   );
 };
 
