@@ -17,7 +17,7 @@ const ServiceListingOnAdviceMobile = () => {
   const { headerFooterData } = useHeaderFooterContext();
   const { isModalShown, toggleModalShown } = useContext(MobileModalShowContextname);
   const [xValue, setxValue] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window?.innerWidth);
   useEffect(() => {
     if (isModalShown) {
       document.body.style.overflow = 'hidden';
@@ -30,12 +30,21 @@ const ServiceListingOnAdviceMobile = () => {
   }, [isModalShown]);
 
   useEffect(() => {
-    if (window?.innerWidth) {
-      setWindowWidth(window?.innerWidth);
-      const screenWidth = window.innerWidth;
-      const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
-      setxValue(xvalue);
-    }
+    
+    const updateWidth = () => {
+      if (window.innerWidth) {
+        const screenWidth = window.innerWidth;
+        setWindowWidth(window?.innerWidth);
+        const xvalue = screenWidth < 448 ? 0 : window.innerWidth - 448 || 0;
+        setxValue(xvalue);
+      }
+    };
+
+    updateWidth();
+
+    window.addEventListener("resize", updateWidth);
+
+    return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
   const getServiceListing = () => {
