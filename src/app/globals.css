@@ -524,3 +524,7 @@ font {
 .line-wrap-2{
   @apply line-clamp-2;
 }
+
+.whitespace-pre-font{
+  white-space: pre;
+}
