@@ -139,6 +139,7 @@ export default function Header() {
             <span>
               <Link href={'/'}> About Us </Link>
             </span>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <span
               onClick={() => {
                 scrollIntoView('servicesHomePage');

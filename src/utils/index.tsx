@@ -39,4 +39,4 @@ export const scrollIntoView = (id:string) => {
   if(element){
     element?.scrollIntoView();
   }
-}
+};

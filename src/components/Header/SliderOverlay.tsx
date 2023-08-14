@@ -14,10 +14,6 @@ interface SliderOverlayProps {
 }
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
-
-
-  
-
   const { toggleModalShown } = useContext(MobileModalShowContextname);
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -62,8 +58,12 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         About Us
                       </div>
+                      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                       <div
-                        onClick={()=>{scrollIntoView('servicesHomePage'); setOpen(false)}}
+                        onClick={() => {
+                          scrollIntoView('servicesHomePage');
+                          setOpen(false);
+                        }}
                         className="
                           text-primary-font-color
                           pb-5
