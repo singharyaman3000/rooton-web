@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type FormTargetProps = {
   target: string;
   onNextClick: () => void;
   onBackClick: () => void;
+  disableNextButton: boolean;
 };
 
-const FormTarget = ({ target, onNextClick, onBackClick }: FormTargetProps) => {
+const FormTarget = ({ target, onNextClick, onBackClick, disableNextButton }: FormTargetProps) => {
   return (
     <div className="mt-12 h-full w-full">
       <div className=" h-full w-full" id={target} />
@@ -16,9 +17,16 @@ const FormTarget = ({ target, onNextClick, onBackClick }: FormTargetProps) => {
         <button type="button" className=" bg-black text-white px-4 py-2 mt-2" onClick={onBackClick}>
           Back
         </button>
-        <button type="button" className=" bg-black text-white px-4 py-2 mt-2" onClick={onNextClick}>
-          Next
-        </button>
+        {disableNextButton || (
+          <button
+            disabled={disableNextButton}
+            type="button"
+            className=" bg-black text-white px-4 py-2 mt-2"
+            onClick={onNextClick}
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
@@ -40,8 +48,28 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(7);
 
+  const [disableNextButton, setDisableNextButton] = useState(false);
+
+  const isThereAnyValidationErrors = () => {
+    const errors = document.querySelectorAll('.hs-error-msgs');
+    console.log(errors.length);
+    errors.forEach((err) => {
+      console.log((err as HTMLUListElement).style.display);
+      if ((err as HTMLUListElement).style.display === 'block') {
+        console.log('True');
+      } else {
+        console.log('False');
+      }
+    });
+  };
+
   const formReady = () => {
     const formEl = document.querySelector('.huform');
+    formEl?.addEventListener('change', () => {
+      setTimeout(() => {
+        return isThereAnyValidationErrors();
+      }, 100);
+    });
     for (let i = 0; i < (formEl?.children?.length ?? 0); i += 1) {
       const child = formEl?.children[i];
       if (child?.tagName === 'DIV' && i < showTo.current && i >= showFrom.current) {
@@ -58,6 +86,10 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
       showFrom.current += noOfFieldsAtaTime;
     }
 
+    if(showTo.current >= el.length - noOfFieldsAtaTime) {
+      setDisableNextButton(true);
+    }
+
     if (showTo.current < el.length) {
       showTo.current += noOfFieldsAtaTime;
     }
@@ -65,6 +97,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
   };
 
   const onBackClick = () => {
+    setDisableNextButton(false);
     if (showFrom.current > 0) {
       showFrom.current -= noOfFieldsAtaTime;
     }
@@ -102,7 +135,14 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
     initHubSpot();
   }, []);
 
-  return <FormTarget onBackClick={onBackClick} onNextClick={onNextClick} target={target} />;
+  return (
+    <FormTarget
+      disableNextButton={disableNextButton}
+      onBackClick={onBackClick}
+      onNextClick={onNextClick}
+      target={target}
+    />
+  );
 };
 
 export default LeadFormStepper;
