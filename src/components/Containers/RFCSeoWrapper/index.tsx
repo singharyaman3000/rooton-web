@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   };
   
 
-const RFCSeoWrapper = ({ children }: { children: ReactNode }) => {
+const RSCSeoWrapper = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
 };
 
-export default RFCSeoWrapper;
+export default RSCSeoWrapper;
