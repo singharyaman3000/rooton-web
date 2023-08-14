@@ -518,6 +518,6 @@ font {
   @apply line-clamp-2;
 }
 
-.whitespace-pre-font{
-  white-space: pre;
+.whitespace-font-pre-line{
+  white-space: pre-line;
 }
