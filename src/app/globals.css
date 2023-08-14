@@ -521,7 +521,7 @@ font {
   display: flex;
   justify-content: end;
   position: relative;
-  top: 4rem;
+  top: 2.6rem;
 }
 
 .hufrom, .actions input {

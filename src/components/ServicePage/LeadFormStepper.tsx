@@ -13,15 +13,15 @@ const FormTarget = ({ target, onNextClick, onBackClick, disableNextButton }: For
   return (
     <div className="mt-12 h-full w-full">
       <div className=" h-full w-full" id={target} />
-      <div className=" flex justify-between w-full">
-        <button type="button" className=" bg-black text-white px-4 py-2 mt-2" onClick={onBackClick}>
+      <div className=" flex justify-between w-full mt-10">
+        <button type="button" className=" bg-black text-white px-4 py-2 " onClick={onBackClick}>
           Back
         </button>
         {disableNextButton || (
           <button
             disabled={disableNextButton}
             type="button"
-            className=" bg-black text-white px-4 py-2 mt-2"
+            className=" bg-black text-white px-4 py-2"
             onClick={onNextClick}
           >
             Next
@@ -49,10 +49,10 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
   const showTo = useRef<number>(7);
 
   const [disableNextButton, setDisableNextButton] = useState(false);
+  const [showCalender, setShowCalender] = useState(false);
 
   const isThereAnyValidationErrors = () => {
     const errors = document.querySelectorAll('.hs-error-msgs');
-    console.log(errors.length);
     errors.forEach((err) => {
       console.log((err as HTMLUListElement).style.display);
       if ((err as HTMLUListElement).style.display === 'block') {
@@ -86,7 +86,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
       showFrom.current += noOfFieldsAtaTime;
     }
 
-    if(showTo.current >= el.length - noOfFieldsAtaTime) {
+    if (showTo.current >= el.length - noOfFieldsAtaTime) {
       setDisableNextButton(true);
     }
 
@@ -124,7 +124,10 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
             formId,
             target: `#${target}`,
             onFormSubmit,
-            onFormSubmitted,
+            onFormSubmitted: () => {
+              // show calender
+              setShowCalender(true);
+            },
             onFormReady: formReady,
             cssClass: 'huform',
           });
@@ -135,13 +138,15 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onFor
     initHubSpot();
   }, []);
 
-  return (
+  return !showCalender ? (
     <FormTarget
       disableNextButton={disableNextButton}
       onBackClick={onBackClick}
       onNextClick={onNextClick}
       target={target}
     />
+  ) : (
+    <div>cal</div>
   );
 };
 
