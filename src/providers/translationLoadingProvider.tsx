@@ -20,7 +20,7 @@ export const TranslationLoadingProvider = ({ children }: { children: ReactNode }
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoader(false);
-    }, 3000);
+    }, 3200);
     return () => clearTimeout(timer);
   }, []);
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import NextImage from '../../NextImage';
+import TabHeaderLabel from './TabHeaderLabel';
 
 export interface ITabHeaderData {
   service: string;
@@ -29,13 +30,18 @@ const btnVarient = {
 
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
   return (
-    <motion.div variants={containerVarient} initial="hidden" animate="show" className="flex items-center">
+    <motion.div
+      variants={containerVarient}
+      initial="hidden"
+      animate="show"
+      className="flex items-center cursor-pointer"
+    >
       {headerData.map(({ icon, service }) => {
         return (
           <motion.button
             variants={btnVarient}
             type="button"
-            onClick={() => handleOnClick({ service })}
+            onHoverStart={() => handleOnClick({ service })}
             className={`relative p-[15px] tab-header text-primary-text  w-[180px] flex items-center flex-col ${
               service === selectedTab.service ? 'tab-selectedBg text-primary-white font-bold' : ''
             }`}
@@ -55,9 +61,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
                   />
                 )}
               </div>
-              <div className="mt-[8px] text-lg not-italic leading-[normal] line-clamp-2 tracking-[normal] text-center">
-                {service}
-              </div>
+              <TabHeaderLabel service={service} />
             </div>
             {service === selectedTab.service && (
               <span className="absolute tab-selectedBg  rotate-45 square-[18px] bottom-[-9px]"></span>
