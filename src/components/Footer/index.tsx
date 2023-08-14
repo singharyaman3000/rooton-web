@@ -69,7 +69,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className=" hidden w-[1px] h-[312px] bg-primary-border lg:block ml-[128px] mr-20" />
+        <div className=" hidden w-[1px] h-[312px] bg-secondary-border lg:block ml-[128px] mr-20" />
         <div
           className="
             flex
