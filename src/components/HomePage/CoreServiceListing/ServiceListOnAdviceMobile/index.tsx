@@ -66,7 +66,7 @@ const ServiceListingOnAdviceMobile = () => {
             duration: 0.5,
             delay: 0,
           }}
-          className="fixed pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white  pl-9"
+          className="fixed pt-5 z-[1001] max-w-[448px] lg:hidden w-[100vw] h-[100vh] bg-white"
         >
           <CloseIconButton onClick={toggleModalShown} cssClass='px-5' />
           <div className="max-h-[calc(100vh-96px)] px-5 my-6 overflow-y-scroll">

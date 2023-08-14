@@ -14,7 +14,9 @@ const ServicesPopUpModal = () => {
     <div className="hidden lg:block">
       <PopUpOverlayWrapper onClose={toggleModalShown} showPopUp={isModalShown}>
         <ServiceListingWrapper cssClass="!md:h-[755px]">
-          <CloseIconButton onClick={toggleModalShown} />
+          <div className='pr-[36px]'>
+            <CloseIconButton onClick={toggleModalShown} />
+          </div>
           <ServiceListContent />
         </ServiceListingWrapper>
       </PopUpOverlayWrapper>
