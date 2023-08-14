@@ -11,16 +11,13 @@ import NextImage from '../UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import HtmlParser from 'react-html-parser';
 import FooterGrid from './FooterGrid';
-import { useTranslationLoader } from '@/providers/translationLoadingProvider';
 
 export default function Footer() {
   const { headerFooterData } = useHeaderFooterContext();
-  const { loader } = useTranslationLoader();
 
   return (
-    !loader && (
-      <footer
-        className="
+    <footer
+      className="
     bg-primary
     pb-[40px]
     md:pb-[225px]
@@ -34,9 +31,9 @@ export default function Footer() {
     xl:gap-[153px]
     relative
   "
-      >
-        <div
-          className="
+    >
+      <div
+        className="
       border-t
       border-b
       lg:border-0
@@ -51,30 +48,30 @@ export default function Footer() {
       lg:justify-around
       justify-center
     "
-        >
-          <div className=" lg:flex lg:flex-col justify-between">
-            <FooterLogo />
-            <div className=" flex flex-col gap-8 mb-7 xl:mb-0">
-              <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
-              <div className=" flex gap-12 justify-center">
-                <Link href={'/'}>
-                  <FacebookIcon />
-                </Link>
-                <Link href={'/'}>
-                  <TwitterIcon />
-                </Link>
-                <Link href={'/'}>
-                  <LinkedInIcon />
-                </Link>
-                <Link href={'/'}>
-                  <YoutubeIcon />
-                </Link>
-              </div>
+      >
+        <div className=" lg:flex lg:flex-col justify-between">
+          <FooterLogo />
+          <div className=" flex flex-col gap-8 mb-7 xl:mb-0">
+            <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
+            <div className=" flex gap-12 justify-center">
+              <Link href={'/'}>
+                <FacebookIcon />
+              </Link>
+              <Link href={'/'}>
+                <TwitterIcon />
+              </Link>
+              <Link href={'/'}>
+                <LinkedInIcon />
+              </Link>
+              <Link href={'/'}>
+                <YoutubeIcon />
+              </Link>
             </div>
           </div>
-          <div className=" hidden w-[1px] h-[312px] bg-primary-border lg:block ml-[128px] mr-20" />
-          <div
-            className="
+        </div>
+        <div className=" hidden w-[1px] h-[312px] bg-primary-border lg:block ml-[128px] mr-20" />
+        <div
+          className="
             flex
             lg:flex-col
             gap-10
@@ -86,24 +83,24 @@ export default function Footer() {
             lg:w-[145px]
             lg:justify-start
           "
-          >
-            <div className=" flex flex-col gap-3">
-              <Link href={'/'}>Careers</Link>
-              <Link href={'/'}>Privacy Policy</Link>
-              <Link href={'/'}>Terms & Condition</Link>
-              <Link href={'/'}>QnA Forum</Link>
-            </div>
-            <div className=" flex flex-col gap-3">
-              <Link href={'/'}>Book a Meeting RCIC</Link>
-              <Link href={'/'}>Disclaimer</Link>
-              <Link href={'/'}>GCKey vs APR </Link>
-              <Link href={'/'}>Affiliate Program</Link>
-              <Link href={'/'}>Sitemap</Link>
-            </div>
+        >
+          <div className=" flex flex-col gap-3">
+            <Link href={'/'}>Careers</Link>
+            <Link href={'/'}>Privacy Policy</Link>
+            <Link href={'/'}>Terms & Condition</Link>
+            <Link href={'/'}>QnA Forum</Link>
+          </div>
+          <div className=" flex flex-col gap-3">
+            <Link href={'/'}>Book a Meeting RCIC</Link>
+            <Link href={'/'}>Disclaimer</Link>
+            <Link href={'/'}>GCKey vs APR </Link>
+            <Link href={'/'}>Affiliate Program</Link>
+            <Link href={'/'}>Sitemap</Link>
           </div>
         </div>
-        <div
-          className="
+      </div>
+      <div
+        className="
       py-5
       px-6
       xl:pt-0
@@ -114,34 +111,32 @@ export default function Footer() {
       lg:justify-between
       lg:gap-[6px]
     "
-        >
-          {headerFooterData &&
-            headerFooterData[0]?.attributes.addresses.data?.map((address) => {
-              return (
-                <div key={address.id}>
-                  <div className=" mb-[6px]">
-                    <div className="w-[32px] h-[16px] relative">
-                      <NextImage
-                        src={appendAssetUrl(address?.attributes?.media_url?.data?.attributes?.url)}
-                        altText={address?.attributes?.media_url?.data?.attributes?.alternativeText}
-                        title=""
-                        sizes="100vw"
-                        fill
-                        style={{ objectFit: 'cover' }}
-                      />
-                    </div>
-                  </div>
-                  <p className=" text-sm mb-[4px] font-bold">{address?.attributes.name}</p>
-                  <p className=" text-sm mb-[4px]">{HtmlParser(address?.attributes?.location)}</p>
-                  <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
+      >
+        {headerFooterData && headerFooterData[0]?.attributes.addresses.data?.map((address) => {
+          return (
+            <div key={address.id}>
+              <div className=" mb-[6px]">
+                <div className="w-[32px] h-[16px] relative">
+                  <NextImage
+                    src={appendAssetUrl(address?.attributes?.media_url?.data?.attributes?.url)}
+                    altText={address?.attributes?.media_url?.data?.attributes?.alternativeText}
+                    title=""
+                    sizes="100vw"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
                 </div>
-              );
-            })}
-        </div>
-        <div className="absolute top-0 left-0 hidden w-full overflow-hidden xl:block">
-          <FooterGrid />
-        </div>
-      </footer>
-    )
+              </div>
+              <p className=" text-sm mb-[4px] font-bold">{address?.attributes.name}</p>
+              <p className=" text-sm mb-[4px]">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
+            </div>
+          );
+        })}
+      </div>
+      <div className="absolute top-0 left-0 hidden w-full overflow-hidden xl:block">
+        <FooterGrid />
+      </div>
+    </footer>
   );
 }
