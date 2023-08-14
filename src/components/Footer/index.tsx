@@ -112,7 +112,7 @@ export default function Footer() {
       lg:gap-[6px]
     "
       >
-        {headerFooterData && headerFooterData[0]?.attributes.addresses.data?.map((address) => {
+        {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
           return (
             <div key={address.id}>
               <div className=" mb-[6px]">
@@ -127,8 +127,8 @@ export default function Footer() {
                   />
                 </div>
               </div>
-              <p className=" text-sm mb-[4px] font-bold">{address?.attributes.name}</p>
-              <p className=" text-sm mb-[4px]">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] whitespace-pre font-bold">{address?.attributes.name}</p>
+              <p className=" text-sm mb-[4px] whitespace-pre">{HtmlParser(address?.attributes?.location)}</p>
               <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
             </div>
           );

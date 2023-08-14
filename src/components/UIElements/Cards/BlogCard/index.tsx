@@ -27,7 +27,7 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
         <h5 className="text-xs line-clamp-3 text-black font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
           {attributes.title}
         </h5>
-        <div className="flex flex-wrap items-start flex-col-reverse md:flex-row  md:flex-nowrap md:items-center w-full justify-between">
+        <div className="flex line-clamp-2 gap-x-[12px] flex-wrap items-start flex-col-reverse md:flex-row  md:flex-nowrap md:items-center w-full justify-between">
           <Button
             label="Read More"
             ariaLabel="Read More"
@@ -37,7 +37,7 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
           />
           <div className="text-xs mb-[8px] md:mb-[0px] mt-[8px] md:mt-0 order-2 md:order-1  not-italic leading-[normal] tracking-[normal] md:text-sm">
             <span className="mr-[8px]  opacity-[0.36] text-black">Last updated:</span>
-            <span className="text-black">{formatDate(attributes.updatedAt)}</span>
+            <span className="line-clamp-2 text-black">{formatDate(attributes.updatedAt)}</span>
           </div>
         </div>
         <div className="absolute right-0 bottom-0">

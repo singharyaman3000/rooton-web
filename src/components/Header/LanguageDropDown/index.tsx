@@ -63,7 +63,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
             />
           )}
         </div>
-        <p className={`text-base font-medium ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}>EN</p>
+        <p className={`text-base font-medium ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}>{selectedLang?.attributes.code}</p>
         <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
           <DownArrowIcon isScrolled={scrolledEnough} />
         </span>
