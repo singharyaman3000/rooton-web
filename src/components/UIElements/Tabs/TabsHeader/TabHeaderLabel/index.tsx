@@ -6,7 +6,7 @@ const TabHeaderLabel = ({ service }: { service: string }) => {
   useEffect(() => {
     const targetElement = targetElementRef.current;
 
-    if (!targetElement) return;
+    if (!targetElement) return () => {};
 
     const observer = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
