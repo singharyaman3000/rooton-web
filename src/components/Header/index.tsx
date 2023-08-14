@@ -73,16 +73,16 @@ export default function Header() {
   };
 
   return (
-    !loader && (
-      <header
-        ref={headerRef}
-        className={`z-[999] ${
-          scrolledEnough
-            ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
-            : ' absolute top-0 w-full'
-        }`}
-      >
-        <SliderOverlay open={open} setOpen={setOpen} />
+    <header
+      ref={headerRef}
+      className={`z-[999] ${
+        scrolledEnough
+          ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
+          : ' absolute top-0 w-full'
+      }`}
+    >
+      <SliderOverlay open={open} setOpen={setOpen} />
+      {!loader && (
         <nav>
           <div
             className="
@@ -171,7 +171,7 @@ export default function Header() {
           "
           />
         </nav>
-      </header>
-    )
+      )}
+    </header>
   );
 }
