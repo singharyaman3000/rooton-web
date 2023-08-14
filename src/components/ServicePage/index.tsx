@@ -10,7 +10,6 @@ import { Li } from '../Li';
 import { Ul } from '../Ul';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { ServiceDescription } from './Description';
-import LeadFormSection from './LeadFormSection';
 import { WhyChoose } from './WhyChoose';
 import { WhyRooton } from './WhyRooton';
 import { ServicePageWrapper } from './Wrapper';
@@ -23,6 +22,8 @@ import RootOnBanner from '../HomePage/RootOnBanner';
 import { appendAssetUrl, isVideo } from '@/utils';
 import CalenderIconYellow from '../Icons/CalendarIconYellow';
 import { SERVICES_TITLE } from '@/app/constants/textConstants';
+// eslint-disable-next-line import/no-named-as-default
+import LeadFormStepper from './LeadFormStepper';
 import RootOnCTAWrapper from './RootOnCTAWrapper';
 
 type ServicePageProps = {
@@ -99,8 +100,25 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
         >
           <div className="lg:pl-[60px] w-[75%] lg:pt-12 lg:pb-16">
             <H2>{leadForm?.attributes.title ?? ''}</H2>
-            <div className="">
-              <LeadFormSection forms={leadForm?.attributes.json_content.lead_forms ?? []} />
+            <div className="" id='lead-form'>
+              <LeadFormStepper
+                region={
+                  (leadForm?.attributes.json_content.lead_forms &&
+                    leadForm?.attributes.json_content.lead_forms[0].region) ??
+                  ''
+                }
+                portalId={
+                  (leadForm?.attributes.json_content.lead_forms &&
+                    leadForm?.attributes.json_content.lead_forms[0].portalId) ??
+                  ''
+                }
+                formId={
+                  (leadForm?.attributes.json_content.lead_forms &&
+                    leadForm?.attributes.json_content.lead_forms[0].formId) ??
+                  ''
+                }
+                target="LeadForm"
+              />
             </div>
           </div>
           <div className=" hidden lg:block w-[25%] h-[714px] relative">
@@ -118,14 +136,18 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
       </ServicePageWrapper>
       <ServicePageWrapper className="m-auto max-w-screen-2k lg:px-[80px]">
         <RootOnCTAWrapper
-          buttonAriaLabel="Book an Appointment now"
-          buttonText="Book an Appointment now"
+          buttonAriaLabel={SERVICES_TITLE.appointment1.title}
+          buttonText={SERVICES_TITLE.appointment1.title}
           buttonIcon={<CalenderIconYellow />}
           onClick={() => {}}
-          imageSrc='/images/servicePage/my-project-44@3x.png'
-          imageAlt='A lady'
-          imageTitle='A lady'
-          heading={<>Explore Your Options: <br /> Book an Appointment</>}
+          imageSrc={SERVICES_TITLE.appointment1.image}
+          imageAlt={SERVICES_TITLE.appointment1.imageAlt}
+          imageTitle={SERVICES_TITLE.appointment1.imageTitle}
+          heading={
+            <>
+              {SERVICES_TITLE.appointment1.contentLine1} <br /> {SERVICES_TITLE.appointment1.contentLine2}
+            </>
+          }
         />
       </ServicePageWrapper>
       <div className=" mt-10 m-auto max-w-screen-2k">
@@ -166,14 +188,18 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
       </div>
       <ServicePageWrapper className="m-auto max-w-screen-2k pb-20 lg:px-[80px]">
         <RootOnCTAWrapper
-          buttonAriaLabel="Book an Appointment now"
-          buttonText="Book an Appointment now"
+          buttonAriaLabel={SERVICES_TITLE.appointment2.title}
+          buttonText={SERVICES_TITLE.appointment2.title}
           buttonIcon={<CalenderIconYellow />}
           onClick={() => {}}
-          imageSrc='/images/servicePage/man-and-women.png'
-          imageAlt='man-and-women'
-          imageTitle='Man and Women'
-          heading={<>Streamline Your Immigration <br /> Journey with Experts</>}
+          imageSrc={SERVICES_TITLE.appointment2.image}
+          imageAlt={SERVICES_TITLE.appointment2.imageAlt}
+          imageTitle={SERVICES_TITLE.appointment2.imageTitle}
+          heading={
+            <>
+              {SERVICES_TITLE.appointment2.contentLine1} <br /> {SERVICES_TITLE.appointment2.contentLine2}
+            </>
+          }
         />
       </ServicePageWrapper>
     </div>

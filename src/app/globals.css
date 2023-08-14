@@ -506,3 +506,11 @@ font {
   border-radius: 8px;
   height: 6px
 }
+
+.huform input {
+  @apply border-2;
+}
+
+.huform .hs-form-field:nth-child(n+0) {
+  display: none;
+}

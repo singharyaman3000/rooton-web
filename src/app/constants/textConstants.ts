@@ -21,6 +21,22 @@ export const SERVICES_TITLE = {
   blogs: {
     title: 'Blogs',
   },
+  appointment1: {
+    title: 'Book an Appointment now',
+    contentLine1: 'Explore Your Options:',
+    contentLine2: 'Book an Appointment',
+    image: '/images/servicePage/my-project-44@3x.png',
+    imageAlt: 'A lady',
+    imageTitle: 'A lady',
+  },
+  appointment2: {
+    title: 'Book an Appointment now',
+    contentLine1: 'Streamline Your Immigration',
+    contentLine2: 'Journey with Experts',
+    image: '/images/servicePage/man-and-women.png',
+    imageAlt: 'man and women',
+    imageTitle: 'man and women',
+  },
 };
 
 export const LAYOUT = {
