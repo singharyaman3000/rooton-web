@@ -10,7 +10,7 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
   const [scrollAmt, setScrollAmt] = useState(0);
   const [unitPageWidth, setPageWidth] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const { pageNum, incrementPage, decrementPage } = useSliderPagination({ slidesLength: totalPages, initialPage: 0 });
+  const { pageNum, incrementPage, decrementPage , jumpToPage } = useSliderPagination({ slidesLength: totalPages, initialPage: 0 });
 
   useEffect(() => {
     setScrollAmt(unitPageWidth * pageNum);
@@ -39,7 +39,7 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
     }
   }, [sliderData]);
 
-  return { totalPages, pageNum, incrementPage, decrementPage, scrollAmt };
+  return { totalPages, pageNum, incrementPage, decrementPage, scrollAmt , jumpToPage };
 };
 
 export default useSliderData;
