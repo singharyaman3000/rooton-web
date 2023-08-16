@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import React, { ReactElement } from 'react';
 
-
 export interface IsliderProps {
   pageNum: number;
   children: Array<ReactElement>;

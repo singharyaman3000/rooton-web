@@ -20,6 +20,7 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
   const { jumpToPage, incrementPage, pageNum } = useSliderPagination({ slidesLength: 3, initialPage: 0 });
 
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     let intervalId: NodeJS.Timeout | null = null;
     intervalId = setInterval(() => {
       const isLastPage = 3;
