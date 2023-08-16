@@ -5,11 +5,15 @@ import LoadingUI from '@/components/LoadingUI';
 import { ServicePageComponent } from '@/components/ServicePage';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 import { useTranslationLoader } from '@/providers/translationLoadingProvider';
+import { useParams } from 'next/navigation';
 
 const ServicePageCSR = () => {
+
+  const params = useParams();
+
   const { data, loading } = useClientAPI({
     apiFn: () => {
-      return getServicePageContent(1);
+      return getServicePageContent(params.slug);
     },
   });
   const { loader } = useTranslationLoader();

@@ -16,6 +16,7 @@ import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
 import BookAnAppointment from './BookAppointment';
+import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
@@ -107,7 +108,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       {getComponentsAboveBookAppointments()}
       <BookAnAppointment />
       {getComponentsAfterBookAppointments()}
-      <Testimonials />
+      <Testimonials title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
       {faqData && (
         <FaqListing
           sub_title={faqData?.attributes?.sub_title}

@@ -1,5 +1,7 @@
 import { getFetch } from '@/utils/apiUtils';
 import { getServiceAPIUrl } from './apiUrl/servicePage';
+import { IMediaUrlData } from './interfaces';
+import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 
 type IEligibility = {
   key: string;
@@ -21,10 +23,17 @@ type IProcess = {
   position: string;
 };
 
+type IFaq = {
+  title: string;
+  position: number;
+  description: string;
+};
+
 type ISubServiceJSONContent = {
   eligibility?: IEligibility[];
   process?: IProcess[];
   lead_forms?: ILeadForm[];
+  faq?: IFaq[];
 };
 
 type ISubServiceAttributes = {
@@ -56,9 +65,10 @@ type IAttributes = {
   CTA_link: string;
   sub_title: string;
   media_url: {
-    data: null;
+    data: IMediaUrlData[];
   };
   sub_services_contents: ISubServiceSContents;
+  blogs: { data: IBlogCardData[] };
 };
 
 type IServicePageContentResponse = {
@@ -70,7 +80,7 @@ export type IServicePageContent = {
   data: IServicePageContentResponse;
 };
 
-export const getServicePageContent = async (serviceId: number) => {
+export const getServicePageContent = async (serviceId: string) => {
   try {
     const res = await getFetch<IServicePageContent>(getServiceAPIUrl(serviceId), { next: { revalidate: 10 } });
     return res;

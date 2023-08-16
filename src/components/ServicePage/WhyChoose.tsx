@@ -1,4 +1,6 @@
 import { H2 } from '../H2';
+import CallIcon from '../Icons/CallIcon';
+import RTONButtonBlackThemed from '../RTONButtonBlackThemed';
 import NextImage from '../UIElements/NextImage';
 
 type WhyChooseProps = {
@@ -6,9 +8,10 @@ type WhyChooseProps = {
   description: string;
   imageUrl: string;
   imageAlt: string;
+  onClickCTA: () => void;
 };
 
-export const WhyChoose = ({ title, description, imageAlt, imageUrl }: WhyChooseProps) => {
+export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }: WhyChooseProps) => {
   return (
     <section
       className="
@@ -47,6 +50,20 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl }: WhyChooseP
         >
           {description}
         </p>
+        <div
+          className="
+            mt-5
+            lg:w-[189px]
+          "
+        >
+          <RTONButtonBlackThemed
+            onClick={onClickCTA}
+            ariaLabel="Talk-to-our-Expert"
+            text="Talk to our Expert"
+            icon={<CallIcon />}
+            className=' w-full'
+          />
+        </div>
       </div>
       <div className="mt-8 aspect-square relative lg:flex-shrink-0 sm:w-[380px] lg:w-[480px] lg:h-[560px]">
         <NextImage src={imageUrl} altText={imageAlt} sizes="30vw" title="??" fill />
