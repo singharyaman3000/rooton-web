@@ -28,7 +28,7 @@ export interface Attributes2 {
   CTA_text?: null;
   CTA_link?: null;
   content_position: number;
-  content_name?: TContentTypes | null;
+  unique_identifier_name?: TContentTypes | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

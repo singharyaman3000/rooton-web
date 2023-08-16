@@ -69,7 +69,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className=" hidden w-[1px] h-[312px] bg-primary-border lg:block ml-[128px] mr-20" />
+        <div className=" hidden w-[1px] h-[312px] bg-secondary-border lg:block ml-[128px] mr-20" />
         <div
           className="
             flex
@@ -112,9 +112,9 @@ export default function Footer() {
       lg:gap-[6px]
     "
       >
-        {headerFooterData && headerFooterData[0]?.attributes.addresses.data?.map((address) => {
+        {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
           return (
-            <div key={address.id}>
+            <div key={address.id} className='odd:mb-[31px]'>
               <div className=" mb-[6px]">
                 <div className="w-[32px] h-[16px] relative">
                   <NextImage
@@ -127,8 +127,8 @@ export default function Footer() {
                   />
                 </div>
               </div>
-              <p className=" text-sm mb-[4px] font-bold">{address?.attributes.name}</p>
-              <p className=" text-sm mb-[4px]">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] whitespace-pre font-bold">{address?.attributes.name}</p>
+              <p className=" text-sm mb-[4px] whitespace-pre-line  whitespace-font-pre-line">{HtmlParser(address?.attributes?.location)}</p>
               <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
             </div>
           );

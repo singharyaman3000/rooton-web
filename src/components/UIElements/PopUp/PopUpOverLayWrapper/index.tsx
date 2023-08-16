@@ -29,6 +29,16 @@ const PopUpOverlayWrapper = ({
     };
   }, [wrapperRef, showPopUp]);
 
+  useEffect(() => {
+    if (showPopUp) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [showPopUp]);
+
   return (
     showPopUp && (
       <div className="fixed square-[100%] top-0 left-0 z-[1000]  flex  justify-center items-center">

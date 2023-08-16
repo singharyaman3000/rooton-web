@@ -40,6 +40,7 @@ module.exports = {
         'header-font-color-scrolled-enough': 'var(--header-font-color-scrolled-enough)',
         'primary-border': 'var(--primary-border)',
         'secondary-border': 'var(--secondary-border)',
+        'border-footer-gray': 'var(--border-footer-gray)',
         'cicc-border': 'var(--cicc-border)',
         'capic-border': 'var(--capic-border)',
         'grey' : 'var(--grey)',
@@ -60,6 +61,7 @@ module.exports = {
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
         'hubspot-form-shadow': 'var(--hubspot-form-shadow)',
+        'talk-to-our-experts-shadow': 'var( --talk-to-our-experts-shadow)'
       },
       lineHeight: {
         'primary': '1.71',

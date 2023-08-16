@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import SliderOverlay from './SliderOverlay';
 import TalkToOurExpert from '../UIElements/TalkToOurExpert';
+import { scrollIntoView } from '@/utils';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -98,23 +99,27 @@ export default function Header() {
         >
           {scrolledEnough ? (
             <div>
-              <Image
-                className=" lg:w-[173px] lg:h-[52px]"
-                width={120}
-                height={36}
-                alt="Root On logo"
-                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
-              />
+              <Link href={'/'}>
+                <Image
+                  className=" lg:w-[173px] lg:h-[52px]"
+                  width={120}
+                  height={36}
+                  alt="Root On logo"
+                  src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
+                />
+              </Link>
             </div>
           ) : (
             <div>
-              <Image
-                className=" lg:w-[173px] lg:h-[52px]"
-                width={120}
-                height={36}
-                alt="Root On logo"
-                src={'/root-on-logo-svg.svg'}
-              />
+              <Link href={'/'}>
+                <Image
+                  className=" lg:w-[173px] lg:h-[52px]"
+                  width={120}
+                  height={36}
+                  alt="Root On logo"
+                  src={'/root-on-logo-svg.svg'}
+                />
+              </Link>
             </div>
           )}
           <div
@@ -134,8 +139,14 @@ export default function Header() {
             <span>
               <Link href={'/'}> About Us </Link>
             </span>
-            <span>
-              <Link href={'/'}> Services </Link>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            <span
+              onClick={() => {
+                scrollIntoView('servicesHomePage');
+              }}
+              className='cursor-pointer'
+            >
+              Services
             </span>
             <span>
               <Link href={'/'}> Coaching </Link>

@@ -12,6 +12,7 @@
 
   --primary-border: #d8d8d85C;
   --secondary-border: #d2d2d2;
+  --border-footer-gray: ##d8d8d8;
 
   --cicc-border: #e22826;
   --capic-border: #123474;
@@ -33,6 +34,8 @@
   --language-dropdown-shadow : 0 2px 60px 0 rgba(0,0,0,0.5);
   --preloader-overlay:hsl(252deg 9% 6% / 18%),hsl(252deg 3% 16% / 19%),hsl(0deg 2% 5% / 15%);
   --hubspot-form-shadow: 0 22px 60px 0 rgba(0, 0, 0, 0.1);
+
+  --talk-to-our-experts-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2)
 }
 
 [data-theme='dark'] {
@@ -140,6 +143,10 @@ fill: #fff;
 .hideScrollBar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+.pop-up-list-item span{
+  font-weight: 500 !important;
 }
 
 /* background grid container css*/
@@ -535,4 +542,22 @@ font {
 
 button:disabled {
   background-color: #707070;
+}
+
+.line-wrap-1{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-wrap-2{
+  @apply line-clamp-2;
+}
+
+.whitespace-font-pre-line{
+  white-space: pre-line;
+}
+
+.slide-shader{
+  background-image: linear-gradient(to right, rgba(248, 248, 248, 0) 4%, #f6f6f6 88%);
 }

@@ -13,8 +13,10 @@ const ServicesPopUpModal = () => {
   return (
     <div className="hidden lg:block">
       <PopUpOverlayWrapper onClose={toggleModalShown} showPopUp={isModalShown}>
-        <ServiceListingWrapper cssClass="!md:h-[755px]">
-          <CloseIconButton onClick={toggleModalShown} />
+        <ServiceListingWrapper cssClass="!md:h-[755px]" >
+          <div className='w-full flex justify-end px-5'>
+            <CloseIconButton onClick={toggleModalShown} />
+          </div>
           <ServiceListContent />
         </ServiceListingWrapper>
       </PopUpOverlayWrapper>

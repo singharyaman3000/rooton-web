@@ -3,12 +3,12 @@
 import useClient from '@/hooks/useClient';
 import React, { ReactNode } from 'react';
 import Translator from './translator';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { TranslationLoadingProvider } from '@/providers/translationLoadingProvider';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 import { getHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { HeaderFooterDataProvider } from '@/providers/headerFooterDataProvider';
+import ClientFooter from '@/components/Footer/ClientFooter';
+import ClientHeader from '@/components/Header/ClientHeader';
 
 const ClientPageLayout = ({ children }: { children: ReactNode }) => {
   const { isClient } = useClient();
@@ -20,9 +20,9 @@ const ClientPageLayout = ({ children }: { children: ReactNode }) => {
         <HeaderFooterDataProvider headerFooterAPIData={data}>
           <TranslationLoadingProvider>
             <Translator />
-            <Header />
+            <ClientHeader />
             {children}
-            <Footer />
+            <ClientFooter />
           </TranslationLoadingProvider>
         </HeaderFooterDataProvider>
       )}

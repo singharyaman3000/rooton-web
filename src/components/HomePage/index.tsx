@@ -22,7 +22,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
-      switch (contents.attributes.content_name) {
+      switch (contents.attributes.unique_identifier_name) {
       case CONTENT_TYPES.SERVICES:
         return (
           <ServicesListing
@@ -76,7 +76,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAfterBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
       const { title, sub_title } = contents.attributes;
-      switch (contents.attributes.content_name) {
+      switch (contents.attributes.unique_identifier_name) {
       case CONTENT_TYPES.PARTNERSHIPS:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
       case CONTENT_TYPES.BLOG:

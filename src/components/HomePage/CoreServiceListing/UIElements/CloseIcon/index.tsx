@@ -1,11 +1,11 @@
 import React from 'react';
 import CloseIcon from '@/components/Icons/MobileCoreServicesCloseIcon';
 
-const CloseIconButton = ({ onClick }: { onClick: () => void }) => {
+const CloseIconButton = ({ onClick, cssClass }: { onClick: () => void, cssClass?:string }) => {
   return (
     <button
       type="button"
-      className="w-full flex justify-end"
+      className={`w-fit ${cssClass}`}
       onClick={() => {
         onClick();
       }}
