@@ -48,4 +48,4 @@ export const getTranslatedURL = (url: string, lang?: string) => {
   return url;
 };
 
-export const getServicePageURL = (id: string | number) => `/service/${id}`; 
+export const getServicePageURL = (id: string | number) => `/service/${id}`;
