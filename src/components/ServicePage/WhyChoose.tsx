@@ -8,9 +8,10 @@ type WhyChooseProps = {
   description: string;
   imageUrl: string;
   imageAlt: string;
+  onClickCTA: () => void;
 };
 
-export const WhyChoose = ({ title, description, imageAlt, imageUrl }: WhyChooseProps) => {
+export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }: WhyChooseProps) => {
   return (
     <section
       className="
@@ -56,7 +57,7 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl }: WhyChooseP
           "
         >
           <RTONButtonBlackThemed
-            onClick={() => {}}
+            onClick={onClickCTA}
             ariaLabel="Talk-to-our-Expert"
             text="Talk to our Expert"
             icon={<CallIcon />}

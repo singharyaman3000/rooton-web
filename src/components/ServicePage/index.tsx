@@ -1,7 +1,7 @@
 'use client';
 
 import { IServicePageContent } from '@/app/services/apiService/serviceAPI';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { H2 } from '../H2';
 import OurProcess from '../HomePage/OurProcess';
 import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
@@ -33,6 +33,9 @@ type ServicePageProps = {
 export const ServicePageComponent = ({ response }: ServicePageProps) => {
   const [selectedAccordionId, setSelectedAccordionId] = useState<string | null>(null);
   const [formStepperProgress, setFormStepperProgress] = useState(0);
+  const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
+
+  const leadFormRef = useRef<HTMLDivElement>(null);
 
   const whyChooseOpen = response.data.attributes.sub_services_contents.data.find((i) => {
     return i.attributes.position === 1;
@@ -56,6 +59,18 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
 
   const blogs = response.data.attributes.blogs ?? [];
 
+  const handleCTAButtonClick = () => {
+    setShowBookAnAppointment(true);
+    setTimeout(() => {
+      // leadFormRef.current!.scrollIntoView({ behavior: 'smooth', top: '' });
+
+      window.scrollTo({
+        top: (leadFormRef.current!.getBoundingClientRect().top - 150) + window.pageYOffset,
+        behavior: 'smooth',
+      });
+    }, 0);
+  };
+
   return (
     <div>
       <RootOnBanner
@@ -63,12 +78,13 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton />}
+        button={<BookAnAppointmentButton onClick={handleCTAButtonClick} />}
       />
       <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <>
           <ServiceDescription text={response.data.attributes.description} />
           <WhyChoose
+            onClickCTA={handleCTAButtonClick}
             title={whyChooseOpen?.attributes.title ?? ''}
             description={whyChooseOpen?.attributes.description ?? ''}
             imageAlt="A man with laptop"
@@ -93,8 +109,13 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           json_content={process?.attributes.json_content as IOurProcessData}
         />
       </div>
-      <ServicePageWrapper className="p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-[1440px]">
+      <ServicePageWrapper
+        className={`${
+          showBookAnAppointment ? 'block' : 'hidden'
+        } p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-[1440px]`}
+      >
         <div
+          ref={leadFormRef}
           className="
             flex
             gap-[34px]
@@ -146,12 +167,12 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           </div>
         </div>
       </ServicePageWrapper>
-      <ServicePageWrapper className="m-auto max-w-screen-2k lg:px-[80px]">
+      <ServicePageWrapper className="m-auto max-w-screen-2k px-6 lg:px-[80px]">
         <RootOnCTAWrapper
           buttonAriaLabel={SERVICES_TITLE.appointment1.title}
           buttonText={SERVICES_TITLE.appointment1.title}
           buttonIcon={<CalenderIconYellow />}
-          onClick={() => {}}
+          onClick={handleCTAButtonClick}
           imageSrc={SERVICES_TITLE.appointment1.image}
           imageAlt={SERVICES_TITLE.appointment1.imageAlt}
           imageTitle={SERVICES_TITLE.appointment1.imageTitle}
@@ -198,12 +219,12 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           />
         </div>
       </div>
-      <ServicePageWrapper className="m-auto max-w-screen-2k pb-20 lg:px-[80px]">
+      <ServicePageWrapper className="m-auto mt-20 max-w-screen-2k pb-20 px-6 lg:px-[80px]">
         <RootOnCTAWrapper
           buttonAriaLabel={SERVICES_TITLE.appointment2.title}
           buttonText={SERVICES_TITLE.appointment2.title}
           buttonIcon={<CalenderIconYellow />}
-          onClick={() => {}}
+          onClick={handleCTAButtonClick}
           imageSrc={SERVICES_TITLE.appointment2.image}
           imageAlt={SERVICES_TITLE.appointment2.imageAlt}
           imageTitle={SERVICES_TITLE.appointment2.imageTitle}

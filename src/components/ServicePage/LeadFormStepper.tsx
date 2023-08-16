@@ -153,6 +153,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
             },
             onFormReady: formReady,
             cssClass: 'huform',
+            submitText: 'Proceed',
           });
         }
       });
