@@ -47,8 +47,9 @@ const ServiceListingOnAdviceMobile = () => {
   }, []);
 
   const getServiceListing = () => {
-    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services;
-    return ServicesList?.data?.map((listItem) => {
+    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services?.data;
+    ServicesList?.sort((a,b) => a?.id - b?.id)
+    return ServicesList?.map((listItem) => {
       return (
         <div className="mb-7" key={listItem?.id}>
           <ListHeading serviceTitle={listItem?.attributes?.title || ''} />
@@ -83,7 +84,7 @@ const ServiceListingOnAdviceMobile = () => {
             <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
               Select a service for which you need advice on.
             </h1>
-            <div className="flex flex-col pb-[36px]">{getServiceListing()}</div>
+            <div className="flex flex-col pb-[36px] w-full">{getServiceListing()}</div>
           </div>
         </motion.div>
       )}

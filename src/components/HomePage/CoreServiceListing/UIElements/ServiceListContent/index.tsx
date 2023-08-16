@@ -7,10 +7,13 @@ const ServiceListContent = () => {
   const { headerFooterData } = useHeaderFooterContext();
 
   const getServiceListing = () => {
-    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services;
+    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services?.data;
+    ServicesList?.sort((a,b)=> a.id - b.id)
+    console.log(ServicesList);
+    
     const ServiceListright: IServiceData[] = [];
     const ServiceListLeft: IServiceData[] = [];
-    ServicesList?.data?.forEach((listItem, index: number) => {
+    ServicesList?.forEach((listItem, index: number) => {
       if (index % 2 === 0) ServiceListLeft.push(listItem);
       else ServiceListright.push(listItem);
     });
@@ -24,7 +27,7 @@ const ServiceListContent = () => {
       <h1 className="mb-10 px-9 text-[22px] tracking-normal font-bold text-black ">
         Select a service for which you need advice on.
       </h1>
-      <div className=" flex  px-9 flex-row  gap-[6.8vw] overflow-y-scroll  h-[82%]">{getServiceListing()}</div>
+      <div className=" flex w-[full] px-9 flex-row  gap-[6.8vw] overflow-y-scroll  h-[82%]">{getServiceListing()}</div>
     </>
   );
 };

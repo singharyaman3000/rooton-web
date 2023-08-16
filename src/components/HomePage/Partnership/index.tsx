@@ -14,7 +14,7 @@ export interface IPartnershipData extends ITitleAttributes {
   data: IimageCard[];
 }
 
-const SLIDES_PER_PAGE = 3;
+// const SLIDES_PER_PAGE = 3;
 
 const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
   const { jumpToPage, incrementPage, pageNum } = useSliderPagination({ slidesLength: 3, initialPage: 0 });
@@ -22,7 +22,6 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
     intervalId = setInterval(() => {
-      console.log(pageNum)
       const isLastPage = 3;
       if (pageNum + 1 === isLastPage) {
         jumpToPage(0);
@@ -30,7 +29,6 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
         incrementPage();
       }
     }, 2500);
-    console.log('herere');
     return () => {
       if (intervalId) {
         clearInterval(intervalId);
@@ -38,12 +36,12 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
     };
   }, [pageNum, data.length]);
 
-  const isVisible = (index: number) => {
-    const firstPage = pageNum * SLIDES_PER_PAGE + pageNum;
-    const lastPage = firstPage + SLIDES_PER_PAGE;
-    // console.log(firstPage, lastPage, firstPage === index || lastPage === index);
-    return firstPage <= index && index <= lastPage;
-  };
+  // const isVisible = (index: number) => {
+  //   const firstPage = pageNum * SLIDES_PER_PAGE + pageNum;
+  //   const lastPage = firstPage + SLIDES_PER_PAGE;
+  //   // console.log(firstPage, lastPage, firstPage === index || lastPage === index);
+  //   return firstPage <= index && index <= lastPage;
+  // };
 
   return (
     <div className="relative">
@@ -52,8 +50,23 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
           <SectionTitle title={title} />
           <SubSectionTitle title={sub_title} />
         </div>
-        <motion.div className="  pb-[45.5px] pt-[37px] lg:pb-[106px] lg:pt-[110px] gap-y-[15.3px] gap-x-[6.38%] grid grid-cols-2  content-center items-center border-1 md:grid-cols-3 lg:grid-cols-4 lg:gap-[5%]">
-          {[...data,...data ,...data]?.map((card, index) => {
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            ease: 'easeInOut',
+            duration: 0.6,
+            delay: 0.12,
+          }}
+          viewport={{ once: true }}
+          className=" pb-[45.5px] pt-[37px] lg:pb-[106px] lg:pt-[110px] gap-y-[15.3px] gap-x-[6.38%] grid grid-cols-2  content-center items-center border-1 md:grid-cols-3 lg:grid-cols-4 lg:gap-[5%]"
+        >
+          {data?.map((card) => <ImageCard key={card.attributes.url} attributes={card.attributes} />)}
+
+          {/* {[...data, ...data, ...data]?.map((card, index) => {
             return (
               <motion.div
                 className={` transition-all duration-[700ms]  ${
@@ -66,7 +79,7 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
                 <ImageCard key={card.attributes.url} attributes={card.attributes} />
               </motion.div>
             );
-          })}
+          })} */}
         </motion.div>
       </Container>
       <div className="mt-[93px] absolute top-0 z-[-1] w-full hidden lg:block overflow-clip">

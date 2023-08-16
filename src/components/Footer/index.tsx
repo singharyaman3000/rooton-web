@@ -51,7 +51,7 @@ export default function Footer() {
       >
         <div className=" lg:flex lg:flex-col justify-between">
           <FooterLogo />
-          <div className=" flex flex-col gap-8 mb-7 xl:mb-0">
+          <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center">
               <Link href={'/'}>
@@ -69,28 +69,27 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className=" hidden w-[1px] h-[312px] bg-secondary-border lg:block ml-[128px] mr-20" />
+        <div className=" hidden w-[1px] h-full bg-secondary-border lg:block ml-[128px] mr-20" />
         <div
           className="
             flex
             lg:flex-col
             gap-10
-            lg:gap-4
+            lg:gap-0
             flex-wrap
             justify-between
             text-sm
             font-semibold
             lg:w-[145px]
-            lg:justify-start
           "
         >
-          <div className=" flex flex-col gap-3">
+          <div className=" flex flex-col gap-3 lg:gap-[18px]">
             <Link href={'/'}>Careers</Link>
             <Link href={'/'}>Privacy Policy</Link>
             <Link href={'/'}>Terms & Condition</Link>
             <Link href={'/'}>QnA Forum</Link>
           </div>
-          <div className=" flex flex-col gap-3">
+          <div className=" flex flex-col gap-3 lg:gap-[18px]">
             <Link href={'/'}>Book a Meeting RCIC</Link>
             <Link href={'/'}>Disclaimer</Link>
             <Link href={'/'}>GCKey vs APR </Link>
@@ -109,7 +108,7 @@ export default function Footer() {
       flex-col
       justify-center
       lg:justify-between
-      lg:gap-[6px]
+      lg:gap-0
     "
       >
         {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
@@ -129,7 +128,7 @@ export default function Footer() {
               </div>
               <p className=" text-sm mb-[4px] whitespace-pre font-bold">{address?.attributes.name}</p>
               <p className=" text-sm mb-[4px] whitespace-pre-line  whitespace-font-pre-line">{HtmlParser(address?.attributes?.location)}</p>
-              <p className=" text-sm mb-[4px] font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
+              <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
             </div>
           );
         })}

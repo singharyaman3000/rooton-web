@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Paginator = ({ totalPages, selectedIndex }: { totalPages: number; selectedIndex: number }) => {
-  console.log(selectedIndex);
   return (
     <div className="flex md:hidden items-center justify-center  gap-x-[16px]">
       {[...Array(totalPages)].map((elem, index) => {
