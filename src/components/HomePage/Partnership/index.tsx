@@ -23,7 +23,6 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
     // eslint-disable-next-line no-undef
     let intervalId: NodeJS.Timeout | null = null;
     intervalId = setInterval(() => {
-      console.log(pageNum);
       const isLastPage = 3;
       if (pageNum + 1 === isLastPage) {
         jumpToPage(0);

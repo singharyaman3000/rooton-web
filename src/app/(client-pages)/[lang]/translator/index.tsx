@@ -31,7 +31,6 @@ const Translator = () => {
     window.googleTranslateElementInit = googleTranslateElementInit;
     const langCode = window.location.href.split(String(process.env.NEXT_APP_BASE_URL))[1].split('/')[0];
     const language = headerFooterData?.[0]?.attributes.languages.data?.find((lan) => lan.attributes.code === langCode);
-    console.log(langCode, language, headerFooterData);
     const appMainDomain = process.env.NEXT_APP_MAIN_DOMAIN;
     document.cookie = `googtrans=/en/${
       language ? language.attributes.code : 'en'

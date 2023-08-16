@@ -11,7 +11,6 @@ const TabHeaderLabel = ({ service }: { service: string }) => {
     const observer = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
         const hasMutiText = mutation.target.textContent?.split(' ');
-        console.log(hasMutiText, 'hi');
         if (mutation.type === 'characterData') {
           if (hasMutiText?.length === 1) {
             targetElement.classList.add('line-wrap-1');
