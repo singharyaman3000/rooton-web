@@ -13,7 +13,11 @@ const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; 
     <div className={`w-full flex items-center flex-wrap ${cssClass}`}>
       {services.map((service) => {
         return (
-          <Link className='w-[45%]'  key={service.attributes.title} href={getTranslatedURL(getServicePageURL(service.id), path.lang)}>
+          <Link
+            className="w-[45%]"
+            key={service.attributes.title}
+            href={getTranslatedURL(getServicePageURL(service.id), path.lang)}
+          >
             <div
               className={
                 'items-center service justify-between w-full  delay-75 cursor-pointer text-black hover:text-white transition-all hover:bg-deep-yellow  hover:[&svg]:fill-white [&>svg]:fill-deep-yellow p-[24px_24px_0px_24px]  text-lg font-bold not-italic leading-[normal] tracking-[normal] flex-shrink-0'
