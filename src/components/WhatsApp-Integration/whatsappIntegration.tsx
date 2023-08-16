@@ -1,16 +1,42 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import WhatsappIcon from '../Icons/WhatsappIcon';
+import WhatsApp_Temp from './whatsappTemplate';
+import styles from './WhatsappCss.module.css';
 
-/**
- * Renders a WhatsApp button component that opens a new window with the WhatsApp chat.
- *
- * @return {JSX.Element} The rendered WhatsApp button component.
- */
 function WhatsAppButton() {
+  const [showTemplate, setShowTemplate] = useState(false);
+  const [showTypingInitial, setShowTypingInitial] = useState(true);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 425);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 425);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleLogoClick = () => {
+    if (isMobileView) {
+      handleClick();
+      return;
+    }
+    setShowTemplate((prev) => !prev);
+
+    if (showTypingInitial) {
+      setTimeout(() => {
+        setShowTypingInitial(false);
+      }, 3000);
+    }
+  };
   const handleClick = () => {
-    window.open('https://wa.me/82XXXX82636', '_blank', 'width=1080,height=800,left=200,top=200'); // Replace '8200826363' with your phone number
+    window.open('https://wa.me/1234567890', '_blank', 'width=1080,height=800,left=200,top=200');
   };
 
   return (
@@ -20,18 +46,23 @@ function WhatsAppButton() {
         right: '10px',
         bottom: '10px',
         cursor: 'pointer',
+        zIndex: '1000',
       }}
-      onClick={handleClick}
       role="button"
-      tabIndex={0} // Add tabIndex for accessibility
+      tabIndex={0}
       onKeyDown={(event) => {
-        // Trigger action on "Enter" key press for accessibility
         if (event.key === 'Enter') {
-          handleClick();
+          handleLogoClick();
         }
       }}
     >
-      <WhatsappIcon /> {/* Here, we're using the WhatsappIcon component directly */}
+      <div className={showTemplate ? styles.fade_show : styles.fade}>
+        <WhatsApp_Temp hideTemplate={handleLogoClick} showTypingInitial={showTypingInitial} />
+      </div>
+
+      <div onClick={handleLogoClick}>
+        <WhatsappIcon /> {}
+      </div>
     </div>
   );
 }
