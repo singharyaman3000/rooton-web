@@ -62,8 +62,6 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
   const handleCTAButtonClick = () => {
     setShowBookAnAppointment(true);
     setTimeout(() => {
-      // leadFormRef.current!.scrollIntoView({ behavior: 'smooth', top: '' });
-
       window.scrollTo({
         top: (leadFormRef.current!.getBoundingClientRect().top - 150) + window.pageYOffset,
         behavior: 'smooth',
