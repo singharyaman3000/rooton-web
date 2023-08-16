@@ -12,7 +12,7 @@ function WhatsAppButton() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 425);
+      setIsMobileView(window.innerWidth <= 768);
     };
 
     window.addEventListener('resize', handleResize);
