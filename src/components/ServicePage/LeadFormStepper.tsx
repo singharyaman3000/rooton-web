@@ -90,7 +90,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
   const formReady = () => {
     const formEl = document.querySelector('.huform');
-    const el = document.querySelectorAll('.hs-form-field');
+    const el = document.querySelectorAll('.hs-form-field .hs-dependent-field');
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime + 1;
     // formEl?.addEventListener('change', () => {
     //   setTimeout(() => {
