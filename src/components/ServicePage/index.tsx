@@ -72,7 +72,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
   return (
     <div>
       <RootOnBanner
-        isVideoBanner={isVideo(response.data?.attributes.media_url?.data[0].attributes.mime)}
+        isVideoBanner={isVideo(response.data?.attributes.media_url?.data?.[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
