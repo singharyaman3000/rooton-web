@@ -44,12 +44,12 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
   return (
     <>
       <button
-        aria-label="Language dropdown button"
+        aria-label="Language dropdown button "
         type="button"
         onClick={() => {
           setIsOpen((o) => !o);
         }}
-        className=" flex gap-2 items-center relative"
+        className=" flex gap-2 items-center relative z-[1001]"
       >
         <div className="w-[16px] h-[16px] relative">
           {selectedLang && (
@@ -72,6 +72,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
           <div
             onClick={(e) => dropdownContainerOnClick(e)}
             className="
+               overscroll-contain
                 z-[1001]
                 absolute
                 w-[180px]
@@ -97,7 +98,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
 
       {isOpen && (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div onClick={handleClose} className="fixed top-0 left-0 square-[100%] z-[1000]"></div>
+        <div onClick={handleClose} className="cursor-[default] fixed top-0 left-0 square-[100%] z-[1000]"></div>
       )}
     </>
   );
