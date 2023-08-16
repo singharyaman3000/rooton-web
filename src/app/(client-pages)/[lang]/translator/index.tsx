@@ -1,7 +1,6 @@
 'use client';
 
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
-import { useParams } from 'next/navigation';
 import React, { ReactNode, useEffect } from 'react';
 
 export interface ILanguage {
@@ -11,7 +10,6 @@ export interface ILanguage {
 }
 
 const Translator = () => {
-  const params = useParams();
   const { headerFooterData } = useHeaderFooterContext();
 
   const googleTranslateElementInit = () => {
