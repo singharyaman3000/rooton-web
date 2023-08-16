@@ -7,23 +7,24 @@ type FormTargetProps = {
   onNextClick: () => void;
   onBackClick: () => void;
   disableNextButton: boolean;
+  disableBackButton: boolean;
 };
 
-const FormTarget = ({ target, onNextClick, onBackClick, disableNextButton }: FormTargetProps) => {
+const FormTarget = ({ target, onNextClick, onBackClick, disableNextButton, disableBackButton }: FormTargetProps) => {
   return (
     <div className="mt-12 h-full w-full">
       <div className=" h-full w-full" id={target} />
       <div className=" flex justify-between w-full mt-10">
-        <button type="button" className=" bg-black text-white px-4 py-2 " onClick={onBackClick}>
+        <button
+          disabled={disableBackButton}
+          type="button"
+          className=" bg-black text-white px-4 py-2 "
+          onClick={onBackClick}
+        >
           Back
         </button>
         {disableNextButton || (
-          <button
-            disabled={disableNextButton}
-            type="button"
-            className=" bg-black text-white px-4 py-2"
-            onClick={onNextClick}
-          >
+          <button type="button" className=" bg-black text-white px-4 py-2" onClick={onNextClick}>
             Next
           </button>
         )}
@@ -51,7 +52,10 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   const showTo = useRef<number>(7);
 
   const [disableNextButton, setDisableNextButton] = useState(false);
+  const [disableBackButton, setDisableBackButton] = useState(true);
+
   const [showCalender, setShowCalender] = useState(false);
+
   const stepNo = useRef<number>(1);
   const formLength = useRef<number>(0);
 
@@ -69,7 +73,6 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
   const calculateProgress = () => {
     const progress = (stepNo.current / formLength.current) * 100;
-    console.log('pro', progress);
     onProgress(progress);
   };
 
@@ -98,6 +101,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   };
 
   const onNextClick = () => {
+    setDisableBackButton(false);
     const el = document.querySelectorAll('.hs-form-field');
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
       showFrom.current += noOfFieldsAtaTime;
@@ -117,9 +121,13 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
   const onBackClick = () => {
     setDisableNextButton(false);
-    if (showFrom.current > 0) {
+    if (showFrom.current > 1) {
       showFrom.current -= noOfFieldsAtaTime;
       stepNo.current -= 1;
+    };
+
+    if(showFrom.current === 0) {
+      setDisableBackButton(true);
     }
 
     const el = document.querySelectorAll('.hs-form-field');
@@ -164,14 +172,15 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
   return !showCalender ? (
     <FormTarget
+      disableBackButton={disableBackButton}
       disableNextButton={disableNextButton}
       onBackClick={onBackClick}
       onNextClick={onNextClick}
       target={target}
     />
   ) : (
-    <div className=' h-[54rem]'>
-      <iframe className=' w-full h-full' title='AA' src='https://meetings.hubspot.com/ajesh-ajayan' />
+    <div className=" h-[54rem]">
+      <iframe className=" w-full h-full" title="AA" src="https://meetings.hubspot.com/ajesh-ajayan" />
     </div>
   );
 };

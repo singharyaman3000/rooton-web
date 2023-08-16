@@ -532,3 +532,7 @@ font {
   padding-bottom: 8px;
   color: white;
 }
+
+button:disabled {
+  background-color: #707070;
+}
