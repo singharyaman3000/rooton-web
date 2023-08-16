@@ -48,7 +48,8 @@ const ServiceListingOnAdviceMobile = () => {
 
   const getServiceListing = () => {
     const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services?.data;
-    ServicesList?.sort((a,b) => a?.id - b?.id)
+    /* eslint-disable no-unsafe-optional-chaining */
+    ServicesList?.sort((a,b) => a?.id - b?.id);
     return ServicesList?.map((listItem) => {
       return (
         <div className="mb-7" key={listItem?.id}>
@@ -67,7 +68,6 @@ const ServiceListingOnAdviceMobile = () => {
           initial={{ opacity: 1, x: windowWidth }}
           whileInView={{
             opacity: 1,
-            /* eslint-disable no-unsafe-optional-chaining */
             x: xValue,
           }}
           transition={{

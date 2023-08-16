@@ -8,9 +8,8 @@ const ServiceListContent = () => {
 
   const getServiceListing = () => {
     const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services?.data;
-    ServicesList?.sort((a,b)=> a.id - b.id)
-    console.log(ServicesList);
-    
+    /* eslint-disable no-unsafe-optional-chaining */
+    ServicesList?.sort((a,b)=> a?.id - b?.id);
     const ServiceListright: IServiceData[] = [];
     const ServiceListLeft: IServiceData[] = [];
     ServicesList?.forEach((listItem, index: number) => {
