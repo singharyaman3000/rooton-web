@@ -10,7 +10,7 @@ export interface IVideoElement {
 }
 
 const VideoElement = ({ src, constrols = true, loop = false, cssClass , muted }: IVideoElement) => {
-  return <video className={cssClass} controls={constrols} src={src} autoPlay muted={muted} loop={loop} preload="metadata" />;
+  return <video playsInline className={cssClass} controls={constrols} src={src} autoPlay muted={muted} loop={loop} preload="metadata" />;
 };
 
 export default VideoElement;

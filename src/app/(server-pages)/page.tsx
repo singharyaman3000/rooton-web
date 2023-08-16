@@ -2,8 +2,6 @@ import { Metadata } from 'next';
 import HomePage from '@/components/HomePage';
 import { getHomePageContents } from '../services/apiService/homeAPI';
 
-// import { CONTENT_TYPES, getHomePageContents } from '../services/apiService/homeAPI';
-
 export const metadata: Metadata = {
   title: 'ROOT ON',
   description: 'Root On',
@@ -23,5 +21,5 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const apiRes = await getHomePageContents();
-  return <HomePage homePageConfig={apiRes} />;
+  return apiRes?.length > 0 && <HomePage homePageConfig={apiRes[0]} />;
 }

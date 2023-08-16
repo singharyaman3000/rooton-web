@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Breadcrumbs } from './Breadcrumbs';
 
 type RTONBannerProps = {
   backgroundImageUrl: string;
@@ -26,6 +27,23 @@ export default function RTONBanner({
       "
       style={{ backgroundImage: backgroundImageUrl }}
     >
+      <Breadcrumbs
+        className=' hidden lg:flex'
+        data={[
+          {
+            title: 'Home',
+            path: '',
+          },
+          {
+            title: 'Services',
+            path: '',
+          },
+          {
+            title: 'Open Work Permit',
+            path: '',
+          },
+        ]}
+      />
       <div
         className=" w-full h-full"
         style={{
