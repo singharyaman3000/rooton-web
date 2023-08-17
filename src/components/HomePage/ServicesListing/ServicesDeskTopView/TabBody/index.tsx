@@ -4,7 +4,7 @@ import { ISubServiceData } from '../../interafces';
 import HtmlParser from 'react-html-parser';
 import Link from 'next/link';
 import { getServicePageURL, getTranslatedURL } from '@/utils';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 
 const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; cssClass?: string }) => {
   // const path = useParams();
