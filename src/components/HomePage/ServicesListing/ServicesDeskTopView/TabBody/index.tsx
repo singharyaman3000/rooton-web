@@ -4,10 +4,10 @@ import { ISubServiceData } from '../../interafces';
 import HtmlParser from 'react-html-parser';
 import Link from 'next/link';
 import { getServicePageURL, getTranslatedURL } from '@/utils';
-// import { useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; cssClass?: string }) => {
-  // const path = useParams();
+  const path = useParams();
 
   return (
     <div className={`w-full flex items-center flex-wrap ${cssClass}`}>
@@ -16,7 +16,7 @@ const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; 
           <Link
             className="w-[45%]"
             key={service.attributes.title}
-            href={getTranslatedURL(getServicePageURL(service.id), 'ar')}
+            href={getTranslatedURL(getServicePageURL(service.id), path.lang)}
           >
             <div
               className={

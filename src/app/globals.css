@@ -526,7 +526,7 @@ font {
   float: right;
   width: 100px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   position: relative;
   top: 2.6rem;
 }
