@@ -518,9 +518,9 @@ font {
   @apply border-2;
 }
 
-.huform .hs-form-field:nth-child(n+0) {
+/* .huform .hs-form-field:nth-child(n+0) {
   display: none;
-}
+} */
 
 .huform .actions {
   float: right;

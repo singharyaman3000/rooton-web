@@ -76,9 +76,10 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     onProgress(progress);
   };
 
-  const handleMultiStep = (formEl: HTMLFormElement) => {
-    for (let i = 0; i < (formEl?.children?.length ?? 0); i += 1) {
-      const child = formEl?.children[i];
+  // eslint-disable-next-line no-undef
+  const handleMultiStep = (formEl: NodeListOf<Element>) => {
+    for (let i = 0; i < (formEl?.length ?? 0); i += 1) {
+      const child = formEl[i];
       if (child?.tagName === 'DIV' && i < showTo.current && i >= showFrom.current) {
         (child as HTMLDivElement).style.display = 'block';
       } else {
@@ -89,20 +90,19 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   };
 
   const formReady = () => {
-    const formEl = document.querySelector('.huform');
-    const el = document.querySelectorAll('.hs-form-field .hs-dependent-field');
+    const el = document.querySelectorAll('.hs-form-field, .hs-submit');
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime + 1;
     // formEl?.addEventListener('change', () => {
     //   setTimeout(() => {
     //     return isThereAnyValidationErrors();
     //   }, 100);
     // });
-    handleMultiStep(formEl as HTMLFormElement);
+    handleMultiStep(el);
   };
 
   const onNextClick = () => {
     setDisableBackButton(false);
-    const el = document.querySelectorAll('.hs-form-field');
+    const el = document.querySelectorAll('.hs-form-field, .hs-submit');
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
       showFrom.current += noOfFieldsAtaTime;
       stepNo.current += 1;
@@ -130,7 +130,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
       setDisableBackButton(true);
     }
 
-    const el = document.querySelectorAll('.hs-form-field');
+    const el = document.querySelectorAll('.hs-form-field, .hs-submit');
     if (showTo.current < el.length + noOfFieldsAtaTime && showTo.current > noOfFieldsAtaTime) {
       showTo.current -= noOfFieldsAtaTime;
     }
@@ -161,7 +161,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
             },
             onFormReady: formReady,
             cssClass: 'huform',
-            submitText: 'Proceed',
+            submitText: 'Submit',
           });
         }
       });
