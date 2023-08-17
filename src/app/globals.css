@@ -484,11 +484,6 @@ fill: #fff;
 }
 
 /* CSS for Services Hubspot form */
-
-.huform .hs-form-field:nth-child(n+0) {
-  display: none;
-}
-
 .huform .actions {
   float: right;
   width: 100px;
