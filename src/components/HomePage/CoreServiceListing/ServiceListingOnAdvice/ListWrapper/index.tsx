@@ -5,7 +5,7 @@ import { IServiceData } from '@/components/HomePage/ServicesListing/interafces';
 
 const ListWrapper = ({ services }: { services: IServiceData[] }) => {
   return (
-    <div className='w-[50%]'>
+    <div className='w-fit'>
       {services?.map((item: IServiceData) => {
         return (
           <div className="mb-7" key={item?.id}>

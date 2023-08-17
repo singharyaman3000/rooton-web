@@ -40,3 +40,12 @@ export const scrollIntoView = (id:string) => {
     element?.scrollIntoView();
   }
 };
+
+export const getTranslatedURL = (url: string, lang?: string) => {
+  if (lang) {
+    return `${lang}/${url}`;
+  }
+  return url;
+};
+
+export const getServicePageURL = (id: string | number) => `/service/${id}`;
