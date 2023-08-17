@@ -18,13 +18,13 @@ const FormTarget = ({ target, onNextClick, onBackClick, disableNextButton, disab
         <button
           disabled={disableBackButton}
           type="button"
-          className=" bg-black text-white px-4 py-2 "
+          className=" bg-black text-white px-4 py-3.5 w-[100px] text-sm"
           onClick={onBackClick}
         >
           Back
         </button>
         {disableNextButton || (
-          <button type="button" className=" bg-black text-white px-4 py-2" onClick={onNextClick}>
+          <button type="button" className=" bg-black text-white px-4 py-3.5 w-[100px] text-sm" onClick={onNextClick}>
             Next
           </button>
         )}

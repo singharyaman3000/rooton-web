@@ -110,7 +110,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
       <ServicePageWrapper
         className={`${
           showBookAnAppointment ? 'block' : 'hidden'
-        } p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-[1440px]`}
+        } p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-screen-2k`}
       >
         <div
           ref={leadFormRef}
@@ -123,10 +123,11 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
             justify-between
             relative
             overflow-hidden
+            bg-pale-sandal
           "
         >
           <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
-          <div className="p-12 lg:pl-[60px] w-full lg:w-[75%] py-12 lg:pb-16">
+          <div className="p-12 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16">
             <H2>{leadForm?.attributes.title ?? ''}</H2>
             <div className="" id="lead-form">
               <LeadFormStepper
@@ -152,11 +153,11 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
               />
             </div>
           </div>
-          <div className=" hidden lg:block w-[25%] h-[714px] relative">
+          <div className=" hidden lg:block w-[25%] relative">
             <NextImage
               classSelector=" object-right"
               src={'/images/my-project-46@3x.png'}
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: 'contain', objectPosition: 'bottom' }}
               altText="a man"
               sizes="100vw"
               fill
