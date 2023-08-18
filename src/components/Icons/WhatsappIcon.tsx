@@ -1,24 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import style from '../WhatsApp-Integration/WhatsappCss.module.css';
 
-const WhatsappIcon = () => {
+/**
+ * Renders a Whatsapp icon with opacity that changes based on scroll position.
+ *
+ * @return {JSX.Element} The Whatsapp icon component.
+ */
+const WhatsappIcon: React.FC = (): React.JSX.Element => {
+  // Define the initial opacity state
   const [opacity, setOpacity] = useState<number>(0);
 
+  // Handle scroll event and update opacity based on scroll position
   useEffect(() => {
-    const handleScroll = () => {
-      const maxOpacityScrollHeight = 400;
-      const currentScroll = window.scrollY;
-      const calculatedOpacity = currentScroll / maxOpacityScrollHeight;
+    // Define the maximum scroll height at which the opacity is 1
+    const maxOpacityScrollHeight: number = 400;
 
+    // Scroll event listener
+    const handleScroll = () => {
+      // Get the current scroll position
+      const currentScroll: number = window.scrollY;
+
+      // Calculate the opacity based on the current scroll position
+      const calculatedOpacity: number = currentScroll / maxOpacityScrollHeight;
+
+      // Set the opacity state, ensuring it does not exceed 1
       setOpacity(Math.min(calculatedOpacity, 1));
     };
 
+    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
 
+    // Clean up by removing the scroll event listener
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Render the Whatsapp icon component
   return (
     <svg
       className={style.bottomRightIcon}
@@ -36,9 +54,9 @@ const WhatsappIcon = () => {
           <feOffset dx="30" dy="30" result="offsetblur" />
           <feComponentTransfer>
             <feFuncA type="linear" slope="1" />
-            <feFuncR type="table" tableValues="0.75" /> =
-            <feFuncG type="table" tableValues="0.75" /> =
-            <feFuncB type="table" tableValues="0.75" /> =
+            <feFuncR type="table" tableValues="0.75" />
+            <feFuncG type="table" tableValues="0.75" />
+            <feFuncB type="table" tableValues="0.75" />
           </feComponentTransfer>
           <feMerge>
             <feMergeNode />
@@ -46,7 +64,7 @@ const WhatsappIcon = () => {
           </feMerge>
         </filter>
       </defs>
-      {}
+
       <g transform="translate(96,96) scale(0.50,0.50)">
         <g fill="#ffffff" transform="translate(0,0) scale(0.6,0.6)">
           <path

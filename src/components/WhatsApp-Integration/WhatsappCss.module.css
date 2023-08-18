@@ -368,6 +368,9 @@
   width: 20px;
   height: 20px;
   opacity: 0.4;
+  padding: 0px !important;
+  margin: 0px !important;
+  background-color:transparent !important;
   cursor: pointer;
   transition: all 0.3s ease 0s;
   outline: transparent;
