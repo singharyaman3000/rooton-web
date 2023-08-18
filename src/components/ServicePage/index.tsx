@@ -45,17 +45,17 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
     return i.attributes.position === 2;
   });
 
-  const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.position === 4;
-  });
-
-  const process = response?.data?.attributes?.sub_services_contents?.data.find((i) => {
+  const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 3;
   });
 
-  const faqs = response?.data?.attributes?.sub_services_contents?.data.find((i) => {
+  const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 5;
-  })?.attributes?.json_content?.faq;
+  });
+
+  const faqs = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+    return i.attributes.position === 8;
+  })?.attributes.json_content.faq;
 
   const blogs = response?.data?.attributes?.blogs ?? [];
 
