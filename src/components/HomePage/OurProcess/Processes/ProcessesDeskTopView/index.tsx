@@ -20,9 +20,9 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
   });
   return (
     <div className="mt-[48px] mb-20 relative hidden md:block processes">
-      {process?.map(({ key, value, position }, index) => {
+      {process?.map(({ title, description, position }, index) => {
         return (
-          value && (
+          title && (
             <Fragment key={`${position}-desktop`}>
               <div
                 style={{ background: selectedElem.toString() === position.toString() ? 'var(--selector-bg)' : '' }}
@@ -35,12 +35,12 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
                     {position}
                   </span>
                   <h5 className="text-xl font-bold not-italic leading-normal tracking-[normal] text-primary-font-color">
-                    {key}
+                    {title}
                   </h5>
                 </div>
                 <div className="pl-[70px] pr-[30px] min-h-[60px]">
                   <p className=" opacity-[0.7] text-lg  font-medium not-italic leading-[1.67] tracking-[normal] text-primary-font-color">
-                    {value}
+                    {description}
                   </p>
                 </div>
               </div>
