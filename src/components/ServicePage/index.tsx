@@ -37,33 +37,33 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
 
   const leadFormRef = useRef<HTMLDivElement>(null);
 
-  const whyChooseOpen = response.data.attributes.sub_services_contents.data.find((i) => {
+  const whyChooseOpen = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 1;
   });
 
-  const eligibility = response.data.attributes.sub_services_contents.data.find((i) => {
+  const eligibility = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 2;
   });
 
-  const process = response.data.attributes.sub_services_contents.data.find((i) => {
+  const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 3;
   });
 
-  const leadForm = response.data.attributes.sub_services_contents.data.find((i) => {
+  const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 5;
   });
 
-  const faqs = response.data.attributes.sub_services_contents.data.find((i) => {
+  const faqs = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 8;
   })?.attributes.json_content.faq;
 
-  const blogs = response.data.attributes.blogs ?? [];
+  const blogs = response?.data?.attributes?.blogs ?? [];
 
   const handleCTAButtonClick = () => {
     setShowBookAnAppointment(true);
     setTimeout(() => {
       window.scrollTo({
-        top: (leadFormRef.current!.getBoundingClientRect().top - 150) + window.pageYOffset,
+        top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
         behavior: 'smooth',
       });
     }, 0);
@@ -78,43 +78,54 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
         description={response.data?.attributes?.sub_title}
         button={<BookAnAppointmentButton onClick={handleCTAButtonClick} />}
       />
-      <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-        <>
-          <ServiceDescription text={response.data.attributes.description} />
-          <WhyChoose
-            onClickCTA={handleCTAButtonClick}
-            title={whyChooseOpen?.attributes.title ?? ''}
-            description={whyChooseOpen?.attributes.description ?? ''}
-            imageAlt="A man with laptop"
-            imageUrl="/group-14-copy@3x.png"
+      {(whyChooseOpen || eligibility) && (
+        <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+          <>
+            <ServiceDescription text={response?.data?.attributes?.description} />
+            {whyChooseOpen && (
+              <WhyChoose
+                onClickCTA={handleCTAButtonClick}
+                title={whyChooseOpen?.attributes.title ?? ''}
+                description={whyChooseOpen?.attributes.description ?? ''}
+                imageAlt="A man with laptop"
+                imageUrl="/group-14-copy@3x.png"
+              />
+            )}
+            {eligibility && eligibility?.attributes?.json_content?.eligibility && (
+              <>
+                <WhyRooton
+                  title={eligibility?.attributes.title ?? ''}
+                  description={eligibility?.attributes.description ?? ''}
+                />
+                <Ul>
+                  {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
+                    return <Li key={e.position + e.key}> {e.title} </Li>;
+                  })}
+                </Ul>
+              </>
+            )}
+          </>
+        </ServicePageWrapper>
+      )}
+      {process && process?.attributes?.json_content && (
+        <div className=" mt-20 m-auto max-w-screen-2k">
+          <OurProcess
+            className=" !py-0"
+            title={''}
+            sub_title={process?.attributes?.title ?? ''}
+            json_content={process?.attributes?.json_content as IOurProcessData}
           />
-          <WhyRooton
-            title={eligibility?.attributes.title ?? ''}
-            description={eligibility?.attributes.description ?? ''}
-          />
-          <Ul>
-            {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
-              return <Li key={e.position + e.key}> {e.title} </Li>;
-            })}
-          </Ul>
-        </>
-      </ServicePageWrapper>
-      <div className=" mt-20 m-auto max-w-screen-2k">
-        <OurProcess
-          className=" !py-0"
-          title={''}
-          sub_title={process?.attributes.title ?? ''}
-          json_content={process?.attributes.json_content as IOurProcessData}
-        />
-      </div>
-      <ServicePageWrapper
-        className={`${
-          showBookAnAppointment ? 'block' : 'hidden'
-        } p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-screen-2k`}
-      >
-        <div
-          ref={leadFormRef}
-          className="
+        </div>
+      )}
+      {leadForm && (
+        <ServicePageWrapper
+          className={`${
+            showBookAnAppointment ? 'block' : 'hidden'
+          } p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-screen-2k`}
+        >
+          <div
+            ref={leadFormRef}
+            className="
             flex
             gap-[34px]
             shadow-hubspot-form-shadow
@@ -125,47 +136,48 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
             overflow-hidden
             bg-pale-sandal
           "
-        >
-          <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
-          <div className="p-12 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0">
-            <H2>{leadForm?.attributes.title ?? ''}</H2>
-            <div className="" id="lead-form">
-              <LeadFormStepper
-                onProgress={(progress) => {
-                  setFormStepperProgress(progress);
-                }}
-                region={
-                  (leadForm?.attributes.json_content.lead_forms &&
-                    leadForm?.attributes.json_content.lead_forms[0].region) ??
-                  ''
-                }
-                portalId={
-                  (leadForm?.attributes.json_content.lead_forms &&
-                    leadForm?.attributes.json_content.lead_forms[0].portalId) ??
-                  ''
-                }
-                formId={
-                  (leadForm?.attributes.json_content.lead_forms &&
-                    leadForm?.attributes.json_content.lead_forms[0].formId) ??
-                  ''
-                }
-                target="LeadForm"
+          >
+            <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
+            <div className="p-12 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0">
+              <H2>{leadForm?.attributes.title ?? ''}</H2>
+              <div className="" id="lead-form">
+                <LeadFormStepper
+                  onProgress={(progress) => {
+                    setFormStepperProgress(progress);
+                  }}
+                  region={
+                    (leadForm?.attributes.json_content.lead_forms &&
+                      leadForm?.attributes.json_content.lead_forms[0].region) ??
+                    ''
+                  }
+                  portalId={
+                    (leadForm?.attributes.json_content.lead_forms &&
+                      leadForm?.attributes.json_content.lead_forms[0].portalId) ??
+                    ''
+                  }
+                  formId={
+                    (leadForm?.attributes.json_content.lead_forms &&
+                      leadForm?.attributes.json_content.lead_forms[0].formId) ??
+                    ''
+                  }
+                  target="LeadForm"
+                />
+              </div>
+            </div>
+            <div className=" hidden lg:block w-[25%] relative">
+              <NextImage
+                classSelector=" object-right"
+                src={'/images/my-project-46@3x.png'}
+                style={{ objectFit: 'contain', objectPosition: 'bottom' }}
+                altText="a man"
+                sizes="100vw"
+                fill
+                title=""
               />
             </div>
           </div>
-          <div className=" hidden lg:block w-[25%] relative">
-            <NextImage
-              classSelector=" object-right"
-              src={'/images/my-project-46@3x.png'}
-              style={{ objectFit: 'contain', objectPosition: 'bottom' }}
-              altText="a man"
-              sizes="100vw"
-              fill
-              title=""
-            />
-          </div>
-        </div>
-      </ServicePageWrapper>
+        </ServicePageWrapper>
+      )}
       <ServicePageWrapper className="m-auto max-w-screen-2k px-6 lg:px-[80px]">
         <RootOnCTAWrapper
           buttonAriaLabel={SERVICES_TITLE.appointment1.title}
@@ -185,39 +197,43 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
       <div className=" mt-10 m-auto max-w-screen-2k">
         <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
       </div>
-      <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-        <>
-          <H2>{SERVICES_TITLE.faq.title}</H2>
-          {faqs?.map((faq) => {
-            return (
-              <Accordion
-                openAccordion={faq.position.toString() === selectedAccordionId}
-                accordionId={faq.position.toString()}
-                handleOnClick={(id) => {
-                  setSelectedAccordionId(id === selectedAccordionId ? null : id);
-                }}
-                customToggle={<ToggleIcon isOpen={faq.position.toString() === selectedAccordionId} />}
-                customSpacer={<span></span>}
-                cssClass="challenges-accordion border-b-[1px] border-b-sandal "
-                key={faq.position}
-                header={<AccordionHeader value={faq.title} />}
-                accordionBody={<AccordionBody value={faq.description} />}
-              />
-            );
-          })}
-        </>
-      </ServicePageWrapper>
-      <div className=" w-full bg-secondary-grey">
-        <div className=" mt-20 m-auto max-w-screen-2k">
-          <BlogListings
-            blogs={{
-              data: blogs?.data ?? [],
-            }}
-            title={''}
-            sub_title={SERVICES_TITLE.blogs.title}
-          />
+      {faqs && (
+        <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+          <>
+            <H2>{SERVICES_TITLE.faq.title}</H2>
+            {faqs?.map((faq) => {
+              return (
+                <Accordion
+                  openAccordion={faq.position.toString() === selectedAccordionId}
+                  accordionId={faq.position.toString()}
+                  handleOnClick={(id) => {
+                    setSelectedAccordionId(id === selectedAccordionId ? null : id);
+                  }}
+                  customToggle={<ToggleIcon isOpen={faq.position.toString() === selectedAccordionId} />}
+                  customSpacer={<span></span>}
+                  cssClass="challenges-accordion border-b-[1px] border-b-sandal "
+                  key={faq.position}
+                  header={<AccordionHeader value={faq.title} />}
+                  accordionBody={<AccordionBody value={faq.description} />}
+                />
+              );
+            })}
+          </>
+        </ServicePageWrapper>
+      )}
+      {blogs?.data?.length > 0 && (
+        <div className=" w-full bg-secondary-grey">
+          <div className=" mt-20 m-auto max-w-screen-2k">
+            <BlogListings
+              blogs={{
+                data: blogs?.data ?? [],
+              }}
+              title={''}
+              sub_title={SERVICES_TITLE.blogs.title}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <ServicePageWrapper className="m-auto mt-20 max-w-screen-2k pb-20 px-6 lg:px-[80px]">
         <RootOnCTAWrapper
           buttonAriaLabel={SERVICES_TITLE.appointment2.title}
