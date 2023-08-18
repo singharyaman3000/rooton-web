@@ -5,8 +5,9 @@ import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 
 type IEligibility = {
   key: string;
-  value: string;
+  title: string;
   position: string;
+  description: string;
 };
 
 export type ILeadForm = {

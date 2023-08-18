@@ -94,7 +94,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           />
           <Ul>
             {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
-              return <Li key={e.position + e.key}> {e.value} </Li>;
+              return <Li key={e.position + e.key}> {e.title} </Li>;
             })}
           </Ul>
         </>
