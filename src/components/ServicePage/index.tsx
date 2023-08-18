@@ -127,7 +127,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           "
         >
           <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
-          <div className="p-12 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16">
+          <div className="p-12 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0">
             <H2>{leadForm?.attributes.title ?? ''}</H2>
             <div className="" id="lead-form">
               <LeadFormStepper
