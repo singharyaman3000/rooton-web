@@ -46,7 +46,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
 
   return (
     <Tabs
-      cssClass="hidden md:block"
+      cssClass="hidden md:block services-tab"
       onTabChange={(data) => changeSelectedTab(data)}
       selectedTab={tab}
       headerData={getHeaderData()}

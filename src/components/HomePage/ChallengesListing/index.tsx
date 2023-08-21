@@ -37,7 +37,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
   const { toggleModalShown: toggleModalShownMobile } = useContext(MobileModalShowContextname);
 
   return (
-    <section className="challenges-listing">
+    <section className="challenges-listing max-w-screen-max-screen mx-auto my-0">
       <SectionContainer cssClass="pt-10 pb-[39px] md:py-[80px]">
         <div className="md:flex">
           <div className="md:w-[48.8%] md:pr-[80px]">

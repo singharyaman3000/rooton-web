@@ -14,7 +14,7 @@ export interface IOurProcess extends ITitleAttributes {
 const OurProcess = ({ title, sub_title, json_content, className }: IOurProcess) => {
   return (
     json_content?.process && (
-      <section className="relative overflow-y-hidden">
+      <section className="relative overflow-y-hidden max-w-screen-max-screen mx-auto my-0">
         <SectionContainer cssClass={`${className} pt-10 md:pt-[100px] fgx`}>
           <SectionHeadings title={title} subTitle={sub_title} />
           <Processes process={json_content?.process} />

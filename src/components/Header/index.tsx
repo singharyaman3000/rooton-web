@@ -8,10 +8,11 @@ import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import SliderOverlay from './SliderOverlay';
 import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
+import { useParams } from 'next/navigation';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
-
+  const params = useParams();
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
@@ -99,7 +100,7 @@ export default function Header() {
         >
           {scrolledEnough ? (
             <div>
-              <Link href={'/'}>
+              <Link href={params.lang ? `${params.lang}/`: '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
                   width={120}
@@ -111,7 +112,7 @@ export default function Header() {
             </div>
           ) : (
             <div>
-              <Link href={'/'}>
+           <Link href={params.lang ? `${params.lang}/`: '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
                   width={120}
