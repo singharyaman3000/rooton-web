@@ -107,7 +107,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           </>
         </ServicePageWrapper>
       )}
-      {process && process?.attributes?.json_content && (
+      {/* {process && process?.attributes?.json_content && (
         <div className=" mt-20 m-auto max-w-screen-2k">
           <OurProcess
             className=" !py-0"
@@ -116,7 +116,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
             json_content={process?.attributes?.json_content as IOurProcessData}
           />
         </div>
-      )}
+      )} */}
       {leadForm && (
         <ServicePageWrapper
           className={`${
