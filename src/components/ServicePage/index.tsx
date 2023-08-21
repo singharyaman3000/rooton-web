@@ -3,8 +3,6 @@
 import { IServicePageContent } from '@/app/services/apiService/serviceAPI';
 import { useRef, useState } from 'react';
 import { H2 } from '../H2';
-import OurProcess from '../HomePage/OurProcess';
-import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 import Testimonials from '../HomePage/Testimonials';
 import { Li } from '../Li';
 import { Ul } from '../Ul';
