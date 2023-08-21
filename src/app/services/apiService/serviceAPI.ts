@@ -30,7 +30,7 @@ type IFaq = {
   description: string;
 };
 
-type ISubServiceJSONContent = {
+export type ISubServiceJSONContent = {
   eligibility?: IEligibility[];
   process?: IProcess[];
   lead_forms?: ILeadForm[];
@@ -41,6 +41,7 @@ type ISubServiceAttributes = {
   title: string;
   description: string;
   position: number;
+  unique_identifier_name: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
