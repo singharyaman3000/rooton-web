@@ -12,7 +12,7 @@ function WhatsAppButton() {
   // State variables
   const [showTemplate, setShowTemplate] = useState(false);
   const [showTypingInitial, setShowTypingInitial] = useState(true);
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+  const [isMobileView, setIsMobileView] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
 
   // Handle window resize
   useEffect(() => {
@@ -42,7 +42,9 @@ function WhatsAppButton() {
       handleClick();
       return;
     }
-    setShowTemplate((prev) => { return !prev; });
+    setShowTemplate((prev) => {
+      return !prev;
+    });
 
     if (showTypingInitial) {
       setTimeout(() => {
