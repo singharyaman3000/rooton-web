@@ -23,6 +23,8 @@ import { SERVICES_TITLE } from '@/app/constants/textConstants';
 // eslint-disable-next-line import/no-named-as-default
 import LeadFormStepper from './LeadFormStepper';
 import RootOnCTAWrapper from './RootOnCTAWrapper';
+import OurProcess from '../HomePage/OurProcess';
+import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -43,9 +45,9 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
     return i.attributes.position === 2;
   });
 
-  // const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-  //   return i.attributes.position === 3;
-  // });
+  const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+    return i.attributes.position === 3;
+  });
 
   const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 5;
@@ -105,7 +107,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           </>
         </ServicePageWrapper>
       )}
-      {/* {process && process?.attributes?.json_content && (
+      {process && process?.attributes?.json_content && (
         <div className=" mt-20 m-auto max-w-screen-2k">
           <OurProcess
             className=" !py-0"
@@ -114,7 +116,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
             json_content={process?.attributes?.json_content as IOurProcessData}
           />
         </div>
-      )} */}
+      )}
       {leadForm && (
         <ServicePageWrapper
           className={`${

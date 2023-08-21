@@ -2,6 +2,7 @@ import { getFetch } from '@/utils/apiUtils';
 import { getServiceAPIUrl } from './apiUrl/servicePage';
 import { IMediaUrlData } from './interfaces';
 import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
+import { IProcess } from '@/components/HomePage/OurProcess/interfaces';
 
 type IEligibility = {
   key: string;
@@ -16,12 +17,6 @@ export type ILeadForm = {
   portalId?: string;
   formId?: string;
   url?: string;
-};
-
-type IProcess = {
-  key: string;
-  value: string;
-  position: string;
 };
 
 type IFaq = {
