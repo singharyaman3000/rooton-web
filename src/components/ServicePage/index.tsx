@@ -63,7 +63,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
     setShowBookAnAppointment(true);
     setTimeout(() => {
       window.scrollTo({
-        top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.scrollY,
+        top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
         behavior: 'smooth',
       });
     }, 0);
@@ -107,16 +107,16 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
           </>
         </ServicePageWrapper>
       )}
-      {/* {process && process?.attributes?.json_content && (
+      {process && process?.attributes?.json_content && (
         <div className=" mt-20 m-auto max-w-screen-2k">
           <OurProcess
             className=" !py-0"
             title={''}
             sub_title={process?.attributes?.title ?? ''}
-            json_content={(process?.attributes?.json_content as unknown) as IOurProcessData}
+            json_content={process?.attributes?.json_content as IOurProcessData}
           />
         </div>
-      )} */}
+      )}
       {leadForm && (
         <ServicePageWrapper
           className={`${
