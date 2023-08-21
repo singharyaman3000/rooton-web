@@ -59,8 +59,8 @@ const Testimonials = ({ title, subTitle }: TestimonialProps) => {
           </div>
           <div className="items-center hidden md:flex md:mb-[8px]">
             <div>
-              <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
-              <SliderNav handleOnClick={incrementPage} disable={pageNum === totalPages - 1} />
+              <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px] bg-[#f3f3f3] disabled:bg-[#f3f3f3]" disable={pageNum === 0} leftNav />
+              <SliderNav handleOnClick={incrementPage} cssClass='bg-[#f3f3f3] disabled:bg-[#f3f3f3] ' disable={pageNum === totalPages - 1} />
             </div>
           </div>
         </div>
