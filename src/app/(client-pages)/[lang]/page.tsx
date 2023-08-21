@@ -1,3 +1,10 @@
-export default function Page() {
-  return <>lang page</>;
+import RSCSeoWrapper from '@/components/Containers/RSCSeoWrapper';
+import HomePageClient from '@/components/HomePage/HomePageClient';
+
+export default function Home() {
+  return (
+    <RSCSeoWrapper>
+      <HomePageClient />
+    </RSCSeoWrapper>
+  );
 }

@@ -6,6 +6,8 @@ import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import SliderOverlay from './SliderOverlay';
+import TalkToOurExpert from '../UIElements/TalkToOurExpert';
+import { scrollIntoView } from '@/utils';
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -84,6 +86,8 @@ export default function Header() {
           className="
           flex
           gap-5
+          lg:gap-[1.33vw]
+          xl:gap-[3.33vw]
           justify-between
           px-6
           py-3
@@ -95,46 +99,54 @@ export default function Header() {
         >
           {scrolledEnough ? (
             <div>
-              <Image
-                className=" lg:w-[173px] lg:h-[52px]"
-                width={120}
-                height={36}
-                alt="Root On logo"
-                src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg' }
-              />
+              <Link href={'/'}>
+                <Image
+                  className=" lg:w-[173px] lg:h-[52px]"
+                  width={120}
+                  height={36}
+                  alt="Root On logo"
+                  src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
+                />
+              </Link>
             </div>
           ) : (
             <div>
-              <Image
-                className=" lg:w-[173px] lg:h-[52px]"
-                width={120}
-                height={36}
-                alt="Root On logo"
-                src={'/root-on-logo-svg.svg'}
-              />
+              <Link href={'/'}>
+                <Image
+                  className=" lg:w-[173px] lg:h-[52px]"
+                  width={120}
+                  height={36}
+                  alt="Root On logo"
+                  src={'/root-on-logo-svg.svg'}
+                />
+              </Link>
             </div>
           )}
           <div
             className={`
-            xl:ml-[116px]
-            lg:ml-[50px]
-            xl:gap-[62px]
-            lg:gap-12
+            lg:gap-[1.33vw]
+            xl:gap-[3.33vw]
             justify-end
             items-center
             text-base
-            font-bold
+            font-medium
             hidden
             lg:flex
             flex-shrink-0
-            ${scrolledEnough ? 'text-header-font-color': ' text-white'}
+            ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
           `}
           >
             <span>
               <Link href={'/'}> About Us </Link>
             </span>
-            <span>
-              <Link href={'/'}> Services </Link>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            <span
+              onClick={() => {
+                scrollIntoView('servicesHomePage');
+              }}
+              className='cursor-pointer'
+            >
+              Services
             </span>
             <span>
               <Link href={'/'}> Coaching </Link>
@@ -150,6 +162,7 @@ export default function Header() {
             </span>
           </div>
           <ThemeToggleAndHamburger toggleSlideOverlay={toggleSlideOverlay} scrolledEnough={scrolledEnough} />
+          {scrolledEnough && <TalkToOurExpert />}
         </div>
         <div
           className="

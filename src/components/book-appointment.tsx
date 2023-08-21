@@ -1,12 +1,22 @@
 'use client';
 
-import { InlineWidget } from 'react-calendly';
+import { InlineWidget, useCalendlyEventListener } from 'react-calendly';
 
-export default function BookAppointment() {
+type BookAppointmentProps = {
+  url: string;
+  onEventTypeViewed: () => void;
+};
+
+export default function BookAppointment({ url, onEventTypeViewed }: BookAppointmentProps) {
+
+  useCalendlyEventListener({
+    onEventTypeViewed,
+  });
+
   return (
     <div className=" w-full">
       <InlineWidget
-        url="https://calendly.com/root-on-immigration-consultants/migrate-to-canada-with-us"
+        url={url}
         styles={{
           padding: '8px',
           height: '710px',

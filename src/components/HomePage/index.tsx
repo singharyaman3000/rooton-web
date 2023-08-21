@@ -15,12 +15,13 @@ import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
+import BookAnAppointment from './BookAppointment';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
-  const getComponents = () => {
+  const getComponentsAboveBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
-      switch (contents.attributes.content_name) {
+      switch (contents.attributes.unique_identifier_name) {
       case CONTENT_TYPES.SERVICES:
         return (
           <ServicesListing
@@ -55,8 +56,6 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
             json_content={contents.attributes.json_content as IOurProcessData}
           />
         );
-      case CONTENT_TYPES.BLOG:
-        return <BlogListings blogs={contents.attributes.blogs} title={title} sub_title={sub_title} />;
       case CONTENT_TYPES.CHALLENGES:
         return (
           <ChallengesListing
@@ -67,15 +66,27 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
             media_url={contents.attributes.media_url}
           />
         );
-      case CONTENT_TYPES.PARTNERSHIPS:
-        return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
       default:
         return null;
       }
     });
   };
 
-  const faqData = getSectionData(homePageConfig , CONTENT_TYPES.QUESTIONS );
+  const getComponentsAfterBookAppointments = () => {
+    return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
+      const { title, sub_title } = contents.attributes;
+      switch (contents.attributes.unique_identifier_name) {
+      case CONTENT_TYPES.PARTNERSHIPS:
+        return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
+      case CONTENT_TYPES.BLOG:
+        return <BlogListings blogs={contents.attributes.blogs} title={title} sub_title={sub_title} />;
+      default:
+        return null;
+      }
+    });
+  };
+
+  const faqData = getSectionData(homePageConfig, CONTENT_TYPES.QUESTIONS);
 
   return (
     <>
@@ -93,7 +104,9 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           />
         }
       />
-      {getComponents()}
+      {getComponentsAboveBookAppointments()}
+      <BookAnAppointment />
+      {getComponentsAfterBookAppointments()}
       <Testimonials />
       {faqData && (
         <FaqListing
