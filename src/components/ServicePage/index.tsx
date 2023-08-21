@@ -43,9 +43,9 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
     return i.attributes.position === 2;
   });
 
-  const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.position === 3;
-  });
+  // const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+  //   return i.attributes.position === 3;
+  // });
 
   const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.position === 5;
