@@ -100,7 +100,7 @@ export default function Header() {
         >
           {scrolledEnough ? (
             <div>
-              <Link href={params.lang ? `${params.lang}/` : '/'}>
+              <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
                   width={120}
@@ -112,7 +112,7 @@ export default function Header() {
             </div>
           ) : (
             <div>
-              <Link href={params.lang ? `${params.lang}/` : '/'}>
+              <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
                   width={120}
