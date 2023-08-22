@@ -5,13 +5,14 @@ import RTONButton from '../RTONButton';
 
 type BookAnAppointmentButtonProps = {
   onClick: () => void;
+  text: string;
 }
 
-export default function BookAnAppointmentButton({ onClick }: BookAnAppointmentButtonProps) {
+export default function BookAnAppointmentButton({ onClick, text }: BookAnAppointmentButtonProps) {
   return <RTONButton
-    ariaLabel='Book an appointment'
+    ariaLabel={text}
     onClick={onClick}
-    text="Book an appointment"
+    text={text}
     icon={<CalenderIcon />}
   />;
 }
