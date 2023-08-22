@@ -1,5 +1,6 @@
 'use client';
 
+import { FormConstants } from '@/app/constants/hubspotConfig';
 import { useEffect, useRef, useState } from 'react';
 
 type FormTargetProps = {
@@ -141,7 +142,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   useEffect(() => {
     const initHubSpot = () => {
       const script = document.createElement('script');
-      script.src = process.env.NEXT_PUBLIC_HUBSPOT_SRC as string;
+      script.src = FormConstants.SERVICE.hubspotSrc;
       document.body.appendChild(script);
       script.addEventListener('load', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
