@@ -38,7 +38,7 @@ export default function RootOnBanner({
       <div className=" w-full h-full flex flex-col justify-end z-20">
         <div
           className="
-           pb-[36px] md:pb-[120px]
+          pb-[36px] md:pb-[120px]
           relative z-[10]
           px-[24px]
           whitespace-pre-wrap

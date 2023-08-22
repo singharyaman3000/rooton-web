@@ -9,9 +9,9 @@ type BookAnAppointmentButtonProps = {
 
 export default function BookAnAppointmentButton({ onClick }: BookAnAppointmentButtonProps) {
   return <RTONButton
-    ariaLabel='Book an appointment'
+    ariaLabel='Book an appointment now'
     onClick={onClick}
-    text="Book an appointment"
+    text="Book an appointment now"
     icon={<CalenderIcon />}
   />;
 }

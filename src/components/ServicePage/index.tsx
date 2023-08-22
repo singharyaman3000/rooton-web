@@ -25,6 +25,7 @@ import { SERVICES_TITLE } from '@/app/constants/textConstants';
 // eslint-disable-next-line import/no-named-as-default
 import LeadFormStepper from './LeadFormStepper';
 import RootOnCTAWrapper from './RootOnCTAWrapper';
+import { Breadcrumbs } from '../Breadcrumbs';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -70,7 +71,24 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
   };
 
   return (
-    <div>
+    <div className=" relative">
+      <Breadcrumbs
+        className=' z-50 hidden lg:flex'
+        data={[
+          {
+            title: 'Home',
+            path: '/',
+          },
+          {
+            title: 'Service',
+            path: '',
+          },
+          {
+            title: 'Open Work Permit',
+            path: '',
+          },
+        ]}
+      />
       <RootOnBanner
         isVideoBanner={isVideo(response.data?.attributes.media_url?.data?.[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
@@ -99,7 +117,14 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
                 />
                 <Ul>
                   {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
-                    return <Li key={e.position + e.key}> {e.title} </Li>;
+                    return <Li key={e.position + e.key}>
+                      <>
+                        {e.title}
+                        {
+                          e.description && <Li tabbed key={`${e.position + e.key}-child`}> { e.description } </Li>
+                        }
+                      </>
+                    </Li>;
                   })}
                 </Ul>
               </>
@@ -113,7 +138,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
             className=" !py-0"
             title={''}
             sub_title={process?.attributes?.title ?? ''}
-            json_content={(process?.attributes?.json_content as unknown) as IOurProcessData}
+            json_content={process?.attributes?.json_content as unknown as IOurProcessData}
           />
         </div>
       )}
