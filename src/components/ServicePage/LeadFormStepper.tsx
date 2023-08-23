@@ -1,6 +1,7 @@
 'use client';
 
 import { FormConstants } from '@/app/constants/hubspotConfig';
+import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import { useEffect, useRef, useState } from 'react';
 
 type FormTargetProps = {
@@ -9,9 +10,17 @@ type FormTargetProps = {
   onBackClick: () => void;
   disableNextButton: boolean;
   disableBackButton: boolean;
+  showError: boolean;
 };
 
-const FormTarget = ({ target, onNextClick, onBackClick, disableNextButton, disableBackButton }: FormTargetProps) => {
+const FormTarget = ({
+  target,
+  showError,
+  onNextClick,
+  onBackClick,
+  disableNextButton,
+  disableBackButton,
+}: FormTargetProps) => {
   return (
     <div className="mt-12 h-full w-full">
       <div className=" h-full w-full" id={target} />
@@ -30,6 +39,7 @@ const FormTarget = ({ target, onNextClick, onBackClick, disableNextButton, disab
           </button>
         )}
       </div>
+      {showError && <p className=" text-right text-[#ff0000]"> {SERVICES_TITLE.formError} </p>}
     </div>
   );
 };
@@ -48,29 +58,18 @@ type LeadFormStepperProps = {
 };
 
 const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onProgress }: LeadFormStepperProps) => {
-  const noOfFieldsAtaTime = 7;
+  const noOfFieldsAtaTime = 3;
   const showFrom = useRef<number>(0);
-  const showTo = useRef<number>(7);
+  const showTo = useRef<number>(noOfFieldsAtaTime);
 
   const [disableNextButton, setDisableNextButton] = useState(false);
   const [disableBackButton, setDisableBackButton] = useState(true);
+  const [showError, setShowError] = useState(false);
 
   const [showCalender, setShowCalender] = useState(false);
 
   const stepNo = useRef<number>(1);
   const formLength = useRef<number>(0);
-
-  // const isThereAnyValidationErrors = () => {
-  //   const errors = document.querySelectorAll('.hs-error-msgs');
-  //   errors.forEach((err) => {
-  //     console.log((err as HTMLUListElement).style.display);
-  //     if ((err as HTMLUListElement).style.display === 'block') {
-  //       console.log('True');
-  //     } else {
-  //       console.log('False');
-  //     }
-  //   });
-  // };
 
   const calculateProgress = () => {
     const progress = (stepNo.current / formLength.current) * 100;
@@ -90,18 +89,143 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     calculateProgress();
   };
 
+  const hideAllErrorMessages = () => {
+    const form = document.getElementsByTagName('form');
+    const fieldsets = form[0].querySelectorAll('fieldset');
+    for (let i = 0; i < fieldsets.length; i += 1) {
+      const fieldset = fieldsets[i];
+      const errorList = (fieldset.querySelector('.no-list') as HTMLUListElement);
+      if(errorList) {
+        errorList.style.display = 'none';
+      }
+    }
+  };
+
+  const showAllErrorMessages = () => {
+    const form = document.getElementsByTagName('form');
+    const fieldsets = form[0].querySelectorAll('fieldset');
+    for (let i = 0; i < fieldsets.length; i += 1) {
+      const fieldset = fieldsets[i];
+      const errorList = (fieldset.querySelector('.no-list') as HTMLUListElement);
+      if(errorList) {
+        errorList.style.display = 'block';
+      }
+    }
+  };
+
+  const checkForErrors = () => {
+    const form = document.getElementsByTagName('form');
+    const fieldsets = form[0].querySelectorAll('fieldset');
+
+    let hasError = false;
+
+    for (let i = 0; i < fieldsets.length; i += 1) {
+      const fieldset = fieldsets[i];
+      hasError =
+        (fieldset.querySelector('.hs-form-field') as HTMLDivElement).style.display !== 'none' &&
+        (fieldset.querySelector('.hs-form-field')?.querySelectorAll('.no-list').length ?? 0) > 0;
+
+      if (hasError) {
+        break;
+      }
+    }
+
+    if (hasError) {
+      setShowError(true);
+      showAllErrorMessages();
+      return true;
+    }
+
+    setShowError(false);
+    hideAllErrorMessages();
+    return false;
+  };
+
+  const checkForMandatoryFields = () => {
+    const checkIfCheckboxOrRadioAnyIschecked = (fieldset: HTMLFieldSetElement) => {
+      const checkboxes = fieldset.querySelectorAll('input');
+
+      let checked = false;
+      for (let i = 0; i < checkboxes.length; i += 1) {
+        checked = checkboxes[i].checked;
+        if (checked) {
+          break;
+        }
+      }
+
+      return checked;
+    };
+
+    const checkValue = (fieldset: HTMLFieldSetElement) => {
+      if (fieldset && (fieldset.querySelector('.hs-form-field') as HTMLDivElement).style.display !== 'none') {
+        let tagname =
+          fieldset?.querySelector('input')?.tagName ||
+          fieldset?.querySelector('select')?.tagName ||
+          fieldset?.querySelector('textarea')?.tagName;
+
+        if (fieldset.querySelector('input')?.type === 'checkbox') {
+          tagname = 'CHECKBOX';
+        } else if (fieldset.querySelector('input')?.type === 'radio') {
+          tagname = 'RADIO';
+        }
+
+        switch (tagname) {
+        case 'INPUT':
+          return (fieldset.querySelector('input') as HTMLInputElement).value;
+        case 'SELECT':
+          return (fieldset.querySelector('select') as HTMLSelectElement).value;
+        case 'CHECKBOX':
+          return checkIfCheckboxOrRadioAnyIschecked(fieldset);
+        case 'RADIO':
+          return checkIfCheckboxOrRadioAnyIschecked(fieldset);
+        case 'TEXTAREA':
+          return (fieldset.querySelector('textarea') as HTMLTextAreaElement).value;
+        default:
+          return null;
+        }
+      }
+
+      return null;
+    };
+
+    const form = document.getElementsByTagName('form');
+    const fieldsets = form[0].querySelectorAll('fieldset');
+
+    let hasError: boolean | null = false;
+
+    for (let i = 0; i < fieldsets.length; i += 1) {
+      const fieldset = fieldsets[i];
+      hasError =
+        fieldset.querySelector('.hs-form-required') &&
+        !checkValue(fieldset) &&
+        (fieldset.querySelector('.hs-form-field') as HTMLDivElement).style.display !== 'none';
+      setShowError(hasError ?? false);
+
+      if (hasError) {
+        break;
+      }
+    }
+
+    return hasError;
+  };
+
   const formReady = () => {
     const el = document.querySelectorAll('.hs-form-field, .hs-submit');
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime + 1;
-    // formEl?.addEventListener('change', () => {
-    //   setTimeout(() => {
-    //     return isThereAnyValidationErrors();
-    //   }, 100);
-    // });
     handleMultiStep(el);
   };
 
+  const triggerAfakeSubmit = () => {
+    const form = document.getElementsByTagName('form')[0];
+    form.querySelector('.actions')?.querySelector('input')?.click();
+  };
+
   const onNextClick = () => {
+    if (checkForErrors() || checkForMandatoryFields()) {
+      triggerAfakeSubmit();
+      return;
+    }
+
     setDisableBackButton(false);
     const el = document.querySelectorAll('.hs-form-field, .hs-submit');
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
@@ -125,9 +249,9 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     if (showFrom.current > 1) {
       showFrom.current -= noOfFieldsAtaTime;
       stepNo.current -= 1;
-    };
+    }
 
-    if(showFrom.current === 0) {
+    if (showFrom.current === 0) {
       setDisableBackButton(true);
     }
 
@@ -140,6 +264,10 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   };
 
   useEffect(() => {
+    const onFormBlur = () => {
+      setShowError(false);
+    };
+
     const initHubSpot = () => {
       const script = document.createElement('script');
       script.src = FormConstants.SERVICE.hubspotSrc;
@@ -153,14 +281,23 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
             portalId,
             formId,
             target: `#${target}`,
-            onFormSubmit,
+            onFormSubmit : (form: HTMLFormElement) => {
+              showAllErrorMessages();
+              if(onFormSubmit) {
+                onFormSubmit(form);
+              }
+            },
             onFormSubmitted: () => {
               // show calender
               setShowCalender(true);
               stepNo.current += 1;
               calculateProgress();
             },
-            onFormReady: formReady,
+            onFormReady: () => {
+              formReady();
+              const form = document.getElementsByTagName('form');
+              form[0].addEventListener('change', onFormBlur);
+            },
             cssClass: 'huform',
             submitText: 'Submit',
           });
@@ -169,10 +306,18 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     };
 
     initHubSpot();
+
+    return () => {
+      const form = document.getElementsByTagName('form');
+      if (form[0]) {
+        form[0].addEventListener('change', onFormBlur);
+      }
+    };
   }, []);
 
   return !showCalender ? (
     <FormTarget
+      showError={showError}
       disableBackButton={disableBackButton}
       disableNextButton={disableNextButton}
       onBackClick={onBackClick}
@@ -180,7 +325,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
       target={target}
     />
   ) : (
-    <div className=" h-[54rem]">
+    <div className=" h-[54rem] mt-2">
       <iframe className=" w-full h-full" title="AA" src="https://meetings.hubspot.com/ajesh-ajayan" />
     </div>
   );
