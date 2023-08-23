@@ -268,6 +268,12 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
       setShowError(false);
     };
 
+    const onFormClick = (e: MouseEvent) => {
+      if((e?.target as HTMLInputElement).className === 'hs-button primary large') {
+        showAllErrorMessages();
+      }
+    };
+
     const initHubSpot = () => {
       const script = document.createElement('script');
       script.src = FormConstants.SERVICE.hubspotSrc;
@@ -282,7 +288,6 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
             formId,
             target: `#${target}`,
             onFormSubmit : (form: HTMLFormElement) => {
-              showAllErrorMessages();
               if(onFormSubmit) {
                 onFormSubmit(form);
               }
@@ -297,6 +302,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
               formReady();
               const form = document.getElementsByTagName('form');
               form[0].addEventListener('change', onFormBlur);
+              form[0].addEventListener('click', onFormClick);
             },
             cssClass: 'huform',
             submitText: 'Submit',
@@ -310,7 +316,8 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     return () => {
       const form = document.getElementsByTagName('form');
       if (form[0]) {
-        form[0].addEventListener('change', onFormBlur);
+        form[0].removeEventListener('change', onFormBlur);
+        form[0].removeEventListener('click', onFormClick);
       }
     };
   }, []);
