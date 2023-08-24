@@ -80,7 +80,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   const handleMultiStep = (formEl: NodeListOf<Element>) => {
     for (let i = 0; i < (formEl?.length ?? 0); i += 1) {
       const child = formEl[i];
-      if (child?.tagName === 'DIV' && i < showTo.current && i >= showFrom.current) {
+      if (child?.tagName === 'FIELDSET' && i < showTo.current && i >= showFrom.current) {
         (child as HTMLDivElement).style.display = 'block';
       } else {
         (child as HTMLDivElement).style.display = 'none';
@@ -94,8 +94,8 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     const fieldsets = form[0].querySelectorAll('fieldset');
     for (let i = 0; i < fieldsets.length; i += 1) {
       const fieldset = fieldsets[i];
-      const errorList = (fieldset.querySelector('.no-list') as HTMLUListElement);
-      if(errorList) {
+      const errorList = fieldset.querySelector('.no-list') as HTMLUListElement;
+      if (errorList) {
         errorList.style.display = 'none';
       }
     }
@@ -106,8 +106,8 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     const fieldsets = form[0].querySelectorAll('fieldset');
     for (let i = 0; i < fieldsets.length; i += 1) {
       const fieldset = fieldsets[i];
-      const errorList = (fieldset.querySelector('.no-list') as HTMLUListElement);
-      if(errorList) {
+      const errorList = fieldset.querySelector('.no-list') as HTMLUListElement;
+      if (errorList) {
         errorList.style.display = 'block';
       }
     }
@@ -122,14 +122,15 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     for (let i = 0; i < fieldsets.length; i += 1) {
       const fieldset = fieldsets[i];
       hasError =
-        (fieldset.querySelector('.hs-form-field') as HTMLDivElement).style.display !== 'none' &&
-        (fieldset.querySelector('.hs-form-field')?.querySelectorAll('.no-list').length ?? 0) > 0;
+        fieldset.style.display !== 'none' &&
+        (fieldset.querySelector('fieldset')?.querySelectorAll('.no-list').length ?? 0) > 0;
 
       if (hasError) {
         break;
       }
     }
 
+    debugger;
     if (hasError) {
       setShowError(true);
       showAllErrorMessages();
@@ -142,12 +143,16 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   };
 
   const checkForMandatoryFields = () => {
-    const checkIfCheckboxOrRadioAnyIschecked = (fieldset: HTMLFieldSetElement) => {
-      const checkboxes = fieldset.querySelectorAll('input');
+    const checkIfCheckboxOrRadioAnyIschecked = (fields: Element | null) => {
+      const checkboxes = fields?.querySelectorAll('input');
+      debugger;
 
       let checked = false;
-      for (let i = 0; i < checkboxes.length; i += 1) {
-        checked = checkboxes[i].checked;
+      for (let i = 0; i < (checkboxes?.length ?? 0); i += 1) {
+        if (checkboxes && checkboxes[i]) {
+          checked = checkboxes[i].checked;
+        }
+
         if (checked) {
           break;
         }
@@ -156,50 +161,83 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
       return checked;
     };
 
-    const checkValue = (fieldset: HTMLFieldSetElement) => {
-      if (fieldset && (fieldset.querySelector('.hs-form-field') as HTMLDivElement).style.display !== 'none') {
-        let tagname =
-          fieldset?.querySelector('input')?.tagName ||
-          fieldset?.querySelector('select')?.tagName ||
-          fieldset?.querySelector('textarea')?.tagName;
+    const checkValue = (input: Element) => {
+      let hasValue = false;
 
-        if (fieldset.querySelector('input')?.type === 'checkbox') {
-          tagname = 'CHECKBOX';
-        } else if (fieldset.querySelector('input')?.type === 'radio') {
-          tagname = 'RADIO';
-        }
+      let tagname =
+        input?.querySelector('input')?.tagName ||
+        input?.querySelector('select')?.tagName ||
+        input?.querySelector('textarea')?.tagName;
 
-        switch (tagname) {
-        case 'INPUT':
-          return (fieldset.querySelector('input') as HTMLInputElement).value;
-        case 'SELECT':
-          return (fieldset.querySelector('select') as HTMLSelectElement).value;
-        case 'CHECKBOX':
-          return checkIfCheckboxOrRadioAnyIschecked(fieldset);
-        case 'RADIO':
-          return checkIfCheckboxOrRadioAnyIschecked(fieldset);
-        case 'TEXTAREA':
-          return (fieldset.querySelector('textarea') as HTMLTextAreaElement).value;
-        default:
-          return null;
-        }
+      if (input.querySelector('input')?.type === 'checkbox') {
+        tagname = 'CHECKBOX';
+      } else if (input.querySelector('input')?.type === 'radio') {
+        tagname = 'RADIO';
+      } else if (input.querySelector('input')?.type === 'tel') {
+        tagname = 'PHONE';
       }
 
-      return null;
+      switch (tagname) {
+      case 'INPUT':
+        if ((input.querySelector('input') as HTMLInputElement).value) {
+          hasValue = true;
+        }
+        break;
+      case 'PHONE':
+        if ((input.querySelector('input') as HTMLInputElement).value.split('').length > 5) {
+          hasValue = true;
+        }
+        break;
+      case 'SELECT':
+        if ((input.querySelector('select') as HTMLSelectElement).value) {
+          hasValue = true;
+        }
+        break;
+      case 'CHECKBOX':
+        if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
+          hasValue = true;
+        }
+        break;
+      case 'RADIO':
+        if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
+          hasValue = true;
+        }
+        break;
+      case 'TEXTAREA':
+        if ((input.querySelector('textarea') as HTMLTextAreaElement).value) {
+          hasValue = true;
+        }
+        break;
+      default:
+        hasValue = false;
+      }
+
+      return hasValue;
     };
 
     const form = document.getElementsByTagName('form');
     const fieldsets = form[0].querySelectorAll('fieldset');
 
-    let hasError: boolean | null = false;
+    let hasError: boolean = false;
 
     for (let i = 0; i < fieldsets.length; i += 1) {
-      const fieldset = fieldsets[i];
-      hasError =
-        fieldset.querySelector('.hs-form-required') &&
-        !checkValue(fieldset) &&
-        (fieldset.querySelector('.hs-form-field') as HTMLDivElement).style.display !== 'none';
-      setShowError(hasError ?? false);
+      const inputs = fieldsets[i].querySelectorAll('.hs-form-field');
+
+      if (fieldsets[i].style.display !== 'none') {
+        for (let j = 0; j < inputs.length; j += 1) {
+          const input = inputs[j];
+
+          if (input.querySelector('.hs-form-required') && !checkValue(input)) {
+            hasError = true;
+          }
+
+          setShowError(hasError ?? false);
+
+          if (hasError) {
+            break;
+          }
+        }
+      }
 
       if (hasError) {
         break;
@@ -210,8 +248,9 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   };
 
   const formReady = () => {
-    const el = document.querySelectorAll('.hs-form-field, .hs-submit');
+    const el = document.querySelectorAll('fieldset, .hs-submit');
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime + 1;
+    debugger;
     handleMultiStep(el);
   };
 
@@ -269,7 +308,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     };
 
     const onFormClick = (e: MouseEvent) => {
-      if((e?.target as HTMLInputElement).className === 'hs-button primary large') {
+      if ((e?.target as HTMLInputElement).className === 'hs-button primary large') {
         showAllErrorMessages();
       }
     };
@@ -287,8 +326,8 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
             portalId,
             formId,
             target: `#${target}`,
-            onFormSubmit : (form: HTMLFormElement) => {
-              if(onFormSubmit) {
+            onFormSubmit: (form: HTMLFormElement) => {
+              if (onFormSubmit) {
                 onFormSubmit(form);
               }
             },
