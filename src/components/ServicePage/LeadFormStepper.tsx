@@ -58,7 +58,7 @@ type LeadFormStepperProps = {
 };
 
 const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onProgress }: LeadFormStepperProps) => {
-  const noOfFieldsAtaTime = 3;
+  const noOfFieldsAtaTime = 5;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
 
