@@ -58,8 +58,17 @@ type LeadFormStepperProps = {
   onProgress: (progress: number) => void;
 };
 
-const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onProgress, calenderLink }: LeadFormStepperProps) => {
-  const noOfFieldsAtaTime = 5;
+const LeadFormStepper = (
+  {
+    region,
+    portalId,
+    formId,
+    target,
+    onFormSubmit,
+    onProgress,
+    calenderLink,
+  }: LeadFormStepperProps) => {
+  const noOfFieldsAtaTime = 4;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
 
@@ -246,7 +255,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
   const formReady = () => {
     const el = document.querySelectorAll('fieldset');
-    formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime + 1;
+    formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime;
     handleMultiStep(el);
   };
 
