@@ -170,9 +170,16 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
                   onProgress={(progress) => {
                     setFormStepperProgress(progress);
                   }}
+                  calenderLink={
+                    (leadForm?.attributes.json_content.lead_forms &&
+                      leadForm?.attributes.json_content.lead_forms.find((f) => {return f.type === 'meeting';})?.url) ??
+                    ''
+                  }
                   region={
                     (leadForm?.attributes.json_content.lead_forms &&
-                      leadForm?.attributes.json_content.lead_forms[0].region) ??
+                      leadForm?.attributes.json_content.lead_forms.find(
+                        (f) => {return f.type === 'form';},
+                      )?.region) ??
                     ''
                   }
                   portalId={

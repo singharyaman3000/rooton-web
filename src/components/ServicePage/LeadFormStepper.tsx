@@ -49,6 +49,7 @@ type LeadFormStepperProps = {
   portalId: string;
   formId: string;
   target: string;
+  calenderLink: string;
   // eslint-disable-next-line no-unused-vars
   onFormSubmit?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
@@ -57,7 +58,7 @@ type LeadFormStepperProps = {
   onProgress: (progress: number) => void;
 };
 
-const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onProgress }: LeadFormStepperProps) => {
+const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onProgress, calenderLink }: LeadFormStepperProps) => {
   const noOfFieldsAtaTime = 5;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
@@ -93,27 +94,22 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     calculateProgress();
   };
 
-  const hideAllErrorMessages = () => {
+  const hideAllErrorMessages = (hide: boolean) => {
     const form = document.getElementsByTagName('form');
     const fieldsets = form[0].querySelectorAll('fieldset');
     for (let i = 0; i < fieldsets.length; i += 1) {
-      const fieldset = fieldsets[i];
-      const errorList = fieldset.querySelector('.no-list') as HTMLUListElement;
-      if (errorList) {
-        errorList.style.display = 'none';
-      }
-    }
-  };
 
-  const showAllErrorMessages = () => {
-    const form = document.getElementsByTagName('form');
-    const fieldsets = form[0].querySelectorAll('fieldset');
-    for (let i = 0; i < fieldsets.length; i += 1) {
-      const fieldset = fieldsets[i];
-      const errorList = fieldset.querySelector('.no-list') as HTMLUListElement;
-      if (errorList) {
-        errorList.style.display = 'block';
+      const fields = fieldsets[i].querySelectorAll('.hs-form-field');
+
+      for(let j = 0; j < fields.length; j+=1) {
+        const errorList = fields[j].querySelector('.no-list') as HTMLUListElement;
+
+        if (errorList) {
+          errorList.style.display = hide ? 'none' : 'block';
+        }
+
       }
+
     }
   };
 
@@ -136,12 +132,12 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
     if (hasError) {
       setShowError(true);
-      showAllErrorMessages();
+      hideAllErrorMessages(false);
       return true;
     }
 
     setShowError(false);
-    hideAllErrorMessages();
+    hideAllErrorMessages(true);
     return false;
   };
 
@@ -310,7 +306,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
     const onFormClick = (e: MouseEvent) => {
       if ((e?.target as HTMLInputElement).className === 'hs-button primary large') {
-        showAllErrorMessages();
+        hideAllErrorMessages(false);
       }
     };
 
@@ -374,7 +370,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     />
   ) : (
     <div className=" h-[54rem] mt-2">
-      <iframe className=" w-full h-full" title="AA" src="https://meetings.hubspot.com/ajesh-ajayan" />
+      <iframe className=" w-full h-full" title="AA" src={calenderLink} />
     </div>
   );
 };

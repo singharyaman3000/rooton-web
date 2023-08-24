@@ -12,7 +12,7 @@ type IEligibility = {
 };
 
 export type ILeadForm = {
-  type?: 'form' | 'calendly';
+  type?: 'form' | 'meeting';
   region?: string;
   portalId?: string;
   formId?: string;
