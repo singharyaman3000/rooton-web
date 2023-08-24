@@ -3,8 +3,6 @@
 import { IServicePageContent } from '@/app/services/apiService/serviceAPI';
 import { useRef, useState } from 'react';
 import { H2 } from '../H2';
-import OurProcess from '../HomePage/OurProcess';
-import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 import Testimonials from '../HomePage/Testimonials';
 import { Li } from '../Li';
 import { Ul } from '../Ul';
@@ -26,6 +24,8 @@ import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import LeadFormStepper from './LeadFormStepper';
 import RootOnCTAWrapper from './RootOnCTAWrapper';
 import { Breadcrumbs } from '../Breadcrumbs';
+import OurProcess from '../HomePage/OurProcess';
+import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -64,7 +64,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
     setShowBookAnAppointment(true);
     setTimeout(() => {
       window.scrollTo({
-        top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.scrollY,
+        top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
         behavior: 'smooth',
       });
     }, 0);
@@ -138,7 +138,7 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
             className=" !py-0"
             title={''}
             sub_title={process?.attributes?.title ?? ''}
-            json_content={process?.attributes?.json_content as unknown as IOurProcessData}
+            json_content={process?.attributes?.json_content as IOurProcessData}
           />
         </div>
       )}

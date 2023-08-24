@@ -485,7 +485,7 @@ body {
   float: right;
   width: 100px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   position: relative;
   top: 48px;
 }
@@ -669,4 +669,13 @@ button:disabled {
 
 .slide-shader {
   background-image: linear-gradient(to right, rgba(248, 248, 248, 0) 4%, #f6f6f6 88%);
+}
+
+.services-tab .tab-header{
+width: fit-content !important;
+flex: 1;
+}
+
+.services-tab .tab-header div:nth-child(2){
+  max-width: 100% !important;
 }
