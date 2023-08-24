@@ -76,6 +76,10 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     onProgress(progress);
   };
 
+  const hideSubmitButton = (hide: boolean) => {
+    (document.querySelector('.actions') as HTMLDivElement).style.display = hide ? 'none' : 'block';
+  };
+
   // eslint-disable-next-line no-undef
   const handleMultiStep = (formEl: NodeListOf<Element>) => {
     for (let i = 0; i < (formEl?.length ?? 0); i += 1) {
@@ -248,9 +252,8 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   };
 
   const formReady = () => {
-    const el = document.querySelectorAll('fieldset, .hs-submit');
+    const el = document.querySelectorAll('fieldset');
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime + 1;
-    debugger;
     handleMultiStep(el);
   };
 
@@ -266,7 +269,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
     }
 
     setDisableBackButton(false);
-    const el = document.querySelectorAll('.hs-form-field, .hs-submit');
+    const el = document.querySelectorAll('fieldset');
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
       showFrom.current += noOfFieldsAtaTime;
       stepNo.current += 1;
@@ -274,6 +277,8 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
     if (showTo.current >= el.length - noOfFieldsAtaTime) {
       setDisableNextButton(true);
+      debugger;
+      hideSubmitButton(false);
     }
 
     if (showTo.current < el.length) {
@@ -339,6 +344,7 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
             },
             onFormReady: () => {
               formReady();
+              hideSubmitButton(true);
               const form = document.getElementsByTagName('form');
               form[0].addEventListener('change', onFormBlur);
               form[0].addEventListener('click', onFormClick);
