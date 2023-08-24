@@ -134,7 +134,6 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
       }
     }
 
-    debugger;
     if (hasError) {
       setShowError(true);
       showAllErrorMessages();
@@ -149,8 +148,6 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
   const checkForMandatoryFields = () => {
     const checkIfCheckboxOrRadioAnyIschecked = (fields: Element | null) => {
       const checkboxes = fields?.querySelectorAll('input');
-      debugger;
-
       let checked = false;
       for (let i = 0; i < (checkboxes?.length ?? 0); i += 1) {
         if (checkboxes && checkboxes[i]) {
@@ -277,7 +274,6 @@ const LeadFormStepper = ({ region, portalId, formId, target, onFormSubmit, onPro
 
     if (showTo.current >= el.length - noOfFieldsAtaTime) {
       setDisableNextButton(true);
-      debugger;
       hideSubmitButton(false);
     }
 
