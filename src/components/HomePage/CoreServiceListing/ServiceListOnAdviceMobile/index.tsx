@@ -6,7 +6,8 @@ import ListContainer from '../UIElements/ListContainer';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { motion } from 'framer-motion';
 import CloseIconButton from '../UIElements/CloseIcon';
-import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
+// import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
 export interface IserviceList {
   serviceType: string;
@@ -15,7 +16,7 @@ export interface IserviceList {
 
 const ServiceListingOnAdviceMobile = () => {
   const { headerFooterData } = useHeaderFooterContext();
-  const { isModalShown, toggleModalShown } = useContext(MobileModalShowContextname);
+  const { isModalShown, toggleModalShown } = useContext(ModalShowContextname);
   const [xValue, setxValue] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   useEffect(() => {
