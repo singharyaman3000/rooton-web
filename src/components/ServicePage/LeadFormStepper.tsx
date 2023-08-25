@@ -50,12 +50,15 @@ type LeadFormStepperProps = {
   formId: string;
   target: string;
   calenderLink: string;
+  isBookAppointment: boolean;
   // eslint-disable-next-line no-unused-vars
   onFormSubmit?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
   onFormSubmitted?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
   onProgress: (progress: number) => void;
+  // eslint-disable-next-line no-unused-vars
+  initScroll: () => void;
 };
 
 const LeadFormStepper = (
@@ -67,6 +70,8 @@ const LeadFormStepper = (
     onFormSubmit,
     onProgress,
     calenderLink,
+    isBookAppointment,
+    initScroll,
   }: LeadFormStepperProps) => {
   const noOfFieldsAtaTime = 4;
   const showFrom = useRef<number>(0);
@@ -367,6 +372,13 @@ const LeadFormStepper = (
       }
     };
   }, []);
+
+  useEffect(() => {
+    debugger;
+    if(isBookAppointment) {
+      initScroll();
+    }
+  }, [isBookAppointment, initScroll]);
 
   return !showCalender ? (
     <FormTarget

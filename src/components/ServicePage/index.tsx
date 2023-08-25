@@ -29,9 +29,10 @@ import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 
 type ServicePageProps = {
   response: IServicePageContent;
+  isBookAppointment: boolean;
 };
 
-export const ServicePageComponent = ({ response }: ServicePageProps) => {
+export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [selectedAccordionId, setSelectedAccordionId] = useState<string | null>(null);
   const [formStepperProgress, setFormStepperProgress] = useState(0);
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
@@ -172,6 +173,8 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
               <H2>{leadForm?.attributes.title ?? ''}</H2>
               <div className="" id="lead-form">
                 <LeadFormStepper
+                  initScroll={handleCTAButtonClick}
+                  isBookAppointment={isBookAppointment}
                   onProgress={(progress) => {
                     setFormStepperProgress(progress);
                   }}
