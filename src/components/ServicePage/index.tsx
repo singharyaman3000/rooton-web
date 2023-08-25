@@ -27,7 +27,6 @@ import { Breadcrumbs } from '../Breadcrumbs';
 import OurProcess from '../HomePage/OurProcess';
 import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 import RTONButtonBlackThemed from '../RTONButtonBlackThemed';
-import CalenderIcon from '../Icons/CalenderIcon';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -138,13 +137,15 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                     );
                   })}
                 </Ul>
-                <RTONButtonBlackThemed
-                  onClick={handleCTAButtonClick}
-                  ariaLabel="Get your queries solved"
-                  text="Get your queries solved"
-                  icon={<CalenderIcon />}
-                  className=" w-full"
-                />
+                <div className=' mt-[47px] w-[232px]'>
+                  <RTONButtonBlackThemed
+                    onClick={handleCTAButtonClick}
+                    ariaLabel="Get your queries solved"
+                    text="Get your queries solved"
+                    icon={<CalenderIconYellow />}
+                    className=" w-full"
+                  />
+                </div>
               </>
             )}
           </>
