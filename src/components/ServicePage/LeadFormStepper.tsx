@@ -374,7 +374,6 @@ const LeadFormStepper = (
   }, []);
 
   useEffect(() => {
-    debugger;
     if(isBookAppointment) {
       initScroll();
     }
