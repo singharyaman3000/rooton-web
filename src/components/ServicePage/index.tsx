@@ -99,7 +99,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
       {(whyChooseOpen || eligibility) && (
-        <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <ServicePageWrapper className="pt-20 pb-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <>
             <ServiceDescription text={response?.data?.attributes?.description} />
             {whyChooseOpen && (
@@ -165,7 +165,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         <ServicePageWrapper
           className={`${
             showBookAnAppointment ? 'block' : 'hidden'
-          } p-5 lg:px-[80px] lg:pt-[84] lg:pb-[80px] m-auto max-w-screen-2k`}
+          } p-5 lg:px-[80px] lg:pt-[84] m-auto max-w-screen-2k`}
         >
           <div
             ref={leadFormRef}
@@ -233,6 +233,9 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           </div>
         </ServicePageWrapper>
       )}
+      <div className=" mt-10 m-auto max-w-screen-2k">
+        <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
+      </div>
       <ServicePageWrapper className="m-auto max-w-screen-2k px-6 lg:px-[80px]">
         <RootOnCTAWrapper
           buttonAriaLabel={SERVICES_TITLE.appointment1.title}
@@ -249,9 +252,6 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           }
         />
       </ServicePageWrapper>
-      <div className=" mt-10 m-auto max-w-screen-2k">
-        <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
-      </div>
       {faqs && (
         <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <>

@@ -17,7 +17,7 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
       className="
         bg-pale-yellow-black
         pt-10
-        mt-10
+        mt-20
         lg:flex
         lg:gap-20
         lg:flex-row-reverse
@@ -61,11 +61,13 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
             ariaLabel="Talk-to-our-Expert"
             text="Talk to our Expert"
             icon={<CallIcon />}
-            className=' w-full'
+            className=" w-full"
           />
         </div>
       </div>
-      <div className=" relative lg:flex-shrink-0 sm:w-[380px] lg:w-[480px] h-auto">
+      <div className="
+        aspect-square lg:aspect-auto relative lg:flex-shrink-0 sm:w-[380px] lg:min-h-[560px] lg:w-[480px] h-auto
+      ">
         <NextImage src={imageUrl} altText={imageAlt} sizes="30vw" title="??" fill />
       </div>
     </section>
