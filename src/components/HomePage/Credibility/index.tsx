@@ -37,7 +37,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
   };
 
   const getPosition = (index: number) => {
-    if (index === media_url.data.length - 1 && media_url.data.length % 2 !==0) {
+    if (index === media_url.data.length - 1 && media_url.data.length % 2 !== 0) {
       return 'top-[35%] md:top-[calc(50%_-_120px)]';
     }
     if (index === 0 || index % 2 === 0) {
@@ -67,7 +67,6 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
       }
     };
   }, [pageNum, media_url.data.length]);
-  console.log(media_url.data)
 
   return (
     <div className="relative overflow-x-hidden overflow-y-hidden">
