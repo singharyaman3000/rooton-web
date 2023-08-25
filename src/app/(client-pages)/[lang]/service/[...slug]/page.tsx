@@ -12,7 +12,7 @@ const ServicePageCSR = () => {
 
   const { data, loading } = useClientAPI({
     apiFn: () => {
-      return getServicePageContent(params.slug.split('#')[0]);
+      return getServicePageContent(params.slug.split('/')[0]);
     },
   });
   const { loader } = useTranslationLoader();
@@ -24,7 +24,7 @@ const ServicePageCSR = () => {
       {(loader || loading) && <LoadingUI />}
       {data && (
         <ServicePageComponent
-          isBookAppointment={Boolean(params.slug.split('#')[1])}
+          isBookAppointment={Boolean(params.slug.split('/')[1])}
           response={data as IServicePageContent}
         />
       )}

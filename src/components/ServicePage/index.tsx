@@ -269,7 +269,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                   cssClass="challenges-accordion border-b-[1px] border-b-sandal "
                   key={faq.position}
                   header={<AccordionHeader value={faq.title} />}
-                  accordionBody={<AccordionBody value={faq.description} />}
+                  accordionBody={<AccordionBody containerWidth={'max-w-[100%]'} value={faq.description} />}
                 />
               );
             })}
