@@ -1,7 +1,6 @@
 'use client';
 
 import { FormConstants } from '@/app/constants/hubspotConfig';
-import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import { useEffect, useRef, useState } from 'react';
 
 type FormTargetProps = {
@@ -15,7 +14,6 @@ type FormTargetProps = {
 
 const FormTarget = ({
   target,
-  showError,
   onNextClick,
   onBackClick,
   disableNextButton,
@@ -28,18 +26,21 @@ const FormTarget = ({
         <button
           disabled={disableBackButton}
           type="button"
-          className=" bg-black text-white px-4 py-3.5 w-[100px] text-sm"
+          className=" bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
           onClick={onBackClick}
         >
           Back
         </button>
         {disableNextButton || (
-          <button type="button" className=" bg-black text-white px-4 py-3.5 w-[100px] text-sm" onClick={onNextClick}>
+          <button
+            type="button"
+            className=" bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
+            onClick={onNextClick}
+          >
             Next
           </button>
         )}
       </div>
-      {showError && <p className=" text-right text-[#ff0000]"> {SERVICES_TITLE.formError} </p>}
     </div>
   );
 };

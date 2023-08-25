@@ -169,7 +169,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           "
           >
             <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
-            <div className="p-12 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0">
+            <div className="p-4 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0 sm:p-12">
               <H2>{leadForm?.attributes.title ?? ''}</H2>
               <div className="" id="lead-form">
                 <LeadFormStepper
@@ -210,7 +210,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
               <NextImage
                 classSelector=" object-right"
                 src={'/images/my-project-46@3x.png'}
-                style={{ objectFit: 'contain', objectPosition: 'bottom' }}
+                style={{ objectFit: 'contain', objectPosition: 'right bottom' }}
                 altText="a man"
                 sizes="100vw"
                 fill
