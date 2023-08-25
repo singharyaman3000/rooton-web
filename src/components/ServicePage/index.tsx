@@ -23,14 +23,16 @@ import { SERVICES_TITLE } from '@/app/constants/textConstants';
 // eslint-disable-next-line import/no-named-as-default
 import LeadFormStepper from './LeadFormStepper';
 import RootOnCTAWrapper from './RootOnCTAWrapper';
+import { Breadcrumbs } from '../Breadcrumbs';
 import OurProcess from '../HomePage/OurProcess';
 import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 
 type ServicePageProps = {
   response: IServicePageContent;
+  isBookAppointment: boolean;
 };
 
-export const ServicePageComponent = ({ response }: ServicePageProps) => {
+export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [selectedAccordionId, setSelectedAccordionId] = useState<string | null>(null);
   const [formStepperProgress, setFormStepperProgress] = useState(0);
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
@@ -70,13 +72,30 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
   };
 
   return (
-    <div>
+    <div className=" relative">
+      <Breadcrumbs
+        className=" z-50 hidden lg:flex"
+        data={[
+          {
+            title: 'Home',
+            path: '/',
+          },
+          {
+            title: 'Service',
+            path: '',
+          },
+          {
+            title: 'Open Work Permit',
+            path: '',
+          },
+        ]}
+      />
       <RootOnBanner
         isVideoBanner={isVideo(response.data?.attributes.media_url?.data?.[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton onClick={handleCTAButtonClick} />}
+        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
       {(whyChooseOpen || eligibility) && (
         <ServicePageWrapper className="pt-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
@@ -99,7 +118,19 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
                 />
                 <Ul>
                   {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
-                    return <Li key={e.position + e.key}> {e.title} </Li>;
+                    return (
+                      <Li key={e.position + e.key}>
+                        <>
+                          <p className={`${e.description && ' font-bold'}`}>{e.title}</p>
+                          {e.description && (
+                            <Li tabbed key={`${e.position + e.key}-child`}>
+                              {' '}
+                              {e.description}{' '}
+                            </Li>
+                          )}
+                        </>
+                      </Li>
+                    );
                   })}
                 </Ul>
               </>
@@ -142,12 +173,23 @@ export const ServicePageComponent = ({ response }: ServicePageProps) => {
               <H2>{leadForm?.attributes.title ?? ''}</H2>
               <div className="" id="lead-form">
                 <LeadFormStepper
+                  initScroll={handleCTAButtonClick}
+                  isBookAppointment={isBookAppointment}
                   onProgress={(progress) => {
                     setFormStepperProgress(progress);
                   }}
+                  calenderLink={
+                    (leadForm?.attributes.json_content.lead_forms &&
+                      leadForm?.attributes.json_content.lead_forms.find((f) => {
+                        return f.type === 'meeting';
+                      })?.url) ??
+                    ''
+                  }
                   region={
                     (leadForm?.attributes.json_content.lead_forms &&
-                      leadForm?.attributes.json_content.lead_forms[0].region) ??
+                      leadForm?.attributes.json_content.lead_forms.find((f) => {
+                        return f.type === 'form';
+                      })?.region) ??
                     ''
                   }
                   portalId={

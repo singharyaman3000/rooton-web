@@ -65,7 +65,7 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
           />
         </div>
       </div>
-      <div className="mt-8 aspect-square relative lg:flex-shrink-0 sm:w-[380px] lg:w-[480px] lg:h-[560px]">
+      <div className=" aspect-square lg:aspect-[0.73] relative lg:flex-shrink-0 sm:w-[380px] lg:w-[480px] h-full">
         <NextImage src={imageUrl} altText={imageAlt} sizes="30vw" title="??" fill />
       </div>
     </section>

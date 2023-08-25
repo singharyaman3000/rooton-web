@@ -37,6 +37,7 @@ export const SERVICES_TITLE = {
     imageAlt: 'man and women',
     imageTitle: 'man and women',
   },
+  formError: 'Please solve all validation errors',
 };
 
 export const LAYOUT = {

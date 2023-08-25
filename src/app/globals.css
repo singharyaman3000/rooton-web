@@ -2,6 +2,7 @@
   --primary-bg: #fff;
   --toggle-dark-bg: #000;
   --tansparent-bg: #00000045;
+  --grey-bullet: #cbcbcb;
 
   --font-color-orange: #f59723;
   --font-color-light-gray: #717171;
@@ -44,6 +45,7 @@
   --tansparent-bg: #ffffff3b;
   --primary-text: #fff;
   --primary-white: #000;
+  --grey-bullet: #cbcbcb;
 
   --font-color-orange: #f59723;
   --font-color-light-gray: #ffffff;
@@ -365,7 +367,7 @@ body {
   font-size: 14px;
   font-weight: 500;
   color: #fff;
-  background-image: url('/images/icons/top-right-arrow.svg');
+  background-image: url('data:image/svg+xml,<svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><path d="M1.187 10 0 8.813l7.109-7.109H.786V0H10v9.214H8.296V2.891z" fill="%23FFAF00" fill-rule="nonzero"/></svg>');
   background-repeat: no-repeat;
   background-position: calc(50% + 32px);
   background-size: 8px;
@@ -373,6 +375,11 @@ body {
 
 #hubspotForm .hs_error_rollup {
   display: none;
+}
+
+#hubspotForm .submitted-message { 
+  font-size: 14px;
+  font-weight: 700;
 }
 
 /* media queries */
@@ -385,6 +392,8 @@ body {
       rgba(216, 216, 216, 0) 93%
     );
   }
+
+  #hubspotForm .submitted-message { font-size: 18px; }
 }
 
 [data-theme='dark'] .slider-nav {
@@ -489,17 +498,18 @@ body {
 }
 
 .huform .actions input {
-  width: 100px;
+  min-width: 100px;
   cursor: pointer;
   font-size: 0.875rem;
   line-height: 1.25rem;
+  font-weight: 700;
   background-color: black;
   padding: 14px 16px;
   color: white;
 }
 
 .huform .hs-form-field {
-  margin-bottom: 26px;
+  margin-bottom: 15px;
 }
 
 .huform .hs-form-field label {
@@ -514,22 +524,17 @@ body {
 }
 
 .huform .hs-form-field .hs-field-desc {
-  font-size: 12px;
+  font-size: 16px;
   color: #3d3d3d;
+  margin-bottom: 5px;
 }
 
-.huform .form-columns-3 {
-  display: flex;
-  gap: 14px;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.huform .form-columns-2>*+* {
+  margin-left: 0;
 }
 
-.huform .form-columns-2 {
-  display: flex;
-  gap: 14px;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.huform .form-columns-3>*+* {
+  margin-left: 2%;
 }
 
 .huform .hs-form-field input[type='text'],
@@ -558,11 +563,15 @@ body {
 @media screen and (min-width: 481px) {
   /*media CSS for hubspot forms (two fields in single row) */
   .huform .form-columns-3 > * {
-    width: 30% !important;
+    width: 32% !important;
   }
 
   .huform .form-columns-2 > * {
-    width: 48% !important;
+    width: 49% !important;
+  }
+
+  .huform .hs-form-field {
+     margin-bottom: 26px;
   }
 }
 
@@ -584,21 +593,44 @@ body {
   background-position-y: 50%;
 }
 
-.huform .hs-form-booleancheckbox {
+.huform .hs-form-checkbox-display, 
+.huform .hs-form-booleancheckbox-display,
+.huform .hs-form-radio-display {
+   display: inline-flex;
+   align-items: baseline;
+}
+
+.huform .hs-form-booleancheckbox, 
+.huform .hs-form-checkbox,
+.huform .hs-form-radio-display {
   position: relative;
 }
 
-.huform .hs-form-booleancheckbox .hs-input {
-  margin-right: 4px;
+.huform .hs-form-booleancheckbox .hs-input, 
+.huform .hs-form-checkbox .hs-input {
+  margin-right: 3px;
+  margin-left: 3px;
 }
 
-.huform .hs-form-booleancheckbox span {
+.huform .hs-fieldtype-intl-phone {
+  display: flex;
+  width: 100% !important;
+  display: flex;
+  gap: 3px;
+}
+
+.huform .hs-form-booleancheckbox span,
+.huform .hs-form-checkbox span, 
+.huform .hs-form-radio-display span {
   padding-left: 15px;
   cursor: pointer;
 }
 
-.huform .hs-form-booleancheckbox span:before {
-  content: '';
+.huform .hs-form-booleancheckbox span:before, 
+.huform .hs-form-checkbox span:before,
+.huform .hs-form-radio-display span::before {
+  content: "";
+  background-image: url('/images/icons/checkbox-checked.svg');
   background-image: url('/images/icons/checkbox-unchecked.svg');
   background-repeat: no-repeat;
   position: absolute;
@@ -607,6 +639,12 @@ body {
   height: 20px;
   top: 5px;
   transition: background-image 0.1s ease-in-out;
+}
+
+.huform .hs-form-booleancheckbox input[type=checkbox]:checked + span:before, 
+.huform .hs-form-checkbox input[type=checkbox]:checked + span:before,
+.huform .hs-form-radio-display input[type=radio]:checked + span:before {
+  background-image: url('/images/icons/checkbox-checked.svg');
 }
 
 .huform .hs-form-booleancheckbox input[type='checkbox']:checked + span:before {
@@ -676,4 +714,9 @@ flex: 1;
 
 .services-tab .tab-header div:nth-child(2){
   max-width: 100% !important;
+}
+
+.huform input:focus, .huform select:focus, .huform textarea:focus {
+  outline-color: #000;
+  outline-offset: 0;
 }

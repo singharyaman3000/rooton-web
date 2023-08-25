@@ -8,12 +8,12 @@ import { useTranslationLoader } from '@/providers/translationLoadingProvider';
 import { useParams } from 'next/navigation';
 
 const ServicePageCSR = () => {
-
   const params = useParams();
 
+  console.log('***************', params);
   const { data, loading } = useClientAPI({
     apiFn: () => {
-      return getServicePageContent(params.slug);
+      return getServicePageContent(params.slug.split('')[0]);
     },
   });
   const { loader } = useTranslationLoader();
@@ -23,7 +23,12 @@ const ServicePageCSR = () => {
   return (
     <>
       {(loader || loading) && <LoadingUI />}
-      {data && <ServicePageComponent response={data as IServicePageContent} />}
+      {data && (
+        <ServicePageComponent
+          isBookAppointment={Boolean(params.slug.split('')[1])}
+          response={data as IServicePageContent}
+        />
+      )}
     </>
   );
 };
