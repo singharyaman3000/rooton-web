@@ -43,7 +43,7 @@ export const scrollIntoView = (id:string) => {
 
 export const getTranslatedURL = (url: string, lang?: string) => {
   if (lang) {
-    return `${lang}/${url}`;
+    return `${lang}${url.startsWith('/') ? url : `/${url}`}`;
   }
   return url;
 };

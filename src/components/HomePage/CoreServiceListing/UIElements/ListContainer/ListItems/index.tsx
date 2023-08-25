@@ -9,15 +9,11 @@ const ListItems = ({ item, id }: { item: string; id: number }) => {
   const path = useParams();
   const router = useRouter();
 
-  const { isModalShown, closeCoreServiceList, isFormFocusRouting } = useContext(ModalShowContextname);
+  const { isModalShown, closeCoreServiceList } = useContext(ModalShowContextname);
 
   const handleRouteRedirect = () => {
     const route = getTranslatedURL(getServicePageURL(id), path.lang);
-    if (isFormFocusRouting) {
-      router.push(route + BOOK_AN_APPOINTMENT);
-    } else {
-      router.push(route);
-    }
+    router.push(route + BOOK_AN_APPOINTMENT);
     if (isModalShown) closeCoreServiceList();
   };
 
