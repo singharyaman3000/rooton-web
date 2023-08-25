@@ -10,17 +10,21 @@ import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
 import { useParams } from 'next/navigation';
 
+const itemsToSetActive = ['service','contact'];
+
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
   const params = useParams();
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
+  const [activeTab,setActiveTab] = useState<string>('');
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
     let ticking = false;
 
+    setActiveTabFromUrl();
     function showOrHideHeader(scrollPos: number) {
       if (scrollPos > 80) {
         setscrolledEnough((scrolled) => {
@@ -56,6 +60,15 @@ export default function Header() {
       document.removeEventListener('scroll', onScroll);
     };
   }, []);
+
+  function setActiveTabFromUrl() {
+    const pathArray: string[] = window.location.pathname.split('/');
+    itemsToSetActive.forEach((item: string) => {
+      if (pathArray.includes(item)) {
+        setActiveTab(item);
+      }
+    });
+  }
 
   function animateHeader() {
     const easeDown = [{ top: '-5rem' }, { top: '0' }];
@@ -137,29 +150,47 @@ export default function Header() {
             ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
           `}
           >
-            <span>
-              <Link href={'/'}> About Us </Link>
+            <span className="h-[100%] flex items-center relative">
+              <Link href={'/'}> About Us</Link>
+              {activeTab === 'About Us' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+              )}
             </span>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <span
               onClick={() => {
                 scrollIntoView('servicesHomePage');
               }}
-              className="cursor-pointer"
+              className="cursor-pointer h-[100%] flex items-center relative"
             >
               Services
+              {activeTab === 'service' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+              )}
             </span>
-            <span>
+            <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Coaching </Link>
+              {activeTab === 'Coaching' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+              )}
             </span>
-            <span>
+            <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Blogs </Link>
+              {activeTab === 'Blogs' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+              )}
             </span>
-            <span>
+            <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Contact Us </Link>
+              {activeTab === 'Contact Us' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+              )}
             </span>
-            <span>
+            <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Tools </Link>
+              {activeTab === 'Tools' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+              )}
             </span>
           </div>
           <ThemeToggleAndHamburger toggleSlideOverlay={toggleSlideOverlay} scrolledEnough={scrolledEnough} />

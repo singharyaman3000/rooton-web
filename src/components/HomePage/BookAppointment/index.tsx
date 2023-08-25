@@ -7,7 +7,6 @@ import BookAppointmentGridRight from './BookAppointmentGridRight';
 import BookAppointmentGridLeft from './BookAppointmentLeft';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 import BookAnApptButton from './Button';
-import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
 
 const BookAnAppointment = () => {
   const BookAnAppointmentContent = {
@@ -15,8 +14,7 @@ const BookAnAppointment = () => {
     btnLabel: 'Book an Appointment now',
   };
 
-  const { toggleModalShown } = useContext(ModalShowContextname);
-  const { toggleModalShown: toggleMobileModalShown } = useContext(MobileModalShowContextname);
+  const { openCoreServiceList } = useContext(ModalShowContextname);
 
   return (
     <SectionContainer cssClass="mb-20">
@@ -29,8 +27,7 @@ const BookAnAppointment = () => {
             <BookAnApptButton
               cssClass="w-full md:w-fit"
               handleOnClick={() => {
-                toggleModalShown();
-                toggleMobileModalShown();
+                openCoreServiceList();
               }}
             />
           </div>
