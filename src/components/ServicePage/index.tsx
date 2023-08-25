@@ -122,12 +122,15 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                       <Li key={e.position + e.key}>
                         <>
                           <p className={`${e.description && ' font-bold'}`}>{e.title}</p>
-                          {e.description && (
-                            <Li tabbed key={`${e.position + e.key}-child`}>
-                              {' '}
-                              {e.description}{' '}
-                            </Li>
-                          )}
+                          {e.description &&
+                            (e.description as string[]).map((des) => {
+                              return (
+                                <Li tabbed key={`${e.position + e.key + des}-child`}>
+                                  {' '}
+                                  {des}{' '}
+                                </Li>
+                              );
+                            })}
                         </>
                       </Li>
                     );
