@@ -14,7 +14,6 @@ const ListItems = ({ item, id }: { item: string; id: number }) => {
   const handleRouteRedirect = () => {
     const route = getTranslatedURL(getServicePageURL(id), path.lang);
     if (isFormFocusRouting) {
-      console.log(route + BOOK_AN_APPOINTMENT);
       router.push(route + BOOK_AN_APPOINTMENT);
     } else {
       router.push(route);
