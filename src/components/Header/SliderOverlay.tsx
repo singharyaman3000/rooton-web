@@ -4,8 +4,9 @@ import { Fragment, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
-import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
+// import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
 import { scrollIntoView } from '@/utils';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
 interface SliderOverlayProps {
   open: boolean;
@@ -14,7 +15,7 @@ interface SliderOverlayProps {
 }
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
-  const { toggleModalShown } = useContext(MobileModalShowContextname);
+  const { openCoreServiceList } = useContext(ModalShowContextname);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
@@ -141,7 +142,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       mb-5
                     "
                         onClick={() => {
-                          toggleModalShown();
+                          openCoreServiceList();
                         }}
                       >
                         Talk to our Expert

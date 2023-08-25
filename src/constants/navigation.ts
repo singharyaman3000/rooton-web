@@ -1,0 +1,1 @@
+export const BOOK_AN_APPOINTMENT = '/book-an-appointment';
