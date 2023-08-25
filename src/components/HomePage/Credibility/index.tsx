@@ -28,7 +28,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
 
   const isVisible = (index: number) => {
     const isLastPage = Math.ceil(media_url.data.length / 2);
-    if (pageNum + 1 === isLastPage) {
+    if (pageNum + 1 === isLastPage && media_url.data.length % 2 !==0) {
       return index === media_url.data.length - 1;
     }
     const currentIndex = pageNum * 2;
@@ -37,10 +37,10 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
   };
 
   const getPosition = (index: number) => {
-    if (index === media_url.data.length - 1) {
+    if (index === media_url.data.length - 1 && media_url.data.length % 2 !==0) {
       return 'top-[35%] md:top-[calc(50%_-_120px)]';
     }
-    if (index % 2 === 0) {
+    if (index === 0 || index % 2 === 0) {
       return 'top-0';
     }
     return 'bottom-0';
@@ -67,6 +67,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
       }
     };
   }, [pageNum, media_url.data.length]);
+  console.log(media_url.data)
 
   return (
     <div className="relative overflow-x-hidden overflow-y-hidden">
@@ -89,7 +90,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
             <SubSectionTitle title={sub_title} />
             <Description cssClass="mt-6" description={description} />
           </motion.div>
-          <div className="z-10 mx-auto relative h-[264px]  md:!h-[530px] mb-[50px]  md:w-[43.8%] md:mr-[40px]  mt-8 lg:mt-0 items-center  lg:h-full">
+          <div className={`z-10 mx-auto relative  mb-[50px] md:!h-[530px]  md:w-[43.8%] md:mr-[40px]  mt-8 lg:mt-0 items-center  lg:h-full ${media_url.data.length ===1? 'h-[130px]': media_url.data.length > 0 && 'h-[264px]'}`}>
             {media_url.data?.map((lisenseImage, index) => {
               return (
                 <motion.div
