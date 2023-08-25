@@ -8,7 +8,7 @@ type IEligibility = {
   key: string;
   title: string;
   position: string;
-  description: string;
+  description: string | string[];
 };
 
 export type ILeadForm = {
