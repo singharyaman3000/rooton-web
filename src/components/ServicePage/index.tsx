@@ -27,6 +27,7 @@ import { Breadcrumbs } from '../Breadcrumbs';
 import OurProcess from '../HomePage/OurProcess';
 import { IOurProcessData } from '../HomePage/OurProcess/interfaces';
 import RTONButtonBlackThemed from '../RTONButtonBlackThemed';
+import BookAnAppointment from '../UIElements/BookAnAppointment';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -289,21 +290,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           </div>
         </div>
       )}
-      <ServicePageWrapper className="m-auto mt-20 max-w-screen-2k pb-20 px-6 lg:px-[80px]">
-        <RootOnCTAWrapper
-          buttonAriaLabel={SERVICES_TITLE.appointment2.title}
-          buttonText={SERVICES_TITLE.appointment2.title}
-          buttonIcon={<CalenderIconYellow />}
-          onClick={handleCTAButtonClick}
-          imageSrc={SERVICES_TITLE.appointment2.image}
-          imageAlt={SERVICES_TITLE.appointment2.imageAlt}
-          imageTitle={SERVICES_TITLE.appointment2.imageTitle}
-          heading={
-            <>
-              {SERVICES_TITLE.appointment2.contentLine1} <br /> {SERVICES_TITLE.appointment2.contentLine2}
-            </>
-          }
-        />
+      <ServicePageWrapper className="m mt-20 max-w-screen-2k pb-20">
+        <BookAnAppointment onClick={handleCTAButtonClick}/>
       </ServicePageWrapper>
     </div>
   );

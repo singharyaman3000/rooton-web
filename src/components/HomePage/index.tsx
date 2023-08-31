@@ -15,7 +15,7 @@ import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
-import BookAnAppointment from './BookAppointment';
+import BookAnAppointmentSection from './BookAppointment';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
@@ -106,7 +106,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         }
       />
       {getComponentsAboveBookAppointments()}
-      <BookAnAppointment />
+      <BookAnAppointmentSection/>
       {getComponentsAfterBookAppointments()}
       <Testimonials title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
       {faqData && (
