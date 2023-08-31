@@ -26,21 +26,20 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
   const onLanguageChange = (selectedLanguage: ILanguageData) => {
     let nextRoute = '';
     if (params.lang) {
+
       if (selectedLanguage.attributes.code === 'en') {
         nextRoute = getDetraslatedURL(path, params.lang);
-      } else {
-        if (selectedLanguage.attributes.code === params.lang) {
-          return false;
-        }
+      } else if (selectedLanguage.attributes.code !== params.lang) {
         nextRoute = path.replace(params.lang, selectedLanguage.attributes.code);
       }
-    } else {
-      if (selectedLanguage.attributes.code === 'en') {
-        return false;
-      }
+    } else if (selectedLanguage.attributes.code !== 'en') {
       nextRoute = `${process.env.NEXT_APP_BASE_URL ?? ''}${selectedLanguage.attributes.code}${path}`;
     }
-    window.location.href = nextRoute;
+
+    if(nextRoute){
+      window.location.href = nextRoute;
+    }
+
   };
 
   const handleClose = () => {
