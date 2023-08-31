@@ -29,9 +29,15 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
       if (selectedLanguage.attributes.code === 'en') {
         nextRoute = getDetraslatedURL(path, params.lang);
       } else {
+        if (selectedLanguage.attributes.code === params.lang) {
+          return false;
+        }
         nextRoute = path.replace(params.lang, selectedLanguage.attributes.code);
       }
     } else {
+      if (selectedLanguage.attributes.code === 'en') {
+        return false;
+      }
       nextRoute = `${process.env.NEXT_APP_BASE_URL ?? ''}${selectedLanguage.attributes.code}${path}`;
     }
     window.location.href = nextRoute;
@@ -47,7 +53,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         aria-label="Language dropdown button "
         type="button"
         onClick={() => {
-          setIsOpen((o) => !o);
+          setIsOpen((o) => {return !o;});
         }}
         className=" flex gap-2 items-center relative z-[1001]"
       >
@@ -70,7 +76,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         {isOpen && (
           // eslint-disable-next-line jsx-a11y/no-static-element-interactions
           <div
-            onClick={(e) => dropdownContainerOnClick(e)}
+            onClick={(e) => {return dropdownContainerOnClick(e);}}
             className="
                overscroll-contain
                 z-[1001]
