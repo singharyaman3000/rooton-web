@@ -161,7 +161,7 @@ export default function Header() {
               {activeTab === 'About Us' && (
                 <span
                   className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-13px]' : 'bottom-[-12px]'
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
                   }`}
                 />
               )}
@@ -177,7 +177,7 @@ export default function Header() {
               {activeTab === 'service' && (
                 <span
                   className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-13px]' : 'bottom-[-12px]'
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
                   }`}
                 />
               )}
@@ -187,7 +187,7 @@ export default function Header() {
               {activeTab === 'Coaching' && (
                 <span
                   className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-13px]' : 'bottom-[-12px]'
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
                   }`}
                 />
               )}
@@ -197,7 +197,7 @@ export default function Header() {
               {activeTab === 'Blogs' && (
                 <span
                   className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-13px]' : 'bottom-[-12px]'
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
                   }`}
                 />
               )}
@@ -207,7 +207,7 @@ export default function Header() {
               {activeTab === 'Contact Us' && (
                 <span
                   className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-13px]' : 'bottom-[-12px]'
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
                   }`}
                 />
               )}
@@ -217,7 +217,7 @@ export default function Header() {
               {activeTab === 'Tools' && (
                 <span
                   className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-13px]' : 'bottom-[-12px]'
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
                   }`}
                 />
               )}
