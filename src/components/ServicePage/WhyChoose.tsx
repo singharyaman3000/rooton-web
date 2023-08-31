@@ -65,9 +65,11 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
           />
         </div>
       </div>
-      <div className="
-        aspect-square lg:aspect-auto relative lg:flex-shrink-0 sm:w-[380px] lg:min-h-[560px] xl:w-[480px] h-auto
-      ">
+      <div
+        className="
+        aspect-square mr-[16px] md:mr-0 mt-5 md:mt-0 lg:aspect-auto relative lg:flex-shrink-0 sm:w-[380px] lg:min-h-[560px] xl:w-[480px] h-auto
+      "
+      >
         <NextImage src={imageUrl} altText={imageAlt} sizes="30vw" title="??" fill style={{ objectFit: 'cover' }} />
       </div>
     </section>
