@@ -3,8 +3,8 @@
 import SectionContainer from '@/components/Containers/SectionContainers';
 import React, { useContext } from 'react';
 import NextImage from '@/components/UIElements/NextImage';
-import BookAppointmentGridRight from './BookAppointmentGridRight';
-import BookAppointmentGridLeft from './BookAppointmentLeft';
+import BookAppointmentGridRight from '../../UIElements/BookAnAppointment/BookAppointmentGridRight';
+import BookAppointmentGridLeft from '../../UIElements/BookAnAppointment/BookAppointmentLeft';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 import BookAnApptButton from './Button';
 
