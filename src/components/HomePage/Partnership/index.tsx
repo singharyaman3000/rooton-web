@@ -14,8 +14,6 @@ export interface IPartnershipData extends ITitleAttributes {
   data: IimageCard[];
 }
 
-// const SLIDES_PER_PAGE = 3;
-
 const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
   const { jumpToPage, incrementPage, pageNum } = useSliderPagination({ slidesLength: 3, initialPage: 0 });
 

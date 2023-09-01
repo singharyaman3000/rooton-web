@@ -38,6 +38,10 @@ export const SERVICES_TITLE = {
     imageTitle: 'man and women',
   },
   formError: 'Please solve all validation errors',
+  leadForm : {
+    wrapperId: 'LeadFormContainer',
+    noOfFieldsAtaTime: 4,
+  },
 };
 
 export const LAYOUT = {

@@ -1,6 +1,7 @@
 'use client';
 
 import { FormConstants } from '@/app/constants/hubspotConfig';
+import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import { useEffect, useRef, useState } from 'react';
 
 type FormTargetProps = {
@@ -20,7 +21,7 @@ const FormTarget = ({
   disableBackButton,
 }: FormTargetProps) => {
   return (
-    <div className="mt-12 h-full w-full">
+    <div id={SERVICES_TITLE.leadForm.wrapperId} className="mt-12 h-full w-full">
       <div className=" h-full w-full" id={target} />
       <div className=" flex justify-between w-full mt-10">
         <button
@@ -74,7 +75,7 @@ const LeadFormStepper = (
     isBookAppointment,
     initScroll,
   }: LeadFormStepperProps) => {
-  const noOfFieldsAtaTime = 4;
+  const { noOfFieldsAtaTime } = SERVICES_TITLE.leadForm;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
 
@@ -110,8 +111,8 @@ const LeadFormStepper = (
   };
 
   const hideAllErrorMessages = (hide: boolean) => {
-    const form = document.getElementsByTagName('form');
-    const fieldsets = form[0].querySelectorAll('fieldset');
+    const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
+    const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
     for (let i = 0; i < fieldsets.length; i += 1) {
 
       const fields = fieldsets[i].querySelectorAll('.hs-form-field');
@@ -129,8 +130,8 @@ const LeadFormStepper = (
   };
 
   const checkForErrors = () => {
-    const form = document.getElementsByTagName('form');
-    const fieldsets = form[0].querySelectorAll('fieldset');
+    const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
+    const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
 
     let hasError = false;
 
@@ -176,16 +177,18 @@ const LeadFormStepper = (
     const checkValue = (input: Element) => {
       let hasValue = false;
 
+      const inputQuerySelectedInput = input?.querySelector('input');
+
       let tagname =
-        input?.querySelector('input')?.tagName ||
+        inputQuerySelectedInput?.tagName ||
         input?.querySelector('select')?.tagName ||
         input?.querySelector('textarea')?.tagName;
 
-      if (input.querySelector('input')?.type === 'checkbox') {
+      if (inputQuerySelectedInput?.type === 'checkbox') {
         tagname = 'CHECKBOX';
-      } else if (input.querySelector('input')?.type === 'radio') {
+      } else if (inputQuerySelectedInput?.type === 'radio') {
         tagname = 'RADIO';
-      } else if (input.querySelector('input')?.type === 'tel') {
+      } else if (inputQuerySelectedInput?.type === 'tel') {
         tagname = 'PHONE';
       }
 
@@ -195,22 +198,19 @@ const LeadFormStepper = (
           hasValue = true;
         }
         break;
-      case 'PHONE':
-        if ((input.querySelector('input') as HTMLInputElement).value.split('').length > 5) {
+      case 'PHONE': {
+        const { value } = (input.querySelector('input') as HTMLInputElement);
+        if (value.split('').length > 5 && value.split(' ')[1].match(/^\d+$/)) {
           hasValue = true;
         }
         break;
+      }
       case 'SELECT':
         if ((input.querySelector('select') as HTMLSelectElement).value) {
           hasValue = true;
         }
         break;
-      case 'CHECKBOX':
-        if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
-          hasValue = true;
-        }
-        break;
-      case 'RADIO':
+      case 'CHECKBOX' || 'RADIO':
         if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
           hasValue = true;
         }
@@ -227,8 +227,8 @@ const LeadFormStepper = (
       return hasValue;
     };
 
-    const form = document.getElementsByTagName('form');
-    const fieldsets = form[0].querySelectorAll('fieldset');
+    const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
+    const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
 
     let hasError: boolean = false;
 
@@ -266,8 +266,8 @@ const LeadFormStepper = (
   };
 
   const triggerAfakeSubmit = () => {
-    const form = document.getElementsByTagName('form')[0];
-    form.querySelector('.actions')?.querySelector('input')?.click();
+    const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form')[0];
+    form?.querySelector('.actions')?.querySelector('input')?.click();
   };
 
   const onNextClick = () => {
@@ -352,9 +352,11 @@ const LeadFormStepper = (
             onFormReady: () => {
               formReady();
               hideSubmitButton(true);
-              const form = document.getElementsByTagName('form');
-              form[0].addEventListener('change', onFormBlur);
-              form[0].addEventListener('click', onFormClick);
+              const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
+              if(form) {
+                form[0].addEventListener('change', onFormBlur);
+                form[0].addEventListener('click', onFormClick);
+              }
             },
             cssClass: 'huform',
             submitText: 'Submit',
@@ -366,8 +368,8 @@ const LeadFormStepper = (
     initHubSpot();
 
     return () => {
-      const form = document.getElementsByTagName('form');
-      if (form[0]) {
+      const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
+      if (form && form[0]) {
         form[0].removeEventListener('change', onFormBlur);
         form[0].removeEventListener('click', onFormClick);
       }
