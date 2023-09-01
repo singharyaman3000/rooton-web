@@ -63,11 +63,17 @@ export default function Header() {
 
   function setActiveTabFromUrl() {
     const pathArray: string[] = window.location.pathname.split('/');
-    itemsToSetActive.forEach((item: string) => {
-      if (pathArray.includes(item)) {
-        setActiveTab(item);
-      }
+    const notHomePage = itemsToSetActive.some((elem) => {
+      return pathArray?.includes(elem);
     });
+
+    if (notHomePage) {
+      itemsToSetActive?.forEach((item) => {
+        if (pathArray?.includes(item)) {
+          setActiveTab(item);
+        }
+      });
+    }
   }
 
   function animateHeader() {
@@ -153,7 +159,11 @@ export default function Header() {
             <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> About Us</Link>
               {activeTab === 'About Us' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+                <span
+                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
+                  }`}
+                />
               )}
             </span>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
@@ -165,31 +175,51 @@ export default function Header() {
             >
               Services
               {activeTab === 'service' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+                <span
+                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
+                  }`}
+                />
               )}
             </span>
             <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Coaching </Link>
               {activeTab === 'Coaching' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+                <span
+                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
+                  }`}
+                />
               )}
             </span>
             <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Blogs </Link>
               {activeTab === 'Blogs' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+                <span
+                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
+                  }`}
+                />
               )}
             </span>
             <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Contact Us </Link>
               {activeTab === 'Contact Us' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+                <span
+                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
+                  }`}
+                />
               )}
             </span>
             <span className="h-[100%] flex items-center relative">
               <Link href={'/'}> Tools </Link>
               {activeTab === 'Tools' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-12px]" />
+                <span
+                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
+                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
+                  }`}
+                />
               )}
             </span>
           </div>
