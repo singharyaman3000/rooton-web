@@ -84,7 +84,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           },
           {
             title: 'Service',
-            path: '',
+            path: '/',
           },
           {
             title: 'Open Work Permit',
