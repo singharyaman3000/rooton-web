@@ -19,7 +19,7 @@ export type ILeadForm = {
   url?: string;
 };
 
-type IFaq = {
+export type IFaq = {
   title: string;
   position: number;
   description: string;
@@ -43,7 +43,7 @@ type ISubServiceAttributes = {
   json_content: ISubServiceJSONContent;
 };
 
-type ISubServicesContent = {
+export type ISubServicesContent = {
   id: number;
   attributes: ISubServiceAttributes;
 };
