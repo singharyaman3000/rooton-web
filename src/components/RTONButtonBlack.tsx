@@ -22,7 +22,7 @@ export default function RTONButtonBlack({ className, ariaLabel, onClick, text, i
           flex
           items-center
           justify-center
-          gap-[16px]
+          gap-[15px]
           bg-black
           font-semibold
       `}

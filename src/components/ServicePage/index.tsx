@@ -138,7 +138,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                     );
                   })}
                 </Ul>
-                <div className=' mt-[47px] w-[232px]'>
+                <div className=' mt-[47px] w-full md:w-[232px]'>
                   <RTONButtonBlackThemed
                     onClick={handleCTAButtonClick}
                     ariaLabel="Get your queries solved"
