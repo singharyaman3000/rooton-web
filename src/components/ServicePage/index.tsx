@@ -18,6 +18,7 @@ import CTAWrapperSection from './PageSections/CTAWrapperSection';
 import FAQSection from './PageSections/FAQSection';
 import BlogSection from './PageSections/BlogSection';
 import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
+import { ServiceDescription } from './Description';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -100,13 +101,13 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     switch (identifier) {
     case 'service-reason':
       return (
-        <ServicePageWrapper className="pt-20 pb-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <ServicePageWrapper className="pt-0 pb-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
         </ServicePageWrapper>
       );
     case 'service-eligibility':
       return (
-        <ServicePageWrapper className="pt-20 pb-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <ServicePageWrapper className="pt-0 pb-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
         </ServicePageWrapper>
       );
@@ -134,7 +135,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'service-CTA-banner-1':
       return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
     case 'service-CTA-banner-2':
-      return <ServicePageWrapper className="m mt-20 max-w-screen-2k pb-20">
+      return <ServicePageWrapper className="m mt-10 max-w-screen-2k pb-0">
         <BookAnAppointment onClick={handleCTAButtonClick} />
       </ServicePageWrapper>;
     case 'service-testimonial':
@@ -176,6 +177,9 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         description={response.data?.attributes?.sub_title}
         button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
+      <ServicePageWrapper className="pt-10 pb-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <ServiceDescription text={response.data?.attributes?.description} />
+      </ServicePageWrapper>
       {sectionsByPosition.map((section) => {
         return getSection(section?.attributes.unique_identifier_name ?? '', section);
       })}
