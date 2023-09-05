@@ -14,8 +14,8 @@ type FAQSectionProps = {
 const FAQSection = ({ faqs }: FAQSectionProps) => {
   const [selectedAccordionId, setSelectedAccordionId] = useState<string | null>(null);
 
-  if (faqs) {
-    <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+  if ((faqs?.length ?? 0) > 0) {
+    return <ServicePageWrapper className="px-6 mt-10 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
       <>
         <H2>{SERVICES_TITLE.faq.title}</H2>
         {faqs?.map((faq) => {

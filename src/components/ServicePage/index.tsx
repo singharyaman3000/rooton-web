@@ -5,7 +5,6 @@ import { useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { ServicePageWrapper } from './Wrapper';
-import BlogListings from '../HomePage/BlogListings';
 import RootOnBanner from '../HomePage/RootOnBanner';
 import { appendAssetUrl, isVideo } from '@/utils';
 import { SERVICES_TITLE } from '@/app/constants/textConstants';
@@ -17,6 +16,8 @@ import ProcessSection from './PageSections/ProcessSection';
 import LeadFormSection from './PageSections/LeadFormSection';
 import CTAWrapperSection from './PageSections/CTAWrapperSection';
 import FAQSection from './PageSections/FAQSection';
+import BlogSection from './PageSections/BlogSection';
+import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -40,12 +41,16 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     return i.attributes.unique_identifier_name === 'service-process';
   });
 
-  const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+  const ctaBanner1 = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-CTA-banner-1';
   });
 
-  const leadForm2 = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+  const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-lead-form';
+  });
+
+  const ctaBanner2 = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+    return i.attributes.unique_identifier_name === 'service-CTA-banner-2';
   });
 
   const insights = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
@@ -58,11 +63,24 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
 
   const faqs = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-faq';
-  })?.attributes.json_content.faq;
+  });
 
-  const blogs = response?.data?.attributes?.blogs ?? [];
+  const blogs = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+    return i.attributes.unique_identifier_name === 'blogs';
+  });
 
-  const sectionsByPosition = [whyChooseOpen, eligibility, process, leadForm, leadForm2, insights, testimonials];
+  const sectionsByPosition = [
+    whyChooseOpen,
+    eligibility,
+    process,
+    leadForm,
+    ctaBanner2,
+    insights,
+    testimonials,
+    ctaBanner1,
+    faqs,
+    blogs,
+  ];
 
   sectionsByPosition.sort((first, second) => {
     return (first?.attributes?.position ?? 0) - (second?.attributes?.position ?? 0);
@@ -94,7 +112,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       );
     case 'service-process':
       return <ProcessSection process={process} />;
-    case 'service-CTA-banner-1':
+    case 'service-lead-form':
       if (leadForm) {
         return (
           <ServicePageWrapper
@@ -113,6 +131,20 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       }
 
       return null;
+    case 'service-CTA-banner-1':
+      return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
+    case 'service-CTA-banner-2':
+      return <ServicePageWrapper className="m mt-20 max-w-screen-2k pb-20">
+        <BookAnAppointment onClick={handleCTAButtonClick} />
+      </ServicePageWrapper>;
+    case 'service-testimonial':
+      return <div className=" mt-10 m-auto max-w-screen-2k">
+        <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
+      </div>;
+    case 'service-faq':
+      return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
+    case 'blogs':
+      return <BlogSection blogs={blogs} url={GET_BLOGS_SERVICE} />;
     default:
       return null;
     }
@@ -147,27 +179,6 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       {sectionsByPosition.map((section) => {
         return getSection(section?.attributes.unique_identifier_name ?? '', section);
       })}
-      <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />
-      <FAQSection faqs={faqs} />
-      <ServicePageWrapper className="m mt-20 max-w-screen-2k pb-20">
-        <BookAnAppointment onClick={handleCTAButtonClick} />
-      </ServicePageWrapper>
-      <div className=" mt-10 m-auto max-w-screen-2k">
-        <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
-      </div>
-      {blogs?.data?.length > 0 && (
-        <div className=" w-full bg-secondary-grey">
-          <div className=" mt-20 m-auto max-w-screen-2k">
-            <BlogListings
-              blogs={{
-                data: blogs?.data ?? [],
-              }}
-              title={''}
-              sub_title={SERVICES_TITLE.blogs.title}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
