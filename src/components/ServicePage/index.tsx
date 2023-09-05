@@ -144,7 +144,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'service-faq':
       return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
     case 'blogs':
-      return <BlogSection blogs={blogs} url={GET_BLOGS_SERVICE} />;
+      return <BlogSection title={blogs?.attributes.title ?? ''} subtitle='' url={GET_BLOGS_SERVICE} />;
     default:
       return null;
     }

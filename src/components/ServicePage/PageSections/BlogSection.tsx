@@ -1,24 +1,29 @@
 'use client';
 
 import { getBlogs } from '@/app/services/apiService/blogs';
-import { ISubServicesContent } from '@/app/services/apiService/serviceAPI';
 import BlogListings from '@/components/HomePage/BlogListings';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 
 type BlogSectionProps = {
-  blogs?: ISubServicesContent;
+  title: string;
+  subtitle: string;
   url: string;
 };
 
-const BlogSection = ({ blogs, url }: BlogSectionProps) => {
-  const { data, loading } = useClientAPI({ apiFn: () => {return getBlogs(url);} });
+const BlogSection = ({ url, title, subtitle }: BlogSectionProps) => {
+  const { data, loading } = useClientAPI({
+    apiFn: () => {
+      return getBlogs(url);
+    },
+  });
 
   return (
     <div className=" w-full">
       <div className=" mt-20 m-auto max-w-screen-2k">
         {loading ? (
           <div className=" w-full flex justify-center items-center">
-            <div className="
+            <div
+              className="
                     h-[32.5rem]
                     w-full
                     p-[0px]
@@ -27,7 +32,8 @@ const BlogSection = ({ blogs, url }: BlogSectionProps) => {
                 "
             >
               <div className=" relative h-full">
-                <div className="
+                <div
+                  className="
                     absolute
                     flex
                     items-center
@@ -48,8 +54,8 @@ const BlogSection = ({ blogs, url }: BlogSectionProps) => {
             blogs={{
               data: data ?? [],
             }}
-            title={''}
-            sub_title={blogs?.attributes.title ?? ''}
+            title={title}
+            sub_title={subtitle}
           />
         )}
       </div>

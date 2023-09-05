@@ -1,6 +1,5 @@
 import React from 'react';
 import Credibility from '@/components/HomePage/Credibility';
-import BlogListings from '@/components/HomePage/BlogListings';
 import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
@@ -17,6 +16,8 @@ import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
 import BookAnAppointmentSection from './BookAppointment';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
+import BlogSection from '../ServicePage/PageSections/BlogSection';
+import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
@@ -80,7 +81,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       case CONTENT_TYPES.PARTNERSHIPS:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
       case CONTENT_TYPES.BLOG:
-        return <BlogListings blogs={contents.attributes.blogs} title={title} sub_title={sub_title} />;
+        return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
       default:
         return null;
       }
