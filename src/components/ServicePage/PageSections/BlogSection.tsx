@@ -52,7 +52,7 @@ const BlogSection = ({ url, title, subtitle }: BlogSectionProps) => {
         ) : (
           <BlogListings
             blogs={{
-              data: data ?? [],
+              data: data && data[0].attributes.media_url.data.length > 0 ? data : [],
             }}
             title={title}
             sub_title={subtitle}

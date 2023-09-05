@@ -61,6 +61,7 @@ type IAttributes = {
   CTA_text: string;
   CTA_link: string;
   sub_title: string;
+  unique_identifier_name: string;
   media_url: {
     data: IMediaUrlData[];
   };

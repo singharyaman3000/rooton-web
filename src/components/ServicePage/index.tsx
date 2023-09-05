@@ -135,17 +135,27 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'service-CTA-banner-1':
       return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
     case 'service-CTA-banner-2':
-      return <ServicePageWrapper className="m mt-10 max-w-screen-2k pb-0">
-        <BookAnAppointment onClick={handleCTAButtonClick} />
-      </ServicePageWrapper>;
+      return (
+        <ServicePageWrapper className="m mt-10 max-w-screen-2k pb-0">
+          <BookAnAppointment onClick={handleCTAButtonClick} />
+        </ServicePageWrapper>
+      );
     case 'service-testimonial':
-      return <div className=" mt-10 m-auto max-w-screen-2k">
-        <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
-      </div>;
+      return (
+        <div className=" mt-10 m-auto max-w-screen-2k">
+          <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
+        </div>
+      );
     case 'service-faq':
       return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
     case 'blogs':
-      return <BlogSection title={blogs?.attributes.title ?? ''} subtitle='' url={GET_BLOGS_SERVICE} />;
+      return (
+        <BlogSection
+          title={blogs?.attributes.title ?? ''}
+          subtitle=""
+          url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
+        />
+      );
     default:
       return null;
     }
