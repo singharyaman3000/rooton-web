@@ -1,9 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import Link from 'next/link';
 import { RightArrow } from './Icons/RightArrow.icon';
+import { ReactElement } from 'react';
 
 type BreadcrumbsData = {
-  title: string;
+  title: string | ReactElement;
   path: string;
 };
 
@@ -33,7 +34,12 @@ export const Breadcrumbs = ({ data, className }: BreadcrumbsProps) => {
           );
         }
 
-        return <span key={'last-element-breadcrumps'}> {d.title} </span>;
+        return (
+          <span
+            key={'last-element-breadcrumps'}
+            dangerouslySetInnerHTML={{ __html: d.title as string }}
+          />
+        );
       })}
     </div>
   );

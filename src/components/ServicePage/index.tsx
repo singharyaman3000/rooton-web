@@ -151,8 +151,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'blogs':
       return (
         <BlogSection
-          title={blogs?.attributes.title ?? ''}
-          subtitle=""
+          title=''
+          subtitle={blogs?.attributes.title ?? ''}
           url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
         />
       );
@@ -175,7 +175,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
             path: '/',
           },
           {
-            title: 'Open Work Permit',
+            title: response.data?.attributes?.title,
             path: '',
           },
         ]}
