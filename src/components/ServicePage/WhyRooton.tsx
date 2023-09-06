@@ -8,7 +8,7 @@ type WhyRootonProps = {
 export const WhyRooton = ({ title, description }: WhyRootonProps) => {
   return (
     <section className="">
-      <H2>{title}</H2>
+      <H2 className=' mb-9'>{title}</H2>
       <p
         className="
         font-medium
