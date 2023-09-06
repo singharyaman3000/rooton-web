@@ -3,7 +3,6 @@ import { appendAssetUrl, formatDate } from '@/utils';
 import { IAttributes } from '@/app/services/apiService/interfaces';
 import NextImage from '../../NextImage';
 import Button from '../../Button';
-import gridOverlay from '../../../../../public/images/overlay/card-grid-overlay.svg';
 
 export interface IBlogCardData {
   id: number;
