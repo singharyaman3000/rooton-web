@@ -150,11 +150,13 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
     case 'blogs':
       return (
-        <BlogSection
-          title=''
-          subtitle={blogs?.attributes.title ?? ''}
-          url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
-        />
+        <div className=' mt-[74px]'>
+          <BlogSection
+            title=''
+            subtitle={blogs?.attributes.title ?? ''}
+            url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
+          />
+        </div>
       );
     default:
       return null;

@@ -19,7 +19,7 @@ const BlogSection = ({ url, title, subtitle }: BlogSectionProps) => {
 
   return (
     <div className=" w-full">
-      <div className=" mt-20 m-auto max-w-screen-2k">
+      <div className=" mt-[6px] m-auto max-w-screen-2k">
         {loading ? (
           <div className=" w-full flex justify-center items-center">
             <div

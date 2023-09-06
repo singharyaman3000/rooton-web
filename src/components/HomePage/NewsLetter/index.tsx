@@ -23,7 +23,7 @@ const NewsLetter = () => {
             formId={FormConstants.NEWS_LETTER.formId}
           />
         </div>
-        <div className="top-0 right-0 hidden lg:block absolute z-[0]">
+        <div className="top-[15px] left-0 rotate-180 hidden lg:block absolute z-[0]">
           <NewsLetterGrid />
         </div>
       </div>
