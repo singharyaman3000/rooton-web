@@ -19,7 +19,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
     refs,
   });
   return (
-    <div className="mt-[48px] mb-20 relative hidden md:block processes">
+    <div className="mt-[48px] relative hidden md:block processes">
       {process?.map(({ title, description, position }, index) => {
         return (
           title && (

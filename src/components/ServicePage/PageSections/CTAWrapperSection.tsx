@@ -9,7 +9,7 @@ type CTAWrapperSectionProps = {
 
 const CTAWrapperSection = ({ handleCTAButtonClick }: CTAWrapperSectionProps) => {
   return (
-    <ServicePageWrapper className="m-auto max-w-screen-2k px-6 lg:px-[80px]">
+    <ServicePageWrapper className=" mt-20 m-auto max-w-screen-2k px-6 lg:px-[80px]">
       <RootOnCTAWrapper
         buttonAriaLabel={SERVICES_TITLE.appointment1.title}
         buttonText={SERVICES_TITLE.appointment1.title}

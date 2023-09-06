@@ -18,7 +18,7 @@ const BookAnAppointment = ({ onClick }: IBookAnAPpointment) => {
   };
 
   return (
-    <SectionContainer cssClass="mb-20">
+    <SectionContainer cssClass="">
       <div className="md:w-full mx-auto relative h-fit bg-pale-sandal">
         <div className="mx-auto h-full z-[1]  md:w-[560px] relative z-1">
           <div className="mx-auto md:mx-0 pt-[24px] pb-5 px-[24px] md:px-0 md:py-10">

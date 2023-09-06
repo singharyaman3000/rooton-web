@@ -38,7 +38,7 @@ const EligibilitySection = ({ eligibility, handleCTAButtonClick }: EligibilitySe
             );
           })}
         </Ul>
-        <div className=" mt-[47px] w-full md:w-[232px]">
+        <div className=" mt-10 w-full md:w-[232px]">
           <RTONButtonBlackThemed
             onClick={handleCTAButtonClick}
             ariaLabel="Get your queries solved"

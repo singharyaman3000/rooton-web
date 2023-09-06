@@ -52,7 +52,7 @@ const Testimonials = ({ title, subTitle }: TestimonialProps) => {
 
   return (
     <section className="w-full bg-primary-white overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px] py-10 md:py-[80px]">
+      <SectionContainer cssClass="!pr-[0px] pt-10 md:pt-[80px]">
         <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
           <div className="md:max-w-[70%] lg:max-w-none">
             <SectionHeadings title={title} subTitle={subTitle} />

@@ -7,11 +7,10 @@ type WhyRootonProps = {
 
 export const WhyRooton = ({ title, description }: WhyRootonProps) => {
   return (
-    <section className=" mt-20">
+    <section className="">
       <H2>{title}</H2>
       <p
         className="
-        mt-8
         font-medium
         text-sm
         leading-primary

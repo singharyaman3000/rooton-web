@@ -17,7 +17,6 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
       className="
         bg-pale-yellow-black
         pt-10
-        mt-20
         lg:flex
         lg:gap-20
         lg:flex-row-reverse

@@ -101,13 +101,13 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     switch (identifier) {
     case 'service-reason':
       return (
-        <ServicePageWrapper className="pt-0 pb-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
         </ServicePageWrapper>
       );
     case 'service-eligibility':
       return (
-        <ServicePageWrapper className="pt-0 pb-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
         </ServicePageWrapper>
       );
@@ -136,13 +136,13 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
     case 'service-CTA-banner-2':
       return (
-        <ServicePageWrapper className="m mt-10 max-w-screen-2k pb-0">
+        <ServicePageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
           <BookAnAppointment onClick={handleCTAButtonClick} />
         </ServicePageWrapper>
       );
     case 'service-testimonial':
       return (
-        <div className=" mt-10 m-auto max-w-screen-2k">
+        <div className="m-auto max-w-screen-2k">
           <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
         </div>
       );
@@ -162,7 +162,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
   };
 
   return (
-    <div className=" relative">
+    <div className=" relative pb-20">
       <Breadcrumbs
         className=" z-50 hidden lg:flex"
         data={[
@@ -187,7 +187,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         description={response.data?.attributes?.sub_title}
         button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
-      <ServicePageWrapper className="pt-10 pb-10 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+      <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <ServiceDescription text={response.data?.attributes?.description} />
       </ServicePageWrapper>
       {sectionsByPosition.map((section) => {

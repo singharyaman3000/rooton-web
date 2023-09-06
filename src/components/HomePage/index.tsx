@@ -52,11 +52,13 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         );
       case CONTENT_TYPES.OUR_PROCESSES:
         return (
-          <OurProcess
-            title={title}
-            sub_title={sub_title}
-            json_content={contents.attributes.json_content as IOurProcessData}
-          />
+          <div className=' mb-20'>
+            <OurProcess
+              title={title}
+              sub_title={sub_title}
+              json_content={contents.attributes.json_content as IOurProcessData}
+            />
+          </div>
         );
       case CONTENT_TYPES.CHALLENGES:
         return (
@@ -107,9 +109,13 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         }
       />
       {getComponentsAboveBookAppointments()}
-      <BookAnAppointmentSection/>
+      <div className='mb-20'>
+        <BookAnAppointmentSection/>
+      </div>
       {getComponentsAfterBookAppointments()}
-      <Testimonials title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
+      <div className=' pb-10 md:pb-[80px]'>
+        <Testimonials title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
+      </div>
       {faqData && (
         <FaqListing
           sub_title={faqData?.attributes?.sub_title}
