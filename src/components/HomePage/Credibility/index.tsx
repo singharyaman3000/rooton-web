@@ -89,7 +89,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
             <SubSectionTitle title={sub_title} />
             <Description cssClass="mt-6" description={description} />
           </motion.div>
-          <div className={`z-10 mx-auto relative  mb-[50px] md:!h-[530px]  md:w-[43.8%] md:mr-[40px]  mt-8 lg:mt-0 items-center  lg:h-full ${media_url.data.length ===1? 'h-[130px]': media_url.data.length > 0 && 'h-[264px]'}`}>
+          <div className={`z-10 mx-auto relative  mb-[12px] md:!h-[530px]  md:w-[43.8%] md:mr-[40px]  mt-8 lg:mt-0 items-center  lg:h-full ${media_url.data.length ===1? 'h-[130px]': media_url.data.length > 0 && 'h-[264px]'}`}>
             {media_url.data?.map((lisenseImage, index) => {
               return (
                 <motion.div
