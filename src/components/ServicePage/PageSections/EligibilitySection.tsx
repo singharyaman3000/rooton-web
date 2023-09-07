@@ -27,7 +27,7 @@ const EligibilitySection = ({ eligibility, handleCTAButtonClick }: EligibilitySe
                   {e.description &&
                     (e.description as string[]).map((des) => {
                       return (
-                        <Li tabbed key={`${e.position + e.key + des}-child`}>
+                        <Li className=' font-normal' tabbed key={`${e.position + e.key + des}-child`}>
                           {' '}
                           {des}{' '}
                         </Li>

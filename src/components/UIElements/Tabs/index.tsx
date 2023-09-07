@@ -32,7 +32,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
             ease: [0, 0.71, 0.2, 1.01],
           }}
           viewport={{ once: true }}
-          className="absolute top-0 w-[23.5rem] h-full right-0  flex items-end"
+          className="absolute top-0 w-[361px] h-full right-0  flex items-end"
         >
           <NextImage
             src={TabOverlay}

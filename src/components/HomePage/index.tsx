@@ -109,7 +109,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         }
       />
       {getComponentsAboveBookAppointments()}
-      <div className='mb-20'>
+      <div className='mb-[100px]'>
         <BookAnAppointmentSection/>
       </div>
       {getComponentsAfterBookAppointments()}

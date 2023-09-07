@@ -12,7 +12,7 @@ export interface IWhyRootON {
 const HonestyCard = ({ title, icon, value }: IWhyRootON) => {
   return (
     <div className="honestyCard flex flex-col justify-start  p-4 lg:px-[50px] lg:py-[41px] bg-primary">
-      <div className="relative mb-[14px] md:mb-[21px] w-[37px] h-[37px]">
+      <div className="relative mb-[14px] md:mb-[21px] w-[37px] h-[40px]">
         <NextImage sizes={'30vw'} src={icon} title={title} fill style={{ objectFit: 'contain' }} altText={title} />
       </div>
       <h1 className="text-primary-font-color line-clamp-3 w-[80%] mb-4 text-[22px] leading-[1.36] font-bold leading-6 tracking-normal">{title} </h1>
