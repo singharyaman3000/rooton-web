@@ -23,11 +23,11 @@ export const Breadcrumbs = ({ data, className }: BreadcrumbsProps) => {
         if (index < data.length - 1) {
           return (
             <>
-              <Link key={`breadcrumb-item-${index}`} href={d.path}>
+              <Link className=' opacity-70' key={`breadcrumb-item-${index}`} href={d.path}>
                 {' '}
                 {d.title}{' '}
               </Link>
-              <span key={`breadcrumb-sep-${index}`}>
+              <span className=' opacity-70' key={`breadcrumb-sep-${index}`}>
                 <RightArrow />
               </span>
             </>
