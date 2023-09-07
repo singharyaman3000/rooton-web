@@ -49,7 +49,7 @@ export default function Footer() {
       justify-center
     "
       >
-        <div className=" lg:flex lg:flex-col justify-between">
+        <div className=" lg:flex lg:flex-col mt-[10px] justify-between">
           <FooterLogo />
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
@@ -72,6 +72,7 @@ export default function Footer() {
         <div className=" hidden w-[1px] h-full bg-secondary-border lg:block ml-[128px] mr-20" />
         <div
           className="
+            mt-[10px]
             flex
             lg:flex-col
             gap-10
@@ -100,15 +101,16 @@ export default function Footer() {
       </div>
       <div
         className="
-      py-5
-      px-6
-      xl:pt-0
-      xl:pb-0
-      flex
-      flex-col
-      justify-center
-      lg:justify-between
-      lg:gap-0
+        mt-[10px]
+        py-5
+        px-6
+        xl:pt-0
+        xl:pb-0
+        flex
+        flex-col
+        justify-center
+        lg:justify-between
+        lg:gap-0
     "
       >
         {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
