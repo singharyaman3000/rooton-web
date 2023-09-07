@@ -25,7 +25,7 @@ export default function Footer() {
     lg:border-t
     border-secondary-border
     xl:px-[120px]
-    lg:pt-[38px]
+    lg:pt-[47px]
     lg:pb-[141px]
     lg:gap-[80px]
     xl:gap-[153px]
