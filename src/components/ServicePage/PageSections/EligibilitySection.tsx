@@ -18,7 +18,7 @@ const EligibilitySection = ({ eligibility, handleCTAButtonClick }: EligibilitySe
           title={eligibility?.attributes.title ?? ''}
           description={eligibility?.attributes.description ?? ''}
         />
-        <Ul>
+        <Ul className={`${eligibility?.attributes.description ? '' : ' !mt-0' }`}>
           {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
             return (
               <Li key={e.position + e.key}>

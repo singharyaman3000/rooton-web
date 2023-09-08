@@ -20,7 +20,7 @@ export interface IHonesty extends ITitleAttributes {
 }
 
 const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
-  <div className="relative md:pt-[73px]">
+  <div className="relative md:pt-[73px] lg:mt-[50px]">
     <Container>
       <motion.div className="lg:flex lg:flex-row justify-between mb-11 lg:mb-[21px] relative">
         <div className="mb-2.5 lg:w-[24.58vw]">
