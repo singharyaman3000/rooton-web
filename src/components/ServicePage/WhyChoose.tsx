@@ -26,7 +26,7 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
       <div
         className="
         px-5
-        lg:pt-20
+        lg:pt-10
         lg:pb-[60px]
         lg:pr-20
         xl:pr-20
@@ -52,6 +52,7 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
         <div
           className="
             mt-5
+            lg:mt-[42px]
             lg:w-[189px]
           "
         >
