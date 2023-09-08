@@ -36,7 +36,7 @@ const TalkToOurExpert = () => {
         onClick={() => {
           setIsOpen((prevState) => !prevState);
         }}
-        className="text-sm font-bold h-[52px] text-white bg-black lg:w-[157px] px-5 py-4"
+        className="text-sm font-bold h-[52px] text-white bg-black lg:min-w-[157px] px-5 py-4"
       >
         Talk to our Expert
       </button>

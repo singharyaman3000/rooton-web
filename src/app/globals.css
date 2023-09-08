@@ -91,6 +91,7 @@ body {
   color: var(--primary-text);
   font-family: var(--font-jakarta);
   background-color: var(--primary-bg);
+  overflow-wrap: break-word;
 }
 
 .gradient-text span {
