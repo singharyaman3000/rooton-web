@@ -115,10 +115,11 @@ export default function Header() {
           xl:px-20
           xl:pt-3
           xl:pb-4
+          break-words
         "
         >
           {scrolledEnough ? (
-            <div>
+            <div className=''>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
