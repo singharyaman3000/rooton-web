@@ -119,7 +119,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           <ServicePageWrapper
             className={`${
               showBookAnAppointment ? 'block' : 'hidden'
-            } p-5 lg:px-[80px] lg:pt-[84] m-auto max-w-screen-2k`}
+            } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
           >
             <LeadFormSection
               leadForm={leadForm}
