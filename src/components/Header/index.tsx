@@ -116,10 +116,11 @@ export default function Header() {
           xl:pt-3
           xl:pb-4
           break-words
+          items-center
         "
         >
           {scrolledEnough ? (
-            <div className=''>
+            <div className=' h-fit'>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
