@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import NextImage from '../../NextImage';
+import TabHeaderLabel from './TabHeaderLabel';
 
 export interface ITabHeaderData {
   service: string;
@@ -29,7 +30,12 @@ const btnVarient = {
 
 const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
   return (
-    <motion.div variants={containerVarient} initial="hidden" animate="show" className="flex items-center cursor-pointer">
+    <motion.div
+      variants={containerVarient}
+      initial="hidden"
+      animate="show"
+      className="flex items-strech cursor-pointer"
+    >
       {headerData.map(({ icon, service }) => {
         return (
           <motion.button
@@ -41,9 +47,10 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
             }`}
             key={service}
             aria-label={service}
+            title={service}
           >
-            <div className='relative after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
-              <div className="relative w-[30px] my-0 mx-auto h-[30px] ">
+            <div className='relative flex items-center w-full flex-col h-full after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
+              <div className="relative w-[30px] my-0 mx-auto h-[30px] flex-shrink-0">
                 {icon && (
                   <NextImage
                     sizes="100vw"
@@ -55,9 +62,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
                   />
                 )}
               </div>
-              <div className="mt-[8px] text-lg not-italic leading-[normal] line-clamp-2 tracking-[normal] text-center">
-                {service}
-              </div>
+              <TabHeaderLabel service={service} />
             </div>
             {service === selectedTab.service && (
               <span className="absolute tab-selectedBg  rotate-45 square-[18px] bottom-[-9px]"></span>

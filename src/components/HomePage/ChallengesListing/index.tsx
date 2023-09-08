@@ -1,7 +1,7 @@
 'use client';
 
 import SectionContainer from '@/components/Containers/SectionContainers';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import HtmlParser from 'react-html-parser';
 import Accordion from '@/components/UIElements/Accordions';
@@ -13,6 +13,7 @@ import Button from '@/components/UIElements/Button';
 import { ITitleAttributes } from '../ServicesListing/interafces';
 import ToggleIcon from './ToggleIcon';
 import { AccordionBody, AccordionHeader } from './ChallengeListingElements';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
 export interface IChallenge {
   key: string;
@@ -31,10 +32,11 @@ export interface IChallengesListing extends ITitleAttributes {
 
 const ChallengesListing = ({ title, sub_title, description, json_content, media_url }: IChallengesListing) => {
   const [accordionId, setAccordionId] = useState<string | null>(null);
+  const { openCoreServiceList } = useContext(ModalShowContextname);
 
   return (
-    <section className="challenges-listing">
-      <SectionContainer cssClass="pt-10 pb-[39px] md:py-[80px]">
+    <section className="challenges-listing max-w-screen-max-screen mx-auto my-0">
+      <SectionContainer cssClass="pt-10 pb-[39px] md:py-20">
         <div className="md:flex">
           <div className="md:w-[48.8%] md:pr-[80px]">
             <SectionHeadings title={title} subTitle={sub_title} />
@@ -49,7 +51,9 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
               label="Get your queries solved"
               ariaLabel="Get your queries solved"
               cssClass="text-white bg-black border-0 !py-[17px] mt-5 mb-3 gap-[4px]"
-              handleOnClick={() => null}
+              handleOnClick={() => {
+                openCoreServiceList();
+              }}
               tabIndex={0}
               icon={<CalenderIconYellow />}
             />
@@ -65,7 +69,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
             </div>
           </div>
           <div className="md:w-[43.8%]">
-            {json_content.challenges.map((challengObj,index) => {
+            {json_content.challenges.map((challengObj, index) => {
               return (
                 <div
                   className="w-full border-b-sandal last:border-b-0 border-b-[1px] pt-[5px] pb-[8px] md:p-[12px_0px] md:pt-0"

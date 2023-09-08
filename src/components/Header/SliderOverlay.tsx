@@ -1,32 +1,23 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
+import { scrollIntoView } from '@/utils';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
-type SliderOverlayProps = {
+interface SliderOverlayProps {
   open: boolean;
   // eslint-disable-next-line no-unused-vars
   setOpen: (open: boolean) => void;
-};
+}
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
+  const { openCoreServiceList } = useContext(ModalShowContextname);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-in-out duration-500"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in-out duration-500"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 transition-opacity" />
-        </Transition.Child>
-
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="fixed inset-y-0 right-0 flex max-w-full">
@@ -43,7 +34,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                   <div className="flex h-full flex-col overflow-y-scroll bg-primary  py-7 shadow-xl">
                     <div className="flex justify-end px-7">
                       <button
-                        aria-label='Slider dialog close'
+                        aria-label="Slider dialog close"
                         type="button"
                         className="
                             cursor-pointer
@@ -67,7 +58,12 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         About Us
                       </div>
+                      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                       <div
+                        onClick={() => {
+                          scrollIntoView('servicesHomePage');
+                          setOpen(false);
+                        }}
                         className="
                           text-primary-font-color
                           pb-5
@@ -76,6 +72,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-b
                           border-primary-border
                           mb-5
+                          cursor-pointer
                         "
                       >
                         Services
@@ -132,6 +129,23 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         Tools
                       </div>
+                      <button
+                        type="button"
+                        className="
+                      text-primary-font-color
+                      pb-5
+                      text-xl
+                      font-bold
+                      border-b
+                      border-primary-border
+                      mb-5
+                    "
+                        onClick={() => {
+                          openCoreServiceList();
+                        }}
+                      >
+                        Talk to our Expert
+                      </button>
                       <div
                         className="
                           text-primary-font-color

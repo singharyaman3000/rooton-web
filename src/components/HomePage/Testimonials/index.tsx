@@ -1,6 +1,5 @@
 'use client';
 
-import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 import { getTestimonials } from '@/app/services/testimonialAPI';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import TestimonialCard, {
@@ -23,10 +22,14 @@ import { useSwipeable } from 'react-swipeable';
 
 export interface ITestimonials {
   testimonials: ITestimonialData[];
+  title: string;
+  subTitle: string;
 }
 
-const Testimonials = () => {
-  const { data , loading } = useClientAPI({ apiFn: getTestimonials });
+type TestimonialProps = { title: string; subTitle: string };
+
+const Testimonials = ({ title, subTitle }: TestimonialProps) => {
+  const { data, loading } = useClientAPI({ apiFn: getTestimonials });
   const { showPopUp, hidePopUp, poupState } = usePopUp();
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',
@@ -49,15 +52,15 @@ const Testimonials = () => {
 
   return (
     <section className="w-full bg-primary-white overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px] py-10 md:py-[80px]">
+      <SectionContainer cssClass="!pr-[0px] pt-10 md:pt-[80px]">
         <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
-          <div className='md:max-w-[70%] lg:max-w-none'>
-            <SectionHeadings title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
+          <div className="md:max-w-[70%] lg:max-w-none">
+            <SectionHeadings title={title} subTitle={subTitle} />
           </div>
           <div className="items-center hidden md:flex md:mb-[8px]">
             <div>
-              <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
-              <SliderNav handleOnClick={incrementPage} disable={pageNum === totalPages - 1} />
+              <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px] bg-[#f3f3f3] disabled:bg-[#f3f3f3]" disable={pageNum === 0} leftNav />
+              <SliderNav handleOnClick={incrementPage} cssClass='bg-[#f3f3f3] disabled:bg-[#f3f3f3] ' disable={pageNum === totalPages - 1} />
             </div>
           </div>
         </div>
@@ -67,9 +70,9 @@ const Testimonials = () => {
             scrollPercent={`${-scrollAmt}px`}
             id="testimonial-listing"
             pageNum={pageNum}
-            slideParentClass='!justify-start'
+            slideParentClass="!justify-start"
             loading={loading}
-            loadingUI={<TestimonialPreLoader/>}
+            loadingUI={<TestimonialPreLoader />}
             slideClass="!w-[73.4%] px-[8px] md:px-[15px] !min-w-[264px] md:!w-[29.6%] w-full md:!min-w-[380px] md:!max-w-[430px]"
           >
             {(data ?? []).map(({ attributes, id }) => {

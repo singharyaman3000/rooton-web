@@ -19,32 +19,34 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
     refs,
   });
   return (
-    <div className="mt-[48px] mb-[120px] relative hidden md:block processes">
-      {process.map(({ key, value, position }, index) => {
+    <div className="mt-[48px] relative hidden md:block processes">
+      {process?.map(({ title, description, position }, index) => {
         return (
-          <Fragment key={`${position}-desktop`}>
-            <div
-              style={{ background: selectedElem.toString() === position.toString() ? 'var(--selector-bg)' : '' }}
-              className="processItem flex py-[26px] px-[32px] ease-linear transition-all"
-              id={position}
-              ref={refs[index]}
-            >
-              <div className="w-[37.5%] h-[32px] flex-shrink-0 flex items-center">
-                <span className=" mr-[30px] text-[40px] font-light not-italic leading-[normal] tracking-[normal] text-[#e3a430]">
-                  {position}
-                </span>
-                <h5 className="text-xl font-bold not-italic leading-normal tracking-[normal] text-primary-font-color">
-                  {key}
-                </h5>
+          title && (
+            <Fragment key={`${position}-desktop`}>
+              <div
+                style={{ background: selectedElem.toString() === position.toString() ? 'var(--selector-bg)' : '' }}
+                className="processItem flex py-[26px] px-[32px] ease-linear transition-all"
+                id={position}
+                ref={refs[index]}
+              >
+                <div className="w-[37.5%] h-[32px] flex-shrink-0 flex items-center">
+                  <span className=" min-w-[24px] mr-[30px] text-[40px] font-light not-italic leading-[normal] tracking-[normal] text-[#e3a430]">
+                    {position}
+                  </span>
+                  <h5 className="text-xl font-bold not-italic leading-normal tracking-[normal] text-primary-font-color">
+                    {title}
+                  </h5>
+                </div>
+                <div className="pl-[70px] pr-[30px] min-h-[60px]">
+                  <p className=" opacity-[0.7] text-lg  font-medium not-italic leading-[1.67] tracking-[normal] text-primary-font-color">
+                    {description}
+                  </p>
+                </div>
               </div>
-              <div className="pl-[70px] pr-[30px] min-h-[60px]">
-                <p className=" opacity-[0.7] text-lg  font-medium not-italic leading-[1.67] tracking-[normal] text-primary-font-color">
-                  {value}
-                </p>
-              </div>
-            </div>
-            {index < processLength - 1 && <Divider />}
-          </Fragment>
+              {index < processLength - 1 && <Divider />}
+            </Fragment>
+          )
         );
       })}
       <div className="absolute p-[8px] transition-all  duration-1700 left-[35%]" style={{ top: movableTop }}>

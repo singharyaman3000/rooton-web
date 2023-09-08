@@ -1,6 +1,5 @@
 import React from 'react';
 import Credibility from '@/components/HomePage/Credibility';
-import BlogListings from '@/components/HomePage/BlogListings';
 import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
@@ -15,12 +14,16 @@ import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
+import BookAnAppointmentSection from './BookAppointment';
+import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
+import BlogSection from '../ServicePage/PageSections/BlogSection';
+import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
-  const getComponents = () => {
+  const getComponentsAboveBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
-      switch (contents.attributes.content_name) {
+      switch (contents.attributes.unique_identifier_name) {
       case CONTENT_TYPES.SERVICES:
         return (
           <ServicesListing
@@ -49,14 +52,14 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         );
       case CONTENT_TYPES.OUR_PROCESSES:
         return (
-          <OurProcess
-            title={title}
-            sub_title={sub_title}
-            json_content={contents.attributes.json_content as IOurProcessData}
-          />
+          <div className=' mb-20'>
+            <OurProcess
+              title={title}
+              sub_title={sub_title}
+              json_content={contents.attributes.json_content as IOurProcessData}
+            />
+          </div>
         );
-      case CONTENT_TYPES.BLOG:
-        return <BlogListings blogs={contents.attributes.blogs} title={title} sub_title={sub_title} />;
       case CONTENT_TYPES.CHALLENGES:
         return (
           <ChallengesListing
@@ -67,15 +70,27 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
             media_url={contents.attributes.media_url}
           />
         );
-      case CONTENT_TYPES.PARTNERSHIPS:
-        return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
       default:
         return null;
       }
     });
   };
 
-  const faqData = getSectionData(homePageConfig , CONTENT_TYPES.QUESTIONS );
+  const getComponentsAfterBookAppointments = () => {
+    return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
+      const { title, sub_title } = contents.attributes;
+      switch (contents.attributes.unique_identifier_name) {
+      case CONTENT_TYPES.PARTNERSHIPS:
+        return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
+      case CONTENT_TYPES.BLOG:
+        return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
+      default:
+        return null;
+      }
+    });
+  };
+
+  const faqData = getSectionData(homePageConfig, CONTENT_TYPES.QUESTIONS);
 
   return (
     <>
@@ -93,8 +108,14 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           />
         }
       />
-      {getComponents()}
-      <Testimonials />
+      {getComponentsAboveBookAppointments()}
+      <div className='mb-[100px]'>
+        <BookAnAppointmentSection/>
+      </div>
+      {getComponentsAfterBookAppointments()}
+      <div className=' pb-10 md:pb-[80px]'>
+        <Testimonials title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
+      </div>
       {faqData && (
         <FaqListing
           sub_title={faqData?.attributes?.sub_title}

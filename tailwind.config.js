@@ -10,9 +10,12 @@ module.exports = {
   theme: {
     screens: {
       'xs': '320px',
+      'sm': '480px',
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
+      '2k': '2048px',
+      'max-screen':'2560px',
     },
     fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],
@@ -38,6 +41,7 @@ module.exports = {
         'header-font-color-scrolled-enough': 'var(--header-font-color-scrolled-enough)',
         'primary-border': 'var(--primary-border)',
         'secondary-border': 'var(--secondary-border)',
+        'border-footer-gray': 'var(--border-footer-gray)',
         'cicc-border': 'var(--cicc-border)',
         'capic-border': 'var(--capic-border)',
         'grey' : 'var(--grey)',
@@ -53,11 +57,26 @@ module.exports = {
         'light-brown':'var(--light-brown)',
         'sandal':'var(--sandal)',
         'pale-sandal': 'var(--pale-sandal)',
-        'hover-lang-dropdown': 'var(--hover-lang-dropdown)'
+        'hover-lang-dropdown': 'var(--hover-lang-dropdown)',
+        'grey-bullet': 'var(--grey-bullet)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
+        'hubspot-form-shadow': 'var(--hubspot-form-shadow)',
+        'talk-to-our-experts-shadow': 'var( --talk-to-our-experts-shadow)'
       },
+      lineHeight: {
+        'primary': '1.71',
+        'primary-lg': '1.67',
+        'heading': '1.43',
+        'heading-lg': '1.42',
+      },
+      keyframes: {
+        slideRtoL: {'100%': {left:0}}
+      },
+      animation:{
+        'slideRToL' : 'slideRtoL 1s ease-in'
+      }
     },
   },
   plugins: [

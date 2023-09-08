@@ -1,15 +1,20 @@
-import { LAYOUT } from '@/app/constants/textConstants';
+'use client';
+
 import FacebookIcon from '@/components/Icons/FaceBookIcon';
-import FlagCanadaIcon from '@/components/Icons/FlagCanadaIcon';
-import FlagIndiaIcon from '@/components/Icons/FlagIndiaIcon';
 import LinkedInIcon from '@/components/Icons/LinkedInIcon';
 import TwitterIcon from '@/components/Icons/TwitterIcon';
 import YoutubeIcon from '@/components/Icons/YouTubeIcon';
 import Link from 'next/link';
 import FooterLogo from './FooterLogo';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
+import NextImage from '../UIElements/NextImage';
+import { appendAssetUrl } from '@/utils';
+import HtmlParser from 'react-html-parser';
 import FooterGrid from './FooterGrid';
 
 export default function Footer() {
+  const { headerFooterData } = useHeaderFooterContext();
+
   return (
     <footer
       className="
@@ -20,7 +25,7 @@ export default function Footer() {
     lg:border-t
     border-secondary-border
     xl:px-[120px]
-    lg:pt-[38px]
+    lg:pt-[49px]
     lg:pb-[141px]
     lg:gap-[80px]
     xl:gap-[153px]
@@ -44,9 +49,9 @@ export default function Footer() {
       justify-center
     "
       >
-        <div className=" lg:flex lg:flex-col justify-between">
+        <div className=" lg:flex lg:flex-col mt-[10px] justify-between">
           <FooterLogo />
-          <div className=" flex flex-col gap-8 mb-7 xl:mb-0">
+          <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center">
               <Link href={'/'}>
@@ -64,28 +69,28 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className=" hidden w-[1px] h-[312px] bg-primary-border lg:block ml-[128px] mr-20" />
+        <div className=" hidden w-[1px] h-full bg-secondary-border lg:block ml-[128px] mr-20" />
         <div
           className="
+            mt-[10px]
             flex
             lg:flex-col
             gap-10
-            lg:gap-4
+            lg:gap-0
             flex-wrap
             justify-between
             text-sm
             font-semibold
             lg:w-[145px]
-            lg:justify-start
           "
         >
-          <div className=" flex flex-col gap-3">
+          <div className=" flex flex-col gap-3 lg:gap-[18px]">
             <Link href={'/'}>Careers</Link>
             <Link href={'/'}>Privacy Policy</Link>
             <Link href={'/'}>Terms & Condition</Link>
             <Link href={'/'}>QnA Forum</Link>
           </div>
-          <div className=" flex flex-col gap-3">
+          <div className=" flex flex-col gap-3 lg:gap-[18px]">
             <Link href={'/'}>Book a Meeting RCIC</Link>
             <Link href={'/'}>Disclaimer</Link>
             <Link href={'/'}>GCKey vs APR </Link>
@@ -96,35 +101,39 @@ export default function Footer() {
       </div>
       <div
         className="
-      py-5
-      px-6
-      xl:pt-0
-      xl:pb-0
-      flex
-      flex-col
-      justify-center
-      lg:justify-between
-      lg:gap-[6px]
+        mt-[10px]
+        py-5
+        px-6
+        xl:pt-0
+        xl:pb-0
+        flex
+        flex-col
+        justify-center
+        lg:justify-between
+        lg:gap-0
     "
       >
-        <div>
-          <div className="mb-[6px]">
-            <FlagCanadaIcon />
-          </div>
-          <p className=" text-sm font-bold mb-[4px]">{LAYOUT.addressIndia.title}</p>
-          <p className=" text-sm mb-[4px]">{LAYOUT.addressIndia.line1}</p>
-          <p className=" text-sm">{LAYOUT.addressIndia.line2}</p>
-          <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressIndia.phone}</p>
-          <div>
-            <div className=" mt-8 mb-[6px]">
-              <FlagIndiaIcon />
+        {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
+          return (
+            <div key={address.id} className='odd:mb-[31px]'>
+              <div className=" mb-[6px]">
+                <div className="w-[32px] h-[16px] relative">
+                  <NextImage
+                    src={appendAssetUrl(address?.attributes?.media_url?.data?.attributes?.url)}
+                    altText={address?.attributes?.media_url?.data?.attributes?.alternativeText}
+                    title=""
+                    sizes="100vw"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
+              </div>
+              <p className=" text-sm mb-[4px] whitespace-pre font-bold">{address?.attributes.name}</p>
+              <p className=" text-sm mb-[4px] whitespace-pre-line  whitespace-font-pre-line">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
             </div>
-            <p className=" text-sm mb-[4px] font-bold">{LAYOUT.addressCanada.title}</p>
-            <p className=" text-sm mb-[4px]">{LAYOUT.addressCanada.line1}</p>
-            <p className=" text-sm">{LAYOUT.addressCanada.line2}</p>
-            <p className=" text-sm mb-[4px] font-bold mt-2">Phone {LAYOUT.addressCanada.phone}</p>
-          </div>
-        </div>
+          );
+        })}
       </div>
       <div className="absolute top-0 left-0 hidden w-full overflow-hidden xl:block">
         <FooterGrid />
