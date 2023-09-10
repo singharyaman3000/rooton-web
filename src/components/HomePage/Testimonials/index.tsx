@@ -26,10 +26,10 @@ export interface ITestimonials {
   subTitle: string;
 }
 
-type TestimonialProps = { title: string; subTitle: string };
+type TestimonialProps = { title: string; subTitle: string, apiUrl: string };
 
-const Testimonials = ({ title, subTitle }: TestimonialProps) => {
-  const { data, loading } = useClientAPI({ apiFn: getTestimonials });
+const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
+  const { data, loading } = useClientAPI({ apiFn: () => getTestimonials(apiUrl) });
   const { showPopUp, hidePopUp, poupState } = usePopUp();
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',

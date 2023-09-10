@@ -1,6 +1,5 @@
 import { getFetch } from '@/utils/apiUtils';
 import { ITestimonialData } from '@/components/UIElements/Cards/TestimonialCard';
-import { TESTIMONIAL_API } from './apiService/apiUrl/homePage';
 
 export interface Pagination {
   page: number;
@@ -18,7 +17,7 @@ export interface ITestimonialPageData {
   meta: Meta;
 }
 
-export const getTestimonials = async () => {
-  const apiRes = await getFetch<ITestimonialPageData>(TESTIMONIAL_API, { next: { revalidate: 1200 } });
+export const getTestimonials = async (url: string) => {
+  const apiRes = await getFetch<ITestimonialPageData>(url, { next: { revalidate: 1200 } });
   return apiRes.data;
 };
