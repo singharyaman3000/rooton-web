@@ -18,6 +18,7 @@ import BookAnAppointmentSection from './BookAppointment';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 import BlogSection from '../ServicePage/PageSections/BlogSection';
 import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
+import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
@@ -114,7 +115,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       </div>
       {getComponentsAfterBookAppointments()}
       <div className=' pb-10 md:pb-[80px]'>
-        <Testimonials title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
+        <Testimonials apiUrl={TESTIMONIAL_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
       </div>
       {faqData && (
         <FaqListing

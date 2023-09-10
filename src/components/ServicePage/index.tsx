@@ -19,6 +19,7 @@ import FAQSection from './PageSections/FAQSection';
 import BlogSection from './PageSections/BlogSection';
 import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
 import { ServiceDescription } from './Description';
+import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -143,16 +144,20 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'service-testimonial':
       return (
         <div className="m-auto max-w-screen-2k">
-          <Testimonials title={SERVICES_TITLE.testimonial.title} subTitle={SERVICES_TITLE.testimonial.subtitle} />
+          <Testimonials
+            apiUrl={TESTIMONIAL_API_SERVICE.replace('<service_type>', response?.data.attributes.unique_identifier_name)}
+            title={SERVICES_TITLE.testimonial.title}
+            subTitle={SERVICES_TITLE.testimonial.subtitle}
+          />
         </div>
       );
     case 'service-faq':
       return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
     case 'blogs':
       return (
-        <div className=' mt-[74px] bg-secondary-grey'>
+        <div className=" mt-[74px] bg-secondary-grey">
           <BlogSection
-            title=''
+            title=""
             subtitle={blogs?.attributes.title ?? ''}
             url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
           />
