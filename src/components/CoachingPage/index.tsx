@@ -4,7 +4,7 @@ import { IServicePageContent, ISubServicesContent } from '@/app/services/apiServ
 import { useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
-import { ServicePageWrapper } from './Wrapper';
+import { CoachingPageWrapper } from './Wrapper';
 import RootOnBanner from '../HomePage/RootOnBanner';
 import { appendAssetUrl, isVideo } from '@/utils';
 import { SERVICES_TITLE } from '@/app/constants/textConstants';
@@ -18,15 +18,15 @@ import CTAWrapperSection from './PageSections/CTAWrapperSection';
 import FAQSection from './PageSections/FAQSection';
 import BlogSection from './PageSections/BlogSection';
 import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
-import { ServiceDescription } from './Description';
+import { CoachingDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 
-type ServicePageProps = {
+type CoachingPageProps = {
   response: IServicePageContent;
   isBookAppointment: boolean;
 };
 
-export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
+export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingPageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
 
   const leadFormRef = useRef<HTMLDivElement>(null);
@@ -70,7 +70,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
   const blogs = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'blogs';
   });
-
+  console.log('sub_title:', response.data?.attributes?.sub_title);
   const sectionsByPosition = [
     whyChooseOpen,
     eligibility,
@@ -87,7 +87,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
   sectionsByPosition.sort((first, second) => {
     return (first?.attributes?.position ?? 0) - (second?.attributes?.position ?? 0);
   });
-  console.log(response.data?.attributes);
+
   const handleCTAButtonClick = () => {
     setShowBookAnAppointment(true);
     setTimeout(() => {
@@ -100,71 +100,74 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
 
   const getSection = (identifier: string, data?: ISubServicesContent) => {
     switch (identifier) {
-    case 'service-reason':
-      return (
-        <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
-        </ServicePageWrapper>
-      );
-    case 'service-eligibility':
-      return (
-        <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
-        </ServicePageWrapper>
-      );
-    case 'service-process':
-      return <ProcessSection process={process} />;
-    case 'service-lead-form':
-      if (leadForm) {
+      case 'service-reason':
         return (
-          <ServicePageWrapper
-            className={`${
-              showBookAnAppointment ? 'block' : 'hidden'
-            } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
-          >
-            <LeadFormSection
-              leadForm={leadForm}
-              leadFormRef={leadFormRef}
-              handleCTAButtonClick={handleCTAButtonClick}
-              isBookAppointment={isBookAppointment}
-            />
-          </ServicePageWrapper>
+          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+            <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
+          </CoachingPageWrapper>
         );
-      }
+      case 'service-eligibility':
+        return (
+          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+            <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
+          </CoachingPageWrapper>
+        );
+      case 'service-process':
+        return <ProcessSection process={process} />;
+      case 'service-lead-form':
+        if (leadForm) {
+          return (
+            <CoachingPageWrapper
+              className={`${
+                showBookAnAppointment ? 'block' : 'hidden'
+              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
+            >
+              <LeadFormSection
+                leadForm={leadForm}
+                leadFormRef={leadFormRef}
+                handleCTAButtonClick={handleCTAButtonClick}
+                isBookAppointment={isBookAppointment}
+              />
+            </CoachingPageWrapper>
+          );
+        }
 
-      return null;
-    case 'service-CTA-banner-1':
-      return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
-    case 'service-CTA-banner-2':
-      return (
-        <ServicePageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
-          <BookAnAppointment onClick={handleCTAButtonClick} />
-        </ServicePageWrapper>
-      );
-    case 'service-testimonial':
-      return (
-        <div className="m-auto max-w-screen-2k">
-          <Testimonials
-            apiUrl={TESTIMONIAL_API_SERVICE.replace('<service_type>', response?.data.attributes.unique_identifier_name)}
-            title={SERVICES_TITLE.testimonial.title}
-            subTitle={SERVICES_TITLE.testimonial.subtitle}
-          />
-        </div>
-      );
-    case 'service-faq':
-      return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
-    case 'blogs':
-      return (
-        <div className=" mt-[74px] bg-secondary-grey">
-          <BlogSection
-            title=""
-            subtitle={blogs?.attributes.title ?? ''}
-            url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
-          />
-        </div>
-      );
-    default:
-      return null;
+        return null;
+      case 'service-CTA-banner-1':
+        return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
+      case 'service-CTA-banner-2':
+        return (
+          <CoachingPageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
+            <BookAnAppointment onClick={handleCTAButtonClick} />
+          </CoachingPageWrapper>
+        );
+      case 'service-testimonial':
+        return (
+          <div className="m-auto max-w-screen-2k">
+            <Testimonials
+              apiUrl={TESTIMONIAL_API_SERVICE.replace(
+                '<service_type>',
+                response?.data.attributes.unique_identifier_name,
+              )}
+              title={SERVICES_TITLE.testimonial.title}
+              subTitle={SERVICES_TITLE.testimonial.subtitle}
+            />
+          </div>
+        );
+      case 'service-faq':
+        return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
+      case 'blogs':
+        return (
+          <div className=" mt-[74px] bg-secondary-grey">
+            <BlogSection
+              title=""
+              subtitle={blogs?.attributes.title ?? ''}
+              url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
+            />
+          </div>
+        );
+      default:
+        return null;
     }
   };
 
@@ -178,25 +181,27 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
             path: '/',
           },
           {
-            title: 'Service',
-            path: '/',
+            title: 'Coaching',
+            path: 'coaching/26',
           },
-          {
-            title: response.data?.attributes?.title,
-            path: '',
-          },
+          // {
+          //   title: "IELTS",
+          //   path: '',
+          // },
         ]}
       />
       <RootOnBanner
         isVideoBanner={isVideo(response.data?.attributes.media_url?.data?.[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
-        heroText={response.data?.attributes?.title}
-        description={response.data?.attributes?.sub_title}
+        heroText={'<span>Coaching</span>'}
+        description={
+          'Root On Immigration Pvt. Ltd.: Comprehensive coaching for Canada-bound aspirants.<br>From IELTS to PTE and beyond,<br>we provide tailored strategies to ensure your success.'
+        }
         button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
-      <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-        <ServiceDescription text={response.data?.attributes?.description} />
-      </ServicePageWrapper>
+      <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <CoachingDescription text={response.data?.attributes?.description} />
+      </CoachingPageWrapper>
       {sectionsByPosition.map((section) => {
         return getSection(section?.attributes.unique_identifier_name ?? '', section);
       })}
