@@ -1,5 +1,7 @@
 import { IServicePageContent, getServicePageContent } from '@/app/services/apiService/serviceAPI';
-import { CoachingPageComponent } from '@/components/CoachingPage';
+import { IELTSPageComponent } from '@/components/IELTS';
+
+// For IELTS
 
 type CoachingPageProps = {
   params: {
@@ -8,7 +10,8 @@ type CoachingPageProps = {
 };
 
 export default async function ServicePage(props: CoachingPageProps) {
+  console.log('slug:', props.params.slug[0]);
   const response = (await getServicePageContent(props.params.slug[0])) as IServicePageContent;
 
-  return <CoachingPageComponent response={response} isBookAppointment={Boolean(props.params.slug[1])} />;
+  return <IELTSPageComponent response={response} isBookAppointment={Boolean(props.params.slug[1])} />;
 }

@@ -102,9 +102,10 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
     switch (identifier) {
       case 'service-reason':
         return (
-          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-            <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
-          </CoachingPageWrapper>
+          <></>
+          // <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+          //   <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
+          // </CoachingPageWrapper>
         );
       case 'service-eligibility':
         return (
@@ -175,19 +176,25 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
     <div className=" relative pb-20">
       <Breadcrumbs
         className=" z-50 hidden lg:flex"
+        // data={[
+        //   {
+        //     title: 'Home',
+        //     path: '/',
+        //   },
+        //   {
+        //     title: 'Coaching',
+        //     path: 'coaching/26',
+        //   },
+        //   {
+        //     title: "IELTS",
+        //     path: '',
+        //   },
+        // ]}
         data={[
           {
-            title: 'Home',
-            path: '/',
+            title: '',
+            path: '',
           },
-          {
-            title: 'Coaching',
-            path: 'coaching/26',
-          },
-          // {
-          //   title: "IELTS",
-          //   path: '',
-          // },
         ]}
       />
       <RootOnBanner
@@ -197,7 +204,8 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
         description={
           'Root On Immigration Pvt. Ltd.: Comprehensive coaching for Canada-bound aspirants.<br>From IELTS to PTE and beyond,<br>we provide tailored strategies to ensure your success.'
         }
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
+        button={<></>}
+        // button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={response.data?.attributes?.description} />
