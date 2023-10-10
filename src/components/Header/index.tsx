@@ -185,7 +185,7 @@ export default function Header() {
               )}
             </span>
             <span className="h-[100%] flex items-center relative">
-              <Link href={'coaching/'}> Coaching </Link>
+              <Link href={'/coaching'}> Coaching </Link>
               {activeTab === 'Coaching' && (
                 <span
                   className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
