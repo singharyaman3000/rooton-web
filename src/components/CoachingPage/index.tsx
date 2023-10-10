@@ -11,7 +11,7 @@ import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import { Breadcrumbs } from '../Breadcrumbs';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
 import WhyChooseRootonSection from './PageSections/WhyChooseRootonSection';
-import EligibilitySection from './PageSections/EligibilitySection';
+// import EligibilitySection from './PageSections/EligibilitySection';
 import ProcessSection from './PageSections/ProcessSection';
 import LeadFormSection from './PageSections/LeadFormSection';
 import CTAWrapperSection from './PageSections/CTAWrapperSection';
@@ -20,6 +20,8 @@ import BlogSection from './PageSections/BlogSection';
 import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
 import { CoachingDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
+// importing exam tiles component
+import ExamTiles from './ExamTiles';
 
 type CoachingPageProps = {
   response: IServicePageContent;
@@ -35,9 +37,9 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
     return i.attributes.unique_identifier_name === 'service-reason';
   });
 
-  const eligibility = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-eligibility';
-  });
+  // const eligibility = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+  //   return i.attributes.unique_identifier_name === 'service-eligibility';
+  // });
 
   const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-process';
@@ -73,7 +75,7 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
   console.log('sub_title:', response.data?.attributes?.sub_title);
   const sectionsByPosition = [
     whyChooseOpen,
-    eligibility,
+    // eligibility,
     process,
     leadForm,
     ctaBanner2,
@@ -107,12 +109,12 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
           //   <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
           // </CoachingPageWrapper>
         );
-      case 'service-eligibility':
-        return (
-          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-            <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
-          </CoachingPageWrapper>
-        );
+      // case 'service-eligibility':
+      //   return (
+      //     <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+      //       <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
+      //     </CoachingPageWrapper>
+      //   );
       case 'service-process':
         return <ProcessSection process={process} />;
       case 'service-lead-form':
@@ -210,9 +212,16 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={response.data?.attributes?.description} />
       </CoachingPageWrapper>
+
+        {/* Exam tile section */}
+        <div className="m-auto max-w-screen-2k">
+            <ExamTiles />
+        </div>
+
       {sectionsByPosition.map((section) => {
         return getSection(section?.attributes.unique_identifier_name ?? '', section);
       })}
+
     </div>
   );
 };
