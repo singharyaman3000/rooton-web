@@ -2,7 +2,7 @@
 
 import { IServicePageContent, ISubServicesContent } from '@/app/services/apiService/serviceAPI';
 import { useRef, useState } from 'react';
-import Testimonials from '../HomePage/Testimonials';
+import Testimonials from '../HomePage/Trainings';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from './Wrapper';
 import RootOnBanner from '../HomePage/RootOnBanner';
