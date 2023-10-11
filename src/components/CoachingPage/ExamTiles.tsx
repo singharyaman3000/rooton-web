@@ -26,16 +26,28 @@ const ExamTiles: React.FC = () => {
 
     return (
         <div>
-            <h4 className="section-title" style={
-                {
-                    textAlign: 'center',
-                    fontSize: '3rem',
-                    fontWeight: 800,
-                    color: '#000',
-                    marginBottom: '50px',
-                    marginTop: '50px'
+            <div className='section-title-container'>
+            <h4 className="section-title">Coaching Services</h4>
+            <style jsx>{`
+                .section-title-container {
+                    margin-left: 80px;
+                    font-size: 3rem;
+                    font-weight: 800;
+                    color: #000;
+                    margin-bottom: 25px;
+                    margin-top: 50px;
                 }
-            }>Coaching Services</h4>
+
+                @media screen and (max-width: 767px) {
+                    .section-title-container {
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.75rem;
+                    }
+                }
+
+            `}</style>
+            </div>
             <div className="exam-tiles">
                 <style jsx>{`
                     .exam-tiles {
