@@ -20,8 +20,6 @@ import BlogSection from './PageSections/BlogSection';
 import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
 import { CoachingDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
-// importing ielts section
-import IeltsSection from './IeltsSection';
 
 type CoachingPageProps = {
   response: IServicePageContent;
@@ -214,12 +212,6 @@ export const IELTSPageComponent = ({ response, isBookAppointment }: CoachingPage
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={"IELTS is an internationally recognized English language proficiency test designed to assess the language skills of non-native English speakers. It assesses your reading, writing, listening, and speaking proficiency, enabling you to pursue your dreams of studying, working, or settling abroad. It is jointly managed by the British Council, IDP: IELTS Australia, and Cambridge Assessment English."} />
       </CoachingPageWrapper>
-
-        {/* IELTS SECTION */}
-        
-        <div className=" mt-20 m-auto max-w-screen-2k pb-0">
-            <IeltsSection />
-        </div>
 
       {sectionsByPosition.map((section) => {
         return getSection(section?.attributes.unique_identifier_name ?? '', section);

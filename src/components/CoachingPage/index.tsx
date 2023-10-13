@@ -22,6 +22,9 @@ import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePa
 // importing exam tiles component
 import ExamTiles from './ExamTiles';
 
+// importing Pricing section component
+import PricingSection from './PricingSection';
+
 type CoachingPageProps = {
   response: IServicePageContent;
   isBookAppointment: boolean;
@@ -204,6 +207,11 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
         {/* Exam tile section */}
         <div className="m-auto max-w-screen-2k">
             <ExamTiles />
+        </div>
+
+        {/* Pricing Section */}
+        <div className="m-auto max-w-screen-2k">
+            <PricingSection />
         </div>
 
       {sectionsByPosition.map((section) => {
