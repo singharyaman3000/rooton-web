@@ -27,26 +27,26 @@ export interface ITestimonials {
   subTitle: string;
 }
 
-type TestimonialProps = { title: string; subTitle: string, apiUrl: string };
+type TestimonialProps = { title: string; subTitle: string; apiUrl: string };
 
 const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
   const { data, loading } = useClientAPI({ apiFn: () => getTestimonials(apiUrl) });
   // State to handle toggle
   const [activeToggle, setActiveToggle] = useState('General Training'); // you can name it something meaningful
-   // Fetch testimonials based on active toggle
-   const fetchTestimonials = () => {
+  const [activeTab, setActiveTab] = useState('General Training');
+  // Fetch testimonials based on active toggle
+  const fetchTestimonials = () => {
     if (!data) {
-        return [];
+      return [];
     }
 
     if (activeToggle === 'General Training') {
-      return data.filter(testimonial => testimonial.attributes.type === 'General Training');
+      return data.filter((testimonial) => testimonial.attributes.type === 'General Training');
     } else {
-      return data.filter(testimonial => testimonial.attributes.type === 'Academic Training');
+      return data.filter((testimonial) => testimonial.attributes.type === 'Academic Training');
     }
-};
+  };
 
-  
   const filteredTestimonials = fetchTestimonials();
   const { showPopUp, hidePopUp, poupState } = usePopUp();
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
@@ -67,79 +67,126 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
     setPopUpData(videoData);
     showPopUp();
   };
-  
+
+  const TabButton = ({ label }: { label: string }) => {
+    const isActive = activeToggle === label;
+
+    return (
+      <>
+        <style jsx>{`
+          .buttons-container {
+            display: flex;
+            border: 1px solid lightgray; // Light black border for the container
+            align-items: center;
+          }
+
+          .tab-button {
+            flex: 1;
+            transition: all 0.3s ease;
+            position: relative;
+            border: none; // Removing border from individual buttons
+            border-right: 1px solid lightgray; // Adding vertical line between buttons
+            border-radius: 0; // No border-radius
+          }
+
+          .tab-button:last-child {
+            border-right: none; // Remove border for the last button
+          }
+
+          .tab-button.active {
+            background-color: black;
+            color: white;
+          }
+
+          .tab-button:not(.active) {
+            background-color: white;
+            color: black;
+            &:hover {
+              background-color: #f3f3f3;
+            }
+          }
+        `}</style>
+        <button
+          className={`px-4 py-2 mr-2 border rounded-t-lg transition duration-300 ease-in-out tab-button ${
+            isActive
+              ? 'active bg-black text-white border-black hover:bg-gray-800'
+              : 'bg-gray-100 border-transparent hover:bg-gray-200'
+          }`}
+          onClick={() => setActiveToggle(label)}
+        >
+          {label}
+        </button>
+      </>
+    );
+  };
+
   return (
-    <section className="w-full bg-primary-white overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px] pt-10 md:pt-[80px]">
-      <div className="md:max-w-[70%] lg:max-w-none">
-          {/* Testimonials Heading */}
-          <SectionHeadings title={title} subTitle={"Trainings"} />
-        </div>
-         {/* Add Toggle Buttons */}
-        <div>
-          <button onClick={() => setActiveToggle('General Training')}>General Training</button>
-          <button onClick={() => setActiveToggle('Academic Training')}>Academic Training</button>
-        </div>
-         {/* Using the TrainingDetailsComponent */}
-        <TrainingDetailsComponent type={activeToggle} />
-        <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
-          {/* <div className="md:max-w-[70%] lg:max-w-none">
-            <SectionHeadings title={title} subTitle={subTitle} />
-          </div> */}
-          <div className="items-center hidden md:flex md:mb-[8px]">
-            <div>
-              <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px] bg-[#f3f3f3] disabled:bg-[#f3f3f3]" disable={pageNum === 0} leftNav />
-              <SliderNav handleOnClick={incrementPage} cssClass='bg-[#f3f3f3] disabled:bg-[#f3f3f3] ' disable={pageNum === totalPages - 1} />
-            </div>
+    <>
+      <style jsx>{`
+        .buttons-container {
+          margin-top: 10px;
+        }
+        .wrapper {
+          display: flex;
+          justify-content: space-between;
+        }
+      `}</style>
+      <section className="w-full bg-primary-white overflow-x-hidden">
+        <SectionContainer cssClass="!pr-[0px] pt-10 md:pt-[80px]">
+       
+          <div className="md:max-w-[70%] lg:max-w-none">
+            {/* Testimonials Heading */}
+            <SectionHeadings title={title} subTitle={'Trainings'} />
           </div>
-        </div>
-        {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="pt-[40px] md:pt-[48px]" {...handlers}>
-          <Slider
-            scrollPercent={`${-scrollAmt}px`}
-            id="testimonial-listing"
-            pageNum={pageNum}
-            slideParentClass="!justify-start"
-            loading={loading}
-            loadingUI={<TestimonialPreLoader />}
-            slideClass="!w-[73.4%] px-[8px] md:px-[15px] !min-w-[264px] md:!w-[29.6%] w-full md:!min-w-[380px] md:!max-w-[430px]"
-          >
-            {(filteredTestimonials  ?? []).map(({ attributes, id }) => {
-              return (
-                <TestimonialCard
-                  handleOnClick={showVideoPopUP}
-                  id={id}
-                  attributes={attributes}
-                  key={id}
-                  type={attributes.media_url.data?.[0]?.attributes.ext === '.mp4' ? 'video' : 'text'}
-                />
-              );
-            })}
-          </Slider>
-        </div>
-        <PopUp
-          onClose={hidePopUp}
-          showPopuUp={poupState}
-          body={
-            <VideoElement
-              cssClass={'object-cover absolute h-full top-0'}
-              poster=""
-              src={appendAssetUrl(popUpData?.media_url.data[0].attributes.url ?? '')}
-            />
-          }
-          header={
-            <TestimonialFooter
-              college_photo={appendAssetUrl(popUpData?.icon.data[0].attributes.url ?? '')}
-              name={popUpData?.name ?? ''}
-              college={popUpData?.college ?? ''}
-              caption={popUpData?.profile_picture.data.attributes.caption ?? ''}
-              url={popUpData?.profile_picture.data.attributes.url ?? ''}
-              alternativeText={popUpData?.profile_picture.data.attributes.alternativeText ?? ''}
-            />
-          }
-        />
-      </SectionContainer>
-    </section>
+          <div className='wrapper'>
+          {/* Add Toggle Buttons */}
+          <div className="buttons-container">
+            <TabButton label="General Training" />
+            <TabButton label="Academic Training" />
+          </div>
+          
+          <div className="items-center hidden md:flex md:mb-[8px]">
+            {/* <div>
+              <SliderNav
+                handleOnClick={decrementPage}
+                cssClass="mr-[16px] bg-[#f3f3f3] disabled:bg-[#f3f3f3]"
+                disable={pageNum === 0}
+                leftNav
+              />
+              <SliderNav
+                handleOnClick={incrementPage}
+                cssClass="bg-[#f3f3f3] disabled:bg-[#f3f3f3] "
+                disable={pageNum === totalPages - 1}
+              />
+            </div> */}
+          </div>
+          </div>
+          {/* Using the TrainingDetailsComponent */}
+          <TrainingDetailsComponent type={activeToggle} />
+          <PopUp
+            onClose={hidePopUp}
+            showPopuUp={poupState}
+            body={
+              <VideoElement
+                cssClass={'object-cover absolute h-full top-0'}
+                poster=""
+                src={appendAssetUrl(popUpData?.media_url.data[0].attributes.url ?? '')}
+              />
+            }
+            header={
+              <TestimonialFooter
+                college_photo={appendAssetUrl(popUpData?.icon.data[0].attributes.url ?? '')}
+                name={popUpData?.name ?? ''}
+                college={popUpData?.college ?? ''}
+                caption={popUpData?.profile_picture.data.attributes.caption ?? ''}
+                url={popUpData?.profile_picture.data.attributes.url ?? ''}
+                alternativeText={popUpData?.profile_picture.data.attributes.alternativeText ?? ''}
+              />
+            }
+          />
+        </SectionContainer>
+      </section>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import TrainingCard from '@/components/HomePage/Trainings/TrainingCard';
+import SliderNav from '@/components/UIElements/Slider/sliderNav';
 
 const trainingDetails = {
     "General Training": {
@@ -23,15 +24,58 @@ type TrainingDetailsProps = {
 }
 
 const TrainingDetailsComponent = ({ type }: TrainingDetailsProps) => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const cardContainerRef = useRef(null);
     const currentDetails = trainingDetails[type];
 
+    const nextSlide = () => {
+      const nextIndex = activeSlide + 1;
+      setActiveSlide(nextIndex < Object.keys(currentDetails).length - 1 ? nextIndex : Object.keys(currentDetails).length - 2);
+      if (cardContainerRef.current) {
+          cardContainerRef.current.scrollLeft = nextIndex * 300; // 300 is the assumed width of each card
+      }
+  };
+  
+  const prevSlide = () => {
+      const prevIndex = activeSlide - 1;
+      setActiveSlide(prevIndex >= 0 ? prevIndex : 0);
+      if (cardContainerRef.current) {
+          cardContainerRef.current.scrollLeft = prevIndex * 300; // 300 is the assumed width of each card
+      }
+  };
+  
     return (
-        <div>
+      <>
+      <style jsx>{`
+        .card-container::-webkit-scrollbar {
+          display: none; 
+        }
+        .card-container{
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+      `}</style>
+      <div className="wrapper">
+    {/* <SliderNav
+        handleOnClick={prevSlide} // Use the prevSlide function
+        cssClass="mr-[16px] bg-[#f3f3f3] disabled:bg-[#f3f3f3]"
+        disable={activeSlide === Object.keys(currentDetails).length - 2}
+        leftNav
+    />
+
+    <SliderNav
+        handleOnClick={nextSlide} // Use the nextSlide function
+        cssClass="bg-[#f3f3f3] disabled:bg-[#f3f3f3]"
+        disable={activeSlide === Object.keys(trainingDetails).length - 1}
+    /> */}
+      <div className="card-container flex overflow-x-scroll" ref={cardContainerRef}> {/* Changed space-x-4 to space-x-6 */}
           <TrainingCard title="Listening" data={{ description: currentDetails.Listening }} />
           <TrainingCard title="Reading" data={{ description: currentDetails.Reading }} />
           <TrainingCard title="Writing" data={{ description: currentDetails.Writing }} />
           <TrainingCard title="Speaking" data={{ description: currentDetails.Speaking }} />
         </div>
+        </div>
+        </>
       );
 };
 
