@@ -1,22 +1,25 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type ExamTileProps = {
     logoSrc: string;
-    onClick: () => void;
+    href: string; // New prop for link destination
 };
 
-const ExamTile: React.FC<ExamTileProps> = ({ logoSrc, onClick }) => {
+const ExamTile: React.FC<ExamTileProps> = ({ logoSrc, href  }) => {
     return (
-        <div className="exam-tile" onClick={onClick}>
-            <Image src={logoSrc} alt="Exam Logo" width={250} height={100} />
-        </div>
+        <Link href={href}>
+            <div className="exam-tile">
+                <Image src={logoSrc} alt="Exam Logo" width={250} height={100} />
+            </div>
+        </Link>
     );
 };
 
 const ExamTiles: React.FC = () => {
     const tiles = [
-        { id: 1, logoSrc: '/images/examTile/Ielts.png'},
+        { id: 1, logoSrc: '/images/examTile/Ielts.png', href: 'coaching/26' },
         { id: 2, logoSrc: '/images/examTile/TOEFL.png' },
         { id: 3, logoSrc: '/images/examTile/GRE.png' },
         { id: 4, logoSrc: '/images/examTile/DUOLINGO.png' },
@@ -98,7 +101,7 @@ const ExamTiles: React.FC = () => {
                 `}</style>
                 {tiles.map((tile) => (
                     <div className="exam-tile-container" key={tile.id}>
-                        <ExamTile logoSrc={tile.logoSrc} onClick={() => console.log(`Tile ${tile.id} clicked`)} />
+                         <ExamTile logoSrc={tile.logoSrc} href={tile.href || '#'} />
                     </div>
                 ))}
             </div>

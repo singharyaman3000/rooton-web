@@ -2,7 +2,7 @@
 
 import { IServicePageContent, ISubServicesContent } from '@/app/services/apiService/serviceAPI';
 import { useRef, useState } from 'react';
-import Testimonials from '../HomePage/Testimonials';
+import Testimonials from '../HomePage/Trainings';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from './Wrapper';
 import RootOnBanner from '../HomePage/RootOnBanner';
@@ -207,7 +207,8 @@ export const IELTSPageComponent = ({ response, isBookAppointment }: CoachingPage
         description={
           'Unlock Global Opportunities with Our Comprehensive IELTS Preparation.'
         }
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
+        button={<BookAnAppointmentButton text="Start Preparing for IELTS Now!" onClick={handleCTAButtonClick} />}
+        // button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={"IELTS is an internationally recognized English language proficiency test designed to assess the language skills of non-native English speakers. It assesses your reading, writing, listening, and speaking proficiency, enabling you to pursue your dreams of studying, working, or settling abroad. It is jointly managed by the British Council, IDP: IELTS Australia, and Cambridge Assessment English."} />
