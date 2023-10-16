@@ -94,6 +94,7 @@ export default function PricingTable() {
   const [yearly, setYearly] = useState<boolean>(true);
 
   return (
+    <div className="mt-20 m-auto max-w-screen-2k">
     <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
             <h4 className="max-w-[340px] md:max-w-none mb-10 md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] undefined">
                 Our Plans</h4>
@@ -201,6 +202,7 @@ export default function PricingTable() {
           ]}
         />
       </div>
+    </div>
     </div>
   );
 }
