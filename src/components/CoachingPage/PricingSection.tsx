@@ -45,10 +45,14 @@ function PricingTab(props: PricingTabProps) {
             const subFeatures = feature.slice(1);
 
             return (
-              <li key={index} className="flex flex-col">
+              <li key={index} className="flex flex-col text-base font-medium cursor-pointer" onClick={() => {
+                const newExpanded = [...expanded];
+                newExpanded[index] = !isExpanded;
+                setExpanded(newExpanded);
+              }}>
                 <div className="flex items-center">
                   <svg
-                    className={`w-3 h-3 fill-emerald-500 mr-3 shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
+                    className={`w-4 h-4.5 fill-{#333333} mr-2 shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
                     viewBox="0 0 12 12"
                     xmlns="http://www.w3.org/2000/svg"
                     onClick={() => {
@@ -57,20 +61,20 @@ function PricingTab(props: PricingTabProps) {
                       setExpanded(newExpanded);
                     }}
                   >
-                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                   <path d="M2.293 4.293a1 1 0 011.414 0L6 6.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
                   </svg>
                   <span>{feature[0]}</span>
                 </div>
                 {isExpanded && (
-                  <ul className="text-black text-sm space-y-3 grow ml-5">
+                  <ul className="text-black text-sm space-y-4 grow ml-5 font-normal">
                     {subFeatures.map((subFeature, subIndex) => (
                       <li key={subIndex} className="flex items-center">
                         <svg
-                          className="w-3 h-3 fill-emerald-500 mr-3 shrink-0"
-                          viewBox="0 0 12 12"
+                          className="w-2 h-2 text-emerald-500 mr-3 shrink-0"
+                          viewBox="0 0 20 20"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                          <circle cx="10" cy="10" r="8" fill="currentColor" />
                         </svg>
                         <div>{subFeature}</div>
                       </li>
@@ -103,25 +107,26 @@ export default function PricingTable() {
           planDescription="For students who wish to learn IELTS at their own speed and at their own time convenience."
           features={[
             [
-              'Unlimited placeholder texts',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Officia deserunt mollit anim',
+              'Suitable for those:',
+              'Who wish to study at their own pace.',
+              'Learners willing to have the freedom to progress at their own speed.',
+              'Independent learners.',
             ],
             [
-              'Predefined chunks as necessary',
-              'Officia deserunt mollit anim',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Free from repetition',
+              'Course Overview:',
+              'Individual Practice tests for different modules.',
+              'Grammar for IELTS.',
+              'Cover all sections in detail.',
+              'Access to full-length mock tests.',
+              'Special review for Speaking and Writing.',
             ],
             [
-              'Unlimited placeholder texts',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Officia deserunt mollit anim',
-              'Predefined chunks as necessary',
-              'Free from repetition',
+              'Course Outline:',
+              'IELTS Introduction - Course Structure and Orientation',
+              'IELTS listening - Sentence completion, Form completion, Mock tests, etc.',
+              'IELTS Reading-List of headings, Yes/No questions, etc.',
+              'IELTS Writing - Essay - Advantage, Disadvantage, Data, graphs, etc.',
+              'IELTS Speaking. - Speaking overview, Part 1, 2, 3, etc.',
             ],
           ]}
         />
@@ -136,25 +141,29 @@ export default function PricingTable() {
           planDescription="A customized solution for students who want to focus on specific areas of weakness in the IELTS examination"
           features={[
             [
-              'Unlimited placeholder texts',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Officia deserunt mollit anim',
+              'Suitable for:',
+              'Students who need targeted practice in one or more IELTS modules.',
+              'Those who have already prepared for IELTS but need to enhance specific modules.',
+              'Independent learners who prefer a self-guided approach, with the option for live coaching in chosen modules.',
             ],
             [
-              'Predefined chunks as necessary',
-              'Officia deserunt mollit anim',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Free from repetition',
+              'Course Overview:',
+              'Targeted practice tests and exercises for specific modules.',
+              'Access to detailed study materials for chosen areas.',
+              'Option for personalized feedback and coaching.',
+              'Flexibility to select one or multiple modules.',
             ],
             [
-              'Unlimited placeholder texts',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Officia deserunt mollit anim',
-              'Predefined chunks as necessary',
-              'Free from repetition',
+              'Course Outline (Choose any or all):',
+              'IELTS Listening: Practice tests, Specific Listening Challenges, Tailored Exercises.',
+              'IELTS Reading: Focus on Headings, Specific Reading Strategies, Targeted Practice.',
+              'IELTS Writing: Customized Writing Tasks, Feedback on Essays, Graphs, and Letters.',
+              'IELTS Speaking: Personalized Speaking Tasks, Individualized Feedback, Intensive Practice.',
+            ],
+            [
+              'Course Options:',
+              'Online Self-Study Course: Access to individual module materials for focused self-study.',
+              'Live Online Coaching: Tailored coaching sessions for personalized guidance in chosen modules.',
             ],
           ]}
         />
@@ -168,25 +177,26 @@ export default function PricingTable() {
           planDescription="Designed for those who want to fast-track their IELTS preparation."
           features={[
             [
-              'Unlimited placeholder texts',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Officia deserunt mollit anim',
+              'Suitable for:',
+              'Students who need to prepare for the IELTS exam in a short time.',
+              'Individuals who need to focus intensely on their weak areas.',
+              'Those who prefer a structured, high-intensity approach.',
             ],
             [
-              'Predefined chunks as necessary',
-              'Officia deserunt mollit anim',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Free from repetition',
+              'Course Overview:',
+              'Fast-paced learning through rigorous practice sessions.',
+              'Tailored strategies and techniques to quickly improve in targeted areas.',
+              'Access to one-on-one coaching with experienced instructors.',
+              'High-intensity mock tests with real-time feedback.',
+              'Specially designed materials to enhance all four IELTS skills quickly.',
             ],
             [
-              'Unlimited placeholder texts',
-              'Consectetur adipiscing elit',
-              'Excepteur sint occaecat cupidatat',
-              'Officia deserunt mollit anim',
-              'Predefined chunks as necessary',
-              'Free from repetition',
+              'Course Outline:',
+              'IELTS Acceleration: Overview, Strategies, and Techniques.',
+              'IELTS Listening: Speed Listening Exercises, Quick Comprehension Techniques, High-Intensity Mock Tests.',
+              'IELTS Reading: Skimming and Scanning Practices, Fast Reading Techniques.',
+              'IELTS Writing: Rapid Essay Writing, Quick Responses to Graphs and Data.',
+              'IELTS Speaking: Accelerated Speaking Practices, Intensive Part 1, 2, 3 Training.',
             ],
           ]}
         />
