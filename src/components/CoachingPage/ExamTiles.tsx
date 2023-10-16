@@ -29,37 +29,19 @@ const ExamTiles: React.FC = () => {
 
     return (
         <div>
-            <div className='section-title-container'>
-            <h4 className="section-title">Coaching Services</h4>
-            <style jsx>{`
-                .section-title-container {
-                    margin-left: 80px;
-                    font-size: 3rem;
-                    font-weight: 800;
-                    color: #000;
-                    margin-bottom: 25px;
-                    margin-top: 50px;
-                }
-
-                @media screen and (max-width: 767px) {
-                    .section-title-container {
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 1.75rem;
-                    }
-                }
-
-            `}</style>
-            </div>
+            <div className="mt-9 px-[24px] md:px-[48px] lg:px-[80px] !py-0 pt-10 md:pt-[100px] fgx">
+            <h4 className="max-w-[340px] md:max-w-none mb-3.5 md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] undefined">
+                Our Coaching</h4></div>
+       
             <div className="exam-tiles">
                 <style jsx>{`
                     .exam-tiles {
                         display: grid;
                         grid-template-columns: 1fr 1fr 1fr;
-                        gap: 30px; /* Adjust the gap between tiles */
+                        gap: 40px; /* Adjust the gap between tiles */
                         justify-items: center; /* Center tiles horizontally */
                         align-items: center;
-                        padding: 30px 150px;
+                        padding: 30px 100px;
                     }
 
                     .exam-tile-container {
@@ -67,7 +49,7 @@ const ExamTiles: React.FC = () => {
                         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
                         transition: transform 0.2s ease-in-out;
                         width: 300px;
-                        height: 130px;
+                        height: 150px;
                         justify-content: center;
                         align-items: center;
                         cursor: pointer;
@@ -75,7 +57,7 @@ const ExamTiles: React.FC = () => {
                     }
 
                     .exam-tile {
-                        padding: 20px;
+                        padding: 30px;
                         text-align: center;
                         cursor: pointer;
                     }

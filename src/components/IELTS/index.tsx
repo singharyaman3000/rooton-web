@@ -11,7 +11,7 @@ import { SERVICES_TITLE } from '@/app/constants/textConstants';
 import { Breadcrumbs } from '../Breadcrumbs';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
 import WhyChooseRootonSection from './PageSections/WhyChooseRootonSection';
-import EligibilitySection from './PageSections/EligibilitySection';
+// import EligibilitySection from './PageSections/EligibilitySection';
 import ProcessSection from './PageSections/ProcessSection';
 import LeadFormSection from './PageSections/LeadFormSection';
 import CTAWrapperSection from './PageSections/CTAWrapperSection';
@@ -35,9 +35,9 @@ export const IELTSPageComponent = ({ response, isBookAppointment }: CoachingPage
     return i.attributes.unique_identifier_name === 'service-reason';
   });
 
-  const eligibility = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-eligibility';
-  });
+  // const eligibility = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+  //   return i.attributes.unique_identifier_name === 'service-eligibility';
+  // });
 
   const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-process';
@@ -73,7 +73,7 @@ export const IELTSPageComponent = ({ response, isBookAppointment }: CoachingPage
   console.log('sub_title:', response.data?.attributes?.sub_title);
   const sectionsByPosition = [
     whyChooseOpen,
-    eligibility,
+    // eligibility,
     process,
     leadForm,
     ctaBanner2,
@@ -107,12 +107,12 @@ export const IELTSPageComponent = ({ response, isBookAppointment }: CoachingPage
           //   <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
           // </CoachingPageWrapper>
         );
-      case 'service-eligibility':
-        return (
-          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-            <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
-          </CoachingPageWrapper>
-        );
+      // case 'service-eligibility':
+      //   return (
+      //     <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+      //       <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
+      //     </CoachingPageWrapper>
+      //   );
       case 'service-process':
         return <ProcessSection process={process} />;
       case 'service-lead-form':
