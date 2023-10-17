@@ -66,10 +66,10 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ title, data }) => {
         <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">{title}</h2>
         </div>
 
-        <div className='flex justify-between pb-3.5 font-medium text-sm'>
-          <div className='flex items-center justify-center flex-col'><Image src='/images/IELTS_training/question.png' alt="Question" width={40} height={50} /><p>Questions</p><p>{data.questions}</p></div>
-          <div className='flex items-center justify-center flex-col'><Image src='/images/IELTS_training/time.png' alt="Duration" width={40} height={50} /><p>Duration</p><p>{data.duration}</p></div>
-          <div className='flex items-center justify-center flex-col'><Image src='/images/IELTS_training/score.png' alt="Score" width={40} height={50} /><p>Score</p><p>{data.score}</p></div>
+        <div className='flex justify-between pb-3.5 font-semibold text-sm'>
+          <div className='flex items-center justify-center flex-col'><Image src='/images/IELTS_training/question.png' alt="Question" width={40} height={50} /><p className='pt-3'>Questions</p><p>{data.questions}</p></div>
+          <div className='flex items-center justify-center flex-col'><Image src='/images/IELTS_training/time.png' alt="Duration" width={40} height={50} /><p className='pt-3'>Duration</p><p>{data.duration}</p></div>
+          <div className='flex items-center justify-center flex-col'><Image src='/images/IELTS_training/score.png' alt="Score" width={40} height={50} /><p className='pt-3'>Score</p><p>{data.score}</p></div>
         </div>
 
         <div className="text-xs md:text-sm text-black card-text">
