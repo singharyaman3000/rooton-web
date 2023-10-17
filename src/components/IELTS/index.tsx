@@ -117,7 +117,7 @@ export const IELTSPageComponent = ({ response, isBookAppointment }: CoachingPage
       //     </CoachingPageWrapper>
       //   );
       case 'service-process':
-        return <ProcessSection process={process} />;
+        return <ProcessSection/>;
       case 'service-lead-form':
         if (leadForm) {
           return (
