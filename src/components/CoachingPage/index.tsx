@@ -71,7 +71,7 @@ export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingP
   const sectionsByPosition = [
     whyChooseOpen,
     process,
-    leadForm,
+    // leadForm,
     ctaBanner2,
     insights,
     testimonials,

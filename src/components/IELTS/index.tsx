@@ -78,7 +78,7 @@ export const IELTSPageComponent = ({ response, isBookAppointment }: CoachingPage
     whyChooseOpen,
     // eligibility,
     process,
-    leadForm,
+    // leadForm,
     ctaBanner2,
     insights,
     testimonials,

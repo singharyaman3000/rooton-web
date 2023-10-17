@@ -98,7 +98,7 @@ export default function PricingTable() {
     <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
             <h4 className="max-w-[340px] md:max-w-none mb-10 md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] undefined">
                 Our Plans</h4>
-      <div className="grid gap-6 lg:grid-cols-3 items-start lg:max-w-none">
+      <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-2 items-start lg:max-w-none">
         {/* Pricing tab 1 */}
         <PricingTab
           yearly={yearly}
@@ -201,6 +201,40 @@ export default function PricingTable() {
             ],
           ]}
         />
+
+        {/* Pricing tab 4 */}
+        <PricingTab
+          yearly={yearly}
+          planName="IELTS E-learning"
+          price={40}
+          validity="90 days"
+          planDescription="For students who wish to learn IELTS from comfort of their home."
+          features={[
+            [
+              'Suitable for those:',
+              'Who wish to study at their own pace.',
+              'Learners willing to have the freedom to progress at their own speed.',
+              'Independent learners.',
+            ],
+            [
+              'Course Overview:',
+              'Individual Practice tests for different modules.',
+              'Grammar for IELTS.',
+              'Cover all sections in detail.',
+              'Access to full-length mock tests.',
+              'Special review for Speaking and Writing.',
+            ],
+            [
+              'Course Outline:',
+              'IELTS Introduction - Course Structure and Orientation',
+              'IELTS listening - Sentence completion, Form completion, Mock tests, etc.',
+              'IELTS Reading-List of headings, Yes/No questions, etc.',
+              'IELTS Writing - Essay - Advantage, Disadvantage, Data, graphs, etc.',
+              'IELTS Speaking. - Speaking overview, Part 1, 2, 3, etc.',
+            ],
+          ]}
+        />
+
       </div>
     </div>
     </div>

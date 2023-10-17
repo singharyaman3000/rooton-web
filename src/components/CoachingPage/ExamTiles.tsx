@@ -31,7 +31,7 @@ const ExamTiles: React.FC = () => {
         <div>
             <div className="mt-9 px-[24px] md:px-[48px] lg:px-[80px] !py-0 pt-10 md:pt-[100px] fgx">
             <h4 className="max-w-[340px] md:max-w-none mb-3.5 md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] undefined">
-                Our Coaching</h4></div>
+                Coaching Services</h4></div>
        
             <div className="exam-tiles">
                 <style jsx>{`
