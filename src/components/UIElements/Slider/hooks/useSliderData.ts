@@ -26,7 +26,9 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
         if (children && children.length > 0) {
           for (const key in children) {
             if (children[key].clientWidth) {
-              if (totalWidth + children[key].clientWidth < slide.clientWidth) {
+              if (totalWidth + children[key].clientWidth <= slide.clientWidth) {
+                console.log(children[key].clientWidth);
+                
                 totalWidth += children[key].clientWidth;
                 itemsPerPage += 1;
               }

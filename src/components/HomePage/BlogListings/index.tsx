@@ -10,6 +10,7 @@ import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import React from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { ITitleAttributes } from '../ServicesListing/interafces';
+import ArticleCard from '@/components/BlogsListPage/ArticleCard';
 
 export interface IBlogCard {
   data: IBlogCardData[];
@@ -64,8 +65,11 @@ const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
             pageNum={pageNum}
             slideClass="!w-[73.4%] md:px-[15px] !min-w-[264px] md:!w-[29.6%] max-w-[380px] w-full md:!min-w-[380px] md:!max-w-[430px] "
           >
-            {blogs?.data?.map((blogData) => {
+            {/* {blogs?.data?.map((blogData) => {
               return <BlogCard id={blogData.id} key={blogData.id} attributes={blogData.attributes} />;
+            })} */}
+             {blogs?.data?.map((blogData) => {
+              return <ArticleCard id={blogData.id} attributes={blogData.attributes}/>;
             })}
           </Slider>
         </div>

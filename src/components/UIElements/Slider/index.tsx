@@ -26,7 +26,7 @@ const Slider = ({
 }: IsliderProps) => {
   return (
     <motion.div
-      className="relative mx-[-12px]"
+      className="relative"
       initial={{ opacity: 0, scale: 0.5 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{
