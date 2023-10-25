@@ -1,5 +1,5 @@
-import { IServicePageContent, getServicePageContent } from '@/app/services/apiService/serviceAPI';
-import { IELTSPageComponent } from '@/components/IELTS';
+import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coaching_contentsAPI';
+import { CoachingServicePageComponent } from '@/components/IELTS';
 
 // For IELTS
 
@@ -9,9 +9,9 @@ type CoachingPageProps = {
   };
 };
 
-export default async function ServicePage(props: CoachingPageProps) {
+export default async function CoachingServicePage(props: CoachingPageProps) {
   console.log('slug:', props.params.slug[0]);
-  const response = (await getServicePageContent(props.params.slug[0])) as IServicePageContent;
+  const response = (await getCoachingServicePageContent(props.params.slug[0])) as ICoachingServicePageContent;
 
-  return <IELTSPageComponent response={response} isBookAppointment={Boolean(props.params.slug[1])} />;
+  return <CoachingServicePageComponent response={response} isBookAppointment={Boolean(props.params.slug[1])} />;
 }

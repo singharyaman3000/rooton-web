@@ -1,215 +1,133 @@
-'use client';
+import React from 'react';
+import Credibility from '@/components/CoachingPage/Credibility';
+import Honesty, { IJsonContent } from '@/components/CoachingPage/Honesty';
+import PartnerShip from '@/components/CoachingPage/Partnership';
+import ServicesListing from '@/components/CoachingPage/ServicesListing';
+import OurProcess from '@/components/CoachingPage/OurProcess';
+import { CONTENT_TYPES, ICoachingPage_Data } from '@/app/services/apiService/CoachingAPI';
+import { appendAssetUrl, getSectionData, getSectionData1, isVideo } from '@/utils';
+import ChallengesListing, { IChallenges } from './ChallengesListing';
+import { IOurProcessData } from './OurProcess/interfaces';
+import RootOnBanner from './RootOnBanner';
+import RootOnBarBtn from './RootOnBanner/RootOnBarBtn';
+import FlightIcon from '../Icons/FlightIcon';
+import NewsLetter from './NewsLetter';
+import Testimonials from './Testimonials';
+import FaqListing, { IFaqData } from './FaqListings';
+import BookAnAppointmentSection from './BookAppointment';
+import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
+import BlogSection from '../ServicePage/PageSections/BlogSection';
+import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
+import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
 
-import { IServicePageContent, ISubServicesContent } from '@/app/services/apiService/serviceAPI';
-import { useRef, useState } from 'react';
-import Testimonials from '../HomePage/Testimonials';
-import BookAnAppointmentButton from './BookAnAppointmentButton';
-import { CoachingPageWrapper } from './Wrapper';
-import RootOnBanner from '../HomePage/RootOnBanner';
-import { appendAssetUrl, isVideo } from '@/utils';
-import { SERVICES_TITLE } from '@/app/constants/textConstants';
-import { Breadcrumbs } from '../Breadcrumbs';
-import BookAnAppointment from '../UIElements/BookAnAppointment';
-import WhyChooseRootonSection from './PageSections/WhyChooseRootonSection';
-import ProcessSection from './PageSections/ProcessSection';
-import LeadFormSection from './PageSections/LeadFormSection';
-import CTAWrapperSection from './PageSections/CTAWrapperSection';
-import FAQSection from './PageSections/FAQSection';
-import BlogSection from './PageSections/BlogSection';
-import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
-import { CoachingDescription } from './Description';
-import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
-// importing exam tiles component
-import ExamTiles from './ExamTiles';
-
-type CoachingPageProps = {
-  response: IServicePageContent;
-  isBookAppointment: boolean;
-};
-
-export const CoachingPageComponent = ({ response, isBookAppointment }: CoachingPageProps) => {
-  const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
-
-  const leadFormRef = useRef<HTMLDivElement>(null);
-
-  const whyChooseOpen = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-reason';
-  });
-
-  const process = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-process';
-  });
-
-  const ctaBanner1 = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-CTA-banner-1';
-  });
-
-  const leadForm = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-lead-form';
-  });
-
-  const ctaBanner2 = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-CTA-banner-2';
-  });
-
-  const insights = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-insights';
-  });
-
-  const testimonials = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-testimonial';
-  });
-
-  const faqs = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'service-faq';
-  });
-
-  const blogs = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
-    return i.attributes.unique_identifier_name === 'blogs';
-  });
-  console.log('sub_title:', response.data?.attributes?.sub_title);
-  const sectionsByPosition = [
-    whyChooseOpen,
-    process,
-    // leadForm,
-    ctaBanner2,
-    insights,
-    testimonials,
-    ctaBanner1,
-    faqs,
-    blogs,
-  ];
-
-  sectionsByPosition.sort((first, second) => {
-    return (first?.attributes?.position ?? 0) - (second?.attributes?.position ?? 0);
-  });
-
-  const handleCTAButtonClick = () => {
-    setShowBookAnAppointment(true);
-    setTimeout(() => {
-      window.scrollTo({
-        top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
-        behavior: 'smooth',
-      });
-    }, 0);
-  };
-
-  const getSection = (identifier: string, data?: ISubServicesContent) => {
-    switch (identifier) {
-      case 'service-reason':
-        return (
-          <></>
-          // <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          //   <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
-          // </CoachingPageWrapper>
-        );
-      case 'service-process':
-        return <ProcessSection process={process} />;
-      case 'service-lead-form':
-        if (leadForm) {
+const CoachingPageComponent = ({ coachingPageConfig }: { coachingPageConfig: ICoachingPage_Data }) => {
+  const getComponentsAboveBookAppointments = () => {
+    return coachingPageConfig?.attributes?.coaching_page_contents?.data?.map((contents) => {
+      const { title, sub_title, description } = contents.attributes;
+      switch (contents.attributes.unique_identifier_name) {
+        case CONTENT_TYPES.SERVICES:
           return (
-            <CoachingPageWrapper
-              className={`${
-                showBookAnAppointment ? 'block' : 'hidden'
-              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
-            >
-              <LeadFormSection
-                leadForm={leadForm}
-                leadFormRef={leadFormRef}
-                handleCTAButtonClick={handleCTAButtonClick}
-                isBookAppointment={isBookAppointment}
-              />
-            </CoachingPageWrapper>
+            <ServicesListing
+              title={title}
+              sub_title={sub_title}
+              core_services={contents.attributes.core_services || []}
+            />
           );
-        }
-
-        return null;
-      case 'service-CTA-banner-1':
-        return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
-      case 'service-CTA-banner-2':
-        return (
-          <CoachingPageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
-            <BookAnAppointment onClick={handleCTAButtonClick} />
-          </CoachingPageWrapper>
-        );
-      case 'service-testimonial':
-        return (
-          <div className="m-auto max-w-screen-2k">
-            <Testimonials
-              apiUrl={TESTIMONIAL_API_SERVICE.replace(
-                '<service_type>',
-                response?.data.attributes.unique_identifier_name,
-              )}
-              title={SERVICES_TITLE.testimonial.title}
-              subTitle={SERVICES_TITLE.testimonial.subtitle}
+        case CONTENT_TYPES.CREDIBILITY:
+          return (
+            <Credibility
+              description={description ?? ''}
+              title={title}
+              sub_title={sub_title}
+              media_url={contents.attributes.media_url}
             />
-          </div>
-        );
-      case 'service-faq':
-        return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
-      case 'blogs':
-        return (
-          <div className=" mt-[74px] bg-secondary-grey">
-            <BlogSection
-              title=""
-              subtitle={blogs?.attributes.title ?? ''}
-              url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
+          );
+        case CONTENT_TYPES.WHY_ROOT_ON:
+          return (
+            <Honesty
+              title={title}
+              description={description ?? ''}
+              sub_title={sub_title}
+              json_content={contents.attributes.json_content as IJsonContent}
             />
-          </div>
-        );
-      default:
-        return null;
-    }
+          );
+        case CONTENT_TYPES.OUR_PROCESSES:
+          return (
+            <div className=" mb-20">
+              <OurProcess
+                title={title}
+                sub_title={sub_title}
+                json_content={contents.attributes.json_content as IOurProcessData}
+              />
+            </div>
+          );
+        case CONTENT_TYPES.CHALLENGES:
+          return (
+            <ChallengesListing
+              description={description ?? ''}
+              sub_title={sub_title}
+              title={title}
+              json_content={contents.attributes.json_content as IChallenges}
+              media_url={contents.attributes.media_url}
+            />
+          );
+        default:
+          return null;
+      }
+    });
   };
+
+  const getComponentsAfterBookAppointments = () => {
+    return coachingPageConfig?.attributes?.coaching_page_contents?.data?.map((contents) => {
+      const { title, sub_title } = contents.attributes;
+      switch (contents.attributes.unique_identifier_name) {
+        case CONTENT_TYPES.PARTNERSHIPS:
+          return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
+        case CONTENT_TYPES.BLOG:
+          return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
+        default:
+          return null;
+      }
+    });
+  };
+
+  const faqData = getSectionData1(coachingPageConfig, CONTENT_TYPES.QUESTIONS);
 
   return (
-    <div className=" relative pb-20">
-      <Breadcrumbs
-        className=" z-50 hidden lg:flex"
-        // data={[
-        //   {
-        //     title: 'Home',
-        //     path: '/',
-        //   },
-        //   {
-        //     title: 'Coaching',
-        //     path: 'coaching/26',
-        //   },
-        //   {
-        //     title: "IELTS",
-        //     path: '',
-        //   },
-        // ]}
-        data={[
-          {
-            title: '',
-            path: '',
-          },
-        ]}
-      />
+    <>
       <RootOnBanner
-        isVideoBanner={isVideo(response.data?.attributes.media_url?.data?.[0].attributes.mime)}
-        backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
-        heroText={'<span>Coaching</span>'}
-        description={
-          'Root On Immigration Pvt. Ltd.: Comprehensive coaching for Canada-bound aspirants.<br>From IELTS to PTE and beyond,<br>we provide tailored strategies to ensure your success.'
+        isVideoBanner={isVideo(coachingPageConfig.attributes.media_url.data[0].attributes.mime)}
+        backgroundImageUrl={appendAssetUrl(coachingPageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
+        heroText={coachingPageConfig?.attributes?.title}
+        description={coachingPageConfig?.attributes?.sub_title}
+        button={
+          <RootOnBarBtn
+            icon={<FlightIcon />}
+            label={coachingPageConfig?.attributes?.CTA_text}
+            url={coachingPageConfig?.attributes?.CTA_link}
+            arialLabel={coachingPageConfig?.attributes?.CTA_link}
+          />
         }
-        button={<></>}
-        // button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
       />
-      <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-        <CoachingDescription text={response.data?.attributes?.description} />
-      </CoachingPageWrapper>
+      {getComponentsAboveBookAppointments()}
+      <div className="mb-[100px]">
+        <BookAnAppointmentSection />
+      </div>
 
-        {/* Exam tile section */}
-        <div className="m-auto max-w-screen-2k">
-            <ExamTiles />
-        </div>
-
-      {sectionsByPosition.map((section) => {
-        return getSection(section?.attributes.unique_identifier_name ?? '', section);
-      })}
-
-    </div>
+      {getComponentsAfterBookAppointments()}
+      <div className="pb-10 md:pb-[80px]">
+        <Testimonials apiUrl={TESTIMONIAL_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
+      </div>
+      {faqData && (
+        <FaqListing
+          sub_title={faqData?.attributes?.sub_title}
+          title={faqData?.attributes?.title}
+          json_content={faqData?.attributes?.json_content as IFaqData}
+        />
+      )}
+      <NewsLetter />
+    </>
   );
 };
+
+export default CoachingPageComponent;
