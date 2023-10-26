@@ -59,6 +59,7 @@ module.exports = {
         'pale-sandal': 'var(--pale-sandal)',
         'hover-lang-dropdown': 'var(--hover-lang-dropdown)',
         'grey-bullet': 'var(--grey-bullet)',
+        'almond': 'var(--almond)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
