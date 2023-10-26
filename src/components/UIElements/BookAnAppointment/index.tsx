@@ -9,12 +9,13 @@ import BookAnApptButton from './Button';
 
 interface IBookAnAPpointment {
   onClick: () => void;
+  appointmentBtnLabel?: string;
 }
 
-const BookAnAppointment = ({ onClick }: IBookAnAPpointment) => {
+const BookAnAppointment = ({ appointmentBtnLabel, onClick }: IBookAnAPpointment) => {
   const BookAnAppointmentContent = {
     title: 'Streamline Your Immigration Journey with Experts',
-    btnLabel: 'Book an Appointment now',
+    btnLabel: appointmentBtnLabel || 'Book an Appointment now',
   };
 
   return (
@@ -26,6 +27,7 @@ const BookAnAppointment = ({ onClick }: IBookAnAPpointment) => {
               {BookAnAppointmentContent?.title}{' '}
             </h1>
             <BookAnApptButton
+              btnLabel={BookAnAppointmentContent.btnLabel}
               cssClass="w-full md:w-fit"
               handleOnClick={() => {
                 onClick();
