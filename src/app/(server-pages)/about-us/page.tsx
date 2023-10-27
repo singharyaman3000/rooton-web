@@ -4,13 +4,14 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import Description from '@/components/UIElements/Description';
 import RootOnBanner from '@/components/HomePage/RootOnBanner';
 import HonestyCard from '@/components/HomePage/Honesty/honestyCard';
+import WelcomeSection from '@/components/AboutUsPage/WelcomeSection';
 import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
 import RootOnCTAWrapper from '@/components/ServicePage/RootOnCTAWrapper';
 import BookAnAppointment from '@/components/UIElements/BookAnAppointment';
 import PersonInfoSection from '@/components/AboutUsPage/PersonInfoSection';
 import TeamProfileSlider from '@/components/AboutUsPage/TeamProfileSlider';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
-import { COMPANY_CEO_INFO, COMPANY_MEMBERS, COMPANY_VALUES } from '@/constants/aboutUsContent';
+import { COMPANY_CEO_INFO, COMPANY_MEMBERS, COMPANY_VALUES, WELCOME_SECTION_DATA } from '@/constants/aboutUsContent';
 
 const AboutUsPage = () => {
   return (
@@ -42,6 +43,15 @@ const AboutUsPage = () => {
         />
       </section>
 
+      {/* About Us Description Section */}
+      <WelcomeSection
+        companyDescription={WELCOME_SECTION_DATA.companyDescription}
+        companyMission={WELCOME_SECTION_DATA.companyMission}
+        imageUrl={WELCOME_SECTION_DATA.welcomeImageUrl}
+        experienceYearsText={WELCOME_SECTION_DATA.experienceYearsText}
+        clientsCountText={WELCOME_SECTION_DATA.clientsCountText}
+      />
+
       {/* Book a Consultation Section */}
       <section className=" mt-20 m-auto max-w-screen-2k px-6 lg:px-[80px]">
         <RootOnCTAWrapper
@@ -63,7 +73,7 @@ const AboutUsPage = () => {
       </section>
 
       {/* About the CEO section */}
-      <PersonInfoSection contentHeading='About the CEO' personInfo={COMPANY_CEO_INFO} />
+      <PersonInfoSection contentHeading="About the CEO" personInfo={COMPANY_CEO_INFO} />
 
       {/* Who we are Section */}
       <TeamProfileSlider contentHeading="Who we are" teamData={COMPANY_MEMBERS} />
