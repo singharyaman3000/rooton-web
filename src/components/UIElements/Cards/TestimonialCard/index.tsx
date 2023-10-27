@@ -44,9 +44,9 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
             college_photo={appendAssetUrl(attributes?.icon.data?.[0].attributes.url)}
             name={attributes?.name}
             college={attributes?.college}
-            caption={attributes?.profile_picture.data.attributes.caption}
-            url={attributes?.profile_picture.data.attributes.url}
-            alternativeText={attributes?.profile_picture.data.attributes.alternativeText}
+            caption={attributes?.profile_picture?.data?.attributes?.caption}
+            url={attributes?.profile_picture?.data?.attributes?.url}
+            alternativeText={attributes?.profile_picture?.data?.attributes?.alternativeText}
           />
         </div>
       </div>

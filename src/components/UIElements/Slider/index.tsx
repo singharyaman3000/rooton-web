@@ -48,7 +48,7 @@ const Slider = ({
             ? loadingUI
             : children?.map((child) => {
               return (
-                <motion.article key={child.key} className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass}`}>
+                <motion.article key={child.key} className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass} snap-center`}>
                   {child}
                 </motion.article>
               );
