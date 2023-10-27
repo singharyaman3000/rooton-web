@@ -14,7 +14,7 @@ type BlogsListPropType = {
 
 const BlogsListPage: React.FC<BlogsListPropType> = ({ blogsHeaderData }) => {
   const [selectedTab, setSelectedTab] = useState<TabType>(tabsData[0]);
-  const headerData = blogsHeaderData?.data[0];
+  const headerData = blogsHeaderData?.data[0] ?? {};
   return (
     <>
       <BlogsBanner

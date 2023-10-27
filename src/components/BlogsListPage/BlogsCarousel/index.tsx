@@ -39,29 +39,30 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
   const initialApiCall = async () => {
     setLoading(true);
     const res = await getBlogsList(articleType, 1);
-    if(res.status){
+    if (res.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
+      setAllArticlesList(res?.res?.data ?? []);
       const initalDots = res?.res?.data?.map((_: unknown, index: number) => {
         return index;
       });
       setDotsToDisplay(initalDots || []);
       setLoading(false);
-    };
+    }
   };
 
   useEffect(() => {
     initialApiCall();
   }, []);
 
-  useEffect(() => {
-    setAllArticlesList((prev: IBlogData[]) => {
-      return [...prev, ...blogsListData?.data ?? []];
-    });
-  }, [blogsListData]);
-
   const getArticles = async () => {
-    const res = await getBlogsList(articleType, blogsListData?.meta?.pagination?.page ?? 0 + 1);
-    if (res?.status) setBlogsListData(res?.res as IBlogsListResponse);
+    const currentPage = blogsListData?.meta?.pagination?.page || 0;
+    const res = await getBlogsList(articleType, currentPage + 1);
+    if (res?.status) {
+      setBlogsListData(res?.res as IBlogsListResponse);
+      setAllArticlesList((prev: IBlogData[]) => {
+        return [...prev, ...res?.res?.data ?? []];
+      });
+    }
   };
 
   const dotsArray: number[] = allArticlesList?.map((_: unknown, index: number) => {
@@ -76,9 +77,8 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
         if (
           currentPage + 1 === allArticlesList.length - 2 &&
           allArticlesList?.length !== blogsListData?.meta?.pagination?.total
-        ) {
+        )
           getArticles();
-        }
       }
 
       if (pageNum % 7 === 0 && pageNum <= allArticlesList?.length) {
