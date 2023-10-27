@@ -1,11 +1,11 @@
-import { ISubServicesContent } from '@/app/services/apiService/serviceAPI';
+import { ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
 import { H2 } from '@/components/H2';
 import { RefObject, useState } from 'react';
 import LeadFormStepper from '../LeadFormStepper';
 import NextImage from '@/components/UIElements/NextImage';
 
 type LeadFormSectionProps = {
-  leadForm: ISubServicesContent;
+  leadForm: ICoachingServicesContent;
   leadFormRef: RefObject<HTMLDivElement>;
   handleCTAButtonClick: () => void;
   isBookAppointment: boolean;

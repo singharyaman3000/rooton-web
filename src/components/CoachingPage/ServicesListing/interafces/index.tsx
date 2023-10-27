@@ -8,42 +8,37 @@ export interface ITitleAttributes {
   description?: string;
 }
 
-export interface ISubServiceAttribute {
-  title: string;
-  description?: string | null;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  CTA_text?: string | null;
-  CTA_link?: string | null;
-  sub_title?: string | null;
+export interface Iwhy_rooton {
+  id: string;
+  key?: string;
+  icon?: string | null;
+  position?: string | null;
 }
 
-export interface ISubServiceData {
-  id: number;
-  attributes: ISubServiceAttribute;
-}
-
-export interface ISubServices {
-  data?: ISubServiceData[] | null;
+export interface IHonesty {
+  [key: string]: Iwhy_rooton[];
 }
 
 export interface IAttributes {
   title: string;
-  sub_title?: null;
+  sub_title: string;
+  description?: string | null;
+  CTA_text?: null;
+  CTA_link?: null;
+  content_position: number;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  sub_services: ISubServices;
+  json_content: IHonesty;
   media_url: MediaUrl;
 }
 export interface IServiceData {
   id: number;
   attributes: IAttributes;
 }
-export interface ICoreServices {
+export interface CoachingPage_Contents {
   data?: IServiceData[] | null;
 }
 export interface IService extends ITitleAttributes {
-  core_services: ICoreServices;
+  coaching_page_contents: CoachingPage_Contents;
 }

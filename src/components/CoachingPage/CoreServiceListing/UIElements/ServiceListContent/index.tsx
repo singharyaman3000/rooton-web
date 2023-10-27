@@ -1,4 +1,4 @@
-import { IServiceData } from '@/components/HomePage/ServicesListing/interafces';
+import { IServiceData } from '@/components/CoachingPage/ServicesListing/interafces';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import React from 'react';
 import ListWrapper from '../../ServiceListingOnAdvice/ListWrapper';
@@ -7,7 +7,7 @@ const ServiceListContent = () => {
   const { headerFooterData } = useHeaderFooterContext();
 
   const getServiceListing = () => {
-    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services?.data;
+    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.coaching_page_contents?.data;
     /* eslint-disable no-unsafe-optional-chaining */
     ServicesList?.sort((a,b)=> a?.id - b?.id);
     const ServiceListright: IServiceData[] = [];
@@ -15,7 +15,7 @@ const ServiceListContent = () => {
     ServicesList?.forEach((listItem, index: number) => {
       if (index % 2 === 0) ServiceListLeft.push(listItem);
       else ServiceListright.push(listItem);
-    });
+    }); 
     return [[...ServiceListLeft], [...ServiceListright]].map((listItem, index) => {
       // eslint-disable-next-line react/no-array-index-key
       return <ListWrapper key={index + 1} services={listItem || []} />;
@@ -24,7 +24,7 @@ const ServiceListContent = () => {
   return (
     <>
       <h1 className="mb-10 px-9 text-[22px] tracking-normal font-bold text-black ">
-        Select a service for which you need advice on.
+        Select a coaching service for which you need advice on.
       </h1>
       <div className=" flex w-[full] px-9 flex-row  gap-[6.8vw] overflow-y-scroll  h-[82%]">{getServiceListing()}</div>
     </>
