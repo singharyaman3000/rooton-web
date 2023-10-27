@@ -7,7 +7,6 @@ interface ImagesSeparatedByLineProps {
 
 const ImagesSeparatedByLine = ({ imagesUrl, cssClass }: ImagesSeparatedByLineProps) => {
   const imagesCount = imagesUrl.length;
-  const isDesktopScreen = window.innerWidth > 767; // needs page refresh while screen size change
 
   return (
     <ul className={cssClass}>
@@ -16,7 +15,7 @@ const ImagesSeparatedByLine = ({ imagesUrl, cssClass }: ImagesSeparatedByLinePro
           <>
             <li
               key={imagePath}
-              className={`relative w-52 h-[57px] ${isDesktopScreen ? 'mx-10' : 'mb-9'} ${index === 0 && '!ml-0'} ${
+              className={`relative w-52 h-[57px] mb-9 md:mb-0 mx-0 md:mx-10 ${index === 0 && '!ml-0'} ${
                 index === imagesCount - 1 && '!mr-0'
               }`}
             >
@@ -29,8 +28,8 @@ const ImagesSeparatedByLine = ({ imagesUrl, cssClass }: ImagesSeparatedByLinePro
                 title={'Certification Image'}
               />
             </li>
-            {index !== imagesCount - 1 && isDesktopScreen ? (
-              <div className="w-[1px] h-[57px] bg-border-footer-gray" />
+            {index !== imagesCount - 1 ? (
+              <div className="hidden w-[1px] h-[57px] bg-border-footer-gray md:block" />
             ) : null}
           </>
         );
