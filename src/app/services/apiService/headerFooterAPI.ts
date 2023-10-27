@@ -3,6 +3,7 @@ import { HEADER_FOOTER_API } from './apiUrl/homePage';
 import { IMediaUrlData } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
+import { CoachingPage_Contents } from '@/components/CoachingPage/ServicesListing/interafces';
 
 export interface ILanguages {
   data?: ILanguageData[] | null;
@@ -27,6 +28,7 @@ export interface IAttributes {
   addresses: IAddresses;
   languages: ILanguages;
   core_services: ICoreServices;
+  coaching_page_contents: CoachingPage_Contents;
 }
 export interface IHeaderFooterData {
   id: number;

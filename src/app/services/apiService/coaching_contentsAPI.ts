@@ -84,7 +84,7 @@ type IAttributes = {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  CTA_text: string;
+  CTA_Text: string;
   CTA_link: string;
   sub_title: string;
   unique_identifier_name: string;

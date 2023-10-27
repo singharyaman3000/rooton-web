@@ -12,7 +12,7 @@ import HonestyGrid from './HonestyGrid';
 
 export type IJsonContent = {
   /* eslint-disable no-unused-vars */
-  [key in 'why-rooton']: IWhyRootON[] | null;
+  [key in 'why_rooton']: IWhyRootON[] | null;
 };
 
 export interface IHonesty extends ITitleAttributes {
@@ -40,7 +40,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
       </motion.div>
       <div className="mb-6  lg:mb-[69px]">
         <div className="honestyBackground honestycard grid grid-cols-1 border-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
-          {json_content?.['why-rooton']?.map((whyRootOn) => {
+          {json_content?.['why_rooton']?.map((whyRootOn) => {
             return (
               <HonestyCard
                 key={""}
