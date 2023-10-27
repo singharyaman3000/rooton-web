@@ -45,15 +45,15 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
             />
           ) : null}
         </div>
-        <div className="hidden relative md:block md:w-[42%]">
+        <div className="hidden justify-end md:flex md:w-[42%]">
           <NextImage
             src={imageUrl}
             altText={`Image of ${contentHeading}`}
             fill
-            sizes="100vw"
+            sizes=""
             style={{ objectFit: 'contain' }}
             title={`Image of ${contentHeading}`}
-            classSelector="!bottom-0 !h-auto"
+            classSelector="!static !h-auto self-end !max-w-[540px] !max-h-[496px]"
           />
         </div>
       </div>
