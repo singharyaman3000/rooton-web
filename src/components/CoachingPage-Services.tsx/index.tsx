@@ -22,6 +22,7 @@ import { CoachingDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import TrainingCard from './Training';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
+import PricingSection from './PricingSection';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
@@ -62,17 +63,29 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     return i.attributes.unique_identifier_name === 'service-insights';
   });
 
+  const pricings = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
+    return i.attributes.unique_identifier_name === 'our_plans';
+  });
+
   const trainings = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'training';
   });
 
   const trainingTitle = trainings?.attributes?.title;
 
+  const pricingTitle = pricings?.attributes?.title;
+
   const trainingTypes = Object.keys(trainings?.attributes?.json_content?.trainingDetails || {});
 
   const [activeTrainingType, setActiveTrainingType] = useState(trainingTypes[0] || '');
 
+  const pricingTypes = Object.keys(pricings?.attributes?.json_content?.trainingDetails || {});
+
+  const [activepType, setpType] = useState(pricingTypes[0] || '');
+
   const filteredTrainings = trainings?.attributes?.json_content?.trainingDetails[activeTrainingType] || [];
+
+  const filteredPricings = pricings?.attributes?.json_content?.trainingDetails[activepType] || [];
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'coaching-service-testimonial';
@@ -93,6 +106,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     leadForm,
     ctaBanner2,
     insights,
+    pricings,
     trainings,
     testimonials,
     ctaBanner1,
@@ -103,6 +117,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   sectionsByPosition.sort((first, second) => {
     return (first?.attributes?.position ?? 0) - (second?.attributes?.position ?? 0);
   });
+ 
   console.log(response.data?.attributes);
   const handleCTAButtonClick = () => {
     setShowBookAnAppointment(true);
@@ -157,6 +172,44 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
           <BookAnAppointment onClick={handleCTAButtonClick} />
         </CoachingPageWrapper>
       );
+
+    case 'our_plans':
+      return (
+        <>
+          <style jsx>{`
+          .scrollable-container {
+            display: flex;
+            overflow-x: auto;
+          }
+          .scrollable-container::-webkit-scrollbar {
+            display: none; 
+          }
+          .scrollable-container{
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+          `}</style>
+         
+        <div className="mt-20 m-auto max-w-screen-2k ">
+          <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
+          <div className="md:max-w-[70%] lg:max-w-none">
+        <SectionHeadings title={""} subTitle={pricingTitle} />
+        </div>
+        
+
+        <div className="scrollable-container">
+
+        {filteredPricings.map((pricings) => {        
+            return <PricingSection our_plans={pricings}/>;
+        })}
+
+        </div>
+          </div>
+        </div>
+        </>
+      );
+
+
       case 'training':
   return (
     <>

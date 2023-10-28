@@ -3,6 +3,7 @@ import { getCoachingAPIUrl } from './apiUrl/servicePage';
 import { IMediaUrlData } from './interfaces';
 import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 import { IProcess } from '@/components/HomePage/OurProcess/interfaces';
+import exp from 'constants';
 
 type IEligibility = {
   key: string;
@@ -60,6 +61,31 @@ type ICoachingServiceSContents = {
   data: ICoachingServicesContent[];
 };
 
+// Pricing
+
+type pricingPlans = {
+  planName: string;
+  price: number;
+  yearly: boolean;
+  popular?: boolean;
+  features: string[][];
+  validity: string;
+  planDescription: string;
+}
+
+export type IPricing = {
+  title: string;
+  description: string | null;
+  position: number;
+  json_content: {
+    trainingDetails: 
+    {
+      [key: string]: pricingPlans[];
+    };
+    
+  };
+};
+
 type ITrainingDetail = {
   title: string;
   position: number;
@@ -93,6 +119,7 @@ type IAttributes = {
   };
   coaching_service_contents: ICoachingServiceSContents;
   training: ITraining;  // Added the training type here
+  our_plans: IPricing;
   blogs: { data: IBlogCardData[] };
 };
 
