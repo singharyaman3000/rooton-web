@@ -28,6 +28,18 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
           margin-top: 8px !important;
         }
 
+        .plan-name-rel{
+          position: relative;
+          bottom: 69px;
+        }
+
+        @media (min-width: 1658px) {
+          .price-tab {
+            width: 440px;
+            padding: 40px;
+          }
+        }
+
           @media (max-width: 768px) {
             .price-tab-text {
               font-size: 13px;
@@ -42,11 +54,22 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
               min-width: 300px;
               max-width: 100%;
               padding: 40px;
-  
             }
+
+            .plan-name-rel{
+              bottom: 85px;
+            }
+          }
         `}</style>
+        {our_plans.popular && (
+          <div className="absolute top-0 right-5 mr-6 -mt-4">
+            <div className="inline-flex items-center text-xs font-semibold py-1.5 px-3 bg-[#f59723] text-white rounded-full shadow-sm shadow-slate-950/5">
+              Most Popular
+            </div>
+          </div>
+        )}
         <div className="mb-5 price-tab-text">
-          <div className="relative top-[-69px] text-black text-center font-extrabold text-2xl">{our_plans.planName}</div>
+          <div className="plan-name-rel text-black text-center font-extrabold text-2xl">{our_plans.planName}</div>
           <div className="flex items-center justify-center items-baseline mb-5">
             <div className="text-black font-bold text-4xl">${our_plans.price}</div>
           </div>
