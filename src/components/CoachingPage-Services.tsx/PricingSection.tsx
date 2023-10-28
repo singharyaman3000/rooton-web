@@ -9,7 +9,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   return (
     <div className="flex flex-row relative my-5">
-      <div className="price-tab p-6 shadow-xl border-t-[60px] mr-[30px] min-w-[350px] max-w-full items-start lg:max-w-none">
+      <div className="price-tab p-6 shadow-xl border-t-[60px] border-[#EBEBEB] mr-[30px] min-w-[350px] max-w-full items-start lg:max-w-none">
         <style jsx>{`
         
         .price-tab {
