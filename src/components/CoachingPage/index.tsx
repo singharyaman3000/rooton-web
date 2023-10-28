@@ -25,14 +25,6 @@ const CoachingPageComponent = ({ coachingPageConfig }: { coachingPageConfig: ICo
     return coachingPageConfig?.attributes?.coaching_page_contents?.data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
       switch (contents.attributes.unique_identifier_name) {
-        case CONTENT_TYPES.SERVICES:
-          return (
-            <ServicesListing
-              title={title}
-              sub_title={sub_title}
-              core_services={contents.attributes.core_services || []}
-            />
-          );
         case CONTENT_TYPES.CREDIBILITY:
           return (
             <Credibility

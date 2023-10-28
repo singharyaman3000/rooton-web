@@ -21,24 +21,25 @@ export interface IHonesty {
 
 export interface IAttributes {
   title: string;
-  sub_title: string;
   description?: string | null;
-  CTA_text?: null;
-  CTA_link?: null;
-  content_position: number;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  json_content: IHonesty;
-  media_url: MediaUrl;
+  CTA_text?: string | null;
+  CTA_link?: string | null;
+  sub_title?: string | null;
 }
+
 export interface IServiceData {
   id: number;
   attributes: IAttributes;
 }
-export interface CoachingPage_Contents {
+
+export interface ICoachingServices {
   data?: IServiceData[] | null;
 }
+
 export interface IService extends ITitleAttributes {
-  coaching_page_contents: CoachingPage_Contents;
+  coaching_services: ICoachingServices
 }
+

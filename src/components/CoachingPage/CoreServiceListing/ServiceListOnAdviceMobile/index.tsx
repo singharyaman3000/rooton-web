@@ -14,7 +14,7 @@ export interface IserviceList {
   services: string[];
 }
 
-const ServiceListingOnAdviceMobile = () => {
+const CoachingServiceListingOnAdviceMobile = () => {
   const { headerFooterData } = useHeaderFooterContext();
   const { isModalShown, toggleModalShown } = useContext(ModalShowContextname);
   const [xValue, setxValue] = useState(0);
@@ -93,4 +93,4 @@ const ServiceListingOnAdviceMobile = () => {
   );
 };
 
-export default ServiceListingOnAdviceMobile;
+export default CoachingServiceListingOnAdviceMobile;

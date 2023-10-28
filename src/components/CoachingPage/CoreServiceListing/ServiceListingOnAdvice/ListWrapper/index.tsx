@@ -1,7 +1,7 @@
 import React from 'react';
 import ListHeading from '../../UIElements/ListHeading';
 import ListContainer from '../../UIElements/ListContainer';
-import { IServiceData } from '@/components/HomePage/ServicesListing/interafces';
+import { IServiceData } from '@/components/CoachingPage/ServicesListing/interafces';
 
 const ListWrapper = ({ services }: { services: IServiceData[] }) => {
   return (
@@ -10,7 +10,7 @@ const ListWrapper = ({ services }: { services: IServiceData[] }) => {
         return (
           <div className="mb-7" key={item?.id}>
             <ListHeading serviceTitle={item?.attributes?.title} />
-            <ListContainer services={item?.attributes?.sub_services} />
+            <ListContainer title={item?.attributes?.title} />
           </div>
         );
       })}

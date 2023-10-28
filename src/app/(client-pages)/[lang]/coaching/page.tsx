@@ -1,11 +1,10 @@
+import CoachingPageClient from '@/components/CoachingPage/CoachingPageClient';
 import RSCSeoWrapper from '@/components/Containers/RSCSeoWrapper';
-import HomePageClient from '@/components/HomePage/HomePageClient';
-
 
 export default function Home() {
   return (
     <RSCSeoWrapper>
-      <HomePageClient />
+      <CoachingPageClient />
     </RSCSeoWrapper>
   );
 }
