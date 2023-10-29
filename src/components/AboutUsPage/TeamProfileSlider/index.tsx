@@ -1,3 +1,5 @@
+'use client';
+
 import { useSwipeable } from 'react-swipeable';
 
 import ProfileCard from '../ProfileCard';
@@ -6,6 +8,9 @@ import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
+import ModalProfileCard from '../ProfileCard/ModalProfileCard';
+import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
+import { useState } from 'react';
 
 interface Employee {
   imageUrl: string;
@@ -40,9 +45,17 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
     },
   });
 
+  const { showPopUp, hidePopUp, poupState } = usePopUp();
+  const [profileDataForModal, setProfileDataForModal] = useState({
+    name: '',
+    title: '',
+    imageSrc: '',
+    description: '',
+  });
+
   return (
-    <section className="hidden md:block w-full team-slider-section overflow-x-hidden">
-      <SectionContainer cssClass="!pr-[0px] m-auto max-w-screen-2k py-10 md:py-[80px]">
+    <section className="hidden md:block w-full team-slider-section overflow-x-hidden my-20">
+      <SectionContainer cssClass="!pr-[0px] 2k:!pr-20 m-auto max-w-screen-2k py-10 md:py-[80px]">
         <div className="flex gap-2 flex-wrap items-end justify-between md:pr-[48px] lg:pr-[80px]">
           <div className="md:max-w-[70%] lg:max-w-none">
             <SubSectionTitle title={contentHeading} />
@@ -76,15 +89,19 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
               return (
                 <ProfileCard
                   key={`${employeeName}-${imageUrl}`}
-                  name={employeeName}
-                  title={employeeRole}
-                  description={employeeDescription}
-                  imageSrc={imageUrl}
+                  popUpDisplayFns={{ setProfileDataForModal, showPopUp }}
+                  profileData={{
+                    name: employeeName,
+                    title: employeeRole,
+                    imageSrc: imageUrl,
+                    description: employeeDescription,
+                  }}
                 />
               );
             })}
           </Slider>
         </div>
+        <ModalProfileCard closePopUpFn={hidePopUp} showPopUp={poupState} profileData={profileDataForModal} />
       </SectionContainer>
     </section>
   );

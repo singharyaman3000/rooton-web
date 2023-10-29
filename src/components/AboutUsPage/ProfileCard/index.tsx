@@ -1,15 +1,42 @@
 import NextImage from '@/components/UIElements/NextImage';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ProfileCardProps {
-  name: string;
-  title: string;
-  imageSrc: string;
-  description: string;
+  profileData: {
+    name: string;
+    title: string;
+    imageSrc: string;
+    description: string;
+  };
+  popUpDisplayFns: {
+    showPopUp: () => void;
+    setProfileDataForModal: Dispatch<
+      SetStateAction<{
+        name: string;
+        title: string;
+        imageSrc: string;
+        description: string;
+      }>
+    >;
+  };
 }
 
-const ProfileCard = ({ name, title, imageSrc, description }: ProfileCardProps) => {
+const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
+  const { name, title, imageSrc } = profileData;
+  const { showPopUp, setProfileDataForModal } = popUpDisplayFns;
+
+  const profileClickHandler = () => {
+    setProfileDataForModal(profileData);
+    showPopUp();
+  };
+
   return (
-    <div className="card-hover-effect relative mb-4 w-80 flex flex-col border border-solid border-almond bg-white cursor-pointer">
+    <div
+      tabIndex={0}
+      role="button"
+      onClick={profileClickHandler}
+      className="card-hover-effect relative mb-4 w-80 flex flex-col border border-solid border-almond hover:border-golden-yellow bg-white cursor-pointer transition-colors duration-300 ease-in-out"
+    >
       <div className="w-80 h-[360px] relative">
         <NextImage
           src={imageSrc}

@@ -18,17 +18,18 @@ interface PersonInfoSectionProps {
 
 const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProps) => {
   const { imageUrl, description, expertiseList, vision, certificationImagesUrl, licenseNumber } = personInfo;
+
   return (
-    <section className="px-[24px] md:px-[48px] lg:px-[80px] m-auto max-w-screen-2k py-10 md:py-[80px]">
+    <section className="px-[24px] md:px-[48px] lg:px-[80px] m-auto max-w-screen-2k my-20">
       <div className="flex justify-between">
         <div className="w-[100%] md:w-[52%]">
-          <div className="flex gap-2 flex-wrap items-end justify-between md:pr-[48px] lg:pr-[80px]">
+          <div className="flex gap-2 flex-wrap items-end justify-between">
             <div className="md:max-w-[70%] lg:max-w-none">
               <SubSectionTitle title={contentHeading} />
             </div>
           </div>
-          <Description cssClass="!text-black" description={description} />
-          <ul>
+          <Description cssClass="!text-black my-5 md:mt-9" description={description} />
+          <ul className='flex flex-col gap-4'>
             {expertiseList.map((expertise) => {
               return (
                 <Li key={expertise} className="text-black">
@@ -37,7 +38,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
               );
             })}
           </ul>
-          <Description cssClass="!text-black" description={vision} />
+          <Description cssClass="!text-black mt-5 mb-9" description={vision} />
           {certificationImagesUrl ? (
             <ImagesSeparatedByLine
               cssClass="flex flex-col items-center md:items-start md:flex-row"
@@ -58,7 +59,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
         </div>
       </div>
       {licenseNumber ? (
-        <p className="text-lg text-center md:text-left leading-primary-lg font-medium text-black">
+        <p className="text-lg text-center md:text-left leading-primary-lg font-medium text-black md:mt-6">
           CICC license number: <strong className="text-cicc-border font-bold">{licenseNumber}</strong>
         </p>
       ) : null}

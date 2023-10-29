@@ -60,6 +60,8 @@ module.exports = {
         'hover-lang-dropdown': 'var(--hover-lang-dropdown)',
         'grey-bullet': 'var(--grey-bullet)',
         'almond': 'var(--almond)',
+        'golden-honey': 'var(--golden-honey)',
+        'smoky-steel': 'var(--smoky-steel)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',

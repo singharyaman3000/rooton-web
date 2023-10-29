@@ -13,6 +13,11 @@ import TeamProfileSlider from '@/components/AboutUsPage/TeamProfileSlider';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
 import { COMPANY_CEO_INFO, COMPANY_MEMBERS, COMPANY_VALUES, WELCOME_SECTION_DATA } from '@/constants/aboutUsContent';
 
+const companyStatValues = [
+  { statValue: 3, statText: WELCOME_SECTION_DATA.experienceYearsText },
+  { statValue: 500, statText: WELCOME_SECTION_DATA.clientsCountText },
+];
+
 const AboutUsPage = () => {
   return (
     <>
@@ -48,12 +53,11 @@ const AboutUsPage = () => {
         companyDescription={WELCOME_SECTION_DATA.companyDescription}
         companyMission={WELCOME_SECTION_DATA.companyMission}
         imageUrl={WELCOME_SECTION_DATA.welcomeImageUrl}
-        experienceYearsText={WELCOME_SECTION_DATA.experienceYearsText}
-        clientsCountText={WELCOME_SECTION_DATA.clientsCountText}
+        companyStatList={companyStatValues}
       />
 
       {/* Book a Consultation Section */}
-      <section className=" mt-20 m-auto max-w-screen-2k px-6 lg:px-[80px]">
+      <section className="my-20 m-auto max-w-screen-2k px-6 lg:px-20">
         <RootOnCTAWrapper
           buttonAriaLabel={'Book a Consultation with Ronak'}
           buttonText={'Book a Consultation with Ronak'}
@@ -79,10 +83,10 @@ const AboutUsPage = () => {
       <TeamProfileSlider contentHeading="Who we are" teamData={COMPANY_MEMBERS} />
 
       {/* What We Value Section */}
-      <section className=" mt-20 m-auto max-w-screen-2k px-6 lg:px-[80px]">
-        <SubSectionTitle title="What we value" />
+      <section className="my-20 m-auto max-w-screen-2k px-6 md:px-10 lg:px-20">
+        <SubSectionTitle cssClass='mb-5' title="What we value" />
         <Description
-          cssClass="!text-black"
+          cssClass="!text-black mb-3"
           description={
             'Our mission is to inspire, challenge, and guide clients in finding their true immigration needs, offering customer-centric, goal-based solutions. We aim to be the most valued immigration firm for our customers, providing unwavering support in their journey towards a better future.'
           }
@@ -97,7 +101,7 @@ const AboutUsPage = () => {
       </section>
 
       {/* Book an appointment Section */}
-      <section className=" mt-20 m-auto max-w-screen-2k">
+      <section className="mt-20 mb-20 m-auto max-w-screen-2k">
         <BookAnAppointment appointmentBtnLabel="Book an appointment with Ronak" onClick={() => {}} />
       </section>
     </>
