@@ -5,32 +5,37 @@ import SectionHeadings from '@/components/UIElements/SectionHeadings';
 type TrainingCardProps = {
   training: ITraining;
   isFirst?: boolean;
-  index: number; 
+  index: number;
 };
 
-const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index}) => {
+const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index }) => {
   return (
-    <div className={`card flex flex-row bg-secondary-grey relative my-5 ${isFirst ? 'first-card' : ''} ${index === 1 ? 'second-card' : ''}`}>
+    <div
+      className={`card flex flex-row bg-secondary-grey relative my-5 ${isFirst ? 'first-card' : ''} ${
+        index === 1 ? 'second-card' : ''
+      }`}
+    >
       <style jsx>{`
         .card {
           min-width: 350px;
           max-width: 100%;
           padding: 40px;
-          border-top: 60px solid rgb(0 0 0 / 3%);
-         margin-right: 30px;
-         margin-top: 0px;
+          border-top: 60px solid rgb(245,151,35);
+          margin-right: 30px;
+          margin-top: 0px;
+          background-color: rgb(255, 246, 231);
+          box-shadow: 0px 13px 15px 0px rgba(0, 0, 0, 0.10);
         }
 
         .card::-webkit-scrollbar {
-          display: none; 
+          display: none;
         }
-        .card{
+        .card {
           scrollbar-width: none;
           -ms-overflow-style: none;
         }
 
         .card:not(:last-child) {
-          
         }
 
         .first-card {
@@ -38,11 +43,11 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index}) 
           border-top: none;
           background-color: #fff;
           padding: 0px;
-          
+          box-shadow: none;
         }
 
         .second-card {
-          margin-left: 80px;
+          
         }
 
         .card-text {
@@ -52,7 +57,6 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index}) 
           min-height: 250px;
           max-height: 100%;
           text-align: justify;
-          
         }
 
         .subtitle {
@@ -74,6 +78,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index}) 
           text-align: center;
           font-size: 1.2rem;
           font-weight: 600;
+          color: #fff;
         }
 
         @media (max-width: 768px) {
@@ -90,22 +95,19 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index}) 
             min-width: 300px;
             max-width: 100%;
             padding: 40px;
-
           }
-          
         }
       `}</style>
 
       {isFirst ? (
-        <div className='description_container'>
-        {/* <h1 className="subtitle1 mb-2">{training.title}: </h1> */}
-        <h2 className="subtitle">{training.description}</h2>
+        <div className="description_container first-card">
+          {/* <h1 className="subtitle1 mb-2">{training.title}: </h1> */}
+          {/* <h2 className="subtitle">{training.description}</h2> */}
         </div>
       ) : (
-
-        <div className='flex flex-row'>
+        <div className=" second-card flex flex-row">
           <div className="title absolute items-center z-[10] left-0 top-[-45px] w-full">
-            <h2 className="heading text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
+            <h2 className="heading color-white text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
           </div>
           <div className="text-xs md:text-sm text-black card-text">
             <p>{training.description}</p>
