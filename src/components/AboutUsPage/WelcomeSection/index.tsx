@@ -3,7 +3,7 @@ import NextImage from '@/components/UIElements/NextImage';
 import Description from '@/components/UIElements/Description';
 
 interface StatDataFormat {
-  statValue: string | number;
+  statValue: number;
   statText: string;
 }
 
@@ -16,7 +16,7 @@ interface WelcomeSectionProps {
 
 const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyStatList }: WelcomeSectionProps) => {
   return (
-    <section className="px-[24px] md:px-[48px] lg:px-[80px] m-auto max-w-screen-2k my-20">
+    <section className="px-[24px] md:px-[48px] lg:px-[80px] m-auto max-w-screen-2k my-10 md:my-20">
       <div className="flex justify-between">
         <div className="hidden justify-start md:flex md:w-[25%]">
           <NextImage
@@ -32,10 +32,10 @@ const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyS
         <div className="w-[100%] md:w-[69%]">
           <Description cssClass="!text-black mb-8 md:mb-5" description={companyDescription} />
           {companyStatList ? (
-            <ul className='flex flex-col flex-wrap gap-5 md:gap-0 md:flex-row md:justify-between'>
+            <ul className="flex flex-col flex-wrap gap-5 md:gap-0 md:flex-row md:justify-between">
               {companyStatList.map(({ statValue, statText }) => {
                 return (
-                  <li className='w-full md:w-[45%]' key={statText}>
+                  <li className="w-full md:w-[45%]" key={statText}>
                     <StatShowcaseCard statValue={statValue} statText={statText} />
                   </li>
                 );

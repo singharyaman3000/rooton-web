@@ -1,8 +1,7 @@
 'use client';
 
-import { Breadcrumbs } from '@/components/Breadcrumbs';
+import RTONBanner from '@/components/RTONBanner';
 import Description from '@/components/UIElements/Description';
-import RootOnBanner from '@/components/HomePage/RootOnBanner';
 import HonestyCard from '@/components/HomePage/Honesty/honestyCard';
 import WelcomeSection from '@/components/AboutUsPage/WelcomeSection';
 import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
@@ -22,31 +21,25 @@ const AboutUsPage = () => {
   return (
     <>
       {/* About Us Banner Section */}
-      <section className=" relative pb-20">
-        <Breadcrumbs
-          className=" z-50 hidden lg:flex"
-          data={[
-            {
-              title: 'Home',
-              path: '/',
-            },
-            {
-              title: 'About Us',
-              path: '',
-            },
-          ]}
-        />
-        <RootOnBanner
-          isVideoBanner={false}
-          backgroundImageUrl={'/images/aboutUs/about-us-banner.png'}
-          heroText={'<span>About Root On</span>'}
-          description={
-            '<span>Personalized immigration guidance from a licensed professional.</span><br>' +
-            '<span>Discover the best pathway for your Canadian dream.</span>'
-          }
-          button={null}
-        />
-      </section>
+      <RTONBanner
+        breadCrumbData={[
+          {
+            title: 'Home',
+            path: '/',
+          },
+          {
+            title: 'About Us',
+            path: '',
+          },
+        ]}
+        addGradient={false}
+        backgroundImageUrl="/images/aboutUs/about-us-banner.png"
+        heroText="<span>About Root On</span>"
+        description={
+          '<span>Personalized immigration guidance from a licensed professional.</span><br>' +
+          '<span>Discover the best pathway for your Canadian dream.</span>'
+        }
+      />
 
       {/* About Us Description Section */}
       <WelcomeSection
@@ -57,7 +50,7 @@ const AboutUsPage = () => {
       />
 
       {/* Book a Consultation Section */}
-      <section className="my-20 m-auto max-w-screen-2k px-6 lg:px-20">
+      <section className="my-20 m-auto max-w-screen-2k px-6 md:px-12 lg:px-20">
         <RootOnCTAWrapper
           buttonAriaLabel={'Book a Consultation with Ronak'}
           buttonText={'Book a Consultation with Ronak'}
@@ -84,7 +77,7 @@ const AboutUsPage = () => {
 
       {/* What We Value Section */}
       <section className="my-20 m-auto max-w-screen-2k px-6 md:px-10 lg:px-20">
-        <SubSectionTitle cssClass='mb-5' title="What we value" />
+        <SubSectionTitle cssClass="mb-5" title="What we value" />
         <Description
           cssClass="!text-black mb-3"
           description={
