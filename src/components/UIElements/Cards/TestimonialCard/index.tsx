@@ -43,12 +43,12 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
         )}
         <div className="absolute flex  items-center z-[10] left-0 bottom-0 bg-white p-[10px] md:p-[16px] w-full">
           <TestimonialFooter
-            college_photo={appendAssetUrl(attributes?.icon.data?.[0].attributes.url)}
+            college_photo={appendAssetUrl(attributes?.icon?.data?.[0]?.attributes?.url)}
             name={attributes?.name}
             college={attributes?.college}
-            caption={attributes?.profile_picture.data?.attributes.caption}
-            url={attributes?.profile_picture.data?.attributes.url}
-            alternativeText={attributes?.profile_picture.data?.attributes.alternativeText}
+            caption={attributes?.profile_picture?.data?.attributes?.caption}
+            url={attributes?.profile_picture?.data?.attributes?.url}
+            alternativeText={attributes?.profile_picture?.data?.attributes?.alternativeText}
           />
         </div>
       </div>
