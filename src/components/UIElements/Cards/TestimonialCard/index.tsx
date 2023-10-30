@@ -35,13 +35,15 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
     <div className={`h-[27rem] md:h-[32.5rem] p-[12.8px] md:p-[20px] relative ${type === 'text' ? 'bg-secondary-grey' : ''}`}>
       <div className=" relative h-full">
         {type === 'text' && (
-          <div className="text-xs font-medium p-[20px] md:p-[36px] not-italic !leading-[1.67] tracking-[normal] md:text-sm text-black">
-            <p>{HtmlParser(attributes?.description)}</p>
+          <div className="text-xs font-medium p-[20px] md:p-[36px] 
+            not-italic !leading-[1.67] tracking-[normal] md:text-sm text-black
+            h-[calc(100%-80px)]">
+            <p className='h-full overflow-y-auto'>{HtmlParser(attributes?.description)}</p>
           </div>
         )}
         <div className="absolute flex  items-center z-[10] left-0 bottom-0 bg-white p-[10px] md:p-[16px] w-full">
           <TestimonialFooter
-            college_photo={appendAssetUrl(attributes?.icon.data?.[0].attributes.url)}
+            college_photo={appendAssetUrl(attributes?.icon?.data?.[0]?.attributes?.url)}
             name={attributes?.name}
             college={attributes?.college}
             caption={attributes?.profile_picture?.data?.attributes?.caption}

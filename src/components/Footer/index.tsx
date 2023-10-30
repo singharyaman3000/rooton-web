@@ -26,7 +26,7 @@ export default function Footer() {
     border-secondary-border
     xl:px-[120px]
     lg:pt-[49px]
-    lg:pb-[141px]
+    lg:pb-[94px]
     lg:gap-[80px]
     xl:gap-[153px]
     relative
@@ -47,6 +47,7 @@ export default function Footer() {
       lg:flex-row
       lg:justify-around
       justify-center
+      lg:flex-shrink-0
     "
       >
         <div className=" lg:flex lg:flex-col mt-[10px] justify-between">
@@ -75,13 +76,14 @@ export default function Footer() {
             mt-[10px]
             flex
             lg:flex-col
-            gap-10
-            lg:gap-0
+            xs:gap-3
+            sm:gap-10
+            lg:gap-[18px]
             flex-wrap
             justify-between
             text-sm
             font-semibold
-            lg:w-[145px]
+            lg:w-full
           "
         >
           <div className=" flex flex-col gap-3 lg:gap-[18px]">
