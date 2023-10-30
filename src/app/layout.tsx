@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
-import WhatsAppButton from '@/components/WhatsApp-Integration/whatsappIntegration';
+
 
 export const metadata: Metadata = {
   title: 'ROOT ON',
@@ -35,7 +35,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${FontJakarta.variable} ${FontJakarta.className} bg-primary-bg`}>
         <ThemeSwitchProvider>
           {children}
-          <WhatsAppButton />
         </ThemeSwitchProvider>
       </body>
     </html>

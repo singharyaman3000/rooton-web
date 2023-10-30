@@ -3,6 +3,11 @@ import { HEADER_FOOTER_API } from './apiUrl/homePage';
 import { IMediaUrlData } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
+// import {IWhatsApp} from '@/components/WhatsApp-Integration/whatsappTemplate'
+
+export const CONTENT_TYPES ={
+  WHATSAPP: 'whatsapp',
+}
 
 export interface ILanguages {
   data?: ILanguageData[] | null;
@@ -23,10 +28,29 @@ export interface IAddressData {
 export interface IAddresses {
   data?: IAddressData[] | null;
 }
+
+export interface IWhatsAppAttributes {
+  contactname: string;
+  defaultmessage: string;
+  whatsappnumber: string;
+  status: string;
+  unique_identifire_name: string;
+}
+
+export interface IWhatsAppData {
+  id: number;
+  attributes: IWhatsAppAttributes;
+}
+
+export interface IWhatsApp {
+  data?: IWhatsAppData;
+}
+
 export interface IAttributes {
   addresses: IAddresses;
   languages: ILanguages;
   core_services: ICoreServices;
+  whats_app: IWhatsApp;
 }
 export interface IHeaderFooterData {
   id: number;
@@ -38,5 +62,6 @@ export interface IHeaderFooterRes {
 
 export const getHeaderFooterData = async () => {
   const apiRes = await getFetch<IHeaderFooterRes>(HEADER_FOOTER_API, { next: { revalidate: 1200 } });
+  console.log(apiRes.data, "d");
   return apiRes.data;
 };

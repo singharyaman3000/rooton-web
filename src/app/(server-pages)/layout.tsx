@@ -7,9 +7,13 @@ import IModalShowContextProvider from '@/providers/coreServicesMOdalOpenContext'
 import ServiceListingOnAdviceMobile from '@/components/HomePage/CoreServiceListing/ServiceListOnAdviceMobile';
 import ServicesPopUpModal from '@/components/HomePage/CoreServiceListing/ServicesPopUpModal';
 import MobileModalShowContextProvider from '@/providers/coreServicesModalMobileContext';
+import WhatsAppButton from '@/components/WhatsApp-Integration/whatsappIntegration';
+
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const apiRes = await getHeaderFooterData();
+  const data = await getHeaderFooterData();
+
   return (
     <HeaderFooterDataProvider headerFooterAPIData={apiRes}>
       <IModalShowContextProvider>
@@ -18,6 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ServicesPopUpModal />
           <Header />
           {children}
+          <WhatsAppButton />
           <Footer />
         </MobileModalShowContextProvider>
       </IModalShowContextProvider>

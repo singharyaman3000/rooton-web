@@ -4,21 +4,33 @@ import React, { useState, useEffect, useCallback } from 'react';
 import styles from './WhatsappCss.module.css';
 import WhatsappInlineIcon from '../Icons/WhatsappInlineIcon';
 import TypingAnimation from '../Icons/TypingAnimation';
+import { IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
 
-type WhatsAppTempProps = {
+// type WhatsAppTempProps = {
+//   hideTemplate: () => void;
+//   showTypingInitial: boolean;
+// };
+
+export interface IWhatsAppProps {
+  whatsapp: IWhatsAppAttributes;
   hideTemplate: () => void;
   showTypingInitial: boolean;
-};
+}
 
-/**
- * Renders a WhatsApp template component.
- *
- * @param {WhatsAppTempProps} hideTemplate - A function to hide the template.
- * @param {boolean} showTypingInitial - A boolean indicating whether to show the typing animation initially.
- * @returns {React.FC<WhatsAppTempProps>} The rendered WhatsApp template component.
- */
+// New combined props type
+// type IWhatsAppTempProps = WhatsAppTempProps & IWhatsAppProps;
 
-const WhatsAppTemp: React.FC<WhatsAppTempProps> = ({ hideTemplate, showTypingInitial }) => {
+const WhatsAppTemp = ({
+  hideTemplate,
+  whatsapp,
+  showTypingInitial,
+}: IWhatsAppProps) => {
+
+  useEffect(() => {
+    console.log("WhatsApp number: ", whatsapp.whatsappnumber);
+    console.log("Contact name: ", whatsapp.contactname);
+    console.log("Default message: ", whatsapp.defaultmessage);
+  }, [whatsapp]);
 
   // State to manage whether to show typing animation or not
   const [showTyping, setShowTyping] = useState(showTypingInitial);
@@ -34,8 +46,10 @@ const WhatsAppTemp: React.FC<WhatsAppTempProps> = ({ hideTemplate, showTypingIni
    * @return {void} No return value.
    */
   const handleButtonClick = () => {
-    window.open('https://wa.me/1234567890', '_blank', 'width=1080,height=800,left=200,top=200');
+    window.open(`https://wa.me/${whatsapp.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
   };
+
+
 
   // Render the WhatsAppTemp component
   return (
@@ -56,8 +70,8 @@ const WhatsAppTemp: React.FC<WhatsAppTempProps> = ({ hideTemplate, showTypingIni
           </div>
         </div>
         <div className={styles.text}>
-          <div className={styles.header_name}>Root On Immigration Consultants Pvt. Ltd.</div>
-          <div className={styles.header_status}>Typically replies within a minute</div>
+        <div className={styles.header_name}>{whatsapp.contactname}</div>
+          <div className={styles.header_status}>{whatsapp.status}</div>
         </div>
       </div>
       {showTypingInitial ? (
@@ -88,10 +102,11 @@ const WhatsAppTemp: React.FC<WhatsAppTempProps> = ({ hideTemplate, showTypingIni
             <div className={styles.ChatLayout_Message1}>
               <div className={styles.ChatLayout_Author}>Root On Immigration Consultants...</div>
               <div className={styles.ChatLayout_Text}>
-                Hi there&nbsp;🍁
+                {/* Hi there&nbsp;🍁
                 <br />
                 <br />
-                let&apos;s chat about your dreams. 🇨🇦
+                let&apos;s chat about your dreams. 🇨🇦 */}
+                <p>{whatsapp.defaultmessage}</p>
               </div>
               <div className={styles.ChatLayout_TimeBottom}>13:40</div>
             </div>
