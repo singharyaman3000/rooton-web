@@ -10,7 +10,7 @@ import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
 import { useParams } from 'next/navigation';
 
-const itemsToSetActive = ['service','contact'];
+const itemsToSetActive = ['service', 'contact'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -18,7 +18,9 @@ export default function Header() {
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
-  const [activeTab,setActiveTab] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<string>('');
+
+  const isFixed = !!params?.blogId;
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -44,8 +46,10 @@ export default function Header() {
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          showOrHideHeader(lastKnownScrollPosition);
-          ticking = false;
+          if (!isFixed) {
+            showOrHideHeader(lastKnownScrollPosition);
+            ticking = false;
+          }
         });
 
         ticking = true;
@@ -91,15 +95,23 @@ export default function Header() {
     setOpen((o) => !o);
   };
 
-  return (
-    <header
-      ref={headerRef}
-      className={`z-[999] ${
+  const getHeaderStyle = () => {
+    let style;
+    if (isFixed) {
+      style = 'z-[999] fixed shadow-lg top-0 w-full text-black bg-primary';
+    } else {
+      style = `z-[999] ${
         scrolledEnough
           ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
           : ' absolute top-0 w-full'
-      }`}
-    >
+      }`;
+    }
+
+    return style;
+  };
+
+  return (
+    <header ref={headerRef} className={getHeaderStyle()}>
       <SliderOverlay open={open} setOpen={setOpen} />
       <nav>
         <div
@@ -120,7 +132,7 @@ export default function Header() {
         "
         >
           {scrolledEnough ? (
-            <div className=' h-fit'>
+            <div className=" h-fit">
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -139,7 +151,7 @@ export default function Header() {
                   width={120}
                   height={36}
                   alt="Root On logo"
-                  src={'/root-on-logo-svg.svg'}
+                  src={isFixed ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
                 />
               </Link>
             </div>

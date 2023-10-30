@@ -2,7 +2,7 @@ import { getFetch } from '@/utils/apiUtils';
 import { getBlogDetailsUrl } from './apiUrl/blogDetails';
 import { IPageMeta, MediaUrl } from './interfaces';
 
-interface IBlogContentAttributes {
+export interface IBlogContentAttributes {
   CTA_link: string;
   CTA_test: string;
   body_content: string;
@@ -18,9 +18,9 @@ interface IBlogContentAttributes {
   updatedAt: string;
 }
 
-interface IBlogContentData {
+export interface IBlogContentData {
   id: number;
-  data: IBlogContentAttributes;
+  attributes: IBlogContentAttributes;
 }
 
 interface IBlogContents {

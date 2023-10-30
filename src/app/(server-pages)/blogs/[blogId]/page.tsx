@@ -2,7 +2,7 @@ import { IBlogDetailsResponse, getBlogDetails } from '@/app/services/apiService/
 import BlogDetails from '@/components/BlogsDetails';
 
 type BlogsDetailPageProps = {
-  params: { slug: string };
+  params: { blogId: string };
 };
 
 export default async function BlogsDetailPage(props: BlogsDetailPageProps) {
