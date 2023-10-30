@@ -24,12 +24,10 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
       <div className="flex justify-between">
         <div className="w-[100%] md:w-[52%]">
           <div className="flex gap-2 flex-wrap items-end justify-between">
-            <div className="md:max-w-[70%] lg:max-w-none">
-              <SubSectionTitle title={contentHeading} />
-            </div>
+            <SubSectionTitle title={contentHeading} />
           </div>
           <Description cssClass="!text-black my-5 md:mt-9" description={description} />
-          <ul className='flex flex-col gap-4'>
+          <ul className="flex flex-col gap-4">
             {expertiseList.map((expertise) => {
               return (
                 <Li key={expertise} className="text-black">
