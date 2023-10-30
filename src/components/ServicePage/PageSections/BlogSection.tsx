@@ -1,7 +1,7 @@
 'use client';
 
 import { getBlogs } from '@/app/services/apiService/blogs';
-import BlogListings from '@/components/HomePage/BlogListings';
+import BlogsCarousel from '@/components/BlogsListPage/BlogsCarousel';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 
 type BlogSectionProps = {
@@ -11,14 +11,14 @@ type BlogSectionProps = {
 };
 
 const BlogSection = ({ url, title, subtitle }: BlogSectionProps) => {
-  const { data, loading } = useClientAPI({
+  const { loading } = useClientAPI({
     apiFn: () => {
       return getBlogs(url);
     },
   });
 
   return (
-    <div className=" w-full">
+    <div className=" w-full bg-secondary-grey py-[24px] md:py-[48px] lg:py-[80px]">
       <div className=" mt-[6px] m-auto max-w-screen-2k">
         {loading ? (
           <div className=" w-full flex justify-center items-center">
@@ -50,13 +50,7 @@ const BlogSection = ({ url, title, subtitle }: BlogSectionProps) => {
             </div>
           </div>
         ) : (
-          <BlogListings
-            blogs={{
-              data: data && data[0]?.attributes.media_url.data?.length > 0 ? data : [],
-            }}
-            title={title}
-            sub_title={subtitle}
-          />
+          <BlogsCarousel articleType="news" title={title} subHeading={subtitle} id="news_listing" showMore/>
         )}
       </div>
     </div>

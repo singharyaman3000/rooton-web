@@ -58,3 +58,12 @@ export interface IAttributes {
   description?: string;
   media_url: MediaUrl;
 }
+
+export interface IPageMeta {
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
+}
