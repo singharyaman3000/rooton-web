@@ -17,7 +17,7 @@ const BlogDetails = ({ details }: { details: IBlogDetails }) => {
   useEffect(() => {
     if (selectedSection?.activeRef) {
       const section = document.querySelector(`#section-container #${selectedSection.activeRef.current?.id}`);
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [selectedSection]);
 
@@ -25,7 +25,6 @@ const BlogDetails = ({ details }: { details: IBlogDetails }) => {
     <div className="mt-20 text-primary-font-color flex flex-col">
       <div className="relative">
         <Breadcrumbs
-          // className="flex"
           data={[
             {
               title: 'Home',

@@ -1,8 +1,9 @@
 'use client';
 
 import { IBlogContentData } from '@/app/services/apiService/blogDetailAPI';
-import React, { Dispatch, RefObject, SetStateAction, useEffect, useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { SelectedTagType } from '..';
+import useGetTabTopPosition from '../hooks/useGetTabTopPosition';
 
 type NavigationPanelPropsType = {
   content: IBlogContentData[];
@@ -10,18 +11,6 @@ type NavigationPanelPropsType = {
   setSelectedTag: Dispatch<SetStateAction<SelectedTagType>>;
 };
 
-const useSelectedTabPosition = (currentRef: RefObject<HTMLSpanElement>) => {
-  const [fromTop, setFromTop] = useState(0);
-
-  useEffect(() => {
-    if (currentRef?.current) {
-      console.log(currentRef.current.getBoundingClientRect().top, currentRef.current.offsetHeight);
-      setFromTop(currentRef.current.offsetHeight / 2 - 5);
-    }
-  }, [currentRef?.current]);
-
-  return { fromTop };
-};
 
 const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selectedTag, setSelectedTag }) => {
   const refs = useMemo(() => {
@@ -29,18 +18,17 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selected
       return React.createRef<HTMLSpanElement>();
     });
   }, []);
-  const { fromTop } = useSelectedTabPosition(selectedTag.activeRef);
-console.log(fromTop);
+  const { fromTop } = useGetTabTopPosition(selectedTag.activeRef);
 
   return (
     <div className="w-[600px] h-full px-20 bg-slate-300 flex items-center justify-center">
       <div className="fixed top-[25%]">
         <h3 className="font-bold text-xl mb-5">In this article</h3>
         <div className="flex gap-2">
-          <div className="relative w-[1px] bg-[#d7d7d7]">
+          <div id="tab-parent-div" className="relative w-[1px] bg-[#d7d7d7]">
             {/* <span className="block w-[1px] h-full bg-[#d7d7d7]"></span> */}
             <span
-              className="absolute block w-1 h-10 bg-black left-0 transform -translate-x-1/2"
+              className="absolute block w-1 h-10 bg-black left-0 transform -translate-x-1/2 transition-all  duration-1700"
               style={{ top: fromTop }}
             ></span>
           </div>
