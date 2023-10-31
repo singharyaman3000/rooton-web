@@ -1,16 +1,17 @@
 'use client';
 
+import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
 import ProfileCard from '../ProfileCard';
+import { convertToHtmlId } from '@/utils';
 import Slider from '@/components/UIElements/Slider';
+import ModalProfileCard from '../ProfileCard/ModalProfileCard';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
+import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
-import ModalProfileCard from '../ProfileCard/ModalProfileCard';
-import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
-import { useState } from 'react';
 
 interface Employee {
   imageUrl: string;
@@ -23,13 +24,6 @@ interface TeamProfileSliderProps {
   contentHeading: string;
   teamData: Employee[];
 }
-
-const convertToHtmlId = (input: string) => {
-  let id = input.toLowerCase();
-  id = id.replace(/\s+/g, '-'); // replace spaces with hyphens
-  id = id.replace(/[^a-z0-9-]/g, ''); // remove special characters except hyphen
-  return id;
-};
 
 const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps) => {
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
