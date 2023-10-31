@@ -1,5 +1,5 @@
-import NextImage from '@/components/UIElements/NextImage';
 import React, { FC } from 'react';
+import NextImage from '@/components/UIElements/NextImage';
 
 export interface IWhyRootON {
   key: string;
