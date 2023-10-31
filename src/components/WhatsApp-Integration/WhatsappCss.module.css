@@ -68,7 +68,6 @@
   padding: 20px 20px 20px 10px;
   background-color: rgb(230, 221, 212);
   position: relative;
-
   max-height: 382px;
 }
 
@@ -76,7 +75,7 @@
   display: block;
   position: absolute;
   content: '';
-  left: 0px;
+  left: 10px;
   top: 0px;
   height: 100%;
   width: 100%;
@@ -201,6 +200,9 @@
   line-height: 19px;
   margin-top: 4px;
   color: rgb(17, 17, 17);
+  max-height: 100px; 
+  overflow-y: auto; 
+  word-wrap: break-word;
 }
 
 .ChatLayout_TimeBottom {
@@ -297,6 +299,7 @@
   font-weight: 700;
   line-height: 20px;
   max-height: 60px;
+  height: 40px;
   -webkit-line-clamp: 3;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -370,7 +373,7 @@
   opacity: 0.4;
   padding: 0px !important;
   margin: 0px !important;
-  background-color:transparent !important;
+  background-color: transparent !important;
   cursor: pointer;
   transition: all 0.3s ease 0s;
   outline: transparent;
@@ -455,4 +458,12 @@
   transition:
     opacity 0.4s ease-in-out,
     transform 0.4s ease-in-out;
+}
+
+.whatsAppIntegration {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+  z-index: 1000;
 }

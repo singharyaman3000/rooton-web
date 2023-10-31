@@ -13,26 +13,22 @@ export interface IWhatsAppProps {
   showTypingInitial: boolean;
 }
 
-const WhatsAppButton = ({ whatsapp, }: IWhatsAppProps) => {
-  // State variables
+const WhatsAppButton = ({ whatsapp }: IWhatsAppProps) => {
   const [showTemplate, setShowTemplate] = useState(false);
   const [showTypingInitial, setShowTypingInitial] = useState(true);
   const [isMobileView, setIsMobileView] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
-  const [whatsAppData, setWhatsAppData] = useState(null);
+  const [whatsAppData, setWhatsAppData] = useState<IWhatsAppAttributes | undefined | null>(null);
 
-  // Fetch WhatsApp data
   useEffect(() => {
     const fetchData = async () => {
       const headerFooterData = await getHeaderFooterData();
-      // Adjust according to your actual API response structure
+
       setWhatsAppData(headerFooterData[0]?.attributes?.whats_app?.data?.attributes);
-      console.log(headerFooterData[0]?.attributes?.whats_app?.data?.attributes,"dwdwd")
     };
 
     fetchData();
   }, []);
-  
-  // Handle window resize
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
@@ -51,30 +47,28 @@ const WhatsAppButton = ({ whatsapp, }: IWhatsAppProps) => {
       handleClick();
       return;
     }
-    setShowTemplate(prev => !prev);
+    setShowTemplate((prev) => !prev);
 
     if (showTypingInitial) {
       setTimeout(() => setShowTypingInitial(false), 3000);
     }
   };
 
-  // Check if WhatsApp data is available
   if (!whatsAppData) {
-    return <div>Loading...</div>; // Or any loading placeholder
+    return <div>Loading...</div>;
   }
 
   return (
-    <div style={{ position: 'fixed', right: '10px', bottom: '10px', cursor: 'pointer', zIndex: '1000' }}
+    <div
+      className={styles.whatsAppIntegration}
       role="button"
       tabIndex={0}
-      onKeyDown={(event) => { if (event.key === 'Enter') handleLogoClick(); }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') handleLogoClick();
+      }}
     >
       <div className={showTemplate ? styles.fade_show : styles.fade}>
-        <WhatsAppTemp
-          hideTemplate={handleLogoClick}
-          showTypingInitial={showTypingInitial}
-          whatsapp={whatsAppData}  // Pass the data here
-        />
+        <WhatsAppTemp hideTemplate={handleLogoClick} showTypingInitial={showTypingInitial} whatsapp={whatsAppData} />
       </div>
 
       <div onClick={handleLogoClick} role="button" tabIndex={0}>

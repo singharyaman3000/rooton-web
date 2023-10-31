@@ -6,52 +6,44 @@ import WhatsappInlineIcon from '../Icons/WhatsappInlineIcon';
 import TypingAnimation from '../Icons/TypingAnimation';
 import { IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
 
-// type WhatsAppTempProps = {
-//   hideTemplate: () => void;
-//   showTypingInitial: boolean;
-// };
-
 export interface IWhatsAppProps {
   whatsapp: IWhatsAppAttributes;
   hideTemplate: () => void;
   showTypingInitial: boolean;
 }
 
-// New combined props type
-// type IWhatsAppTempProps = WhatsAppTempProps & IWhatsAppProps;
-
-const WhatsAppTemp = ({
-  hideTemplate,
-  whatsapp,
-  showTypingInitial,
-}: IWhatsAppProps) => {
-
-  useEffect(() => {
-    console.log("WhatsApp number: ", whatsapp.whatsappnumber);
-    console.log("Contact name: ", whatsapp.contactname);
-    console.log("Default message: ", whatsapp.defaultmessage);
-  }, [whatsapp]);
-
-  // State to manage whether to show typing animation or not
+const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppProps) => {
   const [showTyping, setShowTyping] = useState(showTypingInitial);
 
-  // Update showTyping state when showTypingInitial prop changes
   useEffect(() => {
     setShowTyping(showTypingInitial);
   }, [showTypingInitial]);
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
 
-  /**
-   * Handles the button click event by opening a new window with the specified URL and dimensions.
-   *
-   * @return {void} No return value.
-   */
+  const contact_name = (name: any) => {
+    const maxLength = 7;
+    if (name.length > maxLength) {
+      return name.substring(0, maxLength) + '';
+    }
+    return name;
+  };
+
+  const default_message = (message: any) => {
+    const maxLength = 40 - 2;
+    if (message.length > maxLength) {
+      return message.substring(0, maxLength) + '🍁...';
+    }
+    return message + '🍁';
+  };
   const handleButtonClick = () => {
     window.open(`https://wa.me/${whatsapp.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
   };
 
-
-
-  // Render the WhatsAppTemp component
   return (
     <div className={styles.template}>
       <div className={styles.header}>
@@ -70,7 +62,7 @@ const WhatsAppTemp = ({
           </div>
         </div>
         <div className={styles.text}>
-        <div className={styles.header_name}>{whatsapp.contactname}</div>
+          <div title={whatsapp.contactname} className={styles.header_name}>{whatsapp.contactname}</div>
           <div className={styles.header_status}>{whatsapp.status}</div>
         </div>
       </div>
@@ -100,15 +92,12 @@ const WhatsAppTemp = ({
               </div>
             </div>
             <div className={styles.ChatLayout_Message1}>
-              <div className={styles.ChatLayout_Author}>Root On Immigration Consultants...</div>
+              <div className={styles.ChatLayout_Author}>{contact_name(whatsapp.contactname)}</div>
               <div className={styles.ChatLayout_Text}>
-                {/* Hi there&nbsp;🍁
+                <p title={whatsapp.defaultmessage}>{default_message(whatsapp.defaultmessage)}</p>
                 <br />
-                <br />
-                let&apos;s chat about your dreams. 🇨🇦 */}
-                <p>{whatsapp.defaultmessage}</p>
               </div>
-              <div className={styles.ChatLayout_TimeBottom}>13:40</div>
+              <div className={styles.ChatLayout_TimeBottom}>{getCurrentTime()}</div>
             </div>
           </div>
         </div>

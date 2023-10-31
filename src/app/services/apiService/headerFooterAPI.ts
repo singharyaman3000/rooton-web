@@ -3,11 +3,10 @@ import { HEADER_FOOTER_API } from './apiUrl/homePage';
 import { IMediaUrlData } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
-// import {IWhatsApp} from '@/components/WhatsApp-Integration/whatsappTemplate'
 
-export const CONTENT_TYPES ={
+export const CONTENT_TYPES = {
   WHATSAPP: 'whatsapp',
-}
+};
 
 export interface ILanguages {
   data?: ILanguageData[] | null;
@@ -62,6 +61,5 @@ export interface IHeaderFooterRes {
 
 export const getHeaderFooterData = async () => {
   const apiRes = await getFetch<IHeaderFooterRes>(HEADER_FOOTER_API, { next: { revalidate: 1200 } });
-  console.log(apiRes.data, "d");
   return apiRes.data;
 };
