@@ -86,8 +86,10 @@ const AboutUsPage = () => {
         />
         <div className="mb-6  lg:mb-[69px]">
           <div className="honestyBackground honestycard grid grid-cols-1 border-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
-            {COMPANY_VALUES.map(({ key, value, icon, position }) => {
-              return <HonestyCard key={key} title={key} value={value} icon={icon} position={position} />;
+            {COMPANY_VALUES.map(({ key, value, iconComponent, position }) => {
+              return (
+                <HonestyCard key={key} title={key} value={value} iconComponent={iconComponent} position={position} />
+              );
             })}
           </div>
         </div>
