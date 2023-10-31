@@ -8,7 +8,7 @@ import ServiceListContent from '../UIElements/ServiceListContent';
 import CloseIconButton from '../UIElements/CloseIcon';
 import { LG_SCREEN_SIZE } from '@/constants/screenSizes';
 
-const ServicesPopUpModal = () => {
+const CoachingServicesPopUpModal = () => {
   const { isModalShown, closeCoreServiceList } = useContext(ModalShowContextname);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -56,4 +56,4 @@ const ServicesPopUpModal = () => {
   );
 };
 
-export default ServicesPopUpModal;
+export default CoachingServicesPopUpModal;

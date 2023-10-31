@@ -38,6 +38,10 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
             width: 440px;
             padding: 40px;
           }
+
+          .plan-name-rel{
+            bottom: 85px;
+          }
         }
 
           @media (max-width: 768px) {
@@ -73,7 +77,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
           <div className="flex items-center justify-center items-baseline mb-5">
             <div className="text-black font-bold text-4xl">${our_plans.price}</div>
           </div>
-          <div className="text-sm h-[70px] text-black mb-5">{our_plans.planDescription}</div>
+          <div className="font-semibold text-sm h-[70px] text-black mb-5">{our_plans.planDescription}</div>
           <a
             className="purchase-btn w-full inline-flex justify-center whitespace-nowrap px-3.5 py-3 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150"
             href="#0">

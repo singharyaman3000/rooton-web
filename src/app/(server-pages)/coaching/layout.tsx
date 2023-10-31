@@ -14,9 +14,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <IModalShowContextProvider>
         <ServiceListingOnAdviceMobile />
         <ServicesPopUpModal />
-        <Header />
         {children}
-        <Footer />
       </IModalShowContextProvider>
     </HeaderFooterDataProvider>
   );

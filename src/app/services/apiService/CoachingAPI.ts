@@ -1,7 +1,7 @@
 import { getFetch } from '@/utils/apiUtils';
-import { ICoreServices } from '@/components/CoachingPage/ServicesListing/interafces';
 import { IHonesty, IJsonContent } from '@/components/CoachingPage/Honesty';
 import { IOurProcessData } from '@/components/CoachingPage/OurProcess/interfaces';
+import { ICoachingPage_Contents } from '@/components/CoachingPage/ServicesListing/interafces';
 import { IBlogCard } from '@/components/CoachingPage/BlogListings';
 import { IChallenges } from '@/components/CoachingPage/ChallengesListing';
 import { IFaqData } from '@/components/CoachingPage/FaqListings';
@@ -33,8 +33,8 @@ export interface Attributes2 {
   updatedAt: string;
   publishedAt: string;
   json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges | IFaqData;
+  coaching_services: ICoachingPage_Contents;
   blogs: IBlogCard;
-  core_services: ICoreServices;
   media_url: MediaUrl;
 }
 export interface DataEntity1 {

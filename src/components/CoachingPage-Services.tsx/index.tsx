@@ -22,18 +22,20 @@ import { CoachingDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import TrainingCard from './Training';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
+import { useParams } from 'next/navigation';
 import PricingSection from './PricingSection';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
-  subTitle: string;
+  // subTitle: string;
 };
 
 export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   // const [activeTrainingType, setActiveTrainingType] = useState<'General Training' | 'Academic Training'>('General Training');
   const leadFormRef = useRef<HTMLDivElement>(null);
+  const params = useParams();
 
   const whyChooseOpen = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-reason';
@@ -315,11 +317,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         data={[
           {
             title: 'Home',
-            path: '/',
+            path: params.lang ? `/${params.lang}/coaching` : '/',
           },
           {
             title: 'Coaching',
-            path: '/coaching',
+            path: params.lang ? `/${params.lang}/coaching` : '/coaching',
           },
           {
             title: response.data?.attributes?.title,
