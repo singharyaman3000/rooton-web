@@ -10,7 +10,20 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
   const [scrollAmt, setScrollAmt] = useState(0);
   const [unitPageWidth, setPageWidth] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(0);
   const { pageNum, incrementPage, decrementPage , jumpToPage } = useSliderPagination({ slidesLength: totalPages, initialPage: 0 });
+
+  const handleResize = () => {
+    const currentScreenWidth = window.innerWidth;
+    setScreenWidth(currentScreenWidth);
+  };
+
+  useEffect(()=>{
+    window.addEventListener('resize',handleResize);
+    return ()=> {
+      window.removeEventListener('resize', handleResize);
+    };
+  },[]);
 
   useEffect(() => {
     setScrollAmt(unitPageWidth * pageNum);
@@ -26,7 +39,7 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
         if (children && children.length > 0) {
           for (const key in children) {
             if (children[key].clientWidth) {
-              if (totalWidth + children[key].clientWidth < slide.clientWidth) {
+              if (totalWidth + children[key].clientWidth <= slide.clientWidth) {
                 totalWidth += children[key].clientWidth;
                 itemsPerPage += 1;
               }
@@ -37,7 +50,7 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
         setPageWidth(totalWidth);
       }
     }
-  }, [sliderData]);
+  }, [sliderData, screenWidth]);
 
   return { totalPages, pageNum, incrementPage, decrementPage, scrollAmt , jumpToPage };
 };
