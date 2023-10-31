@@ -59,6 +59,8 @@ module.exports = {
         'pale-sandal': 'var(--pale-sandal)',
         'hover-lang-dropdown': 'var(--hover-lang-dropdown)',
         'grey-bullet': 'var(--grey-bullet)',
+        'font-grey': 'var(--font-grey)',
+        'white-fixed': 'var(--white-fixed)',
         'almond': 'var(--almond)',
         'golden-honey': 'var(--golden-honey)',
         'smoky-steel': 'var(--smoky-steel)',

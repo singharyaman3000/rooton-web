@@ -31,6 +31,8 @@
   --sandal: rgba(234, 213, 169, 1);
   --pale-sandal: #fddba2;
   --hover-lang-dropdown: #efefef;
+  --font-grey: #b2b2b2;
+  --white-fixed: #fff;
   --almond: #efcea6;
   --golden-honey: #f0c236;
   --smoky-steel: #979797;
@@ -49,6 +51,7 @@
   --primary-text: #fff;
   --primary-white: #000;
   --grey-bullet: #cbcbcb;
+  --secondary-grey: #000;
 
   --font-color-orange: #f59723;
   --font-color-light-gray: #ffffff;

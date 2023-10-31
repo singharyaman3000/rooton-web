@@ -6,6 +6,7 @@ import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
 import { scrollIntoView } from '@/utils';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
+import Link from 'next/link';
 
 interface SliderOverlayProps {
   open: boolean;
@@ -90,8 +91,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         Coaching
                       </div>
-                      <div
-                        className="
+                      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                      <Link href={'/blogs'}>
+                        <div
+                          className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -99,10 +102,12 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-b
                           border-primary-border
                           mb-5
+                          cursor-pointer
                         "
-                      >
-                        Blogs
-                      </div>
+                        >
+                          Blogs
+                        </div>
+                      </Link>
                       <div
                         className="
                           text-primary-font-color
