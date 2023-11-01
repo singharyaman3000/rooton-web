@@ -37,7 +37,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
     }
 
     window.scrollTo({
-      top: bookAppointmentRef.current ? bookAppointmentRef.current.offsetTop - 75 : 0,
+      top: bookAppointmentRef.current ? bookAppointmentRef.current.offsetTop - 10 : 0,
       behavior: 'smooth',
     });
   };
