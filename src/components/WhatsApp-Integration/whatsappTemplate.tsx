@@ -16,7 +16,7 @@ export interface IWhatsAppProps {
 const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppProps) => {
   const [showTyping, setShowTyping] = useState(showTypingInitial);
 
-  const profileImageUrl = whatsapp.profile_image.data[0].attributes.url;
+  const profileImageUrl = whatsapp.profile_image?.data?.[0]?.attributes?.url || 'defaultImageUrl';
 
   useEffect(() => {
     setShowTyping(showTypingInitial);

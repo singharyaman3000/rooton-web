@@ -7,8 +7,8 @@ import HubSpotForm from '../../HubSpotForm';
 const NewsLetter = () => {
   return (
     <SectionContainer cssClass="pt-10 pb-20 md:pt-0 md:pb-0">
-      <div className="md:mb-[52px] bg-pale-sandal  py-6 px-5 md:pt-16 md:pb-16 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%] relative lg:pb-[110px]">
-        <div className=" w-full">
+      <div className=" overflow-hidden h-[280px] relative md:mb-[52px] bg-pale-sandal  py-6 px-5 md:pt-16 md:pb-16 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%]  lg:pb-[110px]">
+        <div className=" relative z-[1] w-full">
           <h4 className="text-2xl lg:text-[40px] gradient-text text-black font-extrabold not-italic !leading-[1.42] tracking-[normal] mb-2 md:mb-[11px]">
             Sign up for Newsletter
           </h4>
@@ -16,14 +16,14 @@ const NewsLetter = () => {
             Let us keep you updated on what&apos;s happening in Canada and on how you can broaden your horizons.
           </p>
         </div>
-        <div className="min-h-[174px] mt-[19px] w-full z-[1] md:min-h-0 md:mt-5 lg:mt-[30px] xl:mt-[46px]">
+        <div className="relative min-h-[174px] mt-[19px] w-full z-[1] md:min-h-0 md:mt-5 lg:mt-[30px] xl:mt-[46px]">
           <HubSpotForm
             region={FormConstants.NEWS_LETTER.region}
             portalId={FormConstants.NEWS_LETTER.portalId}
             formId={FormConstants.NEWS_LETTER.formId}
           />
         </div>
-        <div className="top-0 right-0 hidden lg:block absolute z-[0]">
+        <div className="top-[0px] left-0 rotate-180 hidden lg:block absolute z-[0]">
           <NewsLetterGrid />
         </div>
       </div>

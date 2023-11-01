@@ -6,7 +6,8 @@ import ListContainer from '../UIElements/ListContainer';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { motion } from 'framer-motion';
 import CloseIconButton from '../UIElements/CloseIcon';
-import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
+// import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
 export interface IserviceList {
   serviceType: string;
@@ -15,7 +16,7 @@ export interface IserviceList {
 
 const ServiceListingOnAdviceMobile = () => {
   const { headerFooterData } = useHeaderFooterContext();
-  const { isModalShown, toggleModalShown } = useContext(MobileModalShowContextname);
+  const { isModalShown, toggleModalShown } = useContext(ModalShowContextname);
   const [xValue, setxValue] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   useEffect(() => {
@@ -47,8 +48,10 @@ const ServiceListingOnAdviceMobile = () => {
   }, []);
 
   const getServiceListing = () => {
-    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services;
-    return ServicesList?.data?.map((listItem) => {
+    const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services?.data;
+    /* eslint-disable no-unsafe-optional-chaining */
+    ServicesList?.sort((a,b) => a?.id - b?.id);
+    return ServicesList?.map((listItem) => {
       return (
         <div className="mb-7" key={listItem?.id}>
           <ListHeading serviceTitle={listItem?.attributes?.title || ''} />
@@ -66,7 +69,6 @@ const ServiceListingOnAdviceMobile = () => {
           initial={{ opacity: 1, x: windowWidth }}
           whileInView={{
             opacity: 1,
-            /* eslint-disable no-unsafe-optional-chaining */
             x: xValue,
           }}
           transition={{
@@ -83,7 +85,7 @@ const ServiceListingOnAdviceMobile = () => {
             <h1 className=" mb-10 text-[22px] tracking-normal font-bold text-black ">
               Select a service for which you need advice on.
             </h1>
-            <div className="flex flex-col pb-[36px]">{getServiceListing()}</div>
+            <div className="flex flex-col pb-[36px] w-full">{getServiceListing()}</div>
           </div>
         </motion.div>
       )}

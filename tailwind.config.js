@@ -15,6 +15,7 @@ module.exports = {
       'lg': '1024px',
       'xl': '1280px',
       '2k': '2048px',
+      'max-screen':'2560px',
     },
     fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],
@@ -56,7 +57,10 @@ module.exports = {
         'light-brown':'var(--light-brown)',
         'sandal':'var(--sandal)',
         'pale-sandal': 'var(--pale-sandal)',
-        'hover-lang-dropdown': 'var(--hover-lang-dropdown)'
+        'hover-lang-dropdown': 'var(--hover-lang-dropdown)',
+        'grey-bullet': 'var(--grey-bullet)',
+        'font-grey': 'var(--font-grey)',
+        'white-fixed': 'var(--white-fixed)'
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',

@@ -1,15 +1,15 @@
 'use client';
 
-import { IServicePageContent, getServicePageContent } from '@/app/services/apiService/serviceAPI';
+import { IBlogsHomeContent, getBlogsHomeContent } from '@/app/services/apiService/blogsHomeAPI';
+import BlogsListPage from '@/components/BlogsListPage/BlogsListPage';
 import LoadingUI from '@/components/LoadingUI';
-import { ServicePageComponent } from '@/components/ServicePage';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 import { useTranslationLoader } from '@/providers/translationLoadingProvider';
 
-const ServicePageCSR = () => {
+const BlogsPageCSR = () => {
   const { data, loading } = useClientAPI({
     apiFn: () => {
-      return getServicePageContent(1);
+      return getBlogsHomeContent();
     },
   });
   const { loader } = useTranslationLoader();
@@ -19,9 +19,9 @@ const ServicePageCSR = () => {
   return (
     <>
       {(loader || loading) && <LoadingUI />}
-      {data && <ServicePageComponent response={data as IServicePageContent} />}
+      {data && <BlogsListPage blogsHeaderData={data as IBlogsHomeContent} />};
     </>
   );
 };
 
-export default ServicePageCSR;
+export default BlogsPageCSR;

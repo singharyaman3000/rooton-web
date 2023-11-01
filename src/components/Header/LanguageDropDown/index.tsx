@@ -26,15 +26,20 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
   const onLanguageChange = (selectedLanguage: ILanguageData) => {
     let nextRoute = '';
     if (params.lang) {
+
       if (selectedLanguage.attributes.code === 'en') {
         nextRoute = getDetraslatedURL(path, params.lang);
-      } else {
+      } else if (selectedLanguage.attributes.code !== params.lang) {
         nextRoute = path.replace(params.lang, selectedLanguage.attributes.code);
       }
-    } else {
-      nextRoute = `${process.env.NEXT_APP_BASE_URL ?? ''}/${selectedLanguage.attributes.code}${path}`;
+    } else if (selectedLanguage.attributes.code !== 'en') {
+      nextRoute = `${process.env.NEXT_APP_BASE_URL ?? ''}${selectedLanguage.attributes.code}${path}`;
     }
-    window.location.href = nextRoute;
+
+    if(nextRoute){
+      window.location.href = nextRoute;
+    }
+
   };
 
   const handleClose = () => {
@@ -47,7 +52,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         aria-label="Language dropdown button "
         type="button"
         onClick={() => {
-          setIsOpen((o) => !o);
+          setIsOpen((o) => {return !o;});
         }}
         className=" flex gap-2 items-center relative z-[1001]"
       >
@@ -70,7 +75,7 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         {isOpen && (
           // eslint-disable-next-line jsx-a11y/no-static-element-interactions
           <div
-            onClick={(e) => dropdownContainerOnClick(e)}
+            onClick={(e) => {return dropdownContainerOnClick(e);}}
             className="
                overscroll-contain
                 z-[1001]

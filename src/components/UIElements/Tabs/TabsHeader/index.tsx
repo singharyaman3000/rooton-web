@@ -50,7 +50,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
             title={service}
           >
             <div className='relative flex items-center w-full flex-col h-full after:content-[""] after:opacity-[0.25] after:top-0 after:right-[-15px] after:absolute after:w-[1px] after:h-full '>
-              <div className="relative w-[30px] my-0 mx-auto h-[30px] ">
+              <div className="relative w-[30px] my-0 mx-auto h-[30px] flex-shrink-0">
                 {icon && (
                   <NextImage
                     sizes="100vw"

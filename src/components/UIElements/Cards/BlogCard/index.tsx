@@ -3,7 +3,6 @@ import { appendAssetUrl, formatDate } from '@/utils';
 import { IAttributes } from '@/app/services/apiService/interfaces';
 import NextImage from '../../NextImage';
 import Button from '../../Button';
-import gridOverlay from '../../../../../public/images/overlay/card-grid-overlay.svg';
 
 export interface IBlogCardData {
   id: number;
@@ -39,9 +38,6 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
             <span className="mr-[8px]  opacity-[0.36] text-black">Last updated:</span>
             <span className="line-clamp-2 text-black">{formatDate(attributes.updatedAt)}</span>
           </div>
-        </div>
-        <div className="absolute right-0 bottom-0">
-          <NextImage src={gridOverlay} altText="Overlay image" title="" fill={false} sizes="100vw" />
         </div>
       </div>
     </div>

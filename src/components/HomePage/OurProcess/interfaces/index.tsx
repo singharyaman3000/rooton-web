@@ -1,7 +1,7 @@
 export interface IProcess {
-  key: string;
-  value: string;
+  title: string;
   position: string;
+  description: string;
 }
 
 export interface IOurProcessData {

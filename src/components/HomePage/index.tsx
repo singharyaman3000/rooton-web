@@ -1,6 +1,5 @@
 import React from 'react';
 import Credibility from '@/components/HomePage/Credibility';
-import BlogListings from '@/components/HomePage/BlogListings';
 import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
@@ -15,7 +14,11 @@ import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
-import BookAnAppointment from './BookAppointment';
+import BookAnAppointmentSection from './BookAppointment';
+import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
+import BlogSection from '../ServicePage/PageSections/BlogSection';
+import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
+import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
@@ -50,11 +53,13 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         );
       case CONTENT_TYPES.OUR_PROCESSES:
         return (
-          <OurProcess
-            title={title}
-            sub_title={sub_title}
-            json_content={contents.attributes.json_content as IOurProcessData}
-          />
+          <div className=' mb-20'>
+            <OurProcess
+              title={title}
+              sub_title={sub_title}
+              json_content={contents.attributes.json_content as IOurProcessData}
+            />
+          </div>
         );
       case CONTENT_TYPES.CHALLENGES:
         return (
@@ -79,7 +84,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       case CONTENT_TYPES.PARTNERSHIPS:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
       case CONTENT_TYPES.BLOG:
-        return <BlogListings blogs={contents.attributes.blogs} title={title} sub_title={sub_title} />;
+        return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
       default:
         return null;
       }
@@ -105,9 +110,13 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         }
       />
       {getComponentsAboveBookAppointments()}
-      <BookAnAppointment />
+      <div className='mb-[100px]'>
+        <BookAnAppointmentSection/>
+      </div>
       {getComponentsAfterBookAppointments()}
-      <Testimonials />
+      <div className=' pb-10 md:pb-[80px]'>
+        <Testimonials apiUrl={TESTIMONIAL_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
+      </div>
       {faqData && (
         <FaqListing
           sub_title={faqData?.attributes?.sub_title}

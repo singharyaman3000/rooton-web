@@ -24,9 +24,12 @@ export default function RTONButton({ ariaLabel, onClick, text, icon }: RTONButto
           gap-[21.5px]
           bg-white
           lg:text-lg
+          w-full
+          justify-center
+          md:w-fit
         "
     >
-      <p className=" font-bold text-[13px] lg:text-lg">{text}</p>
+      <p className=" font-bold text-[13px] lg:text-sm">{text}</p>
       {icon}
     </button>
   );

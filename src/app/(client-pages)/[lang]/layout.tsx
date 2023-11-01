@@ -9,6 +9,10 @@ import { getHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { HeaderFooterDataProvider } from '@/providers/headerFooterDataProvider';
 import ClientFooter from '@/components/Footer/ClientFooter';
 import ClientHeader from '@/components/Header/ClientHeader';
+import IModalShowContextProvider from '@/providers/coreServicesMOdalOpenContext';
+import MobileModalShowContextProvider from '@/providers/coreServicesModalMobileContext';
+import ServiceListingOnAdviceMobile from '@/components/HomePage/CoreServiceListing/ServiceListOnAdviceMobile';
+import ServicesPopUpModal from '@/components/HomePage/CoreServiceListing/ServicesPopUpModal';
 
 const ClientPageLayout = ({ children }: { children: ReactNode }) => {
   const { isClient } = useClient();
@@ -19,10 +23,16 @@ const ClientPageLayout = ({ children }: { children: ReactNode }) => {
       {isClient && (
         <HeaderFooterDataProvider headerFooterAPIData={data}>
           <TranslationLoadingProvider>
-            <Translator />
-            <ClientHeader />
-            {children}
-            <ClientFooter />
+            <IModalShowContextProvider>
+              <MobileModalShowContextProvider>
+                <ServiceListingOnAdviceMobile />
+                <ServicesPopUpModal />
+                <Translator />
+                <ClientHeader />
+                {children}
+                <ClientFooter />
+              </MobileModalShowContextProvider>
+            </IModalShowContextProvider>
           </TranslationLoadingProvider>
         </HeaderFooterDataProvider>
       )}

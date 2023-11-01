@@ -3,11 +3,16 @@
 import CalenderIcon from '@/components/Icons/CalenderIcon';
 import RTONButton from '../RTONButton';
 
-export default function BookAnAppointmentButton() {
+type BookAnAppointmentButtonProps = {
+  onClick: () => void;
+  text: string;
+}
+
+export default function BookAnAppointmentButton({ onClick, text }: BookAnAppointmentButtonProps) {
   return <RTONButton
-    ariaLabel='Book an appointment'
-    onClick={() => {}}
-    text="Book an appointment"
+    ariaLabel={text}
+    onClick={onClick}
+    text={text}
     icon={<CalenderIcon />}
   />;
 }

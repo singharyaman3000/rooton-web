@@ -14,7 +14,6 @@ import { ITitleAttributes } from '../ServicesListing/interafces';
 import ToggleIcon from './ToggleIcon';
 import { AccordionBody, AccordionHeader } from './ChallengeListingElements';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
-import { MobileModalShowContextname } from '@/providers/coreServicesModalMobileContext';
 
 export interface IChallenge {
   key: string;
@@ -33,12 +32,11 @@ export interface IChallengesListing extends ITitleAttributes {
 
 const ChallengesListing = ({ title, sub_title, description, json_content, media_url }: IChallengesListing) => {
   const [accordionId, setAccordionId] = useState<string | null>(null);
-  const { toggleModalShown } = useContext(ModalShowContextname);
-  const { toggleModalShown: toggleModalShownMobile } = useContext(MobileModalShowContextname);
+  const { openCoreServiceList } = useContext(ModalShowContextname);
 
   return (
-    <section className="challenges-listing">
-      <SectionContainer cssClass="pt-10 pb-[39px] md:py-[80px]">
+    <section className="challenges-listing max-w-screen-max-screen mx-auto my-0">
+      <SectionContainer cssClass="pt-10 pb-[39px] md:py-20">
         <div className="md:flex">
           <div className="md:w-[48.8%] md:pr-[80px]">
             <SectionHeadings title={title} subTitle={sub_title} />
@@ -54,8 +52,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
               ariaLabel="Get your queries solved"
               cssClass="text-white bg-black border-0 !py-[17px] mt-5 mb-3 gap-[4px]"
               handleOnClick={() => {
-                toggleModalShown();
-                toggleModalShownMobile();
+                openCoreServiceList();
               }}
               tabIndex={0}
               icon={<CalenderIconYellow />}
