@@ -13,13 +13,13 @@ export interface IWhatsAppProps {
   showTypingInitial: boolean;
 }
 
-const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppProps) => {
+const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTypingInitial }) => {
   const [showTyping, setShowTyping] = useState(showTypingInitial);
 
-  const profileImageUrl = whatsapp.profile_image?.data?.[0]?.attributes?.url || 'defaultImageUrl';
+  const profileImageUrl = whatsapp?.profile_image?.data?.[0]?.attributes?.url || '';
 
   useEffect(() => {
-    setShowTyping(showTypingInitial);
+    setShowTyping(showTypingInitial); 
   }, [showTypingInitial]);
   const getCurrentTime = () => {
     const now = new Date();
@@ -37,11 +37,11 @@ const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppPr
   };
 
   const default_message = (message: any) => {
-    const maxLength = 40 - 2;
+    const maxLength = 41 - 2;
     if (message.length > maxLength) {
       return message.substring(0, maxLength) + '🍁...';
     }
-    return message + '🍁';
+    return message + '🍁...';
   };
   const handleButtonClick = () => {
     window.open(`https://wa.me/${whatsapp.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
@@ -61,14 +61,12 @@ const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppPr
         </button>
         <div className={styles.logo_whatsApp}>
           <div className={styles.avatar}>
-            <img src={appendAssetUrl(profileImageUrl)} alt="Profile" />
+            <img src={appendAssetUrl(profileImageUrl)} alt="Profile" /> 
           </div>
         </div>
         <div className={styles.text}>
-          <div title={whatsapp.contactname} className={styles.header_name}>
-            {whatsapp.contactname}
-          </div>
-          <div className={styles.header_status}>{whatsapp.status}</div>
+          <div title={whatsapp?.contactname} className={styles.header_name}>{whatsapp?.contactname}</div>
+          <div className={styles.header_status}>{whatsapp?.status}</div>
         </div>
       </div>
       {showTypingInitial ? (
@@ -99,7 +97,7 @@ const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppPr
             <div className={styles.ChatLayout_Message1}>
               <div className={styles.ChatLayout_Author}>{contact_name(whatsapp.contactname)}</div>
               <div className={styles.ChatLayout_Text}>
-                <p title={whatsapp.defaultmessage}>{default_message(whatsapp.defaultmessage)}</p>
+                <p title={whatsapp.defaultmessage}>{default_message(whatsapp?.defaultmessage)}</p>
                 <br />
               </div>
               <div className={styles.ChatLayout_TimeBottom}>{getCurrentTime()}</div>

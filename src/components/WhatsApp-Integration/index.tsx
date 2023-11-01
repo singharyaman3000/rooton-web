@@ -14,7 +14,6 @@ export interface IWhatsAppProps {
 }
 
 const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = ({ whatsapp }) => {
-// const WhatsAppButton = ({ whatsapp }: IWhatsAppProps) => {
   const [showTemplate, setShowTemplate] = useState(false);
   const [showTypingInitial, setShowTypingInitial] = useState(true);
   const [isMobileView, setIsMobileView] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
@@ -25,6 +24,7 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = ({ whatsapp 
       const headerFooterData = await getHeaderFooterData();
 
       setWhatsAppData(headerFooterData[0]?.attributes?.whats_app?.data?.attributes);
+      console.log('whatsAppData', headerFooterData[0]?.attributes?.whats_app?.data?.attributes);
     };
 
     fetchData();
@@ -40,7 +40,7 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = ({ whatsapp 
   }, []);
 
   const handleClick = () => {
-    window.open(`https://wa.me/${whatsAppData.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
+    window.open(`https://wa.me/${whatsAppData?.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
   };
 
   const handleLogoClick = () => {
@@ -51,13 +51,9 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = ({ whatsapp 
     setShowTemplate((prev) => !prev);
 
     if (showTypingInitial) {
-      setTimeout(() => setShowTypingInitial(false), 3000);
+      setTimeout(() => setShowTypingInitial(false), 1000);
     }
   };
-
-  if (!whatsAppData) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div
@@ -69,7 +65,13 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = ({ whatsapp 
       }}
     >
       <div className={showTemplate ? styles.fade_show : styles.fade}>
-        <WhatsAppTemp hideTemplate={handleLogoClick} showTypingInitial={showTypingInitial} whatsapp={whatsAppData} />
+      {whatsAppData && (
+    <WhatsAppTemp
+      hideTemplate={handleLogoClick}
+      showTypingInitial={showTypingInitial}
+      whatsapp={whatsAppData}
+    />
+  )}
       </div>
 
       <div onClick={handleLogoClick} role="button" tabIndex={0}>
