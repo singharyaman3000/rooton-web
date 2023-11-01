@@ -11,8 +11,6 @@ import WhatsAppButton from '@/components/WhatsApp-Integration';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const apiRes = await getHeaderFooterData();
-  const data = await getHeaderFooterData();
-
   const whatsAppData = apiRes[0]?.attributes?.whats_app;
 
   if (!whatsAppData || !whatsAppData.data || !whatsAppData.data.attributes) {
