@@ -132,9 +132,10 @@
   background-size: contain;
   content: '';
   top: 0px;
-  left: -12px;
+  left: 50px;
   width: 12px;
   height: 19px;
+  display: none;
 }
 
 .ChatLayout_Message1::before {

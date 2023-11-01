@@ -5,6 +5,7 @@ import styles from './WhatsappCss.module.css';
 import WhatsappInlineIcon from '../Icons/WhatsappInlineIcon';
 import TypingAnimation from '../Icons/TypingAnimation';
 import { IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
+import { appendAssetUrl } from '@/utils';
 
 export interface IWhatsAppProps {
   whatsapp: IWhatsAppAttributes;
@@ -14,6 +15,8 @@ export interface IWhatsAppProps {
 
 const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppProps) => {
   const [showTyping, setShowTyping] = useState(showTypingInitial);
+
+  const profileImageUrl = whatsapp.profile_image.data[0].attributes.url;
 
   useEffect(() => {
     setShowTyping(showTypingInitial);
@@ -58,11 +61,13 @@ const WhatsAppTemp = ({ hideTemplate, whatsapp, showTypingInitial }: IWhatsAppPr
         </button>
         <div className={styles.logo_whatsApp}>
           <div className={styles.avatar}>
-            <img src="https://i.ibb.co/BnDptt4/rooton.jpg" alt="Profile" />
+            <img src={appendAssetUrl(profileImageUrl)} alt="Profile" />
           </div>
         </div>
         <div className={styles.text}>
-          <div title={whatsapp.contactname} className={styles.header_name}>{whatsapp.contactname}</div>
+          <div title={whatsapp.contactname} className={styles.header_name}>
+            {whatsapp.contactname}
+          </div>
           <div className={styles.header_status}>{whatsapp.status}</div>
         </div>
       </div>

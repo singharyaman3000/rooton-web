@@ -1,6 +1,7 @@
 import { getFetch } from '@/utils/apiUtils';
 import { HEADER_FOOTER_API } from './apiUrl/homePage';
 import { IMediaUrlData } from './interfaces';
+import { MediaUrl } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
 
@@ -27,6 +28,17 @@ export interface IAddressData {
 export interface IAddresses {
   data?: IAddressData[] | null;
 }
+export interface IProfileImageAttributes {
+  name: string;
+  url: string;
+}
+export interface IProfileImageData {
+  id: number;
+  attributes: IProfileImageAttributes;
+}
+export interface IProfileImage {
+  data?: IProfileImageData[] | null;
+}
 
 export interface IWhatsAppAttributes {
   contactname: string;
@@ -34,6 +46,7 @@ export interface IWhatsAppAttributes {
   whatsappnumber: string;
   status: string;
   unique_identifire_name: string;
+  profile_image: IProfileImage;
 }
 
 export interface IWhatsAppData {
