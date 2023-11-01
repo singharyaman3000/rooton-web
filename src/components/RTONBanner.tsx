@@ -77,7 +77,6 @@ export default function RTONBanner({
             style={{ objectFit: 'cover' }}
             altText="root-on-banner-image"
             title="Banner Image"
-            classSelector='2k:!object-fill'
           />
         </div>
       </div>
