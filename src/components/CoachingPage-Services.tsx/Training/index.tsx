@@ -1,6 +1,5 @@
 import React from 'react';
 import { ITraining } from '@/app/services/apiService/coaching_contentsAPI';
-import SectionHeadings from '@/components/UIElements/SectionHeadings';
 
 type TrainingCardProps = {
   training: ITraining;
@@ -18,12 +17,12 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
       <style jsx>{`
         .card {
           min-width: 350px;
-          max-width: 100%;
+          width: 100%;
           padding: 40px;
-          border-top: 60px solid rgb(245,151,35);
+          border-top: 60px solid rgb(255,246,231);
           margin-right: 30px;
           margin-top: 0px;
-          background-color: rgb(255, 246, 231);
+          background-color:  rgb(255,246,231);
           box-shadow: 0px 13px 15px 0px rgba(0, 0, 0, 0.10);
         }
 
@@ -46,18 +45,29 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
           box-shadow: none;
         }
 
-        .second-card {
-          
+        .title {
+          display: flex; 
+          margin: auto; 
+          justify-content: center; 
+             
+        }
+        .image {
+          height: 45px;
+          position: relative;
+          top: -4px;
+          left: -13px;
         }
 
         .card-text {
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 500;
           letter-spacing: 1px;
           min-height: 250px;
           max-height: 100%;
           text-align: justify;
+          
         }
+        
 
         .subtitle {
           font-size: 20px;
@@ -76,9 +86,10 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
 
         .heading {
           text-align: center;
-          font-size: 1.2rem;
+          font-size: 1.3rem;
           font-weight: 600;
-          color: #fff;
+          color: #000;
+          letter-spacing: 1.5px;
         }
 
         @media (max-width: 768px) {
@@ -106,10 +117,11 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
         </div>
       ) : (
         <div className=" second-card flex flex-row">
-          <div className="title absolute items-center z-[10] left-0 top-[-45px] w-full">
-            <h2 className="heading color-white text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
+          <div className="title absolute items-center z-[10] left-0 top-[-30px] w-full">
+            <img className='image' src="/images/icons/headphones.png" alt="boy" />
+            <h2 className="heading text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
           </div>
-          <div className="text-xs md:text-sm text-black card-text">
+          <div className=" text-black card-text">
             <p>{training.description}</p>
           </div>
         </div>
