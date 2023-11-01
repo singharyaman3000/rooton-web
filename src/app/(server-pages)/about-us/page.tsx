@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 
+import { getFetch } from '@/utils/apiUtils';
 import RTONBanner from '@/components/RTONBanner';
 import WelcomeSection from '@/components/AboutUsPage/WelcomeSection';
 import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
@@ -20,14 +21,48 @@ import {
   COMPANY_MEMBERS_SECTION,
   BOOK_APPOINTMENT_CONTENT,
   BOOK_CONSULTATION_CONTENT,
-} from '@/app/(server-pages)/about-us/config/aboutUsContent';
+  COMPANY_STAT_VALUES_DEFAULT,
+} from './config/aboutUsContent';
 
-const companyStatValues = [
-  { statValue: 3, statText: WELCOME_SECTION_DATA.experienceYearsText },
-  { statValue: 500, statText: WELCOME_SECTION_DATA.clientsCountText },
-];
+interface AboutUsPageProps {
+  companyStatValues: typeof COMPANY_STAT_VALUES_DEFAULT;
+}
 
-const AboutUsPage = () => {
+interface IAboutUsPageResponse {
+  data: {
+    client_count: number;
+    company_experience: number;
+  };
+};
+
+export async function getStaticProps() {
+  let companyStatValuesApi;
+
+  try {
+    const response = await getFetch<IAboutUsPageResponse>('api/commons');
+    companyStatValuesApi = [
+      {
+        statValue: Math.max(response.data.company_experience, COMPANY_STAT_VALUES_DEFAULT[0].statValue),
+        statText: WELCOME_SECTION_DATA.experienceYearsText,
+      },
+      {
+        statValue: Math.max(response.data.client_count, COMPANY_STAT_VALUES_DEFAULT[1].statValue),
+        statText: WELCOME_SECTION_DATA.clientsCountText,
+      },
+    ];
+  } catch (error) {
+    companyStatValuesApi = COMPANY_STAT_VALUES_DEFAULT;
+  }
+
+  return {
+    props: {
+      companyStatValues: companyStatValuesApi,
+    },
+    revalidate: 60 * 60 * 24, // Page will be regenerated once every day (24 hours)
+  };
+}
+
+const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
   const bookAppointmentRef = useRef<HTMLElement>(null);
   const [displayBookAppointment, setDisplayBookAppointment] = useState(false);
 
