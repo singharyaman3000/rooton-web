@@ -105,7 +105,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
   return (
     allArticlesList?.length ?
       <section className={`${serviceType ? 'py-[80px]' : ''} border-b-2 md:border-none`}>
-        <div className=" pl-6 pb-8 md:pb-12 md:px-20 flex justify-between items-end">
+        <div className=" pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end">
           <div>
             <SectionHeadings title={title} subTitle={subHeading} />
           </div>
@@ -128,7 +128,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="w-[100%] md:pl-20" {...handlers}>
+        <div className="w-[100%] pl-0 md:pl-6 xl:pl-20" {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id={id}
@@ -136,7 +136,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
             loading={loading}
             loadingUI={<ArticlePreLoader />}
             slideParentClass="!justify-start"
-            slideClass="!w-full md:!w-[380px] !px-0 md:!px-[12px]"
+            slideClass="!w-full md:!w-[380px] !px-0 md:mr-[30px]"
           >
             {allArticlesList?.map((detail: IBlogData) => {
               return <ArticleCard key={detail.id} attributes={detail.attributes} />;
@@ -148,7 +148,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
             pageMeta={blogsListData?.meta && blogsListData?.meta}
           />
         </div>
-      </section >
+      </section>
       : ''
   );
 };
