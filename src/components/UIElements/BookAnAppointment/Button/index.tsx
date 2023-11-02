@@ -11,7 +11,7 @@ const BookAnApptButton = ({ btnLabel, handleOnClick, cssClass }: IButton) => {
   return (
     <button
       type="button"
-      className={`${cssClass} py-[15.9px] px-[18px] text-white bg-black flex justify-center text-sm font-medium not-italic leading-[normal] tracking-[normal] md:text-sm`}
+      className={`${cssClass} items-center py-[15.9px] px-[18px] text-white bg-black flex justify-center text-sm font-medium not-italic leading-[normal] tracking-[normal] md:text-sm`}
       aria-label={'Book an appointment'}
       onClick={handleOnClick}
     >

@@ -28,7 +28,7 @@ const BookAnAppointment = ({ appointmentBtnLabel, onClick }: IBookAnAPpointment)
             </h1>
             <BookAnApptButton
               btnLabel={BookAnAppointmentContent.btnLabel}
-              cssClass="w-full md:w-fit"
+              cssClass="w-full md:w-fit md:max-w-[260px]"
               handleOnClick={() => {
                 onClick();
               }}
