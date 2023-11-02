@@ -8,3 +8,14 @@ export const tabsData: TabType[] = [
   { key: 3, label: 'Blogs', id: BLOG_CATEGORY.BLOGS },
   { key: 4, label: 'Case studies', id: BLOG_CATEGORY.CASE_STUDIES },
 ];
+
+export const BREAD_CRUMBS_LIST = [
+  {
+    title: 'Home',
+    path: '/',
+  },
+  {
+    title: 'Blogs',
+    path: '',
+  },
+];
