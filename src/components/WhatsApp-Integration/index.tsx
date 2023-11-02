@@ -38,9 +38,8 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
   }, []);
 
   const handleClick = () => {
-    window.open(`https://wa.me/${whatsAppData?.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
+    window.open(`https://wa.me/${whatsAppData?.whatsappnumber}?text=${whatsAppData?.welcomeText}`, '_blank', 'width=1080,height=800,left=200,top=200');
   };
-
   const handleLogoClick = () => {
     if (isMobileView) {
       handleClick();
