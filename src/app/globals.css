@@ -748,3 +748,8 @@ button:disabled {
 .services-tab .tab-header div:nth-child(2) {
   max-width: 100% !important;
 }
+
+heading {
+  font-size: 20px;
+  font-weight: 500;
+}

@@ -1,8 +1,8 @@
 import { getFetch } from '@/utils/apiUtils';
 import { getBlogDetailsUrl } from './apiUrl/blogDetails';
-import { IPageMeta, MediaUrl } from './interfaces';
+import { IMediaUrlData, IPageMeta, MediaUrl } from './interfaces';
 
-export interface IBlogContentAttributes {
+interface IBlogContentAttributes {
   CTA_link: string;
   CTA_test: string;
   body_content: string;
@@ -38,7 +38,7 @@ interface IBlogAttributes {
   title: string;
   updatedAt: string;
   views: string;
-  author_profile_image: MediaUrl;
+  author_profile_image: { data: IMediaUrlData };
   media_url: MediaUrl;
   blog_contents: IBlogContents;
 }
@@ -54,6 +54,6 @@ export interface IBlogDetailsResponse {
 }
 
 export const getBlogDetails = async (blogId: string) => {
-  const res = await getFetch<IBlogDetailsResponse>(getBlogDetailsUrl(blogId));
+  const res = await getFetch<IBlogDetailsResponse>(getBlogDetailsUrl(blogId), { next: { revalidate: 0 } });
   return res;
 };

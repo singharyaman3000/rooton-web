@@ -98,7 +98,7 @@ export default function Header() {
   const getHeaderStyle = () => {
     let style;
     if (isFixed) {
-      style = 'z-[999] fixed shadow-lg top-0 w-full text-black bg-primary';
+      style = 'z-[999] fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary';
     } else {
       style = `z-[999] ${
         scrolledEnough
@@ -109,6 +109,7 @@ export default function Header() {
 
     return style;
   };
+console.log(scrolledEnough);
 
   return (
     <header ref={headerRef} className={getHeaderStyle()}>
@@ -167,7 +168,7 @@ export default function Header() {
             hidden
             lg:flex
             flex-shrink-0
-            ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
+            ${scrolledEnough ? 'text-header-font-color' : ' text-black'}
           `}
           >
             <span className="h-[100%] flex items-center relative">

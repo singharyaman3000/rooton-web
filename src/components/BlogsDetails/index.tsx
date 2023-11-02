@@ -1,72 +1,72 @@
 'use client';
 
-import { IBlogContentData, IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
+import { IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
 import { Breadcrumbs } from '../Breadcrumbs';
-import NavigationPanel from './NavigationBar';
-import { RefObject, useEffect, useState } from 'react';
+import NavigationPanel from './NavigationPanel';
+import React, { RefObject, useState } from 'react';
+import BlogBody from './BlogBody';
+import { getAllPageIndex } from './BlogBody/helpers';
+import BlogHeader from './BlogHeader';
+import { ArticleCategoryType, IBlogsListResponse } from '@/app/services/apiService/blogsListAPI';
+import BlogsCarousel from '../BlogsListPage/BlogsCarousel';
+import BookAnAppointment from '../UIElements/BookAnAppointment';
 
-export type SelectedTagType = { tag: IBlogContentData; activeRef: RefObject<HTMLSpanElement> };
+type BlogDetailsParamsType = {
+  details: IBlogDetails;
+  relatedArticlesList: IBlogsListResponse;
+  blogType: ArticleCategoryType;
+};
 
-const BlogDetails = ({ details }: { details: IBlogDetails }) => {
+export type SelectedTagType = { tag: string; activeRef: RefObject<HTMLSpanElement>; type: 'scrolled' | 'selected' };
+
+const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, relatedArticlesList, blogType }) => {
   const [selectedSection, setSelectedSection] = useState<SelectedTagType>({} as SelectedTagType);
 
   const sortedContent = details?.attributes?.blog_contents?.data?.toSorted((a, b) => {
     return (a?.attributes?.position ?? 0) - (b?.attributes?.position ?? 0);
   });
-
-  useEffect(() => {
-    if (selectedSection?.activeRef) {
-      const section = document.querySelector(`#section-container #${selectedSection.activeRef.current?.id}`);
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, [selectedSection]);
+  const allHeadingsList = getAllPageIndex(sortedContent[0].attributes.body_content, '<heading>', '</heading>');
 
   return (
-    <div className="mt-20 text-primary-font-color flex flex-col">
-      <div className="relative">
+    <div className="mt-6 lg:mt-20 text-primary-font-color flex flex-col">
+      <div className="fixed p-5">
         <Breadcrumbs
           data={[
             {
               title: 'Home',
-              path: '',
+              path: '/',
             },
             {
-              title: 'Services',
-              path: '',
+              title: 'Blogs',
+              path: '/blogs',
             },
             {
-              title: 'Open Work Permit',
+              title: 'Article',
               path: '',
             },
           ]}
+          isStatic
         />
       </div>
-      <div className="flex">
-        <NavigationPanel content={sortedContent} selectedTag={selectedSection} setSelectedTag={setSelectedSection} />
-        <div id="section-container" className="w-full">
-          <section id="position-9" className="h-[300px] w-full bg-blue-400">
-            Position 9
-          </section>
-          <section id="position-10" className="h-[300px] w-full bg-green-400">
-            Position 10
-          </section>
-          <section id="position-11" className="h-[300px] w-full bg-red-400">
-            Position 11
-          </section>
-          <section id="position-12" className="h-[300px] w-full bg-yellow-400">
-            Position 12
-          </section>
-          <section id="position-13" className="h-[300px] w-full bg-gray-400">
-            Position 13
-          </section>
-          <section id="position-14" className="h-[300px] w-full bg-orange-400">
-            Position 14
-          </section>
-          <section id="position-15" className="h-[300px] w-full bg-cyan-400">
-            Position 15
-          </section>
+      <div id="scroll-container" className="flex px-6 lg:px-0">
+        <NavigationPanel content={allHeadingsList} selectedTag={selectedSection} setSelectedTag={setSelectedSection} />
+        <div id="section-container" className="max-w-[800px] lg:mr-[160px]">
+          <BlogHeader blogDetails={details} />
+          <BlogBody blogContent={sortedContent[0]} />
         </div>
       </div>
+      <div className="py-8 lg:py-[60px]">
+        <BookAnAppointment
+          onClick={() => {
+            return null;
+          }}
+        />
+      </div>
+      {relatedArticlesList?.data?.length > 0 && (
+        <div className="py-[60px] bg-secondary-grey">
+          <BlogsCarousel articleType={blogType} title="" subHeading="Related Articles" id={`${blogType}_listing`} />
+        </div>
+      )}
     </div>
   );
 };

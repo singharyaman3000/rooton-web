@@ -39,10 +39,10 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
   const initialApiCall = async () => {
     setLoading(true);
     const res = await getBlogsList(articleType, 1);
-    if (res.status) {
-      setBlogsListData(res?.res as IBlogsListResponse);
-      setAllArticlesList(res?.res?.data ?? []);
-      const initalDots = res?.res?.data?.map((_: unknown, index: number) => {
+    if (res) {
+      setBlogsListData(res as IBlogsListResponse);
+      setAllArticlesList(res?.data ?? []);
+      const initalDots = res?.data?.map((_: unknown, index: number) => {
         return index;
       });
       setDotsToDisplay(initalDots || []);
@@ -57,10 +57,10 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
   const getArticles = async () => {
     const currentPage = blogsListData?.meta?.pagination?.page || 0;
     const res = await getBlogsList(articleType, currentPage + 1);
-    if (res?.status) {
-      setBlogsListData(res?.res as IBlogsListResponse);
+    if (res) {
+      setBlogsListData(res);
       setAllArticlesList((prev: IBlogData[]) => {
-        return [...prev, ...res?.res?.data ?? []];
+        return [...prev, ...res.data ?? []];
       });
     }
   };
@@ -100,6 +100,10 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
     if (allArticlesList?.length !== blogsListData?.meta?.pagination?.total) getArticles();
   };
 
+  if(blogsListData?.data?.length === 0){
+    return null;
+  }
+
   return (
     <section className="border-b-2 md:border-none">
       <div className=" pl-6 pb-8 md:pb-12 md:px-20 flex justify-between items-end">
@@ -136,7 +140,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
           slideClass="!w-full md:!w-[380px] !px-0 md:!px-[12px]"
         >
           {allArticlesList?.map((detail: IBlogData) => {
-            return <ArticleCard key={detail.id} attributes={detail.attributes} />;
+            return <ArticleCard key={detail.id} articleId={detail.id} attributes={detail.attributes} />;
           })}
         </Slider>
         <MobilePagination
