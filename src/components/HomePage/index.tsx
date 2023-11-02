@@ -17,8 +17,8 @@ import FaqListing, { IFaqData } from './FaqListings';
 import BookAnAppointmentSection from './BookAppointment';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 import BlogSection from '../ServicePage/PageSections/BlogSection';
-import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
 import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
+import { SOURCE_PAGE } from '../BlogsListPage/constants';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
@@ -84,7 +84,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       case CONTENT_TYPES.PARTNERSHIPS:
         return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
       case CONTENT_TYPES.BLOG:
-        return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
+        return <BlogSection sourcePage={SOURCE_PAGE.HOME} title={title} subtitle={sub_title} />;
       default:
         return null;
       }

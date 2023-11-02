@@ -8,9 +8,10 @@ type BlogSectionProps = {
   title: string;
   subtitle: string;
   serviceType?: string;
+  sourcePage: string;
 };
 
-const BlogSection = ({ title, subtitle, serviceType }: BlogSectionProps) => {
+const BlogSection = ({ title, subtitle, serviceType, sourcePage }: BlogSectionProps) => {
   // const { loading } = useClientAPI({
   //   apiFn: () => {
   //     return getBlogs(url);
@@ -49,7 +50,8 @@ const BlogSection = ({ title, subtitle, serviceType }: BlogSectionProps) => {
     //         </div>
     //       </div>
     //     ) : (
-    < BlogsCarousel serviceType={serviceType} articleType={(serviceType ? 'blog' : 'news')}
+    < BlogsCarousel sourcePage={sourcePage} serviceType={serviceType}
+      articleType={(serviceType ? 'blog' : 'news')}
       title={title} subHeading={subtitle} id="news_listing" showMore />
     //     // {/* )} */}
     //   </div>

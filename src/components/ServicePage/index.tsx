@@ -19,6 +19,7 @@ import FAQSection from './PageSections/FAQSection';
 import BlogSection from './PageSections/BlogSection';
 import { ServiceDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
+import { SOURCE_PAGE } from '../BlogsListPage/constants';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -159,6 +160,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
             title=""
             subtitle={blogs?.attributes.title ?? ''}
             serviceType={response?.data.attributes.unique_identifier_name}
+            sourcePage={SOURCE_PAGE.SERVICE}
           />
         </div>
       );

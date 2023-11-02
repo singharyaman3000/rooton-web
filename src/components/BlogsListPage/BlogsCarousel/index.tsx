@@ -23,12 +23,13 @@ type BlogsCarouselParamsType = {
   title: string;
   subHeading: string;
   id: string;
+  sourcePage?: string;
   showMore?: boolean;
   serviceType?: string;
 };
 
 const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
-  subHeading, id, showMore, serviceType }) => {
+  subHeading, id, showMore, serviceType, sourcePage = 'blog' }) => {
   const [blogsListData, setBlogsListData] = useState<IBlogsListResponse>({} as IBlogsListResponse);
   const [allArticlesList, setAllArticlesList] = useState<IBlogData[]>([] as IBlogData[]);
   const [dotsToDisplay, setDotsToDisplay] = useState<number[]>([]);
@@ -40,7 +41,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
 
   const initialApiCall = async () => {
     setLoading(true);
-    const res = await getBlogsList(articleType, 1, serviceType);
+    const res = await getBlogsList(articleType, 1, sourcePage, serviceType);
     if (res.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList(res?.res?.data ?? []);
@@ -58,7 +59,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
 
   const getArticles = async () => {
     const currentPage = blogsListData?.meta?.pagination?.page || 0;
-    const res = await getBlogsList(articleType, currentPage + 1, serviceType);
+    const res = await getBlogsList(articleType, currentPage + 1, sourcePage, serviceType);
     if (res?.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList((prev: IBlogData[]) => {
