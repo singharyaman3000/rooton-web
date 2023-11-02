@@ -51,6 +51,10 @@ const BookAppointmentForm = ({
             target={convertToHtmlId(formHeading || formId)}
             calenderLink={calendarLink}
             isBookAppointment={false}
+            onProgress={(progress: number): void => {
+              throw new Error(`${progress} not required`);
+            }}
+            initScroll={(): void => {}}
           />
         </div>
         {imageUrl ? (

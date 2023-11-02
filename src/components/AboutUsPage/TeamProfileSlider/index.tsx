@@ -79,7 +79,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
             pageNum={pageNum}
             slideClass="!w-[73.4%] md:px-[15px] !min-w-[264px] md:!w-[29.6%] max-w-[380px] w-full md:!min-w-[380px] md:!max-w-[430px]"
           >
-            {teamData.map(({ employeeName, employeeRole, employeeDescription, imageUrl }, index) => {
+            {teamData.map(({ employeeName, employeeRole, employeeDescription, imageUrl }) => {
               return (
                 <ProfileCard
                   key={`${employeeName}-${imageUrl}`}
