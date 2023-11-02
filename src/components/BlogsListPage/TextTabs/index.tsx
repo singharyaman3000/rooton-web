@@ -27,7 +27,7 @@ const TextTabs: React.FC<TextTabsPropType> = ({ onChange, tabs }) => {
   const { fromLeft } = useSelectedTabPosition(selectedTab.currentRef);
 
   return (
-    <div className="relative w-full flex items-cente py-[18px]">
+    <div className="relative w-full pl-6 xl:pl-20 flex items-cente gap-[27px] md:gap-6 lg:gap-[60px] py-[17px] lg:py-[26px]">
       {tabs.map((data, index) => {
         return (
           <motion.div
@@ -40,7 +40,7 @@ const TextTabs: React.FC<TextTabsPropType> = ({ onChange, tabs }) => {
               delay: 0.3,
               ease: [0, 0.71, 0.2, 1.01],
             }}
-            className={`px-4 md:px-6 whitespace-nowrap font-bold text-[16px] cursor-pointer last:pr-0 ${
+            className={`whitespace-nowrap font-bold text-lg lg:text-2xl cursor-pointer ${
               selectedTab.tab.id === data.id ? 'font-bold' : 'font-normal'
             }`}
             onClick={() => {
@@ -53,7 +53,7 @@ const TextTabs: React.FC<TextTabsPropType> = ({ onChange, tabs }) => {
         );
       })}
       <div
-        className="absolute h-[2.8px] w-[25px] bg-amber-400 bottom-0 transition-all  duration-1700"
+        className="absolute h-[2.8px] w-[25px] bg-golden-yellow bottom-0 transition-all  duration-1700"
         style={{ left: fromLeft }}
       ></div>
     </div>
