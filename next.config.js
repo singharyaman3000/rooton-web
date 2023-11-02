@@ -13,7 +13,7 @@ const nextConfig = {
     NEXT_APP_MAIN_DOMAIN: process.env.NEXT_APP_MAIN_DOMAIN,
   },
   images: {
-    domains: [process.env.NEXT_ASSET_DOMAIN.toString(), '192.168.29.223'],
+    domains: [process.env.NEXT_ASSET_DOMAIN.toString()],
     minimumCacheTTL: 60 * 60,
   },
   future: { webpack5: true },
