@@ -42,6 +42,7 @@ export interface IProfileImage {
 export interface IWhatsAppAttributes {
   contactname: string;
   defaultmessage: string;
+  welcomeText: string;
   whatsappnumber: string;
   status: string;
   unique_identifire_name: string;

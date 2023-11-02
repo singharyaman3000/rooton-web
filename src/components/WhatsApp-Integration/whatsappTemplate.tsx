@@ -45,7 +45,7 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
     return `${message }🍁...`;
   };
   const handleButtonClick = () => {
-    window.open(`https://wa.me/${whatsapp.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
+    window.open(`https://wa.me/${whatsapp.whatsappnumber}?text=${whatsapp.welcomeText}`, '_blank', 'width=1080,height=800,left=200,top=200');
   };
 
   return (
