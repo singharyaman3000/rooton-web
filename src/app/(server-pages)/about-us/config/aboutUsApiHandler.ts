@@ -5,21 +5,19 @@ import { IAboutUsContent } from '@/app/services/apiService/aboutUsPageAPI';
 export const resolveAboutUsApiIssues = (apiResponse: IAboutUsContent) => {
   let companyStatValuesApi;
 
+  const { statValue: companyExperienceDefault, statText: companyExperienceText } = COMPANY_STAT_VALUES_DEFAULT[0];
+  const { statValue: clientCountDefault, statText: clientCountDefaultText } = COMPANY_STAT_VALUES_DEFAULT[1];
+
   try {
+    const { company_experience: companyExperienceApi, client_count: clientCountApi } = apiResponse.data[0].attributes;
     companyStatValuesApi = [
       {
-        statValue:
-          typeof apiResponse.data.company_experience === 'number'
-            ? Math.max(apiResponse.data.company_experience, COMPANY_STAT_VALUES_DEFAULT[0].statValue)
-            : COMPANY_STAT_VALUES_DEFAULT[0].statValue,
-        statText: COMPANY_STAT_VALUES_DEFAULT[0].statText,
+        statValue: typeof companyExperienceApi === 'number' ? companyExperienceApi : companyExperienceDefault,
+        statText: companyExperienceText,
       },
       {
-        statValue:
-          typeof apiResponse.data.client_count === 'number'
-            ? Math.max(apiResponse.data.client_count, COMPANY_STAT_VALUES_DEFAULT[1].statValue)
-            : COMPANY_STAT_VALUES_DEFAULT[1].statValue,
-        statText: COMPANY_STAT_VALUES_DEFAULT[1].statText,
+        statValue: typeof clientCountApi === 'number' ? clientCountApi : clientCountDefault,
+        statText: clientCountDefaultText,
       },
     ];
   } catch (error) {

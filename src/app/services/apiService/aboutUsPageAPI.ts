@@ -1,11 +1,18 @@
+import { IPageMeta } from './interfaces';
 import { getFetch } from '@/utils/apiUtils';
 import { ABOUT_US_API_PATH } from './apiUrl/aboutUsPage';
 
+export interface IAboutUsAttributes {
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  client_count: number;
+  company_experience: number;
+}
+
 export interface IAboutUsContent {
-  data: {
-    client_count: number;
-    company_experience: number;
-  };
+  data: { id: number; attributes: IAboutUsAttributes }[];
+  meta: IPageMeta;
 }
 
 export const getAboutUsContent = async () => {

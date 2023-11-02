@@ -24,7 +24,6 @@ const StatShowcaseCard = ({ statValue, statText, plusSign = true }: StatShowcase
         />
       </strong>
       <p className="mb-5 text-lg font-bold leading-primary-lg text-black">{ReactHtmlParser(statText)}</p>
-      <div className="w-full h-px bg-smoky-steel" />
     </>
   );
 };

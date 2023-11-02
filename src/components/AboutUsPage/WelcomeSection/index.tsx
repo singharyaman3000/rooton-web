@@ -35,7 +35,7 @@ const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyS
             <ul className="flex flex-col flex-wrap gap-5 md:gap-0 md:flex-row md:justify-between">
               {companyStatList.map(({ statValue, statText }) => {
                 return (
-                  <li className="w-full md:w-[45%]" key={statText}>
+                  <li className="w-full md:w-[45%] border-b border-b-smoky-steel" key={statText}>
                     <StatShowcaseCard statValue={statValue} statText={statText} />
                   </li>
                 );
