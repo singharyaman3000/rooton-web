@@ -4,7 +4,6 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
 
-
 export const metadata: Metadata = {
   title: 'ROOT ON',
   description: 'Root On',
