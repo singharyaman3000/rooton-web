@@ -80,7 +80,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
         />
       </section>
 
-      {/* Book Appointment Section */}
+      {/* Book Appointment Form Section */}
       <BookAppointmentForm
         sectionRef={bookAppointmentRef}
         displayBookAppointment={displayBookAppointment}
