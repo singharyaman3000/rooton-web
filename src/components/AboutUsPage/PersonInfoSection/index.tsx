@@ -30,7 +30,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
           <ul className="flex flex-col gap-4">
             {expertiseList.map((expertise) => {
               return (
-                <Li key={expertise} className="text-black">
+                <Li key={expertise} className="text-sm md:text-lg text-black">
                   {expertise}
                 </Li>
               );
