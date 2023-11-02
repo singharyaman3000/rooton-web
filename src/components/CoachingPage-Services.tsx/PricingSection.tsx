@@ -9,62 +9,8 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   return (
     <div className="flex flex-row relative my-5">
-      <div className="price-tab p-6 shadow-xl border-t-[60px] border-[#EBEBEB] mr-[30px] min-w-[350px] max-w-full items-start lg:max-w-none">
-        <style jsx>{`
-        
-        .price-tab {
-         background-color: #f5f5f5;
-        }
-
-        .purchase-btn{
-           background-color: #FFCB70;
-        }
-
-        .purchase-btn:hover{
-          background-color: #f59723;
-        }
-        
-        .sub-list{
-          margin-top: 8px !important;
-        }
-
-        .plan-name-rel{
-          position: relative;
-          bottom: 69px;
-        }
-
-        @media (min-width: 1658px) {
-          .price-tab {
-            width: 440px;
-            padding: 40px;
-          }
-
-          .plan-name-rel{
-            bottom: 85px;
-          }
-        }
-
-          @media (max-width: 768px) {
-            .price-tab-text {
-              font-size: 13px;
-            }
-          }
-  
-          @media (max-width: 480px) {
-            .price-tab-text {
-              font-size: 12px;
-            }
-            .price-tab {
-              min-width: 300px;
-              max-width: 100%;
-              padding: 40px;
-            }
-
-            .plan-name-rel{
-              bottom: 85px;
-            }
-          }
-        `}</style>
+      <div className="bg-[#f5f5f5] shadow-xl mr-[30px] min-w-[350px] max-w-full">
+       
         {our_plans.popular && (
           <div className="absolute top-0 right-5 mr-6 -mt-4">
             <div className="inline-flex items-center text-xs font-semibold py-1.5 px-3 bg-[#f59723] text-white rounded-full shadow-sm shadow-slate-950/5">
@@ -72,14 +18,16 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
             </div>
           </div>
         )}
-        <div className="mb-5 price-tab-text">
-          <div className="plan-name-rel text-black text-center font-extrabold text-2xl">{our_plans.planName}</div>
+        <div className="text-black bg-[#EBEBEB] justify-center items-center text-center font-extrabold text-2xl mb-8 py-3.5">{our_plans.planName}</div>
+        <div className="px-6 pb-6">
+        <div className="mb-5 md:text-xs sm:text-xs">
+          
           <div className="flex items-center justify-center items-baseline mb-5">
             <div className="text-black font-bold text-4xl">${our_plans.price}</div>
           </div>
           <div className="font-semibold text-sm h-[70px] text-black mb-5">{our_plans.planDescription}</div>
           <a
-            className="purchase-btn w-full inline-flex justify-center whitespace-nowrap px-3.5 py-3 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150"
+            className="bg-[#FFCB70] hover:bg-[#f59723] w-full inline-flex justify-center whitespace-nowrap px-3.5 py-3 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150"
             href="#0">
             Purchase Plan
           </a>
@@ -115,7 +63,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
                 {isExpanded && (
                   <ul className="text-black text-sm space-y-4 grow ml-5 font-normal">
                     {subFeatures.map((subFeature, subIndex) => (
-                      <li key={subIndex} className="flex sub-list items-center">
+                      <li key={subIndex} className="flex mt-[8px] items-center">
                         <svg
                           className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
                           viewBox="0 0 20 20"
@@ -132,6 +80,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
             );
           })}
         </ul>
+        </div>
       </div>
     </div>
   );
