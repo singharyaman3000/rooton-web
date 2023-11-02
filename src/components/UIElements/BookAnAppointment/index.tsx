@@ -26,7 +26,7 @@ const BookAnAppointment = ({ onClick }: IBookAnAPpointment) => {
               {BookAnAppointmentContent?.title}{' '}
             </h1>
             <BookAnApptButton
-              cssClass="w-full md:w-fit"
+              cssClass="w-full md:w-fit md:max-w-[260px]"
               handleOnClick={() => {
                 onClick();
               }}
