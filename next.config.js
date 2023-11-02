@@ -3,12 +3,6 @@
 const withPWA = require('next-pwa')({
     dest: 'public'
   })
-
-  
-
-
-
-
 const nextConfig = {
     env: {
         NEXT_API_BASE_URL: process.env.NEXT_API_BASE_URL,
@@ -22,5 +16,4 @@ const nextConfig = {
         minimumCacheTTL: 60 * 60
       }
 };
-
 module.exports = nextConfig;
