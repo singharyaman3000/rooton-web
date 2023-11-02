@@ -104,8 +104,10 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
 
   return (
     allArticlesList?.length ?
-      <section className={`${serviceType ? 'py-[80px]' : ''} border-b-2 md:border-none`}>
-        <div className=" pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end">
+      <section className={`${serviceType ? 'pt-[40px] md:py-[80px] max-w-screen-2k m-auto' : ''}
+        border-b-2 md:border-none`}>
+        <div className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
+          ${serviceType ? 'md:px-20' : ''}`}>
           <div>
             <SectionHeadings title={title} subTitle={subHeading} />
           </div>
@@ -128,7 +130,8 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="w-[100%] pl-0 md:pl-6 xl:pl-20" {...handlers}>
+        <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} `}
+          {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id={id}
