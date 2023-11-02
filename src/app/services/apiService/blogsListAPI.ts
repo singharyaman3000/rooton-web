@@ -1,6 +1,7 @@
 import { getFetch } from '@/utils/apiUtils';
 import { getBlogsListUrl } from './apiUrl/blogsPage';
 import { IMediaUrlData, IPageMeta } from './interfaces';
+import { GET_BLOGS_SERVICE } from './apiUrl/servicePage';
 
 export type ArticleCategoryType = 'news' | 'blog' | 'case-study';
 
@@ -32,9 +33,12 @@ export interface IBlogsListResponse {
   meta: IPageMeta;
 }
 
-export const getBlogsList = async (articleType: ArticleCategoryType, pageNo: number) => {
+export const getBlogsList = async (articleType: ArticleCategoryType, pageNo: number, serviceType?: string) => {
   try {
-    const res = await getFetch<IBlogsListResponse>(getBlogsListUrl(articleType, pageNo), { cache: 'no-cache' });
+    const url = serviceType ?
+      GET_BLOGS_SERVICE.replace('<service-type>', serviceType)
+      : getBlogsListUrl(articleType, pageNo);
+    const res = await getFetch<IBlogsListResponse>(url, { cache: 'no-cache' });
     return { status: 1, res };
   } catch (error) {
     return { status: 0, error };
