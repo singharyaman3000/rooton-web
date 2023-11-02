@@ -1,7 +1,6 @@
 import { getFetch } from '@/utils/apiUtils';
 import { HEADER_FOOTER_API } from './apiUrl/homePage';
 import { IMediaUrlData } from './interfaces';
-import { MediaUrl } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
 

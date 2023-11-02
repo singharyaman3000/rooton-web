@@ -4,8 +4,7 @@ import React, { useState, useEffect } from 'react';
 import WhatsappIcon from '../Icons/WhatsappIcon';
 import WhatsAppTemp from './whatsappTemplate';
 import styles from './WhatsappCss.module.css';
-import { getHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
-import { IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
+import { getHeaderFooterData, IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
 
 export interface IWhatsAppProps {
   whatsapp: IWhatsAppAttributes;
@@ -13,7 +12,7 @@ export interface IWhatsAppProps {
   showTypingInitial: boolean;
 }
 
-const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = ({ whatsapp }) => {
+const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
   const [showTemplate, setShowTemplate] = useState(false);
   const [showTypingInitial, setShowTypingInitial] = useState(true);
   const [isMobileView, setIsMobileView] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
@@ -64,13 +63,9 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = ({ whatsapp 
       }}
     >
       <div className={showTemplate ? styles.fade_show : styles.fade}>
-      {whatsAppData && (
-    <WhatsAppTemp
-      hideTemplate={handleLogoClick}
-      showTypingInitial={showTypingInitial}
-      whatsapp={whatsAppData}
-    />
-  )}
+        {whatsAppData && (
+          <WhatsAppTemp hideTemplate={handleLogoClick} showTypingInitial={showTypingInitial} whatsapp={whatsAppData} />
+        )}
       </div>
 
       <div onClick={handleLogoClick} role="button" tabIndex={0}>

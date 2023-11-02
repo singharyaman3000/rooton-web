@@ -14,7 +14,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const whatsAppData = apiRes[0]?.attributes?.whats_app;
 
   if (!whatsAppData || !whatsAppData.data || !whatsAppData.data.attributes) {
-    return null; 
+    return null;
   }
 
   return (

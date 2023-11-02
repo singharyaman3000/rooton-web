@@ -14,12 +14,13 @@ export interface IWhatsAppProps {
 }
 
 const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTypingInitial }) => {
+  // eslint-disable-next-line no-unused-vars
   const [showTyping, setShowTyping] = useState(showTypingInitial);
 
   const profileImageUrl = whatsapp?.profile_image?.data?.[0]?.attributes?.url || '';
 
   useEffect(() => {
-    setShowTyping(showTypingInitial); 
+    setShowTyping(showTypingInitial);
   }, [showTypingInitial]);
   const getCurrentTime = () => {
     const now = new Date();
@@ -28,20 +29,20 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
     return `${hours}:${minutes}`;
   };
 
-  const contact_name = (name: any) => {
+  const contact_name = (name: string) => {
     const maxLength = 7;
     if (name.length > maxLength) {
-      return name.substring(0, maxLength) + '';
+      return `${name.substring(0, maxLength) }`;
     }
     return name;
   };
 
-  const default_message = (message: any) => {
+  const default_message = (message: string) => {
     const maxLength = 41 - 2;
     if (message.length > maxLength) {
-      return message.substring(0, maxLength) + '🍁...';
+      return `${message.substring(0, maxLength) }🍁...`;
     }
-    return message + '🍁...';
+    return `${message }🍁...`;
   };
   const handleButtonClick = () => {
     window.open(`https://wa.me/${whatsapp.whatsappnumber}`, '_blank', 'width=1080,height=800,left=200,top=200');
@@ -61,11 +62,13 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
         </button>
         <div className={styles.logo_whatsApp}>
           <div className={styles.avatar}>
-            <img src={appendAssetUrl(profileImageUrl)} alt="Profile" /> 
+            <img src={appendAssetUrl(profileImageUrl)} alt="Profile" />
           </div>
         </div>
         <div className={styles.text}>
-          <div title={whatsapp?.contactname} className={styles.header_name}>{whatsapp?.contactname}</div>
+          <div title={whatsapp?.contactname} className={styles.header_name}>
+            {whatsapp?.contactname}
+          </div>
           <div className={styles.header_status}>{whatsapp?.status}</div>
         </div>
       </div>
