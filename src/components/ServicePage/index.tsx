@@ -152,7 +152,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         </div>
       );
     case 'service-faq':
-      return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
+      return <FAQSection faqs={faqs?.attributes?.json_content?.faq} />;
     case 'blogs':
       return (
         <div className=" mt-[74px] bg-secondary-grey">
