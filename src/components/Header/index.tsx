@@ -168,6 +168,7 @@ export default function Header() {
                 />
               )}
             </span>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <span
               onClick={() => {
                 scrollIntoView('servicesHomePage');
