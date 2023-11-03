@@ -21,10 +21,8 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
   useEffect(() => {
     const fetchData = async () => {
       const headerFooterData = await getHeaderFooterData();
-
       setWhatsAppData(headerFooterData[0]?.attributes?.whats_app?.data?.attributes);
     };
-
     fetchData();
   }, []);
 
