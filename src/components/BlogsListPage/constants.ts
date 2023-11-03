@@ -9,6 +9,12 @@ export const tabsData: TabType[] = [
   { key: 4, label: 'Case studies', id: BLOG_CATEGORY.CASE_STUDIES },
 ];
 
+export const SOURCE_PAGE = {
+  HOME: 'home',
+  SERVICE: 'service',
+  BLOGS: 'blog',
+};
+
 export const BREAD_CRUMBS_LIST = [
   {
     title: 'Home',
