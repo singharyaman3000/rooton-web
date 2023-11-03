@@ -44,6 +44,14 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
     }
     return `${message }🍁...`;
   };
+
+  const start_chat = (chat: string) => {
+    const maxLength = 10;
+    if (chat.length > maxLength) {
+      return `${chat.substring(0, maxLength) }`;
+    }
+    return chat;
+  };
   const handleButtonClick = () => {
     window.open(`https://wa.me/${whatsapp.whatsappnumber}?text=${whatsapp.welcomeText}`, '_blank', 'width=1080,height=800,left=200,top=200');
   };
@@ -117,7 +125,7 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
               </div>
             </div>
           </div>
-          <span className={styles.ButtonBase2}>Start Chat</span>
+          <span className={styles.ButtonBase2}>{start_chat("Start Chat")}</span>
         </span>
       </button>
     </div>
