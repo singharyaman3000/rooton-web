@@ -32,7 +32,7 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
   const contact_name = (name: string) => {
     const maxLength = 7;
     if (name.length > maxLength) {
-      return `${name.substring(0, maxLength) }`;
+      return `${name.substring(0, maxLength)}`;
     }
     return name;
   };
@@ -40,20 +40,24 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
   const default_message = (message: string) => {
     const maxLength = 41 - 2;
     if (message.length > maxLength) {
-      return `${message.substring(0, maxLength) }🍁...`;
+      return `${message.substring(0, maxLength)}🍁...`;
     }
-    return `${message }🍁...`;
+    return `${message}🍁...`;
   };
 
   const start_chat = (chat: string) => {
     const maxLength = 10;
     if (chat.length > maxLength) {
-      return `${chat.substring(0, maxLength) }`;
+      return `${chat.substring(0, maxLength)}`;
     }
     return chat;
   };
   const handleButtonClick = () => {
-    window.open(`https://wa.me/${whatsapp.whatsappnumber}?text=${whatsapp.welcomeText}`, '_blank', 'width=1080,height=800,left=200,top=200');
+    window.open(
+      `https://wa.me/${whatsapp.whatsappnumber}?text=${whatsapp.welcomeText}`,
+      '_blank',
+      'width=1080,height=800,left=200,top=200',
+    );
   };
 
   return (
