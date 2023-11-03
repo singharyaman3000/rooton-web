@@ -268,9 +268,13 @@ body {
 
 .training-cards {
   background: var(--primary-bg);
-  border-top: 65px solid var(--primary-bg);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  border-top: 65px solid #000;
+  border-left: 0.6px solid rgb(0,0,0, 0.3); 
+  border-right: 0.6px solid rgb(0,0,0, 0.3); 
+  border-bottom: 0.6px solid rgb(0,0,0, 0.3);
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
+  transform: translateY(0px) scale(1);
+  transition: transform 0.3s ease;
 }
 
 .card-text {
@@ -280,14 +284,37 @@ body {
 [data-theme='dark'] .card-text {
   color: #fff;
 }
-
+.qqq {
+  color: #fff;
+}
+[data-theme='dark'] .qqq {
+  color: #000000;
+}
+.xyyz {
+  position: absolute;
+  align-items: center;
+  z-index: 10;
+  left: 0;
+  top: -45px;
+}
+[data-theme='dark'] .xyyz {
+  top: -45px;
+}
 .training-cards:hover {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  /* transform: translateY(-10px) scale(1.05); */
+  
+   
 }
 
 [data-theme='dark'] .training-cards {
   background: #000;
-  border-top: 65px solid #000;
+  box-shadow: rgb(192 192 192 / 45%) 0px 2px 4px 0px, rgb(192 192 192 / 45%) 0px 2px 16px 0px;
+  transition: all 0.3s ease;
+  /* border-top: 65px solid rgb(84 84 84); */
+  border-top: 65px solid rgb(149 149 149);
+  border-left: 0.6px solid rgb(255,255,255, 0.3); 
+  border-right: 0.6px solid rgb(255,255,255, 0.3); 
+  border-bottom: 0.6px solid rgb(255,255,255, 0.3); 
 }
 
 /*Tabs styling*/

@@ -24,13 +24,13 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
           margin-top: 41px;
           border-radius: 8px;
         }
-        .card::-webkit-scrollbar {
-          display: none;
-        }
-        .card {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
+        // .card::-webkit-scrollbar {
+        //   display: none;
+        // }
+        // .card {
+        //   scrollbar-width: none;
+        //   -ms-overflow-style: none;
+        // }
 
         .first-card {
           border-top: none;
@@ -47,7 +47,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
              
         }
         .image {
-          height: 40px;
+          height: 35px;
           position: relative;
           top: -5px;
           left: -15px;
@@ -59,7 +59,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
           letter-spacing: 1px;
           min-height: 250px;
           max-height: 100%;
-          text-align: justify;         
+          // text-align: justify;         
         }
         
 
@@ -110,9 +110,9 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
         </div>
       ) : (
         <div className=" second-card flex flex-row">
-          <div className="title absolute items-center z-[10] left-0 top-[-35px] w-full">
+          <div className="title xyz xyyz w-full">
             <img className='image' src={appendAssetUrl(training.image)} alt="boy" />
-            <h2 className="heading card-text text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
+            <h2 className="heading qqq text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
           </div>
           <div className="card-text1 card-text">
             <p>{training.description}</p>
