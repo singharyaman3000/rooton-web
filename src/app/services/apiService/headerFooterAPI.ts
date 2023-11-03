@@ -4,6 +4,10 @@ import { IMediaUrlData } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
 
+export const CONTENT_TYPES = {
+  WHATSAPP: 'whatsapp',
+};
+
 export interface ILanguages {
   data?: ILanguageData[] | null;
 }
@@ -23,10 +27,42 @@ export interface IAddressData {
 export interface IAddresses {
   data?: IAddressData[] | null;
 }
+export interface IProfileImageAttributes {
+  name: string;
+  url: string;
+}
+export interface IProfileImageData {
+  id: number;
+  attributes: IProfileImageAttributes;
+}
+export interface IProfileImage {
+  data?: IProfileImageData[] | null;
+}
+
+export interface IWhatsAppAttributes {
+  contactname: string;
+  defaultmessage: string;
+  welcomeText: string;
+  whatsappnumber: string;
+  status: string;
+  unique_identifire_name: string;
+  profile_image: IProfileImage;
+}
+
+export interface IWhatsAppData {
+  id: number;
+  attributes: IWhatsAppAttributes;
+}
+
+export interface IWhatsApp {
+  data?: IWhatsAppData;
+}
+
 export interface IAttributes {
   addresses: IAddresses;
   languages: ILanguages;
   core_services: ICoreServices;
+  whats_app: IWhatsApp;
 }
 export interface IHeaderFooterData {
   id: number;

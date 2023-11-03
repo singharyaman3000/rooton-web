@@ -2,11 +2,12 @@ import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
 import React from 'react';
 
 export interface IButton {
+  btnLabel: string;
   handleOnClick: () => void;
   cssClass?: string;
 }
 
-const BookAnApptButton = ({ handleOnClick, cssClass }: IButton) => {
+const BookAnApptButton = ({ btnLabel, handleOnClick, cssClass }: IButton) => {
   return (
     <button
       type="button"
@@ -14,7 +15,7 @@ const BookAnApptButton = ({ handleOnClick, cssClass }: IButton) => {
       aria-label={'Book an appointment'}
       onClick={handleOnClick}
     >
-      {'Book an Appointment now'}
+      {btnLabel}
       <div className="ml-[16px]">
         <CalenderIconYellow />
       </div>

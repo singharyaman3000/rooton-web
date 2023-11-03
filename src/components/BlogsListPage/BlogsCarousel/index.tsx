@@ -23,10 +23,13 @@ type BlogsCarouselParamsType = {
   title: string;
   subHeading: string;
   id: string;
+  sourcePage?: string;
   showMore?: boolean;
+  serviceType?: string;
 };
 
-const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, subHeading, id, showMore }) => {
+const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
+  subHeading, id, showMore, serviceType, sourcePage = 'blog' }) => {
   const [blogsListData, setBlogsListData] = useState<IBlogsListResponse>({} as IBlogsListResponse);
   const [allArticlesList, setAllArticlesList] = useState<IBlogData[]>([] as IBlogData[]);
   const [dotsToDisplay, setDotsToDisplay] = useState<number[]>([]);
@@ -38,7 +41,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
 
   const initialApiCall = async () => {
     setLoading(true);
-    const res = await getBlogsList(articleType, 1);
+    const res = await getBlogsList(articleType, 1, sourcePage, serviceType);
     if (res.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList(res?.res?.data ?? []);
@@ -56,7 +59,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
 
   const getArticles = async () => {
     const currentPage = blogsListData?.meta?.pagination?.page || 0;
-    const res = await getBlogsList(articleType, currentPage + 1);
+    const res = await getBlogsList(articleType, currentPage + 1, sourcePage, serviceType);
     if (res?.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList((prev: IBlogData[]) => {
@@ -101,51 +104,56 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
   };
 
   return (
-    <section className="border-b-2 md:border-none">
-      <div className=" pl-6 pb-8 md:pb-12 md:px-20 flex justify-between items-end">
-        <div>
-          <SectionHeadings title={title} subTitle={subHeading} />
+    allArticlesList?.length ?
+      <section className={`${serviceType ? 'pt-[40px] md:py-[80px] max-w-screen-2k m-auto' : ''}
+        border-b-2 md:border-none`}>
+        <div className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
+          ${serviceType ? 'md:px-20' : ''}`}>
+          <div>
+            <SectionHeadings title={title} subTitle={subHeading} />
+          </div>
+          <div className="hidden md:flex">
+            {showMore && (
+              <Link href={'/blogs'} className="mr-[30px]">
+                <Button
+                  cssClass="border-0 slider-nav bg-white font-bold"
+                  label="More"
+                  tabIndex={0}
+                  handleOnClick={() => {
+                    return null;
+                  }}
+                  ariaLabel="More  News"
+                />
+              </Link>
+            )}
+            <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
+            <SliderNav handleOnClick={handleIncrementPage} disable={pageNum === totalPages - 1} />
+          </div>
         </div>
-        <div className="hidden md:flex">
-          {showMore && (
-            <Link href={'/blogs'} className="mr-[30px]">
-              <Button
-                cssClass="border-0 slider-nav bg-white font-bold"
-                label="More"
-                tabIndex={0}
-                handleOnClick={() => {
-                  return null;
-                }}
-                ariaLabel="More  News"
-              />
-            </Link>
-          )}
-          <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
-          <SliderNav handleOnClick={handleIncrementPage} disable={pageNum === totalPages - 1} />
+        {/* eslint-disable react/jsx-props-no-spreading */}
+        <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} `}
+          {...handlers}>
+          <Slider
+            scrollPercent={`${-scrollAmt}px`}
+            id={id}
+            pageNum={pageNum}
+            loading={loading}
+            loadingUI={<ArticlePreLoader />}
+            slideParentClass="!justify-start"
+            slideClass="!w-full md:!w-[380px] !px-0 md:mr-[30px]"
+          >
+            {allArticlesList?.map((detail: IBlogData) => {
+              return <ArticleCard key={detail.id} attributes={detail.attributes} />;
+            })}
+          </Slider>
+          <MobilePagination
+            dotsToDisplay={dotsToDisplay}
+            pageNum={pageNum}
+            pageMeta={blogsListData?.meta && blogsListData?.meta}
+          />
         </div>
-      </div>
-      {/* eslint-disable react/jsx-props-no-spreading */}
-      <div className="w-[100%] md:pl-20" {...handlers}>
-        <Slider
-          scrollPercent={`${-scrollAmt}px`}
-          id={id}
-          pageNum={pageNum}
-          loading={loading}
-          loadingUI={<ArticlePreLoader />}
-          slideParentClass="!justify-start"
-          slideClass="!w-full md:!w-[380px] !px-0 md:!px-[12px]"
-        >
-          {allArticlesList?.map((detail: IBlogData) => {
-            return <ArticleCard key={detail.id} attributes={detail.attributes} />;
-          })}
-        </Slider>
-        <MobilePagination
-          dotsToDisplay={dotsToDisplay}
-          pageNum={pageNum}
-          pageMeta={blogsListData?.meta && blogsListData?.meta}
-        />
-      </div>
-    </section>
+      </section>
+      : ''
   );
 };
 

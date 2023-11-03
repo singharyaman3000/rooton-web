@@ -49,3 +49,10 @@ export const getTranslatedURL = (url: string, lang?: string) => {
 };
 
 export const getServicePageURL = (id: string | number) => {return `/service/${id}`;};
+
+export const convertToHtmlId = (input: string) => {
+  let id = input.toLowerCase();
+  id = id.replace(/\s+/g, '-'); // replace spaces with hyphens
+  id = id.replace(/[^a-z0-9-]/g, ''); // remove special characters except hyphen
+  return id;
+};

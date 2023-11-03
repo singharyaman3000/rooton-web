@@ -17,9 +17,9 @@ import LeadFormSection from './PageSections/LeadFormSection';
 import CTAWrapperSection from './PageSections/CTAWrapperSection';
 import FAQSection from './PageSections/FAQSection';
 import BlogSection from './PageSections/BlogSection';
-import { GET_BLOGS_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
 import { ServiceDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
+import { SOURCE_PAGE } from '../BlogsListPage/constants';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -159,7 +159,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           <BlogSection
             title=""
             subtitle={blogs?.attributes.title ?? ''}
-            url={GET_BLOGS_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
+            serviceType={response?.data.attributes.unique_identifier_name}
+            sourcePage={SOURCE_PAGE.SERVICE}
           />
         </div>
       );
