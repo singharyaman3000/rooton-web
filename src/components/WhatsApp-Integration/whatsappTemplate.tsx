@@ -125,7 +125,7 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
               </div>
             </div>
           </div>
-          <span className={styles.ButtonBase2}>{start_chat("Start Chat")}</span>
+          <span className={styles.ButtonBase2}>{start_chat('Start Chat')}</span>
         </span>
       </button>
     </div>
