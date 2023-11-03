@@ -21,10 +21,8 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
   useEffect(() => {
     const fetchData = async () => {
       const headerFooterData = await getHeaderFooterData();
-
       setWhatsAppData(headerFooterData[0]?.attributes?.whats_app?.data?.attributes);
     };
-
     fetchData();
   }, []);
 
@@ -38,7 +36,11 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
   }, []);
 
   const handleClick = () => {
-    window.open(`https://wa.me/${whatsAppData?.whatsappnumber}?text=${whatsAppData?.welcomeText}`, '_blank', 'width=1080,height=800,left=200,top=200');
+    window.open(
+      `https://wa.me/${whatsAppData?.whatsappnumber}?text=${whatsAppData?.welcomeText}`,
+      '_blank',
+      'width=1080,height=800,left=200,top=200',
+    );
   };
   const handleLogoClick = () => {
     if (isMobileView) {
@@ -67,7 +69,7 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
         )}
       </div>
 
-      <div onClick={handleLogoClick} role="button" tabIndex={0}>
+      <div onClick={handleLogoClick} role="button" tabIndex={0} aria-label="Open WhatsApp">
         <WhatsappIcon />
       </div>
     </div>

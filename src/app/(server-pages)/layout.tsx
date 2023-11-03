@@ -12,10 +12,7 @@ import WhatsAppButton from '@/components/WhatsApp-Integration';
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const apiRes = await getHeaderFooterData();
   const whatsAppData = apiRes[0]?.attributes?.whats_app;
-
-  if (!whatsAppData || !whatsAppData.data || !whatsAppData.data.attributes) {
-    return null;
-  }
+  const shouldRenderWhatsAppButton = whatsAppData?.data?.attributes;
 
   return (
     <HeaderFooterDataProvider headerFooterAPIData={apiRes}>
@@ -24,7 +21,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ServiceListingOnAdviceMobile />
           <ServicesPopUpModal />
           <Header />
-          <WhatsAppButton whatsapp={whatsAppData.data.attributes} />
+          {shouldRenderWhatsAppButton && (
+            <WhatsAppButton whatsapp={whatsAppData!.data!.attributes} />
+          )}
           {children}
           <Footer />
         </MobileModalShowContextProvider>

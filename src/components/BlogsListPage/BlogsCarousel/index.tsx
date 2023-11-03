@@ -17,6 +17,7 @@ import MobilePagination from '../MobilePagination';
 import ArticlePreLoader from '../ArticlePreLoader';
 import Button from '@/components/UIElements/Button';
 import Link from 'next/link';
+import { SOURCE_PAGE } from '../constants';
 
 type BlogsCarouselParamsType = {
   articleType: ArticleCategoryType;
@@ -147,6 +148,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
             })}
           </Slider>
           <MobilePagination
+            className={sourcePage === SOURCE_PAGE.SERVICE ? 'bg-secondary-grey' : 'bg-white-fixed'}
             dotsToDisplay={dotsToDisplay}
             pageNum={pageNum}
             pageMeta={blogsListData?.meta && blogsListData?.meta}
