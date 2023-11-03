@@ -1,9 +1,14 @@
 import React from 'react';
 import { IPageMeta } from '@/app/services/apiService/interfaces';
 
-type MobilePaginationPropsType = { dotsToDisplay: number[]; pageNum: number; pageMeta: IPageMeta };
+type MobilePaginationPropsType = {
+  dotsToDisplay: number[];
+  pageNum: number;
+  pageMeta: IPageMeta;
+  className: string;
+ };
 
-const MobilePagination: React.FC<MobilePaginationPropsType> = ({ dotsToDisplay, pageNum, pageMeta }) => {
+const MobilePagination: React.FC<MobilePaginationPropsType> = ({ dotsToDisplay, pageNum, pageMeta, className }) => {
   const totalArticleCount = pageMeta?.pagination?.total;
 
   const getStyles = (index: number, number: number) => {
@@ -26,7 +31,7 @@ const MobilePagination: React.FC<MobilePaginationPropsType> = ({ dotsToDisplay, 
   };
 
   return (
-    <div className="md:hidden flex items-end py-4 gap-4 align-center justify-center bg-white-fixed">
+    <div className={`md:hidden flex items-end py-4 gap-4 align-center justify-center ${className}`}>
       {dotsToDisplay?.map((number, index) => {
         return (
           <span
