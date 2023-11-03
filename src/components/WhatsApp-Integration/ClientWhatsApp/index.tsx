@@ -23,13 +23,7 @@ const ClientWhatsAppButton = () => {
 
   const shouldRenderWhatsAppButton = whatsAppData != null;
 
-  return (
-    <ClientContainer>
-      {shouldRenderWhatsAppButton && (
-        <WhatsAppButton whatsapp={whatsAppData} />
-      )}
-    </ClientContainer>
-  );
+  return <ClientContainer>{shouldRenderWhatsAppButton && <WhatsAppButton whatsapp={whatsAppData} />}</ClientContainer>;
 };
 
 export default ClientWhatsAppButton;

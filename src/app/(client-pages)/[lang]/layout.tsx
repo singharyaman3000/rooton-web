@@ -15,7 +15,6 @@ import MobileModalShowContextProvider from '@/providers/coreServicesModalMobileC
 import ServiceListingOnAdviceMobile from '@/components/HomePage/CoreServiceListing/ServiceListOnAdviceMobile';
 import ServicesPopUpModal from '@/components/HomePage/CoreServiceListing/ServicesPopUpModal';
 
-
 const ClientPageLayout = ({ children }: { children: ReactNode }) => {
   const { isClient } = useClient();
   const { data } = useClientAPI({ apiFn: getHeaderFooterData });
@@ -31,7 +30,7 @@ const ClientPageLayout = ({ children }: { children: ReactNode }) => {
                 <ServicesPopUpModal />
                 <Translator />
                 <ClientHeader />
-                <ClientWhatsAppButton/>
+                <ClientWhatsAppButton />
                 {children}
                 <ClientFooter />
               </MobileModalShowContextProvider>
