@@ -46,10 +46,8 @@ export default function Header() {
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          if (!isFixed) {
-            showOrHideHeader(lastKnownScrollPosition);
-            ticking = false;
-          }
+          showOrHideHeader(lastKnownScrollPosition);
+          ticking = false;
         });
 
         ticking = true;
@@ -98,7 +96,7 @@ export default function Header() {
   const getHeaderStyle = () => {
     let style;
     if (isFixed) {
-      style = 'z-[999] fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary';
+      style = 'z-[999] absolute top-0 w-full';
     } else {
       style = `z-[999] ${
         scrolledEnough
@@ -109,7 +107,6 @@ export default function Header() {
 
     return style;
   };
-console.log(scrolledEnough);
 
   return (
     <header ref={headerRef} className={getHeaderStyle()}>
@@ -168,7 +165,7 @@ console.log(scrolledEnough);
             hidden
             lg:flex
             flex-shrink-0
-            ${scrolledEnough ? 'text-header-font-color' : ' text-black'}
+            ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
           `}
           >
             <span className="h-[100%] flex items-center relative">

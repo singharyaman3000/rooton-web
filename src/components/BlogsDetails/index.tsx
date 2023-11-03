@@ -1,6 +1,6 @@
 'use client';
 
-import { IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
+import { IBlogContentData, IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
 import { Breadcrumbs } from '../Breadcrumbs';
 import NavigationPanel from './NavigationPanel';
 import React, { RefObject, useState } from 'react';
@@ -25,7 +25,9 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, relatedArticles
   const sortedContent = details?.attributes?.blog_contents?.data?.toSorted((a, b) => {
     return (a?.attributes?.position ?? 0) - (b?.attributes?.position ?? 0);
   });
-  const allHeadingsList = getAllPageIndex(sortedContent[0].attributes.body_content, '<heading>', '</heading>');
+  const allHeadingsList = sortedContent?.length
+    ? getAllPageIndex(sortedContent[0]?.attributes.body_content, '<heading>', '</heading>')
+    : [];
 
   return (
     <div className="mt-6 lg:mt-20 text-primary-font-color flex flex-col">
@@ -52,7 +54,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, relatedArticles
         <NavigationPanel content={allHeadingsList} selectedTag={selectedSection} setSelectedTag={setSelectedSection} />
         <div id="section-container" className="max-w-[800px] lg:mr-[160px]">
           <BlogHeader blogDetails={details} />
-          <BlogBody blogContent={sortedContent[0]} />
+          <BlogBody blogContent={sortedContent?.length ? sortedContent[0] : ({} as IBlogContentData)} />
         </div>
       </div>
       <div className="py-8 lg:py-[60px]">
