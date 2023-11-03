@@ -12,7 +12,7 @@ export const BANNER_SECTION_CONTENT = {
   bannerImageUrl: '/images/aboutUs/about-us-banner.png',
   bannerHeading: '<span>About Root On</span>',
   bannerDescription:
-    '<span>Personalized immigration guidance from a licensed professional.</span><br><span>Discover the best pathway for your Canadian dream.</span>',
+    'Personalized immigration guidance from a licensed professional. Discover the best pathway for your Canadian dream.',
 };
 
 /* About Us Description Section */

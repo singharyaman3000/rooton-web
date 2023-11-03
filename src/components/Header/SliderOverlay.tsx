@@ -40,14 +40,21 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                         className="
                             cursor-pointer
                         "
-                        onClick={() => setOpen(false)}
+                        onClick={() => {
+                          setOpen(false);
+                        }}
                       >
                         <CloseIcon />
                       </button>
                     </div>
                     <div className="relative flex-1 px-[28px] py-[40px] sm:px-6">
-                      <div
-                        className="
+                      <Link href={'/about-us'}>
+                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -56,9 +63,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-primary-border
                           mb-5
                         "
-                      >
-                        About Us
-                      </div>
+                        >
+                          About Us
+                        </div>
+                      </Link>
                       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                       <div
                         onClick={() => {
@@ -91,9 +99,12 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         Coaching
                       </div>
-                      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                       <Link href={'/blogs'}>
+                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                         <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
                           className="
                           text-primary-font-color
                           pb-5
