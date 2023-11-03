@@ -222,11 +222,15 @@
   color: rgb(255, 255, 255);
   font-family: inherit;
   background-color: rgb(20, 198, 86);
+  max-width: 320px;
+  width: 100%;
 }
 
 .ButtonBase {
   display: flex;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0);
+  width: 100%;
 }
 
 .ButtonBase1 span > div {
@@ -247,8 +251,6 @@
     'Apple Color Emoji',
     'Segoe UI Emoji',
     'Segoe UI Symbol';
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
   margin-left: 10px;
   line-height: 1.32;
