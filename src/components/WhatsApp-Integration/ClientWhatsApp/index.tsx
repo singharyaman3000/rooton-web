@@ -1,8 +1,7 @@
 import { ClientContainer } from '@/components/Containers/ClientContainer';
 import React, { useEffect, useState } from 'react';
-import  WhatsAppButton from '@/components/WhatsApp-Integration';
+import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
-
 
 export interface IWhatsAppProps {
   whatsapp: IWhatsAppAttributes;
@@ -13,13 +12,10 @@ export interface IWhatsAppProps {
 const ClientWhatsAppButton = () => {
   const [whatsAppData, setWhatsAppData] = useState<IWhatsAppAttributes | null>(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       const headerFooterData = await getHeaderFooterData();
-
       setWhatsAppData(headerFooterData[0]?.attributes?.whats_app?.data?.attributes ?? null);
-
     };
 
     fetchData();
