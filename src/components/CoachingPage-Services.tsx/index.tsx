@@ -1,5 +1,4 @@
 'use client';
-
 import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
 import { useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
@@ -28,12 +27,10 @@ import PricingSection from './PricingSection';
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
-  // subTitle: string;
 };
 
 export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
-  // const [activeTrainingType, setActiveTrainingType] = useState<'General Training' | 'Academic Training'>('General Training');
   const leadFormRef = useRef<HTMLDivElement>(null);
   const params = useParams();
 
@@ -85,9 +82,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const [activepType, setpType] = useState(pricingTypes[0] || '');
 
-  const filteredTrainings = trainings?.attributes?.json_content?.trainingDetails[activeTrainingType] || [];
+  const trainingDetails =  trainings?.attributes?.json_content?.trainingDetails;
+  const filteredTrainings = trainingDetails?.[activeTrainingType] || [];
 
-  const filteredPricings = pricings?.attributes?.json_content?.trainingDetails[activepType] || [];
+  const pricingDetails =  pricings?.attributes?.json_content?.trainingDetails;
+  const filteredPricings = pricingDetails?.[activepType] || [];
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'coaching-service-testimonial';
@@ -120,7 +119,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     return (first?.attributes?.position ?? 0) - (second?.attributes?.position ?? 0);
   });
 
-  console.log(response.data?.attributes);
   const handleCTAButtonClick = () => {
     setShowBookAnAppointment(true);
     setTimeout(() => {
@@ -195,7 +193,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
             <div className="mt-20 m-auto max-w-screen-2k ">
               <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
                 <div className="md:max-w-[70%] lg:max-w-none">
-                  <SectionHeadings title={''} subTitle={pricingTitle} />
+                  <SectionHeadings title={''} subTitle={pricingTitle || ''} />
                 </div>
 
                 <div className="scrollable-container">
@@ -260,7 +258,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
               <div className="mt-20 m-auto max-w-screen-2k ">
                 <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
                   <div className="md:max-w-[70%] lg:max-w-none">
-                    <SectionHeadings title={''} subTitle={trainingTitle} />
+                    <SectionHeadings title={''} subTitle={trainingTitle || ''} />
                   </div>
                 {trainingTypes
                 .filter(type => type && type.trim() !== "") // Filters out null, undefined, and empty strings
@@ -354,7 +352,9 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />}
+        button={
+        <BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />
+      }
       />
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={response.data?.attributes?.description} />

@@ -1,28 +1,52 @@
+'use client';
 import React from 'react';
+import { useRef, useState } from 'react';
 import Credibility from '@/components/CoachingPage/Credibility';
 import Honesty, { IJsonContent } from '@/components/CoachingPage/Honesty';
 import PartnerShip from '@/components/CoachingPage/Partnership';
-import ServicesListing from '@/components/CoachingPage/ServicesListing';
 import OurProcess from '@/components/CoachingPage/OurProcess';
 import { CONTENT_TYPES, ICoachingPage_Data } from '@/app/services/apiService/CoachingAPI';
 import { appendAssetUrl, getSectionData, getSectionData1, isVideo } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
-import RootOnBarBtn from './RootOnBanner/RootOnBarBtn';
-import FlightIcon from '../Icons/FlightIcon';
 import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
-import BookAnAppointmentSection from './BookAppointment';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 import BlogSection from '../ServicePage/PageSections/BlogSection';
 import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
 import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
+import BookAnAppointmentButton from './BookAnAppointmentButton';
+import { CoachingPageWrapper } from '../CoachingPage-Services.tsx/Wrapper';
+import LeadFormSection from './BookAnAppointmentButton/LeadFormSection';
+import { DataEntity1 } from '@/app/services/apiService/CoachingAPI';
+import BookAnAppointment from '../UIElements/BookAnAppointment';
 
-const CoachingPageComponent = ({ coachingPageConfig }: { coachingPageConfig: ICoachingPage_Data }) => {
+type CoachingServicePageProps = {
+  coachingPageConfig: ICoachingPage_Data;
+  leadForm: DataEntity1;
+  isBookAppointment: boolean;
+};
+
+const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: CoachingServicePageProps) => {
+  const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
+  const leadFormRef = useRef<HTMLDivElement>(null);
+  const handleCTAButtonClick = () => {
+    setShowBookAnAppointment(true);
+    setTimeout(() => {
+      window.scrollTo({
+        top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
+        behavior: 'smooth',
+      });
+    }, 0);
+  };
+  const data = coachingPageConfig?.attributes?.coaching_page_contents?.data || [];
+  const leadForm: DataEntity1 | undefined =
+    data.find((i) => i.attributes.unique_identifier_name === 'coaching-lead-form') || undefined;
+
   const getComponentsAboveBookAppointments = () => {
-    return coachingPageConfig?.attributes?.coaching_page_contents?.data?.map((contents) => {
+    return data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
       switch (contents.attributes.unique_identifier_name) {
         case CONTENT_TYPES.CREDIBILITY:
@@ -53,6 +77,21 @@ const CoachingPageComponent = ({ coachingPageConfig }: { coachingPageConfig: ICo
               />
             </div>
           );
+        case CONTENT_TYPES.LEAD_FORM:
+          return (
+            <CoachingPageWrapper
+              className={`${
+                showBookAnAppointment ? 'block' : 'hidden'
+              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
+            >
+              <LeadFormSection
+                leadForm={leadForm}
+                leadFormRef={leadFormRef}
+                handleCTAButtonClick={handleCTAButtonClick}
+                isBookAppointment={isBookAppointment}
+              />
+            </CoachingPageWrapper>
+          );
         case CONTENT_TYPES.CHALLENGES:
           return (
             <ChallengesListing
@@ -70,7 +109,7 @@ const CoachingPageComponent = ({ coachingPageConfig }: { coachingPageConfig: ICo
   };
 
   const getComponentsAfterBookAppointments = () => {
-    return coachingPageConfig?.attributes?.coaching_page_contents?.data?.map((contents) => {
+    return data?.map((contents) => {
       const { title, sub_title } = contents.attributes;
       switch (contents.attributes.unique_identifier_name) {
         case CONTENT_TYPES.PARTNERSHIPS:
@@ -92,18 +131,11 @@ const CoachingPageComponent = ({ coachingPageConfig }: { coachingPageConfig: ICo
         backgroundImageUrl={appendAssetUrl(coachingPageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={coachingPageConfig?.attributes?.title}
         description={coachingPageConfig?.attributes?.sub_title}
-        button={
-          <RootOnBarBtn
-            icon={<FlightIcon />}
-            label={coachingPageConfig?.attributes?.CTA_text}
-            url={coachingPageConfig?.attributes?.CTA_link}
-            arialLabel={coachingPageConfig?.attributes?.CTA_link}
-          />
-        }
+        button={<BookAnAppointmentButton text={data[4]?.attributes?.CTA_text || ''} onClick={handleCTAButtonClick} />}
       />
       {getComponentsAboveBookAppointments()}
       <div className="mb-[100px]">
-        <BookAnAppointmentSection />
+        <BookAnAppointment onClick={handleCTAButtonClick} />
       </div>
 
       {getComponentsAfterBookAppointments()}
