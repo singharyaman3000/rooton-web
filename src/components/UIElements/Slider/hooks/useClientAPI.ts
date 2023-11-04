@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-const useClientAPI = <T>({ apiFn }: { apiFn: () => Promise<T> }) => {
+const useClientAPI = <T>({ apiFn, setData }: { apiFn: () => Promise<T>; setData?: Dispatch<SetStateAction<T>> }) => {
   const [data, setdata] = useState<T>();
   const [loading, isLoading] = useState(false);
   const [error, isError] = useState();
@@ -11,6 +11,9 @@ const useClientAPI = <T>({ apiFn }: { apiFn: () => Promise<T> }) => {
     apiFn()
       .then((apiRes) => {
         setdata(apiRes);
+        if(setData){
+          setData(apiRes);
+        }
         isLoading(false);
       })
       .catch((err) => {

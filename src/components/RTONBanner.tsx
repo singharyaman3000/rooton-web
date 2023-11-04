@@ -1,12 +1,13 @@
-import { ReactElement } from 'react';
-import { Breadcrumbs } from './Breadcrumbs';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import NextImage from '@/components/UIElements/NextImage';
+import HtmlParser from 'react-html-parser';
 
-type RTONBannerProps = {
+type BlogsBannerPropsType = {
   backgroundImageUrl: string;
   addGradient: boolean;
   heroText: string;
   description: string;
-  button: ReactElement;
+  breadCrumbData: { title: string; path: string }[];
 };
 
 export default function RTONBanner({
@@ -14,36 +15,19 @@ export default function RTONBanner({
   addGradient,
   heroText,
   description,
-  button,
-}: RTONBannerProps) {
+  breadCrumbData,
+}: BlogsBannerPropsType) {
   return (
     <div
       className="
         w-full
         mt-0
         h-[67.5vh]
-        max-h-[640px]
+        max-h-[400px]
         min-h-[380px]
       "
-      style={{ backgroundImage: backgroundImageUrl }}
     >
-      <Breadcrumbs
-        className=' hidden lg:flex'
-        data={[
-          {
-            title: 'Home',
-            path: '',
-          },
-          {
-            title: 'Services',
-            path: '',
-          },
-          {
-            title: 'Open Work Permit',
-            path: '',
-          },
-        ]}
-      />
+      <Breadcrumbs className=" hidden lg:flex" data={breadCrumbData} />
       <div
         className=" w-full h-full"
         style={{
@@ -58,12 +42,13 @@ export default function RTONBanner({
             lg:bg-cover
             px-6
             pb-9
+            lg:pb-[60px]
             w-full
             h-full
             flex
             flex-col
             justify-end
-            xl:p-20
+            xl:px-20
           "
         >
           <h1
@@ -78,10 +63,22 @@ export default function RTONBanner({
                     font-jakartaSans
                 "
           >
-            {heroText}
+            {HtmlParser(heroText)}
           </h1>
-          <p className=" mt-[22.2px] text-white font-bold text-[15px] leading-[1.67] lg:text-2xl">{description}</p>
-          <div className=" mt-[57.8px]">{button}</div>
+          <p className=" mt-[22.2px] text-white font-bold text-[15px] leading-[1.67] lg:text-2xl max-w-[800px]">
+            {HtmlParser(description)}
+          </p>
+        </div>
+        <div className="h-[400px] w-full absolute left-0 top-0 z-[-1]">
+          <NextImage
+            sizes="100vw"
+            priority
+            src={backgroundImageUrl}
+            fill
+            style={{ objectFit: 'cover' }}
+            altText="root-on-banner-image"
+            title="Banner Image"
+          />
         </div>
       </div>
     </div>

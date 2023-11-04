@@ -1,5 +1,3 @@
-import { MediaUrl } from '@/app/services/apiService/interfaces';
-
 export interface ITitleAttributes {
   title: string;
   sub_title: string;

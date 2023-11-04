@@ -10,7 +10,7 @@ import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
 import { useParams } from 'next/navigation';
 
-const itemsToSetActive = ['service','contact'];
+const itemsToSetActive = ['service', 'contact', 'about-us', 'blogs'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -59,10 +59,11 @@ export default function Header() {
     return () => {
       document.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  });
 
   function setActiveTabFromUrl() {
     const pathArray: string[] = window.location.pathname.split('/');
+
     const notHomePage = itemsToSetActive.some((elem) => {
       return pathArray?.includes(elem);
     });
@@ -74,6 +75,8 @@ export default function Header() {
         }
       });
     }
+    else {setActiveTab('');}
+
   }
 
   function animateHeader() {
@@ -159,12 +162,10 @@ export default function Header() {
           `}
           >
             <span className="h-[100%] flex items-center relative">
-              <Link href={'/'}> About Us</Link>
-              {activeTab === 'About Us' && (
+              <Link href={'/about-us'}> About Us</Link>
+              {activeTab === 'about-us' && (
                 <span
-                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
-                  }`}
+                  className='w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]'
                 />
               )}
             </span>
@@ -178,9 +179,7 @@ export default function Header() {
               Services
               {activeTab === 'service' && (
                 <span
-                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
-                  }`}
+                  className='w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]'
                 />
               )}
             </span>
@@ -188,19 +187,15 @@ export default function Header() {
               <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}> Coaching </Link>
               {activeTab === 'Coaching' && (
                 <span
-                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
-                  }`}
+                  className='w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]'
                 />
               )}
             </span>
             <span className="h-[100%] flex items-center relative">
-              <Link href={'/'}> Blogs </Link>
-              {activeTab === 'Blogs' && (
+              <Link href={'/blogs'}> Blogs </Link>
+              {activeTab === 'blogs' && (
                 <span
-                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
-                  }`}
+                  className='w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]'
                 />
               )}
             </span>
@@ -208,9 +203,7 @@ export default function Header() {
               <Link href={'/'}> Contact Us </Link>
               {activeTab === 'Contact Us' && (
                 <span
-                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
-                  }`}
+                  className='w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]'
                 />
               )}
             </span>
@@ -218,9 +211,7 @@ export default function Header() {
               <Link href={'/'}> Tools </Link>
               {activeTab === 'Tools' && (
                 <span
-                  className={`w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute ${
-                    scrolledEnough ? 'bottom-[-17px]' : 'bottom-[-16px]'
-                  }`}
+                  className='w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]'
                 />
               )}
             </span>
