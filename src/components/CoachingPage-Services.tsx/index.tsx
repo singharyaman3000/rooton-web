@@ -27,6 +27,7 @@ import PricingSection from './PricingSection';
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
+  our_plans: TrainingType;
 };
 
 export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {
