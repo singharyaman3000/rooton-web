@@ -93,6 +93,7 @@ type ITrainingDetail = {
 };
 
 export type ITraining = {
+  [x: string]: any;
   title: string;
   description: string | null;
   position: number;
