@@ -63,7 +63,20 @@ export const COMPANY_CEO_INFO = {
     'His motivation to start Root On Consultants came from witnessing the challenges faced by immigrants, inspiring him to assist students with Canada Student Visas and immigrants from around the world.',
   licenseNumber: 'R529956',
   imageUrl: '/images/aboutUs/company-ceo.png',
-  certificationImagesUrl: ['/images/aboutUs/cicc-logo.png', '/images/aboutUs/capic-logo.png'],
+  certificationImagesUrl: [
+    {
+      imageUrl: '/images/aboutUs/cicc-logo.png',
+      imageWidth: '206px',
+      imageHeight: '60px',
+      imageAlt: 'CICC Certification',
+    },
+    {
+      imageUrl: '/images/aboutUs/capic-logo.png',
+      imageWidth: '240px',
+      imageHeight: '56px',
+      imageAlt: 'CAPIC Certification',
+    },
+  ],
   expertiseList: [
     'Study Visa Extensions',
     'Spousal Open Work Permit Visas',

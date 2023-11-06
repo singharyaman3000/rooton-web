@@ -62,7 +62,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
       />
 
       {/* Book a Consultation Section */}
-      <section className="mt-20 m-auto max-w-screen-2k px-6 md:px-12 lg:px-20">
+      <section className="mt-10 m-auto max-w-screen-2k px-6 md:px-12 lg:px-20">
         <RootOnCTAWrapper
           buttonAriaLabel={BOOK_CONSULTATION_CONTENT.btnText}
           buttonText={BOOK_CONSULTATION_CONTENT.btnText}
