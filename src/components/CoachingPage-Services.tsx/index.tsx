@@ -23,12 +23,10 @@ import TrainingCard from './Training';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import { useParams } from 'next/navigation';
 import PricingSection from './PricingSection';
-import { IPricing } from '@/app/services/apiService/coaching_contentsAPI';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
-  our_plans: IPricing;
 };
 
 export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {

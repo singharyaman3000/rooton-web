@@ -5,6 +5,7 @@ type TrainingCardProps = {
   our_plans: IPricing;
 };
 
+
 const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   return (
