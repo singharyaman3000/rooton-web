@@ -201,9 +201,9 @@
   line-height: 16px;
   margin-top: 2px;
   color: rgb(17, 17, 17);
-  max-height: 59px; 
+  max-height: 59px;
   height: 100%;
-  overflow-y: auto; 
+  overflow-y: auto;
   word-wrap: break-word;
 }
 
@@ -334,18 +334,13 @@
   z-index: 9;
 }
 
+
 @media screen and (max-width: 768px) {
   .template {
-    bottom: 80px;
-    right: -2px;
+    display: none;
   }
 }
 
-@media screen and (max-width: 375px) {
-  .template {
-    right: -2px;
-  }
-}
 
 .template button {
   cursor: pointer;
