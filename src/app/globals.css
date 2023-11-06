@@ -13,7 +13,7 @@
 
   --primary-border: #d8d8d85c;
   --secondary-border: #d2d2d2;
-  --border-footer-gray: ##d8d8d8;
+  --border-footer-gray: #d8d8d8;
 
   --cicc-border: #e22826;
   --capic-border: #123474;
@@ -31,6 +31,11 @@
   --sandal: rgba(234, 213, 169, 1);
   --pale-sandal: #fddba2;
   --hover-lang-dropdown: #efefef;
+  --font-grey: #b2b2b2;
+  --white-fixed: #fff;
+  --almond: #efcea6;
+  --golden-honey: #f0c236;
+  --smoky-steel: #979797;
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
   --preloader-overlay: hsl(252deg 9% 6% / 18%), hsl(252deg 3% 16% / 19%), hsl(0deg 2% 5% / 15%);
@@ -46,6 +51,7 @@
   --primary-text: #fff;
   --primary-white: #000;
   --grey-bullet: #cbcbcb;
+  --secondary-grey: #000;
 
   --font-color-orange: #f59723;
   --font-color-light-gray: #ffffff;
@@ -262,6 +268,81 @@ body {
 
 [data-theme='dark'] .blogs-listing {
   background: #000;
+}
+
+/*Training cards styling*/
+
+.training-cards {
+  background: var(--primary-bg);
+  border-top: 65px solid #000;
+  border-left: 0.6px solid rgb(0,0,0, 0.3); 
+  border-right: 0.6px solid rgb(0,0,0, 0.3); 
+  border-bottom: 0.6px solid rgb(0,0,0, 0.3);
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
+  transform: translateY(0px) scale(1);
+  transition: transform 0.3s ease;
+}
+
+.card-text {
+  color: #000;
+}
+
+[data-theme='dark'] .card-text {
+  color: #fff;
+}
+.qqq {
+  color: #fff;
+}
+[data-theme='dark'] .qqq {
+  color: #000000;
+}
+.xyyz {
+  position: absolute;
+  align-items: center;
+  z-index: 10;
+  left: 0;
+  top: -45px;
+}
+[data-theme='dark'] .xyyz {
+  top: -45px;
+}
+
+[data-theme='dark'] .training-cards {
+  background: #000;
+  box-shadow: rgb(192 192 192 / 45%) 0px 2px 4px 0px, rgb(192 192 192 / 45%) 0px 2px 16px 0px;
+  transition: all 0.3s ease;
+  border-top: 65px solid rgb(149 149 149);
+  border-left: 0.6px solid rgb(255,255,255, 0.3); 
+  border-right: 0.6px solid rgb(255,255,255, 0.3); 
+  border-bottom: 0.6px solid rgb(255,255,255, 0.3); 
+}
+/* Team Slider Styling */
+
+.team-slider-section {
+  background-color: var(--pale-yellow);
+}
+
+[data-theme='dark'] .team-slider-section {
+  background: #000;
+}
+
+/* Hover effect for profile card (Who we are section- About-us) */
+
+.card-hover-effect::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  right: 20px;
+  height: 20px;
+  background-color: #000;
+  opacity: 0;
+  filter: blur(30px);
+  transition: opacity .5s ease-in-out;
+}
+
+.card-hover-effect:hover::after {
+  opacity: 0.2;
 }
 
 /*Tabs styling*/

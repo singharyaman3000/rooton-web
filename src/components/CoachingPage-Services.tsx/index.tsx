@@ -1,5 +1,4 @@
 'use client';
-
 import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
 import { useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
@@ -28,12 +27,10 @@ import PricingSection from './PricingSection';
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
-  // subTitle: string;
 };
 
 export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
-  // const [activeTrainingType, setActiveTrainingType] = useState<'General Training' | 'Academic Training'>('General Training');
   const leadFormRef = useRef<HTMLDivElement>(null);
   const params = useParams();
 
@@ -85,9 +82,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const [activepType, setpType] = useState(pricingTypes[0] || '');
 
-  const filteredTrainings = trainings?.attributes?.json_content?.trainingDetails[activeTrainingType] || [];
+  const trainingDetails =  trainings?.attributes?.json_content?.trainingDetails;
+  const filteredTrainings = trainingDetails?.[activeTrainingType] || [];
 
-  const filteredPricings = pricings?.attributes?.json_content?.trainingDetails[activepType] || [];
+  const pricingDetails =  pricings?.attributes?.json_content?.trainingDetails;
+  const filteredPricings = pricingDetails?.[activepType] || [];
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'coaching-service-testimonial';
@@ -119,8 +118,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   sectionsByPosition.sort((first, second) => {
     return (first?.attributes?.position ?? 0) - (second?.attributes?.position ?? 0);
   });
- 
-  console.log(response.data?.attributes);
+
   const handleCTAButtonClick = () => {
     setShowBookAnAppointment(true);
     setTimeout(() => {
@@ -133,180 +131,200 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const getSection = (identifier: string, data?: ICoachingServicesContent) => {
     switch (identifier) {
-    case 'service-reason':
-      return (
-        <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
-        </CoachingPageWrapper>
-      );
-    case 'service-eligibility':
-      return (
-        <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
-        </CoachingPageWrapper>
-      );
-    case 'coaching-service-process':
-      return <ProcessSection process={process} />;
-    case 'service-lead-form':
-      if (leadForm) {
+      case 'service-reason':
         return (
-          <CoachingPageWrapper
-            className={`${
-              showBookAnAppointment ? 'block' : 'hidden'
-            } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
-          >
-            <LeadFormSection
-              leadForm={leadForm}
-              leadFormRef={leadFormRef}
-              handleCTAButtonClick={handleCTAButtonClick}
-              isBookAppointment={isBookAppointment}
-            />
+          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+            <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
           </CoachingPageWrapper>
         );
-      }
+      case 'service-eligibility':
+        return (
+          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+            <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
+          </CoachingPageWrapper>
+        );
+      case 'coaching-service-process':
+        return <ProcessSection process={process} />;
+      case 'service-lead-form':
+        if (leadForm) {
+          return (
+            <CoachingPageWrapper
+              className={`${
+                showBookAnAppointment ? 'block' : 'hidden'
+              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
+            >
+              <LeadFormSection
+                leadForm={leadForm}
+                leadFormRef={leadFormRef}
+                handleCTAButtonClick={handleCTAButtonClick}
+                isBookAppointment={isBookAppointment}
+              />
+            </CoachingPageWrapper>
+          );
+        }
 
-      return null;
-    case 'service-CTA-banner-1':
-      return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
-    case 'service-CTA-banner-2':
-      return (
-        <CoachingPageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
-          <BookAnAppointment onClick={handleCTAButtonClick} />
-        </CoachingPageWrapper>
-      );
+        return null;
+      case 'service-CTA-banner-1':
+        return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
+      case 'service-CTA-banner-2':
+        return (
+          <CoachingPageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
+            <BookAnAppointment onClick={handleCTAButtonClick} />
+          </CoachingPageWrapper>
+        );
 
-    case 'our_plans':
-      return (
-        <>
-          <style jsx>{`
-          .scrollable-container {
-            display: flex;
-            overflow-x: auto;
-          }
-          .scrollable-container::-webkit-scrollbar {
-            display: none; 
-          }
-          .scrollable-container{
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-          }
-          `}</style>
-         
-        <div className="mt-20 m-auto max-w-screen-2k ">
-          <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
-          <div className="md:max-w-[70%] lg:max-w-none">
-        <SectionHeadings title={""} subTitle={pricingTitle} />
-        </div>
-        
+      case 'our_plans':
+        return (
+          <>
+            <style jsx>{`
+              .scrollable-container {
+                display: flex;
+                overflow-x: auto;
+              }
+              .scrollable-container::-webkit-scrollbar {
+                display: none;
+              }
+              .scrollable-container {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+              }
+            `}</style>
 
-        <div className="scrollable-container">
+            <div className="mt-20 m-auto max-w-screen-2k ">
+              <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
+                <div className="md:max-w-[70%] lg:max-w-none">
+                  <SectionHeadings title={''} subTitle={pricingTitle || ''} />
+                </div>
 
-        {filteredPricings.map((pricings) => {        
-            return <PricingSection our_plans={pricings}/>;
-        })}
-
-        </div>
-          </div>
-        </div>
-        </>
-      );
-
+                <div className="scrollable-container">
+                  {filteredPricings.map((pricings) => {
+                    return <PricingSection our_plans={pricings} />;
+                  })}
+                </div>
+              </div>
+            </div>
+          </>
+        );
 
       case 'training':
-  return (
-    <>
-      <style jsx>{`
-      .scrollable-container {
-        display: flex;
-        overflow-x: auto;
-      }
-      .scrollable-container::-webkit-scrollbar {
-        display: none; 
-      }
-      .scrollable-container{
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-      }
-      .active-button {
-        background-color: #000;
-        color: #fff;
-        padding: 10px;
-      }
-      #button-heading {
-        margin-top: 10px;
-      }
-      .normal-button {
-        flex: 1;
-        transition: all 0.3s ease;
-        position: relative;
-        border: none; // Removing border from individual buttons
-        border-right: 1px solid lightgray; // Adding vertical line between buttons
-        border-radius: 0; // No border-radius
-        padding: 10px;
-      }
-      `}</style>
-     
-    <div className="mt-20 m-auto max-w-screen-2k ">
-      <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
-      <div className="md:max-w-[70%] lg:max-w-none">
-    <SectionHeadings title={""} subTitle={trainingTitle} />
-    </div>
-    {trainingTypes.map((type) => (
-  <button 
-    key={type} 
-    id='button-heading'
-    onClick={() => setActiveTrainingType(type)}
-    className={`${ type === activeTrainingType ? 'active-button' : 'normal-button'}`}
-  >
-    {type}
-  </button>
-))}
-      
-      {filteredTrainings.map((training, index) => {
-        if (index === 0) {
-          return <TrainingCard key={training.id} training={training} isFirst={index === 0} index={index} />;
-        }
+        return (
+          <>
+            <style jsx>{`
+              .training-section {
+                // background-color: #f5f5f5;
+                padding: 1px 0px 62px;
+              }
+              .scrollable-container {
+                display: flex;
+                overflow-x: auto;
+              }
+              .scrollable-container::-webkit-scrollbar {
+                display: none;
+              }
+              .scrollable-container {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+              }
+              .active-button {
+                // color: #fff;
+                padding: 10px;
+                border-bottom: 3px solid rgb(255, 201, 109);
+                font-weight: bold;
+              }
+
+              #button-heading {
+                margin-top: 10px;
+                max-width: 200px;
+                width: 100%;
+              }
+              @media only screen and (max-width: 500px) {
+                #button-heading {
+                  max-width: 130px;
+                  width: 100%;
+                }
+              }
+              .normal-button {
+                flex: 1;
+                transition: all 0.3s ease;
+                position: relative;
+                border: none;
+                padding: 10px;
+              }
+              .normal-button:hover {
+                font-weight: bold;
+              }
+            `}</style>
+            <div className="training-section blogs-listing  mt-20">
+              <div className="mt-20 m-auto max-w-screen-2k ">
+                <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
+                  <div className="md:max-w-[70%] lg:max-w-none">
+                    <SectionHeadings title={''} subTitle={trainingTitle || ''} />
+                  </div>
+                {trainingTypes
+                .filter(type => type && type.trim() !== "") // Filters out null, undefined, and empty strings
+                .map((type) => (
+                  <button
+                    key={type}
+                    id="button-heading"
+                    onClick={() => setActiveTrainingType(type)}
+                    className={`${type === activeTrainingType ? 'active-button' : 'normal-button'}`}
+                  >
+                    {type}
+                  </button>
+                ))}
+
+
+                  {filteredTrainings.map((training, index) => {
+                    if (index === 0) {
+                      return <TrainingCard key={training.id} training={training} isFirst={index === 0} index={index} />;
+                    }
+                    return null;
+                  })}
+
+                  <div className="scrollable-container">
+                    {filteredTrainings.map((training, index) => {
+                      if (index !== 0) {
+                        return <TrainingCard key={training.id} training={training} />;
+                      }
+                      return null;
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+
+      case 'coaching-service-testimonial':
+        return (
+          <div className="m-auto max-w-screen-2k">
+            <Testimonials
+              apiUrl={TESTIMONIAL_API_SERVICE.replace(
+                '<service_type>',
+                response?.data.attributes.unique_identifier_name,
+              )}
+              title={SERVICES_TITLE.testimonial.title}
+              subTitle={SERVICES_TITLE.testimonial.subtitle}
+            />
+          </div>
+        );
+      case 'coaching-service-faq':
+        return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
+      case 'blogs':
+        return (
+          <div className=" mt-[74px] bg-secondary-grey">
+            <BlogSection
+              title=""
+              subtitle={blogs?.attributes.title ?? ''}
+              url={GET_BLOGS_COACHING_SERVICE.replace(
+                '<service-type>',
+                response?.data.attributes.unique_identifier_name,
+              )}
+            />
+          </div>
+        );
+      default:
         return null;
-      })}
-
-      <div className="scrollable-container">
-        {filteredTrainings.map((training, index) => {
-          if (index !== 0) {
-            return <TrainingCard key={training.id} training={training} />;
-          }
-          return null;
-        })}
-      </div>
-      </div>
-    </div>
-    </>
-  );
-
-
-    case 'coaching-service-testimonial':
-      return (
-        <div className="m-auto max-w-screen-2k">
-          <Testimonials
-            apiUrl={TESTIMONIAL_API_SERVICE.replace('<service_type>', response?.data.attributes.unique_identifier_name)}
-            title={SERVICES_TITLE.testimonial.title}
-            subTitle={SERVICES_TITLE.testimonial.subtitle}
-          />
-        </div>
-      );
-    case 'coaching-service-faq':
-      return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
-    case 'blogs':
-      return (
-        <div className=" mt-[74px] bg-secondary-grey">
-          <BlogSection
-            title=""
-            subtitle={blogs?.attributes.title ?? ''}
-            url={GET_BLOGS_COACHING_SERVICE.replace('<service-type>', response?.data.attributes.unique_identifier_name)}
-          />
-        </div>
-      );
-    default:
-      return null;
     }
   };
 
@@ -334,7 +352,9 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />}
+        button={
+        <BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />
+      }
       />
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={response.data?.attributes?.description} />

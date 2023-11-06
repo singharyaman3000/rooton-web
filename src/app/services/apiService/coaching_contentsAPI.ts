@@ -3,7 +3,6 @@ import { getCoachingAPIUrl } from './apiUrl/servicePage';
 import { IMediaUrlData } from './interfaces';
 import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 import { IProcess } from '@/components/HomePage/OurProcess/interfaces';
-import exp from 'constants';
 
 type IEligibility = {
   key: string;
@@ -28,7 +27,6 @@ export type IFaq = {
 
 type TrainingType = {
   id: string;
-  // other properties of training...
 };
 
 export type ISubServiceJSONContent = {
@@ -91,6 +89,7 @@ type ITrainingDetail = {
   title: string;
   position: number;
   description: string;
+  image: string;
 };
 
 export type ITraining = {

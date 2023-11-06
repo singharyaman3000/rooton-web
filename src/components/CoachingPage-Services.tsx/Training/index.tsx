@@ -1,6 +1,6 @@
 import React from 'react';
 import { ITraining } from '@/app/services/apiService/coaching_contentsAPI';
-import SectionHeadings from '@/components/UIElements/SectionHeadings';
+import { appendAssetUrl } from '@/utils';
 
 type TrainingCardProps = {
   training: ITraining;
@@ -11,53 +11,57 @@ type TrainingCardProps = {
 const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index }) => {
   return (
     <div
-      className={`card flex flex-row bg-secondary-grey relative my-5 ${isFirst ? 'first-card' : ''} ${
+      className={`card training-cards flex flex-row bg-secondary-grey relative my-5 ${isFirst ? 'first-card' : ''} ${
         index === 1 ? 'second-card' : ''
       }`}
     >
       <style jsx>{`
         .card {
           min-width: 350px;
-          max-width: 100%;
+          width: 100%;
           padding: 40px;
-          border-top: 60px solid rgb(245,151,35);
           margin-right: 30px;
-          margin-top: 0px;
-          background-color: rgb(255, 246, 231);
-          box-shadow: 0px 13px 15px 0px rgba(0, 0, 0, 0.10);
+          margin-top: 41px;
+          border-radius: 8px;
         }
-
-        .card::-webkit-scrollbar {
-          display: none;
-        }
-        .card {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-
-        .card:not(:last-child) {
-        }
+        // .card::-webkit-scrollbar {
+        //   display: none;
+        // }
+        // .card {
+        //   scrollbar-width: none;
+        //   -ms-overflow-style: none;
+        // }
 
         .first-card {
-          /* Styles specific to the first card */
           border-top: none;
           background-color: #fff;
           padding: 0px;
           box-shadow: none;
+          display: none;
         }
 
-        .second-card {
-          
+        .title {
+          display: flex; 
+          margin: auto; 
+          justify-content: center; 
+             
+        }
+        .image {
+          height: 35px;
+          position: relative;
+          top: -5px;
+          left: -15px;
         }
 
-        .card-text {
-          font-size: 14px;
+        .card-text1 {
+          font-size: 15px;
           font-weight: 500;
           letter-spacing: 1px;
           min-height: 250px;
           max-height: 100%;
-          text-align: justify;
+          // text-align: justify;         
         }
+        
 
         .subtitle {
           font-size: 20px;
@@ -76,19 +80,19 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
 
         .heading {
           text-align: center;
-          font-size: 1.2rem;
-          font-weight: 600;
-          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+          letter-spacing: 0.5px;
         }
 
         @media (max-width: 768px) {
-          .card-text {
+          .card-text1 {
             font-size: 13px;
           }
         }
 
         @media (max-width: 480px) {
-          .card-text {
+          .card-text1 {
             font-size: 12px;
           }
           .card {
@@ -106,10 +110,11 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
         </div>
       ) : (
         <div className=" second-card flex flex-row">
-          <div className="title absolute items-center z-[10] left-0 top-[-45px] w-full">
-            <h2 className="heading color-white text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
+          <div className="title xyz xyyz w-full">
+            <img className='image' src={appendAssetUrl(training.image)} alt="boy" />
+            <h2 className="heading qqq text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2">{training.title}</h2>
           </div>
-          <div className="text-xs md:text-sm text-black card-text">
+          <div className="card-text1 card-text">
             <p>{training.description}</p>
           </div>
         </div>

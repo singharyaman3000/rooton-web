@@ -1,4 +1,5 @@
 import { IMediaAttributes } from '@/app/services/apiService/interfaces';
+import PlaceholderAvatar from '@/components/Icons/PlaceholderAvatar';
 import NextImage from '@/components/UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import React from 'react';
@@ -30,16 +31,18 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college, colle
         </svg>
       </div>
       <div className="square-[30.7px] flex-shrink-0 mr-[14px] rounded-full overflow-hidden md:square-[48px] relative">
-        <NextImage
-          src={appendAssetUrl(url)}
-          fill
-          title={caption}
-          altText={alternativeText}
-          style={{ objectFit: 'cover' }}
-          sizes="
+        {url ?
+          <NextImage
+            src={appendAssetUrl(url)}
+            fill
+            title={caption}
+            altText={alternativeText}
+            style={{ objectFit: 'cover' }}
+            sizes="
               (max-width: 768px) 50vw,
                25vw"
-        />
+          /> :
+          <PlaceholderAvatar />}
       </div>
       <div className="max-w-[72%]">
         <div className="text-bold line-clamp-1 font-bold text-[11.2px] text-black  not-italic leading-[normal] tracking-[normal] md:text-base ">

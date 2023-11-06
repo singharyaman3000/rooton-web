@@ -1,7 +1,6 @@
 import { getFetch } from '@/utils/apiUtils';
 import { IHonesty, IJsonContent } from '@/components/CoachingPage/Honesty';
 import { IOurProcessData } from '@/components/CoachingPage/OurProcess/interfaces';
-import { ICoachingPage_Contents } from '@/components/CoachingPage/ServicesListing/interafces';
 import { IBlogCard } from '@/components/CoachingPage/BlogListings';
 import { IChallenges } from '@/components/CoachingPage/ChallengesListing';
 import { IFaqData } from '@/components/CoachingPage/FaqListings';
@@ -17,23 +16,35 @@ export const CONTENT_TYPES = {
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
   QUESTIONS: 'coaching_questions',
+  LEAD_FORM: 'coaching-lead-form',
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
+
+export type ILeadFormData = {
+  type?: 'form' | 'meeting';
+  region?: string;
+  portalId?: string;
+  formId?: string;
+  url?: string;
+};
+
+export type ILeadForm = {
+  lead_forms?: ILeadFormData[];
+};
 
 export interface Attributes2 {
   title: string;
   sub_title: string;
   description?: string | null;
-  CTA_text?: null;
-  CTA_link?: null;
+  CTA_text?: string | null;
+  CTA_link?: string | null;
   content_position: number;
   unique_identifier_name?: TContentTypes | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges | IFaqData;
-  coaching_services: ICoachingPage_Contents;
+  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges | IFaqData | ILeadForm;
   blogs: IBlogCard;
   media_url: MediaUrl;
 }

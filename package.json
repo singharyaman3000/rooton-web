@@ -27,6 +27,7 @@
     "postcss": "8.4.25",
     "react": "18.2.0",
     "react-calendly": "^4.1.1",
+    "react-countup": "^6.4.2",
     "react-dom": "18.2.0",
     "react-fast-marquee": "^1.6.0",
     "react-html-parser": "^2.0.2",
@@ -48,6 +49,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "hyphenator": "^0.0.3",
     "prettier": "^3.0.0"
   }
 }
