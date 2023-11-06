@@ -72,6 +72,7 @@ type pricingPlans = {
 }
 
 export type IPricing = {
+  [x: string]: any;
   title: string;
   description: string | null;
   position: number;
