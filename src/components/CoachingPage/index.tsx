@@ -114,8 +114,8 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
       switch (contents.attributes.unique_identifier_name) {
         case CONTENT_TYPES.PARTNERSHIPS:
           return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
-        case CONTENT_TYPES.BLOG:
-          return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
+        // case CONTENT_TYPES.BLOG:
+        //   return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
         default:
           return null;
       }

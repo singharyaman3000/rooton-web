@@ -24,13 +24,6 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
           margin-top: 41px;
           border-radius: 8px;
         }
-        // .card::-webkit-scrollbar {
-        //   display: none;
-        // }
-        // .card {
-        //   scrollbar-width: none;
-        //   -ms-overflow-style: none;
-        // }
 
         .first-card {
           border-top: none;
@@ -58,8 +51,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
           font-weight: 500;
           letter-spacing: 1px;
           min-height: 250px;
-          max-height: 100%;
-          // text-align: justify;         
+          max-height: 100%; 
         }
         
 
@@ -105,8 +97,7 @@ const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index })
 
       {isFirst ? (
         <div className="description_container first-card">
-          {/* <h1 className="subtitle1 mb-2">{training.title}: </h1> */}
-          {/* <h2 className="subtitle">{training.description}</h2> */}
+          <></>
         </div>
       ) : (
         <div className=" second-card flex flex-row">

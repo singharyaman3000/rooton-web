@@ -95,6 +95,7 @@ export type ITraining = {
   title: string;
   description: string | null;
   position: number;
+  image: string;
   json_content: {
     trainingDetails: {
       [key: string]: ITrainingDetail[];
