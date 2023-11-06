@@ -9,7 +9,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   return (
     <div className="flex flex-row relative my-5">
-      <div className="bg-[#f5f5f5] shadow-xl mr-[30px] min-w-[350px] max-w-full">
+      <div className="bg-[#f5f5f5] shadow-xl mr-[30px] min-w-[350px] w-full xl:max-w-[442px]">
        
         {our_plans.popular && (
           <div className="absolute top-0 right-5 mr-6 -mt-4">
