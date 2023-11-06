@@ -35,7 +35,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
         <div className="text-black font-medium font-semibold mb-3">Validity: {our_plans.validity}</div>
         <div className="text-black font-medium mb-3">Includes:</div>
         <ul className="text-black text-sm space-y-3 grow">
-          {our_plans.features.map((feature, index) => {
+          {our_plans.features.map((feature: any, index: any) => {
             const isExpanded = expanded[index];
             const subFeatures = feature.slice(1);
 
@@ -62,7 +62,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
                 </div>
                 {isExpanded && (
                   <ul className="text-black text-sm space-y-4 grow ml-5 font-normal">
-                    {subFeatures.map((subFeature, subIndex) => (
+                    {subFeatures.map((subFeature: any, subIndex: any) => (
                       <li key={subIndex} className="flex mt-[8px] items-center">
                         <svg
                           className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
