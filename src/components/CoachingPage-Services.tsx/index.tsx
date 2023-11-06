@@ -23,11 +23,12 @@ import TrainingCard from './Training';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import { useParams } from 'next/navigation';
 import PricingSection from './PricingSection';
+import { IPricing } from '@/app/services/apiService/coaching_contentsAPI';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
-  our_plans: TrainingType;
+  our_plans: IPricing;
 };
 
 export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {
@@ -79,14 +80,14 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const [activeTrainingType, setActiveTrainingType] = useState(trainingTypes[0] || '');
 
-  const pricingTypes = Object.keys(pricings?.attributes?.json_content?.trainingDetails || {});
+  const pricingTypes = Object.keys(pricings?.attributes?.json_content?.pricingDetails || {});
 
   const [activepType, setpType] = useState(pricingTypes[0] || '');
 
   const trainingDetails =  trainings?.attributes?.json_content?.trainingDetails;
   const filteredTrainings = trainingDetails?.[activeTrainingType] || [];
 
-  const pricingDetails =  pricings?.attributes?.json_content?.trainingDetails;
+  const pricingDetails =  pricings?.attributes?.json_content?.pricingDetails;
   const filteredPricings = pricingDetails?.[activepType] || [];
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
@@ -198,8 +199,8 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 </div>
 
                 <div className="scrollable-container">
-                  {filteredPricings.map((pricings) => {
-                    return <PricingSection our_plans={pricings} />;
+                  {filteredPricings.map((pricingTypes) => {
+                    return <PricingSection our_plans={pricingTypes} />;
                   })}
                 </div>
               </div>
