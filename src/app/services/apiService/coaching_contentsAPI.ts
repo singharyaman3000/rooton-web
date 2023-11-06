@@ -29,6 +29,10 @@ type TrainingType = {
   id: string;
 };
 
+type PricingType = {
+  id: string;
+};
+
 export type ISubServiceJSONContent = {
   eligibility?: IEligibility[];
   process?: IProcess[];
@@ -36,6 +40,9 @@ export type ISubServiceJSONContent = {
   faq?: IFaq[];
   trainingDetails?: {
     [key: string]: TrainingType[];
+  };
+  pricingDetails?: {
+    [key: string]: PricingType[];
   };
 };
 
@@ -77,7 +84,7 @@ export type IPricing = {
   description: string | null;
   position: number;
   json_content: {
-    trainingDetails: 
+    pricingDetails: 
     {
       [key: string]: pricingPlans[];
     };
@@ -97,6 +104,7 @@ export type ITraining = {
   title: string;
   description: string | null;
   position: number;
+  image: string;
   json_content: {
     trainingDetails: {
       [key: string]: ITrainingDetail[];
@@ -119,7 +127,7 @@ type IAttributes = {
     data: IMediaUrlData[];
   };
   coaching_service_contents: ICoachingServiceSContents;
-  training: ITraining;  // Added the training type here
+  training: ITraining; 
   our_plans: IPricing;
   blogs: { data: IBlogCardData[] };
 };
