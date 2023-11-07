@@ -18,7 +18,7 @@ export interface IHonesty {
 }
 
 export interface IAttributes {
-  title: string;
+  title: string | any;
   description?: string | null;
   createdAt: string;
   updatedAt: string;
