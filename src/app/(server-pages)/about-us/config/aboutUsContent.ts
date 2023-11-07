@@ -9,7 +9,10 @@ import PersonalAccountabilityIcon from '@/components/Icons/PersonalAccountabilit
 /* About Us Banner Section */
 export const BANNER_SECTION_CONTENT = {
   pagePath: ABOUT_US_PATH,
-  bannerImageUrl: '/images/aboutUs/about-us-banner.png',
+  bannerImageUrl: {
+    desktopScreen: '/images/aboutUs/about-us-banner.png',
+    mobileScreen: '/images/aboutUs/about-us-mobile-banner.png',
+  },
   bannerHeading: '<span>About Root On</span>',
   bannerDescription:
     'Personalized immigration guidance from a licensed professional. Discover the best pathway for your Canadian dream.',
