@@ -1,11 +1,11 @@
-import { IPricing } from '@/app/services/apiService/coaching_contentsAPI';
+import { ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
 import { H2 } from '@/components/H2';
 import { RefObject, useState } from 'react';
 import LeadFormStepper from '../LeadFormStepper';
 import NextImage from '@/components/UIElements/NextImage';
 
 type LeadFormSectionProps = {
-  leadForm: IPricing;
+  leadForm: ICoachingServicesContent;
   leadFormRef: RefObject<HTMLDivElement>;
   handleCTAButtonClick: () => void;
   isBookAppointment: boolean;
@@ -32,7 +32,7 @@ const LeadFormSection = ({ leadForm, leadFormRef, handleCTAButtonClick, isBookAp
       >
         <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
         <div className="p-4 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0 sm:p-12">
-          {/* <H2>{leadForm?.attributes.title ?? ''}</H2> */}
+          <H2>{leadForm?.attributes.title ?? ''}</H2>
           <div className="" id="lead-form">
             <LeadFormStepper
               initScroll={handleCTAButtonClick}
@@ -41,27 +41,27 @@ const LeadFormSection = ({ leadForm, leadFormRef, handleCTAButtonClick, isBookAp
                 setFormStepperProgress(progress);
               }}
               calenderLink={
-                (leadForm?.lead_forms &&
-                  leadForm?.lead_forms.find((f) => {
+                (leadForm?.attributes.json_content.lead_forms &&
+                  leadForm?.attributes.json_content.lead_forms.find((f) => {
                     return f.type === 'meeting';
                   })?.url) ??
                 ''
               }
               region={
-                (leadForm?.lead_forms &&
-                  leadForm?.lead_forms.find((f) => {
+                (leadForm?.attributes.json_content.lead_forms &&
+                  leadForm?.attributes.json_content.lead_forms.find((f) => {
                     return f.type === 'form';
                   })?.region) ??
                 ''
               }
               portalId={
-                (leadForm?.lead_forms &&
-                  leadForm?.lead_forms[0].portalId) ??
+                (leadForm?.attributes.json_content.lead_forms &&
+                  leadForm?.attributes.json_content.lead_forms[0].portalId) ??
                 ''
               }
               formId={
-                (leadForm?.lead_forms &&
-                  leadForm?.lead_forms[0].formId) ??
+                (leadForm?.attributes.json_content.lead_forms &&
+                  leadForm?.attributes.json_content.lead_forms[0].formId) ??
                 ''
               }
               target="LeadForm"

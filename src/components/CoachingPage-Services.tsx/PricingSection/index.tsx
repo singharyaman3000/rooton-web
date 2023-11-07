@@ -1,43 +1,15 @@
-import React, { useState, useRef } from 'react';
-import { IPricing, ICoachingServicePageContent, ILeadForm } from '@/app/services/apiService/coaching_contentsAPI';
-import { CoachingPageWrapper } from '../Wrapper';
-import LeadFormSection from './LeadFormSection';
+import React, { useState } from 'react';
+import { IPricing } from '@/app/services/apiService/coaching_contentsAPI';
 
 type TrainingCardProps = {
-  response: ICoachingServicePageContent;
   our_plans: IPricing;
-  isBookAppointment: boolean;
 };
 
 
-const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, isBookAppointment, response}) => {
-  const [showLeadForm, setShowLeadForm] = useState(false);
-  const [selectedLeadForms, setSelectedLeadForms] = useState<ILeadForm[] | null>(null);
-  const leadFormRef = useRef<HTMLDivElement>(null);
-
-  const pricingDetailsKey = Object.keys(our_plans.json_content?.pricingDetails ?? {})[0];
-const pricingPlans = pricingDetailsKey ? our_plans.json_content.pricingDetails[pricingDetailsKey] : '';
-
-
-const [expanded, setExpanded] = useState<boolean[]>(pricingPlans ? new Array(pricingPlans.length).fill(false) : []);
-
-  const handleCTAButtonClick = (leadForms: ILeadForm[]) => {
-    setShowLeadForm(true);
-    setSelectedLeadForms(leadForms);
-    setTimeout(() => {
-      window.scrollTo({
-        top: leadFormRef.current?.getBoundingClientRect().top - 150 + window.pageYOffset,
-        behavior: 'smooth',
-      });
-    }, 0);
-  };
-
-  console.log("dsdsdsd",our_plans.planName);
-
+const PricingSection: React.FC<TrainingCardProps> = ({ our_plans}) => {
+  const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   return (
-    <>
-     {pricingPlans && pricingPlans.map((plan, index) => (
-    <div key={index} className="flex flex-row relative my-5">
+    <div className="flex flex-row relative my-5">
       <div className="bg-[#f5f5f5] shadow-xl mr-[30px] min-w-[350px] w-full xl:max-w-[442px]">
        
         {our_plans.popular && (
@@ -57,8 +29,7 @@ const [expanded, setExpanded] = useState<boolean[]>(pricingPlans ? new Array(pri
           <div className="font-semibold text-sm h-[70px] text-black mb-5">{our_plans.planDescription}</div>
           <a
             className="bg-[#FFCB70] hover:bg-[#f59723] w-full inline-flex justify-center whitespace-nowrap px-3.5 py-3 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150"
-            onClick={() => handleCTAButtonClick(plan.lead_forms)}
-          >
+            href="#0">
             Purchase Plan
           </a>
         </div>
@@ -113,23 +84,7 @@ const [expanded, setExpanded] = useState<boolean[]>(pricingPlans ? new Array(pri
         </div>
       </div>
     </div>
-    ))}
-   {showLeadForm && selectedLeadForms && (
-        <CoachingPageWrapper
-          className="block p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k"
-        >
-          <LeadFormSection
-            leadForm={selectedLeadForms}
-            leadFormRef={leadFormRef}
-            handleCTAButtonClick={() => setShowLeadForm(false)}
-            isBookAppointment={isBookAppointment}
-          />
-        </CoachingPageWrapper>
-      )}
-    </>
   );
 };
 
 export default PricingSection;
-
-

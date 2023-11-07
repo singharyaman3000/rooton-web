@@ -6,7 +6,7 @@ import styles from './training.module.css'; // Import the module CSS
 type TrainingCardProps = {
   training: ITraining;
   isFirst?: boolean;
-  index: number;
+  index?: number;
 };
 
 const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index }) => {

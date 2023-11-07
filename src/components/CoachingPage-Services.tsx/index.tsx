@@ -210,7 +210,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 <div className="scrollable-container">
                 {filteredPricings.map((pricing, index) => {
   console.log('Pricing Data for index', index, pricing);
-  return <PricingSection key={index} our_plans={pricing} isBookAppointment={isBookAppointment} />;
+  return <PricingSection key={index} our_plans={pricing}/>;
 })}
 
                 </div>
