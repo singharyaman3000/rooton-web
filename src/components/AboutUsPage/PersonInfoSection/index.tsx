@@ -22,7 +22,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
   return (
     <section className="px-[24px] md:px-[48px] lg:px-[80px] m-auto max-w-screen-2k mt-20 mb-[58px]">
       <div className="flex justify-between">
-        <div className="w-[100%] md:w-[52%]">
+        <div className="w-[100%] lg:w-[52%]">
           <div className="flex gap-2 flex-wrap items-end justify-between">
             <SubSectionTitle title={contentHeading} />
           </div>
@@ -44,14 +44,14 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
             />
           ) : null}
         </div>
-        <div className="hidden justify-end md:flex md:w-[42%]">
+        <div className="hidden justify-end lg:flex lg:w-[42%]">
           <NextImage
             src={imageUrl}
-            altText={`Image of ${contentHeading}`}
+            altText={`${contentHeading}`}
             fill
             sizes=""
             style={{ objectFit: 'contain' }}
-            title={`Image of ${contentHeading}`}
+            title={`${contentHeading}`}
             classSelector="!static !h-auto self-end !max-w-[540px] !max-h-[496px]"
           />
         </div>
