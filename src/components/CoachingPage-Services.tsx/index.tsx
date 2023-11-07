@@ -66,6 +66,9 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     return i.attributes.unique_identifier_name === 'our_plans';
   });
 
+  const pricing_lead_form = pricings?.attributes?.json_content?.pricingDetails?.pricingPlans;
+  // console.log("hello", pricing_lead_form);
+
   const trainings = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'training';
   });
@@ -87,6 +90,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const pricingDetails =  pricings?.attributes?.json_content?.pricingDetails;
   const filteredPricings = pricingDetails?.[activepType] || [];
+  console.log('Filtered Pricings:', filteredPricings);
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'coaching-service-testimonial';
@@ -128,6 +132,14 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       });
     }, 0);
   };
+  const handlePurchasePlanClick = () => {
+    setShowBookAnAppointment(true); 
+    const formPosition = leadFormRef.current?.getBoundingClientRect().top ?? 0;
+    window.scrollTo({
+      top: formPosition - 150 + window.pageYOffset,
+      behavior: 'smooth',
+    });
+  };
 
   const getSection = (identifier: string, data?: ICoachingServicesContent) => {
     switch (identifier) {
@@ -162,7 +174,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
             </CoachingPageWrapper>
           );
         }
-
         return null;
       case 'service-CTA-banner-1':
         return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
@@ -197,9 +208,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 </div>
 
                 <div className="scrollable-container">
-                  {filteredPricings.map((pricingTypes) => {
-                    return <PricingSection our_plans={pricingTypes} />;
-                  })}
+                {filteredPricings.map((pricing, index) => {
+  console.log('Pricing Data for index', index, pricing);
+  return <PricingSection key={index} our_plans={pricing} isBookAppointment={isBookAppointment} />;
+})}
+
                 </div>
               </div>
             </div>

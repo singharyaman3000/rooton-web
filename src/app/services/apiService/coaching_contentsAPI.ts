@@ -31,6 +31,7 @@ type TrainingType = {
 
 type PricingType = {
   id: string;
+  lead_forms: ILeadForm[];
 };
 
 export type ISubServiceJSONContent = {
@@ -68,7 +69,7 @@ type ICoachingServiceSContents = {
 
 // Pricing
 
-type pricingPlans = {
+export type pricingPlans = {
   planName: string;
   price: number;
   yearly: boolean;
@@ -76,6 +77,7 @@ type pricingPlans = {
   features: string[][];
   validity: string;
   planDescription: string;
+  lead_forms: ILeadForm[];
 }
 
 export type IPricing = {
