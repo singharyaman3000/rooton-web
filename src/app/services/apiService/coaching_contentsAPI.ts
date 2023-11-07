@@ -27,10 +27,23 @@ export type IFaq = {
 
 type TrainingType = {
   id: string;
+  title: string;
+  description: string | null;
+  position: number;
+  image: string;
+  json_content: {
+    trainingDetails: {};
+  };
 };
 
 type PricingType = {
   id: string;
+  title: string;
+  description: string | null;
+  position: number;
+  json_content: {
+    pricingDetails: {};
+  };
 };
 
 export type ISubServiceJSONContent = {
