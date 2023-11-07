@@ -25,8 +25,8 @@ import BookAnAppointment from '../UIElements/BookAnAppointment';
 
 type CoachingServicePageProps = {
   coachingPageConfig: ICoachingPage_Data;
-  leadForm: DataEntity1;
-  isBookAppointment: boolean;
+  leadForm?: DataEntity1;
+  isBookAppointment?: boolean;
 };
 
 const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: CoachingServicePageProps) => {
@@ -88,7 +88,7 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
                 leadForm={leadForm}
                 leadFormRef={leadFormRef}
                 handleCTAButtonClick={handleCTAButtonClick}
-                isBookAppointment={isBookAppointment}
+                isBookAppointment={isBookAppointment ?? false}
               />
             </CoachingPageWrapper>
           );
