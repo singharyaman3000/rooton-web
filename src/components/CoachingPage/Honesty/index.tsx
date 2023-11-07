@@ -43,7 +43,8 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
           {json_content?.['why_rooton']?.map((whyRootOn) => {
             return (
               <HonestyCard
-                key={""}
+                title={whyRootOn.title}
+                cardKey={whyRootOn.id}
                 id={whyRootOn.id}
                 value={whyRootOn.value}
                 icon={process.env.NEXT_ASSETS_BASEURL + whyRootOn.icon}

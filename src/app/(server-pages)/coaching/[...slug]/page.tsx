@@ -1,5 +1,5 @@
 import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coaching_contentsAPI';
-import { CoachingServicePageComponent } from '@/components/CoachingPage-Services.tsx';
+import { CoachingServicePageComponent } from '@/components/CoachingPage-Services';
 
 // For IELTS
 

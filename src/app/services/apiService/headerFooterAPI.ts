@@ -3,7 +3,6 @@ import { HEADER_FOOTER_API } from './apiUrl/homePage';
 import { IMediaUrlData } from './interfaces';
 import { ILanguageData } from '@/components/Header/LanguageDropDown/FlagComponentWrapper';
 import { ICoreServices } from '@/components/HomePage/ServicesListing/interafces';
-import { ICoachingServices } from '@/components/CoachingPage/ServicesListing/interafces';
 
 export const CONTENT_TYPES = {
   WHATSAPP: 'whatsapp',

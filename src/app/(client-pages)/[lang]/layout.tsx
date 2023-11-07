@@ -14,8 +14,6 @@ import IModalShowContextProvider from '@/providers/coreServicesMOdalOpenContext'
 import MobileModalShowContextProvider from '@/providers/coreServicesModalMobileContext';
 import ServiceListingOnAdviceMobile from '@/components/HomePage/CoreServiceListing/ServiceListOnAdviceMobile';
 import ServicesPopUpModal from '@/components/HomePage/CoreServiceListing/ServicesPopUpModal';
-import CoachingServiceListingOnAdviceMobile from '@/components/CoachingPage/CoreServiceListing/ServiceListOnAdviceMobile';
-import CoachingServicesPopUpModal from '@/components/CoachingPage/CoreServiceListing/ServicesPopUpModal';
 
 const ClientPageLayout = ({ children }: { children: ReactNode }) => {
   const { isClient } = useClient();
@@ -29,9 +27,7 @@ const ClientPageLayout = ({ children }: { children: ReactNode }) => {
             <IModalShowContextProvider>
               <MobileModalShowContextProvider>
                 <ServiceListingOnAdviceMobile />
-                <CoachingServiceListingOnAdviceMobile />
                 <ServicesPopUpModal />
-                <CoachingServicesPopUpModal/>
                 <Translator />
                 <ClientHeader />
                 <ClientWhatsAppButton />

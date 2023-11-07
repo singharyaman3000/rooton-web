@@ -11,7 +11,7 @@ export const CONTENT_TYPES = {
   SERVICES: 'coaching_services',
   CREDIBILITY: 'credibility',
   WHY_ROOT_ON: 'why_rooton_coaching',
-  OUR_PROCESSES: 'coaching_processes', 
+  OUR_PROCESSES:'coaching_processes',
   BLOG: 'blogs',
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
