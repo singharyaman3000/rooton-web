@@ -38,7 +38,7 @@ const Slider = ({
     >
       <div className="relative overflow-hidden">
         <div
-          className={`flex justify-between  
+          className={`flex justify-between md:gap-[20px] xl:gap-[30px]
           w-full transition-transform md:delay-100 
           md:duration-300 snap-x snap-mandatory ${slideParentClass}`}
           style={{ transform: `translateX(${scrollPercent ?? `${-pageNum * 100}%`})` }}
@@ -48,7 +48,8 @@ const Slider = ({
             ? loadingUI
             : children?.map((child) => {
               return (
-                <motion.article key={child.key} className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass} snap-center`}>
+                <motion.article key={child.key}
+                  className={`px-[12px] w-full md:w-[50%] flex-shrink-0 ${slideClass} snap-center`}>
                   {child}
                 </motion.article>
               );
