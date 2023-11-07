@@ -26,7 +26,7 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
   },[]);
 
   useEffect(() => {
-    setScrollAmt((unitPageWidth + 30) * pageNum);
+    setScrollAmt(unitPageWidth * pageNum);
   }, [pageNum]);
 
   useEffect(() => {
