@@ -2,7 +2,7 @@
 
 import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coaching_contentsAPI';
 import LoadingUI from '@/components/LoadingUI';
-import { CoachingServicePageComponent } from '@/components/CoachingPage-Services.tsx';
+import { CoachingServicePageComponent } from '@/components/CoachingPage-Services';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 import { useTranslationLoader } from '@/providers/translationLoadingProvider';
 import { useParams } from 'next/navigation';

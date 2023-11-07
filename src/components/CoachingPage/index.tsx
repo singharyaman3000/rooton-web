@@ -18,7 +18,7 @@ import BlogSection from '../ServicePage/PageSections/BlogSection';
 import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
 import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
-import { CoachingPageWrapper } from '../CoachingPage-Services.tsx/Wrapper';
+import { CoachingPageWrapper } from '../CoachingPage-Services/Wrapper';
 import LeadFormSection from './BookAnAppointmentButton/LeadFormSection';
 import { DataEntity1 } from '@/app/services/apiService/CoachingAPI';
 import BookAnAppointment from '../UIElements/BookAnAppointment';

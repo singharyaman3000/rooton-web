@@ -1,7 +1,7 @@
 const SERVICE_API =
   '/api/sub-services/<service-id>?populate[0]=media_url&populate[1]=sub_services_contents.media_url&populate[2]=blogs.media_url';
 
-  const COACHING_SERVICE_API =
+const COACHING_SERVICE_API =
   '/api/coaching-services/<service-id>?populate[0]=media_url&populate[1]=coaching_service_contents.media_url&populate[2]=blogs.media_url';
 
 export const getServiceAPIUrl = (serviceId: unknown) => {

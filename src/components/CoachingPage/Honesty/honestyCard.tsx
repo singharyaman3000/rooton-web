@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 export interface IWhyRootON {
-  cardKey: string;  // changed from key to cardKey
+  cardKey: string;
   id: string;
   title: string;
   value: string;

@@ -98,11 +98,10 @@ export type IPricing = {
   description: string | null;
   position: number;
   json_content: {
-    pricingDetails: 
+  pricingDetails:
     {
       [key: string]: pricingPlans[];
     };
-    
   };
 };
 
@@ -126,7 +125,6 @@ export type ITraining = {
   };
 };
 
-
 type IAttributes = {
   title: string;
   description: string;
@@ -141,9 +139,11 @@ type IAttributes = {
     data: IMediaUrlData[];
   };
   coaching_service_contents: ICoachingServiceSContents;
-  training: ITraining; 
+  training: ITraining;
   our_plans: IPricing;
-  blogs: { data: IBlogCardData[] };
+  blogs: {
+    data: IBlogCardData[]
+  };
 };
 
 type ICoachingServicePageContentResponse = {
@@ -157,7 +157,8 @@ export type ICoachingServicePageContent = {
 
 export const getCoachingServicePageContent = async (coachingId: string) => {
   try {
-    const res = await getFetch<ICoachingServicePageContent>(getCoachingAPIUrl(coachingId), { next: { revalidate: 10 } });
+    const res = await getFetch<ICoachingServicePageContent>
+    (getCoachingAPIUrl(coachingId), { next: { revalidate: 10 } });
     return res;
   } catch (error) {
     return { error };
