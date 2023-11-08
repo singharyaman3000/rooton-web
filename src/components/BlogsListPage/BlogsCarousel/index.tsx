@@ -39,7 +39,6 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
     slideId: id,
     sliderData: allArticlesList,
   });
-  const [isPaginationAPIInProgress, setIsPaginationAPIInProgress] = useState(false);
 
   const initialApiCall = async () => {
     setLoading(true);
@@ -60,7 +59,6 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
   }, []);
 
   const getArticles = async () => {
-    setIsPaginationAPIInProgress(true);
     const currentPage = blogsListData?.meta?.pagination?.page || 0;
     const res = await getBlogsList(articleType, currentPage + 1, sourcePage, serviceType);
     if (res?.status) {
@@ -69,7 +67,6 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
         return [...prev, ...res?.res?.data ?? []];
       });
     }
-    setIsPaginationAPIInProgress(false);
   };
 
   const dotsArray: number[] = allArticlesList?.map((_: unknown, index: number) => {
@@ -131,13 +128,12 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
               </Link>
             )}
             <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
-            <SliderNav handleOnClick={handleIncrementPage} isLoading={isPaginationAPIInProgress}
-              disable={(pageNum === totalPages - 1) || isPaginationAPIInProgress} />
+            <SliderNav handleOnClick={handleIncrementPage} disable={pageNum === totalPages - 1} />
           </div>
         </div>
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className={`w-[100%] max-w-screen-2k 
-          pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} `} {...handlers}>
+        <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} max-w-screen-2k `}
+          {...handlers}>
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id={id}

@@ -40,7 +40,7 @@ const useSliderData = ({ slideId, sliderData }: IUseSliderData) => {
         if (children && children.length > 0) {
           for (const key in children) {
             if (children[key].clientWidth) {
-              const padding = screenWidth >=768 ? 20 : 0;
+              const padding = screenWidth >=768 ? 25 : 0;
               if (totalWidth + children[key].clientWidth <= slide.clientWidth) {
                 totalWidth += children[key].clientWidth + padding;
                 itemsPerPage += 1;
