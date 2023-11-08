@@ -46,8 +46,6 @@ function htmlEnhancer(content: string, type: string) {
   let currentInd = 0;
   let currentLength = 0;
   while ((result = regex.exec(content.slice(currentLength))) && content.length > currentLength) {
-    console.log(result[1]);
-    
     if (!indices.find((item: any) => item == result.index)) {
       indices.push(currentLength + result.index);
       currentInd = result.index;
@@ -56,8 +54,14 @@ function htmlEnhancer(content: string, type: string) {
       let closingTagLength = 0;
       if (!result[0].includes('http') && type === 'image') {
         const url = regex.exec(result[0])![1];
-        replacer = `<img id="blog-detail-image" src="${process.env.NEXT_ASSETS_BASEURL + url}"`;
-        prefixLength = 32;
+        const imgTag = regex.exec(result[0])![0];
+        // console.log(url);
+        // console.log(match);
+        const newImg = imgTag.replace(url, process.env.NEXT_ASSETS_BASEURL + url);
+        // console.log(imgTag, newImg);
+
+        replacer = newImg;
+        prefixLength = imgTag.length;
       } else {
         if (result[1].includes('youtu')) {
           replacer = getObjectTagContent(result);
@@ -101,6 +105,7 @@ export function getAllPageIndex(content: any, start: string, end: string) {
   return pageIndexList;
 }
 
+// replacing all font family with Jakarta
 function replaceFontFamily(content: string) {
   const query = /font-family:[^;]+/g;
   const fontFamily = 'font-family:__Plus_Jakarta_Sans_7507a8,_Plus_Jakarta_Sans_Fallback_7507a8';
@@ -108,10 +113,24 @@ function replaceFontFamily(content: string) {
   return output;
 }
 
+// finding all image tags and addding the base url for src
+function replaceImageUrl(content: string) {
+  let contentCopy = content;
+  const imgTagMatch = /<img[^>]+src=["']([^"']+)["'][^>]*\/?>/g;
+  const matches = contentCopy.match(imgTagMatch);
+  matches?.forEach((match) => {
+    const srcMatch = /src=["']([^"']+)["']/.exec(match);
+    if (srcMatch && !srcMatch[1].includes('http')) {
+      contentCopy = contentCopy.replace(srcMatch[1], process.env.NEXT_ASSETS_BASEURL + srcMatch[1]);
+    }
+  });
+  return contentCopy;
+}
+
 export function contentParser(content: string) {
   let parsedContent: string = content;
   if (content) {
-    parsedContent = htmlEnhancer(content, 'image');
+    parsedContent = replaceImageUrl(content);
     parsedContent = htmlEnhancer(parsedContent, 'video');
   }
   return replaceFontFamily(parsedContent);

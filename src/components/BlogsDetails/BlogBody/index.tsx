@@ -4,7 +4,7 @@ import { contentParser } from './helpers';
 
 const BlogBody = ({ blogContent }: { blogContent: IBlogContentData }) => {
 
-  return <div>{HtmlParser(contentParser(blogContent?.attributes?.body_content ?? ''))}</div>;
+  return <div id='blog-details-body'>{HtmlParser(contentParser(blogContent?.attributes?.body_content ?? ''))}</div>;
 };
 
 export default BlogBody;
