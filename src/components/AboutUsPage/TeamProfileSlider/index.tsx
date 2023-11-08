@@ -75,9 +75,9 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id={convertToHtmlId(contentHeading)}
-            slideParentClass="!justify-start"
+            slideParentClass="!justify-start gap-10"
             pageNum={pageNum}
-            slideClass="!w-[73.4%] md:px-[15px] !min-w-[264px] md:!w-[29.6%] max-w-[380px] w-full md:!min-w-[380px] md:!max-w-[430px]"
+            slideClass="md:!w-[320px]"
           >
             {teamData.map(({ employeeName, employeeRole, employeeDescription, imageUrl }) => {
               return (
