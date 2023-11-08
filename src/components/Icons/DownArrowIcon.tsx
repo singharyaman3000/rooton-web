@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 type DownArrowIconProps = {
   isScrolled: boolean;
-  isFixed: boolean;
+  isFixed?: boolean;
 };
 
 export default function DownArrowIcon({ isScrolled, isFixed }: DownArrowIconProps) {

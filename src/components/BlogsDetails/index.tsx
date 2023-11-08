@@ -29,16 +29,22 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType }) => 
   const router = useRouter();
 
   const [selectedSection, setSelectedSection] = useState<SelectedTagType>({} as SelectedTagType);
-  const sortedContent = details?.attributes?.blog_contents?.data?.toSorted((a, b) => {
+
+  const blogContents = details?.attributes?.blog_contents?.data || [];
+  const sortedContent = blogContents.sort((a, b) => {
     return (a?.attributes?.position ?? 0) - (b?.attributes?.position ?? 0);
   });
+
   const allHeadingsList = sortedContent?.length
     ? getAllPageIndex(sortedContent[0]?.attributes.body_content, '<heading>', '</heading>')
     : [];
 
   const handleCTAButton = () => {
-    const route = getTranslatedURL(getServicePageURL(details?.attributes?.sub_service?.data?.id), params?.lang);
-    router.push(route + BOOK_AN_APPOINTMENT);
+    const serviceId = details?.attributes?.sub_service?.data?.id;
+    if (serviceId) {
+      const route = getTranslatedURL(getServicePageURL(serviceId), params?.lang);
+      router.push(route + BOOK_AN_APPOINTMENT);
+    }
   };
 
   return (
@@ -62,7 +68,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType }) => 
         <BookAnAppointment onClick={handleCTAButton} />
       </div>
       {/* SocialMediaShare for small screens */}
-      <div className=' lg:hidden mb-10 self-center'>
+      <div className=" lg:hidden mb-10 self-center">
         <SocialMediaShare />
       </div>
       {/* Related Articles */}

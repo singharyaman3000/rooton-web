@@ -18,7 +18,7 @@ const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyS
   return (
     <section className="px-[24px] md:px-[48px] lg:px-[80px] m-auto max-w-screen-2k my-10 md:my-20">
       <div className="flex justify-between">
-        <div className="hidden justify-start md:flex md:w-[25%]">
+        <div className="hidden justify-start lg:flex lg:w-[25%]">
           <NextImage
             src={imageUrl}
             altText={'Welcome to Root On'}
@@ -29,7 +29,7 @@ const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyS
             classSelector="!static !h-auto self-end !max-w-[320px] !max-h-[415px]"
           />
         </div>
-        <div className="w-[100%] md:w-[69%]">
+        <div className="w-[100%] lg:w-[69%]">
           <Description cssClass="!text-black mb-8 md:mb-5" description={companyDescription} />
           {companyStatList ? (
             <ul className="flex flex-col flex-wrap gap-5 md:gap-0 md:flex-row md:justify-between">

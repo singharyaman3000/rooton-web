@@ -16,13 +16,11 @@ type BreadcrumbsProps = {
 };
 
 export const Breadcrumbs = ({ data, className, isStatic = false }: BreadcrumbsProps) => {
+  const styleClass = `
+  ${isStatic ? 'text-primary-font-color' : 'text-white'} font-medium left-6 xl:left-20 top-[93px] text-sm`;
+
   return (
-    <div
-      className={`
-        ${className} ${isStatic ? '' : 'absolute'} flex items-center gap-[14px] ${
-          isStatic ? 'text-primary-font-color' : 'text-white'
-        } font-medium left-6 xl:left-20 top-[93px] text-sm`}
-    >
+    <div className={`${className} ${isStatic ? '' : 'absolute'} flex items-center gap-[14px] ${styleClass}`}>
       {data.map((d, index) => {
         if (index < data.length - 1) {
           return (

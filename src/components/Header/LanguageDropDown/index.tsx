@@ -10,7 +10,7 @@ import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 
 interface RTONLanguageDropDownProps {
   scrolledEnough: boolean;
-  isFixed : boolean;
+  isFixed?: boolean;
 }
 
 export default function RTONLanguageDropDown({ scrolledEnough, isFixed }: RTONLanguageDropDownProps) {

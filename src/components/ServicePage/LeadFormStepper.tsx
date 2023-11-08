@@ -11,6 +11,7 @@ type FormTargetProps = {
   disableNextButton: boolean;
   disableBackButton: boolean;
   showError: boolean;
+  showNavButtons: boolean;
 };
 
 const FormTarget = ({
@@ -19,11 +20,12 @@ const FormTarget = ({
   onBackClick,
   disableNextButton,
   disableBackButton,
+  showNavButtons,
 }: FormTargetProps) => {
   return (
     <div id={SERVICES_TITLE.leadForm.wrapperId} className="mt-12 h-full w-full">
       <div className=" h-full w-full" id={target} />
-      <div className=" flex justify-between w-full mt-10">
+      <div className={`${showNavButtons? 'flex': 'hidden'} justify-between w-full mt-10`}>
         <button
           disabled={disableBackButton}
           type="button"
@@ -53,14 +55,15 @@ type LeadFormStepperProps = {
   target: string;
   calenderLink: string;
   isBookAppointment: boolean;
+  singlePageForm?: boolean;
   // eslint-disable-next-line no-unused-vars
   onFormSubmit?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
   onFormSubmitted?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
-  onProgress: (progress: number) => void;
+  onProgress?: (progress: number) => void;
   // eslint-disable-next-line no-unused-vars
-  initScroll: () => void;
+  initScroll?: () => void;
 };
 
 const LeadFormStepper = (
@@ -74,6 +77,7 @@ const LeadFormStepper = (
     calenderLink,
     isBookAppointment,
     initScroll,
+    singlePageForm = false,
   }: LeadFormStepperProps) => {
   const { noOfFieldsAtaTime } = SERVICES_TITLE.leadForm;
   const showFrom = useRef<number>(0);
@@ -90,7 +94,7 @@ const LeadFormStepper = (
 
   const calculateProgress = () => {
     const progress = (stepNo.current / formLength.current) * 100;
-    onProgress(progress);
+    if (onProgress) onProgress(progress);
   };
 
   const hideSubmitButton = (hide: boolean) => {
@@ -351,7 +355,7 @@ const LeadFormStepper = (
             },
             onFormReady: () => {
               formReady();
-              hideSubmitButton(true);
+              if (!singlePageForm) hideSubmitButton(true);
               const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
               if(form) {
                 form[0].addEventListener('change', onFormBlur);
@@ -378,7 +382,7 @@ const LeadFormStepper = (
 
   useEffect(() => {
     if(isBookAppointment) {
-      initScroll();
+      if (initScroll) initScroll();
     }
   }, [isBookAppointment, initScroll]);
 
@@ -390,6 +394,7 @@ const LeadFormStepper = (
       onBackClick={onBackClick}
       onNextClick={onNextClick}
       target={target}
+      showNavButtons={!singlePageForm}
     />
   ) : (
     <div className=" h-[54rem] mt-2">

@@ -5,7 +5,6 @@ const useSetScrollHeader = (
   target: string,
   refs: RefObject<HTMLElement>[],
   setState: Dispatch<SetStateAction<SelectedTagType>>,
-  selectedTag: SelectedTagType,
 ) => {
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
   const [observe, setObserve] = useState<boolean>(false);

@@ -144,15 +144,15 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
         </div>
       </div>
       {/* eslint-disable react/jsx-props-no-spreading */}
-      <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} `} {...handlers}>
+      <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} max-w-screen-2k `} {...handlers}>
         <Slider
           scrollPercent={`${-scrollAmt}px`}
           id={id}
           pageNum={pageNum}
           loading={loading}
           loadingUI={<ArticlePreLoader />}
-          slideParentClass="!justify-start"
-          slideClass="!w-full md:!w-[380px] !px-0 md:mr-[30px] last:mr-[150px]"
+          slideParentClass="!justify-start md:gap-[20px] xl:gap-[30px]"
+          slideClass="!w-full md:!w-[380px] !px-0"
         >
           {allArticlesList?.map((detail: IBlogData) => {
             return <ArticleCard key={detail.id} attributes={detail.attributes} articleId={detail.id} />;

@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react';
 
-import RTONBanner from '@/components/RTONBanner';
 import WelcomeSection from '@/components/AboutUsPage/WelcomeSection';
 import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
 import RootOnCTAWrapper from '@/components/ServicePage/RootOnCTAWrapper';
@@ -11,6 +10,7 @@ import PersonInfoSection from '@/components/AboutUsPage/PersonInfoSection';
 import TeamProfileSlider from '@/components/AboutUsPage/TeamProfileSlider';
 import BookAppointmentForm from '@/components/AboutUsPage/BookAppointmentForm';
 import ValuesDisplaySection from '@/components/AboutUsPage/ValuesDisplaySection';
+import DynamicBannerSection from '@/components/AboutUsPage/DynamicBannerSection';
 import {
   COMPANY_CEO_INFO,
   WELCOME_SECTION_DATA,
@@ -45,7 +45,8 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
   return (
     <>
       {/* About Us Banner Section */}
-      <RTONBanner
+      <DynamicBannerSection
+        bannerHeightTailwind='!h-[531px] !max-h-[531px] sm:!max-h-[400px] sm:!h-[400px]'
         breadCrumbData={BANNER_SECTION_CONTENT.pagePath}
         addGradient={false}
         backgroundImageUrl={BANNER_SECTION_CONTENT.bannerImageUrl}
@@ -62,7 +63,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
       />
 
       {/* Book a Consultation Section */}
-      <section className="mt-20 m-auto max-w-screen-2k px-6 md:px-12 lg:px-20">
+      <section className="mt-10 m-auto max-w-screen-2k px-6 md:px-12 lg:px-20">
         <RootOnCTAWrapper
           buttonAriaLabel={BOOK_CONSULTATION_CONTENT.btnText}
           buttonText={BOOK_CONSULTATION_CONTENT.btnText}

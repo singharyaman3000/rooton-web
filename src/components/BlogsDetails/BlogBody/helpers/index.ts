@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 const REGEX = {
   YOUTUBE: /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/,
   IMG_TAG: /<img[^>]*src="([^"]+)"[^>]*>/,
@@ -7,10 +8,10 @@ const REGEX = {
 function getYoutubeVideoId(url: string) {
   const regExp = REGEX.YOUTUBE;
   const match = url.match(regExp);
-  return match && match[7].length == 11 ? match[7] : '';
+  return match && match[7].length === 11 ? match[7] : '';
 }
 
-function getObjectTagContent(result: any) {
+function getObjectTagContent(result: string[]) {
   const videoId = getYoutubeVideoId(result[1]);
   const videoUrl = videoId ? `https://www.youtube.com/v/${videoId}` : result[1];
   return `
@@ -24,7 +25,7 @@ function getObjectTagContent(result: any) {
          </object>`;
 }
 
-function getIframeContent(result: any) {
+function getIframeContent(result: string[]) {
   const url = result[1].includes('facebook')
     ? `https://www.facebook.com/plugins/video.php?href=${result[1]}&show_text=0`
     : result[1];
@@ -38,15 +39,22 @@ function getIframeContent(result: any) {
 }
 
 function htmlEnhancer(content: string, type: string) {
-  const indices: any = [];
+  const indices: number[] = [];
   const regex = type === 'image' ? REGEX.IMG_TAG : REGEX.OEMBED_TAG;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: any = { index: 0 };
   let contentCopy = content;
   result = regex.exec(content);
   let currentInd = 0;
   let currentLength = 0;
+
+  // eslint-disable-next-line no-cond-assign
   while ((result = regex.exec(content.slice(currentLength))) && content.length > currentLength) {
-    if (!indices.find((item: any) => item == result.index)) {
+    if (
+      !indices.find((item: number) => {
+        return item === result.index;
+      })
+    ) {
       indices.push(currentLength + result.index);
       currentInd = result.index;
       let replacer = '';
@@ -79,12 +87,13 @@ function htmlEnhancer(content: string, type: string) {
       currentLength += currentInd + replacer.length + prefixLength;
     } else break;
   }
+
   //   return content;
   return contentCopy;
 }
 
-export function getAllPageIndex(content: any, start: string, end: string) {
-  const pageIndexList: any = [];
+export function getAllPageIndex(content: string, start: string, end: string) {
+  const pageIndexList: string[] = [];
   let currentLength = 0;
   let title = '';
   while (content.length > currentLength) {

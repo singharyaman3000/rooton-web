@@ -1,3 +1,5 @@
+'use client';
+
 import CopyLinkIcon from '@/components/Icons/CopyLinkIcon';
 import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
 import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';

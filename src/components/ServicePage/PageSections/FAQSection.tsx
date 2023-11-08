@@ -17,7 +17,7 @@ const FAQSection = ({ faqs }: FAQSectionProps) => {
   if ((faqs?.length ?? 0) > 0) {
     return <ServicePageWrapper className="px-6 mt-20 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
       <>
-        <H2 className=' mb-[49px]'>{SERVICES_TITLE.faq.title}</H2>
+        <H2 className='xs:mb-[18px] mb-[49px]'>{SERVICES_TITLE.faq.title}</H2>
         {faqs?.map((faq) => {
           return (
             <Accordion

@@ -3,7 +3,6 @@
 import React, { Dispatch, RefObject, SetStateAction, useMemo } from 'react';
 import { SelectedTagType } from '..';
 import useGetTabTopPosition from '../hooks/useGetTabTopPosition';
-import useSetScrollHeader from '../hooks/useSetScrollHeader';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BLOG_DETAILS_BREADCRUMBS } from '../constants';
 import SocialMediaShare from '../SocialMediaShare';
@@ -20,7 +19,6 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selected
     });
   }, []);
 
-  // const { unObserveTargets, observeTargets } = useSetScrollHeader('heading', refs, setSelectedTag, selectedTag);
   const { fromTop } = useGetTabTopPosition(selectedTag.activeRef);
 
   const test = (currentRef: RefObject<HTMLSpanElement>, currentHeading: string) => {
@@ -30,7 +28,6 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selected
         return heading.textContent === currentHeading;
       });
       if (selectedHeader) selectedHeader.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // observeTargets();
     }
   };
 
@@ -59,7 +56,6 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selected
                   ref={refs[index]}
                   className="max-w-[320px] hover:font-bold min-w-[300px] text-base"
                   onClick={() => {
-                    // unObserveTargets();
                     setSelectedTag({ tag: heading, activeRef: refs[index], type: 'selected' });
                     test(refs[index], heading);
                   }}

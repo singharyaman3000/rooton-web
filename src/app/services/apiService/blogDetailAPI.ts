@@ -24,7 +24,7 @@ export interface IBlogContentData {
 }
 
 interface IBlogContents {
-  data: IBlogContentData[];
+  data: Array<IBlogContentData>;
 }
 
 interface ISubService {

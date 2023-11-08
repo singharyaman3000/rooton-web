@@ -10,7 +10,7 @@ import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
 import { useParams } from 'next/navigation';
 
-const itemsToSetActive = ['service', 'contact', 'about-us', 'blogs'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -138,7 +138,7 @@ export default function Header() {
         "
         >
           {scrolledEnough ? (
-            <div className=" h-fit">
+            <div className="h-fit">
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -176,7 +176,11 @@ export default function Header() {
             ${getHeaderTextColor()}
           `}
           >
-            <span className="h-[100%] flex items-center relative">
+            <span
+              className={`h-[100%] flex items-center relative ${
+                activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'
+              }`}
+            >
               <Link href={'/about-us'}> About Us</Link>
               {activeTab === 'about-us' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
@@ -187,34 +191,52 @@ export default function Header() {
               onClick={() => {
                 scrollIntoView('servicesHomePage');
               }}
-              className="cursor-pointer h-[100%] flex items-center relative"
+              className={`cursor-pointer h-[100%] flex items-center relative ${
+                activeTab === 'service' ? 'font-extrabold' : 'font-bold'
+              }`}
             >
               Services
               {activeTab === 'service' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
-            <span className="h-[100%] flex items-center relative">
+            <span
+              className={`h-[100%] flex items-center relative ${
+                activeTab === 'coaching' ? 'font-extrabold' : 'font-bold'
+              }`}
+            >
               <Link href={'/'}> Coaching </Link>
-              {activeTab === 'Coaching' && (
+              {activeTab === 'coaching' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
-            <span className="h-[100%] flex items-center relative">
+            <span
+              className={`h-[100%] flex items-center relative ${
+                activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'
+              }`}
+            >
               <Link href={'/blogs'}> Blogs </Link>
               {activeTab === 'blogs' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
-            <span className="h-[100%] flex items-center relative">
+            <span
+              className={`h-[100%] flex items-center relative ${
+                activeTab === 'contact-us' ? 'font-extrabold' : 'font-bold'
+              }`}
+            >
               <Link href={'/'}> Contact Us </Link>
-              {activeTab === 'Contact Us' && (
+              {activeTab === 'contact-us' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
-            <span className="h-[100%] flex items-center relative">
+            <span
+              className={`h-[100%] flex items-center relative ${
+                activeTab === 'tools' ? 'font-extrabold' : 'font-bold'
+              }`}
+            >
               <Link href={'/'}> Tools </Link>
-              {activeTab === 'Tools' && (
+              {activeTab === 'tools' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
