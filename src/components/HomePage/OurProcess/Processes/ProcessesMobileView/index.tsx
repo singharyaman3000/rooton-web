@@ -15,7 +15,7 @@ const ProcessesMobileView = ({ process }: IOurProcessData) => {
   });
 
   return (
-    <div className="block md:hidden mt-[34px] mb-[80px] processes-mobile-view">
+    <div className="block md:hidden mt-[34px] mb-0 processes-mobile-view">
       {process.map(({ title, description, position }, index) => {
         const selectedItem = selectedElem.toString() === `process-mobile-${position}`;
         return (
