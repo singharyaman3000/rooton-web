@@ -9,7 +9,10 @@ import PersonalAccountabilityIcon from '@/components/Icons/PersonalAccountabilit
 /* About Us Banner Section */
 export const BANNER_SECTION_CONTENT = {
   pagePath: ABOUT_US_PATH,
-  bannerImageUrl: '/images/aboutUs/about-us-banner.png',
+  bannerImageUrl: {
+    desktopScreen: '/images/aboutUs/about-us-banner.png',
+    mobileScreen: '/images/aboutUs/about-us-mobile-banner.png',
+  },
   bannerHeading: '<span>About Root On</span>',
   bannerDescription:
     'Personalized immigration guidance from a licensed professional. Discover the best pathway for your Canadian dream.',
@@ -63,7 +66,20 @@ export const COMPANY_CEO_INFO = {
     'His motivation to start Root On Consultants came from witnessing the challenges faced by immigrants, inspiring him to assist students with Canada Student Visas and immigrants from around the world.',
   licenseNumber: 'R529956',
   imageUrl: '/images/aboutUs/company-ceo.png',
-  certificationImagesUrl: ['/images/aboutUs/cicc-logo.png', '/images/aboutUs/capic-logo.png'],
+  certificationImagesUrl: [
+    {
+      imageUrl: '/images/aboutUs/cicc-logo.png',
+      imageWidth: '206px',
+      imageHeight: '60px',
+      imageAlt: 'CICC Certification',
+    },
+    {
+      imageUrl: '/images/aboutUs/capic-logo.png',
+      imageWidth: '240px',
+      imageHeight: '56px',
+      imageAlt: 'CAPIC Certification',
+    },
+  ],
   expertiseList: [
     'Study Visa Extensions',
     'Spousal Open Work Permit Visas',
@@ -155,7 +171,7 @@ export const WHAT_WE_VALUE_SECTION = {
     {
       key: 'Integrity and Respect',
       iconComponent: IntegrityRespectIcon,
-      value: 'we treat our customers, colleagues, and partners with respect,',
+      value: 'We treat our customers, colleagues, and partners with respect,',
       position: 6,
     },
   ],
