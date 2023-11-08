@@ -7,12 +7,12 @@ import styles from './WhatsappCss.module.css';
 import { getHeaderFooterData, IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
 
 export interface IWhatsAppProps {
-  whatsapp: IWhatsAppAttributes;
+  whatsapp: IWhatsAppAttributes | undefined;
   hideTemplate: () => void;
   showTypingInitial: boolean;
 }
 
-const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
+const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes, theme: string }> = ({ theme }) => {
   const [showTemplate, setShowTemplate] = useState(false);
   const [showTypingInitial, setShowTypingInitial] = useState(true);
   const [isMobileView, setIsMobileView] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
@@ -38,7 +38,6 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
       }
     }
   };
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
@@ -64,7 +63,7 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
         aria-label="Open WhatsApp"
         className={styles.whatsappIconContainer}
       >
-        <WhatsappIcon />
+        <WhatsappIcon theme={theme}/>
       </div>
     </div>
   );

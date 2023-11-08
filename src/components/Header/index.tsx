@@ -9,6 +9,8 @@ import SliderOverlay from './SliderOverlay';
 import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
 import { useParams } from 'next/navigation';
+import WhatsAppButton from '@/components/WhatsApp-Integration';
+import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
 const itemsToSetActive = ['service', 'contact', 'about-us', 'blogs'];
 
@@ -19,7 +21,17 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
   const [activeTab,setActiveTab] = useState<string>('');
-
+  const [shouldRenderWhatsAppButton, setshouldRenderWhatsAppButton] = useState<IWhatsAppAttributes | undefined>(undefined);
+  const [whatsAppData, setwhatsAppData] = useState<IWhatsApp>({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiRes = await getHeaderFooterData();
+      setwhatsAppData(apiRes[0]?.attributes?.whats_app);
+      const whatsAppData1 = apiRes[0]?.attributes?.whats_app;
+      setshouldRenderWhatsAppButton(whatsAppData1?.data?.attributes);
+    };
+    fetchData();
+  }, []);
   useEffect(() => {
     let lastKnownScrollPosition = 0;
     let ticking = false;
@@ -229,6 +241,10 @@ export default function Header() {
             xl:mx-20
           "
         />
+        <div>
+          {shouldRenderWhatsAppButton && (
+            <WhatsAppButton whatsapp={ whatsAppData!.data!.attributes } theme={theme || 'light'} />
+          )}</div>
       </nav>
     </header>
   );

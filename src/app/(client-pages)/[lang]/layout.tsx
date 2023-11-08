@@ -9,7 +9,6 @@ import { getHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { HeaderFooterDataProvider } from '@/providers/headerFooterDataProvider';
 import ClientFooter from '@/components/Footer/ClientFooter';
 import ClientHeader from '@/components/Header/ClientHeader';
-import ClientWhatsAppButton from '@/components/WhatsApp-Integration/ClientWhatsApp';
 import IModalShowContextProvider from '@/providers/coreServicesMOdalOpenContext';
 import MobileModalShowContextProvider from '@/providers/coreServicesModalMobileContext';
 import ServiceListingOnAdviceMobile from '@/components/HomePage/CoreServiceListing/ServiceListOnAdviceMobile';
@@ -30,7 +29,6 @@ const ClientPageLayout = ({ children }: { children: ReactNode }) => {
                 <ServicesPopUpModal />
                 <Translator />
                 <ClientHeader />
-                <ClientWhatsAppButton />
                 {children}
                 <ClientFooter />
               </MobileModalShowContextProvider>

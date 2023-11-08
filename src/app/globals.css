@@ -826,3 +826,11 @@ button:disabled {
 .services-tab .tab-header div:nth-child(2) {
   max-width: 100% !important;
 }
+
+/* .shadow {
+  filter: url(#shadow);
+}
+
+[data-theme='dark'] .shadow {
+  filter: none;
+} */
