@@ -112,12 +112,12 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
             }
             header={
               <TestimonialFooter
-                college_photo={appendAssetUrl(popUpData?.icon.data?.[0].attributes.url ?? '')}
+                college_photo={appendAssetUrl(popUpData?.icon?.data?.[0]?.attributes?.url ?? '')}
                 name={popUpData?.name ?? ''}
                 college={popUpData?.college ?? ''}
-                caption={popUpData?.profile_picture.data?.attributes.caption ?? ''}
-                url={popUpData?.profile_picture.data?.attributes.url ?? ''}
-                alternativeText={popUpData?.profile_picture.data?.attributes.alternativeText ?? ''}
+                caption={popUpData?.profile_picture?.data?.attributes?.caption ?? ''}
+                url={popUpData?.profile_picture?.data?.attributes?.url ?? ''}
+                alternativeText={popUpData?.profile_picture?.data?.attributes?.alternativeText ?? ''}
               />
             }
           />
