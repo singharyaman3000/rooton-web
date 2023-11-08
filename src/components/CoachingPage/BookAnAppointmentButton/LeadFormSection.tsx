@@ -13,8 +13,8 @@ type LeadFormSectionProps = {
 
 const LeadFormSection = ({ leadForm, leadFormRef, handleCTAButtonClick, isBookAppointment }: LeadFormSectionProps) => {
   const [formStepperProgress, setFormStepperProgress] = useState(0);
-  function isLeadForm(jsonContent: any): jsonContent is ILeadForm {
-    return jsonContent.hasOwnProperty('lead_forms');
+  function isLeadForm(jsonContent: unknown): jsonContent is ILeadForm {
+    return typeof jsonContent === 'object' && jsonContent !== null && 'lead_forms' in jsonContent;
   }
   const jsonContent = leadForm?.attributes.json_content;
   const leadFormsAvailable = isLeadForm(jsonContent) ? jsonContent.lead_forms : undefined;
@@ -47,20 +47,19 @@ const LeadFormSection = ({ leadForm, leadFormRef, handleCTAButtonClick, isBookAp
               }}
               calenderLink={
                 isLeadForm(leadForm?.attributes.json_content) ?
-                leadForm.attributes.json_content.lead_forms?.find(f => f.type === 'meeting')?.url ?? ''
-                : ''
+                  leadForm.attributes.json_content.lead_forms?.find((f) => f.type === 'meeting')?.url ?? ''
+                  : ''
               }
               region={
                 isLeadForm(leadForm?.attributes.json_content) ?
-                leadForm.attributes.json_content.lead_forms?.find(f => f.type === 'form')?.region ?? ''
-                : ''
-               
+                  leadForm.attributes.json_content.lead_forms?.find((f) => f.type === 'form')?.region ?? ''
+                  : ''
               }
               portalId={
-                leadFormsAvailable?.find(f => f.type === 'form')?.portalId ?? ''
+                leadFormsAvailable?.find((f) => f.type === 'form')?.portalId ?? ''
               }
               formId={
-                leadFormsAvailable?.find(f => f.type === 'form')?.formId ?? ''
+                leadFormsAvailable?.find((f) => f.type === 'form')?.formId ?? ''
               }
               target="LeadForm"
             />

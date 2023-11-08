@@ -26,9 +26,7 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
     fetchData();
   }, []);
 
-   // Handler for the WhatsApp icon click
-   const handleLogoClick = () => {
-    const isMobileView = window.innerWidth <= 768;
+  const handleLogoClick = () => {
     // If mobile view, open the WhatsApp link
     if (isMobileView) {
       const whatsAppLink = `https://wa.me/${whatsAppData?.whatsappnumber}?text=${encodeURIComponent(whatsAppData?.welcomeText || '')}`;
@@ -50,23 +48,13 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleClick = () => {
-    window.open(
-      `https://wa.me/${whatsAppData?.whatsappnumber}?text=${whatsAppData?.welcomeText}`,
-      '_blank',
-      'width=1080,height=800,left=200,top=200WhatsAppButton ',
-    );
-  };
-
   return (
     <div className={styles.whatsAppIntegration}>
-       <div className={showTemplate ? styles.fade_show : styles.fade}>
-      {showTemplate && whatsAppData && (
-        <WhatsAppTemp
-          hideTemplate={() => setShowTemplate(false)}
-          showTypingInitial={showTypingInitial}
-          whatsapp={whatsAppData}
-        />
+      <div className={showTemplate ? styles.fade_show : styles.fade}>{showTemplate && whatsAppData && (<WhatsAppTemp
+        hideTemplate={() => setShowTemplate(false)}
+        showTypingInitial={showTypingInitial}
+        whatsapp={whatsAppData}
+      />
       )}
       </div>
       <div

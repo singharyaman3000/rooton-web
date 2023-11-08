@@ -36,15 +36,29 @@ type TrainingType = {
   };
 };
 
-type PricingType = {
-  id: string;
-  title: string;
-  description: string | null;
-  position: number;
-  json_content: {
-    pricingDetails: {};
-  };
-};
+// type PricingType = {
+//   id: string;
+//   title: string;
+//   description: string | null;
+//   position: number;
+//   json_content: {
+//     pricingDetails: {pricingPlans: pricingPlans[];};
+//   };
+// };
+export type pricingPlansDetails = {
+  planName?: string;
+  price: number;
+  yearly: boolean;
+  popular?: boolean;
+  features: string[][];
+  validity: string;
+  planDescription: string;
+  // lead_forms: ILeadForm[];
+}
+
+export type pricingPlans = {
+  pricingPlans: pricingPlansDetails[];
+}
 
 export type ISubServiceJSONContent = {
   eligibility?: IEligibility[];
@@ -54,8 +68,8 @@ export type ISubServiceJSONContent = {
   trainingDetails?: {
     [key: string]: TrainingType[];
   };
-  pricingDetails?: {
-    [key: string]: PricingType[];
+  pricingDetails: {
+    [key: string]: pricingPlans;
   };
 };
 
@@ -81,28 +95,27 @@ type ICoachingServiceSContents = {
 
 // Pricing
 
-export type pricingPlans = {
-  planName: string;
-  price: number;
-  yearly: boolean;
-  popular?: boolean;
-  features: string[][];
-  validity: string;
-  planDescription: string;
-  lead_forms: ILeadForm[];
+// export type IPricing = {
+//   title: string;
+//   description: string | null;
+//   position: number;
+//   json_content: {
+//     pricingDetails: {
+//       pricingPlans: pricingPlans[];
+//       [key: string]: any;
+//     };
+//   };
+// };
+
+export type IpricingDetails = {
+  pricingDetails: pricingPlans[];
 }
 
 export type IPricing = {
-  [x: string]: any;
   title: string;
   description: string | null;
   position: number;
-  json_content: {
-  pricingDetails:
-    {
-      [key: string]: pricingPlans[];
-    };
-  };
+  json_content: IpricingDetails;
 };
 
 type ITrainingDetail = {
@@ -113,7 +126,6 @@ type ITrainingDetail = {
 };
 
 export type ITraining = {
-  [x: string]: any;
   title: string;
   description: string | null;
   position: number;

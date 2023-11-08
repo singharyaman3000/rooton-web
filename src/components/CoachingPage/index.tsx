@@ -1,12 +1,12 @@
 'use client';
-import React from 'react';
+
 import { useRef, useState } from 'react';
 import Credibility from '@/components/CoachingPage/Credibility';
 import Honesty, { IJsonContent } from '@/components/CoachingPage/Honesty';
 import PartnerShip from '@/components/CoachingPage/Partnership';
 import OurProcess from '@/components/CoachingPage/OurProcess';
-import { CONTENT_TYPES, ICoachingPage_Data } from '@/app/services/apiService/CoachingAPI';
-import { appendAssetUrl, getSectionData, getSectionData1, isVideo } from '@/utils';
+import { CONTENT_TYPES, ICoachingPage_Data, DataEntity1 } from '@/app/services/apiService/CoachingAPI';
+import { appendAssetUrl, getSectionData1, isVideo } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -14,13 +14,10 @@ import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
-import BlogSection from '../ServicePage/PageSections/BlogSection';
-import { GET_BLOGS_HOME } from '@/app/services/apiService/apiUrl/servicePage';
 import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from '../CoachingPage-Services/Wrapper';
 import LeadFormSection from './BookAnAppointmentButton/LeadFormSection';
-import { DataEntity1 } from '@/app/services/apiService/CoachingAPI';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
 
 type CoachingServicePageProps = {
@@ -49,61 +46,61 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
     return data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
       switch (contents.attributes.unique_identifier_name) {
-        case CONTENT_TYPES.CREDIBILITY:
-          return (
-            <Credibility
-              description={description ?? ''}
+      case CONTENT_TYPES.CREDIBILITY:
+        return (
+          <Credibility
+            description={description ?? ''}
+            title={title}
+            sub_title={sub_title}
+            media_url={contents.attributes.media_url}
+          />
+        );
+      case CONTENT_TYPES.WHY_ROOT_ON:
+        return (
+          <Honesty
+            title={title}
+            description={description ?? ''}
+            sub_title={sub_title}
+            json_content={contents.attributes.json_content as IJsonContent}
+          />
+        );
+      case CONTENT_TYPES.OUR_PROCESSES:
+        return (
+          <div className=" mb-20">
+            <OurProcess
               title={title}
               sub_title={sub_title}
-              media_url={contents.attributes.media_url}
+              json_content={contents.attributes.json_content as IOurProcessData}
             />
-          );
-        case CONTENT_TYPES.WHY_ROOT_ON:
-          return (
-            <Honesty
-              title={title}
-              description={description ?? ''}
-              sub_title={sub_title}
-              json_content={contents.attributes.json_content as IJsonContent}
+          </div>
+        );
+      case CONTENT_TYPES.LEAD_FORM:
+        return (
+          <CoachingPageWrapper
+            className={`${
+              showBookAnAppointment ? 'block' : 'hidden'
+            } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
+          >
+            <LeadFormSection
+              leadForm={leadForm}
+              leadFormRef={leadFormRef}
+              handleCTAButtonClick={handleCTAButtonClick}
+              isBookAppointment={isBookAppointment ?? false}
             />
-          );
-        case CONTENT_TYPES.OUR_PROCESSES:
-          return (
-            <div className=" mb-20">
-              <OurProcess
-                title={title}
-                sub_title={sub_title}
-                json_content={contents.attributes.json_content as IOurProcessData}
-              />
-            </div>
-          );
-        case CONTENT_TYPES.LEAD_FORM:
-          return (
-            <CoachingPageWrapper
-              className={`${
-                showBookAnAppointment ? 'block' : 'hidden'
-              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
-            >
-              <LeadFormSection
-                leadForm={leadForm}
-                leadFormRef={leadFormRef}
-                handleCTAButtonClick={handleCTAButtonClick}
-                isBookAppointment={isBookAppointment ?? false}
-              />
-            </CoachingPageWrapper>
-          );
-        case CONTENT_TYPES.CHALLENGES:
-          return (
-            <ChallengesListing
-              description={description ?? ''}
-              sub_title={sub_title}
-              title={title}
-              json_content={contents.attributes.json_content as IChallenges}
-              media_url={contents.attributes.media_url}
-            />
-          );
-        default:
-          return null;
+          </CoachingPageWrapper>
+        );
+      case CONTENT_TYPES.CHALLENGES:
+        return (
+          <ChallengesListing
+            description={description ?? ''}
+            sub_title={sub_title}
+            title={title}
+            json_content={contents.attributes.json_content as IChallenges}
+            media_url={contents.attributes.media_url}
+          />
+        );
+      default:
+        return null;
       }
     });
   };
@@ -112,12 +109,11 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
     return data?.map((contents) => {
       const { title, sub_title } = contents.attributes;
       switch (contents.attributes.unique_identifier_name) {
-        case CONTENT_TYPES.PARTNERSHIPS:
-          return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
-        // case CONTENT_TYPES.BLOG:
-        //   return <BlogSection title={title} subtitle={sub_title} url={GET_BLOGS_HOME} />;
-        default:
-          return null;
+      case CONTENT_TYPES.PARTNERSHIPS:
+        return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
+
+      default:
+        return null;
       }
     });
   };

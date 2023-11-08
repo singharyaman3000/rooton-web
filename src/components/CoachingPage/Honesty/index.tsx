@@ -40,9 +40,10 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
       </motion.div>
       <div className="mb-6  lg:mt-[69px]">
         <div className="honestyBackground honestycard grid grid-cols-1 border-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
-          {json_content?.['why_rooton']?.map((whyRootOn) => {
+          {json_content?.why_rooton?.map((whyRootOn) => {
             return (
               <HonestyCard
+                key={''}
                 title={whyRootOn.title}
                 cardKey={whyRootOn.id}
                 id={whyRootOn.id}

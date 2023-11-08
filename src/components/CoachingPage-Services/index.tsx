@@ -1,5 +1,7 @@
 'use client';
-import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
+
+import { ICoachingServicePageContent,
+  ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
 import { useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
@@ -66,9 +68,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     return i.attributes.unique_identifier_name === 'our_plans';
   });
 
-  const pricing_lead_form = pricings?.attributes?.json_content?.pricingDetails?.pricingPlans;
-  // console.log("hello", pricing_lead_form);
-
   const trainings = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'training';
   });
@@ -83,14 +82,13 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const pricingTypes = Object.keys(pricings?.attributes?.json_content?.pricingDetails || {});
 
-  const [activepType, setpType] = useState(pricingTypes[0] || '');
+  const [activepType] = useState(pricingTypes[0] || '');
 
-  const trainingDetails =  trainings?.attributes?.json_content?.trainingDetails;
+  const trainingDetails = trainings?.attributes?.json_content?.trainingDetails;
   const filteredTrainings = trainingDetails?.[activeTrainingType] || [];
 
-  const pricingDetails =  pricings?.attributes?.json_content?.pricingDetails;
+  const pricingDetails = pricings?.attributes?.json_content?.pricingDetails ;
   const filteredPricings = pricingDetails?.[activepType] || [];
-  console.log('Filtered Pricings:', filteredPricings);
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'coaching-service-testimonial';
@@ -132,62 +130,54 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       });
     }, 0);
   };
-  const handlePurchasePlanClick = () => {
-    setShowBookAnAppointment(true); 
-    const formPosition = leadFormRef.current?.getBoundingClientRect().top ?? 0;
-    window.scrollTo({
-      top: formPosition - 150 + window.pageYOffset,
-      behavior: 'smooth',
-    });
-  };
 
   const getSection = (identifier: string, data?: ICoachingServicesContent) => {
     switch (identifier) {
-      case 'service-reason':
+    case 'service-reason':
+      return (
+        <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+          <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
+        </CoachingPageWrapper>
+      );
+    case 'service-eligibility':
+      return (
+        <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+          <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
+        </CoachingPageWrapper>
+      );
+    case 'coaching-service-process':
+      return <ProcessSection process={process} />;
+    case 'service-lead-form':
+      if (leadForm) {
         return (
-          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-            <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
+          <CoachingPageWrapper
+            className={`${
+              showBookAnAppointment ? 'block' : 'hidden'
+            } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
+          >
+            <LeadFormSection
+              leadForm={leadForm}
+              leadFormRef={leadFormRef}
+              handleCTAButtonClick={handleCTAButtonClick}
+              isBookAppointment={isBookAppointment}
+            />
           </CoachingPageWrapper>
         );
-      case 'service-eligibility':
-        return (
-          <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-            <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
-          </CoachingPageWrapper>
-        );
-      case 'coaching-service-process':
-        return <ProcessSection process={process} />;
-      case 'service-lead-form':
-        if (leadForm) {
-          return (
-            <CoachingPageWrapper
-              className={`${
-                showBookAnAppointment ? 'block' : 'hidden'
-              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
-            >
-              <LeadFormSection
-                leadForm={leadForm}
-                leadFormRef={leadFormRef}
-                handleCTAButtonClick={handleCTAButtonClick}
-                isBookAppointment={isBookAppointment}
-              />
-            </CoachingPageWrapper>
-          );
-        }
-        return null;
-      case 'service-CTA-banner-1':
-        return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
-      case 'service-CTA-banner-2':
-        return (
-          <CoachingPageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
-            <BookAnAppointment onClick={handleCTAButtonClick} />
-          </CoachingPageWrapper>
-        );
+      }
+      return null;
+    case 'service-CTA-banner-1':
+      return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
+    case 'service-CTA-banner-2':
+      return (
+        <CoachingPageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
+          <BookAnAppointment onClick={handleCTAButtonClick} />
+        </CoachingPageWrapper>
+      );
 
-      case 'our_plans':
-        return (
-          <>
-            <style jsx>{`
+    case 'our_plans':
+      return (
+        <>
+          <style jsx>{`
               .scrollable-container {
                 display: flex;
                 overflow-x: auto;
@@ -201,28 +191,23 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
               }
             `}</style>
 
-            <div className="mt-20 m-auto max-w-screen-2k ">
-              <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
-                <div className="md:max-w-[70%] lg:max-w-none">
-                  <SectionHeadings title={''} subTitle={pricingTitle || ''} />
-                </div>
-
-                <div className="scrollable-container">
-                {filteredPricings.map((pricing, index) => {
-  console.log('Pricing Data for index', index, pricing);
-  return <PricingSection key={index} our_plans={pricing}/>;
-})}
-
-                </div>
+          <div className="mt-20 m-auto max-w-screen-2k ">
+            <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
+              <div className="md:max-w-[70%] lg:max-w-none">
+                <SectionHeadings title={''} subTitle={pricingTitle || ''} />
               </div>
-            </div>
-          </>
-        );
 
-      case 'training':
-        return (
-          <>
-            <style jsx>{`
+              <div className="scrollable-container">
+                {Array.isArray(filteredPricings) && filteredPricings.map((pricing) => {return <PricingSection key={''} our_plans={pricing}/>;})}</div>
+            </div>
+          </div>
+        </>
+      );
+
+    case 'training':
+      return (
+        <>
+          <style jsx>{`
               .training-section {
                 // background-color: #f5f5f5;
                 padding: 1px 0px 62px;
@@ -267,77 +252,70 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 font-weight: bold;
               }
             `}</style>
-            <div className="training-section blogs-listing  mt-20">
-              <div className="mt-20 m-auto max-w-screen-2k ">
-                <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
-                  <div className="md:max-w-[70%] lg:max-w-none">
-                    <SectionHeadings title={''} subTitle={trainingTitle || ''} />
-                  </div>
+          <div className="training-section blogs-listing  mt-20">
+            <div className="mt-20 m-auto max-w-screen-2k ">
+              <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
+                <div className="md:max-w-[70%] lg:max-w-none">
+                  <SectionHeadings title={''} subTitle={trainingTitle || ''} />
+                </div>
                 {trainingTypes
-                .filter(type => type && type.trim() !== "") // Filters out null, undefined, and empty strings
-                .map((type) => (
-                  <button
-                    key={type}
-                    id="button-heading"
-                    onClick={() => setActiveTrainingType(type)}
-                    className={`${type === activeTrainingType ? 'active-button' : 'normal-button'}`}
-                  >
-                    {type}
-                  </button>
-                ))}
+                  .filter((type) => type && type.trim() !== '') // Filters out null, undefined, and empty strings
+                  .map((type) => (
+                    <button type="button" key={type} id="button-heading" onClick={() => setActiveTrainingType(type)}className={`${type === activeTrainingType ? 'active-button' : 'normal-button'}`}> {type}
+                    </button>
+                  ))}
 
+                {filteredTrainings.map((training, index) => {
+                  if (index === 0) {
+                    return <TrainingCard key={training.id} training={training} isFirst={index === 0} index={index} />;
+                  }
+                  return null;
+                })}
 
+                <div className="scrollable-container">
                   {filteredTrainings.map((training, index) => {
-                    if (index === 0) {
-                      return <TrainingCard key={training.id} training={training} isFirst={index === 0} index={index} />;
+                    if (index !== 0) {
+                      return <TrainingCard key={training.id} training={training} />;
                     }
                     return null;
                   })}
-
-                  <div className="scrollable-container">
-                    {filteredTrainings.map((training, index) => {
-                      if (index !== 0) {
-                        return <TrainingCard key={training.id} training={training} />;
-                      }
-                      return null;
-                    })}
-                  </div>
                 </div>
               </div>
             </div>
-          </>
-        );
+          </div>
+        </>
+      );
 
-      case 'coaching-service-testimonial':
-        return (
-          <div className="m-auto max-w-screen-2k">
-            <Testimonials
-              apiUrl={TESTIMONIAL_API_SERVICE.replace(
-                '<service_type>',
-                response?.data.attributes.unique_identifier_name,
-              )}
-              title={SERVICES_TITLE.testimonial.title}
-              subTitle={SERVICES_TITLE.testimonial.subtitle}
-            />
-          </div>
-        );
-      case 'coaching-service-faq':
-        return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
-      case 'blogs':
-        return (
-          <div className=" mt-[74px] bg-secondary-grey">
-            <BlogSection
-              title=""
-              subtitle={blogs?.attributes.title ?? ''}
-              url={GET_BLOGS_COACHING_SERVICE.replace(
-                '<service-type>',
-                response?.data.attributes.unique_identifier_name,
-              )}
-            />
-          </div>
-        );
-      default:
-        return null;
+    case 'coaching-service-testimonial':
+      return (
+        <div className="m-auto max-w-screen-2k">
+          <Testimonials
+            apiUrl={TESTIMONIAL_API_SERVICE.replace(
+              '<service_type>',
+              response?.data.attributes.unique_identifier_name,
+            )}
+            title={SERVICES_TITLE.testimonial.title}
+            subTitle={SERVICES_TITLE.testimonial.subtitle}
+          />
+        </div>
+      );
+    case 'coaching-service-faq':
+      return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
+    case 'blogs':
+      return (
+        <div className=" mt-[74px] bg-secondary-grey">
+          <BlogSection
+            title=""
+            subtitle={blogs?.attributes.title ?? ''}
+            url={GET_BLOGS_COACHING_SERVICE.replace(
+              '<service-type>',
+              response?.data.attributes.unique_identifier_name,
+            )}
+          />
+        </div>
+      );
+    default:
+      return null;
     }
   };
 
@@ -365,9 +343,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={
-        <BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />
-      }
+        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />}
       />
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={response.data?.attributes?.description} />
