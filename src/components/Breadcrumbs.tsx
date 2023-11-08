@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { RightArrow } from './Icons/RightArrow.icon';
 import React, { ReactElement } from 'react';
+import { RightArrowGrey } from './Icons/RightArrowGrey';
 
 type BreadcrumbsData = {
   title: string | ReactElement;
@@ -31,7 +32,7 @@ export const Breadcrumbs = ({ data, className, isStatic = false }: BreadcrumbsPr
                 {d.title}{' '}
               </Link>
               <span className=" opacity-70" key={`breadcrumb-sep-${index}`}>
-                <RightArrow />
+                {isStatic ? <RightArrowGrey /> : <RightArrow />}
               </span>
             </React.Fragment>
           );

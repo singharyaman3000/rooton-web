@@ -13,7 +13,7 @@ export default async function BlogsDetailPage(props: BlogsDetailPageProps) {
     searchParams: { blogType },
   } = props;
 
-  const response = (await getBlogDetails('71')) as IBlogDetailsResponse;
+  const response = (await getBlogDetails(blogId)) as IBlogDetailsResponse;
 
   return <BlogDetails details={response?.data[0] ?? {}} blogType={blogType} />;
 }

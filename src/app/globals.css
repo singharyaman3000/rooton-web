@@ -791,3 +791,9 @@ heading {
   height: 440px;
   object-fit: cover;
 }
+
+@media (max-width: 768px){
+  #blog-details-body img {
+    height: 172px;
+  }
+}
