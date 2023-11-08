@@ -17,16 +17,29 @@ import MobilePagination from '../MobilePagination';
 import ArticlePreLoader from '../ArticlePreLoader';
 import Button from '@/components/UIElements/Button';
 import Link from 'next/link';
+import { SOURCE_PAGE } from '../constants';
 
 type BlogsCarouselParamsType = {
   articleType: ArticleCategoryType;
   title: string;
   subHeading: string;
   id: string;
+  sourcePage?: string;
   showMore?: boolean;
+  serviceType?: string;
+  containerStyle?: string;
 };
 
-const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, subHeading, id, showMore }) => {
+const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
+  articleType,
+  title,
+  subHeading,
+  id,
+  showMore,
+  serviceType,
+  sourcePage = 'blog',
+  containerStyle,
+}) => {
   const [blogsListData, setBlogsListData] = useState<IBlogsListResponse>({} as IBlogsListResponse);
   const [allArticlesList, setAllArticlesList] = useState<IBlogData[]>([] as IBlogData[]);
   const [dotsToDisplay, setDotsToDisplay] = useState<number[]>([]);
@@ -38,11 +51,11 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
 
   const initialApiCall = async () => {
     setLoading(true);
-    const res = await getBlogsList(articleType, 1);
-    if (res) {
-      setBlogsListData(res as IBlogsListResponse);
-      setAllArticlesList(res?.data ?? []);
-      const initalDots = res?.data?.map((_: unknown, index: number) => {
+    const res = await getBlogsList(articleType, 1, sourcePage, serviceType);
+    if (res.status) {
+      setBlogsListData(res?.res as IBlogsListResponse);
+      setAllArticlesList(res?.res?.data ?? []);
+      const initalDots = res?.res?.data?.map((_: unknown, index: number) => {
         return index;
       });
       setDotsToDisplay(initalDots || []);
@@ -56,11 +69,11 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
 
   const getArticles = async () => {
     const currentPage = blogsListData?.meta?.pagination?.page || 0;
-    const res = await getBlogsList(articleType, currentPage + 1);
-    if (res) {
-      setBlogsListData(res);
+    const res = await getBlogsList(articleType, currentPage + 1, sourcePage, serviceType);
+    if (res?.status) {
+      setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList((prev: IBlogData[]) => {
-        return [...prev, ...res.data ?? []];
+        return [...prev, ...res?.res?.data ?? []];
       });
     }
   };
@@ -100,13 +113,15 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
     if (allArticlesList?.length !== blogsListData?.meta?.pagination?.total) getArticles();
   };
 
-  if(blogsListData?.data?.length === 0){
-    return null;
-  }
-
-  return (
-    <section className="border-b-2 md:border-none">
-      <div className=" pl-6 pb-8 md:pb-12 md:px-20 flex justify-between items-end">
+  return allArticlesList?.length ? (
+    <section
+      className={`${containerStyle} ${serviceType ? 'pt-[40px] md:py-[80px] max-w-screen-2k m-auto' : ''}
+        border-b-2 md:border-none`}
+    >
+      <div
+        className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
+          ${serviceType ? 'md:px-20' : ''}`}
+      >
         <div>
           <SectionHeadings title={title} subTitle={subHeading} />
         </div>
@@ -129,7 +144,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
         </div>
       </div>
       {/* eslint-disable react/jsx-props-no-spreading */}
-      <div className="w-[100%] md:pl-20" {...handlers}>
+      <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} `} {...handlers}>
         <Slider
           scrollPercent={`${-scrollAmt}px`}
           id={id}
@@ -137,20 +152,21 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title, 
           loading={loading}
           loadingUI={<ArticlePreLoader />}
           slideParentClass="!justify-start"
-          slideClass="!w-full md:!w-[380px] !px-0 md:!px-[12px]"
+          slideClass="!w-full md:!w-[380px] !px-0 md:mr-[30px] last:mr-[150px]"
         >
           {allArticlesList?.map((detail: IBlogData) => {
-            return <ArticleCard key={detail.id} articleId={detail.id} attributes={detail.attributes} />;
+            return <ArticleCard key={detail.id} attributes={detail.attributes} articleId={detail.id} />;
           })}
         </Slider>
         <MobilePagination
+          className={sourcePage === SOURCE_PAGE.SERVICE ? 'bg-secondary-grey' : 'bg-white-fixed'}
           dotsToDisplay={dotsToDisplay}
           pageNum={pageNum}
           pageMeta={blogsListData?.meta && blogsListData?.meta}
         />
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export default BlogsCarousel;

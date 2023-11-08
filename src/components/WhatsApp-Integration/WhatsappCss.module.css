@@ -1,0 +1,472 @@
+.bottomRightIcon {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+@media screen and (max-width: 768px) {
+  .bottomRightIcon {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+.container {
+  position: fixed;
+  right: 3%;
+  bottom: 6%;
+  z-index: 999;
+}
+
+.logo_whatsApp {
+  display: block;
+  flex-shrink: 0;
+  overflow: inherit;
+  cursor: pointer;
+}
+
+.avatar::before {
+  background-color: rgb(74, 213, 4);
+  display: block;
+  border: 2px solid rgb(9, 94, 84);
+  content: '';
+  bottom: 258px;
+  right: 290px;
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.avatar::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  display: block;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  box-shadow: rgba(17, 17, 17, 0.1) 0px 0px 2px inset;
+}
+
+.avatar {
+  width: inherit;
+  height: inherit;
+  transition: opacity 1s ease-out 0s;
+  background-color: rgb(210, 210, 210);
+  opacity: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.chat_layout {
+  padding: 20px 20px 20px 10px;
+  background-color: rgb(230, 221, 212);
+  position: relative;
+  max-height: 382px;
+}
+
+.chat_layout_message::before {
+  display: block;
+  position: absolute;
+  content: '';
+  left: 10px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  opacity: 0.08;
+  background-image: url(https://static.elfsight.com/apps/all-in-one-chat/patterns/whatsapp.png);
+}
+
+.chat_layout_message {
+  display: flex;
+  height: 110px;
+}
+
+.WhatsApp_component {
+  background-color: rgb(255, 255, 255);
+  width: 52.5px;
+  height: 32px;
+  border-radius: 16px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-left: 10px;
+  opacity: 0;
+  transition: all 0.1s ease 0s;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.13) 0px 1px 0.5px;
+}
+
+.WhatsApp_component1 {
+  position: relative;
+  display: flex;
+}
+
+.WhatsApp_Dot1 {
+  background-color: rgb(158, 157, 162);
+  animation-name: dJHihm;
+}
+
+.WhatsApp_Dot2 {
+  animation-name: goHzKU;
+}
+
+.WhatsApp_Dot3 {
+  animation-name: krEmjx;
+}
+
+.ChatLayout_Message::before {
+  position: absolute;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAMAAADp2asXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACQUExURUxpccPDw9ra2m9vbwAAAAAAADExMf///wAAABoaGk9PT7q6uqurqwsLCycnJz4+PtDQ0JycnIyMjPf3915eXvz8/E9PT/39/RMTE4CAgAAAAJqamv////////r6+u/v7yUlJeXl5f///5ycnOXl5XNzc/Hx8f///xUVFf///+zs7P///+bm5gAAAM7Ozv///2fVensAAAAvdFJOUwCow1cBCCnqAhNAnY0WIDW2f2/hSeo99g1lBYT87vDXG8/6d8oL4sgM5szrkgl660OiZwAAAHRJREFUKM/ty7cSggAABNFVUQFzwizmjPz/39k4YuFWtm55bw7eHR6ny63+alnswT3/rIDzUSC7CrAziPYCJCsB+gbVkgDtVIDh+DsE9OTBpCtAbSBAZSEQNgWIygJ0RgJMDWYNAdYbAeKtAHODlkHIv997AkLqIVOXVU84AAAAAElFTkSuQmCC);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: '';
+  top: 0px;
+  left: 50px;
+  width: 12px;
+  height: 19px;
+  display: none;
+}
+
+.ChatLayout_Message1::before {
+  position: absolute;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAMAAADp2asXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACQUExURUxpccPDw9ra2m9vbwAAAAAAADExMf///wAAABoaGk9PT7q6uqurqwsLCycnJz4+PtDQ0JycnIyMjPf3915eXvz8/E9PT/39/RMTE4CAgAAAAJqamv////////r6+u/v7yUlJeXl5f///5ycnOXl5XNzc/Hx8f///xUVFf///+zs7P///+bm5gAAAM7Ozv///2fVensAAAAvdFJOUwCow1cBCCnqAhNAnY0WIDW2f2/hSeo99g1lBYT87vDXG8/6d8oL4sgM5szrkgl660OiZwAAAHRJREFUKM/ty7cSggAABNFVUQFzwizmjPz/39k4YuFWtm55bw7eHR6ny63+alnswT3/rIDzUSC7CrAziPYCJCsB+gbVkgDtVIDh+DsE9OTBpCtAbSBAZSEQNgWIygJ0RgJMDWYNAdYbAeKtAHODlkHIv997AkLqIVOXVU84AAAAAElFTkSuQmCC);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: '';
+  top: 0px;
+  left: -12px;
+  width: 12px;
+  height: 19px;
+}
+
+.ChatLayout_Message {
+  opacity: 1;
+  padding: 7px 14px 6px;
+
+  transition: all 0.3s ease 0s;
+
+  transform-origin: center top;
+  z-index: 2;
+  margin-left: -54px;
+  color: rgb(17, 17, 17);
+  font-size: 15px;
+  line-height: 1.39;
+  max-width: calc(100% - 66px);
+  border-radius: 15px 15px 15px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 4px;
+  height: 30px;
+}
+
+.ChatLayout_Message1 {
+  opacity: 1;
+  padding: 7px 14px 6px;
+  position: relative;
+  transition: all 0.3s ease 0s;
+
+  transform-origin: center top;
+  z-index: 2;
+  margin-left: -54px;
+  color: rgb(17, 17, 17);
+  font-size: 15px;
+  line-height: 1.39;
+  max-width: calc(100% - 66px);
+  border-radius: 0px 8px 8px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 4px;
+  height: 111px;
+}
+
+.ChatLayout_Author {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.ChatLayout_Text {
+  font-size: 14px;
+  line-height: 19px;
+  margin-top: 4px;
+  color: rgb(17, 17, 17);
+  max-height: 100px; 
+  overflow-y: auto; 
+  word-wrap: break-word;
+}
+
+.ChatLayout_TimeBottom {
+  text-align: right;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(17, 17, 17, 0.5);
+  margin-right: -8px;
+  margin-bottom: -4px;
+}
+
+.WhatsApp_button {
+  border-radius: 30px;
+  border-color: rgba(0, 0, 0, 0);
+  color: rgb(255, 255, 255);
+  font-family: inherit;
+  background-color: rgb(20, 198, 86);
+  max-width: 320px;
+  width: 100%;
+}
+
+.ButtonBase {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+}
+
+.ButtonBase1 span > div {
+  width: 20px;
+  height: 20px;
+}
+
+.ButtonBase2 {
+  font:
+    400 14px / 18px system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  white-space: nowrap;
+  margin-left: 10px;
+  line-height: 1.32;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.logo_whatsApp img {
+  max-width: 3rem;
+  height: auto;
+}
+
+.Icon_Container {
+  width: 20px;
+  height: 20px;
+}
+
+.header {
+  background: rgb(9, 94, 84);
+  color: rgb(17, 17, 17);
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 24px 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.profile {
+  width: 20px;
+  height: 20px;
+  transition: opacity 1s ease-out 0s;
+  background-color: rgb(210, 210, 210);
+  opacity: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.text {
+  margin-left: 16px;
+  margin-right: 16px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header_name {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  max-height: 60px;
+  height: 40px;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: rgb(255, 255, 255);
+}
+
+.header_status {
+  font-size: 13px;
+  line-height: 18px;
+  margin-top: 4px;
+  color: rgb(255, 255, 255);
+}
+
+.template {
+  position: absolute;
+  bottom: 100px;
+  right: 30px;
+  width: 360px;
+
+  background-color: #fff;
+
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 12px 24px 0px;
+  pointer-events: all;
+
+  transform: translate3d(0px, 0px, 0px);
+  z-index: 9;
+}
+
+@media screen and (max-width: 768px) {
+  .template {
+    bottom: 80px;
+    right: -2px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .template {
+    right: -2px;
+  }
+}
+
+.template button {
+  cursor: pointer;
+  background-color: #25d366;
+  color: #fff;
+  padding: 8px 109px;
+  border: none;
+  border-radius: 30px;
+  margin: 18px 20px;
+  transition: 0.3s ease-in-out;
+}
+
+.template button:hover {
+  background-color: #128c53;
+}
+
+.svg {
+  position: relative;
+  top: 1px;
+  padding: 1px;
+}
+
+.cancel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+  padding: 0px !important;
+  margin: 0px !important;
+  background-color: transparent !important;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  outline: transparent;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex !important;
+}
+
+.cancel::before,
+.cancel::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  display: block;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+.cancel::before {
+  transform: rotate(45deg);
+}
+
+.cancel::after {
+  transform: rotate(-45deg);
+}
+
+.typing {
+  align-items: center;
+  display: flex;
+  height: 17px;
+}
+.typing .dot {
+  animation: mercuryTypingAnimation 0.8s infinite ease-in-out;
+  background-color: #828282;
+  border-radius: 50%;
+  height: 7px;
+  margin-right: 4px;
+  vertical-align: middle;
+  width: 7px;
+  display: inline-block;
+}
+.typing .dot:nth-child(1) {
+  animation-delay: 200ms;
+}
+.typing .dot:nth-child(2) {
+  animation-delay: 300ms;
+}
+.typing .dot:nth-child(3) {
+  animation-delay: 400ms;
+}
+.typing .dot:last-child {
+  margin-right: 0;
+}
+
+@keyframes mercuryTypingAnimation {
+  0% {
+    background-color: #383838;
+  }
+  28% {
+    background-color: #5b5b5b;
+  }
+  44% {
+    background-color: #858787;
+  }
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.4s ease-in-out,
+    transform 0.4s ease-in-out;
+}
+
+.fade_show {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.4s ease-in-out,
+    transform 0.4s ease-in-out;
+}
+
+.whatsAppIntegration {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+  z-index: 1000;
+}

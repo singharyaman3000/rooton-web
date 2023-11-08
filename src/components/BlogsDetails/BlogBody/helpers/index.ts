@@ -14,12 +14,12 @@ function getObjectTagContent(result: any) {
   const videoId = getYoutubeVideoId(result[1]);
   const videoUrl = videoId ? `https://www.youtube.com/v/${videoId}` : result[1];
   return `
-         <object width=\"425\" height=\"344\">
-              <param name=\"movie\" value=\"${videoUrl}\"></param>
-              <param name=\"allowFullScreen\" value=\"true\"></param>
-              <param name=\"allowscriptaccess\" value=\"always\"></param>
-              <embed src=\"${videoUrl}\" type="video/*" width=\"425\" height=\"344\"
-                   allowscriptaccess=\"always\" allowfullscreen=\"true\">
+         <object width="100%" height="344">
+              <param name="movie" value="${videoUrl}"></param>
+              <param name="allowFullScreen" value="true"></param>
+              <param name="allowscriptaccess" value="always"></param>
+              <embed src="${videoUrl}" type="video/*" width="100%" height="344"
+                   allowscriptaccess="always" allowfullscreen="true">
               </embed>
          </object>`;
 }
@@ -46,6 +46,8 @@ function htmlEnhancer(content: string, type: string) {
   let currentInd = 0;
   let currentLength = 0;
   while ((result = regex.exec(content.slice(currentLength))) && content.length > currentLength) {
+    console.log(result[1]);
+    
     if (!indices.find((item: any) => item == result.index)) {
       indices.push(currentLength + result.index);
       currentInd = result.index;
@@ -53,8 +55,9 @@ function htmlEnhancer(content: string, type: string) {
       let prefixLength = 0;
       let closingTagLength = 0;
       if (!result[0].includes('http') && type === 'image') {
-        replacer = `<img src="${process.env.NEXT_ASSETS_BASEURL}`;
-        prefixLength = 10;
+        const url = regex.exec(result[0])![1];
+        replacer = `<img id="blog-detail-image" src="${process.env.NEXT_ASSETS_BASEURL + url}"`;
+        prefixLength = 32;
       } else {
         if (result[1].includes('youtu')) {
           replacer = getObjectTagContent(result);

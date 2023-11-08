@@ -1,5 +1,5 @@
 import { IBlogDetailsResponse, getBlogDetails } from '@/app/services/apiService/blogDetailAPI';
-import { ArticleCategoryType, IBlogsListResponse, getBlogsList } from '@/app/services/apiService/blogsListAPI';
+import { ArticleCategoryType } from '@/app/services/apiService/blogsListAPI';
 import BlogDetails from '@/components/BlogsDetails';
 
 type BlogsDetailPageProps = {
@@ -13,8 +13,7 @@ export default async function BlogsDetailPage(props: BlogsDetailPageProps) {
     searchParams: { blogType },
   } = props;
 
-  const response = (await getBlogDetails('42')) as IBlogDetailsResponse;
-  const blogsListResponse = (await getBlogsList(blogType, 1)) as IBlogsListResponse;
+  const response = (await getBlogDetails('71')) as IBlogDetailsResponse;
 
-  return <BlogDetails details={response?.data[0] ?? {}} relatedArticlesList={blogsListResponse} blogType={blogType} />;
+  return <BlogDetails details={response?.data[0] ?? {}} blogType={blogType} />;
 }

@@ -13,7 +13,7 @@
 
   --primary-border: #d8d8d85c;
   --secondary-border: #d2d2d2;
-  --border-footer-gray: ##d8d8d8;
+  --border-footer-gray: #d8d8d8;
 
   --cicc-border: #e22826;
   --capic-border: #123474;
@@ -33,6 +33,9 @@
   --hover-lang-dropdown: #efefef;
   --font-grey: #b2b2b2;
   --white-fixed: #fff;
+  --almond: #efcea6;
+  --golden-honey: #f0c236;
+  --smoky-steel: #979797;
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
   --preloader-overlay: hsl(252deg 9% 6% / 18%), hsl(252deg 3% 16% / 19%), hsl(0deg 2% 5% / 15%);
@@ -265,6 +268,35 @@ body {
 
 [data-theme='dark'] .blogs-listing {
   background: #000;
+}
+
+/* Team Slider Styling */
+
+.team-slider-section {
+  background-color: var(--pale-yellow);
+}
+
+[data-theme='dark'] .team-slider-section {
+  background: #000;
+}
+
+/* Hover effect for profile card (Who we are section- About-us) */
+
+.card-hover-effect::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  right: 20px;
+  height: 20px;
+  background-color: #000;
+  opacity: 0;
+  filter: blur(30px);
+  transition: opacity .5s ease-in-out;
+}
+
+.card-hover-effect:hover::after {
+  opacity: 0.2;
 }
 
 /*Tabs styling*/
@@ -752,4 +784,10 @@ button:disabled {
 heading {
   font-size: 20px;
   font-weight: 500;
+}
+
+#blog-detail-image {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
 }

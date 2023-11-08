@@ -10,9 +10,10 @@ import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 
 interface RTONLanguageDropDownProps {
   scrolledEnough: boolean;
+  isFixed : boolean;
 }
 
-export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDropDownProps) {
+export default function RTONLanguageDropDown({ scrolledEnough, isFixed }: RTONLanguageDropDownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const params = useParams();
   const path = usePathname();
@@ -26,7 +27,6 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
   const onLanguageChange = (selectedLanguage: ILanguageData) => {
     let nextRoute = '';
     if (params.lang) {
-
       if (selectedLanguage.attributes.code === 'en') {
         nextRoute = getDetraslatedURL(path, params.lang);
       } else if (selectedLanguage.attributes.code !== params.lang) {
@@ -36,14 +36,18 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
       nextRoute = `${process.env.NEXT_APP_BASE_URL ?? ''}${selectedLanguage.attributes.code}${path}`;
     }
 
-    if(nextRoute){
+    if (nextRoute) {
       window.location.href = nextRoute;
     }
-
   };
 
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  const getTextColor = () => {
+    if (isFixed) return 'text-primary-font-color';
+    return scrolledEnough ? 'text-primary-font-color' : 'text-white';
   };
 
   return (
@@ -52,7 +56,9 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
         aria-label="Language dropdown button "
         type="button"
         onClick={() => {
-          setIsOpen((o) => {return !o;});
+          setIsOpen((o) => {
+            return !o;
+          });
         }}
         className=" flex gap-2 items-center relative z-[1001]"
       >
@@ -68,14 +74,18 @@ export default function RTONLanguageDropDown({ scrolledEnough }: RTONLanguageDro
             />
           )}
         </div>
-        <p className={`text-base font-medium ${scrolledEnough ? ' text-primary-font-color' : 'text-white'}`}>{selectedLang?.attributes.code}</p>
+        <p className={`text-base font-medium ${getTextColor()}`}>
+          {selectedLang?.attributes.code}
+        </p>
         <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
-          <DownArrowIcon isScrolled={scrolledEnough} />
+          <DownArrowIcon isScrolled={scrolledEnough} isFixed={isFixed}/>
         </span>
         {isOpen && (
           // eslint-disable-next-line jsx-a11y/no-static-element-interactions
           <div
-            onClick={(e) => {return dropdownContainerOnClick(e);}}
+            onClick={(e) => {
+              return dropdownContainerOnClick(e);
+            }}
             className="
                overscroll-contain
                 z-[1001]

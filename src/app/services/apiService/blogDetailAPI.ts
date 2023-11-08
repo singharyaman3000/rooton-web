@@ -27,6 +27,23 @@ interface IBlogContents {
   data: IBlogContentData[];
 }
 
+interface ISubService {
+  data: {
+    id: number;
+    attributes: {
+      CTA_text: string;
+      CTA_link: string;
+      createdAt: string;
+      description: string;
+      publishedAt: string;
+      sub_title: string;
+      title: string;
+      unique_identifier_name: string;
+      updatedAt: string;
+    };
+  };
+}
+
 interface IBlogAttributes {
   author: string;
   category: string;
@@ -41,6 +58,7 @@ interface IBlogAttributes {
   author_profile_image: { data: IMediaUrlData };
   media_url: MediaUrl;
   blog_contents: IBlogContents;
+  sub_service: ISubService;
 }
 
 export interface IBlogDetails {
