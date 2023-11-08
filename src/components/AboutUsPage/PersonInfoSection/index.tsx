@@ -27,7 +27,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
             <SubSectionTitle title={contentHeading} />
           </div>
           <Description cssClass="!text-black my-5 md:mt-9" description={description} />
-          <ul className="flex flex-col gap-[23px] md:gap-7">
+          <ul className="flex flex-col gap-[23px]">
             {expertiseList.map((expertise) => {
               return (
                 <Li key={expertise} className="text-sm md:text-lg text-black">
