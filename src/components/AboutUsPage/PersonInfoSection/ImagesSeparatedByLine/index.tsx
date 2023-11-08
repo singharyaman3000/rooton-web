@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import NextImage from '@/components/UIElements/NextImage';
 
 interface ImagesSeparatedByLineProps {
