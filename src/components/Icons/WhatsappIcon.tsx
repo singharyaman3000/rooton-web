@@ -10,7 +10,6 @@ import style from '../WhatsApp-Integration/WhatsappCss.module.css';
 const WhatsappIcon: React.FC<{ theme: string }> = ({ theme }): React.JSX.Element => {
   // Define the initial opacity state
   const [opacity, setOpacity] = useState<number>(0);
-  console.log('theme', theme);
   // Handle scroll event and update opacity based on scroll position
   useEffect(() => {
     // Define the maximum scroll height at which the opacity is 1
