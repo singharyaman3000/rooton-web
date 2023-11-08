@@ -61,15 +61,8 @@ function htmlEnhancer(content: string, type: string) {
       let prefixLength = 0;
       let closingTagLength = 0;
       if (!result[0].includes('http') && type === 'image') {
-        const url = regex.exec(result[0])![1];
-        const imgTag = regex.exec(result[0])![0];
-        // console.log(url);
-        // console.log(match);
-        const newImg = imgTag.replace(url, process.env.NEXT_ASSETS_BASEURL + url);
-        // console.log(imgTag, newImg);
-
-        replacer = newImg;
-        prefixLength = imgTag.length;
+        replacer = `<img src="${process.env.NEXT_ASSETS_BASEURL}`;
+        prefixLength = 10;
       } else {
         if (result[1].includes('youtu')) {
           replacer = getObjectTagContent(result);
@@ -83,12 +76,9 @@ function htmlEnhancer(content: string, type: string) {
         contentCopy.substring(0, currentLength + result.index) +
         replacer +
         contentCopy.substring(currentLength + result.index + prefixLength + closingTagLength);
-      //   content = contentCopy;
       currentLength += currentInd + replacer.length + prefixLength;
     } else break;
   }
-
-  //   return content;
   return contentCopy;
 }
 
