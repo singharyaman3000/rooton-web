@@ -38,7 +38,7 @@ const Slider = ({
     >
       <div className="relative overflow-hidden">
         <div
-          className={`flex justify-between md:gap-[20px] xl:gap-[30px]
+          className={`flex justify-between
           w-full transition-transform md:delay-100 
           md:duration-300 snap-x snap-mandatory ${slideParentClass}`}
           style={{ transform: `translateX(${scrollPercent ?? `${-pageNum * 100}%`})` }}
