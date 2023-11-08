@@ -40,11 +40,11 @@ const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
       <div className="w-80 h-[360px] relative">
         <NextImage
           src={imageSrc}
-          altText={`Image of ${name}`}
+          altText={`${name}`}
           fill
           sizes="100vw"
           style={{ objectFit: 'contain' }}
-          title={`Image of ${name}`}
+          title={`${name}`}
         />
       </div>
       <div className="py-[26px] pl-7 pr-2">
