@@ -516,6 +516,13 @@ body {
   .honestyCard:nth-child(4n) {
     padding-left: 0;
   }
+
+  .honestyBackground {
+    background-image: radial-gradient(ellipse at center,
+        #e5e5e5,
+        rgba(219, 219, 219, 0.21) 60%,
+        rgba(255, 255, 255, 1) 69%);
+  }
 }
 
 @media screen and (min-width: 1440px) {

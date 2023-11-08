@@ -34,7 +34,11 @@ const BookAppointmentForm = ({
       }
     >
       <div className="flex gap-[34px] shadow-hubspot-form-shadow border border-golden-yellow justify-between relative overflow-hidden bg-pale-sandal">
-        <div className="p-4 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0 sm:p-12">
+        <div
+          className="
+        p-4 lg:pl-[60px] w-full lg:w-[83%] pt-12 pb-[100px] sm:pb-[100px] lg:pb-[118px] lg:pr-0 sm:p-12
+        "
+        >
           {formHeading ? (
             <h5
               className="
@@ -51,10 +55,7 @@ const BookAppointmentForm = ({
             target={convertToHtmlId(formHeading || formId)}
             calenderLink={calendarLink}
             isBookAppointment={false}
-            onProgress={(progress: number): void => {
-              throw new Error(`${progress} not required`);
-            }}
-            initScroll={(): void => {}}
+            singlePageForm
           />
         </div>
         {imageUrl ? (

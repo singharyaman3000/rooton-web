@@ -27,7 +27,7 @@ export default function RTONButtonBlack({ className, ariaLabel, onClick, text, i
           font-semibold
       `}
     >
-      <p className=" font-bold text-[14px]">{text}</p>
+      <p className=" font-semibold text-[14px]">{text}</p>
       {icon}
     </button>
   );
