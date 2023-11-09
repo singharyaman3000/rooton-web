@@ -20,9 +20,10 @@ export const getBlogsListUrl = (
   if (sourcePage === SOURCE_PAGE.HOME) url = GET_BLOGS_HOME;
   else if (sourcePage === SOURCE_PAGE.SERVICE) url = GET_BLOGS_SERVICE.replace('<service-type>', serviceType);
   else if (sourcePage === SOURCE_PAGE.BLOG_DETAILS)
-    url = GET_BLOGS_LIST_WITH_SERVICETYPE_AND_BLOGTYPE.replace('<pageNo>', pageNo.toString())
-      .replace('<serviceType>', serviceType)
-      .replace('<articleType>', articleType);
+    url = GET_BLOGS_LIST_WITH_SERVICETYPE_AND_BLOGTYPE.replace('<serviceType>', serviceType).replace(
+      '<articleType>',
+      articleType,
+    );
   else url = GET_BLOGS_LIST.replace('<articleType>', articleType);
 
   return url.replace('<pageNo>', pageNo.toString()).replace('<pageSize>', pageSize.toString());
