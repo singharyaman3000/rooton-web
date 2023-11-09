@@ -27,10 +27,19 @@ type BlogsCarouselParamsType = {
   sourcePage?: string;
   showMore?: boolean;
   serviceType?: string;
+  containerStyle?: string;
 };
 
-const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
-  subHeading, id, showMore, serviceType, sourcePage = 'blog' }) => {
+const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
+  articleType,
+  title,
+  subHeading,
+  id,
+  showMore,
+  serviceType,
+  sourcePage = 'blog',
+  containerStyle,
+}) => {
   const [blogsListData, setBlogsListData] = useState<IBlogsListResponse>({} as IBlogsListResponse);
   const [allArticlesList, setAllArticlesList] = useState<IBlogData[]>([] as IBlogData[]);
   const [dotsToDisplay, setDotsToDisplay] = useState<number[]>([]);
@@ -104,59 +113,60 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
     if (allArticlesList?.length !== blogsListData?.meta?.pagination?.total) getArticles();
   };
 
-  return (
-    allArticlesList?.length ?
-      <section className={`${serviceType ? 'pt-[40px] md:py-[80px] max-w-screen-2k m-auto' : ''}
-        border-b-2 md:border-none`}>
-        <div className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
-          ${serviceType ? 'md:px-20' : ''}`}>
-          <div>
-            <SectionHeadings title={title} subTitle={subHeading} />
-          </div>
-          <div className="hidden md:flex">
-            {showMore && (
-              <Link href={'/blogs'} className="mr-[30px]">
-                <Button
-                  cssClass="border-0 slider-nav bg-white font-bold"
-                  label="More"
-                  tabIndex={0}
-                  handleOnClick={() => {
-                    return null;
-                  }}
-                  ariaLabel="More  News"
-                />
-              </Link>
-            )}
-            <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
-            <SliderNav handleOnClick={handleIncrementPage} disable={pageNum === totalPages - 1} />
-          </div>
+  return allArticlesList?.length ? (
+    <section
+      className={`${containerStyle} ${serviceType ? 'pt-[40px] md:py-[80px] max-w-screen-2k m-auto' : ''}
+        border-b-2 md:border-none`}
+    >
+      <div
+        className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
+          ${serviceType ? 'md:px-20' : ''}`}
+      >
+        <div>
+          <SectionHeadings title={title} subTitle={subHeading} />
         </div>
-        {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} max-w-screen-2k `}
-          {...handlers}>
-          <Slider
-            scrollPercent={`${-scrollAmt}px`}
-            id={id}
-            pageNum={pageNum}
-            loading={loading}
-            loadingUI={<ArticlePreLoader />}
-            slideParentClass="!justify-start md:gap-[20px] xl:gap-[30px]"
-            slideClass="!w-full md:!w-[380px] !px-0"
-          >
-            {allArticlesList?.map((detail: IBlogData) => {
-              return <ArticleCard key={detail.id} attributes={detail.attributes} />;
-            })}
-          </Slider>
-          <MobilePagination
-            className={sourcePage === SOURCE_PAGE.SERVICE ? 'bg-secondary-grey' : 'bg-white-fixed'}
-            dotsToDisplay={dotsToDisplay}
-            pageNum={pageNum}
-            pageMeta={blogsListData?.meta && blogsListData?.meta}
-          />
+        <div className="hidden md:flex">
+          {showMore && (
+            <Link href={'/blogs'} className="mr-[30px]">
+              <Button
+                cssClass="border-0 slider-nav bg-white font-bold"
+                label="More"
+                tabIndex={0}
+                handleOnClick={() => {
+                  return null;
+                }}
+                ariaLabel="More  News"
+              />
+            </Link>
+          )}
+          <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px]" disable={pageNum === 0} leftNav />
+          <SliderNav handleOnClick={handleIncrementPage} disable={pageNum === totalPages - 1} />
         </div>
-      </section>
-      : ''
-  );
+      </div>
+      {/* eslint-disable react/jsx-props-no-spreading */}
+      <div className={`w-[100%] pl-0 xl:pl-20 ${serviceType ? 'md:pl-20' : 'md:pl-6 '} max-w-screen-2k `} {...handlers}>
+        <Slider
+          scrollPercent={`${-scrollAmt}px`}
+          id={id}
+          pageNum={pageNum}
+          loading={loading}
+          loadingUI={<ArticlePreLoader />}
+          slideParentClass="!justify-start md:gap-[20px] xl:gap-[30px]"
+          slideClass="!w-full md:!w-[380px] !px-0"
+        >
+          {allArticlesList?.map((detail: IBlogData) => {
+            return <ArticleCard key={detail.id} attributes={detail.attributes} articleId={detail.id} />;
+          })}
+        </Slider>
+        <MobilePagination
+          className={sourcePage === SOURCE_PAGE.SERVICE ? 'bg-secondary-grey' : 'bg-white-fixed'}
+          dotsToDisplay={dotsToDisplay}
+          pageNum={pageNum}
+          pageMeta={blogsListData?.meta && blogsListData?.meta}
+        />
+      </div>
+    </section>
+  ) : null;
 };
 
 export default BlogsCarousel;

@@ -5,24 +5,21 @@ import { useEffect, useState } from 'react';
 
 type DarkModeIconProps = {
   isScrolled: boolean;
+  isFixed: boolean;
 };
 
-export default function DarkModeIcon({ isScrolled }: DarkModeIconProps) {
+export default function DarkModeIcon({ isScrolled, isFixed }: DarkModeIconProps) {
   const [fillColor, setFillColor] = useState('#000');
 
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (isScrolled && theme === 'dark') {
+    if (isScrolled) {
       setFillColor('#FFF');
-    } else if (!isScrolled && theme === 'dark') {
-      setFillColor('#000');
-    } else if (!isScrolled && theme === 'light') {
-      setFillColor('#000');
-    } else {
+    } else if (isFixed) {
       setFillColor('#FFF');
-    }
-  }, [isScrolled, theme]);
+    } else setFillColor('#000');
+  }, [isScrolled, theme, isFixed]);
 
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
