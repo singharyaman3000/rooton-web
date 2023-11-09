@@ -14,7 +14,7 @@ const nextConfig = {
   },
   images: {
     domains: [process.env.NEXT_ASSET_DOMAIN.toString()],
-    minimumCacheTTL: 60 * 60, 
+    minimumCacheTTL: 60 * 60,
   },
   future: { webpack5: true },
 };

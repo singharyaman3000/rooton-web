@@ -36,15 +36,6 @@ type TrainingType = {
   };
 };
 
-// type PricingType = {
-//   id: string;
-//   title: string;
-//   description: string | null;
-//   position: number;
-//   json_content: {
-//     pricingDetails: {pricingPlans: pricingPlans[];};
-//   };
-// };
 export type pricingPlansDetails = {
   planName?: string;
   price: number;
@@ -53,7 +44,6 @@ export type pricingPlansDetails = {
   features: string[][];
   validity: string;
   planDescription: string;
-  // lead_forms: ILeadForm[];
 }
 
 export type pricingPlans = {
@@ -94,18 +84,6 @@ type ICoachingServiceSContents = {
 };
 
 // Pricing
-
-// export type IPricing = {
-//   title: string;
-//   description: string | null;
-//   position: number;
-//   json_content: {
-//     pricingDetails: {
-//       pricingPlans: pricingPlans[];
-//       [key: string]: any;
-//     };
-//   };
-// };
 
 export type IpricingDetails = {
   pricingDetails: pricingPlans[];

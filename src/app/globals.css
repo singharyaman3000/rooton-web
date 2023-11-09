@@ -275,9 +275,6 @@ body {
 .training-cards {
   background: var(--primary-bg);
   border-top: 65px solid #000;
-  border-left: 0.6px solid rgb(0,0,0, 0.3); 
-  border-right: 0.6px solid rgb(0,0,0, 0.3); 
-  border-bottom: 0.6px solid rgb(0,0,0, 0.3);
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
   transform: translateY(0px) scale(1);
   transition: transform 0.3s ease;
@@ -290,20 +287,20 @@ body {
 [data-theme='dark'] .card-text {
   color: #fff;
 }
-.qqq {
+.training-title {
   color: #fff;
 }
-[data-theme='dark'] .qqq {
+[data-theme='dark'] .training-title {
   color: #000000;
 }
-.xyyz {
+.training-toggle {
   position: absolute;
   align-items: center;
   z-index: 10;
   left: 0;
   top: -45px;
 }
-[data-theme='dark'] .xyyz {
+[data-theme='dark'] .training-toggle {
   top: -45px;
 }
 
@@ -312,9 +309,6 @@ body {
   box-shadow: rgb(192 192 192 / 45%) 0px 2px 4px 0px, rgb(192 192 192 / 45%) 0px 2px 16px 0px;
   transition: all 0.3s ease;
   border-top: 65px solid rgb(149 149 149);
-  border-left: 0.6px solid rgb(255,255,255, 0.3); 
-  border-right: 0.6px solid rgb(255,255,255, 0.3); 
-  border-bottom: 0.6px solid rgb(255,255,255, 0.3); 
 }
 /* Team Slider Styling */
 
@@ -833,11 +827,3 @@ button:disabled {
 .services-tab .tab-header div:nth-child(2) {
   max-width: 100% !important;
 }
-
-/* .shadow {
-  filter: url(#shadow);
-}
-
-[data-theme='dark'] .shadow {
-  filter: none;
-} */

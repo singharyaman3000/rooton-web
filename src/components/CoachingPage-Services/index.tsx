@@ -1,7 +1,6 @@
 'use client';
 
-import { ICoachingServicePageContent,
-  ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
+import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
 import { useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
@@ -87,7 +86,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   const trainingDetails = trainings?.attributes?.json_content?.trainingDetails;
   const filteredTrainings = trainingDetails?.[activeTrainingType] || [];
 
-  const pricingDetails = pricings?.attributes?.json_content?.pricingDetails ;
+  const pricingDetails = pricings?.attributes?.json_content?.pricingDetails;
   const filteredPricings = pricingDetails?.[activepType] || [];
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
@@ -198,7 +197,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
               </div>
 
               <div className="scrollable-container">
-                {Array.isArray(filteredPricings) && filteredPricings.map((pricing) => {return <PricingSection key={''} our_plans={pricing}/>;})}</div>
+                {Array.isArray(filteredPricings) &&
+                    filteredPricings.map((pricing) => {
+                      return <PricingSection key={''} our_plans={pricing} />;
+                    })}
+              </div>
             </div>
           </div>
         </>
@@ -209,7 +212,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         <>
           <style jsx>{`
               .training-section {
-                // background-color: #f5f5f5;
                 padding: 1px 0px 62px;
               }
               .scrollable-container {
@@ -224,7 +226,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 -ms-overflow-style: none;
               }
               .active-button {
-                // color: #fff;
                 padding: 10px;
                 border-bottom: 3px solid rgb(255, 201, 109);
                 font-weight: bold;
@@ -258,23 +259,31 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 <div className="md:max-w-[70%] lg:max-w-none">
                   <SectionHeadings title={''} subTitle={trainingTitle || ''} />
                 </div>
-                {trainingTypes
-                  .filter((type) => type && type.trim() !== '') // Filters out null, undefined, and empty strings
-                  .map((type) => (
-                    <button type="button" key={type} id="button-heading" onClick={() => setActiveTrainingType(type)}className={`${type === activeTrainingType ? 'active-button' : 'normal-button'}`}> {type}
-                    </button>
-                  ))}
-
-                {filteredTrainings.map((training, index) => {
-                  if (index === 0) {
-                    return <TrainingCard key={training.id} training={training} isFirst={index === 0} index={index} />;
-                  }
-                  return null;
-                })}
+                {trainingTypes?.length > 1 &&
+                    trainingTypes
+                      .filter((type) => {
+                        return type && type.trim() !== '';
+                      })
+                      .map((type) => {
+                        return (
+                          <button
+                            type="button"
+                            key={type}
+                            id="button-heading"
+                            onClick={() => {
+                              return setActiveTrainingType(type);
+                            }}
+                            className={`${type === activeTrainingType ? 'active-button' : 'normal-button'}`}
+                          >
+                            {' '}
+                            {type}
+                          </button>
+                        );
+                      })}
 
                 <div className="scrollable-container">
                   {filteredTrainings.map((training, index) => {
-                    if (index !== 0) {
+                    if (index > 0) {
                       return <TrainingCard key={training.id} training={training} />;
                     }
                     return null;

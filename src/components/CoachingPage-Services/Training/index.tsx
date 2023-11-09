@@ -12,20 +12,19 @@ type TrainingCardProps = {
 const TrainingCard: React.FC<TrainingCardProps> = ({ training, isFirst, index }) => {
   return (
     <div
-      className={`${styles.card} training-cards flex flex-row bg-secondary-grey relative my-5 ${isFirst ? styles.firstCard : ''} ${
-        index === 1 ? 'second-card' : ''
-      }`}
+      className={`${styles.card} training-cards flex flex-row bg-secondary-grey relative my-5 ${
+        isFirst ? styles.firstCard : ''
+      } ${index === 1 ? 'second-card' : ''}`}
     >
-
       {isFirst ? (
-        <div className={` ${styles.firstCard}`}>
-          {/* ... */}
-        </div>
+        <div className={` ${styles.firstCard}`}>{/* ... */}</div>
       ) : (
         <div className="second-card flex flex-row">
-          <div className={`${styles.title} xyz xyyz w-full`}>
+          <div className={`${styles.title} training-toggle w-full`}>
             <img className={styles.image} src={appendAssetUrl(training.image)} alt="boy" />
-            <h2 className={`${styles.heading} qqq text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2`}>{training.title}</h2>
+            <h2 className={`${styles.heading} training-title text-ali text-lg sm:text-xl md:text-2xl font-bold mb-2`}>
+              {training.title}
+            </h2>
           </div>
           <div className={`${styles.cardText1}`}>
             <p>{training.description}</p>

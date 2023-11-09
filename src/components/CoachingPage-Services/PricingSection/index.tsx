@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coaching_contentsAPI';
+import DropDownCaret from '@/components/Icons/DropDownCaret';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
@@ -52,7 +53,8 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans }) => {
 
               return (
                 // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-                <li key={feature[0]}
+                <li
+                  key={feature[0]}
                   className="flex flex-col text-base font-medium cursor-pointer"
                   onClick={() => {
                     const newExpanded = [...expanded];
@@ -61,24 +63,25 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans }) => {
                   }}
                 >
                   <div className="flex items-center">
-                    <svg
-                      className={`w-4 h-4.5 fill-{#333333} mr-2 shrink-0 ${isExpanded ? 'rotate-180' : ''}`}
-                      viewBox="0 0 12 12"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <div
+                      tabIndex={0}
+                      role="button"
                       onClick={() => {
                         const newExpanded = [...expanded];
                         newExpanded[index] = !isExpanded;
                         setExpanded(newExpanded);
                       }}
+                      className={`${
+                        isExpanded ? 'rotate-180' : 'rotate-0'
+                      } line-clamp-2 flex-shrink-0 mr-[10px]  transition-all delay-75`}
                     >
-                      <path d="M2.293 4.293a1 1 0 011.414 0L6 6.586l2
-                      .293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
-                    </svg>
+                      <DropDownCaret />
+                    </div>
                     <span>{feature[0]}</span>
                   </div>
                   {isExpanded && (
                     <ul className="text-black text-sm space-y-4 grow ml-5 font-normal">
-                      {subFeatures.map((subFeature) => (
+                      {subFeatures.map((subFeature) => {return (
                         <li key={subFeature} className="flex mt-[8px] items-center">
                           <svg
                             className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
@@ -89,7 +92,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans }) => {
                           </svg>
                           <div>{subFeature}</div>
                         </li>
-                      ))}
+                      );})}
                     </ul>
                   )}
                 </li>

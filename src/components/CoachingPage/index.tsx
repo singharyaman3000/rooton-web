@@ -10,7 +10,6 @@ import { appendAssetUrl, getSectionData1, isVideo } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
-import NewsLetter from './NewsLetter';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
@@ -130,13 +129,13 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
         button={<BookAnAppointmentButton text={data[4]?.attributes?.CTA_text || ''} onClick={handleCTAButtonClick} />}
       />
       {getComponentsAboveBookAppointments()}
-      <div className="mb-[100px]">
-        <BookAnAppointment onClick={handleCTAButtonClick} />
-      </div>
 
       {getComponentsAfterBookAppointments()}
       <div className="pb-10 md:pb-[80px]">
         <Testimonials apiUrl={TESTIMONIAL_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
+      </div>
+      <div className="mb-[100px]">
+        <BookAnAppointment onClick={handleCTAButtonClick} />
       </div>
       {faqData && (
         <FaqListing
@@ -145,7 +144,6 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
           json_content={faqData?.attributes?.json_content as IFaqData}
         />
       )}
-      <NewsLetter />
     </>
   );
 };
