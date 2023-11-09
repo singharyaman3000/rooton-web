@@ -13,7 +13,7 @@ import RootOnBanner from './RootOnBanner';
 import Testimonials from './Testimonials';
 import FaqListing, { IFaqData } from './FaqListings';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
-import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
+import { TESTIMONIAL_COACHING_API } from '@/app/services/apiService/apiUrl/homePage';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from '../CoachingPage-Services/Wrapper';
 import LeadFormSection from './BookAnAppointmentButton/LeadFormSection';
@@ -132,7 +132,7 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
 
       {getComponentsAfterBookAppointments()}
       <div className="pb-10 md:pb-[80px]">
-        <Testimonials apiUrl={TESTIMONIAL_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
+        <Testimonials apiUrl={TESTIMONIAL_COACHING_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
       </div>
       <div className="mb-[100px]">
         <BookAnAppointment onClick={handleCTAButtonClick} />

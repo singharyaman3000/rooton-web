@@ -4,4 +4,5 @@ export const TESTIMONIAL_API = '/api/testimonials?populate[0]=media_url&populate
 export const HEADER_FOOTER_API = '/api/commons?populate[0]=addresses.media_url&populate[1]=languages.media_url&populate[3]=core_services.sub_services&populate[4]=whats_app.profile_image';
 export const TESTIMONIAL_API_SERVICE = '/api/testimonials?populate[0]=media_url&populate[2]=icon&populate[3]=profile_picture&filters[service_type][$eq]=<service_type>';
 export const COACHING_API ='/api/coaching-pages?populate[0]=media_url&populate[2]=footers.media_url&populate[3]=coaching_page_contents.media_url&populate[4]=coaching_page_contents.coaching_services.media_url&populate[5]=coaching_page_contents.coaching_services.coaching_service_contents&populate[6]=coaching_page_contents';
+export const TESTIMONIAL_COACHING_API = '/api/testimonials?populate[0]=media_url&populate[2]=icon&populate[3]=profile_picture&filters[service_type][$contains]=coaching';
 
