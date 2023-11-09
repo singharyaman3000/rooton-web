@@ -31,15 +31,24 @@ export interface ITestimonialData extends ITestimonial {
 }
 
 const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) => {
+
+  const getVideoThumbnail = () => {
+    const thumbnailObj = attributes?.media_url?.data?.find((item) => { return item.attributes.formats; });
+    let thumbnailUrl = '';
+    if (thumbnailObj) thumbnailUrl = thumbnailObj?.attributes?.formats?.thumbnail?.url;
+    else thumbnailUrl = attributes?.icon?.data?.[0]?.attributes?.url;
+    return appendAssetUrl(thumbnailUrl);
+  };
+
   return (
     <div className={`h-[520px] p-[24px] md:p-[20px]
       relative ${type === 'text' ? 'bg-secondary-grey' : ''}`}>
       <div className=" relative h-full">
         {type === 'text' && (
-          <div className="text-[13px] font-medium p-[16px]
+          <div className="text-[13px] font-medium p-[16px] pr-[10px] md:p-[36px] md:pr-[26px]
             not-italic !leading-[1.67] tracking-[normal] md:text-sm text-black
             h-[calc(100%-80px)]">
-            <p className='h-full overflow-y-auto'>{HtmlParser(attributes?.description)}</p>
+            <p className='h-full overflow-y-auto pr-[10px]'>{HtmlParser(attributes?.description)}</p>
           </div>
         )}
         <div className="absolute flex  items-center z-[10] left-0 bottom-0 bg-white p-[13px] md:p-[16px] w-full">
@@ -56,7 +65,7 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
       {type === 'video' && (
         <div className="w-full h-full absolute flex flex-col justify-center items-center left-0 top-0">
           <NextImage
-            src={appendAssetUrl(attributes?.icon?.data?.[0]?.attributes?.url)}
+            src={getVideoThumbnail()}
             altText={attributes?.icon?.data?.[0]?.attributes?.alternativeText}
             fill
             style={{ objectFit: 'cover' }}

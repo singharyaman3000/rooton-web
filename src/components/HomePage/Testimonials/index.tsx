@@ -1,13 +1,13 @@
 'use client';
 
-import { IPageMeta } from '@/app/services/apiService/interfaces';
+import { IPageMeta, MediaUrl } from '@/app/services/apiService/interfaces';
 import { ITestimonialPageData, getTestimonials } from '@/app/services/testimonialAPI';
 import MobilePagination from '@/components/BlogsListPage/MobilePagination';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import TestimonialCard, {
-  ITestimonialAttributes,
-  ITestimonialData,
+  ITestimonialAttributes, ITestimonialData,
 } from '@/components/UIElements/Cards/TestimonialCard';
+
 import TestimonialFooter from '@/components/UIElements/Cards/TestimonialCard/TestimonialFooter';
 import TestimonialPreLoader from '@/components/UIElements/Cards/TestimonialCard/TestimonialPreLoader';
 import PopUp from '@/components/UIElements/PopUp';
@@ -117,6 +117,16 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
     showPopUp();
   };
 
+  const getVideoUrl = (media_url: MediaUrl | undefined) => {
+    const mediaObj = media_url?.data?.find((item) => { return item.attributes.ext === '.mp4'; });
+    return appendAssetUrl(mediaObj?.attributes?.url ?? '');
+  };
+
+  const getContentType = (attributes: ITestimonialAttributes) => {
+    const mediaObj = getVideoUrl(attributes?.media_url);
+    return mediaObj ? 'video' : 'text';
+  };
+
   return (
     allArticlesList?.length ?
       <section className="w-full bg-primary-white overflow-x-hidden">
@@ -153,7 +163,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
                     id={id}
                     attributes={attributes}
                     key={id}
-                    type={attributes.media_url.data?.[0]?.attributes.ext === '.mp4' ? 'video' : 'text'}
+                    type={getContentType(attributes)}
                   />
                 );
               })}
@@ -172,17 +182,17 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
               <VideoElement
                 cssClass={'object-cover absolute h-full top-0'}
                 poster=""
-                src={appendAssetUrl(popUpData?.media_url.data[0].attributes.url ?? '')}
+                src={getVideoUrl(popUpData?.media_url)}
               />
             }
             header={
               <TestimonialFooter
-                college_photo={appendAssetUrl(popUpData?.icon.data[0].attributes.url ?? '')}
+                college_photo={appendAssetUrl(popUpData?.icon?.data?.[0]?.attributes?.url ?? '')}
                 name={popUpData?.name ?? ''}
                 college={popUpData?.college ?? ''}
-                caption={popUpData?.profile_picture.data.attributes.caption ?? ''}
-                url={popUpData?.profile_picture.data.attributes.url ?? ''}
-                alternativeText={popUpData?.profile_picture.data.attributes.alternativeText ?? ''}
+                caption={popUpData?.profile_picture?.data?.attributes?.caption ?? ''}
+                url={popUpData?.profile_picture?.data?.attributes?.url ?? ''}
+                alternativeText={popUpData?.profile_picture?.data?.attributes?.alternativeText ?? ''}
               />
             }
           />
