@@ -5,24 +5,27 @@ import { useEffect, useState } from 'react';
 
 type HamburgerIconProps = {
   isScrolled: boolean;
+  isFixed: boolean;
 }
 
-export default function HamburgerIcon({ isScrolled }: HamburgerIconProps) {
+export default function HamburgerIcon({ isScrolled,isFixed }: HamburgerIconProps) {
 
   const { theme } = useTheme();
   const [fillColor, setFillColor] = useState('#000');
 
   useEffect(() => {
-    if(isScrolled && theme === 'dark') {
+    if(isScrolled){
+      const color = theme === 'dark' ? '#FFF' : '#000';
+      setFillColor(color);
+    }else{
+      if(isFixed){
+        const color = theme === 'dark' ? '#FFF' : '#000';
+        setFillColor(color);
+        return;
+      }
       setFillColor('#FFF');
-    } else if(!isScrolled && theme === 'dark') {
-      setFillColor('#FFF');
-    } else if(!isScrolled && theme === 'light') {
-      setFillColor('#FFF');
-    } else {
-      setFillColor('#000');
     }
-  }, [isScrolled, theme]);
+  }, [isScrolled, theme, isFixed]);
 
   return (
     <svg width="24" height="18" viewBox="0 0 24 18" xmlns="http://www.w3.org/2000/svg">

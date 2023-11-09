@@ -20,6 +20,8 @@ export default function Header() {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState<string>('');
 
+  const isFixed = !!params?.blogId;
+
   useEffect(() => {
     let lastKnownScrollPosition = 0;
     let ticking = false;
@@ -94,6 +96,19 @@ export default function Header() {
     setOpen((o) => !o);
   };
 
+  const getHeaderTextColor = () => {
+    if (isFixed) return 'text-header-font-color';
+    return scrolledEnough ? 'text-header-font-color' : ' text-white';
+  };
+
+  const getIconStyle = () => {
+    if(isFixed){
+      const logo = theme === 'dark' ? '/root-on-logo-svg.svg' : '/root-on-logo-black.svg';
+      return logo;
+    }
+    return '/root-on-logo-svg.svg';
+  };
+
   return (
     <header
       ref={headerRef}
@@ -142,7 +157,7 @@ export default function Header() {
                   width={120}
                   height={36}
                   alt="Root On logo"
-                  src={'/root-on-logo-svg.svg'}
+                  src={getIconStyle()}
                 />
               </Link>
             </div>
@@ -158,7 +173,7 @@ export default function Header() {
             hidden
             lg:flex
             flex-shrink-0
-            ${scrolledEnough ? 'text-header-font-color' : ' text-white'}
+            ${getHeaderTextColor()}
           `}
           >
             <span
@@ -226,7 +241,11 @@ export default function Header() {
               )}
             </span>
           </div>
-          <ThemeToggleAndHamburger toggleSlideOverlay={toggleSlideOverlay} scrolledEnough={scrolledEnough} />
+          <ThemeToggleAndHamburger
+            toggleSlideOverlay={toggleSlideOverlay}
+            scrolledEnough={scrolledEnough}
+            isFixed={isFixed}
+          />
           {scrolledEnough && <TalkToOurExpert />}
         </div>
         <div

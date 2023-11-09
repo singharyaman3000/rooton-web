@@ -65,6 +65,8 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
       {/* Book a Consultation Section */}
       <section className="mt-10 m-auto max-w-screen-2k px-6 md:px-12 lg:px-20">
         <RootOnCTAWrapper
+          containerClass='!px-4 sm:!px-6'
+          btnClass='!px-[17px] !gap-[11px] sm:!px-6 sm:!gap-[15px]'
           buttonAriaLabel={BOOK_CONSULTATION_CONTENT.btnText}
           buttonText={BOOK_CONSULTATION_CONTENT.btnText}
           buttonIcon={<CalenderIconYellow />}
@@ -109,6 +111,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
       {/* Book an appointment Section */}
       <section className="mt-20 mb-20 m-auto max-w-screen-2k">
         <BookAnAppointment
+          containerClass='!px-4 sm:!px-6 md:!px-0'
           appointmentBtnLabel={BOOK_APPOINTMENT_CONTENT.contentText}
           onClick={bookAppointmentHandler}
         />
