@@ -29,6 +29,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: convertToHtmlId(contentHeading),
     sliderData: teamData,
+    cardSpacing: 40,
   });
   const handlers = useSwipeable({
     onSwipedLeft: () => {
