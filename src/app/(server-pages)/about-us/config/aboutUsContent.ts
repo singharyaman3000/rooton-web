@@ -179,5 +179,5 @@ export const WHAT_WE_VALUE_SECTION = {
 
 /* Book an appointment Section */
 export const BOOK_APPOINTMENT_CONTENT = {
-  contentText: 'Book an appointment with Ronak',
+  contentText: 'Book an Appointment',
 };

@@ -13,6 +13,8 @@ type RootOnCTAWrapperProps = {
   imageAlt: string;
   imageTitle: string;
   heading: string | ReactElement;
+  containerClass?:string;
+  btnClass?: string;
 };
 
 export default function RootOnCTAWrapper({
@@ -24,9 +26,11 @@ export default function RootOnCTAWrapper({
   imageAlt,
   imageTitle,
   heading,
+  containerClass,
+  btnClass,
 }: RootOnCTAWrapperProps) {
   return (
-    <div className=" bg-pale-sandal md:relative px-6 pt-6 md:pt-0">
+    <div className={`${containerClass} bg-pale-sandal md:relative px-6 pt-6 md:pt-0`}>
       <div className="absolute z-[0] top-0 right-0 hidden lg:block">
         <BookAppointmentGridRight />
       </div>
@@ -41,7 +45,7 @@ export default function RootOnCTAWrapper({
             text={buttonText}
             onClick={onClick}
             ariaLabel={buttonAriaLabel}
-            className=" max-w-[400px]"
+            className={`${btnClass} max-w-[400px]`}
           />
         </div>
         <div className=" max-w-[264px] m-auto relative h-60 w-full lg:w-64 lg:gap-8 md:m-0">
