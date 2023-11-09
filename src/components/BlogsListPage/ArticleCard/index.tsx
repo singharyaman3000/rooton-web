@@ -7,7 +7,11 @@ type ArticleCardPropType = { attributes: IBlogData['attributes']; articleId: num
 
 const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
   return (
-    <Link href={{ pathname: `/blogs/${articleId}`, query: { blogType: attributes?.category ?? '' } }}>
+    <Link
+      href={{
+        pathname: `/blogs/${articleId}/${attributes?.category ?? ''}`,
+      }}
+    >
       <div className="flex flex-col items-center bg-white-fixed justify-between h-[514px] lg:h-[527px] border-t-[1px] border-[#b9b9b9] md:border hover:border-golden-yellow !min-w-[360px] md:w-[380px] cursor-pointer">
         <div className="h-[216px] w-[312px] md:min-h-[252px] md:w-full relative mt-6 md:mt-0">
           <NextImage

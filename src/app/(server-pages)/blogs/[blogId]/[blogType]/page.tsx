@@ -3,14 +3,14 @@ import { ArticleCategoryType } from '@/app/services/apiService/blogsListAPI';
 import BlogDetails from '@/components/BlogsDetails';
 
 type BlogsDetailPageProps = {
-  params: { blogId: string };
+  params: { blogId: string, blogType: ArticleCategoryType };
   searchParams: { blogType: ArticleCategoryType };
 };
 
 export default async function BlogsDetailPage(props: BlogsDetailPageProps) {
   const {
-    params: { blogId },
-    searchParams: { blogType },
+    params: { blogId, blogType },
+    // searchParams: { blogType },
   } = props;
 
   const response = (await getBlogDetails(blogId)) as IBlogDetailsResponse;
