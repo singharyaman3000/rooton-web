@@ -10,7 +10,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans }) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   return (
     <div className="flex flex-row relative my-5">
-      <div className="bg-[#f5f5f5] shadow-xl mr-[30px] min-w-[350px] w-full xl:max-w-[442px]">
+      <div className="pricing-card ml-[2px] shadow-xl mr-[30px] min-w-[350px] w-full xl:max-w-[442px]">
         {our_plans.popular && (
           <div className="absolute top-0 right-5 mr-6 -mt-4">
             <div
@@ -22,83 +22,85 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans }) => {
           </div>
         )}
         <div
-          className="text-black bg-[#EBEBEB] justify-center
-         items-center text-center font-extrabold text-2xl mb-8 py-3.5"
+          className="planName-heading text-black justify-center
+         items-center text-center font-extrabold text-2xl py-3.5"
         >
           {our_plans.planName}
         </div>
-        <div className="px-6 pb-6">
-          <div className="mb-5 md:text-xs sm:text-xs">
-            <div className="flex items-center justify-center items-baseline mb-5">
-              <div className="text-black font-bold text-4xl">${our_plans.price}</div>
-            </div>
-            <div className="font-semibold text-sm h-[70px] text-black mb-5">{our_plans.planDescription}</div>
-            <a
-              className="bg-[#FFCB70] hover:bg-[#f59723] w-full
+        <div className="">
+          <div className="px-6 pb-6 ">
+            <div className="mb-5 md:text-xs sm:text-xs">
+              <div className="flex items-center justify-center items-baseline mb-5">
+                <div className="pricing-text font-bold text-4xl pt-8">${our_plans.price}</div>
+              </div>
+              <div className="font-semibold text-sm h-[70px] pricing-text mb-5">{our_plans.planDescription}</div>
+              <a
+                className="bg-[#FFCB70] hover:bg-[#f59723] w-full
               inline-flex justify-center whitespace-nowrap px-3.5 py-3
               text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
               focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
               transition-colors duration-150"
-              href="#0"
-            >
+                href="#0"
+              >
               Purchase Plan
-            </a>
-          </div>
-          <div className="text-black font-medium font-semibold mb-3">Validity: {our_plans.validity}</div>
-          <div className="text-black font-medium mb-3">Includes:</div>
-          <ul className="text-black text-sm space-y-3 grow">
-            {our_plans.features.map((feature, index) => {
-              const isExpanded = expanded[index];
-              const subFeatures = feature.slice(1);
+              </a>
+            </div>
+            <div className="pricing-text font-medium font-semibold mb-3">Validity: {our_plans.validity}</div>
+            <div className="pricing-text font-medium mb-3">Includes:</div>
+            <ul className="pricing-text text-sm space-y-3 grow">
+              {our_plans.features.map((feature, index) => {
+                const isExpanded = expanded[index];
+                const subFeatures = feature.slice(1);
 
-              return (
+                return (
                 // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-                <li
-                  key={feature[0]}
-                  className="flex flex-col text-base font-medium cursor-pointer"
-                  onClick={() => {
-                    const newExpanded = [...expanded];
-                    newExpanded[index] = !isExpanded;
-                    setExpanded(newExpanded);
-                  }}
-                >
-                  <div className="flex items-center">
-                    <div
-                      tabIndex={0}
-                      role="button"
-                      onClick={() => {
-                        const newExpanded = [...expanded];
-                        newExpanded[index] = !isExpanded;
-                        setExpanded(newExpanded);
-                      }}
-                      className={`${
-                        isExpanded ? 'rotate-180' : 'rotate-0'
-                      } line-clamp-2 flex-shrink-0 mr-[10px]  transition-all delay-75`}
-                    >
-                      <DropDownCaret />
+                  <li
+                    key={feature[0]}
+                    className="flex flex-col text-base font-medium cursor-pointer"
+                    onClick={() => {
+                      const newExpanded = [...expanded];
+                      newExpanded[index] = !isExpanded;
+                      setExpanded(newExpanded);
+                    }}
+                  >
+                    <div className="flex items-center">
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        onClick={() => {
+                          const newExpanded = [...expanded];
+                          newExpanded[index] = !isExpanded;
+                          setExpanded(newExpanded);
+                        }}
+                        className={`${
+                          isExpanded ? 'rotate-180' : 'rotate-0'
+                        } line-clamp-2 flex-shrink-0 mr-[10px]  transition-all delay-75`}
+                      >
+                        <DropDownCaret />
+                      </div>
+                      <span>{feature[0]}</span>
                     </div>
-                    <span>{feature[0]}</span>
-                  </div>
-                  {isExpanded && (
-                    <ul className="text-black text-sm space-y-4 grow ml-5 font-normal">
-                      {subFeatures.map((subFeature) => {return (
-                        <li key={subFeature} className="flex mt-[8px] items-center">
-                          <svg
-                            className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle cx="10" cy="10" r="8" fill="currentColor" />
-                          </svg>
-                          <div>{subFeature}</div>
-                        </li>
-                      );})}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                    {isExpanded && (
+                      <ul className="pricing-text text-sm space-y-4 grow ml-5 font-normal">
+                        {subFeatures.map((subFeature) => {return (
+                          <li key={subFeature} className="flex mt-[8px] items-center">
+                            <svg
+                              className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
+                              viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle cx="10" cy="10" r="8" fill="currentColor" />
+                            </svg>
+                            <div>{subFeature}</div>
+                          </li>
+                        );})}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
