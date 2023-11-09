@@ -49,7 +49,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
   const initialApiCall = async () => {
     setLoading(true);
     const res = await getTestimonials(apiUrl.replace('<pageNo>', '1')
-      .replace('<pageSize>', '5'));
+      .replace('<pageSize>', '8'));
     if (res.status) {
       setTestimonialsListData(res?.res as ITestimonialPageData);
       setAllArticlesList(res?.res?.data ?? []);
@@ -68,7 +68,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
   const getTestimonialData = async () => {
     const currentPage = testimonialsListData?.meta?.pagination?.page || 0;
     const res = await getTestimonials(apiUrl.replace('<pageNo>', (currentPage + 1).toString())
-      .replace('<pageSize>', '5'));
+      .replace('<pageSize>', '8'));
     if (res?.status) {
       setTestimonialsListData(res?.res as ITestimonialPageData);
       setAllArticlesList((prev: ITestimonialData[]) => {
