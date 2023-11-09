@@ -13,14 +13,11 @@ export default function LightModeIcon({ isScrolled }: LightModeIconProps) {
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (isScrolled && theme === 'dark') {
+    if (isScrolled) {
       setFillColor('#000');
-    } else if (!isScrolled && theme === 'dark') {
-      setFillColor('#000');
-    } else if (!isScrolled && theme === 'light') {
-      setFillColor('#FFF');
     } else {
-      setFillColor('#000');
+      const color = theme === 'dark' ? '#000' : 'FFF';
+      setFillColor(color);
     }
   }, [isScrolled, theme]);
 
