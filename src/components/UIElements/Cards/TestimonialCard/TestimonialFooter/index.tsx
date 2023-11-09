@@ -13,7 +13,7 @@ export type TTestimonialFooter = Pick<IMediaAttributes, 'alternativeText' | 'url
 const TestimonialFooter = ({ alternativeText, url, caption, name, college, college_photo }: TTestimonialFooter) => {
   return (
     <div className="relative w-full flex items-center">
-      <div className="absolute right-0 w-[30px] h-[24px] md:w-[47.5px] md:h-[38px]">
+      <div className="absolute right-0 w-[47.5px] h-[38px]">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.5 39.99">
           <defs>
             <linearGradient x1="0%" y1="113.297%" x2="193.447%" y2="18%" id="2udtthevka">
@@ -30,7 +30,7 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college, colle
           />
         </svg>
       </div>
-      <div className="square-[30.7px] flex-shrink-0 mr-[14px] rounded-full overflow-hidden md:square-[48px] relative">
+      <div className="square-[48px] flex-shrink-0 mr-[14px] rounded-full overflow-hidden relative">
         {url ?
           <NextImage
             src={appendAssetUrl(url)}
@@ -44,13 +44,14 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college, colle
           /> :
           <PlaceholderAvatar />}
       </div>
-      <div className="max-w-[72%]">
-        <div className="text-bold line-clamp-1 font-bold text-[11.2px] text-black  not-italic leading-[normal] tracking-[normal] md:text-base ">
+      <div className="max-w-[calc(100%-120px)]">
+        <div className="text-bold line-clamp-1 font-bold text-[12px] mb-[5px] md:mb-0
+          text-black not-italic leading-[normal] tracking-[normal] md:text-base ">
           {name}
         </div>
         <div className="flex items-center relative ">
           {college_photo && (
-            <div className="h-[14px] relative w-[12px] md:w-[20px] md:h-[20px] mr-[5px] md:mr-[6px]">
+            <div className="h-[18.9px] relative w-[18.9px] md:w-[20px] md:h-[20px] mr-[5px] md:mr-[6px]">
               <NextImage
                 src={college_photo}
                 fill
@@ -61,7 +62,8 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college, colle
               />
             </div>
           )}
-          <div className="text-[10px] line-clamp-1 text-[#2f2f2f;]  not-italic leading-[normal] tracking-[normal] md:text-[14px]">
+          <div className="text-[11px] line-clamp-1 text-[#2f2f2f;]
+            not-italic leading-[normal] tracking-[normal] md:text-[14px]">
             {college}
           </div>
         </div>

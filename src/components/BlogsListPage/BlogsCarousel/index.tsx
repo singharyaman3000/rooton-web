@@ -148,7 +148,8 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({ articleType, title,
             })}
           </Slider>
           <MobilePagination
-            className={sourcePage === SOURCE_PAGE.SERVICE ? 'bg-secondary-grey' : 'bg-white-fixed'}
+            className={sourcePage === SOURCE_PAGE.SERVICE || sourcePage === SOURCE_PAGE.HOME
+              ? 'bg-secondary-grey' : 'bg-white-fixed'}
             dotsToDisplay={dotsToDisplay}
             pageNum={pageNum}
             pageMeta={blogsListData?.meta && blogsListData?.meta}
