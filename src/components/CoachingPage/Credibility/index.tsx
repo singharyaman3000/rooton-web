@@ -5,7 +5,7 @@ import { MediaUrl } from '@/app/services/apiService/interfaces';
 import { motion } from 'framer-motion';
 import Description from '../../UIElements/Description';
 import ImageCard from '../../UIElements/image-card';
-import Container from '../../UIElements/wrapper-container';
+import Container from '../../UIElements/wrapperContainer';
 import SectionTitle from '../../UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '../../UIElements/SectionHeadings/SubSectiontitle';
 import CredibilityGrid from './CredibilityGrid';

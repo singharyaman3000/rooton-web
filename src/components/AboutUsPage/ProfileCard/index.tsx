@@ -35,7 +35,7 @@ const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
       tabIndex={0}
       role="button"
       onClick={profileClickHandler}
-      className="card-hover-effect relative mb-4 w-80 flex flex-col border border-solid border-almond hover:border-golden-yellow bg-white cursor-pointer transition-colors duration-300 ease-in-out"
+      className="card-hover-effect relative h-full w-80 flex flex-col border border-solid border-almond hover:border-golden-yellow bg-white cursor-pointer transition-colors duration-300 ease-in-out"
     >
       <div className="w-80 h-[360px] relative">
         <NextImage

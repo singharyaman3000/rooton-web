@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Container from '@/components/UIElements/wrapper-container';
+import Container from '@/components/UIElements/wrapperContainer';
 import SectionTitle from '@/components/UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
 import ImageCard, { IimageCard } from './imageCard';

@@ -29,6 +29,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: convertToHtmlId(contentHeading),
     sliderData: teamData,
+    cardSpacing: 40,
   });
   const handlers = useSwipeable({
     onSwipedLeft: () => {
@@ -49,7 +50,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
 
   return (
     <section className="hidden md:block w-full team-slider-section overflow-x-hidden mt-[58px] mb-20">
-      <SectionContainer cssClass="!pr-[0px] 2k:!pr-20 m-auto max-w-screen-2k py-10 md:pt-[80px] md:pb-[60px]">
+      <SectionContainer cssClass="!pr-[0px] 2k:!pr-20 m-auto max-w-screen-2k py-10 md:pt-[80px] md:pb-20">
         <div className="flex gap-2 flex-wrap items-end justify-between md:pr-[48px] lg:pr-[80px]">
           <div className="md:max-w-[70%] lg:max-w-none">
             <SubSectionTitle title={contentHeading} />
@@ -75,9 +76,9 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
           <Slider
             scrollPercent={`${-scrollAmt}px`}
             id={convertToHtmlId(contentHeading)}
-            slideParentClass="!justify-start"
+            slideParentClass="!justify-start gap-10"
             pageNum={pageNum}
-            slideClass="!w-[73.4%] md:px-[15px] !min-w-[264px] md:!w-[29.6%] max-w-[380px] w-full md:!min-w-[380px] md:!max-w-[430px]"
+            slideClass="md:!w-[320px] !px-0"
           >
             {teamData.map(({ employeeName, employeeRole, employeeDescription, imageUrl }) => {
               return (

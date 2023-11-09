@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Container from '@/components/UIElements/wrapper-container';
+import Container from '@/components/UIElements/wrapperContainer';
 import Description from '@/components/UIElements/Description';
 import SectionTitle from '@/components/UIElements/SectionHeadings/SectionTitle';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';

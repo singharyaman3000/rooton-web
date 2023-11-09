@@ -13,6 +13,7 @@ export const SOURCE_PAGE = {
   HOME: 'home',
   SERVICE: 'service',
   BLOGS: 'blog',
+  BLOG_DETAILS: 'blog_details',
 };
 
 export const BREAD_CRUMBS_LIST = [
