@@ -1,4 +1,4 @@
-import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coaching_contentsAPI';
+import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coachingContentsAPI';
 import { CoachingServicePageComponent } from '@/components/CoachingPage-Services';
 
 // For IELTS

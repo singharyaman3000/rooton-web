@@ -1,4 +1,4 @@
-import { ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
+import { ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
 import OurProcess from '@/components/HomePage/OurProcess';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 

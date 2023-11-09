@@ -11,8 +11,7 @@ import { ITitleAttributes } from '../ServicesListing/interafces';
 import HonestyGrid from './HonestyGrid';
 
 export type IJsonContent = {
-  /* eslint-disable no-unused-vars */
-  [key in 'why_rooton']: IWhyRootON[] | null;
+  'why_rooton': IWhyRootON[] | null;
 };
 
 export interface IHonesty extends ITitleAttributes {

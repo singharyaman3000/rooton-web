@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITraining } from '@/app/services/apiService/coaching_contentsAPI';
+import { ITraining } from '@/app/services/apiService/coachingContentsAPI';
 import { appendAssetUrl } from '@/utils';
 import styles from './training.module.css'; // Import the module CSS
 

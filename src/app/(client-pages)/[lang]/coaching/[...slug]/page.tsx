@@ -1,6 +1,6 @@
 'use client';
 
-import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coaching_contentsAPI';
+import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coachingContentsAPI';
 import LoadingUI from '@/components/LoadingUI';
 import { CoachingServicePageComponent } from '@/components/CoachingPage-Services';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';

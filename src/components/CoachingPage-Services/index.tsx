@@ -1,6 +1,6 @@
 'use client';
 
-import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
+import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
 import { useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';

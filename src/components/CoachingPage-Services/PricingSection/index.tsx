@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { pricingPlansDetails } from '@/app/services/apiService/coaching_contentsAPI';
+import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import DropDownCaret from '@/components/Icons/DropDownCaret';
 
 type TrainingCardProps = {

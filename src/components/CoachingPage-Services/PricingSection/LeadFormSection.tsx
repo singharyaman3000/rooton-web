@@ -1,4 +1,4 @@
-import { ICoachingServicesContent } from '@/app/services/apiService/coaching_contentsAPI';
+import { ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
 import { H2 } from '@/components/H2';
 import { RefObject, useState } from 'react';
 import LeadFormStepper from '../LeadFormStepper';
