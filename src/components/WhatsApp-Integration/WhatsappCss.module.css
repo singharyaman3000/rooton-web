@@ -78,7 +78,7 @@
   left: 10px;
   top: 0px;
   height: 100%;
-  width: 100%;
+  width: 97%;
   z-index: 0;
   opacity: 0.08;
   background-image: url(https://static.elfsight.com/apps/all-in-one-chat/patterns/whatsapp.png);
@@ -197,18 +197,19 @@
 }
 
 .ChatLayout_Text {
-  font-size: 14px;
-  line-height: 19px;
-  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 16px;
+  margin-top: 2px;
   color: rgb(17, 17, 17);
-  max-height: 100px; 
-  overflow-y: auto; 
+  max-height: 59px;
+  height: 100%;
+  overflow-y: auto;
   word-wrap: break-word;
 }
 
 .ChatLayout_TimeBottom {
   text-align: right;
-  margin-top: 4px;
+  margin-top: 2px;
   font-size: 12px;
   line-height: 16px;
   color: rgba(17, 17, 17, 0.5);
@@ -333,18 +334,13 @@
   z-index: 9;
 }
 
+
 @media screen and (max-width: 768px) {
   .template {
-    bottom: 80px;
-    right: -2px;
+    display: none;
   }
 }
 
-@media screen and (max-width: 375px) {
-  .template {
-    right: -2px;
-  }
-}
 
 .template button {
   cursor: pointer;

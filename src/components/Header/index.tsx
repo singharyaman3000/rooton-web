@@ -9,8 +9,10 @@ import SliderOverlay from './SliderOverlay';
 import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
 import { useParams } from 'next/navigation';
+import WhatsAppButton from '@/components/WhatsApp-Integration';
+import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
-const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -18,8 +20,19 @@ export default function Header() {
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
-  const [activeTab, setActiveTab] = useState<string>('');
-
+  const [activeTab,setActiveTab] = useState<string>('');
+  const [shouldRenderWhatsAppButton, setshouldRenderWhatsAppButton]
+   = useState<IWhatsAppAttributes | undefined>(undefined);
+  const [whatsAppData, setwhatsAppData] = useState<IWhatsApp>({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiRes = await getHeaderFooterData();
+      setwhatsAppData(apiRes[0]?.attributes?.whats_app);
+      const whatsAppData1 = apiRes[0]?.attributes?.whats_app;
+      setshouldRenderWhatsAppButton(whatsAppData1?.data?.attributes);
+    };
+    fetchData();
+  }, []);
   const isFixed = !!params?.blogId;
 
   useEffect(() => {
@@ -205,7 +218,7 @@ export default function Header() {
                 activeTab === 'coaching' ? 'font-extrabold' : 'font-bold'
               }`}
             >
-              <Link href={'/'}> Coaching </Link>
+              <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}> Coaching </Link>
               {activeTab === 'coaching' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
@@ -258,6 +271,10 @@ export default function Header() {
             xl:mx-20
           "
         />
+        <div>
+          {shouldRenderWhatsAppButton && (
+            <WhatsAppButton whatsapp={ whatsAppData!.data!.attributes } theme={theme || 'light'} />
+          )}</div>
       </nav>
     </header>
   );
