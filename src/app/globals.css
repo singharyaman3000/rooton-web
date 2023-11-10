@@ -270,6 +270,46 @@ body {
   background: #000;
 }
 
+/*Training cards styling*/
+
+.training-cards {
+  background: var(--primary-bg);
+  border-top: 65px solid #000;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
+  transform: translateY(0px) scale(1);
+  transition: transform 0.3s ease;
+}
+
+.card-text {
+  color: #000;
+}
+
+[data-theme='dark'] .card-text {
+  color: #fff;
+}
+.training-title {
+  color: #fff;
+}
+[data-theme='dark'] .training-title {
+  color: #000000;
+}
+.training-toggle {
+  position: absolute;
+  align-items: center;
+  z-index: 10;
+  left: 0;
+  top: -45px;
+}
+[data-theme='dark'] .training-toggle {
+  top: -45px;
+}
+
+[data-theme='dark'] .training-cards {
+  background: #000;
+  box-shadow: rgb(192 192 192 / 45%) 0px 2px 4px 0px, rgb(192 192 192 / 45%) 0px 2px 16px 0px;
+  transition: all 0.3s ease;
+  border-top: 65px solid rgb(149 149 149);
+}
 /* Team Slider Styling */
 
 .team-slider-section {
@@ -786,6 +826,37 @@ button:disabled {
 
 .services-tab .tab-header div:nth-child(2) {
   max-width: 100% !important;
+}
+
+/*Pricing cards styling*/
+.planName-heading {
+  background: #ebebeb;
+  color: #000;
+}
+
+[data-theme='dark'] .planName-heading {
+  background: rgb(149,149,149);
+  color: #000;
+}
+
+.pricing-text {
+  color: #000;
+}
+
+[data-theme='dark'] .pricing-text {
+  color: #fff;
+}
+
+.pricing-card {
+  background: #f5f5f5;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
+  transform: translateY(0px) scale(1);
+  transition: transform 0.3s ease;
+}
+
+[data-theme='dark'] .pricing-card {
+  background: #000;
+  box-shadow: rgb(192 192 192 / 45%) 0px 2px 4px 0px, rgb(192 192 192 / 45%) 0px 2px 16px 0px;
 }
 
 heading {

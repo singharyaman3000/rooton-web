@@ -7,12 +7,12 @@ import styles from './WhatsappCss.module.css';
 import { getHeaderFooterData, IWhatsAppAttributes } from '@/app/services/apiService/headerFooterAPI';
 
 export interface IWhatsAppProps {
-  whatsapp: IWhatsAppAttributes;
+  whatsapp: IWhatsAppAttributes | undefined;
   hideTemplate: () => void;
   showTypingInitial: boolean;
 }
 
-const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
+const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes, theme: string }> = ({ theme }) => {
   const [showTemplate, setShowTemplate] = useState(false);
   const [showTypingInitial, setShowTypingInitial] = useState(true);
   const [isMobileView, setIsMobileView] = useState(typeof window !== 'undefined' && window.innerWidth <= 768);
@@ -26,6 +26,18 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
     fetchData();
   }, []);
 
+  const handleLogoClick = () => {
+    // If mobile view, open the WhatsApp link
+    if (isMobileView) {
+      const whatsAppLink = `https://wa.me/${whatsAppData?.whatsappnumber}?text=${encodeURIComponent(whatsAppData?.welcomeText || '')}`;
+      window.open(whatsAppLink, '_blank', 'width=1080,height=800,left=200,top=200');
+    } else {
+      setShowTemplate((prev) => !prev);
+      if (showTypingInitial) {
+        setTimeout(() => setShowTypingInitial(false), 1000);
+      }
+    }
+  };
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
@@ -35,42 +47,23 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes }> = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleClick = () => {
-    window.open(
-      `https://wa.me/${whatsAppData?.whatsappnumber}?text=${whatsAppData?.welcomeText}`,
-      '_blank',
-      'width=1080,height=800,left=200,top=200',
-    );
-  };
-  const handleLogoClick = () => {
-    if (isMobileView) {
-      handleClick();
-      return;
-    }
-    setShowTemplate((prev) => !prev);
-
-    if (showTypingInitial) {
-      setTimeout(() => setShowTypingInitial(false), 1000);
-    }
-  };
-
   return (
-    <div
-      className={styles.whatsAppIntegration}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter') handleLogoClick();
-      }}
-    >
-      <div className={showTemplate ? styles.fade_show : styles.fade}>
-        {whatsAppData && (
-          <WhatsAppTemp hideTemplate={handleLogoClick} showTypingInitial={showTypingInitial} whatsapp={whatsAppData} />
-        )}
+    <div className={styles.whatsAppIntegration}>
+      <div className={showTemplate ? styles.fade_show : styles.fade}>{showTemplate && whatsAppData && (<WhatsAppTemp
+        hideTemplate={() => setShowTemplate(false)}
+        showTypingInitial={showTypingInitial}
+        whatsapp={whatsAppData}
+      />
+      )}
       </div>
-
-      <div onClick={handleLogoClick} role="button" tabIndex={0} aria-label="Open WhatsApp">
-        <WhatsappIcon />
+      <div
+        onClick={handleLogoClick}
+        role="button"
+        tabIndex={0}
+        aria-label="Open WhatsApp"
+        className={styles.whatsappIconContainer}
+      >
+        <WhatsappIcon theme={theme}/>
       </div>
     </div>
   );
