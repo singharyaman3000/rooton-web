@@ -26,7 +26,7 @@ export const getSectionData = (data: IHomePageData, unique_identifier_name: stri
   });
 };
 
-export const getSectionData1 = (data: ICoachingPage_Data, unique_identifier_name: string) => {
+export const getSectionCoachingData = (data: ICoachingPage_Data, unique_identifier_name: string) => {
   return data.attributes.coaching_page_contents.data?.find((contents) => {
     return contents.attributes.unique_identifier_name === unique_identifier_name;
   });

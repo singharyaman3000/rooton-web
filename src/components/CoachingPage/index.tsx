@@ -6,7 +6,7 @@ import Honesty, { IJsonContent } from '@/components/CoachingPage/Honesty';
 import PartnerShip from '@/components/CoachingPage/Partnership';
 import OurProcess from '@/components/CoachingPage/OurProcess';
 import { CONTENT_TYPES, ICoachingPage_Data, DataEntity1 } from '@/app/services/apiService/CoachingAPI';
-import { appendAssetUrl, getSectionData1, isVideo } from '@/utils';
+import { appendAssetUrl, getSectionCoachingData, isVideo } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -117,7 +117,7 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
     });
   };
 
-  const faqData = getSectionData1(coachingPageConfig, CONTENT_TYPES.QUESTIONS);
+  const faqData = getSectionCoachingData(coachingPageConfig, CONTENT_TYPES.QUESTIONS);
 
   return (
     <>
