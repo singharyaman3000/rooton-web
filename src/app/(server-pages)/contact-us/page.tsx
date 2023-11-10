@@ -1,3 +1,5 @@
+import ContactUs from '@/components/ContactUsPage';
+
 export default async function ContactUsPage() {
-  return <div>COntact US</div>;
+  return <ContactUs/>;
 }
