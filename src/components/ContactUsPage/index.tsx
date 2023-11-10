@@ -2,6 +2,7 @@
 
 import RTONBanner from '../RTONBanner';
 import BookAnAppointmentButton from '../ServicePage/BookAnAppointmentButton';
+import MapSection from './MapSection';
 import SocialSection from './SocialSection';
 import { BREAD_BRUMB_PATHS } from './constants';
 
@@ -22,6 +23,7 @@ const ContactUs = () => {
         button={<BookAnAppointmentButton text="Book an Appoinment now" onClick={() => {}} />}
       />
       <SocialSection/>
+      <MapSection/>
     </>
   );
 };
