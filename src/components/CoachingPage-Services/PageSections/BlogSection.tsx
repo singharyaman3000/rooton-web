@@ -1,8 +1,6 @@
 'use client';
 
-// import { getBlogs } from '@/app/services/apiService/blogs';
 import BlogsCarousel from '@/components/BlogsListPage/BlogsCarousel';
-// import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 
 type BlogSectionProps = {
   title: string;

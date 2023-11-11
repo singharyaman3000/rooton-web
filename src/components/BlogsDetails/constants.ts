@@ -15,12 +15,12 @@ export const BLOG_DETAILS_BREADCRUMBS = [
 
 export const BLOG_DETAILS_BREADCRUMBS_COACHING = [
   {
-    title: 'Coaching',
-    path: '/coaching',
+    title: 'Home',
+    path: '/',
   },
   {
-    title: 'Coaching Tips',
-    path: '',
+    title: 'Coaching',
+    path: '/coaching',
   },
   {
     title: 'Article',
