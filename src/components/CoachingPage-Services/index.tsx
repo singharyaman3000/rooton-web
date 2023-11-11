@@ -1,7 +1,7 @@
 'use client';
 
-import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
-import { useRef, useState } from 'react';
+import { ICoachingServicePageContent, ICoachingServicesContent,pricingPlansDetails, IPricing } from '@/app/services/apiService/coachingContentsAPI';
+import React, { useState, useRef } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from './Wrapper';
@@ -24,15 +24,21 @@ import TrainingCard from './Training';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import { useParams } from 'next/navigation';
 import PricingSection from './PricingSection';
+import LeadFormSection1 from './PricingSection/LeadFormSection';
+// import Pagination from './Pagination';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
+  isShowForm: boolean;
+  our_plans: pricingPlansDetails;
+  leadFormdata: IPricing;
 };
 
-export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {
+export const CoachingServicePageComponent = ({ response, isBookAppointment, isShowForm,leadFormdata }: CoachingServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const leadFormRef = useRef<HTMLDivElement>(null);
+  const leadFormRef1 = useRef<HTMLDivElement>(null);
   const params = useParams();
 
   const whyChooseOpen = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
@@ -66,7 +72,17 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   const pricings = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'our_plans';
   });
-
+  // let leadForm1: pricingPlansDetails | undefined;
+  // if (our_plans) {
+  //   leadForm1 = {
+  //     price: our_plans.price,
+  //     yearly: our_plans.yearly,
+  //     features: our_plans.features,
+  //     validity: our_plans.validity,
+  //     planDescription: our_plans.planDescription,
+  //     lead_forms: our_plans.lead_forms || [],
+  //   };
+  // }
   const trainings = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'training';
   });
@@ -79,7 +95,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const [activeTrainingType, setActiveTrainingType] = useState(trainingTypes[0] || '');
 
-  const pricingTypes = Object.keys(pricings?.attributes?.json_content?.pricingDetails || {});
+  const pricingTypes = Object.keys(pricings?.attributes?.json_content?.pricingDetails || []);
 
   const [activepType] = useState(pricingTypes[0] || '');
 
@@ -88,7 +104,42 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
 
   const pricingDetails = pricings?.attributes?.json_content?.pricingDetails;
   const filteredPricings = pricingDetails?.[activepType] || [];
+  const leadForm1 = pricings?.attributes?.json_content?.pricingDetails?.pricingPlans;
+  console.log('sss',leadForm1);
 
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const [pageSize, setPageSize] = useState(1);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // useEffect(() => {
+  //   const updatePageSize = () => {
+  //     const containerWidth = scrollContainerRef.current ? scrollContainerRef.current.offsetWidth : 0;
+  //     const cardWidth = 300 + 2;
+  //     setPageSize(Math.floor(containerWidth / cardWidth));
+  //   };
+  // Call once and add event listener on mount
+  //   updatePageSize();
+  //   window.addEventListener('resize', updatePageSize);
+  //   // Cleanup on unmount
+  //   return () => window.removeEventListener('resize', updatePageSize);
+  // }, []);
+  // const handleScroll = () => {
+  //   if (scrollContainerRef.current) {
+  //     const container = scrollContainerRef.current;
+  //     const scrollPosition = container.scrollLeft;
+  //     const cardWidth = 200 + 2;
+  //     const newPage = Math.floor(scrollPosition / (cardWidth * pageSize));
+  //     setCurrentPage(newPage);
+  //   }
+  // };
+  // const handlePageChange = (newPage: number) => {
+  //   if (scrollContainerRef.current) {
+  //     const cardWidth = 50 + 2;
+  //     scrollContainerRef.current.scrollLeft = newPage * cardWidth * pageSize;
+  //     setCurrentPage(newPage);
+  //   }
+  // };
+  // const pageCount = Math.ceil(filteredTrainings.length / pageSize);
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'coaching-service-testimonial';
   });
@@ -125,6 +176,17 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     setTimeout(() => {
       window.scrollTo({
         top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
+        behavior: 'smooth',
+      });
+    }, 0);
+  };
+
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const handlePricingCTAButtonClick = () => {
+    setShowLeadForm(true);
+    setTimeout(() => {
+      window.scrollTo({
+        top: leadFormRef1.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
         behavior: 'smooth',
       });
     }, 0);
@@ -189,19 +251,31 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 -ms-overflow-style: none;
               }
             `}</style>
-
+          {showLeadForm &&
+      <CoachingPageWrapper
+        className={`${
+          showLeadForm ? 'block' : 'hidden'
+        } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k `}
+      >
+        <LeadFormSection1
+          leadForm1={leadForm1}
+          leadFormRef1={leadFormRef1}
+          onPricingCTAButtonClick={handlePricingCTAButtonClick}
+          isShowForm={isShowForm}
+        />
+      </CoachingPageWrapper>}
           <div className="mt-20 m-auto max-w-screen-2k ">
             <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
               <div className="md:max-w-[70%] lg:max-w-none">
                 <SectionHeadings title={''} subTitle={pricingTitle || ''} />
               </div>
-
-              <div className="scrollable-container">
+              <div ref={scrollContainerRef} className="scrollable-container">
                 {Array.isArray(filteredPricings) &&
                     filteredPricings.map((pricing) => {
-                      return <PricingSection key={''} our_plans={pricing} />;
+                      return <PricingSection key={''} our_plans={pricing} onPricingCTAButtonClick={handlePricingCTAButtonClick} />;
                     })}
               </div>
+              {/* <Pagination pageCount={pageCount} currentPage={currentPage} onPageChange={handlePageChange} /> */}
             </div>
           </div>
         </>
@@ -255,11 +329,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
             `}</style>
           <div className="training-section blogs-listing  mt-20">
             <div className="mt-20 m-auto max-w-screen-2k ">
-              <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
-                <div className="md:max-w-[70%] lg:max-w-none">
+              <div className="md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] ">
+                <div className="px-[24px] md:max-w-[70%] lg:max-w-none">
                   <SectionHeadings title={''} subTitle={trainingTitle || ''} />
                 </div>
-                {trainingTypes?.length > 1 &&
+                <div className='px-[24px]'>{trainingTypes?.length > 1 &&
                     trainingTypes
                       .filter((type) => {
                         return type && type.trim() !== '';
@@ -273,15 +347,16 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                             onClick={() => {
                               return setActiveTrainingType(type);
                             }}
-                            className={`${type === activeTrainingType ? 'active-button' : 'normal-button'}`}
+                            className={`${type === activeTrainingType ? 'active-button' : 'normal-button '}`}
                           >
                             {' '}
                             {type}
                           </button>
                         );
                       })}
+                </div>
 
-                <div className="scrollable-container">
+                <div ref={scrollContainerRef} className="scrollable-container px-[8px]">
                   {filteredTrainings.map((training, index) => {
                     if (index > 0) {
                       return <TrainingCard key={training.id} training={training} />;
@@ -289,6 +364,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                     return null;
                   })}
                 </div>
+                {/* <Pagination pageCount={pageCount} currentPage={currentPage} onPageChange={handlePageChange} /> */}
               </div>
             </div>
           </div>
