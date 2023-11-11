@@ -17,13 +17,13 @@ import LeadFormSection from './PageSections/LeadFormSection';
 import CTAWrapperSection from './PageSections/CTAWrapperSection';
 import FAQSection from './PageSections/FAQSection';
 import BlogSection from './PageSections/BlogSection';
-import { GET_BLOGS_COACHING_SERVICE } from '@/app/services/apiService/apiUrl/servicePage';
 import { CoachingDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import TrainingCard from './Training';
 import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import { useParams } from 'next/navigation';
 import PricingSection from './PricingSection';
+import { SOURCE_PAGE } from '../BlogsListPage/constants';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
@@ -100,7 +100,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   const blogs = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'blogs';
   });
-
   const sectionsByPosition = [
     whyChooseOpen,
     eligibility,
@@ -312,14 +311,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
     case 'blogs':
       return (
-        <div className=" mt-[74px] bg-secondary-grey">
+        <div className="py-[11px] mt-[74px]">
           <BlogSection
             title=""
+            sourcePage={SOURCE_PAGE.COACHING}
             subtitle={blogs?.attributes.title ?? ''}
-            url={GET_BLOGS_COACHING_SERVICE.replace(
-              '<service-type>',
-              response?.data.attributes.unique_identifier_name,
-            )}
           />
         </div>
       );

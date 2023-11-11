@@ -32,7 +32,11 @@ export interface ITestimonialData extends ITestimonial {
 
 const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) => {
   return (
-    <div className={`h-[27rem] md:h-[32.5rem] p-[12.8px] md:p-[20px] relative ${type === 'text' ? 'bg-secondary-grey' : ''}`}>
+    <div
+      className={`h-[27rem] md:h-[32.5rem] p-[12.8px] md:p-[20px] relative ${
+        type === 'text' ? 'bg-secondary-grey' : ''
+      }`}
+    >
       <div className=" relative h-full">
         {type === 'text' && (
           <div className="text-xs font-medium p-[20px] md:p-[36px] not-italic !leading-[1.67] tracking-[normal] md:text-sm text-black">
@@ -63,7 +67,12 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
                33vw"
           />
           <div className="absolute w-full h-full top-0 bg-black opacity-[0.32]"></div>
-          <button className="relative z-10" type="button" onClick={() => handleOnClick(attributes)}>
+          <button
+            className="relative z-10"
+            type="button"
+            onClick={() => handleOnClick(attributes)}
+            aria-label="Button Label"
+          >
             <PlayButton />
           </button>
         </div>

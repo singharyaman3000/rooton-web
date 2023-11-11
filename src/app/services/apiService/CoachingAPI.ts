@@ -12,7 +12,7 @@ export const CONTENT_TYPES = {
   CREDIBILITY: 'credibility',
   WHY_ROOT_ON: 'why_rooton_coaching',
   OUR_PROCESSES:'coaching_processes',
-  BLOG: 'blogs',
+  BLOG: 'coaching_blogs',
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
   QUESTIONS: 'coaching_questions',
