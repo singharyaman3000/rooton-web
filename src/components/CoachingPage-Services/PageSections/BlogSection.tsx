@@ -14,11 +14,10 @@ const BlogSection = ({ title, subtitle, serviceType, sourcePage }: BlogSectionPr
     <BlogsCarousel
       sourcePage={sourcePage}
       serviceType={serviceType}
-      articleType={serviceType ? 'blog' : 'coaching-tips'}
+      articleType={'coaching-tips'}
       title={title}
       subHeading={subtitle}
       id="coaching_listing"
-      showMore
     />
   );
 };
