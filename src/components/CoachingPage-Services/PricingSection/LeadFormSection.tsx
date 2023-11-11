@@ -5,7 +5,7 @@ import LeadFormStepper from './LeadFormStepper';
 import NextImage from '@/components/UIElements/NextImage';
 
 type LeadFormSectionProps = {
-  leadForm1: pricingPlansDetails;
+  leadForm1?: pricingPlansDetails;
   leadFormRef1: RefObject<HTMLDivElement>;
   onPricingCTAButtonClick: () => void;
   isShowForm: boolean;
