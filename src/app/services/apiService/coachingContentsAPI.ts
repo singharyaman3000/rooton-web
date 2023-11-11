@@ -60,7 +60,7 @@ export type ISubServiceJSONContent = {
     [key: string]: TrainingType[];
   };
   pricingDetails: {
-    [key: string]: pricingPlans;
+    [key: string]: pricingPlansDetails[];
   };
 };
 

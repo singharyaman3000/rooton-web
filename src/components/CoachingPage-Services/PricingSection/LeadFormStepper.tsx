@@ -75,7 +75,7 @@ const LeadFormStepper = (
     isShowForm,
     initScroll,
   }: LeadFormStepperProps) => {
-  const { noOfFieldsAtaTime } = SERVICES_TITLE.leadForm;
+  const noOfFieldsAtaTime = 100;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
 
@@ -260,7 +260,7 @@ const LeadFormStepper = (
   };
 
   const formReady = () => {
-    const el = document.querySelectorAll('fieldset');
+    const el = document.querySelectorAll(`#${target} fieldset`);
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime;
     handleMultiStep(el);
   };
@@ -277,7 +277,7 @@ const LeadFormStepper = (
     }
 
     setDisableBackButton(false);
-    const el = document.querySelectorAll('fieldset');
+    const el = document.querySelectorAll(`#${target} fieldset`);
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
       showFrom.current += noOfFieldsAtaTime;
       stepNo.current += 1;

@@ -5,18 +5,23 @@ import LeadFormStepper from './LeadFormStepper';
 import NextImage from '@/components/UIElements/NextImage';
 
 type LeadFormSectionProps = {
-  leadForm1?: pricingPlansDetails;
-  leadFormRef1: RefObject<HTMLDivElement>;
+  PricingleadForm: pricingPlansDetails;
+  PricingleadFormRef: RefObject<HTMLDivElement>;
   onPricingCTAButtonClick: () => void;
   isShowForm: boolean;
 };
 
-const LeadFormSection1 = ({ leadForm1, leadFormRef1, onPricingCTAButtonClick, isShowForm }: LeadFormSectionProps) => {
+const PricingLeadFormSection = ({
+  PricingleadForm,
+  PricingleadFormRef,
+  onPricingCTAButtonClick,
+  isShowForm,
+}: LeadFormSectionProps) => {
   const [formStepperProgress, setFormStepperProgress] = useState(0);
-  if (leadForm1) {
+  if (PricingleadForm) {
     return (
       <div
-        ref={leadFormRef1}
+        ref={PricingleadFormRef}
         className="
           flex
           gap-[34px]
@@ -31,7 +36,7 @@ const LeadFormSection1 = ({ leadForm1, leadFormRef1, onPricingCTAButtonClick, is
       >
         <div className=" absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formStepperProgress}%` }} />
         <div className="p-4 lg:pl-[60px] w-full lg:w-[83%] py-12 lg:pb-16 lg:pr-0 sm:p-12">
-          <H2>{'Welcome' ?? ''}</H2>
+          <H2>{'Evaluate yourself' ?? ''}</H2>
           <div className="" id="lead-form">
             <LeadFormStepper
               initScroll={onPricingCTAButtonClick}
@@ -40,30 +45,22 @@ const LeadFormSection1 = ({ leadForm1, leadFormRef1, onPricingCTAButtonClick, is
                 setFormStepperProgress(progress);
               }}
               calenderLink={
-                (leadForm1?.lead_forms &&
-                  leadForm1?.lead_forms.find((f) => {
+                (PricingleadForm?.lead_forms &&
+                  PricingleadForm?.lead_forms.find((f) => {
                     return f.type === 'meeting';
                   })?.url) ??
                 ''
               }
               region={
-                (leadForm1?.lead_forms &&
-                  leadForm1?.lead_forms.find((f) => {
+                (PricingleadForm?.lead_forms &&
+                  PricingleadForm?.lead_forms.find((f) => {
                     return f.type === 'form';
                   })?.region) ??
                 ''
               }
-              portalId={
-                (leadForm1?.lead_forms &&
-                  leadForm1?.lead_forms[0].portalId) ??
-                ''
-              }
-              formId={
-                (leadForm1?.lead_forms &&
-                  leadForm1?.lead_forms[0].formId) ??
-                ''
-              }
-              target="LeadForm"
+              portalId={(PricingleadForm?.lead_forms && PricingleadForm?.lead_forms[0].portalId) ?? ''}
+              formId={(PricingleadForm?.lead_forms && PricingleadForm?.lead_forms[0].formId) ?? ''}
+              target="PricingLeadForm"
             />
           </div>
         </div>
@@ -85,4 +82,4 @@ const LeadFormSection1 = ({ leadForm1, leadFormRef1, onPricingCTAButtonClick, is
   return null;
 };
 
-export default LeadFormSection1;
+export default PricingLeadFormSection;
