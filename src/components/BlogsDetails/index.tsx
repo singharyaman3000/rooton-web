@@ -54,7 +54,12 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
         style={{ alignSelf: allHeadingsList?.length === 0 ? 'center' : '' }}
       >
         {/* Article navigation */}
-        <NavigationPanel content={allHeadingsList} selectedTag={selectedSection} setSelectedTag={setSelectedSection} breadcrumbsData={breadcrumbsData} />
+        <NavigationPanel
+          content={allHeadingsList}
+          selectedTag={selectedSection}
+          setSelectedTag={setSelectedSection}
+          breadcrumbsData={breadcrumbsData}
+        />
         {/* Blogbody */}
         <div id="section-container" className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px]">
           <BlogHeader blogDetails={details} />
@@ -62,9 +67,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
         </div>
       </div>
       {/* CTA Section */}
-      <div className="py-8 lg:py-[60px]">
-        <BookAnAppointment onClick={handleCTAButton} />
-      </div>
+      <div className="py-8 lg:py-[60px]">{!fromCoachingPage && <BookAnAppointment onClick={handleCTAButton} />}</div>
       {/* SocialMediaShare for small screens */}
       <div className=" lg:hidden mb-10 self-center">
         <SocialMediaShare />

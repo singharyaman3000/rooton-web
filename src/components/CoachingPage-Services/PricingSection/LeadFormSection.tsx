@@ -8,14 +8,14 @@ type LeadFormSectionProps = {
   PricingleadForm: pricingPlansDetails;
   PricingleadFormRef: RefObject<HTMLDivElement>;
   onPricingCTAButtonClick: () => void;
-  isShowForm: boolean;
+  isBookAppointment: boolean;
 };
 
 const PricingLeadFormSection = ({
   PricingleadForm,
   PricingleadFormRef,
   onPricingCTAButtonClick,
-  isShowForm,
+  isBookAppointment,
 }: LeadFormSectionProps) => {
   const [formStepperProgress, setFormStepperProgress] = useState(0);
   if (PricingleadForm) {
@@ -40,7 +40,7 @@ const PricingLeadFormSection = ({
           <div className="" id="lead-form">
             <LeadFormStepper
               initScroll={onPricingCTAButtonClick}
-              isShowForm={isShowForm}
+              isBookAppointment={isBookAppointment}
               onProgress={(progress) => {
                 setFormStepperProgress(progress);
               }}

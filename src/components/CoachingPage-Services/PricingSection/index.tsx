@@ -8,7 +8,7 @@ type TrainingCardProps = {
   onPricingCTAButtonClick: () => void;
 };
 
-const PricingSection: React.FC<TrainingCardProps> = ({ our_plans,onPricingCTAButtonClick }) => {
+const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick }) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   return (
     <div className="flex flex-row relative my-5">
@@ -44,7 +44,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans,onPricingCTABut
               transition-colors duration-150"
                 onClick={onPricingCTAButtonClick}
               >
-              Purchase Plan
+                Purchase Plan
               </button>
             </div>
             <div className="pricing-text font-medium font-semibold mb-3">Validity: {our_plans.validity}</div>
@@ -84,18 +84,20 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans,onPricingCTABut
                     </div>
                     {isExpanded && (
                       <ul className="pricing-text text-sm space-y-4 grow ml-5 font-normal">
-                        {subFeatures.map((subFeature) => {return (
-                          <li key={subFeature} className="flex mt-[8px] items-center">
-                            <svg
-                              className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <circle cx="10" cy="10" r="8" fill="currentColor" />
-                            </svg>
-                            <div>{subFeature}</div>
-                          </li>
-                        );})}
+                        {subFeatures.map((subFeature) => {
+                          return (
+                            <li key={subFeature} className="flex mt-[8px] items-center">
+                              <svg
+                                className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <circle cx="10" cy="10" r="8" fill="currentColor" />
+                              </svg>
+                              <div>{subFeature}</div>
+                            </li>
+                          );
+                        })}
                       </ul>
                     )}
                   </li>

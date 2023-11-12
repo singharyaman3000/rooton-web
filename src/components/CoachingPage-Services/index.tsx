@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  ICoachingServicePageContent,
-  ICoachingServicesContent,
-  pricingPlansDetails,
-  IPricing,
-} from '@/app/services/apiService/coachingContentsAPI';
+import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
 import React, { useState, useRef } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
@@ -34,12 +29,9 @@ import PricingLeadFormSection from './PricingSection/LeadFormSection';
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
   isBookAppointment: boolean;
-  isShowForm: boolean;
-  our_plans: pricingPlansDetails;
-  leadFormdata: IPricing;
 };
 
-export const CoachingServicePageComponent = ({ response, isBookAppointment, isShowForm }: CoachingServicePageProps) => {
+export const CoachingServicePageComponent = ({ response, isBookAppointment }: CoachingServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<number>(0);
@@ -226,7 +218,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment, isSh
                 onPricingCTAButtonClick={() => {
                   return handlePricingCTAButtonClick(selectedPlan);
                 }}
-                isShowForm={isShowForm}
+                isBookAppointment={isBookAppointment}
               />
             </CoachingPageWrapper>
           )}
@@ -249,7 +241,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment, isSh
                       );
                     })}
               </div>
-              {/* <Pagination pageCount={pageCount} currentPage={currentPage} onPageChange={handlePageChange} /> */}
             </div>
           </div>
         </>
@@ -339,7 +330,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment, isSh
                     return null;
                   })}
                 </div>
-                {/* <Pagination pageCount={pageCount} currentPage={currentPage} onPageChange={handlePageChange} /> */}
               </div>
             </div>
           </div>
