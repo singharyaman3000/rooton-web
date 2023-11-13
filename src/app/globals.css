@@ -598,7 +598,11 @@ body {
   margin-bottom: 15px;
 }
 
-.huform .hs-form-field label {
+.huform .hs-richtext.hs-main-font-element {
+  margin-bottom: 10px;
+}
+
+.huform .hs-form-field label, .huform .hs-richtext.hs-main-font-element {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.67;
@@ -762,6 +766,8 @@ body {
   outline-color: #000;
   outline-offset: 0;
 }
+
+/* Service Form CSS ends */
 
 font {
   background: transparent !important;

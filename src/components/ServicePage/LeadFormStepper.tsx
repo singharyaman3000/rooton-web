@@ -301,6 +301,7 @@ const LeadFormStepper = (
 
   const onBackClick = () => {
     setDisableNextButton(false);
+    hideSubmitButton(true);
     if (showFrom.current > 1) {
       showFrom.current -= noOfFieldsAtaTime;
       stepNo.current -= 1;
