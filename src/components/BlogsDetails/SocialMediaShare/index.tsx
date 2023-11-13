@@ -27,6 +27,7 @@ const SocialMediaShare = () => {
           <LinkedInIconBlue />
         </LinkedinShareButton>
         <div role="button" tabIndex={0} className="cursor-pointer" onClick={handleCopyLink}>
+          <span>{}</span>
           <CopyLinkIcon />
         </div>
       </div>

@@ -230,13 +230,15 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
               <div ref={scrollContainerRef} className="scrollable-container">
                 {Array.isArray(filteredPricings) &&
                     filteredPricings.map((pricing, index) => {
+                      // Check if lead_forms are present, otherwise use the URL
+                      const leadFormsPresent = pricing.lead_forms && pricing.lead_forms.length > 0;
+                      const redirectUrl = !leadFormsPresent ? pricing.url : undefined;
                       return (
                         <PricingSection
                           key={''}
                           our_plans={pricing}
-                          onPricingCTAButtonClick={() => {
-                            return handlePricingCTAButtonClick(index);
-                          }}
+                          onPricingCTAButtonClick={() => {return handlePricingCTAButtonClick(index);}}
+                          redirectUrl={redirectUrl}
                         />
                       );
                     })}

@@ -45,6 +45,7 @@ export type pricingPlansDetails = {
   validity: string;
   planDescription: string;
   lead_forms?: ILeadForm[];
+  url: string;
 }
 
 export type pricingPlans = {

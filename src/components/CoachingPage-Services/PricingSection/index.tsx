@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
@@ -6,15 +7,24 @@ import DropDownCaret from '@/components/Icons/DropDownCaret';
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
   onPricingCTAButtonClick: () => void;
+  redirectUrl?: string;
 };
 
-const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick }) => {
+const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick,redirectUrl }) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
+  const handleButtonClick = () => {
+    // Check if there is a redirect URL and use it if no lead forms are present
+    if (redirectUrl && (!our_plans.lead_forms || our_plans.lead_forms.length === 0)) {
+      window.open(redirectUrl, '_blank'); // Open the URL in a new tab
+    } else {
+      onPricingCTAButtonClick();
+    }
+  };
   return (
     <div className="flex flex-row relative my-5">
       <div className="pricing-card ml-[2px] shadow-xl mr-[30px] min-w-[350px] w-full xl:max-w-[442px]">
         {our_plans.popular && (
-          <div className="absolute top-0 right-5 mr-6 -mt-4">
+          <div className="absolute top-0 right-[-2.6rem] mr-6 -mt-4">
             <div
               className="inline-flex items-center text-xs font-semibold
              py-1.5 px-3 bg-[#f59723] text-white rounded-full shadow-sm shadow-slate-950/5"
@@ -42,7 +52,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
               text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
               focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
               transition-colors duration-150"
-                onClick={onPricingCTAButtonClick}
+                onClick={handleButtonClick}
               >
                 Purchase Plan
               </button>
