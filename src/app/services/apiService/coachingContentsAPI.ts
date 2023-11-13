@@ -46,6 +46,7 @@ export type pricingPlansDetails = {
   planDescription: string;
   lead_forms?: ILeadForm[];
   url: string;
+  ctapurchase: string;
 }
 
 export type pricingPlans = {

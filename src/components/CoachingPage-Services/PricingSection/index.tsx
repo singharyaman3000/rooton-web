@@ -54,7 +54,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
               transition-colors duration-150"
                 onClick={handleButtonClick}
               >
-                Purchase Plan
+                {our_plans.ctapurchase}
               </button>
             </div>
             <div className="pricing-text font-medium font-semibold mb-3">Validity: {our_plans.validity}</div>
