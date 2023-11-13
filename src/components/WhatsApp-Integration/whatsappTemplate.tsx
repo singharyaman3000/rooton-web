@@ -38,11 +38,11 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
   };
 
   const default_message = (message: string) => {
-    const maxLength = 41 - 2;
+    const maxLength = 100 - 2;
     if (message.length > maxLength) {
-      return `${message.substring(0, maxLength)}🍁...`;
+      return `${message.substring(0, maxLength)}🍁.`;
     }
-    return `${message}🍁...`;
+    return `${message}🍁.`;
   };
 
   const start_chat = (chat: string) => {
@@ -113,7 +113,7 @@ const WhatsAppTemp: React.FC<IWhatsAppProps> = ({ hideTemplate, whatsapp, showTy
               <div className={styles.ChatLayout_Author}>{contact_name(whatsapp.contactname)}</div>
               <div className={styles.ChatLayout_Text}>
                 <p title={whatsapp.defaultmessage}>{default_message(whatsapp?.defaultmessage)}</p>
-                <br />
+                {/* <br /> */}
               </div>
               <div className={styles.ChatLayout_TimeBottom}>{getCurrentTime()}</div>
             </div>

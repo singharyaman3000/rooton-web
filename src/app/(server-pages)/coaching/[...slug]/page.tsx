@@ -1,0 +1,16 @@
+import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coachingContentsAPI';
+import { CoachingServicePageComponent } from '@/components/CoachingPage-Services';
+
+// For IELTS
+
+type CoachingPageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export default async function CoachingServicePage(props: CoachingPageProps) {
+  const response = (await getCoachingServicePageContent(props.params.slug[0])) as ICoachingServicePageContent;
+
+  return <CoachingServicePageComponent response={response} isBookAppointment={Boolean(props.params.slug[1])} />;
+}

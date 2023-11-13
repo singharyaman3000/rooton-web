@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const BlogHeader = ({ blogDetails }: { blogDetails: IBlogDetails }) => {
   return (
-    <div className="mt-6 lg:mt-[65px]">
+    <div className="mt-6 lg:mt-[65px] mb-7 lg:mb-8">
       <h2 className="text-[28px] lg:text-[40px] mb-8 font-semibold">{blogDetails?.attributes?.title}</h2>
       <div className="py-3 flex text-sm items-center justify-between border-t">
         <div className="flex items-center gap-3">
