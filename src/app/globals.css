@@ -804,3 +804,8 @@ heading {
     height: 172px;
   }
 }
+
+.contact-us-form-container > :first-child {
+  margin-top: 0;
+  padding: 0;
+}
