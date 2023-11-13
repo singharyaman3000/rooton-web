@@ -32,10 +32,15 @@ export interface IBlogsListResponse {
   meta: IPageMeta;
 }
 
-export const getBlogsList = async (articleType: ArticleCategoryType, pageNo: number,
-  sourcePage: string, serviceType?: string) => {
+export const getBlogsList = async (
+  articleType: ArticleCategoryType,
+  pageNo: number,
+  sourcePage: string,
+  serviceType?: string,
+  blogId?: string,
+) => {
   try {
-    const url = getBlogsListUrl(articleType, pageNo, sourcePage, serviceType || '');
+    const url = getBlogsListUrl(articleType, pageNo, sourcePage, serviceType || '', blogId);
     const res = await getFetch<IBlogsListResponse>(url, { cache: 'no-cache' });
     return { status: 1, res };
   } catch (error) {
