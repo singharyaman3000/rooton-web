@@ -16,7 +16,6 @@ interface ValuesDisplaySectionProps {
 }
 
 const ValuesDisplaySection = ({ heading, description, valuesList }: ValuesDisplaySectionProps) => {
-
   return (
     <section className="my-20 m-auto max-w-screen-2k px-6 md:px-10 lg:px-20">
       <SubSectionTitle cssClass="mb-5 md:mb-9" title={heading} />
@@ -25,7 +24,14 @@ const ValuesDisplaySection = ({ heading, description, valuesList }: ValuesDispla
         <div className="honestyBackground honestycard grid grid-cols-1 border-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
           {valuesList.map(({ key, value, iconComponent, position }) => {
             return (
-              <HonestyCard key={key} title={key} value={value} iconComponent={iconComponent} position={position} />
+              <HonestyCard
+                key={key}
+                title={key}
+                value={value}
+                iconComponent={iconComponent}
+                position={position}
+                containerCSS="lg:!py-[31px]"
+              />
             );
           })}
         </div>
