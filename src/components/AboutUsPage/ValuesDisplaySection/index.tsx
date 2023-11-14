@@ -30,7 +30,7 @@ const ValuesDisplaySection = ({ heading, description, valuesList }: ValuesDispla
                 value={value}
                 iconComponent={iconComponent}
                 position={position}
-                containerCSS="lg:!py-[31px]"
+                containerClass="lg:!py-[31px]"
               />
             );
           })}

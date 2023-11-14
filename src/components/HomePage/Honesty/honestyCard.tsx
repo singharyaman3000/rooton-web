@@ -8,13 +8,13 @@ export interface IWhyRootON {
   position: number;
   icon?: string;
   iconComponent?: FC;
-  containerCSS?: string;
+  containerClass?: string;
 }
 
-const HonestyCard = ({ title, icon, value, containerCSS, iconComponent: IconComponent }: IWhyRootON) => {
+const HonestyCard = ({ title, icon, value, containerClass, iconComponent: IconComponent }: IWhyRootON) => {
   return (
     <div
-      className={`${containerCSS} honestyCard flex flex-col justify-start p-4 py-[23px] lg:px-[50px] lg:py-[41px] bg-primary`}
+      className={`${containerClass} honestyCard flex flex-col justify-start p-4 py-[23px] lg:px-[50px] lg:py-[41px] bg-primary`}
     >
       <div className="relative mb-[14px] md:mb-[21px] w-[37px] h-[40px]">
         {icon ? (
