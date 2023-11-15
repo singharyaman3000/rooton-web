@@ -214,7 +214,8 @@ const LeadFormStepper = (
           hasValue = true;
         }
         break;
-      case 'CHECKBOX' || 'RADIO':
+      case 'CHECKBOX':
+      case 'RADIO':
         if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
           hasValue = true;
         }
