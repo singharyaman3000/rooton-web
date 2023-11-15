@@ -276,7 +276,6 @@ const LeadFormStepper = (
   };
 
   const onNextClick = () => {
-    debugger
     if (checkForErrors() || checkForMandatoryFields()) {
       triggerAfakeSubmit();
       return;
