@@ -12,11 +12,16 @@ export interface ILanguages {
   data?: ILanguageData[] | null;
 }
 
+type OperatingHoursType = { day: string; workingHours: string };
+
 export interface IAddressAttributes {
   name: string;
   location: string;
   phone_number: string;
   media_url: { data: IMediaUrlData };
+  latitude: number;
+  longitude: number;
+  operating_hours: { operatingHours: OperatingHoursType[] };
 }
 
 export interface IAddressData {
@@ -58,11 +63,23 @@ export interface IWhatsApp {
   data?: IWhatsAppData;
 }
 
+type SocialMediaTypes = 'facebook' | 'twitter' | 'linkedIn' | 'youTube' | 'instagram';
+
+export type SocialMediaInterfaceType = {
+  // eslint-disable-next-line no-unused-vars
+  [key in SocialMediaTypes]: { url: string; logo: string; alternativeText: string };
+}
+
+interface IJsonContent {
+  socialMediaIcons: SocialMediaInterfaceType[];
+}
+
 export interface IAttributes {
   addresses: IAddresses;
   languages: ILanguages;
   core_services: ICoreServices;
   whats_app: IWhatsApp;
+  json_content: IJsonContent;
 }
 export interface IHeaderFooterData {
   id: number;

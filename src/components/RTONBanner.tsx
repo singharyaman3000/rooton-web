@@ -74,7 +74,7 @@ export default function RTONBanner({
           )}
           {button && <div className=" mt-10 w-full md:max-w-[418px]">{button}</div>}
         </div>
-        <div className="h-[400px] w-full absolute left-0 top-0 z-[-1]">
+        <div className={`${heightStyle} w-full absolute left-0 top-0 z-[-1]`}>
           <NextImage
             sizes="100vw"
             priority
