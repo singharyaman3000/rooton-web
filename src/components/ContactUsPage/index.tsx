@@ -33,15 +33,16 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
         button={<BookAnAppointmentButton text={contents?.attributes?.CTA_text ?? ''} onClick={handleCTAButton} />}
       />
       <div className="w-full flex flex-col items-center">
-        <div className="mb-[60px] lg:mb-[0] lg:p-20 max-w-screen-2k flex flex-col gap-20">
+        <div
+          id="contact-us-section-wrapper"
+          className="mb-[60px] lg:mb-[0] lg:p-20 max-w-screen-2k flex flex-col gap-20"
+        >
           <SocialSection
             sectionRef={sectionRef}
             formData={contents?.attributes?.contact_us_contents}
             socialMeta={headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []}
           />
           <MapSection footerData={headerFooterData?.length ? headerFooterData[0] : ({} as IHeaderFooterData)} />
-        </div>
-        <div className="w-full max-w-screen-2k mb-20">
           <BookAnAppointment onClick={handleCTAButton} />
         </div>
       </div>

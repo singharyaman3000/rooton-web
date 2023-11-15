@@ -48,10 +48,10 @@ const SocialSection = ({
           />
         </div>
         <p className="max-w-[469px]">{socialData?.attributes?.description}</p>
-        <SocialMediaLinks socialData={socialMeta}/>
+        <SocialMediaLinks socialData={socialMeta} wrapperClass='mt-6 lg:mt-10'/>
       </div>
       {/* Form section */}
-      <div id="contact-us-form" className="contact-us-form-container px-6 lg:px-0">
+      <div id="contact-us-form-container" className="px-6 lg:px-0 lg:w-1/2 lg:min-w-[680px]">
         <BookAppointmentForm
           sectionRef={bookRef}
           displayBookAppointment
