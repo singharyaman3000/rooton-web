@@ -44,6 +44,9 @@ export type pricingPlansDetails = {
   features: string[][];
   validity: string;
   planDescription: string;
+  lead_forms?: ILeadForm[];
+  url: string;
+  ctapurchase: string;
 }
 
 export type pricingPlans = {
@@ -59,7 +62,7 @@ export type ISubServiceJSONContent = {
     [key: string]: TrainingType[];
   };
   pricingDetails: {
-    [key: string]: pricingPlans;
+    [key: string]: pricingPlansDetails[];
   };
 };
 

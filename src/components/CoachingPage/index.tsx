@@ -18,6 +18,7 @@ import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from '../CoachingPage-Services/Wrapper';
 import LeadFormSection from './BookAnAppointmentButton/LeadFormSection';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
+import { Breadcrumbs } from '../Breadcrumbs';
 
 type CoachingServicePageProps = {
   coachingPageConfig: ICoachingPage_Data;
@@ -39,7 +40,7 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
   };
   const data = coachingPageConfig?.attributes?.coaching_page_contents?.data || [];
   const leadForm: DataEntity1 | undefined =
-    data.find((i) => i.attributes.unique_identifier_name === 'coaching-lead-form') || undefined;
+    data.find((i) => {return i.attributes.unique_identifier_name === 'coaching-lead-form';}) || undefined;
 
   const getComponentsAboveBookAppointments = () => {
     return data?.map((contents) => {
@@ -121,6 +122,19 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
 
   return (
     <>
+      <Breadcrumbs
+        className=" z-50 hidden lg:flex"
+        data={[
+          {
+            title: 'Home',
+            path: '/',
+          },
+          {
+            title: 'Coaching',
+            path: '/coaching',
+          },
+        ]}
+      />
       <RootOnBanner
         isVideoBanner={isVideo(coachingPageConfig.attributes.media_url.data[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(coachingPageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
@@ -132,7 +146,11 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
 
       {getComponentsAfterBookAppointments()}
       <div className="pb-10 md:pb-[80px]">
-        <Testimonials apiUrl={TESTIMONIAL_COACHING_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle} />
+        <Testimonials
+          apiUrl={TESTIMONIAL_COACHING_API}
+          title={TESTIMONIAL_TITLE.title}
+          subTitle={TESTIMONIAL_TITLE.subTitle}
+        />
       </div>
       <div className="mb-[100px]">
         <BookAnAppointment onClick={handleCTAButtonClick} />

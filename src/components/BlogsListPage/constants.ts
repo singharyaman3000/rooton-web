@@ -1,6 +1,6 @@
 import { TabType } from './TextTabs';
 
-export const BLOG_CATEGORY = { ALL: 'all', NEWS: 'news', BLOGS: 'blogs', CASE_STUDIES: 'case_studies' };
+export const BLOG_CATEGORY = { ALL: 'all', NEWS: 'news', BLOGS: 'blogs', CASE_STUDIES: 'case_studies', COACHING_TIPS: 'coaching_tips' };
 
 export const tabsData: TabType[] = [
   { key: 1, label: 'All', id: BLOG_CATEGORY.ALL },
@@ -14,6 +14,7 @@ export const SOURCE_PAGE = {
   SERVICE: 'service',
   BLOGS: 'blog',
   BLOG_DETAILS: 'blog_details',
+  COACHING: 'coaching',
 };
 
 export const BREAD_CRUMBS_LIST = [
