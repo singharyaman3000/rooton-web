@@ -12,7 +12,7 @@ import { useParams } from 'next/navigation';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
-const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -238,7 +238,7 @@ export default function Header() {
                 activeTab === 'contact-us' ? 'font-extrabold' : 'font-bold'
               }`}
             >
-              <Link href={'/'}> Contact Us </Link>
+              <Link href={'/contact-us'}> Contact Us </Link>
               {activeTab === 'contact-us' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}

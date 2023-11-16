@@ -12,8 +12,8 @@ const BlogHeader = ({ blogDetails }: { blogDetails: IBlogDetails }) => {
           <Image
             sizes="100vw"
             priority
-            width={50}
-            height={50}
+            width={36}
+            height={36}
             src={appendAssetUrl(blogDetails?.attributes?.author_profile_image?.data?.attributes?.url ?? '')}
             style={{ objectFit: 'cover' }}
             alt="author-image"
@@ -32,7 +32,7 @@ const BlogHeader = ({ blogDetails }: { blogDetails: IBlogDetails }) => {
           </div>
         </div>
       </div>
-      <div className="relative w-full h-[198px] md:h-[480px]">
+      <div className="relative w-full h-[198px] md:h-[440px]">
         <NextImage
           sizes="100vw"
           priority

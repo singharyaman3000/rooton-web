@@ -868,8 +868,8 @@ button:disabled {
 }
 
 heading {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 #blog-details-body img {
@@ -881,6 +881,10 @@ heading {
 @media (max-width: 768px){
   #blog-details-body img {
     height: 172px;
+  }
+
+  heading {
+    font-size: 24px;
   }
 }
 
