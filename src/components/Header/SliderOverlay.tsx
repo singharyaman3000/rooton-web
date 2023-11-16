@@ -125,8 +125,14 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Blogs
                         </div>
                       </Link>
-                      <div
-                        className="
+                      <Link href={'/contact-us'}>
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          role='button'
+                          tabIndex={0}
+                          className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -135,9 +141,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-primary-border
                           mb-5
                         "
-                      >
-                        Contact Us
-                      </div>
+                        >
+                          Contact Us
+                        </div>
+                      </Link>
                       <div
                         className="
                           text-primary-font-color

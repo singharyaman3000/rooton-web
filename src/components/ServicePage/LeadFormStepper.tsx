@@ -214,7 +214,8 @@ const LeadFormStepper = (
           hasValue = true;
         }
         break;
-      case 'CHECKBOX' || 'RADIO':
+      case 'CHECKBOX':
+      case 'RADIO':
         if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
           hasValue = true;
         }
@@ -301,6 +302,7 @@ const LeadFormStepper = (
 
   const onBackClick = () => {
     setDisableNextButton(false);
+    hideSubmitButton(true);
     if (showFrom.current > 1) {
       showFrom.current -= noOfFieldsAtaTime;
       stepNo.current -= 1;
@@ -397,7 +399,7 @@ const LeadFormStepper = (
       showNavButtons={!singlePageForm}
     />
   ) : (
-    <div className=" h-[54rem] mt-2">
+    <div id='scheduler-container' className=" h-[54rem] mt-2">
       <iframe className=" w-full h-full" title="AA" src={calenderLink} />
     </div>
   );

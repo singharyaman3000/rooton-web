@@ -34,7 +34,7 @@ const ModalProfileCard = ({ profileData, showPopUp, closePopUpFn }: ModalProfile
           <aside className="w-[69%]">
             <h3 className="mb-2 text-[22px] font-bold leading-modal-heading text-black">{name}</h3>
             <h4 className="mb-8 text-sm font-medium leading-heading tracking-[2px] text-black">{title}</h4>
-            <p className="text-lg leading-primary-lg text-black max-h-[270px] overflow-y-scroll">{description}</p>
+            <p className="text-lg leading-primary-lg text-black h-[270px] pr-3.5 overflow-y-scroll">{description}</p>
           </aside>
         </article>
       </div>

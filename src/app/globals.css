@@ -88,6 +88,8 @@
 html,
 body {
   font-size: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pale-sandal) transparent;
 }
 
 body {
@@ -598,7 +600,11 @@ body {
   margin-bottom: 15px;
 }
 
-.huform .hs-form-field label {
+.huform .hs-richtext.hs-main-font-element {
+  margin-bottom: 10px;
+}
+
+.huform .hs-form-field label, .huform .hs-richtext.hs-main-font-element {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.67;
@@ -763,6 +769,8 @@ body {
   outline-offset: 0;
 }
 
+/* Service Form CSS ends */
+
 font {
   background: transparent !important;
   box-shadow: none !important;
@@ -860,8 +868,8 @@ button:disabled {
 }
 
 heading {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 #blog-details-body img {
@@ -874,6 +882,24 @@ heading {
   #blog-details-body img {
     height: 172px;
   }
+
+  heading {
+    font-size: 24px;
+  }
+}
+
+#contact-us-form-container > :first-child {
+  margin-top: 0;
+  padding: 0;
+}
+
+#contact-us-form-container #scheduler-container {
+  height: 500px;
+}
+
+#contact-us-section-wrapper > div:last-of-type {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* Pagination for Training & Pricing cards */
@@ -917,4 +943,3 @@ heading {
     height: 20px;
   }
 }
-
