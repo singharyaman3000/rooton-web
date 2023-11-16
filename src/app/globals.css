@@ -88,6 +88,8 @@
 html,
 body {
   font-size: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pale-sandal) transparent;
 }
 
 body {
@@ -880,4 +882,18 @@ heading {
   #blog-details-body img {
     height: 172px;
   }
+}
+
+#contact-us-form-container > :first-child {
+  margin-top: 0;
+  padding: 0;
+}
+
+#contact-us-form-container #scheduler-container {
+  height: 500px;
+}
+
+#contact-us-section-wrapper > div:last-of-type {
+  padding-left: 0;
+  padding-right: 0;
 }
