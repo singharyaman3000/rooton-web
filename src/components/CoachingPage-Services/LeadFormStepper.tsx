@@ -260,7 +260,7 @@ const LeadFormStepper = (
   };
 
   const formReady = () => {
-    const el = document.querySelectorAll('fieldset');
+    const el = document.querySelectorAll(`#${target} fieldset`);
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime;
     handleMultiStep(el);
   };
@@ -277,7 +277,7 @@ const LeadFormStepper = (
     }
 
     setDisableBackButton(false);
-    const el = document.querySelectorAll('fieldset');
+    const el = document.querySelectorAll(`#${target} fieldset`);
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
       showFrom.current += noOfFieldsAtaTime;
       stepNo.current += 1;
@@ -306,7 +306,7 @@ const LeadFormStepper = (
       setDisableBackButton(true);
     }
 
-    const el = document.querySelectorAll('.hs-form-field, .hs-submit');
+    const el = document.querySelectorAll(`#${target} .hs-form-field, .hs-submit`);
     if (showTo.current < el.length + noOfFieldsAtaTime && showTo.current > noOfFieldsAtaTime) {
       showTo.current -= noOfFieldsAtaTime;
     }

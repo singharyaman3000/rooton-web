@@ -86,8 +86,13 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         Services
                       </div>
-                      <div
-                        className="
+                      <Link href={'/coaching'}>
+                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -96,9 +101,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-primary-border
                           mb-5
                         "
-                      >
-                        Coaching
-                      </div>
+                        >
+                          Coaching
+                        </div>
+                      </Link>
                       <Link href={'/blogs'}>
                         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                         <div
@@ -119,8 +125,14 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Blogs
                         </div>
                       </Link>
-                      <div
-                        className="
+                      <Link href={'/contact-us'}>
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          role='button'
+                          tabIndex={0}
+                          className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -129,9 +141,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-primary-border
                           mb-5
                         "
-                      >
-                        Contact Us
-                      </div>
+                        >
+                          Contact Us
+                        </div>
+                      </Link>
                       <div
                         className="
                           text-primary-font-color

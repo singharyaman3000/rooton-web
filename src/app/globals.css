@@ -88,6 +88,8 @@
 html,
 body {
   font-size: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pale-sandal) transparent;
 }
 
 body {
@@ -866,8 +868,8 @@ button:disabled {
 }
 
 heading {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 #blog-details-body img {
@@ -879,5 +881,65 @@ heading {
 @media (max-width: 768px){
   #blog-details-body img {
     height: 172px;
+  }
+
+  heading {
+    font-size: 24px;
+  }
+}
+
+#contact-us-form-container > :first-child {
+  margin-top: 0;
+  padding: 0;
+}
+
+#contact-us-form-container #scheduler-container {
+  height: 500px;
+}
+
+#contact-us-section-wrapper > div:last-of-type {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Pagination for Training & Pricing cards */
+.paginationContainer1 {
+  display: none;
+}
+
+.paginationContainer1 .dot45 {
+  cursor: pointer; 
+  height: 3px; 
+  width: 3px; 
+  margin: 0 5px; 
+  background-color: #000000; 
+  border-radius: 20%; 
+  display: inline-block; 
+  transition: background-color 0.3s, transform 0.3s; 
+}
+
+[data-theme='dark'] .paginationContainer1 .dot45 {
+  cursor: pointer; 
+  height: 4px; 
+  width: 4px; 
+  margin: 0 5px; 
+  background-color: #ffffff; 
+  border-radius: 20%; 
+  display: inline-block; 
+  transition: background-color 0.3s, transform 0.3s; ;
+}
+
+.paginationContainer1 .dot45.active {
+  background-color: #F59723; 
+  transform: scale(1.5); 
+}
+
+@media (max-width: 768px) {
+  .paginationContainer1 {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    margin-top: 10px; 
+    height: 20px;
   }
 }
