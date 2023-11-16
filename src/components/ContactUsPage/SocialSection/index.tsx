@@ -8,10 +8,12 @@ import SocialMediaLinks from '../SocialMediaLinks';
 
 const SocialSection = ({
   formData,
+  scrollToLeadForm,
   sectionRef,
   socialMeta,
 }: {
   formData: IContactUsContents;
+  scrollToLeadForm: () => void;
   sectionRef: RefObject<HTMLElement>;
   socialMeta: SocialMediaInterfaceType[];
 }) => {
@@ -54,6 +56,7 @@ const SocialSection = ({
       <div id="contact-us-form-container" className="px-6 lg:px-0 lg:w-1/2 lg:min-w-[680px]">
         <BookAppointmentForm
           sectionRef={bookRef}
+          scrollToLeadForm={scrollToLeadForm}
           displayBookAppointment
           formData={appoinmentForm.formData}
           formHeading={appoinmentForm.formHeading}
