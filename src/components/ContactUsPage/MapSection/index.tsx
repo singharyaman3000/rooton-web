@@ -49,7 +49,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
           defaultCenter={locationData.center}
           defaultZoom={locationData.zoom}
         >
-          {coordinates.map((data) => {
+          {coordinates?.map((data) => {
             return <MapMarker key={data?.id} lat={data?.lat} lng={data?.lng} />;
           })}
         </GoogleMapReact>
