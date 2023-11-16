@@ -4,15 +4,18 @@ import React, { Dispatch, RefObject, SetStateAction, useMemo } from 'react';
 import { SelectedTagType } from '..';
 import useGetTabTopPosition from '../hooks/useGetTabTopPosition';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { BLOG_DETAILS_BREADCRUMBS } from '../constants';
 import SocialMediaShare from '../SocialMediaShare';
 
 type NavigationPanelPropsType = {
   content: string[];
   selectedTag: SelectedTagType;
   setSelectedTag: Dispatch<SetStateAction<SelectedTagType>>;
+  breadcrumbsData: {
+    title: string;
+    path: string;
+  }[];
 };
-const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selectedTag, setSelectedTag }) => {
+const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selectedTag, setSelectedTag, breadcrumbsData }) => {
   const refs = useMemo(() => {
     return content?.map(() => {
       return React.createRef<HTMLSpanElement>();
@@ -36,7 +39,7 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selected
   return (
     <div className="sticky hidden lg:flex flex-col items-center top-0 h-[calc(100vh-80px)] md:w-[300px] lg:w-[480px] px-20 items-center justify-center overflow-y-scroll overflow-x-hidden">
       <div className="hidden lg:block absolute top-3 left-6 lg:left-20">
-        <Breadcrumbs className="text-black" data={BLOG_DETAILS_BREADCRUMBS} isStatic />
+        <Breadcrumbs className="text-black" data={breadcrumbsData} isStatic />
       </div>
       <div className="mt-[100px]">
         <h3 className="font-bold text-xl mb-5">In this article</h3>
@@ -69,7 +72,7 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, selected
             })}
           </nav>
         </div>
-        <div className='mt-[52px]'>
+        <div className="mt-[52px]">
           <SocialMediaShare />
         </div>
       </div>

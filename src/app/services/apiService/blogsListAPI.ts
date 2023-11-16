@@ -2,7 +2,7 @@ import { getFetch } from '@/utils/apiUtils';
 import { getBlogsListUrl } from './apiUrl/blogsPage';
 import { IMediaUrlData, IPageMeta } from './interfaces';
 
-export type ArticleCategoryType = 'news' | 'blog' | 'case-study';
+export type ArticleCategoryType = 'news' | 'blog' | 'case-study' | 'coaching-tips';
 
 export interface IBlogData {
   id: number;

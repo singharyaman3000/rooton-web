@@ -36,6 +36,10 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
     zoom: 10,
   };
 
+  const coordinates = addressData?.map(({ id, attributes }) => {
+    return { id, lat: attributes.latitude, lng: attributes.longitude };
+  });
+
   return (
     <section className="flex flex-col lg:flex-row w-full">
       {/* Map component */}
@@ -45,7 +49,9 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
           defaultCenter={locationData.center}
           defaultZoom={locationData.zoom}
         >
-          <MapMarker lat={locationData.center.lat} lng={locationData.center.lng} />
+          {coordinates?.map((data) => {
+            return <MapMarker key={data?.id} lat={data?.lat} lng={data?.lng} />;
+          })}
         </GoogleMapReact>
       </div>
       {/* Address section */}

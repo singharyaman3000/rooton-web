@@ -1,7 +1,6 @@
 'use client';
 
 import { IBlogContentData, IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
-import { Breadcrumbs } from '../Breadcrumbs';
 import NavigationPanel from './NavigationPanel';
 import React, { RefObject, useState } from 'react';
 import BlogBody from './BlogBody';
@@ -14,22 +13,22 @@ import { useParams, useRouter } from 'next/navigation';
 import { getServicePageURL, getTranslatedURL } from '@/utils';
 import { BOOK_AN_APPOINTMENT } from '@/constants/navigation';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
-import { BLOG_DETAILS_BREADCRUMBS } from './constants';
+import { BLOG_DETAILS_BREADCRUMBS, BLOG_DETAILS_BREADCRUMBS_COACHING } from './constants';
 import SocialMediaShare from './SocialMediaShare';
 
 type BlogDetailsParamsType = {
   details: IBlogDetails;
   blogType: ArticleCategoryType;
+  fromCoachingPage?: boolean;
 };
 
 export type SelectedTagType = { tag: string; activeRef: RefObject<HTMLSpanElement>; type: 'scrolled' | 'selected' };
 
-const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType }) => {
+const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromCoachingPage = false }) => {
   const params = useParams();
   const router = useRouter();
-
+  const breadcrumbsData = fromCoachingPage ? BLOG_DETAILS_BREADCRUMBS_COACHING : BLOG_DETAILS_BREADCRUMBS;
   const [selectedSection, setSelectedSection] = useState<SelectedTagType>({} as SelectedTagType);
-
   const blogContents = details?.attributes?.blog_contents?.data || [];
   const sortedContent = blogContents.sort((a, b) => {
     return (a?.attributes?.position ?? 0) - (b?.attributes?.position ?? 0);
@@ -55,18 +54,20 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType }) => 
         style={{ alignSelf: allHeadingsList?.length === 0 ? 'center' : '' }}
       >
         {/* Article navigation */}
-        <NavigationPanel content={allHeadingsList} selectedTag={selectedSection} setSelectedTag={setSelectedSection} />
+        <NavigationPanel
+          content={allHeadingsList}
+          selectedTag={selectedSection}
+          setSelectedTag={setSelectedSection}
+          breadcrumbsData={breadcrumbsData}
+        />
         {/* Blogbody */}
         <div id="section-container" className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px]">
-          <Breadcrumbs className="lg:hidden mt-3" data={BLOG_DETAILS_BREADCRUMBS} isStatic />
           <BlogHeader blogDetails={details} />
           <BlogBody blogContent={sortedContent?.length ? sortedContent[0] : ({} as IBlogContentData)} />
         </div>
       </div>
       {/* CTA Section */}
-      <div className="py-8 lg:py-[60px]">
-        <BookAnAppointment onClick={handleCTAButton} />
-      </div>
+      <div className="py-8 lg:py-[60px]">{!fromCoachingPage && <BookAnAppointment onClick={handleCTAButton} />}</div>
       {/* SocialMediaShare for small screens */}
       <div className=" lg:hidden mb-10 self-center">
         <SocialMediaShare />

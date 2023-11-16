@@ -3,7 +3,7 @@ import { ArticleCategoryType } from '@/app/services/apiService/blogsListAPI';
 import BlogDetails from '@/components/BlogsDetails';
 
 type BlogsDetailPageProps = {
-  params: { blogId: string, blogType: ArticleCategoryType };
+  params: { blogId: string; blogType: ArticleCategoryType };
   searchParams: { blogType: ArticleCategoryType };
 };
 
@@ -14,6 +14,7 @@ export default async function BlogsDetailPage(props: BlogsDetailPageProps) {
   } = props;
 
   const response = (await getBlogDetails(blogId)) as IBlogDetailsResponse;
+  const isFromCoachingPage = blogType === 'coaching-tips';
 
-  return <BlogDetails details={response?.data[0] ?? {}} blogType={blogType} />;
+  return <BlogDetails details={response?.data[0] ?? {}} blogType={blogType} fromCoachingPage={isFromCoachingPage} />;
 }

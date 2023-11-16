@@ -9,6 +9,7 @@ const CloseIconButton = ({ onClick, cssClass }: { onClick: () => void, cssClass?
       onClick={() => {
         onClick();
       }}
+      aria-label="Close"
     >
       <CloseIcon />
     </button>
