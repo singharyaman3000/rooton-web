@@ -37,7 +37,10 @@ const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
       onClick={profileClickHandler}
       className="card-hover-effect relative h-full w-80 flex flex-col border border-solid border-almond hover:border-golden-yellow bg-white cursor-pointer transition-colors duration-300 ease-in-out"
     >
-      <div className="w-80 h-[360px] relative">
+      <div
+        className="h-[360px] relative"
+        style={{ backgroundImage: 'url(/images/aboutUs/team-members/team-background.jpg)', backgroundSize: 'contain' }}
+      >
         <NextImage
           src={imageSrc}
           altText={`${name}`}
