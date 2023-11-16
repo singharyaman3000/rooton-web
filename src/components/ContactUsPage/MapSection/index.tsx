@@ -45,9 +45,9 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
       {/* Map component */}
       <div className="h-[360px] lg:h-[794px] lg:w-1/2">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: '' }}
-          defaultCenter={locationData.center}
+          bootstrapURLKeys={{ key: process.env.NEXT_GOOGLE_MAP_KEY ?? '' }}
           defaultZoom={locationData.zoom}
+          center={locationData.center}
         >
           {coordinates?.map((data) => {
             return <MapMarker key={data?.id} lat={data?.lat} lng={data?.lng} />;
