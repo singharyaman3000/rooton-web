@@ -63,6 +63,8 @@ type LeadFormStepperProps = {
   // eslint-disable-next-line no-unused-vars
   onProgress?: (progress: number) => void;
   // eslint-disable-next-line no-unused-vars
+  scrollToTop: () => void;
+  // eslint-disable-next-line no-unused-vars
   initScroll?: () => void;
 };
 
@@ -74,6 +76,7 @@ const LeadFormStepper = (
     target,
     onFormSubmit,
     onProgress,
+    scrollToTop,
     calenderLink,
     isBookAppointment,
     initScroll,
@@ -280,7 +283,7 @@ const LeadFormStepper = (
       triggerAfakeSubmit();
       return;
     }
-
+    scrollToTop();
     setDisableBackButton(false);
     const el = document.querySelectorAll('fieldset');
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
@@ -301,6 +304,7 @@ const LeadFormStepper = (
   };
 
   const onBackClick = () => {
+    scrollToTop();
     setDisableNextButton(false);
     hideSubmitButton(true);
     if (showFrom.current > 1) {
@@ -351,6 +355,7 @@ const LeadFormStepper = (
             },
             onFormSubmitted: () => {
               // show calender
+              scrollToTop();
               setShowCalender(true);
               stepNo.current += 1;
               calculateProgress();

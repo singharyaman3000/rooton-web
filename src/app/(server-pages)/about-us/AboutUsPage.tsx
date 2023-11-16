@@ -31,15 +31,21 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
   const bookAppointmentRef = useRef<HTMLElement>(null);
   const [displayBookAppointment, setDisplayBookAppointment] = useState(false);
 
+  const scrollToLeadForm = () => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: bookAppointmentRef.current ? bookAppointmentRef.current.offsetTop - 10 : 0,
+        behavior: 'smooth',
+      });
+    }, 0);
+  };
+
   const bookAppointmentHandler = () => {
     if (!displayBookAppointment) {
       setDisplayBookAppointment(true);
     }
 
-    window.scrollTo({
-      top: bookAppointmentRef.current ? bookAppointmentRef.current.offsetTop - 10 : 0,
-      behavior: 'smooth',
-    });
+    scrollToLeadForm();
   };
 
   return (
@@ -85,6 +91,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
 
       {/* Book Appointment Form Section */}
       <BookAppointmentForm
+        scrollToLeadForm={scrollToLeadForm}
         sectionRef={bookAppointmentRef}
         displayBookAppointment={displayBookAppointment}
         formData={BOOK_APPOINTMENT_FORM.formData}
