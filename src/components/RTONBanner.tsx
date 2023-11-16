@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import NextImage from '@/components/UIElements/NextImage';
+import { ReactElement } from 'react';
 import HtmlParser from 'react-html-parser';
 
 type BlogsBannerPropsType = {
@@ -8,6 +9,9 @@ type BlogsBannerPropsType = {
   heroText: string;
   description: string;
   breadCrumbData: { title: string; path: string }[];
+  heightStyle?: string;
+  subDescription?: string;
+  button?: ReactElement;
 };
 
 export default function RTONBanner({
@@ -16,17 +20,12 @@ export default function RTONBanner({
   heroText,
   description,
   breadCrumbData,
+  heightStyle = ' h-[67.5vh] max-h-[400px] min-h-[380px]',
+  subDescription,
+  button,
 }: BlogsBannerPropsType) {
   return (
-    <div
-      className="
-        w-full
-        mt-0
-        h-[67.5vh]
-        max-h-[400px]
-        min-h-[380px]
-      "
-    >
+    <div className={`w-full mt-0 ${heightStyle}`}>
       <Breadcrumbs className=" hidden lg:flex" data={breadCrumbData} />
       <div
         className=" w-full h-full"
@@ -68,8 +67,14 @@ export default function RTONBanner({
           <p className=" mt-[22.2px] text-white font-bold text-[15px] leading-[1.67] lg:text-2xl max-w-[800px]">
             {HtmlParser(description)}
           </p>
+          {subDescription && (
+            <h2 className="mt-5 text-[17px] lg:text-[32px] font-bold lg:font-extrabold text-white">
+              {HtmlParser(subDescription)}
+            </h2>
+          )}
+          {button && <div className=" mt-10 w-full md:max-w-[418px]">{button}</div>}
         </div>
-        <div className="h-[400px] w-full absolute left-0 top-0 z-[-1]">
+        <div className={`${heightStyle} w-full absolute left-0 top-0 z-[-1]`}>
           <NextImage
             sizes="100vw"
             priority

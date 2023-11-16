@@ -1,9 +1,5 @@
 'use client';
 
-import FacebookIcon from '@/components/Icons/FaceBookIcon';
-import LinkedInIcon from '@/components/Icons/LinkedInIcon';
-import TwitterIcon from '@/components/Icons/TwitterIcon';
-import YoutubeIcon from '@/components/Icons/YouTubeIcon';
 import Link from 'next/link';
 import FooterLogo from './FooterLogo';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
@@ -11,6 +7,7 @@ import NextImage from '../UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
 import HtmlParser from 'react-html-parser';
 import FooterGrid from './FooterGrid';
+import SocialMediaLinks from '../ContactUsPage/SocialMediaLinks';
 
 export default function Footer() {
   const { headerFooterData } = useHeaderFooterContext();
@@ -55,18 +52,11 @@ export default function Footer() {
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center">
-              <Link href={'/'}>
-                <FacebookIcon />
-              </Link>
-              <Link href={'/'}>
-                <TwitterIcon />
-              </Link>
-              <Link href={'/'}>
-                <LinkedInIcon />
-              </Link>
-              <Link href={'/'}>
-                <YoutubeIcon />
-              </Link>
+              <SocialMediaLinks
+                socialData={
+                  headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []
+                }
+              />
             </div>
           </div>
         </div>
@@ -117,7 +107,7 @@ export default function Footer() {
       >
         {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
           return (
-            <div key={address.id} className='odd:mb-[31px]'>
+            <div key={address.id} className="odd:mb-[31px]">
               <div className=" mb-[6px]">
                 <div className="w-[32px] h-[16px] relative">
                   <NextImage
@@ -131,7 +121,9 @@ export default function Footer() {
                 </div>
               </div>
               <p className=" text-sm mb-[4px] whitespace-pre font-bold">{address?.attributes.name}</p>
-              <p className=" text-sm mb-[4px] whitespace-pre-line  whitespace-font-pre-line">{HtmlParser(address?.attributes?.location)}</p>
+              <p className=" text-sm mb-[4px] whitespace-pre-line  whitespace-font-pre-line">
+                {HtmlParser(address?.attributes?.location)}
+              </p>
               <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
             </div>
           );
