@@ -25,6 +25,7 @@ import { useParams } from 'next/navigation';
 import PricingSection from './PricingSection';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import PricingLeadFormSection from './PricingSection/LeadFormSection';
+import SliderNav from '@/components/UIElements/Slider/sliderNav';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
@@ -94,6 +95,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   const filteredPricings = pricingDetails?.[activepType] || [];
   const pricingLeadForms = pricings?.attributes?.json_content?.pricingDetails?.pricingPlans;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef2 = useRef<HTMLDivElement>(null);
 
   const testimonials = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'coaching-service-testimonial';
@@ -147,6 +149,33 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       });
     }, 0);
   };
+
+  const SCROLL_DISTANCE = 400;
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -SCROLL_DISTANCE, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: SCROLL_DISTANCE, behavior: 'smooth' });
+    }
+  };
+
+  const scrollLeftT = () => {
+    if (scrollContainerRef2.current) {
+      scrollContainerRef2.current.scrollBy({ left: -SCROLL_DISTANCE, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRightT = () => {
+    if (scrollContainerRef2.current) {
+      scrollContainerRef2.current.scrollBy({ left: SCROLL_DISTANCE, behavior: 'smooth' });
+    }
+  };
+
   const getSection = (identifier: string, data?: ICoachingServicesContent) => {
     switch (identifier) {
     case 'service-reason':
@@ -223,11 +252,26 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
             </CoachingPageWrapper>
           )}
           <div className="mt-20 m-auto max-w-screen-2k ">
-            <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
-              <div className="md:max-w-[70%] lg:max-w-none">
+            <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
+              <div className="md:max-w-[70%] xl:max-w-none px-[24px] md:px-[48px] lg:px-[80px]">
                 <SectionHeadings title={''} subTitle={pricingTitle || ''} />
               </div>
-              <div ref={scrollContainerRef} className="scrollable-container">
+              <div className="items-center hidden md:flex md:mb-[8px]">
+                <div>
+                  <SliderNav handleOnClick={scrollLeft} cssClass="mr-[16px] bg-[#f3f3f3]" leftNav />
+                  <SliderNav handleOnClick={scrollRight} cssClass='bg-[#f3f3f3] '/>
+                </div>
+              </div>
+            </div>
+            <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
+              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+              <div ref={scrollContainerRef} className="scrollable-container" onKeyDown={(event) => {
+                if (event.key === 'ArrowLeft') {
+                  scrollLeft();
+                } else if (event.key === 'ArrowRight') {
+                  scrollRight();
+                }
+              }}>
                 {Array.isArray(filteredPricings) &&
                     filteredPricings.map((pricing, index) => {
                       // Check if lead_forms are present, otherwise use the URL
@@ -296,10 +340,18 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
             `}</style>
           <div className="training-section blogs-listing  mt-20">
             <div className="mt-20 m-auto max-w-screen-2k ">
-              <div className="md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] ">
-                <div className="px-[24px] md:max-w-[70%] lg:max-w-none">
+              <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
+                <div className="md:max-w-[70%] xl:max-w-none px-[24px] md:px-[48px] lg:px-[80px]">
                   <SectionHeadings title={''} subTitle={trainingTitle || ''} />
                 </div>
+                <div className="items-center hidden md:flex md:mb-[8px]">
+                  <div className='bg-[#f3f3f3]'>
+                    <SliderNav handleOnClick={scrollLeftT} cssClass="mr-[16px] bg-[#f3f3f3]" leftNav />
+                    <SliderNav handleOnClick={scrollRightT} cssClass='bg-[#f3f3f3] '/>
+                  </div>
+                </div>
+              </div>
+              <div className="md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] ">
                 <div className="px-[24px]">
                   {trainingTypes?.length > 1 &&
                       trainingTypes
@@ -323,8 +375,14 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                           );
                         })}
                 </div>
-
-                <div ref={scrollContainerRef} className="scrollable-container px-[8px]">
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                <div ref={scrollContainerRef2} className="scrollable-container px-[8px]" onKeyDown={(event) => {
+                  if (event.key === 'ArrowLeft') {
+                    scrollLeftT();
+                  } else if (event.key === 'ArrowRight') {
+                    scrollRightT();
+                  }
+                }}>
                   {filteredTrainings.map((training, index) => {
                     if (index > 0) {
                       return <TrainingCard key={training.id} training={training} />;
