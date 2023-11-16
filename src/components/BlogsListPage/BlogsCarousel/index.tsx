@@ -18,6 +18,7 @@ import ArticlePreLoader from '../ArticlePreLoader';
 import Button from '@/components/UIElements/Button';
 import Link from 'next/link';
 import { SOURCE_PAGE } from '../constants';
+import { useParams } from 'next/navigation';
 
 type BlogsCarouselParamsType = {
   articleType: ArticleCategoryType;
@@ -48,10 +49,11 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
     slideId: id,
     sliderData: allArticlesList,
   });
+  const params = useParams();
 
   const initialApiCall = async () => {
     setLoading(true);
-    const res = await getBlogsList(articleType, 1, sourcePage, serviceType);
+    const res = await getBlogsList(articleType, 1, sourcePage, serviceType, params?.blogId);
     if (res.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList(res?.res?.data ?? []);
@@ -69,11 +71,11 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
 
   const getArticles = async () => {
     const currentPage = blogsListData?.meta?.pagination?.page || 0;
-    const res = await getBlogsList(articleType, currentPage + 1, sourcePage, serviceType);
+    const res = await getBlogsList(articleType, currentPage + 1, sourcePage, serviceType, params?.blogId);
     if (res?.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList((prev: IBlogData[]) => {
-        return [...prev, ...res?.res?.data ?? []];
+        return [...prev, ...(res?.res?.data ?? [])];
       });
     }
   };
