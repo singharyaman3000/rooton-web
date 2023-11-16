@@ -38,8 +38,8 @@ export default function RootOnCTAWrapper({
         <BookAppointmentGridLeft />
       </div>
       <div className='z-[2] relative flex flex-col gap-6 md:flex-row-reverse  justify-center'>
-        <div className=" m-auto md:m-0 flex flex-col gap-5 lg:gap-[26px] md:justify-center">
-          <h4 className=" text-lg text-black font-extrabold leading-primary-lg">{heading}</h4>
+        <div className=" m-auto md:m-0 flex flex-col gap-[20px] md:gap-[48px] md:justify-center">
+          <h4 className=" text-[18px] text-black font-extrabold leading-primary-lg">{heading}</h4>
           <RTONButtonBlack
             icon={buttonIcon}
             text={buttonText}
