@@ -7,11 +7,13 @@ import NextImage from '@/components/UIElements/NextImage';
 type LeadFormSectionProps = {
   leadForm: ISubServicesContent;
   leadFormRef: RefObject<HTMLDivElement>;
+  scrollToTop: () => void;
   handleCTAButtonClick: () => void;
   isBookAppointment: boolean;
 };
 
-const LeadFormSection = ({ leadForm, leadFormRef, handleCTAButtonClick, isBookAppointment }: LeadFormSectionProps) => {
+const LeadFormSection = ({ leadForm, leadFormRef,
+  scrollToTop, handleCTAButtonClick, isBookAppointment }: LeadFormSectionProps) => {
   const [formStepperProgress, setFormStepperProgress] = useState(0);
 
   if (leadForm) {
@@ -35,6 +37,7 @@ const LeadFormSection = ({ leadForm, leadFormRef, handleCTAButtonClick, isBookAp
           <H2>{leadForm?.attributes.title ?? ''}</H2>
           <div className="" id="lead-form">
             <LeadFormStepper
+              scrollToTop={scrollToTop}
               initScroll={handleCTAButtonClick}
               isBookAppointment={isBookAppointment}
               onProgress={(progress) => {

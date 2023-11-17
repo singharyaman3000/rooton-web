@@ -58,7 +58,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
                     title={`${service}-icon`}
                     src={icon}
                     fill
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'contain' }}
                   />
                 )}
               </div>
