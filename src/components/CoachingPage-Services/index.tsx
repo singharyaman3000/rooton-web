@@ -385,8 +385,8 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 </div>
                 <div className="items-center hidden md:flex md:mb-[8px]">
                   <div className='bg-[#f3f3f3]'>
-                    <SliderNav handleOnClick={scrollLeftT} cssClass="coaching-slider-arrows mr-[16px]" leftNav />
-                    <SliderNav handleOnClick={scrollRightT} cssClass='coaching-slider-arrows '/>
+                    <SliderNav handleOnClick={scrollLeftT} cssClass="mr-[16px] bg-[#f3f3f3]" leftNav />
+                    <SliderNav handleOnClick={scrollRightT} cssClass='bg-[#f3f3f3] '/>
                   </div>
                 </div>
               </div>
