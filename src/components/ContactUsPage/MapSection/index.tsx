@@ -67,7 +67,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                 tabIndex={0}
                 className="p-5 lg:pl-10 w-[320px] lg:w-full text-sm lg:text-base"
                 onClick={() => {
-                  // setAddress(address);
+                  setAddress(address);
                 }}
                 style={{ backgroundColor: selectedAddress.id === id ? '#fff' : '' }}
               >
