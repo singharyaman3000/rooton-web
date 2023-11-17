@@ -194,7 +194,7 @@ export default function Header() {
                 activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'
               }`}
             >
-              <Link href={'/about-us'}> About Us</Link>
+              <Link href={params.lang ? `/${params.lang}/about-us` : '/about-us'}> About Us</Link>
               {activeTab === 'about-us' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
@@ -228,7 +228,7 @@ export default function Header() {
                 activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'
               }`}
             >
-              <Link href={'/blogs'}> Blogs </Link>
+              <Link href={params.lang ? `/${params.lang}/blogs` : '/blogs'}> Blogs </Link>
               {activeTab === 'blogs' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
@@ -238,7 +238,7 @@ export default function Header() {
                 activeTab === 'contact-us' ? 'font-extrabold' : 'font-bold'
               }`}
             >
-              <Link href={'/contact-us'}> Contact Us </Link>
+              <Link href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}> Contact Us </Link>
               {activeTab === 'contact-us' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
@@ -248,7 +248,7 @@ export default function Header() {
                 activeTab === 'tools' ? 'font-extrabold' : 'font-bold'
               }`}
             >
-              <Link href={'/'}> Tools </Link>
+              <Link href={params.lang ? `/${params.lang}/` : '/'}> Tools </Link>
               {activeTab === 'tools' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}

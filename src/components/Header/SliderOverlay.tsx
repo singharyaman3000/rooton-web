@@ -1,12 +1,14 @@
 'use client';
 
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { Fragment, useContext } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+
+import { scrollIntoView } from '@/utils';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
-import { scrollIntoView } from '@/utils';
+import { Dialog, Transition } from '@headlessui/react';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
-import Link from 'next/link';
 
 interface SliderOverlayProps {
   open: boolean;
@@ -16,6 +18,8 @@ interface SliderOverlayProps {
 
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
   const { openCoreServiceList } = useContext(ModalShowContextname);
+  const params = useParams();
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
@@ -48,12 +52,13 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       </button>
                     </div>
                     <div className="relative flex-1 px-[28px] py-[40px] sm:px-6">
-                      <Link href={'/about-us'}>
-                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                      <Link href={params.lang ? `/${params.lang}/about-us` : '/about-us'}>
                         <div
                           onClick={() => {
                             setOpen(false);
                           }}
+                          role="button"
+                          tabIndex={0}
                           className="
                           text-primary-font-color
                           pb-5
@@ -67,12 +72,13 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           About Us
                         </div>
                       </Link>
-                      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                       <div
                         onClick={() => {
                           scrollIntoView('servicesHomePage');
                           setOpen(false);
                         }}
+                        role="button"
+                        tabIndex={0}
                         className="
                           text-primary-font-color
                           pb-5
@@ -86,12 +92,13 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         Services
                       </div>
-                      <Link href={'/coaching'}>
-                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                      <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}>
                         <div
                           onClick={() => {
                             setOpen(false);
                           }}
+                          role="button"
+                          tabIndex={0}
                           className="
                           text-primary-font-color
                           pb-5
@@ -105,12 +112,13 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Coaching
                         </div>
                       </Link>
-                      <Link href={'/blogs'}>
-                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                      <Link href={params.lang ? `/${params.lang}/blogs` : '/blogs'}>
                         <div
                           onClick={() => {
                             setOpen(false);
                           }}
+                          role="button"
+                          tabIndex={0}
                           className="
                           text-primary-font-color
                           pb-5
@@ -125,12 +133,12 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Blogs
                         </div>
                       </Link>
-                      <Link href={'/contact-us'}>
+                      <Link href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}>
                         <div
                           onClick={() => {
                             setOpen(false);
                           }}
-                          role='button'
+                          role="button"
                           tabIndex={0}
                           className="
                           text-primary-font-color
@@ -145,8 +153,14 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Contact Us
                         </div>
                       </Link>
-                      <div
-                        className="
+                      <Link href={params.lang ? `/${params.lang}/` : '/'}>
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -155,9 +169,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           border-primary-border
                           mb-5
                         "
-                      >
-                        Tools
-                      </div>
+                        >
+                          Tools
+                        </div>
+                      </Link>
                       <button
                         type="button"
                         className="
@@ -171,6 +186,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                     "
                         onClick={() => {
                           openCoreServiceList();
+                          setOpen(false);
                         }}
                       >
                         Talk to our Expert
