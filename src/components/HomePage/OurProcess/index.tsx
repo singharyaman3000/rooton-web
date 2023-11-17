@@ -20,7 +20,7 @@ const OurProcess = ({ title, sub_title, json_content, className }: IOurProcess) 
           <div className=' relative z-[1]'>
             <Processes process={json_content?.process} />
           </div>
-          <div className="animate-pulse  absolute top-0 w-[1440px] overflow-y-hidden hidden  md:block  right-[-0.4px]">
+          <div className="animate-pulse absolute top-0 w-full md:flex justify-end overflow-y-hidden hidden right-0">
             <ProcessGrids />
           </div>
         </SectionContainer>
