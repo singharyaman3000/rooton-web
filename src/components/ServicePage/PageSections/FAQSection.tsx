@@ -28,7 +28,7 @@ const FAQSection = ({ faqs }: FAQSectionProps) => {
               }}
               customToggle={<ToggleIcon isOpen={faq.position.toString() === selectedAccordionId} />}
               customSpacer={<span></span>}
-              cssClass="challenges-accordion border-b-[1px] border-b-sandal "
+              cssClass="challenges-accordion service-faq border-b-[1px] border-b-sandal "
               key={faq.position}
               header={<AccordionHeader value={faq.title} />}
               accordionBody={<AccordionBody containerWidth={'max-w-[100%]'} value={faq.description} />}
