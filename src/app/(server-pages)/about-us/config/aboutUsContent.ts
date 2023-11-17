@@ -99,35 +99,77 @@ export const COMPANY_MEMBERS_SECTION = {
       employeeRole: 'COUNSELLOR',
       employeeDescription:
         'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
-      imageUrl: '/images/aboutUs/company-team.png',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/001.png', backgroundColor: '#ee4e6e' },
     },
     {
       employeeName: 'Benjamin Anderson',
       employeeRole: 'COUNSELLOR',
       employeeDescription:
         'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
-      imageUrl: '/images/aboutUs/company-team.png',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/002.png', backgroundColor: '#00aba3' },
     },
     {
       employeeName: 'Ethan Martinez',
       employeeRole: 'COUNSELLOR',
       employeeDescription:
         'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
-      imageUrl: '/images/aboutUs/company-team.png',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/003.png', backgroundColor: '#ffdba7' },
     },
     {
       employeeName: 'Alexander Hughes',
       employeeRole: 'COUNSELLOR',
       employeeDescription:
         'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
-      imageUrl: '/images/aboutUs/company-team.png',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/004.png', backgroundColor: '#2993a5' },
     },
     {
       employeeName: 'Alexander Walker',
       employeeRole: 'COUNSELLOR',
       employeeDescription:
         'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
-      imageUrl: '/images/aboutUs/company-team.png',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/005.png', backgroundColor: '#71597B' },
+    },
+    {
+      employeeName: 'Alexander Martinez',
+      employeeRole: 'COUNSELLOR',
+      employeeDescription:
+        'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/006.png', backgroundColor: '#F8A985' },
+    },
+    {
+      employeeName: 'Martinez Walker',
+      employeeRole: 'COUNSELLOR',
+      employeeDescription:
+        'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/007.png', backgroundColor: '#C45F77' },
+    },
+    {
+      employeeName: 'Alexander Benjamin',
+      employeeRole: 'COUNSELLOR',
+      employeeDescription:
+        'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/008.png', backgroundColor: '#FC616A' },
+    },
+    {
+      employeeName: 'Benjamin Walker',
+      employeeRole: 'COUNSELLOR',
+      employeeDescription:
+        'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/009.png', backgroundColor: '#2B5073' },
+    },
+    {
+      employeeName: 'Alexander Anderson',
+      employeeRole: 'COUNSELLOR',
+      employeeDescription:
+        'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/010.png', backgroundColor: '#00aba3' },
+    },
+    {
+      employeeName: 'Alexander Samantha',
+      employeeRole: 'COUNSELLOR',
+      employeeDescription:
+        'Samantha Walker is a highly skilled immigration agency consultant, bringing a wealth of knowledge and expertise to her clients\' immigration journeys. With a strong background in immigration law and a genuine passion for cross-cultural understanding, she has earned a reputation as a reliable and compassionate guide through the complexities of the immigration process. Her empathetic approach ensures that each client receives personalized attention and tailored solutions to their unique circumstances, from visa applications to citizenship processes. Samantha\'s dedication to staying updated on the latest immigration policies ensures that her clients receive the most accurate and reliable advice possible, making her an invaluable asset in the realm of immigration consulting.',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/011.png', backgroundColor: '#2993a5' },
     },
   ],
 };
