@@ -49,7 +49,7 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
       <div className=" relative h-full">
         {type === 'text' && (
           <div
-            className="text-[13px] font-medium p-[16px] pr-[10px] md:p-[36px] md:pr-[26px]
+            className="text-[13px] font-medium p-[16px] pr-[10px] md:p-[16px] md:pr-[6px]
             not-italic !leading-[1.67] tracking-[normal] md:text-sm text-black
             h-[calc(100%-80px)]"
           >
