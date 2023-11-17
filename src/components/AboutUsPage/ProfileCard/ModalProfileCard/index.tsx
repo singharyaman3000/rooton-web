@@ -6,7 +6,7 @@ interface ModalProfileCardProps {
   profileData: {
     name: string;
     title: string;
-    imageSrc: string;
+    imageSrc: { employeeImage: string; backgroundColor: string };
     description: string;
   };
   showPopUp: boolean;
@@ -24,12 +24,11 @@ const ModalProfileCard = ({ profileData, showPopUp, closePopUpFn }: ModalProfile
           <div
             className="flex w-[27%] relative max-w-[320px] max-h-[360px]"
             style={{
-              backgroundImage: 'url(/images/aboutUs/team-members/team-background.jpg)',
-              backgroundSize: 'cover',
+              backgroundColor: imageSrc.backgroundColor,
             }}
           >
             <NextImage
-              src={imageSrc}
+              src={imageSrc.employeeImage}
               altText={`Image of ${name}`}
               fill
               sizes="100vw"

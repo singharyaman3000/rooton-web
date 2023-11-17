@@ -5,7 +5,7 @@ interface ProfileCardProps {
   profileData: {
     name: string;
     title: string;
-    imageSrc: string;
+    imageSrc: { employeeImage: string; backgroundColor: string };
     description: string;
   };
   popUpDisplayFns: {
@@ -14,7 +14,7 @@ interface ProfileCardProps {
       SetStateAction<{
         name: string;
         title: string;
-        imageSrc: string;
+        imageSrc: { employeeImage: string; backgroundColor: string };
         description: string;
       }>
     >;
@@ -37,17 +37,15 @@ const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
       onClick={profileClickHandler}
       className="card-hover-effect relative h-full w-80 flex flex-col border border-solid border-almond hover:border-golden-yellow bg-white cursor-pointer transition-colors duration-300 ease-in-out"
     >
-      <div
-        className="h-[360px] relative"
-        style={{ backgroundImage: 'url(/images/aboutUs/team-members/team-background.jpg)', backgroundSize: 'contain' }}
-      >
+      <div className="h-[360px] relative" style={{ backgroundColor: imageSrc.backgroundColor }}>
         <NextImage
-          src={imageSrc}
+          src={imageSrc.employeeImage}
           altText={`${name}`}
           fill
           sizes="100vw"
           style={{ objectFit: 'contain' }}
           title={`${name}`}
+          priority
         />
       </div>
       <div className="py-[26px] pl-7 pr-2">
