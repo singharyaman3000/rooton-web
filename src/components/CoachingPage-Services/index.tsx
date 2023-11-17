@@ -1,7 +1,7 @@
 'use client';
 
 import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from './Wrapper';
@@ -94,6 +94,8 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   const pricingDetails = pricings?.attributes?.json_content?.pricingDetails;
   const filteredPricings = pricingDetails?.[activepType] || [];
   const pricingLeadForms = pricings?.attributes?.json_content?.pricingDetails?.pricingPlans;
+  const [activeCard, setActiveCard] = useState(0);
+  const [activeCardT, setActiveCardT] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef2 = useRef<HTMLDivElement>(null);
 
@@ -175,6 +177,38 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       scrollContainerRef2.current.scrollBy({ left: SCROLL_DISTANCE, behavior: 'smooth' });
     }
   };
+
+  const handleScroll = () => {
+    const scrollPosition = scrollContainerRef.current?.scrollLeft ?? 0;
+    const cardWidth = 400;
+    const newIndex = Math.round(scrollPosition / cardWidth);
+    setActiveCard(newIndex);
+  };
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    scrollContainer?.addEventListener('scroll', handleScroll);
+
+    return () => {
+      scrollContainer?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleScrollT = () => {
+    const scrollPosition = scrollContainerRef2.current?.scrollLeft ?? 0;
+    const cardWidth = 350;
+    const newIndex = Math.round(scrollPosition / cardWidth);
+    setActiveCardT(newIndex);
+  };
+
+  useEffect(() => {
+    const scrollContainer2 = scrollContainerRef2.current;
+    scrollContainer2?.addEventListener('scroll', handleScrollT);
+
+    return () => {
+      scrollContainer2?.removeEventListener('scroll', handleScrollT);
+    };
+  }, []);
 
   const getSection = (identifier: string, data?: ICoachingServicesContent) => {
     switch (identifier) {
@@ -287,6 +321,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                       );
                     })}
               </div>
+              <div className="carousel-dots">
+                {Array.isArray(filteredPricings) && filteredPricings.map((_, index) => {return (
+                  <span key={''} className={`dot ${index === activeCard ? 'active' : ''}`} />
+                );})}
+              </div>
             </div>
           </div>
         </>
@@ -346,8 +385,8 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 </div>
                 <div className="items-center hidden md:flex md:mb-[8px]">
                   <div className='bg-[#f3f3f3]'>
-                    <SliderNav handleOnClick={scrollLeftT} cssClass="mr-[16px] bg-[#f3f3f3]" leftNav />
-                    <SliderNav handleOnClick={scrollRightT} cssClass='bg-[#f3f3f3] '/>
+                    <SliderNav handleOnClick={scrollLeftT} cssClass="coaching-slider-arrows mr-[16px]" leftNav />
+                    <SliderNav handleOnClick={scrollRightT} cssClass='coaching-slider-arrows '/>
                   </div>
                 </div>
               </div>
@@ -389,6 +428,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                     }
                     return null;
                   })}
+                </div>
+                <div className="carousel-dots">
+                  {Array.isArray(filteredTrainings) && filteredTrainings.slice(0, -1).map((_, index) => {return (
+                    <span key={''} className={`dot ${index === activeCardT ? 'active' : ''}`} />
+                  );})}
                 </div>
               </div>
             </div>
