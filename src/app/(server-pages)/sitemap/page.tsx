@@ -1,3 +1,5 @@
+import SiteMap from '@/components/SiteMapPage';
+
 export default async function SiteMapPage() {
-  return <div>Sitemap</div>;
+  return <SiteMap/>;
 }

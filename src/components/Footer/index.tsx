@@ -87,7 +87,7 @@ export default function Footer() {
             <Link href={'/'}>Disclaimer</Link>
             <Link href={'/'}>GCKey vs APR </Link>
             <Link href={'/'}>Affiliate Program</Link>
-            <Link href={'/'}>Sitemap</Link>
+            <Link href={'/sitemap'}>Sitemap</Link>
           </div>
         </div>
       </div>
