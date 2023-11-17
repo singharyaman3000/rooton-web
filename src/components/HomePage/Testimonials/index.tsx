@@ -154,7 +154,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
               loading={loading}
               loadingUI={<TestimonialPreLoader />}
               slideClass="!w-[100%] !px-[0px] md:px-[15px] !min-w-[100%]
-                md:!w-[29.6%] w-full md:!min-w-[380px] md:!max-w-[430px]"
+                w-full md:!min-w-[380px] md:!max-w-[380px]"
             >
               {(allArticlesList ?? []).map(({ attributes, id }) => {
                 return (
