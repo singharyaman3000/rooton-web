@@ -6,7 +6,7 @@ interface ModalProfileCardProps {
   profileData: {
     name: string;
     title: string;
-    imageSrc: string;
+    imageSrc: { employeeImage: string; backgroundColor: string };
     description: string;
   };
   showPopUp: boolean;
@@ -21,13 +21,18 @@ const ModalProfileCard = ({ profileData, showPopUp, closePopUpFn }: ModalProfile
       <div className="m-auto w-[95%] xl:w-full relative bg-white max-w-screen-xl max-h-[440px] p-10">
         <CloseIconWithBackground onClick={closePopUpFn} cssClas="absolute right-7 top-7 cursor-pointer" />
         <article className="flex justify-between">
-          <div className="flex w-[27%] relative max-w-[320px] max-h-[360px]">
+          <div
+            className="flex w-[27%] relative max-w-[320px] max-h-[360px]"
+            style={{
+              backgroundColor: imageSrc.backgroundColor,
+            }}
+          >
             <NextImage
-              src={imageSrc}
+              src={imageSrc.employeeImage}
               altText={`Image of ${name}`}
               fill
               sizes="100vw"
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: 'contain', objectPosition: 'bottom' }}
               title={`Image of ${name}`}
             />
           </div>

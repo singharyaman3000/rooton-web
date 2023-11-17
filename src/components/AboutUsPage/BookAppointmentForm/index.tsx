@@ -8,6 +8,7 @@ interface BookAppointmentFormProps {
   formHeading?: string;
   sectionRef?: RefObject<HTMLElement>;
   displayBookAppointment?: boolean;
+  scrollToLeadForm: () => void;
   imageUrl?: string;
   formData: {
     region: string;
@@ -21,6 +22,7 @@ const BookAppointmentForm = ({
   formHeading,
   displayBookAppointment = true,
   sectionRef,
+  scrollToLeadForm,
   imageUrl,
   formData,
 }: BookAppointmentFormProps) => {
@@ -49,6 +51,7 @@ const BookAppointmentForm = ({
             </h5>
           ) : null}
           <LeadFormStepper
+            scrollToTop={scrollToLeadForm}
             region={region}
             portalId={portalId}
             formId={formId}

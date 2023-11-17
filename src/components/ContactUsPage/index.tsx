@@ -16,8 +16,14 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
   const { headerFooterData } = useHeaderFooterContext();
   const sectionRef = useRef<HTMLElement>(null);
 
+  const scrollToLeadForm = () => {
+    setTimeout(() => {
+      sectionRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }, 0);
+  };
+
   const handleCTAButton = () => {
-    sectionRef.current?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    scrollToLeadForm();
   };
 
   return (
@@ -38,7 +44,7 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
           className="mb-[60px] lg:mb-[0] lg:p-20 max-w-screen-2k flex flex-col gap-20"
         >
           <SocialSection
-            sectionRef={sectionRef}
+            sectionRef={sectionRef} scrollToLeadForm={scrollToLeadForm}
             formData={contents?.attributes?.contact_us_contents}
             socialMeta={headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []}
           />
