@@ -1,7 +1,7 @@
 'use client';
 
 import { ICoachingServicePageContent, ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { CoachingPageWrapper } from './Wrapper';
@@ -152,31 +152,72 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     }, 0);
   };
 
+  const [isLeftNavDisabled, setIsLeftNavDisabled] = useState(false);
+  const [isRightNavDisabled, setIsRightNavDisabled] = useState(false);
+
+  const [isLeftNavDisabledT, setIsLeftNavDisabledT] = useState(false);
+  const [isRightNavDisabledT, setIsRightNavDisabledT] = useState(false);
+
+  const checkNavigationArrows = useCallback(() => {
+    if (scrollContainerRef.current) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current;
+      const isScrollAtStart = scrollLeft === 0;
+      const isScrollAtEnd = scrollLeft >= scrollWidth - clientWidth;
+
+      setIsLeftNavDisabled(isScrollAtStart);
+      setIsRightNavDisabled(isScrollAtEnd);
+    }
+
+    if (scrollContainerRef2.current) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef2.current;
+      const isScrollAtStart = scrollLeft === 0;
+      const isScrollAtEnd = scrollLeft >= scrollWidth - clientWidth;
+
+      setIsLeftNavDisabledT(isScrollAtStart);
+      setIsRightNavDisabledT(isScrollAtEnd);
+    }
+
+  }, []);
+
   const SCROLL_DISTANCE = 400;
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: -SCROLL_DISTANCE, behavior: 'smooth' });
+      setTimeout(checkNavigationArrows, 200);
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: SCROLL_DISTANCE, behavior: 'smooth' });
+      setTimeout(checkNavigationArrows, 200);
     }
   };
 
   const scrollLeftT = () => {
     if (scrollContainerRef2.current) {
       scrollContainerRef2.current.scrollBy({ left: -SCROLL_DISTANCE, behavior: 'smooth' });
+      setTimeout(checkNavigationArrows, 200);
     }
   };
 
   const scrollRightT = () => {
     if (scrollContainerRef2.current) {
       scrollContainerRef2.current.scrollBy({ left: SCROLL_DISTANCE, behavior: 'smooth' });
+      setTimeout(checkNavigationArrows, 200);
     }
   };
+
+  useEffect(() => {
+    // Call checkNavigationArrows on mount and when window is resized
+    checkNavigationArrows();
+    window.addEventListener('resize', checkNavigationArrows);
+
+    return () => {
+      window.removeEventListener('resize', checkNavigationArrows);
+    };
+  }, [checkNavigationArrows]);
 
   const handleScroll = () => {
     const scrollPosition = scrollContainerRef.current?.scrollLeft ?? 0;
@@ -292,8 +333,9 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
               </div>
               <div className="items-center hidden md:flex md:mb-[8px]">
                 <div>
-                  <SliderNav handleOnClick={scrollLeft} cssClass="mr-[16px] bg-[#f3f3f3]" leftNav />
-                  <SliderNav handleOnClick={scrollRight} cssClass='bg-[#f3f3f3] '/>
+                  <SliderNav handleOnClick={scrollLeft} cssClass="mr-[16px] bg-[#f3f3f3]"
+                    leftNav disable={isLeftNavDisabled}/>
+                  <SliderNav handleOnClick={scrollRight} cssClass='bg-[#f3f3f3] ' disable={isRightNavDisabled}/>
                 </div>
               </div>
             </div>
@@ -385,8 +427,9 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 </div>
                 <div className="items-center hidden md:flex md:mb-[8px]">
                   <div className='bg-[#f3f3f3]'>
-                    <SliderNav handleOnClick={scrollLeftT} cssClass="mr-[16px] bg-[#f3f3f3]" leftNav />
-                    <SliderNav handleOnClick={scrollRightT} cssClass='bg-[#f3f3f3] '/>
+                    <SliderNav handleOnClick={scrollLeftT} cssClass="mr-[16px] bg-[#f3f3f3]"
+                      leftNav disable={isLeftNavDisabledT}/>
+                    <SliderNav handleOnClick={scrollRightT} cssClass='bg-[#f3f3f3] ' disable={isRightNavDisabledT}/>
                   </div>
                 </div>
               </div>
