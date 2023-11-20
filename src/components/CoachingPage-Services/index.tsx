@@ -210,7 +210,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   };
 
   useEffect(() => {
-    // Call checkNavigationArrows on mount and when window is resized
     checkNavigationArrows();
     window.addEventListener('resize', checkNavigationArrows);
 
@@ -447,7 +446,8 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                               key={type}
                               id="button-heading"
                               onClick={() => {
-                                return setActiveTrainingType(type);
+                                setActiveTrainingType(type);
+                                scrollContainerRef2.current?.scrollTo({ left: 0, behavior: 'smooth' });
                               }}
                               className={`${type === activeTrainingType ? 'active-button' : 'normal-button '}`}
                             >
