@@ -21,14 +21,14 @@ const BlogsDetailsPageCSR = () => {
   if (loader || loading) return <LoadingUI />;
   const isFromCoachingPage = params?.blogType === 'coaching-tips';
   return (
-    <>
+    <div>
       {(loader || loading) && <LoadingUI />}
       <BlogDetails
         details={data?.data[0] ?? ({} as IBlogDetails)}
         blogType={params?.blogType as ArticleCategoryType}
         fromCoachingPage={isFromCoachingPage}
       />
-    </>
+    </div>
   );
 };
 
