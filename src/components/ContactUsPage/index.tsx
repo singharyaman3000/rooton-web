@@ -44,7 +44,8 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
           className="mb-[60px] lg:mb-[0] lg:p-20 max-w-screen-2k flex flex-col gap-20"
         >
           <SocialSection
-            sectionRef={sectionRef} scrollToLeadForm={scrollToLeadForm}
+            sectionRef={sectionRef}
+            scrollToLeadForm={scrollToLeadForm}
             formData={contents?.attributes?.contact_us_contents}
             socialMeta={headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []}
           />
