@@ -1,35 +1,42 @@
-import { BOOK_AN_APPOINTMENT } from '@/constants/navigation';
-import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
-import { getServicePageURL, getTranslatedURL } from '@/utils';
-import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import React, { useContext } from 'react';
 import HtmlParser from 'react-html-parser';
+import { useParams } from 'next/navigation';
+
+import { getServicePageURL } from '@/utils';
+import { BOOK_AN_APPOINTMENT } from '@/constants/navigation';
+import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
 const ListItems = ({ item, id }: { item: string; id: number }) => {
   const path = useParams();
-  const router = useRouter();
-
   const { isModalShown, closeCoreServiceList } = useContext(ModalShowContextname);
 
-  const handleRouteRedirect = () => {
-    const route = getTranslatedURL(getServicePageURL(id), path.lang);
-    router.push(route + BOOK_AN_APPOINTMENT);
+  const handleServicesDisplay = () => {
     if (isModalShown) closeCoreServiceList();
   };
 
   return (
-    <>
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-      <li
-        key={id}
-        onClick={() => {
-          handleRouteRedirect();
-        }}
-        className="pop-up-list-item block text-base hover:text-font-color-light-gray cursor-pointer font-medium leading-[2.3]"
+    <li
+      key={id}
+      role='menuitem'
+      onClick={() => {
+        handleServicesDisplay();
+      }}
+      className="
+        pop-up-list-item block text-base hover:text-font-color-light-gray cursor-pointer font-medium leading-[2.3]
+        "
+    >
+      <Link
+        href={
+          path.lang
+            ? `/${path.lang}${getServicePageURL(id)}${BOOK_AN_APPOINTMENT}`
+            : `${getServicePageURL(id)}${BOOK_AN_APPOINTMENT}`
+        }
+        className='block'
       >
         {HtmlParser(item.replaceAll('**', ''))}
-      </li>
-    </>
+      </Link>
+    </li>
   );
 };
 
