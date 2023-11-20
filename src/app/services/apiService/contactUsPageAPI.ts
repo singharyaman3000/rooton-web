@@ -10,9 +10,10 @@ export type LeadFormType = [
     type: string;
   },
   {
-    service: string;
-    type: string;
-    url: string;
+    meeting: {
+      free: { service: string; type: string; url: string };
+      paid: { service: string; type: string; url: string };
+    };
   },
 ];
 
@@ -34,7 +35,7 @@ type ContactUsAttributesType = {
   json_content: IJSONContent;
   unique_identifier_name: string;
   description: string;
-}
+};
 
 export interface IContactUsContents {
   data: { id: number; attributes: ContactUsAttributesType }[];
