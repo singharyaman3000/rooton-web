@@ -22,8 +22,8 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
           altText={attributes.media_url?.data[0].attributes.alternativeText}
         />
       </div>
-      <div className="p-[16px] flex-grow-[1] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white ">
-        <h5 className="text-xs line-clamp-3 text-black font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base">
+      <div className="p-[16px] flex-grow-[1] md:p-[28px] flex flex-col justify-between gap-y-[57px] bg-white blog-bg">
+        <h5 className="text-xs line-clamp-3 text-black font-semibold not-italic leading-[1.67] tracking-[normal] md:text-base blog-text">
           {attributes.title}
         </h5>
         <div className="flex line-clamp-2 gap-x-[12px] flex-wrap items-start flex-col-reverse md:flex-row  md:flex-nowrap md:items-center w-full justify-between">
@@ -35,8 +35,8 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
             tabIndex={0}
           />
           <div className="text-xs mb-[8px] md:mb-[0px] mt-[8px] md:mt-0 order-2 md:order-1  not-italic leading-[normal] tracking-[normal] md:text-sm">
-            <span className="mr-[8px]  opacity-[0.36] text-black">Last updated:</span>
-            <span className="line-clamp-2 text-black">{formatDate(attributes.updatedAt)}</span>
+            <span className="mr-[8px]  opacity-[0.36] text-black blog-text">Last updated:</span>
+            <span className="line-clamp-2 text-black blog-text">{formatDate(attributes.updatedAt)}</span>
           </div>
         </div>
       </div>

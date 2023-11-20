@@ -426,7 +426,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                   <SectionHeadings title={''} subTitle={trainingTitle || ''} />
                 </div>
                 <div className="items-center hidden md:flex md:mb-[8px]">
-                  <div className='bg-[#f3f3f3]'>
+                  <div>
                     <SliderNav handleOnClick={scrollLeftT} cssClass="mr-[16px] bg-[#f3f3f3]"
                       leftNav disable={isLeftNavDisabledT}/>
                     <SliderNav handleOnClick={scrollRightT} cssClass='bg-[#f3f3f3] ' disable={isRightNavDisabledT}/>

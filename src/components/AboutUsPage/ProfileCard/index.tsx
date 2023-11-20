@@ -38,9 +38,9 @@ const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
           priority
         />
       </div>
-      <div className="py-[26px] pl-7 pr-2">
-        <h5 className="mb-1.5 text-black font-bold text-[22px] leading-normal">{name}</h5>
-        <p className="text-black opacity-50 text-sm font-semibold leading-heading tracking-[2px]">{title}</p>
+      <div className="py-[26px] pl-7 pr-2 blog-bg">
+        <h5 className="mb-1.5 blog-text text-black font-bold text-[22px] leading-normal">{name}</h5>
+        <p className="text-black blog-text opacity-50 text-sm font-semibold leading-heading tracking-[2px]">{title}</p>
       </div>
     </div>
   );
