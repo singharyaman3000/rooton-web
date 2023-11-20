@@ -259,7 +259,11 @@ body {
   background: #121212;
 }
 .challenges-accordion:last-child {
-  border-bottom: 0;
+  border-bottom-width: 0;
+}
+
+.challenges-accordion.service-faq:last-child {
+  border-bottom-width: 1px;
 }
 
 /*Blogs listing styling*/
