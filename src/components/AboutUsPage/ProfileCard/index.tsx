@@ -1,23 +1,13 @@
-import NextImage from '@/components/UIElements/NextImage';
 import { Dispatch, SetStateAction } from 'react';
 
+import { ProfileCardInfo } from './types';
+import NextImage from '@/components/UIElements/NextImage';
+
 interface ProfileCardProps {
-  profileData: {
-    name: string;
-    title: string;
-    imageSrc: { employeeImage: string; backgroundColor: string };
-    description: string;
-  };
+  profileData: ProfileCardInfo;
   popUpDisplayFns: {
     showPopUp: () => void;
-    setProfileDataForModal: Dispatch<
-      SetStateAction<{
-        name: string;
-        title: string;
-        imageSrc: { employeeImage: string; backgroundColor: string };
-        description: string;
-      }>
-    >;
+    setProfileDataForModal: Dispatch<SetStateAction<ProfileCardInfo>>;
   };
 }
 
