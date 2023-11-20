@@ -52,7 +52,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
     <>
       {/* About Us Banner Section */}
       <DynamicBannerSection
-        bannerHeightTailwind='!h-[531px] !max-h-[531px] sm:!max-h-[400px] sm:!h-[400px]'
+        bannerHeightTailwind='!h-[531px] !max-h-[531px] sm:!max-h-[400px] sm:!h-[400px] 2k:!h-[531px] 2k:!max-h-[531px]'
         breadCrumbData={BANNER_SECTION_CONTENT.pagePath}
         addGradient={false}
         backgroundImageUrl={BANNER_SECTION_CONTENT.bannerImageUrl}

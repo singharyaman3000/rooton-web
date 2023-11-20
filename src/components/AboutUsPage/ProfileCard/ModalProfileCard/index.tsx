@@ -1,14 +1,10 @@
-import CloseIconWithBackground from '@/components/Icons/CloseIconWithBackground';
+import { ProfileCardInfo } from '../types';
 import NextImage from '@/components/UIElements/NextImage';
+import CloseIconWithBackground from '@/components/Icons/CloseIconWithBackground';
 import PopUpOverlayWrapper from '@/components/UIElements/PopUp/PopUpOverLayWrapper';
 
 interface ModalProfileCardProps {
-  profileData: {
-    name: string;
-    title: string;
-    imageSrc: { employeeImage: string; backgroundColor: string };
-    description: string;
-  };
+  profileData: ProfileCardInfo;
   showPopUp: boolean;
   closePopUpFn: () => void;
 }

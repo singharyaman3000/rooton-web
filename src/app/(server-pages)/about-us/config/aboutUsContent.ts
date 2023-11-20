@@ -30,8 +30,8 @@ export const WELCOME_SECTION_DATA = {
 };
 
 export const COMPANY_STAT_VALUES_DEFAULT = [
-  { statValue: 3, statText: WELCOME_SECTION_DATA.experienceYearsText },
-  { statValue: 500, statText: WELCOME_SECTION_DATA.clientsCountText },
+  { statValue: 15, statText: WELCOME_SECTION_DATA.experienceYearsText },
+  { statValue: 850, statText: WELCOME_SECTION_DATA.clientsCountText },
 ];
 
 /* Book a Consultation Section */
@@ -61,7 +61,7 @@ export const BOOK_APPOINTMENT_FORM = {
 export const COMPANY_CEO_INFO = {
   sectionHeading: 'About the CEO',
   description:
-    'Mr. Ronak Patel is the founder of Root On Immigration Consultants Inc and an RCIC Member of Immigration Consultants of Canada Regulatory Council. With over 14 years of experience, he specializes in',
+    'Mr. Ronak Patel is the founder of Root On Immigration Consultants Inc and an RCIC Member of Immigration Consultants of Canada Regulatory Council. With over 15 years of experience, he specializes in',
   vision:
     'His motivation to start Root On Consultants came from witnessing the challenges faced by immigrants, inspiring him to assist students with Canada Student Visas and immigrants from around the world.',
   licenseNumber: 'R529956',
