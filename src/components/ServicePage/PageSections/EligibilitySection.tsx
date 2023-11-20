@@ -21,7 +21,7 @@ const EligibilitySection = ({ eligibility, handleCTAButtonClick }: EligibilitySe
         <Ul className={`${eligibility?.attributes.description ? '' : ' !mt-0' }`}>
           {(eligibility?.attributes.json_content.eligibility ?? []).map((e) => {
             return (
-              <Li key={e.position + e.key}>
+              <Li bulletClassName='w-3 h-3 md:w-[16px] md:h-[16px] bg-golden-yellow' key={e.position + e.key}>
                 <>
                   <p className={`${e.description && ' font-bold'}`}>{e.title}</p>
                   {e.description &&

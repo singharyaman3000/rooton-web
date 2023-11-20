@@ -17,10 +17,10 @@ const ContactUsPageCSR = () => {
   if (loader || loading) return <LoadingUI />;
 
   return (
-    <>
+    <div>
       {(loader || loading) && <LoadingUI />}
       {data && <ContactUs contents={data?.data?.length ? data.data[0] : ({} as ContactUsResponseData)} />}
-    </>
+    </div>
   );
 };
 
