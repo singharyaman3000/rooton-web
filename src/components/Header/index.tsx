@@ -8,7 +8,7 @@ import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import SliderOverlay from './SliderOverlay';
 import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { scrollIntoView } from '@/utils';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
@@ -17,6 +17,7 @@ const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coachin
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
   const params = useParams();
+  const path = usePathname();
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
@@ -33,7 +34,7 @@ export default function Header() {
     };
     fetchData();
   }, []);
-  const isFixed = !!params?.blogId;
+  const isFixed = !!params?.blogId || path.includes('sitemap');
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
