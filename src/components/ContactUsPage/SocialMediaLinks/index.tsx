@@ -2,15 +2,15 @@ import React, { ReactElement } from 'react';
 import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
 import InstagramIcon from '@/components/Icons/InstagramIcon';
 import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
-import TwitterIconBlue from '@/components/Icons/TwitterIconBlue';
 import YoutubeIconRed from '@/components/Icons/YoutubeIconRed';
 import { SocialMediaInterfaceType } from '@/app/services/apiService/headerFooterAPI';
+import TwitterIcon from '@/components/Icons/TwitterIcon';
 
 type SocialMediaLinksPropsType = { socialData: SocialMediaInterfaceType[]; wrapperClass?: string };
 
 const ICON_META = {
   facebook: FacebookIconBlue,
-  twitter: TwitterIconBlue,
+  twitter: TwitterIcon,
   linkedIn: LinkedInIconBlue,
   youTube: YoutubeIconRed,
   instagram: InstagramIcon,
@@ -34,7 +34,8 @@ const SocialMediaLinks: React.FC<SocialMediaLinksPropsType> = ({ socialData, wra
             }}
             role="button"
             tabIndex={0}
-            className='cursor-pointer'
+            className="cursor-pointer"
+            title={`Root On on ${value?.alternativeText}`}
           >
             <Icon />
           </div>
