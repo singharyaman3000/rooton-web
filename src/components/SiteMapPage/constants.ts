@@ -1,8 +1,9 @@
 export const SITE_ROUTES = [
   { id: 1, label: 'Home', path: '/' },
   { id: 2, label: 'About Us', path: '/about-us' },
-  { id: 3, label: 'Coaching', path: '/blogs' },
-  { id: 4, label: 'Contact Us', path: '/contact-us' },
+  { id: 3, label: 'Coaching', path: '/coaching' },
+  { id: 4, label: 'Blogs', path: '/blogs' },
+  { id: 5, label: 'Contact Us', path: '/contact-us' },
 ];
 
 export const COACHING_SERVICES_ROUTES = [

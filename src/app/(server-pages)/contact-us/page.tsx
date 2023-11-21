@@ -1,6 +1,7 @@
 import { ContactUsResponseData, getContactUsContents } from '@/app/services/apiService/contactUsPageAPI';
 import { IHeaderFooterData, getHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import ContactUs from '@/components/ContactUsPage';
+import { WithContext, Organization } from 'schema-dts';
 import StructuredData from '@/components/UIElements/StructuredData';
 
 export default async function ContactUsPage() {
@@ -9,9 +10,12 @@ export default async function ContactUsPage() {
 
   const footerData = footerRes?.length > 0 ? footerRes[0] : ({} as IHeaderFooterData);
 
-  const structuredData = {
+  const structuredData: WithContext<Organization> = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    name: 'Root On',
+    url: process.env.NEXT_APP_BASE_URL,
+    logo: 'https://www.example.com/images/logo.png',
     address: footerData?.attributes?.addresses?.data?.map((data) => {
       return { '@type': 'PostalAddress', streetAddress: data.attributes.location };
     }),
@@ -31,7 +35,7 @@ export default async function ContactUsPage() {
 
   return (
     <>
-      <StructuredData data={structuredData} />
+      <StructuredData<Organization> data={structuredData} />
       <ContactUs contents={res?.data?.length ? res.data[0] : ({} as ContactUsResponseData)} />;
     </>
   );
