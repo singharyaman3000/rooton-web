@@ -78,7 +78,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                       priority
                       src={appendAssetUrl(attributes?.media_url.data?.attributes?.url ?? '')}
                       fill
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: 'contain' }}
                       altText="country_flag"
                       title="Flag Image"
                     />
