@@ -213,7 +213,7 @@ export const WHAT_WE_VALUE_SECTION = {
     {
       key: 'Integrity and Respect',
       iconComponent: IntegrityRespectIcon,
-      value: 'We treat our customers, colleagues, and partners with respect,',
+      value: 'We treat our customers, colleagues, and partners with respect.',
       position: 6,
     },
   ],
