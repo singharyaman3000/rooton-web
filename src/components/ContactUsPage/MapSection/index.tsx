@@ -41,9 +41,9 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
   });
 
   return (
-    <section className="flex flex-col lg:flex-row w-full">
+    <section className="flex flex-col lg:flex-row">
       {/* Map component */}
-      <div className="h-[360px] lg:h-[794px] lg:w-1/2">
+      <div className="h-[360px] lg:h-[794px] w-full lg:w-[600px]">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.NEXT_GOOGLE_MAP_KEY ?? '' }}
           defaultZoom={locationData.zoom}
@@ -55,8 +55,8 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
         </GoogleMapReact>
       </div>
       {/* Address section */}
-      <div className="bg-pale-yellow flex flex-col items-center  p-6 lg:px-10 lg:py-8 lg:w-1/2">
-        <h2 className="text-[28px] lg:text-[40px] font-bold lg:mb-5">Contact Information</h2>
+      <div className="bg-pale-yellow flex flex-col items-center  p-6 lg:px-10 lg:py-8 lg:w-[680px]">
+        <h2 className="text-[28px] lg:text-[40px] font-extrabold lg:mb-5">Contact Information</h2>
         <div className="flex flex-col gap-5 w-full items-center lg:items-start">
           {addressData.map((address) => {
             const { id, attributes } = address;
@@ -78,7 +78,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                       priority
                       src={appendAssetUrl(attributes?.media_url.data?.attributes?.url ?? '')}
                       fill
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: 'contain' }}
                       altText="country_flag"
                       title="Flag Image"
                     />
