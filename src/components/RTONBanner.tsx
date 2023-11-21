@@ -5,15 +5,17 @@ import HtmlParser from 'react-html-parser';
 
 type BlogsBannerPropsType = {
   backgroundImageUrl: string;
-  addGradient: boolean;
+  addGradient?: boolean;
   heroText: string;
   description: string;
   breadCrumbData: { title: string; path: string }[];
   heightStyle?: string;
   subDescription?: string;
   button?: ReactElement;
+  noGrid?: boolean;
+  fontSizes: { description: string; heading?: string; subHeading?: string };
 };
-
+// "text-[15px] lg:text-2xl"
 export default function RTONBanner({
   backgroundImageUrl,
   addGradient,
@@ -23,6 +25,8 @@ export default function RTONBanner({
   heightStyle = ' h-[67.5vh] max-h-[400px] min-h-[380px]',
   subDescription,
   button,
+  noGrid,
+  fontSizes,
 }: BlogsBannerPropsType) {
   return (
     <div className={`w-full mt-0 ${heightStyle}`}>
@@ -31,13 +35,13 @@ export default function RTONBanner({
         className=" w-full h-full"
         style={{
           backgroundImage: addGradient
-            ? 'linear-gradient(190deg, rgb(0 0 0 / 43%) 10%, rgb(0 0 0 / 59%) 42%, #0009 10%)'
+            ? 'linear-gradient(190deg, rgb(0 0 0 / 20%) 80%, rgb(0 0 0 / 40%) 90%, #0009 90%)'
             : '',
         }}
       >
         <div
-          className="
-            lg:bg-banner-grid-overlay
+          className={`
+            ${noGrid ? '' : 'lg:bg-banner-grid-overlay'}
             lg:bg-cover
             px-6
             pb-9
@@ -48,7 +52,7 @@ export default function RTONBanner({
             flex-col
             justify-end
             xl:px-20
-          "
+          `}
         >
           <h1
             className="
@@ -64,7 +68,7 @@ export default function RTONBanner({
           >
             {HtmlParser(heroText)}
           </h1>
-          <p className=" mt-[22.2px] text-white font-bold text-[15px] leading-[1.67] lg:text-2xl max-w-[800px]">
+          <p className={`mt-[22.2px] text-white ${fontSizes.description} font-bold leading-[1.67] max-w-[800px]`}>
             {HtmlParser(description)}
           </p>
           {subDescription && (
