@@ -12,7 +12,7 @@ import { ContactUsResponseData } from '@/app/services/apiService/contactUsPageAP
 import { appendAssetUrl } from '@/utils';
 import { useRef } from 'react';
 
-const ContactUs = ({ contents }: { contents: ContactUsResponseData, test:unknown }) => {
+const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
   const { headerFooterData } = useHeaderFooterContext();
   const sectionRef = useRef<HTMLElement>(null);
 
