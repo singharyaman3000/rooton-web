@@ -1,8 +1,8 @@
 import React from 'react';
 
-type StructuredDataType = { data: { [key: string]: unknown } };
+type StructuredDataType<T> = { data: T };
 
-const StructuredData: React.FC<StructuredDataType> = ({ data }) => {
+const StructuredData = <T,>({ data }: StructuredDataType<T>) => {
   return (
     <script
       key="structuredData"

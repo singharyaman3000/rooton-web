@@ -78,9 +78,9 @@ const SiteMap = () => {
         </div>
         <div>
           {/* Base Routes */}
-          <div className="p-5 border w-max h-max">
+          <div className="p-5 border w-full h-max">
             <h2 className="text-lg font-bold">Routes</h2>
-            <ul className="flex gap-4 lg:gap-6 text-xs">
+            <ul className="flex flex-col text-xs">
               {SITE_ROUTES.map((data) => {
                 return (
                   <li

@@ -41,9 +41,9 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
   });
 
   return (
-    <section className="flex flex-col lg:flex-row w-full">
+    <section className="flex flex-col lg:flex-row">
       {/* Map component */}
-      <div className="h-[360px] lg:h-[794px] lg:w-1/2">
+      <div className="h-[360px] lg:h-[794px] w-full lg:w-[600px]">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.NEXT_GOOGLE_MAP_KEY ?? '' }}
           defaultZoom={locationData.zoom}
@@ -78,7 +78,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                       priority
                       src={appendAssetUrl(attributes?.media_url.data?.attributes?.url ?? '')}
                       fill
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: 'contain' }}
                       altText="country_flag"
                       title="Flag Image"
                     />
