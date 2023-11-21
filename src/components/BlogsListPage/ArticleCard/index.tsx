@@ -1,17 +1,24 @@
-import { IBlogData } from '@/app/services/apiService/blogsListAPI';
-import NextImage from '@/components/UIElements/NextImage';
-import { appendAssetUrl, formatDate } from '@/utils';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
+import { appendAssetUrl, formatDate } from '@/utils';
+import NextImage from '@/components/UIElements/NextImage';
+import { BLOG_LISTING_PATH } from '@/constants/navigation';
+import { IBlogData } from '@/app/services/apiService/blogsListAPI';
 
 type ArticleCardPropType = { attributes: IBlogData['attributes']; articleId: number };
 
 const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
+  let baseUrl = BLOG_LISTING_PATH;
+  const params = useParams();
+
+  if (params.lang) {
+    baseUrl = `/${params.lang}${baseUrl}`;
+  }
+  const href = articleId && attributes?.category ? `${baseUrl}/${articleId}/${attributes.category}` : baseUrl;
+
   return (
-    <Link
-      href={{
-        pathname: `/blogs/${articleId}/${attributes?.category ?? ''}`,
-      }}
-    >
+    <Link href={href}>
       <div className="flex flex-col items-center bg-white-fixed justify-between h-[514px] lg:h-[527px] border-t-[1px] border-[#b9b9b9] md:border hover:border-golden-yellow !min-w-[360px] md:w-[380px] cursor-pointer">
         <div className="h-[216px] w-[312px] md:min-h-[252px] md:w-full relative mt-6 md:mt-0">
           <NextImage
