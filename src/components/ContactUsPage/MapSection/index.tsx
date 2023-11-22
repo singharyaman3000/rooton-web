@@ -55,7 +55,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
         </GoogleMapReact>
       </div>
       {/* Address section */}
-      <div className="bg-pale-yellow flex flex-col items-center  p-6 lg:px-10 lg:py-8 lg:w-[680px]">
+      <div className="bg-pale-yellow text-[#000] flex flex-col items-center  p-6 lg:px-10 lg:py-8 lg:w-[680px]">
         <h2 className="text-[28px] lg:text-[40px] font-extrabold lg:mb-5">Contact Information</h2>
         <div className="flex flex-col gap-5 w-full items-center lg:items-start">
           {addressData.map((address) => {
@@ -65,7 +65,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                 key={id}
                 role="button"
                 tabIndex={0}
-                className="p-5 lg:pl-10 w-[320px] lg:w-full text-sm lg:text-base"
+                className="p-5 lg:pl-10 w-[320px] lg:w-full  text-sm lg:text-base"
                 onClick={() => {
                   // setAddress(address);
                 }}
