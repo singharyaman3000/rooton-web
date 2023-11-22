@@ -36,44 +36,46 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcru
     }
   };
 
-  if (content?.length === 0) return null;
-
   return (
     <div className="sticky hidden lg:flex flex-col items-center top-0 h-[calc(100vh-80px)] md:w-[300px] lg:w-[480px] px-20 items-center justify-center overflow-y-scroll overflow-x-hidden">
       <div className="hidden lg:block absolute top-3 left-6 lg:left-20">
         <Breadcrumbs className="text-black" data={breadcrumbsData} isStatic />
       </div>
       <div className="mt-[100px]">
-        <h3 className="font-bold text-xl mb-5">In this article</h3>
-        <div className="flex gap-2">
-          <div id="tab-parent-div" className="relative w-[1px] bg-[#d7d7d7]">
-            <span
-              className="absolute block w-1 h-10 bg-golden-yellow left-0 transform -translate-x-1/2 transition-all  duration-1700"
-              style={{ top: fromTop }}
-            ></span>
-          </div>
-          <nav className="flex flex-col gap-5 align-text-top">
-            {content?.map((heading: string, index: number) => {
-              return (
+        {content?.length !== 0 ? (
+          <>
+            <h3 className="font-bold text-xl mb-5">In this article</h3>
+            <div className="flex gap-2">
+              <div id="tab-parent-div" className="relative w-[1px] bg-[#d7d7d7]">
                 <span
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index}
-                  ref={refs[index]}
-                  className="max-w-[320px] hover:font-bold min-w-[300px] text-base"
-                  onClick={() => {
-                    setSelectedTag({ tag: { label: heading, id: index }, activeRef: refs[index] });
-                    handleScrollToHeading(refs[index], index);
-                  }}
-                  style={{ fontWeight: selectedTag?.tag?.id === index ? 'bold' : '' }}
-                  role="button"
-                  tabIndex={index + 1}
-                >
-                  {heading}
-                </span>
-              );
-            })}
-          </nav>
-        </div>
+                  className="absolute block w-1 h-10 bg-golden-yellow left-0 transform -translate-x-1/2 transition-all  duration-1700"
+                  style={{ top: fromTop }}
+                ></span>
+              </div>
+              <nav className="flex flex-col gap-5 align-text-top">
+                {content?.map((heading: string, index: number) => {
+                  return (
+                    <span
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
+                      ref={refs[index]}
+                      className="max-w-[320px] hover:font-bold min-w-[300px] text-base"
+                      onClick={() => {
+                        setSelectedTag({ tag: { label: heading, id: index }, activeRef: refs[index] });
+                        handleScrollToHeading(refs[index], index);
+                      }}
+                      style={{ fontWeight: selectedTag?.tag?.id === index ? 'bold' : '' }}
+                      role="button"
+                      tabIndex={index + 1}
+                    >
+                      {heading}
+                    </span>
+                  );
+                })}
+              </nav>
+            </div>
+          </>
+        ) : null}
         <div className="mt-[52px]">
           <SocialMediaShare />
         </div>

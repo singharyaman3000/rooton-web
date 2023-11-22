@@ -21,7 +21,7 @@ const AboutUsPageCSR = () => {
   return (
     <div>
       {(loader || loading) && <LoadingUI />}
-      {data && <AboutUsPage companyStatValues={companyStatValuesApi} />};
+      {data && <AboutUsPage companyStatValues={companyStatValuesApi} />}
     </div>
   );
 };
