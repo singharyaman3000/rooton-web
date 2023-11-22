@@ -1,18 +1,27 @@
 'use client';
 
-import CopyLinkIcon from '@/components/Icons/CopyLinkIcon';
-import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
-import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
-import TwitterIcon from '@/components/Icons/TwitterIcon';
+import { useState } from 'react';
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
 
+import TwitterIcon from '@/components/Icons/TwitterIcon';
+import CopyLinkIcon from '@/components/Icons/CopyLinkIcon';
+import ToastMessage from '@/components/UIElements/ToastMessage';
+import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
+import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
+
 const SocialMediaShare = () => {
+  const [displayToastMessage, setDisplayToastMessage] = useState({ message: '', counter: 0 });
+
   const getCurrentBlogUrl = () => {
     return window.location.href;
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(getCurrentBlogUrl());
+    navigator.clipboard.writeText(getCurrentBlogUrl()).then(() => {
+      setDisplayToastMessage((prevState) => {
+        return { message: 'Copied to Clipboard', counter: prevState.counter + 1 };
+      });
+    });
   };
 
   return (
@@ -32,6 +41,7 @@ const SocialMediaShare = () => {
           <CopyLinkIcon />
         </div>
       </div>
+      {displayToastMessage.counter > 0 ? <ToastMessage message={displayToastMessage.message} /> : null}
     </div>
   );
 };
