@@ -135,7 +135,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
             <div className="md:max-w-[70%] xl:max-w-none px-[24px] md:px-[48px] lg:px-[80px]">
               <SectionHeadings title={title} subTitle={subTitle} />
             </div>
-            <div className="items-center hidden md:flex md:mb-[8px]">
+            <div className="items-center hidden md:flex md:mb-[8px] flex-shrink-0">
               <div>
                 <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px] bg-[#f3f3f3] disabled:bg-[#f3f3f3]"
                   disable={pageNum === 0} leftNav />
