@@ -15,11 +15,7 @@ type NavigationPanelPropsType = {
   }[];
 };
 
-
-const NavigationPanel: React.FC<NavigationPanelPropsType> = ({
-  content,
-  breadcrumbsData,
-}) => {
+const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcrumbsData }) => {
   const [selectedTag, setSelectedTag] = useState<SelectedTagType>({} as SelectedTagType);
   const refs = useMemo(() => {
     return content?.map(() => {
