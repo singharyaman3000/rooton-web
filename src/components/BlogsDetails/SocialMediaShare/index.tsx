@@ -3,7 +3,7 @@
 import CopyLinkIcon from '@/components/Icons/CopyLinkIcon';
 import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
 import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
-import TwitterIconBlue from '@/components/Icons/TwitterIconBlue';
+import TwitterIcon from '@/components/Icons/TwitterIcon';
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
 
 const SocialMediaShare = () => {
@@ -21,7 +21,7 @@ const SocialMediaShare = () => {
           <FacebookIconBlue />
         </FacebookShareButton>
         <TwitterShareButton url={url}>
-          <TwitterIconBlue />
+          <TwitterIcon />
         </TwitterShareButton>
         <LinkedinShareButton url={url}>
           <LinkedInIconBlue />

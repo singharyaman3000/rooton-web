@@ -35,7 +35,7 @@ type ContactUsAttributesType = {
   json_content: IJSONContent;
   unique_identifier_name: string;
   description: string;
-}
+};
 
 export interface IContactUsContents {
   data: { id: number; attributes: ContactUsAttributesType }[];

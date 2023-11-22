@@ -51,7 +51,7 @@ export default function Footer() {
           <FooterLogo />
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
-            <div className=" flex gap-12 justify-center">
+            <div className=" flex gap-12 justify-center z-10">
               <SocialMediaLinks
                 socialData={
                   headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []
@@ -74,6 +74,7 @@ export default function Footer() {
             text-sm
             font-semibold
             lg:w-full
+            z-10
           "
         >
           <div className=" flex flex-col gap-3 lg:gap-[18px]">
@@ -87,7 +88,7 @@ export default function Footer() {
             <Link href={'/'}>Disclaimer</Link>
             <Link href={'/'}>GCKey vs APR </Link>
             <Link href={'/'}>Affiliate Program</Link>
-            <Link href={'/'}>Sitemap</Link>
+            <Link href={'/sitemap'}>Sitemap</Link>
           </div>
         </div>
       </div>
