@@ -10,11 +10,14 @@ import { BREAD_BRUMB_PATHS } from './constants';
 import { IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { ContactUsResponseData } from '@/app/services/apiService/contactUsPageAPI';
 import { appendAssetUrl } from '@/utils';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { CONSULTATION_TYPES } from '../ServicePage/LeadFormStepper';
 
 const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
   const { headerFooterData } = useHeaderFooterContext();
   const sectionRef = useRef<HTMLElement>(null);
+
+  const [ctaClickSource, setCtaClickSource] = useState('');
 
   const scrollToLeadForm = () => {
     setTimeout(() => {
@@ -22,7 +25,8 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
     }, 0);
   };
 
-  const handleCTAButton = () => {
+  const handleCTAButton = (source: string) => {
+    setCtaClickSource(source);
     scrollToLeadForm();
   };
 
@@ -36,7 +40,8 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
         addGradient
         heightStyle="h-[640px] lg:h-[500px]"
         subDescription={contents?.attributes?.sub_title ?? ''}
-        button={<BookAnAppointmentButton text={contents?.attributes?.CTA_text ?? ''} onClick={handleCTAButton} />}
+        button={<BookAnAppointmentButton text={contents?.attributes?.CTA_text ?? ''}
+          onClick={() => { return handleCTAButton(CONSULTATION_TYPES.PAID); }} />}
       />
       <div className="w-full flex flex-col items-center">
         <div
@@ -44,12 +49,13 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
           className="mb-[60px] lg:mb-[0] lg:p-20 max-w-screen-2k flex flex-col gap-20"
         >
           <SocialSection
+            ctaClickSource={ctaClickSource}
             sectionRef={sectionRef} scrollToLeadForm={scrollToLeadForm}
             formData={contents?.attributes?.contact_us_contents}
             socialMeta={headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []}
           />
           <MapSection footerData={headerFooterData?.length ? headerFooterData[0] : ({} as IHeaderFooterData)} />
-          <BookAnAppointment onClick={handleCTAButton} />
+          <BookAnAppointment onClick={() => { return handleCTAButton(CONSULTATION_TYPES.FREE); }} />
         </div>
       </div>
     </>

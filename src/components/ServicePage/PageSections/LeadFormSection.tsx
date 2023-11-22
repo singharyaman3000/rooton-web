@@ -10,9 +10,10 @@ type LeadFormSectionProps = {
   scrollToTop: () => void;
   handleCTAButtonClick: () => void;
   isBookAppointment: boolean;
+  ctaClickSource: string;
 };
 
-const LeadFormSection = ({ leadForm, leadFormRef,
+const LeadFormSection = ({ leadForm, leadFormRef, ctaClickSource,
   scrollToTop, handleCTAButtonClick, isBookAppointment }: LeadFormSectionProps) => {
   const [formStepperProgress, setFormStepperProgress] = useState(0);
 
@@ -37,6 +38,7 @@ const LeadFormSection = ({ leadForm, leadFormRef,
           <H2>{leadForm?.attributes.title ?? ''}</H2>
           <div className="" id="lead-form">
             <LeadFormStepper
+              ctaClickSource={ctaClickSource}
               scrollToTop={scrollToTop}
               initScroll={handleCTAButtonClick}
               isBookAppointment={isBookAppointment}
@@ -47,8 +49,7 @@ const LeadFormSection = ({ leadForm, leadFormRef,
                 (leadForm?.attributes.json_content.lead_forms &&
                   leadForm?.attributes.json_content.lead_forms.find((f) => {
                     return f.type === 'meeting';
-                  })?.url) ??
-                ''
+                  }))?.url ?? undefined
               }
               region={
                 (leadForm?.attributes.json_content.lead_forms &&
