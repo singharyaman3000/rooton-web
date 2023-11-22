@@ -48,11 +48,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
 
   return (
     <div className="mt-[60px] lg:mt-20 text-primary-font-color flex flex-col justify-start min-w-[360px]">
-      <div
-        id="scroll-container"
-        className="flex px-6 lg:px-0"
-        style={{ alignSelf: allHeadingsList?.length === 0 ? 'center' : '' }}
-      >
+      <div id="scroll-container" className="flex px-6 lg:px-0">
         {/* Article navigation */}
         <NavigationPanel
           content={allHeadingsList}
