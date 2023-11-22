@@ -2,7 +2,7 @@
 
 import { IBlogContentData, IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
 import NavigationPanel from './NavigationPanel';
-import React, { RefObject, useState } from 'react';
+import React, { useEffect } from 'react';
 import BlogBody from './BlogBody';
 import { getAllPageIndex } from './BlogBody/helpers';
 import BlogHeader from './BlogHeader';
@@ -22,17 +22,21 @@ type BlogDetailsParamsType = {
   fromCoachingPage?: boolean;
 };
 
-export type SelectedTagType = { tag: string; activeRef: RefObject<HTMLSpanElement>; type: 'scrolled' | 'selected' };
-
 const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromCoachingPage = false }) => {
   const params = useParams();
   const router = useRouter();
   const breadcrumbsData = fromCoachingPage ? BLOG_DETAILS_BREADCRUMBS_COACHING : BLOG_DETAILS_BREADCRUMBS;
-  const [selectedSection, setSelectedSection] = useState<SelectedTagType>({} as SelectedTagType);
   const blogContents = details?.attributes?.blog_contents?.data || [];
   const sortedContent = blogContents.sort((a, b) => {
     return (a?.attributes?.position ?? 0) - (b?.attributes?.position ?? 0);
   });
+
+  useEffect(() => {
+    const allHeadings = document?.querySelectorAll('heading');
+    allHeadings.forEach((heading, index) => {
+      heading.setAttribute('data-id', index.toString());
+    });
+  }, []);
 
   const allHeadingsList = sortedContent?.length
     ? getAllPageIndex(sortedContent[0]?.attributes.body_content, '<heading>', '</heading>')
@@ -50,20 +54,20 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
     <div className="mt-[60px] lg:mt-20 text-primary-font-color flex flex-col justify-start min-w-[360px]">
       <div id="scroll-container" className="flex px-6 lg:px-0">
         {/* Article navigation */}
-        <NavigationPanel
-          content={allHeadingsList}
-          selectedTag={selectedSection}
-          setSelectedTag={setSelectedSection}
-          breadcrumbsData={breadcrumbsData}
-        />
+        <NavigationPanel content={allHeadingsList} breadcrumbsData={breadcrumbsData} />
         {/* Blogbody */}
-        <div id="section-container" className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px]">
+        <div
+          id="section-container"
+          className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px] pb-8 lg:pb-[60px]"
+        >
           <BlogHeader blogDetails={details} />
           <BlogBody blogContent={sortedContent?.length ? sortedContent[0] : ({} as IBlogContentData)} />
         </div>
       </div>
       {/* CTA Section */}
-      <div className="py-8 lg:py-[60px]">{!fromCoachingPage && <BookAnAppointment onClick={handleCTAButton} />}</div>
+      {details?.attributes?.sub_service?.data?.id ? (
+        <div className="pb-8 lg:pb-[60px]">{!fromCoachingPage && <BookAnAppointment onClick={handleCTAButton} />}</div>
+      ) : null}
       {/* SocialMediaShare for small screens */}
       <div className=" lg:hidden mb-10 self-center">
         <SocialMediaShare />

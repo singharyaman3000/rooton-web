@@ -6,9 +6,8 @@ export default function CopyLinkIcon() {
       viewBox="0 0 32 32"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-    //   xmlns:xlink="http://www.w3.org/1999/xlink"
+      // xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-      <title>65619398-0EE1-4E94-B76E-32DBDAD5DB6F</title>
       <g id="Blog" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Blogs_2.1_Details_Light_V1.1" transform="translate(-273, -1326)" fill="#000000" fill-rule="nonzero">
           <path

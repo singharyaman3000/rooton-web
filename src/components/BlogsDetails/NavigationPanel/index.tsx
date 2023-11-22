@@ -1,27 +1,22 @@
 'use client';
 
-import React, { Dispatch, RefObject, SetStateAction, useMemo } from 'react';
-import { SelectedTagType } from '..';
+import React, { RefObject, useMemo, useState } from 'react';
 import useGetTabTopPosition from '../hooks/useGetTabTopPosition';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import SocialMediaShare from '../SocialMediaShare';
 
+export type SelectedTagType = { tag: { label: string; id: number }; activeRef: RefObject<HTMLSpanElement> };
+
 type NavigationPanelPropsType = {
   content: string[];
-  selectedTag: SelectedTagType;
-  setSelectedTag: Dispatch<SetStateAction<SelectedTagType>>;
   breadcrumbsData: {
     title: string;
     path: string;
   }[];
 };
 
-const NavigationPanel: React.FC<NavigationPanelPropsType> = ({
-  content,
-  selectedTag,
-  setSelectedTag,
-  breadcrumbsData,
-}) => {
+const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcrumbsData }) => {
+  const [selectedTag, setSelectedTag] = useState<SelectedTagType>({} as SelectedTagType);
   const refs = useMemo(() => {
     return content?.map(() => {
       return React.createRef<HTMLSpanElement>();
@@ -30,11 +25,12 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({
 
   const { fromTop } = useGetTabTopPosition(selectedTag.activeRef);
 
-  const test = (currentRef: RefObject<HTMLSpanElement>, currentHeading: string) => {
+  const handleScrollToHeading = (currentRef: RefObject<HTMLSpanElement>, currentId: number) => {
     if (currentRef.current) {
       const allHeadings = document?.querySelectorAll('heading');
       const selectedHeader = Array.from(allHeadings).find((heading) => {
-        return heading.textContent === currentHeading;
+        const headerId = heading.getAttribute('data-id') ?? 0;
+        return +headerId === currentId;
       });
       if (selectedHeader) selectedHeader.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
@@ -65,10 +61,10 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({
                       ref={refs[index]}
                       className="max-w-[320px] hover:font-bold min-w-[300px] text-base"
                       onClick={() => {
-                        setSelectedTag({ tag: heading, activeRef: refs[index], type: 'selected' });
-                        test(refs[index], heading);
+                        setSelectedTag({ tag: { label: heading, id: index }, activeRef: refs[index] });
+                        handleScrollToHeading(refs[index], index);
                       }}
-                      style={{ fontWeight: selectedTag?.tag === heading ? 'bold' : '' }}
+                      style={{ fontWeight: selectedTag?.tag?.id === index ? 'bold' : '' }}
                       role="button"
                       tabIndex={index + 1}
                     >

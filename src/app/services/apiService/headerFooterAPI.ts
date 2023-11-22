@@ -68,10 +68,19 @@ type SocialMediaTypes = 'facebook' | 'twitter' | 'linkedIn' | 'youTube' | 'insta
 export type SocialMediaInterfaceType = {
   // eslint-disable-next-line no-unused-vars
   [key in SocialMediaTypes]: { url: string; logo: string; alternativeText: string };
+};
+
+interface IOrganizationData {
+  addresses: { name: string; address: string; country: string; phoneNumber: string; postalCode: string }[];
+  companyDescription: string;
+  companyEmail: string;
+  founderDetails: { name: string; gender: string; profileUrl: string };
+  companyLogo: string;
 }
 
 interface IJsonContent {
   socialMediaIcons: SocialMediaInterfaceType[];
+  organizationDetails: IOrganizationData;
 }
 
 export interface IAttributes {

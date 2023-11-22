@@ -1,5 +1,5 @@
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from 'react';
-import { SelectedTagType } from '..';
+import { SelectedTagType } from '../NavigationPanel';
 
 const useSetScrollHeader = (
   target: string,
@@ -18,7 +18,7 @@ const useSetScrollHeader = (
   };
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
+    entries.forEach((entry,index) => {
       if (entry.isIntersecting) {
         const intersectingHeaderText = entry.target.textContent ?? '';
         const intersectingRef = refs.find((ref) => {
@@ -26,7 +26,7 @@ const useSetScrollHeader = (
         });
 
         if (intersectingRef && observe) {
-          setState({ tag: intersectingHeaderText, activeRef: intersectingRef, type: 'scrolled' });
+          setState({ tag: { label: intersectingHeaderText, id: index }, activeRef: intersectingRef });
         }
       }
     });
