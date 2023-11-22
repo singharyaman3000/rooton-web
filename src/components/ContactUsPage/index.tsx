@@ -42,6 +42,8 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
         backgroundImageUrl={appendAssetUrl(contents?.attributes?.media_url?.data?.attributes?.url)}
         heightStyle="h-[640px] lg:h-[500px]"
         subDescription={contents?.attributes?.sub_title ?? ''}
+        noGrid
+        fontSizes={{ description: 'text-[15px] lg:text-xl' }}
         button={<BookAnAppointmentButton text={contents?.attributes?.CTA_text ?? ''}
           onClick={() => { return handleCTAButton(CONSULTATION_TYPES.PAID); }} />}
       />
