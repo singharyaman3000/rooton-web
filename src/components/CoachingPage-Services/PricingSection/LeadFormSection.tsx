@@ -61,6 +61,7 @@ const PricingLeadFormSection = ({
               portalId={(PricingleadForm?.lead_forms && PricingleadForm?.lead_forms[0].portalId) ?? ''}
               formId={(PricingleadForm?.lead_forms && PricingleadForm?.lead_forms[0].formId) ?? ''}
               target="PricingLeadForm"
+              singlePageForm
             />
           </div>
         </div>

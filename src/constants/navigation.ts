@@ -1,5 +1,7 @@
 export const BOOK_AN_APPOINTMENT = '/book-an-appointment';
 
+export const BLOG_LISTING_PATH = '/blogs';
+
 export const ABOUT_US_PATH = [
   {
     title: 'Home',

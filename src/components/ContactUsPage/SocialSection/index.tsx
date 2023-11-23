@@ -2,20 +2,22 @@ import { RefObject, useRef } from 'react';
 import BookAppointmentForm from '@/components/AboutUsPage/BookAppointmentForm';
 import { IContactUsContents } from '@/app/services/apiService/contactUsPageAPI';
 import NextImage from '@/components/UIElements/NextImage';
-import { appendAssetUrl } from '@/utils';
 import { SocialMediaInterfaceType } from '@/app/services/apiService/headerFooterAPI';
 import SocialMediaLinks from '../SocialMediaLinks';
+import { useTheme } from 'next-themes';
 
 const SocialSection = ({
   formData,
   scrollToLeadForm,
   sectionRef,
   socialMeta,
+  ctaClickSource,
 }: {
   formData: IContactUsContents;
   scrollToLeadForm: () => void;
   sectionRef: RefObject<HTMLElement>;
   socialMeta: SocialMediaInterfaceType[];
+  ctaClickSource: string;
 }) => {
   const bookRef = useRef<HTMLElement>(null);
   const socialData = formData?.data?.find((a) => {
@@ -30,11 +32,11 @@ const SocialSection = ({
       region: formMeta[0]?.region ?? '',
       portalId: formMeta[0]?.portalId ?? '',
       formId: formMeta[0]?.formId ?? '',
-      calendarLink: formMeta[1]?.meeting?.paid?.url
-        ? formMeta[1]?.meeting?.paid?.url
-        : formMeta[1]?.meeting?.free?.url ?? '',
+      calendarLink: formMeta[1]?.url ?? undefined,
     },
   };
+
+  const { theme } = useTheme();
 
   return (
     <section ref={sectionRef} className="flex flex-col lg:flex-row w-full">
@@ -44,7 +46,7 @@ const SocialSection = ({
           <NextImage
             sizes="100vw"
             priority
-            src={appendAssetUrl(socialData?.attributes?.media_url?.data?.attributes?.url ?? '')}
+            src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
             fill
             style={{ objectFit: 'cover' }}
             altText="rooton_logo"
@@ -63,6 +65,7 @@ const SocialSection = ({
           formData={appoinmentForm.formData}
           formHeading={appoinmentForm.formHeading}
           imageUrl={appoinmentForm.imageUrl}
+          ctaClickSource={ctaClickSource}
         />
       </div>
     </section>

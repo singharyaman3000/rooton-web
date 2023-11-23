@@ -20,6 +20,7 @@ import BlogSection from './PageSections/BlogSection';
 import { ServiceDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
+import { CONSULTATION_TYPES } from './LeadFormStepper';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -28,6 +29,7 @@ type ServicePageProps = {
 
 export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
+  const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
 
   const leadFormRef = useRef<HTMLDivElement>(null);
 
@@ -97,7 +99,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     }, 0);
   };
 
-  const handleCTAButtonClick = () => {
+  const handleCTAButtonClick = (source: string) => {
+    setCtaClickSource(source);
     setShowBookAnAppointment(true);
     scrollToLeadForm();
   };
@@ -107,13 +110,15 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'service-reason':
       return (
         <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <WhyChooseRootonSection whyChooseOpen={data} handleCTAButtonClick={handleCTAButtonClick} />
+          <WhyChooseRootonSection whyChooseOpen={data}
+            handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.PAID);}} />
         </ServicePageWrapper>
       );
     case 'service-eligibility':
       return (
         <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <EligibilitySection eligibility={eligibility} handleCTAButtonClick={handleCTAButtonClick} />
+          <EligibilitySection eligibility={eligibility}
+            handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}} />
         </ServicePageWrapper>
       );
     case 'service-process':
@@ -127,10 +132,11 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
             } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
           >
             <LeadFormSection
+              ctaClickSource={ctaClickSource}
               leadForm={leadForm}
               leadFormRef={leadFormRef}
               scrollToTop={scrollToLeadForm}
-              handleCTAButtonClick={handleCTAButtonClick}
+              handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}}
               isBookAppointment={isBookAppointment}
             />
           </ServicePageWrapper>
@@ -139,11 +145,11 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
 
       return null;
     case 'service-CTA-banner-1':
-      return <CTAWrapperSection handleCTAButtonClick={handleCTAButtonClick} />;
+      return <CTAWrapperSection handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}} />;
     case 'service-CTA-banner-2':
       return (
         <ServicePageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
-          <BookAnAppointment onClick={handleCTAButtonClick} />
+          <BookAnAppointment onClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}} />
         </ServicePageWrapper>
       );
     case 'service-testimonial':
@@ -198,7 +204,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text} onClick={handleCTAButtonClick} />}
+        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text}
+          onClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.PAID);}} />}
       />
       <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <ServiceDescription text={response.data?.attributes?.description} />

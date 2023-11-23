@@ -51,6 +51,26 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       </button>
                     </div>
                     <div className="relative flex-1 px-[28px] py-[40px] sm:px-6">
+                      <Link href={params.lang ? `/${params.lang}/` : '/'}>
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                        >
+                          Home
+                        </div>
+                      </Link>
                       <Link href={params.lang ? `/${params.lang}/about-us` : '/about-us'}>
                         <div
                           onClick={() => {
@@ -156,7 +176,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Contact Us
                         </div>
                       </Link>
-                      <Link href={params.lang ? `/${params.lang}/` : '/'}>
+                      {/* <Link href={params.lang ? `/${params.lang}/` : '/'}>
                         <div
                           onClick={() => {
                             setOpen(false);
@@ -175,7 +195,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                         >
                           Tools
                         </div>
-                      </Link>
+                      </Link> */}
                       <button
                         type="button"
                         className="

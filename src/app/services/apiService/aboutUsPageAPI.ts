@@ -17,7 +17,7 @@ export interface IAboutUsContent {
 
 export const getAboutUsContent = async () => {
   try {
-    // Page made to refresh every day (60 * 60 * 24)
+    // Revalidate data after 24 hours
     const res = await getFetch<IAboutUsContent>(ABOUT_US_API_PATH, { next: { revalidate: 60 * 60 * 24 } });
     return res;
   } catch (error) {
