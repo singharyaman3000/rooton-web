@@ -45,7 +45,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
   const handleCTAButton = () => {
     const serviceId = details?.attributes?.sub_service?.data?.id;
     if (serviceId) {
-      const route = getTranslatedURL(getServicePageURL(serviceId), params?.lang);
+      const route = params?.lang ? `/${params?.lang}/service/${serviceId}` : `/service/${serviceId}`;
       router.push(route + BOOK_AN_APPOINTMENT);
     }
   };
