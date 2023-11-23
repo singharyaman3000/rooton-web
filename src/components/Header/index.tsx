@@ -188,9 +188,8 @@ export default function Header() {
           `}
           >
             <span
-              className={`h-[100%] flex items-center relative ${
-                activeTab === 'home' ? 'font-extrabold' : 'font-bold'
-              }`}
+              className={`h-[100%] flex items-center relative ${activeTab === 'home' ? 'font-extrabold' : 'font-bold'
+                }`}
             >
               <Link href={'/'}> Home </Link>
               {activeTab === 'home' && (
@@ -198,9 +197,8 @@ export default function Header() {
               )}
             </span>
             <span
-              className={`h-[100%] flex items-center relative ${
-                activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'
-              }`}
+              className={`h-[100%] flex items-center relative ${activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'
+                }`}
             >
               <Link href={params.lang ? `/${params.lang}/about-us` : '/about-us'}> About Us</Link>
               {activeTab === 'about-us' && (
@@ -215,10 +213,10 @@ export default function Header() {
             >
               <Link href={{ pathname: params.lang ? `/${params.lang}` : '/', query: { 'section': 'services' } }}>
                 Services
-                {activeTab === 'service' && (
-                  <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
-                )}
               </Link>
+              {activeTab === 'service' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
+              )}
             </span>
             <span
               className={`h-[100%] flex items-center relative ${activeTab === 'coaching' ?
