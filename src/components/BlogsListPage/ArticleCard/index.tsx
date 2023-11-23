@@ -24,15 +24,15 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
           />
         </div>
         <div className="px-6">
-          <h2 className="max-h-[90px] text-base lg:text-lg font-bold mt-3 text-primary-black blog-text">
+          <h2 className="max-h-[90px] text-base lg:text-lg font-bold mt-3 text-primary-black primary-font-color">
             {attributes?.title ?? ''}
           </h2>
-          <p className="pt-3 max-h-[75px] text-sm text-primary-black opacity-60 text-ellipsis overflow-hidden blog-text">
+          <p className="pt-3 max-h-[75px] text-sm primary-fonr-color opacity-60 text-ellipsis overflow-hidden">
             {attributes?.description}
           </p>
           <div className="flex justify-between  items-center mt-4 pt-[15px] pb-6 text-sm border-t-[1px] border-b-[1px] md:border-b-0 border-[#d7d7d7]">
             <div className="flex gap-2">
-              <span className="text-primary-black blog-text opacity-[.36]">Last updated</span>
+              <span className="primary-font-color opacity-[.36]">Last updated</span>
               <span className="text-primary-black blog-text">{formatDate(attributes?.updatedAt)}</span>
             </div>
             <div className="flex gap-2">
