@@ -1,11 +1,22 @@
-import { IBlogData } from '@/app/services/apiService/blogsListAPI';
-import NextImage from '@/components/UIElements/NextImage';
-import { appendAssetUrl, formatDate } from '@/utils';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
+import { appendAssetUrl, formatDate } from '@/utils';
+import NextImage from '@/components/UIElements/NextImage';
+import { BLOG_LISTING_PATH } from '@/constants/navigation';
+import { IBlogData } from '@/app/services/apiService/blogsListAPI';
 
 type ArticleCardPropType = { attributes: IBlogData['attributes']; articleId: number };
 
 const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
+  let baseUrl = BLOG_LISTING_PATH;
+  const params = useParams();
+
+  if (params.lang) {
+    baseUrl = `/${params.lang}${baseUrl}`;
+  }
+  const href = articleId && attributes?.category ? `${baseUrl}/${articleId}/${attributes.category}` : baseUrl;
+
   return (
     <Link
       href={{

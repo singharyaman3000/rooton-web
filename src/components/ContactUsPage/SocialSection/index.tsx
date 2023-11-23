@@ -11,11 +11,13 @@ const SocialSection = ({
   scrollToLeadForm,
   sectionRef,
   socialMeta,
+  ctaClickSource,
 }: {
   formData: IContactUsContents;
   scrollToLeadForm: () => void;
   sectionRef: RefObject<HTMLElement>;
   socialMeta: SocialMediaInterfaceType[];
+  ctaClickSource: string;
 }) => {
   const bookRef = useRef<HTMLElement>(null);
   const socialData = formData?.data?.find((a) => {
@@ -30,9 +32,7 @@ const SocialSection = ({
       region: formMeta[0]?.region ?? '',
       portalId: formMeta[0]?.portalId ?? '',
       formId: formMeta[0]?.formId ?? '',
-      calendarLink: formMeta[1]?.meeting?.paid?.url
-        ? formMeta[1]?.meeting?.paid?.url
-        : formMeta[1]?.meeting?.free?.url ?? '',
+      calendarLink: formMeta[1]?.url ?? undefined,
     },
   };
 
@@ -65,6 +65,7 @@ const SocialSection = ({
           formData={appoinmentForm.formData}
           formHeading={appoinmentForm.formHeading}
           imageUrl={appoinmentForm.imageUrl}
+          ctaClickSource={ctaClickSource}
         />
       </div>
     </section>

@@ -19,7 +19,7 @@ const BlogsPageCSR = () => {
   return (
     <div>
       {(loader || loading) && <LoadingUI />}
-      {data && <BlogsListPage blogsHeaderData={data as IBlogsHomeContent} />};
+      {data && <BlogsListPage blogsHeaderData={data as IBlogsHomeContent} />}
     </div>
   );
 };
