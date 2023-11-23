@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import HomePage from '@/components/HomePage';
-import { getHomePageContents } from '../services/apiService/homeAPI';
+import { SearchParams, getHomePageContents } from '../services/apiService/homeAPI';
 
 export const metadata: Metadata = {
   title: 'ROOT ON',
@@ -19,7 +19,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: SearchParams}) {
   const apiRes = await getHomePageContents();
-  return apiRes?.length > 0 && <HomePage homePageConfig={apiRes[0]} />;
+  return apiRes?.length > 0 && <HomePage homePageConfig={apiRes[0]} searchParams={searchParams ?? undefined} />;
 }

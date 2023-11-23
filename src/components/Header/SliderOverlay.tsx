@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Fragment, useContext } from 'react';
 
-import { scrollIntoView } from '@/utils';
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
 import { Dialog, Transition } from '@headlessui/react';
@@ -22,7 +21,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-[1000]" onClose={() => {}}>
+      <Dialog as="div" className="relative z-[1000]" onClose={() => { }}>
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="fixed inset-y-0 right-0 flex max-w-full">
@@ -72,14 +71,17 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           About Us
                         </div>
                       </Link>
-                      <div
-                        onClick={() => {
-                          scrollIntoView('servicesHomePage');
-                          setOpen(false);
-                        }}
-                        role="button"
-                        tabIndex={0}
-                        className="
+                      <Link href={{
+                        pathname: params.lang ? `/${params.lang}` : '/',
+                        query: { 'section': 'services' },
+                      }}>
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -89,9 +91,10 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           mb-5
                           cursor-pointer
                         "
-                      >
-                        Services
-                      </div>
+                        >
+                          Services
+                        </div>
+                      </Link>
                       <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}>
                         <div
                           onClick={() => {

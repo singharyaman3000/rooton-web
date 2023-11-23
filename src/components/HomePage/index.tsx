@@ -1,11 +1,13 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import Credibility from '@/components/HomePage/Credibility';
 import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import OurProcess from '@/components/HomePage/OurProcess';
-import { CONTENT_TYPES, IHomePageData } from '@/app/services/apiService/homeAPI';
-import { appendAssetUrl, getSectionData, isVideo } from '@/utils';
+import { CONTENT_TYPES, IHomePageData, SearchParams } from '@/app/services/apiService/homeAPI';
+import { appendAssetUrl, getSectionData, isVideo, scrollIntoView } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -20,7 +22,8 @@ import BlogSection from '../ServicePage/PageSections/BlogSection';
 import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 
-const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
+const HomePage = ({ homePageConfig, searchParams }:
+  { homePageConfig: IHomePageData, searchParams: SearchParams | undefined }) => {
   const getComponentsAboveBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
@@ -76,6 +79,11 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       }
     });
   };
+
+  useEffect(() => {
+    if (searchParams?.section === 'services')
+      scrollIntoView('servicesHomePage');
+  }, [searchParams]);
 
   const getComponentsAfterBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
