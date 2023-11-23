@@ -48,6 +48,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: id,
     sliderData: allArticlesList,
+    cardSpacing: window.innerWidth >= 1280 ? 30 : 20,
   });
   const params = useParams();
 
