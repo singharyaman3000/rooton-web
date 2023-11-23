@@ -54,8 +54,8 @@ export const BOOK_APPOINTMENT_FORM = {
     portalId: '7535538',
     formId: '61e819dd-78e2-4fff-983e-60e559f52cc3',
     calendarLink: {
-      free: 'https://meetings.hubspot.com/unnikrishnan',
-      paid: 'https://meetings.hubspot.com/geethu-g1',
+      free: 'https://meetings.hubspot.com/geethu-g1',
+      paid: 'https://calendly.com/root-on-immigration-consultants/discovery-call-with-client ',
     },
   },
 };
