@@ -950,10 +950,6 @@ heading {
   background-color: rgba(256, 256, 256, 0.14);
 }
 
-[data-theme='dark'] .blog-text{
-  color: #fff;
-}
-
 [data-theme='dark'] .blog-bg{
   background: #000;
 }
@@ -964,10 +960,6 @@ heading {
 
 [data-theme='dark'] .credibility-images{
   background-color: #fff;
-}
-
-[data-theme='dark'] .testimonial-text{
-  color: #fff;
 }
 
 [data-theme='dark'] .testimonial-footer{

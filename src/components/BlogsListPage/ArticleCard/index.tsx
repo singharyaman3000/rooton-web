@@ -24,7 +24,7 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
           />
         </div>
         <div className="px-6">
-          <h2 className="max-h-[90px] text-base lg:text-lg font-bold mt-3 text-primary-black primary-font-color">
+          <h2 className="max-h-[90px] text-base lg:text-lg font-bold mt-3 primary-font-color">
             {attributes?.title ?? ''}
           </h2>
           <p className="pt-3 max-h-[75px] text-sm primary-fonr-color opacity-60 text-ellipsis overflow-hidden">

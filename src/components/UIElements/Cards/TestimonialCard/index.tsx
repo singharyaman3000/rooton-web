@@ -49,8 +49,8 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
       <div className=" relative h-full">
         {type === 'text' && (
           <div
-            className="testimonial-text text-[13px] font-medium p-[16px] pr-[10px] md:p-[16px] md:pr-[6px]
-            not-italic !leading-[1.67] tracking-[normal] md:text-sm text-black
+            className="primary-font-color text-[13px] font-medium p-[16px] pr-[10px] md:p-[16px] md:pr-[6px]
+            not-italic !leading-[1.67] tracking-[normal] md:text-sm
             h-[calc(100%-80px)]"
           >
             <p className="h-full overflow-y-auto pr-[10px]">{HtmlParser(attributes?.description)}</p>
