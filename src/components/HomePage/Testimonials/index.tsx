@@ -43,6 +43,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',
     sliderData: allArticlesList,
+    cardSpacing: window.innerWidth >= 1280 ? 30 : 20,
   });
   const [popUpData, setPopUpData] = useState<ITestimonialAttributes>();
 
