@@ -1,18 +1,26 @@
 'use client';
 
-import CopyLinkIcon from '@/components/Icons/CopyLinkIcon';
-import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
-import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
-import TwitterIcon from '@/components/Icons/TwitterIcon';
+import { useState } from 'react';
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
 
+import TwitterIcon from '@/components/Icons/TwitterIcon';
+import CopyLinkIcon from '@/components/Icons/CopyLinkIcon';
+import ToastMessage from '@/components/UIElements/ToastMessage';
+import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
+import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
+
 const SocialMediaShare = () => {
+  const toastMessage = 'Copied to clipboard';
+  const [displayToast, setDisplayToast] = useState(false);
+
   const getCurrentBlogUrl = () => {
     return window.location.href;
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(getCurrentBlogUrl());
+    navigator.clipboard.writeText(getCurrentBlogUrl()).then(() => {
+      setDisplayToast(true);
+    });
   };
 
   return (
@@ -32,6 +40,7 @@ const SocialMediaShare = () => {
           <CopyLinkIcon />
         </div>
       </div>
+      {displayToast ? <ToastMessage message={toastMessage} setShowToast={setDisplayToast} /> : null}
     </div>
   );
 };
