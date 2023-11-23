@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from 'react';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import SliderOverlay from './SliderOverlay';
 import TalkToOurExpert from '../UIElements/TalkToOurExpert';
-import { scrollIntoView } from '@/utils';
 import { useParams, usePathname } from 'next/navigation';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
+import { scrollIntoView } from '@/utils';
 
 const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us', 'home'];
 
@@ -21,9 +21,9 @@ export default function Header() {
   const headerRef = useRef<HTMLHeadElement>(null);
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
-  const [activeTab,setActiveTab] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<string>('');
   const [shouldRenderWhatsAppButton, setshouldRenderWhatsAppButton]
-   = useState<IWhatsAppAttributes | undefined>(undefined);
+    = useState<IWhatsAppAttributes | undefined>(undefined);
   const [whatsAppData, setwhatsAppData] = useState<IWhatsApp>({});
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +35,12 @@ export default function Header() {
     fetchData();
   }, []);
   const isFixed = !!params?.blogId || path.includes('sitemap');
+
+  const scrollToServiceListing = () => {
+    if (path === '/' || (path.split('/').length < 3 && params.lang)) {
+      scrollIntoView('servicesHomePage');
+    }
+  };
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -116,7 +122,7 @@ export default function Header() {
   };
 
   const getIconStyle = () => {
-    if(isFixed){
+    if (isFixed) {
       const logo = theme === 'dark' ? '/root-on-logo-svg.svg' : '/root-on-logo-black.svg';
       return logo;
     }
@@ -126,11 +132,9 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`z-[999] ${
-        scrolledEnough
-          ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
-          : ' absolute top-0 w-full'
-      }`}
+      className={`z-[999] ${scrolledEnough
+        ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
+        : ' absolute top-0 w-full'}`}
     >
       <SliderOverlay open={open} setOpen={setOpen} />
       <nav>
@@ -191,9 +195,7 @@ export default function Header() {
           `}
           >
             <span
-              className={`h-[100%] flex items-center relative ${
-                activeTab === 'home' ? 'font-extrabold' : 'font-bold'
-              }`}
+              className={`h-[100%] flex items-center relative ${activeTab === 'home' ? 'font-extrabold' : 'font-bold'}`}
             >
               <Link href={'/'}> Home </Link>
               {activeTab === 'home' && (
@@ -201,9 +203,8 @@ export default function Header() {
               )}
             </span>
             <span
-              className={`h-[100%] flex items-center relative ${
-                activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'
-              }`}
+              className={`h-[100%] flex items-center relative
+              ${activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'}`}
             >
               <Link href={params.lang ? `/${params.lang}/about-us` : '/about-us'}> About Us</Link>
               {activeTab === 'about-us' && (
@@ -211,23 +212,30 @@ export default function Header() {
               )}
             </span>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            {
+              path === '/' || (path.split('/').length < 3 && params.lang) ?
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                <span onClick={scrollToServiceListing}
+                  className={`cursor-pointer h-[100%] flex items-center relative
+                  ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
+                  Services
+                </span> :
+                <span className={`cursor-pointer h-[100%] flex items-center relative
+                  ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
+                  <Link href={{
+                    pathname: params.lang ? `/${params.lang}/` : '/',
+                    query: { 'section': 'services' },
+                  }}>
+                    Services
+                  </Link>
+                </span>
+            }
+            {activeTab === 'service' && (
+              <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
+            )}
             <span
-              onClick={() => {
-                scrollIntoView('servicesHomePage');
-              }}
-              className={`cursor-pointer h-[100%] flex items-center relative ${
-                activeTab === 'service' ? 'font-extrabold' : 'font-bold'
-              }`}
-            >
-              Services
-              {activeTab === 'service' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
-              )}
-            </span>
-            <span
-              className={`h-[100%] flex items-center relative ${
-                activeTab === 'coaching' ? 'font-extrabold' : 'font-bold'
-              }`}
+              className={`h-[100%] flex items-center relative ${activeTab === 'coaching' ?
+                'font-extrabold' : 'font-bold'}`}
             >
               <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}> Coaching </Link>
               {activeTab === 'coaching' && (
@@ -235,9 +243,8 @@ export default function Header() {
               )}
             </span>
             <span
-              className={`h-[100%] flex items-center relative ${
-                activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'
-              }`}
+              className={`h-[100%] flex items-center relative
+               ${activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'}`}
             >
               <Link href={params.lang ? `/${params.lang}/blogs` : '/blogs'}> Blogs </Link>
               {activeTab === 'blogs' && (
@@ -245,9 +252,8 @@ export default function Header() {
               )}
             </span>
             <span
-              className={`h-[100%] flex items-center relative ${
-                activeTab === 'contact-us' ? 'font-extrabold' : 'font-bold'
-              }`}
+              className={`h-[100%] flex items-center relative 
+              ${activeTab === 'contact-us' ? 'font-extrabold' : 'font-bold'}`}
             >
               <Link href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}> Contact Us </Link>
               {activeTab === 'contact-us' && (
@@ -284,9 +290,9 @@ export default function Header() {
         />
         <div>
           {shouldRenderWhatsAppButton && (
-            <WhatsAppButton whatsapp={ whatsAppData!.data!.attributes } theme={theme || 'light'} />
+            <WhatsAppButton whatsapp={whatsAppData!.data!.attributes} theme={theme || 'light'} />
           )}</div>
       </nav>
-    </header>
+    </header >
   );
 }

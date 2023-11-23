@@ -1,11 +1,13 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import Credibility from '@/components/HomePage/Credibility';
 import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import OurProcess from '@/components/HomePage/OurProcess';
 import { CONTENT_TYPES, IHomePageData } from '@/app/services/apiService/homeAPI';
-import { appendAssetUrl, getSectionData, isVideo } from '@/utils';
+import { appendAssetUrl, getSectionData, isVideo, scrollIntoView } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -19,6 +21,7 @@ import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 import BlogSection from '../ServicePage/PageSections/BlogSection';
 import { TESTIMONIAL_API } from '@/app/services/apiService/apiUrl/homePage';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
+import { useSearchParams } from 'next/navigation';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const getComponentsAboveBookAppointments = () => {
@@ -76,6 +79,12 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       }
     });
   };
+
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    if (searchParams.get('section') === 'services')
+      scrollIntoView('servicesHomePage');
+  });
 
   const getComponentsAfterBookAppointments = () => {
     return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
