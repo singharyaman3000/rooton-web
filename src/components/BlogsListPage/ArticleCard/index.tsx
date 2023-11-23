@@ -18,11 +18,7 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
   const href = articleId && attributes?.category ? `${baseUrl}/${articleId}/${attributes.category}` : baseUrl;
 
   return (
-    <Link
-      href={{
-        pathname: `/blogs/${articleId}/${attributes?.category ?? ''}`,
-      }}
-    >
+    <Link href={href}>
       <div className="flex flex-col items-center bg-white-fixed blog-bg justify-between h-[514px] lg:h-[527px] border-t-[1px] border-[#b9b9b9] md:border hover:border-golden-yellow !min-w-[360px] md:w-[380px] cursor-pointer">
         <div className="h-[216px] w-[312px] md:min-h-[252px] md:w-full relative mt-6 md:mt-0">
           <NextImage
