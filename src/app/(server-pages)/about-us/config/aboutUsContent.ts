@@ -53,7 +53,10 @@ export const BOOK_APPOINTMENT_FORM = {
     region: 'na1',
     portalId: '7535538',
     formId: '61e819dd-78e2-4fff-983e-60e559f52cc3',
-    calendarLink: 'https://meetings.hubspot.com/unnikrishnan',
+    calendarLink: {
+      free: 'https://meetings.hubspot.com/unnikrishnan',
+      paid: 'https://meetings.hubspot.com/geethu-g1',
+    },
   },
 };
 

@@ -1,6 +1,7 @@
 import { getFetch } from '@/utils/apiUtils';
 import { GET_CONTACT_US_CONTENTS } from './apiUrl/contactUsPage';
 import { MediaUrl, IPageMeta, IMediaUrlData } from './interfaces';
+import { IMeetingData } from './serviceAPI';
 
 export type LeadFormType = [
   {
@@ -10,10 +11,9 @@ export type LeadFormType = [
     type: string;
   },
   {
-    meeting: {
-      free: { service: string; type: string; url: string };
-      paid: { service: string; type: string; url: string };
-    };
+    service: string;
+    type: string;
+    url: IMeetingData;
   },
 ];
 

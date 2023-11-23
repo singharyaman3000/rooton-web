@@ -3,8 +3,10 @@ import { RefObject } from 'react';
 import { convertToHtmlId } from '@/utils';
 import NextImage from '@/components/UIElements/NextImage';
 import LeadFormStepper from '@/components/ServicePage/LeadFormStepper';
+import { IMeetingData } from '@/app/services/apiService/serviceAPI';
 
 interface BookAppointmentFormProps {
+  ctaClickSource: string;
   formHeading?: string;
   sectionRef?: RefObject<HTMLElement>;
   displayBookAppointment?: boolean;
@@ -14,7 +16,7 @@ interface BookAppointmentFormProps {
     region: string;
     portalId: string;
     formId: string;
-    calendarLink: string;
+    calendarLink: IMeetingData | undefined;
   };
 }
 
@@ -25,6 +27,7 @@ const BookAppointmentForm = ({
   scrollToLeadForm,
   imageUrl,
   formData,
+  ctaClickSource,
 }: BookAppointmentFormProps) => {
   const { region, portalId, formId, calendarLink } = formData;
 
@@ -59,6 +62,7 @@ const BookAppointmentForm = ({
             calenderLink={calendarLink}
             isBookAppointment={false}
             singlePageForm
+            ctaClickSource={ctaClickSource}
           />
         </div>
         {imageUrl ? (
