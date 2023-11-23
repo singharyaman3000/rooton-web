@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { Fragment, useContext } from 'react';
 
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
 import { Dialog, Transition } from '@headlessui/react';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
+import { scrollIntoView } from '@/utils';
 
 interface SliderOverlayProps {
   open: boolean;
@@ -18,6 +19,14 @@ interface SliderOverlayProps {
 export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
   const { openCoreServiceList } = useContext(ModalShowContextname);
   const params = useParams();
+  const path = usePathname();
+
+  const scrollToServiceListing = () => {
+    if (path === '/' || (path.split('/').length < 3 && params.lang)) {
+      scrollIntoView('servicesHomePage');
+    }
+    setOpen(false);
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -91,17 +100,25 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           About Us
                         </div>
                       </Link>
-                      <Link href={{
-                        pathname: params.lang ? `/${params.lang}` : '/',
-                        query: { 'section': 'services' },
-                      }}>
-                        <div
-                          onClick={() => {
-                            setOpen(false);
-                          }}
-                          role="button"
-                          tabIndex={0}
-                          className="
+                      {
+                        path === '/' || (path.split('/').length < 3 && params.lang) ?
+                          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                          <div className='text-primary-font-color pb-5 text-xl
+                          font-bold border-b border-primary-border mb-5'
+                          onClick={scrollToServiceListing}>
+                            Services
+                          </div> :
+                          <Link href={{
+                            pathname: params.lang ? `/${params.lang}` : '/',
+                            query: { 'section': 'services' },
+                          }}>
+                            <div
+                              onClick={() => {
+                                setOpen(false);
+                              }}
+                              role="button"
+                              tabIndex={0}
+                              className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -111,10 +128,11 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           mb-5
                           cursor-pointer
                         "
-                        >
-                          Services
-                        </div>
-                      </Link>
+                            >
+                              Services
+                            </div>
+                          </Link>
+                      }
                       <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}>
                         <div
                           onClick={() => {
