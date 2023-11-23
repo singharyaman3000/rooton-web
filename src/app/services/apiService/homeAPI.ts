@@ -19,10 +19,6 @@ export const CONTENT_TYPES = {
   QUESTIONS: 'questions',
 };
 
-export interface SearchParams {
-  [key: string]: string | string[] | undefined;
-}
-
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
 
 export interface Attributes2 {

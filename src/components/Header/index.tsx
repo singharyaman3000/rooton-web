@@ -10,6 +10,7 @@ import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { useParams, usePathname } from 'next/navigation';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
+import { scrollIntoView } from '@/utils';
 
 const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us', 'home'];
 
@@ -34,6 +35,12 @@ export default function Header() {
     fetchData();
   }, []);
   const isFixed = !!params?.blogId || path.includes('sitemap');
+
+  const scrollToServiceListing = () => {
+    if (path === '/' || (path.split('/').length < 3 && params.lang)) {
+      scrollIntoView('servicesHomePage');
+    }
+  };
 
   useEffect(() => {
     let lastKnownScrollPosition = 0;
@@ -188,8 +195,7 @@ export default function Header() {
           `}
           >
             <span
-              className={`h-[100%] flex items-center relative ${activeTab === 'home' ? 'font-extrabold' : 'font-bold'
-                }`}
+              className={`h-[100%] flex items-center relative ${activeTab === 'home' ? 'font-extrabold' : 'font-bold'}`}
             >
               <Link href={'/'}> Home </Link>
               {activeTab === 'home' && (
@@ -197,8 +203,8 @@ export default function Header() {
               )}
             </span>
             <span
-              className={`h-[100%] flex items-center relative ${activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'
-                }`}
+              className={`h-[100%] flex items-center relative
+              ${activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'}`}
             >
               <Link href={params.lang ? `/${params.lang}/about-us` : '/about-us'}> About Us</Link>
               {activeTab === 'about-us' && (
@@ -206,18 +212,27 @@ export default function Header() {
               )}
             </span>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            <span
-              // onClick={navigateToServiceListing}
-              className={`cursor-pointer h-[100%] flex items-center relative
-              ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}
-            >
-              <Link href={{ pathname: params.lang ? `/${params.lang}` : '/', query: { 'section': 'services' } }}>
-                Services
-              </Link>
-              {activeTab === 'service' && (
-                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
-              )}
-            </span>
+            {
+              path === '/' || (path.split('/').length < 3 && params.lang) ?
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                <span onClick={scrollToServiceListing}
+                  className={`cursor-pointer h-[100%] flex items-center relative
+                  ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
+                  Services
+                </span> :
+                <span className={`cursor-pointer h-[100%] flex items-center relative
+                  ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
+                  <Link href={{
+                    pathname: params.lang ? `/${params.lang}/` : '/',
+                    query: { 'section': 'services' },
+                  }}>
+                    Services
+                  </Link>
+                </span>
+            }
+            {activeTab === 'service' && (
+              <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
+            )}
             <span
               className={`h-[100%] flex items-center relative ${activeTab === 'coaching' ?
                 'font-extrabold' : 'font-bold'}`}
@@ -278,6 +293,6 @@ export default function Header() {
             <WhatsAppButton whatsapp={whatsAppData!.data!.attributes} theme={theme || 'light'} />
           )}</div>
       </nav>
-    </header>
+    </header >
   );
 }
