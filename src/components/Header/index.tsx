@@ -12,7 +12,7 @@ import { useParams, usePathname } from 'next/navigation';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
-const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us', 'home'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -91,7 +91,7 @@ export default function Header() {
         }
       });
     } else {
-      setActiveTab('');
+      setActiveTab('home');
     }
   }
 
@@ -192,6 +192,16 @@ export default function Header() {
           >
             <span
               className={`h-[100%] flex items-center relative ${
+                activeTab === 'home' ? 'font-extrabold' : 'font-bold'
+              }`}
+            >
+              <Link href={'/'}> Home </Link>
+              {activeTab === 'home' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
+              )}
+            </span>
+            <span
+              className={`h-[100%] flex items-center relative ${
                 activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'
               }`}
             >
@@ -244,7 +254,7 @@ export default function Header() {
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
-            <span
+            {/* <span
               className={`h-[100%] flex items-center relative ${
                 activeTab === 'tools' ? 'font-extrabold' : 'font-bold'
               }`}
@@ -253,7 +263,7 @@ export default function Header() {
               {activeTab === 'tools' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
-            </span>
+            </span> */}
           </div>
           <ThemeToggleAndHamburger
             toggleSlideOverlay={toggleSlideOverlay}

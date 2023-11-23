@@ -31,7 +31,7 @@ const MobilePagination: React.FC<MobilePaginationPropsType> = ({ dotsToDisplay, 
   };
 
   return (
-    <div className={`md:hidden flex items-end py-4 gap-4 align-center justify-center ${className}`}>
+    <div className={`md:hidden flex items-end py-4 gap-4 align-center justify-center mobile-pagination ${className}`}>
       {dotsToDisplay?.map((number, index) => {
         return (
           <span

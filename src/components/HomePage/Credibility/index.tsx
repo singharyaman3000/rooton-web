@@ -107,7 +107,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
                 >
                   <ImageCard
                     key={`${lisenseImage?.id}`}
-                    cssClass="!h-[120px] w-full md:!h-[240px] mx-auto my-0 flex item-center"
+                    cssClass="credibility-images !h-[120px] w-full md:!h-[240px] mx-auto my-0 flex item-center"
                     borderClass={`${lisenseImage?.attributes?.name}`}
                     imageUrl={lisenseImage?.attributes.url}
                     sizes={'30vw'}

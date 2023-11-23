@@ -2,9 +2,9 @@ import { RefObject, useRef } from 'react';
 import BookAppointmentForm from '@/components/AboutUsPage/BookAppointmentForm';
 import { IContactUsContents } from '@/app/services/apiService/contactUsPageAPI';
 import NextImage from '@/components/UIElements/NextImage';
-import { appendAssetUrl } from '@/utils';
 import { SocialMediaInterfaceType } from '@/app/services/apiService/headerFooterAPI';
 import SocialMediaLinks from '../SocialMediaLinks';
+import { useTheme } from 'next-themes';
 
 const SocialSection = ({
   formData,
@@ -36,6 +36,8 @@ const SocialSection = ({
     },
   };
 
+  const { theme } = useTheme();
+
   return (
     <section ref={sectionRef} className="flex flex-col lg:flex-row w-full">
       <div className="text-sm px-6 lg:w-[50%] lg:text-base pb-[51px] pt-[68px] lg:pb-0 lg:pt-0 flex flex-col justify-center lg:w-1/2">
@@ -44,7 +46,7 @@ const SocialSection = ({
           <NextImage
             sizes="100vw"
             priority
-            src={appendAssetUrl(socialData?.attributes?.media_url?.data?.attributes?.url ?? '')}
+            src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
             fill
             style={{ objectFit: 'cover' }}
             altText="rooton_logo"
