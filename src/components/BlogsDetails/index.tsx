@@ -10,7 +10,6 @@ import { ArticleCategoryType } from '@/app/services/apiService/blogsListAPI';
 import BlogsCarousel from '../BlogsListPage/BlogsCarousel';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
 import { useParams, useRouter } from 'next/navigation';
-import { getServicePageURL, getTranslatedURL } from '@/utils';
 import { BOOK_AN_APPOINTMENT } from '@/constants/navigation';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { BLOG_DETAILS_BREADCRUMBS, BLOG_DETAILS_BREADCRUMBS_COACHING } from './constants';
