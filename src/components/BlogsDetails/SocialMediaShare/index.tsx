@@ -10,7 +10,8 @@ import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
 import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
 
 const SocialMediaShare = () => {
-  const [displayToastMessage, setDisplayToastMessage] = useState({ message: '', counter: 0 });
+  const [toastMessage, setToastMessage] = useState('');
+  const [displayToast, setDisplayToast] = useState(false);
 
   const getCurrentBlogUrl = () => {
     return window.location.href;
@@ -18,9 +19,8 @@ const SocialMediaShare = () => {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(getCurrentBlogUrl()).then(() => {
-      setDisplayToastMessage((prevState) => {
-        return { message: 'Copied to Clipboard', counter: prevState.counter + 1 };
-      });
+      setToastMessage('Copied to Clipboard');
+      setDisplayToast(true);
     });
   };
 
@@ -41,7 +41,7 @@ const SocialMediaShare = () => {
           <CopyLinkIcon />
         </div>
       </div>
-      {displayToastMessage.counter > 0 ? <ToastMessage message={displayToastMessage.message} /> : null}
+      {displayToast ? <ToastMessage message={toastMessage} setShowToast={setDisplayToast} /> : null}
     </div>
   );
 };
