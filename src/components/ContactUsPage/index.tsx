@@ -40,7 +40,7 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
         heroText={contents?.attributes?.title ?? ''}
         description={contents?.attributes?.title_description ?? ''}
         backgroundImageUrl={appendAssetUrl(contents?.attributes?.media_url?.data?.attributes?.url)}
-        heightStyle="h-[640px] lg:h-[500px]"
+        heightStyle="h-[640px] lg:h-[560px]"
         subDescription={contents?.attributes?.sub_title ?? ''}
         noGrid
         fontSizes={{ description: 'text-[15px] lg:text-xl' }}

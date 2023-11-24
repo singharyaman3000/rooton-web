@@ -5,6 +5,7 @@ import NextImage from '@/components/UIElements/NextImage';
 import { SocialMediaInterfaceType } from '@/app/services/apiService/headerFooterAPI';
 import SocialMediaLinks from '../SocialMediaLinks';
 import { useTheme } from 'next-themes';
+import HtmlParser from 'react-html-parser';
 
 const SocialSection = ({
   formData,
@@ -53,7 +54,9 @@ const SocialSection = ({
             title="Logo Image"
           />
         </div>
-        <p className="max-w-[469px]">{socialData?.attributes?.description}</p>
+        <p className="max-w-[469px]" id="contact-us-social-description">
+          {HtmlParser(socialData?.attributes?.description ?? '')}
+        </p>
         <SocialMediaLinks socialData={socialMeta} wrapperClass="mt-6 lg:mt-10" />
       </div>
       {/* Form section */}
@@ -66,6 +69,7 @@ const SocialSection = ({
           formHeading={appoinmentForm.formHeading}
           imageUrl={appoinmentForm.imageUrl}
           ctaClickSource={ctaClickSource}
+          formHeadingCss='!font-bold !text-2xl md:!text-[32px]'
         />
       </div>
     </section>
