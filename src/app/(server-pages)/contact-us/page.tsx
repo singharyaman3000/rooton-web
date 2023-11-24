@@ -1,7 +1,7 @@
 import { ContactUsResponseData, getContactUsContents } from '@/app/services/apiService/contactUsPageAPI';
 import { IHeaderFooterData, getHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import ContactUs from '@/components/ContactUsPage';
-import { WithContext, Organization } from 'schema-dts';
+import { WithContext, Organization, LocalBusiness } from 'schema-dts';
 import StructuredData from '@/components/UIElements/StructuredData';
 import { appendAssetUrl } from '@/utils';
 
@@ -13,7 +13,7 @@ export default async function ContactUsPage() {
 
   const organizationData = footerData?.attributes?.json_content?.organizationDetails;
 
-  const structuredData: WithContext<Organization> = {
+  const organizationStructuredData: WithContext<Organization> = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Root On',
@@ -48,10 +48,32 @@ export default async function ContactUsPage() {
     },
   };
 
+  const keysToOmit = ['sameAs'];
+
+  const localBusinessStructuredData: WithContext<LocalBusiness> = {
+    ...organizationStructuredData,
+    '@type': 'LocalBusiness',
+    geo: footerData?.attributes?.addresses?.data?.map((address) => {
+      return {
+        '@type': 'GeoCoordinates',
+        latitude: address?.attributes?.latitude ?? '',
+        longitude: address?.attributes?.longitude ?? '',
+        name: address?.attributes?.name ?? '',
+      };
+    }),
+  };
+
+  keysToOmit.forEach((key) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete localBusinessStructuredData[key];
+  });
+
   return (
     <>
-      <StructuredData<Organization> data={structuredData} />
-      <ContactUs contents={res?.data?.length ? res.data[0] : ({} as ContactUsResponseData)} />;
+      <StructuredData<Organization> data={organizationStructuredData} />
+      <StructuredData<LocalBusiness> data={localBusinessStructuredData} />
+      <ContactUs contents={res?.data?.length ? res.data[0] : ({} as ContactUsResponseData)} />
     </>
   );
 }
