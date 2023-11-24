@@ -29,7 +29,7 @@ export default function RTONButton({ ariaLabel, onClick, text, icon }: RTONButto
           md:w-fit
         "
     >
-      <p className=" font-bold text-[13px] lg:text-sm">{text}</p>
+      <p className=" font-bold text-[14px] lg:text-sm">{text}</p>
       {icon}
     </button>
   );
