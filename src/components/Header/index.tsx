@@ -211,28 +211,26 @@ export default function Header() {
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            {
-              path === '/' || (path.split('/').length < 3 && params.lang) ?
-                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <span onClick={scrollToServiceListing}
-                  className={`cursor-pointer h-[100%] flex items-center relative
-                  ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
-                  Services
-                </span> :
-                <span className={`cursor-pointer h-[100%] flex items-center relative
-                  ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
+            <span className={`cursor-pointer h-[100%] flex items-center relative
+              ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
+              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+              {
+                path === '/' || (path.split('/').length < 3 && params.lang) ?
+                  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                  <span onClick={scrollToServiceListing}>
+                    Services
+                  </span> :
                   <Link href={{
                     pathname: params.lang ? `/${params.lang}/` : '/',
                     query: { 'section': 'services' },
                   }}>
                     Services
                   </Link>
-                </span>
-            }
-            {activeTab === 'service' && (
-              <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
-            )}
+              }
+              {activeTab === 'service' && (
+                <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
+              )}
+            </span>
             <span
               className={`h-[100%] flex items-center relative ${activeTab === 'coaching' ?
                 'font-extrabold' : 'font-bold'}`}
