@@ -68,7 +68,7 @@ export const COMPANY_CEO_INFO = {
   vision:
     'His motivation to start Root On Consultants came from witnessing the challenges faced by immigrants, inspiring him to assist students with Canada Student Visas and immigrants from around the world.',
   licenseNumber: 'R529956',
-  imageUrl: '/images/aboutUs/company-ceo.png',
+  imageUrl: '/images/aboutUs/ronak-ceo.png',
   certificationImagesUrl: [
     {
       imageUrl: '/images/aboutUs/cicc-logo.png',
