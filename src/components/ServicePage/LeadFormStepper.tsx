@@ -2,6 +2,7 @@
 
 import { FormConstants } from '@/app/constants/hubspotConfig';
 import { SERVICES_TITLE } from '@/app/constants/textConstants';
+import { IMeetingData } from '@/app/services/apiService/serviceAPI';
 import { useEffect, useRef, useState } from 'react';
 
 type FormTargetProps = {
@@ -12,6 +13,11 @@ type FormTargetProps = {
   disableBackButton: boolean;
   showError: boolean;
   showNavButtons: boolean;
+};
+
+export const CONSULTATION_TYPES = {
+  PAID: 'PAID',
+  FREE: 'FREE',
 };
 
 const FormTarget = ({
@@ -25,7 +31,7 @@ const FormTarget = ({
   return (
     <div id={SERVICES_TITLE.leadForm.wrapperId} className="mt-12 h-full w-full">
       <div className=" h-full w-full" id={target} />
-      <div className={`${showNavButtons? 'flex': 'hidden'} justify-between w-full mt-10`}>
+      <div className={`${showNavButtons ? 'flex' : 'hidden'} justify-between w-full mt-10`}>
         <button
           disabled={disableBackButton}
           type="button"
@@ -53,9 +59,10 @@ type LeadFormStepperProps = {
   portalId: string;
   formId: string;
   target: string;
-  calenderLink: string;
+  calenderLink: IMeetingData | undefined;
   isBookAppointment: boolean;
   singlePageForm?: boolean;
+  ctaClickSource: string;
   // eslint-disable-next-line no-unused-vars
   onFormSubmit?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
@@ -81,6 +88,7 @@ const LeadFormStepper = (
     isBookAppointment,
     initScroll,
     singlePageForm = false,
+    ctaClickSource,
   }: LeadFormStepperProps) => {
   const { noOfFieldsAtaTime } = SERVICES_TITLE.leadForm;
   const showFrom = useRef<number>(0);
@@ -88,12 +96,14 @@ const LeadFormStepper = (
 
   const [disableNextButton, setDisableNextButton] = useState(false);
   const [disableBackButton, setDisableBackButton] = useState(true);
+  const [consultationType, setConsultationType] = useState('');
   const [showError, setShowError] = useState(false);
 
   const [showCalender, setShowCalender] = useState(false);
 
   const stepNo = useRef<number>(1);
   const formLength = useRef<number>(0);
+  const ctaClickType = useRef<string>('');
 
   const calculateProgress = () => {
     const progress = (stepNo.current / formLength.current) * 100;
@@ -124,7 +134,7 @@ const LeadFormStepper = (
 
       const fields = fieldsets[i].querySelectorAll('.hs-form-field');
 
-      for(let j = 0; j < fields.length; j+=1) {
+      for (let j = 0; j < fields.length; j += 1) {
         const errorList = fields[j].querySelector('.no-list') as HTMLUListElement;
 
         if (errorList) {
@@ -325,6 +335,23 @@ const LeadFormStepper = (
   };
 
   useEffect(() => {
+    ctaClickType.current = ctaClickSource;
+  }, [ctaClickSource]);
+
+  const getConsultationType = (form: HTMLFormElement) => {
+    const consulationFields = Array.from(form.querySelectorAll('input')).filter((ele) => {
+      return ele.name.includes('preferred_consultation_type_');
+    });
+    const isFree = consulationFields.length ?
+      !!(consulationFields.length &&
+        consulationFields.find((item) => { return item.value.toLowerCase().includes('free'); })?.checked) :
+      !(ctaClickType.current && ctaClickType.current === CONSULTATION_TYPES.PAID);
+    // eslint-disable-next-line no-nested-ternary
+    const selectedType = isFree && calenderLink?.free ? 'free' : calenderLink?.paid ? 'paid' : 'free';
+    setConsultationType(selectedType);
+  };
+
+  useEffect(() => {
     const onFormBlur = () => {
       setShowError(false);
     };
@@ -349,6 +376,7 @@ const LeadFormStepper = (
             formId,
             target: `#${target}`,
             onFormSubmit: (form: HTMLFormElement) => {
+              if (form) getConsultationType(form);
               if (onFormSubmit) {
                 onFormSubmit(form);
               }
@@ -364,7 +392,7 @@ const LeadFormStepper = (
               formReady();
               if (!singlePageForm) hideSubmitButton(true);
               const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
-              if(form) {
+              if (form) {
                 form[0].addEventListener('change', onFormBlur);
                 form[0].addEventListener('click', onFormClick);
               }
@@ -388,7 +416,7 @@ const LeadFormStepper = (
   }, []);
 
   useEffect(() => {
-    if(isBookAppointment) {
+    if (isBookAppointment) {
       if (initScroll) initScroll();
     }
   }, [isBookAppointment, initScroll]);
@@ -405,7 +433,8 @@ const LeadFormStepper = (
     />
   ) : (
     <div id='scheduler-container' className=" h-[54rem] mt-2">
-      <iframe className=" w-full h-full" title="AA" src={calenderLink} />
+      <iframe className=" w-full h-full" title="AA" src={calenderLink ?
+        calenderLink[consultationType as keyof IMeetingData] : ''} />
     </div>
   );
 };

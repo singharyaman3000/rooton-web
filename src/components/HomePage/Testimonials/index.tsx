@@ -43,6 +43,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',
     sliderData: allArticlesList,
+    cardSpacing: 30,
   });
   const [popUpData, setPopUpData] = useState<ITestimonialAttributes>();
 
@@ -150,7 +151,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
               scrollPercent={`${-scrollAmt}px`}
               id="testimonial-listing"
               pageNum={pageNum}
-              slideParentClass="!justify-start md:gap-[20px] xl:gap-[30px]"
+              slideParentClass="!justify-start md:gap-[30px]"
               loading={loading}
               loadingUI={<TestimonialPreLoader />}
               slideClass="!w-[100%] !px-[0px] md:px-[15px] !min-w-[100%]

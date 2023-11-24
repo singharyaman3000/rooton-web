@@ -1,6 +1,7 @@
 import { getFetch } from '@/utils/apiUtils';
 import { GET_CONTACT_US_CONTENTS } from './apiUrl/contactUsPage';
 import { MediaUrl, IPageMeta, IMediaUrlData } from './interfaces';
+import { IMeetingData } from './serviceAPI';
 
 export type LeadFormType = [
   {
@@ -12,7 +13,7 @@ export type LeadFormType = [
   {
     service: string;
     type: string;
-    url: string;
+    url: IMeetingData;
   },
 ];
 
@@ -34,7 +35,7 @@ type ContactUsAttributesType = {
   json_content: IJSONContent;
   unique_identifier_name: string;
   description: string;
-}
+};
 
 export interface IContactUsContents {
   data: { id: number; attributes: ContactUsAttributesType }[];

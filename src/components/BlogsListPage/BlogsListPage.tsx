@@ -23,7 +23,8 @@ const BlogsListPage: React.FC<BlogsListPropType> = ({ blogsHeaderData }) => {
         heroText={headerData?.attributes?.title ?? ''}
         description={headerData?.attributes?.sub_title ?? ''}
         backgroundImageUrl={appendAssetUrl(headerData?.attributes?.media_url?.data[0]?.attributes?.url ?? '')}
-        addGradient
+        noGrid
+        fontSizes={{ description: 'text-[15px] lg:text-2xl' }}
       />
       <TextTabs tabs={tabsData} onChange={setSelectedTab} />
       <div className="pt-10 md:py-20 bg-secondary-grey flex flex-col gap-[60px] md:gap-20">

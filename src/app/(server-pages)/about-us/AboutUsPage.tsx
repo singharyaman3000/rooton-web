@@ -22,6 +22,7 @@ import {
   BOOK_CONSULTATION_CONTENT,
   COMPANY_STAT_VALUES_DEFAULT,
 } from '@/app/(server-pages)/about-us/config/aboutUsContent';
+import { CONSULTATION_TYPES } from '@/components/ServicePage/LeadFormStepper';
 
 interface AboutUsPageProps {
   companyStatValues: typeof COMPANY_STAT_VALUES_DEFAULT;
@@ -30,6 +31,8 @@ interface AboutUsPageProps {
 const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
   const bookAppointmentRef = useRef<HTMLElement>(null);
   const [displayBookAppointment, setDisplayBookAppointment] = useState(false);
+
+  const [ctaClickSource, setCtaClickSource] = useState('');
 
   const scrollToLeadForm = () => {
     setTimeout(() => {
@@ -40,7 +43,10 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
     }, 0);
   };
 
-  const bookAppointmentHandler = () => {
+  const bookAppointmentHandler = (source: string) => {
+
+    setCtaClickSource(source);
+
     if (!displayBookAppointment) {
       setDisplayBookAppointment(true);
     }
@@ -76,7 +82,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
           buttonAriaLabel={BOOK_CONSULTATION_CONTENT.btnText}
           buttonText={BOOK_CONSULTATION_CONTENT.btnText}
           buttonIcon={<CalenderIconYellow />}
-          onClick={bookAppointmentHandler}
+          onClick={() => { bookAppointmentHandler(CONSULTATION_TYPES.PAID);}}
           imageSrc={BOOK_CONSULTATION_CONTENT.imageUrl}
           imageAlt={BOOK_CONSULTATION_CONTENT.imageAltText}
           imageTitle={BOOK_CONSULTATION_CONTENT.imageAltText}
@@ -94,6 +100,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
         scrollToLeadForm={scrollToLeadForm}
         sectionRef={bookAppointmentRef}
         displayBookAppointment={displayBookAppointment}
+        ctaClickSource={ctaClickSource}
         formData={BOOK_APPOINTMENT_FORM.formData}
         formHeading={BOOK_APPOINTMENT_FORM.formHeading}
         imageUrl={BOOK_APPOINTMENT_FORM.imageUrl}
@@ -120,7 +127,7 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
         <BookAnAppointment
           containerClass='!px-4 sm:!px-6 md:!px-0'
           appointmentBtnLabel={BOOK_APPOINTMENT_CONTENT.contentText}
-          onClick={bookAppointmentHandler}
+          onClick={() => { bookAppointmentHandler(CONSULTATION_TYPES.FREE);}}
         />
       </section>
     </>

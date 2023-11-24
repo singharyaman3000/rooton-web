@@ -3,8 +3,10 @@ import { RefObject } from 'react';
 import { convertToHtmlId } from '@/utils';
 import NextImage from '@/components/UIElements/NextImage';
 import LeadFormStepper from '@/components/ServicePage/LeadFormStepper';
+import { IMeetingData } from '@/app/services/apiService/serviceAPI';
 
 interface BookAppointmentFormProps {
+  ctaClickSource: string;
   formHeading?: string;
   sectionRef?: RefObject<HTMLElement>;
   displayBookAppointment?: boolean;
@@ -14,8 +16,9 @@ interface BookAppointmentFormProps {
     region: string;
     portalId: string;
     formId: string;
-    calendarLink: string;
+    calendarLink: IMeetingData | undefined;
   };
+  formHeadingCss?: string;
 }
 
 const BookAppointmentForm = ({
@@ -25,6 +28,8 @@ const BookAppointmentForm = ({
   scrollToLeadForm,
   imageUrl,
   formData,
+  ctaClickSource,
+  formHeadingCss,
 }: BookAppointmentFormProps) => {
   const { region, portalId, formId, calendarLink } = formData;
 
@@ -43,9 +48,7 @@ const BookAppointmentForm = ({
         >
           {formHeading ? (
             <h5
-              className="
-          font-extrabold text-[28px] leading-heading lg:text-2xl xl:text-5xl lg:leading-heading-lg xl:leading-heading-lg
-          "
+              className={`font-extrabold text-[28px] leading-heading lg:text-2xl xl:text-5xl lg:leading-heading-lg xl:leading-heading-lg ${formHeadingCss}`}
             >
               {formHeading}
             </h5>
@@ -59,6 +62,7 @@ const BookAppointmentForm = ({
             calenderLink={calendarLink}
             isBookAppointment={false}
             singlePageForm
+            ctaClickSource={ctaClickSource}
           />
         </div>
         {imageUrl ? (
