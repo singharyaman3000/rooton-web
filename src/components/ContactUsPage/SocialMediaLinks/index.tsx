@@ -35,7 +35,7 @@ const SocialMediaLinks: React.FC<SocialMediaLinksPropsType> = ({ socialData, wra
             role="button"
             tabIndex={0}
             className="cursor-pointer"
-            title={`Root On on ${value?.alternativeText}`}
+            title={value?.alternativeText}
           >
             <Icon />
           </div>

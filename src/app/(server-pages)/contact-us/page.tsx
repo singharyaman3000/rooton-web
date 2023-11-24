@@ -3,6 +3,7 @@ import { IHeaderFooterData, getHeaderFooterData } from '@/app/services/apiServic
 import ContactUs from '@/components/ContactUsPage';
 import { WithContext, Organization } from 'schema-dts';
 import StructuredData from '@/components/UIElements/StructuredData';
+import { appendAssetUrl } from '@/utils';
 
 export default async function ContactUsPage() {
   const res = await getContactUsContents();
@@ -10,20 +11,28 @@ export default async function ContactUsPage() {
 
   const footerData = footerRes?.length > 0 ? footerRes[0] : ({} as IHeaderFooterData);
 
+  const organizationData = footerData?.attributes?.json_content?.organizationDetails;
+
   const structuredData: WithContext<Organization> = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Root On',
     url: process.env.NEXT_APP_BASE_URL,
-    logo: 'https://www.example.com/images/logo.png',
-    address: footerData?.attributes?.addresses?.data?.map((data) => {
-      return { '@type': 'PostalAddress', streetAddress: data.attributes.location };
+    description: organizationData?.companyDescription ?? '',
+    logo: appendAssetUrl(organizationData?.companyLogo),
+    email: organizationData?.companyEmail ?? '',
+    address: organizationData?.addresses?.map((data) => {
+      return {
+        '@type': 'PostalAddress',
+        streetAddress: data?.address ?? '',
+        postalCode: data?.postalCode ?? '',
+        addressCountry: data?.country ?? '',
+      };
     }),
-    email: 'rooton(at)test.com',
-    contactPoint: footerData?.attributes?.addresses?.data?.map((data) => {
+    contactPoint: organizationData?.addresses?.map((data) => {
       return {
         '@type': 'ContactPoint',
-        telephone: data.attributes.phone_number,
+        telephone: data?.phoneNumber ?? '',
         contactType: 'customer support',
       };
     }),
@@ -31,6 +40,12 @@ export default async function ContactUsPage() {
       const [meta] = Object.values(data);
       return meta?.url ?? '';
     }),
+    founder: {
+      '@type': 'Person',
+      name: organizationData?.founderDetails?.name ?? '',
+      gender: organizationData?.founderDetails?.gender ?? '',
+      url: organizationData?.founderDetails?.profileUrl ?? '',
+    },
   };
 
   return (

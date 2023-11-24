@@ -58,7 +58,12 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
       </div>
       {licenseNumber ? (
         <p className="text-sm md:text-lg text-center md:text-left leading-[2.14] md:leading-primary-lg font-medium text-primary-font-color md:mt-6">
-          CICC license number: <strong className="text-cicc-border font-bold">{licenseNumber}</strong>
+          CICC license number:{' '}
+          <strong className="text-cicc-border font-bold">
+            <a href="https://college-ic.ca/protecting-the-public/find-an-immigration-consultant" target="_blank">
+              {licenseNumber}
+            </a>
+          </strong>
         </p>
       ) : null}
     </section>

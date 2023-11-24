@@ -1,8 +1,8 @@
-import { ISubServicesContent } from '@/app/services/apiService/serviceAPI';
+import { ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
 import { WhyChoose } from '../WhyChoose';
 
 type WhyChooseRootonSectionProps = {
-  whyChooseOpen?: ISubServicesContent;
+  whyChooseOpen?: ICoachingServicesContent;
   handleCTAButtonClick: () => void;
 };
 

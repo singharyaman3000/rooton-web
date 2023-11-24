@@ -30,7 +30,7 @@ const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyS
           />
         </div>
         <div className="w-[100%] lg:w-[69%]">
-          <Description cssClass="!text-primary-font-color mb-8 md:mb-5" description={companyDescription} />
+          <Description cssClass="!text-primary-font-color mb-8 md:mb-4" description={companyDescription} />
           {companyStatList ? (
             <ul className="flex flex-col flex-wrap gap-5 md:gap-0 md:flex-row md:justify-between">
               {companyStatList.map(({ statValue, statText }) => {

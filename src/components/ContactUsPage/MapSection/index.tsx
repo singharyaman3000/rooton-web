@@ -55,9 +55,9 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
         </GoogleMapReact>
       </div>
       {/* Address section */}
-      <div className="bg-pale-yellow flex flex-col items-center  p-6 lg:px-10 lg:py-8 lg:w-[680px]">
-        <h2 className="text-[28px] lg:text-[40px] font-extrabold lg:mb-5">Contact Information</h2>
-        <div className="flex flex-col gap-5 w-full items-center lg:items-start">
+      <div className="bg-pale-yellow blog-bg flex flex-col items-center  p-6 lg:px-10 lg:py-8 lg:w-1/2">
+        <h2 className="text-[28px] lg:text-[40px] font-bold lg:mb-5">Contact Information</h2>
+        <div className="flex contact-us-address flex-col gap-5 w-full items-center lg:items-start">
           {addressData.map((address) => {
             const { id, attributes } = address;
             return (
@@ -65,11 +65,11 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                 key={id}
                 role="button"
                 tabIndex={0}
-                className="p-5 lg:pl-10 w-[320px] lg:w-full text-sm lg:text-base"
+                className="p-5 mapAddressBorder lg:pl-10 w-[320px] lg:w-full text-sm lg:text-base"
                 onClick={() => {
-                  // setAddress(address);
+                  setAddress(address);
                 }}
-                style={{ backgroundColor: selectedAddress.id === id ? '#fff' : '' }}
+                style={{ backgroundColor: selectedAddress.id === id ? 'var(--background-color-mapAddress)' : '' }}
               >
                 <div className="flex gap-3 items-center mb-[14px]">
                   <div className="relative h-[24px] w-[24px] lg:h-[32px] lg:w-[32px]">
