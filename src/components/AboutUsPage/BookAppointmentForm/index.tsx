@@ -18,6 +18,7 @@ interface BookAppointmentFormProps {
     formId: string;
     calendarLink: IMeetingData | undefined;
   };
+  formHeadingCss?: string;
 }
 
 const BookAppointmentForm = ({
@@ -28,6 +29,7 @@ const BookAppointmentForm = ({
   imageUrl,
   formData,
   ctaClickSource,
+  formHeadingCss,
 }: BookAppointmentFormProps) => {
   const { region, portalId, formId, calendarLink } = formData;
 
@@ -46,9 +48,7 @@ const BookAppointmentForm = ({
         >
           {formHeading ? (
             <h5
-              className="
-          font-extrabold text-[28px] leading-heading lg:text-2xl xl:text-5xl lg:leading-heading-lg xl:leading-heading-lg
-          "
+              className={`font-extrabold text-[28px] leading-heading lg:text-2xl xl:text-5xl lg:leading-heading-lg xl:leading-heading-lg ${formHeadingCss}`}
             >
               {formHeading}
             </h5>

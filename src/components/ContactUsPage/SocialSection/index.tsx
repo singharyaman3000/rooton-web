@@ -66,6 +66,7 @@ const SocialSection = ({
           formHeading={appoinmentForm.formHeading}
           imageUrl={appoinmentForm.imageUrl}
           ctaClickSource={ctaClickSource}
+          formHeadingCss='!font-bold !text-2xl md:!text-[32px]'
         />
       </div>
     </section>
