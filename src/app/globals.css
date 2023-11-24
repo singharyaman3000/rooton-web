@@ -986,3 +986,9 @@ heading {
 .mapAddressBorder:hover{
   border: 1px solid #f59723;
 }
+
+#contact-us-social-description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

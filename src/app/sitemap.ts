@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return { url: `${SITE_URL}/service/${data.serviceId}`, lastModified: new Date(data.lastUpdated) };
   });
 
-  const allCoadingUrls = ALL_COACHING_IDS.map((id) => {
+  const allCoachingUrls = ALL_COACHING_IDS.map((id) => {
     return { url: `${SITE_URL}/coaching/${id}`, lastModified: new Date() };
   });
 
@@ -35,6 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/blogs`, lastModified: new Date() },
     { url: `${SITE_URL}/contact-us`, lastModified: new Date() },
     ...allServiceUrls,
-    ...allCoadingUrls,
+    ...allCoachingUrls,
   ];
 }
