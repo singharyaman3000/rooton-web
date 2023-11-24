@@ -319,6 +319,16 @@ body {
   transition: all 0.3s ease;
   border-top: 65px solid rgb(149 149 149);
 }
+
+/* About CEO Image Background */
+
+.ceo-image-bg {
+  background-image: url('/images/aboutUs/ceo-background-img.png');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: contain;
+}
+
 /* Team Slider Styling */
 
 .team-slider-section {

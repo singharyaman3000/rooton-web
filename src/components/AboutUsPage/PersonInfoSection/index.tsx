@@ -44,7 +44,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
             />
           ) : null}
         </div>
-        <div className="hidden justify-end lg:flex lg:w-[42%]">
+        <div className="ceo-image-bg hidden justify-end lg:flex lg:w-[42%]">
           <NextImage
             src={imageUrl}
             altText={`${contentHeading}`}
