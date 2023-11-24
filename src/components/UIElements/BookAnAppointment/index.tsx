@@ -31,7 +31,7 @@ const BookAnAppointment = ({ appointmentBtnLabel, onClick, containerClass, btnCl
             </h1>
             <BookAnApptButton
               btnLabel={BookAnAppointmentContent.btnLabel}
-              cssClass={`${btnClass} w-full md:w-fit md:max-w-[294px]`}
+              cssClass={`${btnClass} w-full md:w-fit md:max-w-[294px] font-semibold`}
               handleOnClick={() => {
                 onClick();
               }}
