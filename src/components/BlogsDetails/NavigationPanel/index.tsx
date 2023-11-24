@@ -76,7 +76,7 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcru
             </div>
           </>
         ) : null}
-        <div className="mt-[52px]">
+        <div className="mt-[52px] mb-10">
           <SocialMediaShare />
         </div>
       </div>
