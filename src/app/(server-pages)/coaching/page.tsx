@@ -3,7 +3,7 @@ import Coaching from '@/components/CoachingPage';
 import { getCoachingPageContents } from '@/app/services/apiService/CoachingAPI';
 
 export const metadata: Metadata = {
-  title: 'ROOT ON',
+  title: 'ROOT ON IMMIGRATION CONSULTANT',
   description: 'Root On',
   openGraph: {
     url: `${process.env.NEXT_APP_BASE_URL}`,

@@ -5,7 +5,7 @@ import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
 
 export const metadata: Metadata = {
-  title: 'ROOT ON',
+  title: 'ROOT ON IMMIGRATION CONSULTANT',
   description: 'Root On',
   openGraph: {
     url: `${process.env.NEXT_APP_BASE_URL}`,
