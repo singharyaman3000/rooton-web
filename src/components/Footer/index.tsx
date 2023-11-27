@@ -51,7 +51,7 @@ export default function Footer() {
           <FooterLogo />
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
-            <div className=" flex gap-12 justify-center w-full">
+            <div className=" flex gap-12 justify-center w-full z-10">
               <SocialMediaLinks wrapperClass='justify-around w-full !gap-0 lg:!gap-7 !pr-0'
                 socialData={
                   headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []
