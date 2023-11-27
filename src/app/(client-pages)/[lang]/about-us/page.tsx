@@ -2,9 +2,9 @@
 
 import LoadingUI from '@/components/LoadingUI';
 import AboutUsPage from '@/app/(server-pages)/about-us/AboutUsPage';
-import { IAboutUsContent, getAboutUsContent } from '@/app/services/apiService/aboutUsPageAPI';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 import { useTranslationLoader } from '@/providers/translationLoadingProvider';
+import { IAboutUsContent, getAboutUsContent } from '@/app/services/apiService/aboutUsPageAPI';
 import { resolveAboutUsApiIssues } from '@/app/(server-pages)/about-us/config/aboutUsApiHandler';
 
 const AboutUsPageCSR = () => {
@@ -19,10 +19,10 @@ const AboutUsPageCSR = () => {
   if (loader || loading) return <LoadingUI />;
 
   return (
-    <>
+    <div>
       {(loader || loading) && <LoadingUI />}
-      {data && <AboutUsPage companyStatValues={companyStatValuesApi} />};
-    </>
+      {data && <AboutUsPage companyStatValues={companyStatValuesApi} />}
+    </div>
   );
 };
 

@@ -42,6 +42,8 @@
   --hubspot-form-shadow: 0 22px 60px 0 rgba(0, 0, 0, 0.1);
 
   --talk-to-our-experts-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2);
+  --background-color-mapAddress: #fff;
+  --background-color-mapAddress-dark: #333;
 }
 
 [data-theme='dark'] {
@@ -71,6 +73,7 @@
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(255, 255, 255, 0.5);
   --preloader-overlay: rgb(228 228 228), hsl(0deg 0% 89% / 43%), rgb(228 228 228);
+  --background-color-mapAddress: var(--background-color-mapAddress-dark);
 }
 
 @tailwind base;
@@ -316,6 +319,16 @@ body {
   transition: all 0.3s ease;
   border-top: 65px solid rgb(149 149 149);
 }
+
+/* About CEO Image Background */
+
+.ceo-image-bg {
+  background-image: url('/images/aboutUs/ceo-background-img.png');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: contain;
+}
+
 /* Team Slider Styling */
 
 .team-slider-section {
@@ -451,7 +464,7 @@ body {
   color: #fff;
   background-image: url('data:image/svg+xml,<svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><path d="M1.187 10 0 8.813l7.109-7.109H.786V0H10v9.214H8.296V2.891z" fill="%23FFAF00" fill-rule="nonzero"/></svg>');
   background-repeat: no-repeat;
-  background-position: calc(50% + 31px);
+  background-position: calc(50% + 38px);
   background-size: 8px;
 }
 
@@ -523,6 +536,11 @@ body {
         rgba(219, 219, 219, 0.21) 60%,
         rgba(255, 255, 255, 1) 69%);
   }
+
+  #hubspotForm .actions .hs-button {
+    padding-right: 18px;
+    background-position: calc(50% + 30px);
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -544,7 +562,7 @@ body {
     justify-content: center;
     min-width: 120px;
     min-height: 60px;
-    padding-right: 26px;
+    /* padding-right: 26px; */
   }
 }
 
@@ -906,44 +924,86 @@ heading {
   padding-right: 0;
 }
 
-/* Pagination for Training & Pricing cards */
-.paginationContainer1 {
+.carousel-dots {
   display: none;
+  justify-content: center;
+  padding: 10px 0;
 }
 
-.paginationContainer1 .dot45 {
-  cursor: pointer; 
-  height: 3px; 
-  width: 3px; 
-  margin: 0 5px; 
+.dot {
+  height: 4px;
+  width: 4px;
+  margin: 0 5px;
   background-color: #000000; 
-  border-radius: 20%; 
-  display: inline-block; 
-  transition: background-color 0.3s, transform 0.3s; 
+  border-radius: 20%;
+  display: inline-block;
 }
 
-[data-theme='dark'] .paginationContainer1 .dot45 {
-  cursor: pointer; 
-  height: 4px; 
-  width: 4px; 
-  margin: 0 5px; 
-  background-color: #ffffff; 
-  border-radius: 20%; 
-  display: inline-block; 
-  transition: background-color 0.3s, transform 0.3s; ;
+.dot.active {
+  background-color: #F59723;
 }
 
-.paginationContainer1 .dot45.active {
-  background-color: #F59723; 
-  transform: scale(1.5); 
-}
-
-@media (max-width: 768px) {
-  .paginationContainer1 {
+@media screen and (max-width: 767px) {
+  .carousel-dots {
     display: flex;
-    flex-direction: row; 
-    justify-content: center;
-    margin-top: 10px; 
-    height: 20px;
   }
+}
+
+[data-theme='dark'] .dot {
+  background-color: #fff;
+}
+
+[data-theme='dark'] .dot.active {
+  background-color: #F59723;
+}
+
+[data-theme='dark'] .slider-nav {
+  background-color: rgba(256, 256, 256, 0.14);
+}
+
+[data-theme='dark'] .slider-nav:disabled {
+  background-color: rgba(256, 256, 256, 0.14);
+}
+
+[data-theme='dark'] .blog-bg{
+  background: #000;
+}
+
+[data-theme='dark'] .mobile-pagination{
+  background-color: #000;
+}
+
+[data-theme='dark'] .credibility-images{
+  background-color: #fff;
+}
+
+[data-theme='dark'] .testimonial-footer{
+  background-color: #333333;
+}
+
+[data-theme='dark'] .testimonial-border{
+  border: 1px solid #fff;
+}
+
+[data-theme='dark'] .talk-to-expert-btn{
+  background-color: #fff6e7;
+  color: #000;
+}
+
+[data-theme='dark'] .contact-us-address{
+  background-color: #000;
+}
+
+.mapAddressBorder{
+  border: 1px solid #d8d8d8;
+}
+
+.mapAddressBorder:hover{
+  border: 1px solid #f59723;
+}
+
+#contact-us-social-description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

@@ -43,6 +43,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: 'testimonial-listing',
     sliderData: allArticlesList,
+    cardSpacing: 30,
   });
   const [popUpData, setPopUpData] = useState<ITestimonialAttributes>();
 
@@ -131,11 +132,11 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
     allArticlesList?.length ?
       <section className="w-full bg-primary-white overflow-x-hidden">
         <SectionContainer cssClass="!px-[0px] pt-10 md:pt-[80px]">
-          <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
-            <div className="md:max-w-[70%] xl:max-w-none px-[24px] md:px-[48px] lg:px-[80px]">
+          <div className="flex items-center justify-between md:pr-[48px] lg:pr-[80px]">
+            <div className="md:max-w-[85%] xl:max-w-none px-[24px] md:px-[48px] lg:px-[80px]">
               <SectionHeadings title={title} subTitle={subTitle} />
             </div>
-            <div className="items-center hidden md:flex md:mb-[8px]">
+            <div className="items-center hidden md:flex md:mb-[8px] flex-shrink-0">
               <div>
                 <SliderNav handleOnClick={decrementPage} cssClass="mr-[16px] bg-[#f3f3f3] disabled:bg-[#f3f3f3]"
                   disable={pageNum === 0} leftNav />
@@ -150,11 +151,11 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
               scrollPercent={`${-scrollAmt}px`}
               id="testimonial-listing"
               pageNum={pageNum}
-              slideParentClass="!justify-start md:gap-[20px] xl:gap-[30px]"
+              slideParentClass="!justify-start md:gap-[30px]"
               loading={loading}
               loadingUI={<TestimonialPreLoader />}
               slideClass="!w-[100%] !px-[0px] md:px-[15px] !min-w-[100%]
-                md:!w-[29.6%] w-full md:!min-w-[380px] md:!max-w-[430px]"
+                w-full md:!min-w-[380px] md:!max-w-[380px]"
             >
               {(allArticlesList ?? []).map(({ attributes, id }) => {
                 return (

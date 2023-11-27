@@ -3,10 +3,10 @@ import { WhyRooton } from '../WhyRooton';
 import { Li } from '@/components/Li';
 import RTONButtonBlackThemed from '@/components/RTONButtonBlackThemed';
 import CalenderIconYellow from '@/components/Icons/CalendarIconYellow';
-import { ISubServicesContent } from '@/app/services/apiService/serviceAPI';
+import { ICoachingServicesContent } from '@/app/services/apiService/coachingContentsAPI';
 
 type EligibilitySectionProps = {
-  eligibility?: ISubServicesContent;
+  eligibility?: ICoachingServicesContent;
   handleCTAButtonClick: () => void;
 };
 

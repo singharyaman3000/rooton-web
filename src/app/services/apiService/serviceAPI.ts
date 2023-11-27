@@ -11,12 +11,17 @@ type IEligibility = {
   description: string | string[];
 };
 
+export type IMeetingData = {
+  free?: string;
+  paid?: string;
+}
+
 export type ILeadForm = {
   type?: 'form' | 'meeting';
   region?: string;
   portalId?: string;
   formId?: string;
-  url?: string;
+  url?: IMeetingData;
 };
 
 export type IFaq = {

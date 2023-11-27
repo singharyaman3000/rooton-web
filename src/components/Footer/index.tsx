@@ -74,6 +74,7 @@ export default function Footer() {
             text-sm
             font-semibold
             lg:w-full
+            z-10
           "
         >
           <div className=" flex flex-col gap-3 lg:gap-[18px]">
@@ -87,7 +88,7 @@ export default function Footer() {
             <Link href={'/'}>Disclaimer</Link>
             <Link href={'/'}>GCKey vs APR </Link>
             <Link href={'/'}>Affiliate Program</Link>
-            <Link href={'/'}>Sitemap</Link>
+            <Link href={'/sitemap'}>Sitemap</Link>
           </div>
         </div>
       </div>

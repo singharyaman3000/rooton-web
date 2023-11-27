@@ -26,6 +26,7 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
       <div
         className="
         px-5
+        lg:pl-0
         lg:pt-10
         lg:pb-[60px]
         lg:pr-20
@@ -67,10 +68,12 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
       </div>
       <div
         className="
-        aspect-square mr-[16px] md:mr-0 mt-5 md:mt-0 lg:aspect-auto relative lg:flex-shrink-0 sm:w-[380px] lg:min-h-[560px] xl:w-[480px] h-auto
+        aspect-square mr-[16px] md:mr-0 mt-5 md:mt-0 lg:aspect-auto relative
+        lg:flex-shrink-0 sm:w-[380px] lg:min-h-[560px] xl:w-[480px] h-auto
+        flex items-end
       "
       >
-        <NextImage src={imageUrl} altText={imageAlt} sizes="30vw" title="??" fill style={{ objectFit: 'cover' }} />
+        <NextImage classSelector='md:!relative md:!h-auto' src={imageUrl} altText={imageAlt} sizes="30vw" title="??" fill style={{ objectFit: 'contain' }} />
       </div>
     </section>
   );

@@ -48,6 +48,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
   const { totalPages, incrementPage, decrementPage, pageNum, scrollAmt } = useSliderData({
     slideId: id,
     sliderData: allArticlesList,
+    cardSpacing: 30,
   });
   const params = useParams();
 
@@ -118,7 +119,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
   return allArticlesList?.length ? (
     <section
       className={`${containerStyle} ${serviceType ? 'pt-[40px] md:py-[80px] max-w-screen-2k m-auto' : ''}
-        border-b-2 md:border-none`}
+        md:border-none`}
     >
       <div
         className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
@@ -153,7 +154,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
           pageNum={pageNum}
           loading={loading}
           loadingUI={<ArticlePreLoader />}
-          slideParentClass="!justify-start md:gap-[20px] xl:gap-[30px]"
+          slideParentClass="!justify-start md:gap-[30px]"
           slideClass="!w-full md:!w-[380px] !px-0"
         >
           {allArticlesList?.map((detail: IBlogData) => {

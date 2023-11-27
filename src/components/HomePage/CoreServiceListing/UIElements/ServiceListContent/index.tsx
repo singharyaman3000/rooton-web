@@ -26,7 +26,8 @@ const ServiceListContent = () => {
       <h1 className="mb-10 px-9 text-[22px] tracking-normal font-bold text-black ">
         Select a service for which you need advice on.
       </h1>
-      <div className=" flex w-[full] px-9 flex-row  gap-[6.8vw] overflow-y-scroll  h-[82%]">{getServiceListing()}</div>
+      <div className=" flex w-[full] px-9 flex-row  gap-[6.8vw] overflow-y-scroll overscroll-contain
+        h-[82%]">{getServiceListing()}</div>
     </>
   );
 };

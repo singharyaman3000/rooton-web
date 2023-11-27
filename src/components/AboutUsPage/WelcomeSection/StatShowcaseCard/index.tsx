@@ -23,7 +23,7 @@ const StatShowcaseCard = ({ statValue, statText, plusSign = true }: StatShowcase
           duration={2}
         />
       </strong>
-      <p className="mb-5 text-lg font-bold leading-primary-lg text-black">{ReactHtmlParser(statText)}</p>
+      <p className="mb-5 text-lg font-bold leading-primary-lg text-primary-font-color">{ReactHtmlParser(statText)}</p>
     </>
   );
 };

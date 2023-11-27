@@ -2,20 +2,23 @@ import { RefObject, useRef } from 'react';
 import BookAppointmentForm from '@/components/AboutUsPage/BookAppointmentForm';
 import { IContactUsContents } from '@/app/services/apiService/contactUsPageAPI';
 import NextImage from '@/components/UIElements/NextImage';
-import { appendAssetUrl } from '@/utils';
 import { SocialMediaInterfaceType } from '@/app/services/apiService/headerFooterAPI';
 import SocialMediaLinks from '../SocialMediaLinks';
+import { useTheme } from 'next-themes';
+import HtmlParser from 'react-html-parser';
 
 const SocialSection = ({
   formData,
   scrollToLeadForm,
   sectionRef,
   socialMeta,
+  ctaClickSource,
 }: {
   formData: IContactUsContents;
   scrollToLeadForm: () => void;
   sectionRef: RefObject<HTMLElement>;
   socialMeta: SocialMediaInterfaceType[];
+  ctaClickSource: string;
 }) => {
   const bookRef = useRef<HTMLElement>(null);
   const socialData = formData?.data?.find((a) => {
@@ -30,9 +33,11 @@ const SocialSection = ({
       region: formMeta[0]?.region ?? '',
       portalId: formMeta[0]?.portalId ?? '',
       formId: formMeta[0]?.formId ?? '',
-      calendarLink: formMeta[1]?.url ?? '',
+      calendarLink: formMeta[1]?.url ?? undefined,
     },
   };
+
+  const { theme } = useTheme();
 
   return (
     <section ref={sectionRef} className="flex flex-col lg:flex-row w-full">
@@ -42,15 +47,17 @@ const SocialSection = ({
           <NextImage
             sizes="100vw"
             priority
-            src={appendAssetUrl(socialData?.attributes?.media_url?.data?.attributes?.url ?? '')}
+            src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
             fill
             style={{ objectFit: 'cover' }}
             altText="rooton_logo"
             title="Logo Image"
           />
         </div>
-        <p className="max-w-[469px]">{socialData?.attributes?.description}</p>
-        <SocialMediaLinks socialData={socialMeta} wrapperClass='mt-6 lg:mt-10'/>
+        <p className="max-w-[469px]" id="contact-us-social-description">
+          {HtmlParser(socialData?.attributes?.description ?? '')}
+        </p>
+        <SocialMediaLinks socialData={socialMeta} wrapperClass="mt-6 lg:mt-10" />
       </div>
       {/* Form section */}
       <div id="contact-us-form-container" className="px-6 lg:px-0 lg:w-1/2 lg:min-w-[680px]">
@@ -61,6 +68,8 @@ const SocialSection = ({
           formData={appoinmentForm.formData}
           formHeading={appoinmentForm.formHeading}
           imageUrl={appoinmentForm.imageUrl}
+          ctaClickSource={ctaClickSource}
+          formHeadingCss='!font-bold !text-2xl md:!text-[32px]'
         />
       </div>
     </section>

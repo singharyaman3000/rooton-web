@@ -17,10 +17,10 @@ const BlogsPageCSR = () => {
   if (loader || loading) return <LoadingUI />;
 
   return (
-    <>
+    <div>
       {(loader || loading) && <LoadingUI />}
-      {data && <BlogsListPage blogsHeaderData={data as IBlogsHomeContent} />};
-    </>
+      {data && <BlogsListPage blogsHeaderData={data as IBlogsHomeContent} />}
+    </div>
   );
 };
 

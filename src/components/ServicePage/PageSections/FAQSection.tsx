@@ -31,7 +31,8 @@ const FAQSection = ({ faqs }: FAQSectionProps) => {
               cssClass="challenges-accordion service-faq border-b-[1px] border-b-sandal "
               key={faq.position}
               header={<AccordionHeader value={faq.title} />}
-              accordionBody={<AccordionBody containerWidth={'max-w-[100%]'} value={faq.description} />}
+              accordionBody={<AccordionBody containerWidth={'max-w-[100%]'} fontSizeMd={'md:text-[18px]'}
+                value={faq.description} />}
             />
           );
         })}

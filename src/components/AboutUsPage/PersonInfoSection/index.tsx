@@ -26,17 +26,17 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
           <div className="flex gap-2 flex-wrap items-end justify-between">
             <SubSectionTitle title={contentHeading} />
           </div>
-          <Description cssClass="!text-black my-5 md:mt-9" description={description} />
-          <ul className="flex flex-col gap-[23px]">
+          <Description cssClass="!text-primary-font-color my-5 md:mt-9" description={description} />
+          <ul className="flex flex-col gap-3">
             {expertiseList.map((expertise) => {
               return (
-                <Li key={expertise} className="text-sm md:text-lg text-black">
+                <Li key={expertise} className="text-sm md:text-lg text-primary-font-color">
                   {expertise}
                 </Li>
               );
             })}
           </ul>
-          <Description cssClass="!text-black mt-5 mb-9" description={vision} />
+          <Description cssClass="!text-primary-font-color mt-5 mb-9" description={vision} />
           {certificationImagesUrl ? (
             <ImagesSeparatedByLine
               cssClass="flex flex-col items-center md:items-end md:flex-row"
@@ -44,7 +44,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
             />
           ) : null}
         </div>
-        <div className="hidden justify-end lg:flex lg:w-[42%]">
+        <div className="ceo-image-bg hidden justify-end lg:flex lg:w-[42%]">
           <NextImage
             src={imageUrl}
             altText={`${contentHeading}`}
@@ -57,8 +57,13 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
         </div>
       </div>
       {licenseNumber ? (
-        <p className="text-sm md:text-lg text-center md:text-left leading-[2.14] md:leading-primary-lg font-medium text-black md:mt-6">
-          CICC license number: <strong className="text-cicc-border font-bold">{licenseNumber}</strong>
+        <p className="text-sm md:text-lg text-center md:text-left leading-[2.14] md:leading-primary-lg font-medium text-primary-font-color md:mt-6">
+          CICC license number:{' '}
+          <strong className="text-cicc-border font-bold">
+            <a href="https://college-ic.ca/protecting-the-public/find-an-immigration-consultant" target="_blank">
+              {licenseNumber}
+            </a>
+          </strong>
         </p>
       ) : null}
     </section>

@@ -45,8 +45,8 @@ const TestimonialFooter = ({ alternativeText, url, caption, name, college, colle
           <PlaceholderAvatar />}
       </div>
       <div className="max-w-[calc(100%-120px)]">
-        <div className="text-bold line-clamp-1 font-bold text-[12px] mb-[5px] md:mb-0
-          text-black not-italic leading-[normal] tracking-[normal] md:text-base ">
+        <div className="text-bold text-primary-font-color line-clamp-1 font-bold text-[12px] mb-[5px] md:mb-0
+           not-italic leading-[normal] tracking-[normal] md:text-base ">
           {name}
         </div>
         <div className="flex items-center relative ">

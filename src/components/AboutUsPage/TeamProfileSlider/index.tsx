@@ -14,7 +14,7 @@ import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
 
 interface Employee {
-  imageUrl: string;
+  imageUrl: { employeeImage: string; backgroundColor: string };
   employeeName: string;
   employeeRole: string;
   employeeDescription: string;
@@ -31,6 +31,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
     sliderData: teamData,
     cardSpacing: 40,
   });
+
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       incrementPage();
@@ -44,7 +45,10 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
   const [profileDataForModal, setProfileDataForModal] = useState({
     name: '',
     title: '',
-    imageSrc: '',
+    imageSrc: {
+      employeeImage: '',
+      backgroundColor: '',
+    },
     description: '',
   });
 
