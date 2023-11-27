@@ -65,7 +65,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                 key={id}
                 role="button"
                 tabIndex={0}
-                className="p-5 lg:pl-10 w-[320px] lg:w-full text-sm lg:text-base"
+                className="p-5 lg:pl-10 xs:max-w-[320px] w-full md:lg:max-w-full text-sm lg:text-base"
                 onClick={() => {
                   // setAddress(address);
                 }}
