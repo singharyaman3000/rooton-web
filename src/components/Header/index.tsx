@@ -4,13 +4,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
-import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
-import SliderOverlay from './SliderOverlay';
-import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import { useParams, usePathname } from 'next/navigation';
+
+import { scrollIntoView } from '@/utils';
+import SliderOverlay from './SliderOverlay';
+import { HOMEPAGE_PATH } from '@/constants/navigation';
+import NewsAlertRibbon from '../UIElements/NewsAlertRibbon';
+import TalkToOurExpert from '../UIElements/TalkToOurExpert';
+import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
-import { scrollIntoView } from '@/utils';
 
 const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us', 'home'];
 
@@ -22,9 +25,20 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState<string>('');
-  const [shouldRenderWhatsAppButton, setshouldRenderWhatsAppButton]
-    = useState<IWhatsAppAttributes | undefined>(undefined);
+  const [shouldRenderWhatsAppButton, setshouldRenderWhatsAppButton] = useState<IWhatsAppAttributes | undefined>(
+    undefined,
+  );
   const [whatsAppData, setwhatsAppData] = useState<IWhatsApp>({});
+
+  const [displayAlertRibbon, setDisplayAlertRibbon] = useState(false);
+  useEffect(() => {
+    if (HOMEPAGE_PATH.includes(path.replace(params.lang, ''))) {
+      setDisplayAlertRibbon(true);
+    } else {
+      setDisplayAlertRibbon(false);
+    }
+  }, [params.lang, path]);
+
   useEffect(() => {
     const fetchData = async () => {
       const apiRes = await getHeaderFooterData();
@@ -132,9 +146,11 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={`z-[999] ${scrolledEnough
-        ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
-        : ' absolute top-0 w-full'}`}
+      className={`z-[999] ${
+        scrolledEnough
+          ? ' fixed shadow-lg top-0 w-full text-header-font-color-scrolled-enough bg-primary'
+          : ' absolute top-0 w-full'
+      }`}
     >
       <SliderOverlay open={open} setOpen={setOpen} />
       <nav>
@@ -211,29 +227,32 @@ export default function Header() {
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
-            <span className={`cursor-pointer h-[100%] flex items-center relative
-              ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}>
+            <span
+              className={`cursor-pointer h-[100%] flex items-center relative
+              ${activeTab === 'service' ? 'font-extrabold' : 'font-bold'}`}
+            >
               {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-              {
-                path === '/' || (path.split('/').length < 3 && params.lang) ?
-                  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                  <span onClick={scrollToServiceListing}>
-                    Services
-                  </span> :
-                  <Link href={{
+              {path === '/' || (path.split('/').length < 3 && params.lang) ? (
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                <span onClick={scrollToServiceListing}>Services</span>
+              ) : (
+                <Link
+                  href={{
                     pathname: params.lang ? `/${params.lang}/` : '/',
-                    query: { 'section': 'services' },
-                  }}>
-                    Services
-                  </Link>
-              }
+                    query: { section: 'services' },
+                  }}
+                >
+                  Services
+                </Link>
+              )}
               {activeTab === 'service' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
             <span
-              className={`h-[100%] flex items-center relative ${activeTab === 'coaching' ?
-                'font-extrabold' : 'font-bold'}`}
+              className={`h-[100%] flex items-center relative ${
+                activeTab === 'coaching' ? 'font-extrabold' : 'font-bold'
+              }`}
             >
               <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}> Coaching </Link>
               {activeTab === 'coaching' && (
@@ -286,11 +305,13 @@ export default function Header() {
             xl:mx-20
           "
         />
+        {displayAlertRibbon ? <NewsAlertRibbon displayRibbonHandler={setDisplayAlertRibbon} /> : null}
         <div>
           {shouldRenderWhatsAppButton && (
             <WhatsAppButton whatsapp={whatsAppData!.data!.attributes} theme={theme || 'light'} />
-          )}</div>
+          )}
+        </div>
       </nav>
-    </header >
+    </header>
   );
 }
