@@ -28,6 +28,7 @@ const SocialMediaLinks: React.FC<SocialMediaLinksPropsType> = ({ socialData, wra
         const Icon = ICON_META[key];
         return (
           <div
+            aria-label="social-media-icon"
             key={key}
             onClick={() => {
               handleIconClick(value?.url);
