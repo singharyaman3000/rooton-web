@@ -1,6 +1,9 @@
-import Header from '@/components/Header';
 import React from 'react';
+
+import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { getNewsAlertContent } from '../services/apiService/newsAlertAPI';
+import { IBlogDetailsResponse } from '../services/apiService/blogDetailAPI';
 import { getHeaderFooterData } from '../services/apiService/headerFooterAPI';
 import { HeaderFooterDataProvider } from '@/providers/headerFooterDataProvider';
 import IModalShowContextProvider from '@/providers/coreServicesMOdalOpenContext';
@@ -10,8 +13,10 @@ import MobileModalShowContextProvider from '@/providers/coreServicesModalMobileC
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const apiRes = await getHeaderFooterData();
+  const newsAlertResponse = (await getNewsAlertContent()) as IBlogDetailsResponse;
+
   return (
-    <HeaderFooterDataProvider headerFooterAPIData={apiRes}>
+    <HeaderFooterDataProvider headerFooterAPIData={apiRes} newsAlertAPIData={newsAlertResponse}>
       <IModalShowContextProvider>
         <MobileModalShowContextProvider>
           <ServiceListingOnAdviceMobile />
