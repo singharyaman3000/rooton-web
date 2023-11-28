@@ -36,7 +36,14 @@ const SocialMediaShare = () => {
         <LinkedinShareButton url={getCurrentBlogUrl()} title="Share on LinkedIn">
           <LinkedInIconBlue />
         </LinkedinShareButton>
-        <div role="button" tabIndex={0} className="cursor-pointer" onClick={handleCopyLink} title="Copy Link">
+        <div
+          aria-label="copy-link-button"
+          role="button"
+          tabIndex={0}
+          className="cursor-pointer"
+          onClick={handleCopyLink}
+          title="Copy Link"
+        >
           <CopyLinkIcon />
         </div>
       </div>

@@ -22,12 +22,14 @@ const SocialMediaLinks: React.FC<SocialMediaLinksPropsType> = ({ socialData, wra
   };
 
   return (
-    <div className={`flex items-center gap-[38px] lg:gap-7 ${wrapperClass}`}>
+    <div className={`flex items-center xs:justify-between md:justify-start
+      xs:pr-[12px] gap-0 md:gap-[38px] lg:gap-7 ${wrapperClass}`}>
       {socialData?.map((data) => {
         const [[key, value]] = Object.entries(data);
         const Icon = ICON_META[key];
         return (
           <div
+            aria-label="social-media-icon"
             key={key}
             onClick={() => {
               handleIconClick(value?.url);

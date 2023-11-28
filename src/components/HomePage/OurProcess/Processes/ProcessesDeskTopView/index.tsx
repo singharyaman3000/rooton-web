@@ -38,7 +38,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
                     {title}
                   </h5>
                 </div>
-                <div className="pl-[70px] pr-[30px] min-h-[60px]">
+                <div className="pl-[70px] pr-0 min-h-[60px]">
                   <p className=" opacity-[0.7] text-lg  font-medium not-italic leading-[1.67] tracking-[normal] text-primary-font-color">
                     {description}
                   </p>
