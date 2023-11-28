@@ -53,7 +53,7 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
             not-italic !leading-[1.67] tracking-[normal] md:text-sm
             h-[calc(100%-80px)]"
           >
-            <p className="h-full overflow-y-auto pr-[10px]">{HtmlParser(attributes?.description)}</p>
+            <p className="h-full overflow-y-auto pr-[10px] text-justify">{HtmlParser(attributes?.description)}</p>
           </div>
         )}
         <div className="testimonial-footer absolute flex  items-center z-[10] left-0 bottom-0 bg-white p-[13px] md:p-[16px] w-full">

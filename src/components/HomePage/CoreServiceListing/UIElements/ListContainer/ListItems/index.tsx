@@ -23,7 +23,7 @@ const ListItems = ({ item, id }: { item: string; id: number }) => {
         handleServicesDisplay();
       }}
       className="
-        pop-up-list-item block text-base hover:text-font-color-light-gray cursor-pointer font-medium leading-[2.3]
+        pop-up-list-item block text-base hover:text-light-gray cursor-pointer font-medium leading-[2.3]
         "
     >
       <Link

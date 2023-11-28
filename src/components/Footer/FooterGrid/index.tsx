@@ -3,8 +3,8 @@ import React from 'react';
 const FooterGrid = () => {
   return (
     <svg
-      width="1440"
-      height="499"
+      width="100%"
+      height="100%"
       viewBox="0 0 1440 499"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"

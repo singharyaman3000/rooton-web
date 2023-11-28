@@ -64,11 +64,12 @@ module.exports = {
         'almond': 'var(--almond)',
         'golden-honey': 'var(--golden-honey)',
         'smoky-steel': 'var(--smoky-steel)',
+        'light-gray': 'var(--light-gray)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
         'hubspot-form-shadow': 'var(--hubspot-form-shadow)',
-        'talk-to-our-experts-shadow': 'var( --talk-to-our-experts-shadow)'
+        'talk-to-our-experts-shadow': 'var( --talk-to-our-experts-shadow)',
       },
       lineHeight: {
         'primary': '1.71',

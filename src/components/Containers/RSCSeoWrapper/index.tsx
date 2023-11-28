@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'ROOT ON',
+  title: 'ROOT ON IMMIGRATION CONSULTANT',
   description: 'Root On',
   openGraph: {
     url: `${process.env.NEXT_APP_BASE_URL}`,
