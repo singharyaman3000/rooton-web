@@ -21,6 +21,7 @@ import { ServiceDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { CONSULTATION_TYPES } from './LeadFormStepper';
+import Form from '../Form';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -131,14 +132,15 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
               showBookAnAppointment ? 'block' : 'hidden'
             } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
           >
-            <LeadFormSection
+            {/* <LeadFormSection
               ctaClickSource={ctaClickSource}
               leadForm={leadForm}
               leadFormRef={leadFormRef}
               scrollToTop={scrollToLeadForm}
               handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}}
               isBookAppointment={isBookAppointment}
-            />
+            /> */}
+            <Form/>
           </ServicePageWrapper>
         );
       }
