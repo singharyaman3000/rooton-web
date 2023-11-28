@@ -35,10 +35,10 @@ export default function RootOnBanner({
         min-h-[380px]
       "
     >
-      <div className=" w-full h-full flex flex-col justify-end z-20">
+      <div className=" w-full h-full flex flex-col justify-end md:justify-evenly z-20">
         <div
           className="
-          pb-[36px] md:pb-[120px]
+          pb-[36px] md:pb-0 md:pt-[50px]
           relative z-[10]
           px-[24px]
           whitespace-pre-wrap
@@ -61,7 +61,8 @@ export default function RootOnBanner({
             <h1
               className="
                     banner-text
-                    text-[37.2px]
+                    xs:text-[30px]
+                    md:text-[37.2px]
                     lg:text-[62px]
                     mr-9
                     font-bold
@@ -78,7 +79,7 @@ export default function RootOnBanner({
             </p>
           </motion.div>
 
-          <div className=" mt-[57.8px] w-full md:max-w-[418px]">{button}</div>
+          <div className=" mt-[32px] md:mt-[68.4px] w-full md:max-w-[418px]">{button}</div>
         </div>
       </div>
       {isVideoBanner ? (
