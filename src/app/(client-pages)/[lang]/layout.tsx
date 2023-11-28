@@ -13,15 +13,20 @@ import IModalShowContextProvider from '@/providers/coreServicesMOdalOpenContext'
 import MobileModalShowContextProvider from '@/providers/coreServicesModalMobileContext';
 import ServiceListingOnAdviceMobile from '@/components/HomePage/CoreServiceListing/ServiceListOnAdviceMobile';
 import ServicesPopUpModal from '@/components/HomePage/CoreServiceListing/ServicesPopUpModal';
+import { getNewsAlertContent } from '@/app/services/apiService/newsAlertAPI';
 
 const ClientPageLayout = ({ children }: { children: ReactNode }) => {
   const { isClient } = useClient();
   const { data } = useClientAPI({ apiFn: getHeaderFooterData });
+  const { data: newsAlertResponse } = useClientAPI({ apiFn: getNewsAlertContent });
 
   return (
     <section>
       {isClient && (
-        <HeaderFooterDataProvider headerFooterAPIData={data}>
+        <HeaderFooterDataProvider
+          headerFooterAPIData={data}
+          newsAlertAPIData={newsAlertResponse}
+        >
           <TranslationLoadingProvider>
             <IModalShowContextProvider>
               <MobileModalShowContextProvider>

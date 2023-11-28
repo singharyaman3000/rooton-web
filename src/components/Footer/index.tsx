@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
 import FooterLogo from './FooterLogo';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import NextImage from '../UIElements/NextImage';
@@ -8,7 +10,6 @@ import { appendAssetUrl } from '@/utils';
 import HtmlParser from 'react-html-parser';
 import FooterGrid from './FooterGrid';
 import SocialMediaLinks from '../ContactUsPage/SocialMediaLinks';
-import { useParams } from 'next/navigation';
 
 export default function Footer() {
   const params = useParams();
@@ -55,7 +56,8 @@ export default function Footer() {
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center w-full z-10">
-              <SocialMediaLinks wrapperClass='justify-around w-full !gap-0 lg:!gap-7 !pr-0'
+              <SocialMediaLinks
+                wrapperClass="justify-around w-full !gap-0 lg:!gap-7 !pr-0"
                 socialData={
                   headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []
                 }
@@ -103,7 +105,7 @@ export default function Footer() {
         px-6
         xl:pt-0
         xl:pb-0
-        md:px-0
+        xl:px-0
         mg:flex-grow-1
         flex
         flex-col
@@ -128,9 +130,9 @@ export default function Footer() {
                   />
                 </div>
               </div>
-              <p className=" text-sm mb-[4px] whitespace-pre  md:whitespace-normal font-bold">
+              <p className=" text-sm mb-[4px] whitespace-pre md:whitespace-normal font-bold">
                 {address?.attributes.name}</p>
-              <p className=" text-sm mb-[4px] whitespace-pre-line md:whitespace-normal  whitespace-font-pre-line">
+              <p className=" text-sm mb-[4px] whitespace-normal">
                 {HtmlParser(address?.attributes?.location)}
               </p>
               <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">
