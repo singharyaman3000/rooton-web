@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
 import FooterLogo from './FooterLogo';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import NextImage from '../UIElements/NextImage';
@@ -10,6 +12,7 @@ import FooterGrid from './FooterGrid';
 import SocialMediaLinks from '../ContactUsPage/SocialMediaLinks';
 
 export default function Footer() {
+  const params = useParams();
   const { headerFooterData } = useHeaderFooterContext();
 
   return (
@@ -52,7 +55,8 @@ export default function Footer() {
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center w-full z-10">
-              <SocialMediaLinks wrapperClass='justify-around w-full !gap-0 lg:!gap-7 !pr-0'
+              <SocialMediaLinks
+                wrapperClass="justify-around w-full !gap-0 lg:!gap-7 !pr-0"
                 socialData={
                   headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []
                 }
@@ -88,7 +92,7 @@ export default function Footer() {
             <Link href={'/'}>Disclaimer</Link>
             <Link href={'/'}>GCKey vs APR </Link>
             <Link href={'/'}>Affiliate Program</Link>
-            <Link href={'/sitemap'}>Sitemap</Link>
+            <Link href={params.lang ? `/${params.lang}/sitemap` : '/sitemap'}>Sitemap</Link>
           </div>
         </div>
       </div>
