@@ -71,8 +71,8 @@ export default async function ContactUsPage() {
 
   return (
     <>
-      <StructuredData<Organization> data={organizationStructuredData} />
-      <StructuredData<LocalBusiness> data={localBusinessStructuredData} />
+      <StructuredData<Organization> id='organization' data={organizationStructuredData} />
+      <StructuredData<LocalBusiness> id='localBusiness' data={localBusinessStructuredData} />
       <ContactUs contents={res?.data?.length ? res.data[0] : ({} as ContactUsResponseData)} />
     </>
   );

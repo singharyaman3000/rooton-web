@@ -4,7 +4,6 @@ import { IBlogContentData, IBlogDetails } from '@/app/services/apiService/blogDe
 import NavigationPanel from './NavigationPanel';
 import React, { useEffect } from 'react';
 import BlogBody from './BlogBody';
-import { getAllPageIndex } from './BlogBody/helpers';
 import BlogHeader from './BlogHeader';
 import { ArticleCategoryType } from '@/app/services/apiService/blogsListAPI';
 import BlogsCarousel from '../BlogsListPage/BlogsCarousel';
@@ -37,10 +36,6 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
     });
   }, []);
 
-  const allHeadingsList = sortedContent?.length
-    ? getAllPageIndex(sortedContent[0]?.attributes.body_content, '<heading>', '</heading>')
-    : [];
-
   const handleCTAButton = () => {
     const serviceId = details?.attributes?.sub_service?.data?.id;
     if (serviceId) {
@@ -53,7 +48,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
     <div className="mt-[60px] lg:mt-20 text-primary-font-color flex flex-col justify-start min-w-[360px]">
       <div id="scroll-container" className="flex px-6 lg:px-0">
         {/* Article navigation */}
-        <NavigationPanel content={allHeadingsList} breadcrumbsData={breadcrumbsData} />
+        <NavigationPanel breadcrumbsData={breadcrumbsData} />
         {/* Blogbody */}
         <div
           id="section-container"

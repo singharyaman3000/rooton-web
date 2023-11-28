@@ -1,34 +1,46 @@
 'use client';
 
-import React, { RefObject, useMemo, useState } from 'react';
+import React, { RefObject, useEffect, useMemo, useState } from 'react';
 import useGetTabTopPosition from '../hooks/useGetTabTopPosition';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import SocialMediaShare from '../SocialMediaShare';
+import useSetScrollHeader from '../hooks/useSetScrollHeader';
 
-export type SelectedTagType = { tag: { label: string; id: number }; activeRef: RefObject<HTMLSpanElement> };
+export type SelectedTagType = { tag: number; activeRef: RefObject<HTMLSpanElement> };
 
 type NavigationPanelPropsType = {
-  content: string[];
+  // eslint-disable-next-line no-undef
   breadcrumbsData: {
     title: string;
     path: string;
   }[];
 };
 
-const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcrumbsData }) => {
+const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ breadcrumbsData }) => {
   const [selectedTag, setSelectedTag] = useState<SelectedTagType>({} as SelectedTagType);
+  const [allHeadingsList, setAllHeadingsList] = useState<Element[]>([]);
+
   const refs = useMemo(() => {
-    return content?.map(() => {
+    return allHeadingsList?.map(() => {
       return React.createRef<HTMLSpanElement>();
     });
+  }, []);
+
+  const { observeTargets } = useSetScrollHeader(refs, setSelectedTag);
+
+  useEffect(() => {
+    observeTargets();
+    const allHeadings = Array.from(document?.querySelectorAll('heading'));
+    setAllHeadingsList(allHeadings);
   }, []);
 
   const { fromTop } = useGetTabTopPosition(selectedTag.activeRef);
 
   const handleScrollToHeading = (currentRef: RefObject<HTMLSpanElement>, currentId: number) => {
-    if (currentRef.current) {
-      const allHeadings = document?.querySelectorAll('heading');
-      const selectedHeader = Array.from(allHeadings).find((heading) => {
+    if (currentRef?.current) {
+      console.log('trigger');
+      
+      const selectedHeader = allHeadingsList.find((heading) => {
         const headerId = heading.getAttribute('data-id') ?? 0;
         return +headerId === currentId;
       });
@@ -42,7 +54,7 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcru
         <Breadcrumbs className="text-black" data={breadcrumbsData} isStatic />
       </div>
       <div className="mt-[100px]">
-        {content?.length !== 0 ? (
+        {allHeadingsList?.length !== 0 ? (
           <>
             <h3 className="font-bold text-xl mb-5">In this article</h3>
             <div className="flex gap-2">
@@ -53,7 +65,7 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcru
                 ></span>
               </div>
               <nav className="flex flex-col gap-5 align-text-top">
-                {content?.map((heading: string, index: number) => {
+                {allHeadingsList?.map((heading: Element, index: number) => {
                   return (
                     <span
                       // eslint-disable-next-line react/no-array-index-key
@@ -61,14 +73,13 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcru
                       ref={refs[index]}
                       className="max-w-[320px] hover:font-bold min-w-[300px] text-base"
                       onClick={() => {
-                        setSelectedTag({ tag: { label: heading, id: index }, activeRef: refs[index] });
                         handleScrollToHeading(refs[index], index);
                       }}
-                      style={{ fontWeight: selectedTag?.tag?.id === index ? 'bold' : '' }}
+                      style={{ fontWeight: selectedTag?.tag === index ? 'bold' : '' }}
                       role="button"
                       tabIndex={index + 1}
                     >
-                      {heading}
+                      {heading.textContent}
                     </span>
                   );
                 })}

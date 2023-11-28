@@ -1,11 +1,11 @@
 import React from 'react';
 
-type StructuredDataType<T> = { data: T };
+type StructuredDataType<T> = { data: T, id:string };
 
-const StructuredData = <T,>({ data }: StructuredDataType<T>) => {
+const StructuredData = <T,>({ data, id }: StructuredDataType<T>) => {
   return (
     <script
-      key="structuredData"
+      key={`${id}-structuredData`}
       type="application/ld+json"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
