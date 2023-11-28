@@ -1,11 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useParams } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Button from '../Button';
-import { getNewsAlertContent } from '@/app/services/apiService/newsAlertAPI';
-import { IBlogDetailsResponse } from '@/app/services/apiService/blogDetailAPI';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import CloseIconWithBackground from '@/components/Icons/CloseIconWithBackground';
 
 interface NewsAlertRibbonProps {
@@ -20,32 +21,32 @@ type News = {
 
 const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
   const { lang } = useParams();
+  const { newsAlertData } = useHeaderFooterContext();
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
   const [newsList, setNewsList] = useState<News[] | null>(null);
 
   useEffect(() => {
-    const getNewsAlerts = async () => {
-      const apiResponse = (await getNewsAlertContent()) as IBlogDetailsResponse;
-      if (apiResponse.data && Array.isArray(apiResponse.data)) {
-        const newsData = apiResponse.data.map((item) => {
-          return {
-            id: item.id,
-            title: item.attributes.title,
-            category: item.attributes.category,
-          };
-        });
-        if (newsData.length === 0) {
-          displayRibbonHandler(false);
-        } else {
-          setNewsList(newsData);
+    if (newsAlertData && newsAlertData.data && Array.isArray(newsAlertData.data)) {
+      const newsData = newsAlertData.data.reduce((acc, item) => {
+        const {
+          id,
+          attributes: { title, category },
+        } = item;
+        if (typeof id === 'number' && typeof title === 'string' && typeof category === 'string') {
+          acc.push({ id, title, category });
         }
-      } else {
-        displayRibbonHandler(false);
-      }
-    };
+        return acc;
+      }, [] as News[]);
 
-    getNewsAlerts();
-  }, [displayRibbonHandler]);
+      if (newsData.length < 1) {
+        displayRibbonHandler(false);
+      } else {
+        setNewsList(newsData);
+      }
+    } else {
+      displayRibbonHandler(false);
+    }
+  }, [newsAlertData, displayRibbonHandler]);
 
   useEffect(() => {
     const interval = setInterval(() => {
