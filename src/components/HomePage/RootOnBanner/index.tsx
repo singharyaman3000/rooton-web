@@ -38,7 +38,7 @@ export default function RootOnBanner({
         min-h-[380px]
       "
     >
-      <div className={`${!(sourcePage && sourcePage === SOURCE_PAGE.SERVICE) ? 'md:justify-evenly': ''}
+      <div className={`${!(sourcePage && sourcePage === SOURCE_PAGE.SERVICE) ? 'md:justify-evenly' : ''}
       w-full h-full flex flex-col justify-end  z-20`}>
         <div
           className={` ${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
@@ -79,7 +79,8 @@ export default function RootOnBanner({
             >
               {ReactHtmlParser(heroText)}
             </h1>
-            <p className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[24px] lg:mt-[20px]' :
+            <p className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
+              'mt-[24px] lg:mt-[20px] whitespace-normal md:whitespace-break-spaces' :
               'mt-[15px] md:mt-[35px]'} text-white font-bold text-[15px] leading-[1.67] lg:text-2xl`}>
               {ReactHtmlParser(description)}
             </p>
