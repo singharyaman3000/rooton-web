@@ -14,7 +14,7 @@ const ModalProfileCard = ({ profileData, showPopUp, closePopUpFn }: ModalProfile
 
   return (
     <PopUpOverlayWrapper onClose={closePopUpFn} showPopUp={showPopUp}>
-      <div className="m-auto w-[95%] xl:w-full relative bg-white max-w-screen-xl max-h-[440px] p-10">
+      <div className="m-auto w-[95%] 2k:w-full relative bg-white max-w-screen-xl max-h-[440px] p-10">
         <CloseIconWithBackground onClick={closePopUpFn} cssClas="absolute right-7 top-7 cursor-pointer" />
         <article className="flex justify-between">
           <div
