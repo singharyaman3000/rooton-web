@@ -29,7 +29,7 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
             >
               {field.label}
             </label>
-            {field.options.map((option) => {
+            {field?.options?.map((option) => {
               return (
                 <div key={option.id} className="flex items-center gap-3 text-lg">
                   <input

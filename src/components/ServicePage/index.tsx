@@ -31,7 +31,7 @@ type ServicePageProps = {
 export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
-
+  
   const leadFormRef = useRef<HTMLDivElement>(null);
 
   const whyChooseOpen = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
@@ -132,15 +132,20 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
               showBookAnAppointment ? 'block' : 'hidden'
             } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
           >
-            {/* <LeadFormSection
-              ctaClickSource={ctaClickSource}
-              leadForm={leadForm}
-              leadFormRef={leadFormRef}
-              scrollToTop={scrollToLeadForm}
-              handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}}
-              isBookAppointment={isBookAppointment}
-            /> */}
-            <Form/>
+            {leadForm?.attributes?.json_content?.lead_forms![0]?.isHubSpotForm ? (
+              <LeadFormSection
+                ctaClickSource={ctaClickSource}
+                leadForm={leadForm}
+                leadFormRef={leadFormRef}
+                scrollToTop={scrollToLeadForm}
+                handleCTAButtonClick={() => {
+                  return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+                }}
+                isBookAppointment={isBookAppointment}
+              />
+            ) : (
+              <Form leadFormRef={leadFormRef} />
+            )}
           </ServicePageWrapper>
         );
       }

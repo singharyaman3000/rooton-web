@@ -11,6 +11,7 @@ import {
   educationDuration,
   educationPlace,
   educationPlaceInCanada,
+  territoryCheck,
 } from '@/components/Form/config/formConfig';
 
 type PropsType = {
@@ -23,6 +24,7 @@ const intialFormStates = {
   educationCompletedOrNot: '',
   educationPlace: '',
   educationPlaceInCanada: '',
+  have_you_lived_in_canadas_atlantic_provinces: '',
 };
 
 export const AdditionalQuestions = (props: PropsType) => {
@@ -30,11 +32,12 @@ export const AdditionalQuestions = (props: PropsType) => {
   const [formValues, setFormValues] = useState(intialFormStates);
 
   const handleFieldChange = (fieldName: string, value: unknown) => {
-    // eslint-disable-next-line arrow-body-style
-    setFormValues((prevFormValues) => ({
-      ...prevFormValues,
-      [fieldName]: value,
-    }));
+    setFormValues((prevFormValues) => {
+      return {
+        ...prevFormValues,
+        [fieldName]: value,
+      };
+    });
   };
 
   return (
@@ -66,6 +69,9 @@ export const AdditionalQuestions = (props: PropsType) => {
         fields={educationPlace}
         onChange={(e) => {
           handleFieldChange('educationPlace', e.target.value);
+          if (e.target.value === 'Outside Canada') {
+            handleFieldChange('educationPlaceInCanada', '');
+          }
         }}
       />
       <div style={{ display: formValues.educationPlace === 'Inside Canada' ? 'block' : 'none' }}>
@@ -75,6 +81,14 @@ export const AdditionalQuestions = (props: PropsType) => {
           value={formValues.educationPlaceInCanada}
           onChange={(e) => {
             handleFieldChange('educationPlaceInCanada', e.target.value);
+          }}
+        />
+      </div>
+      <div>
+        <FormRadioInput
+          fields={territoryCheck}
+          onChange={(e) => {
+            handleFieldChange('have_you_lived_in_canadas_atlantic_provinces', e.target.value);
           }}
         />
       </div>

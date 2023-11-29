@@ -320,6 +320,18 @@ export const educationPlaceInCanada: IFormFieldOptions[] = [
   },
 ];
 
+export const territoryCheck: IFormFieldOptions[] = [
+  {
+    name: 'have_you_lived_in_canadas_atlantic_provinces',
+    label:
+      'Have you lived in one of Canada’s Atlantic provinces (New Brunswick, Newfoundland and Labrador, Nova Scotia, or Prince Edward Island) for at least 16 months in the 2 years before getting your degree, diploma or educational credential?',
+    options: [
+      { id: 'ca-atl-yes', value: 'Yes' },
+      { id: 'ca-atl-no', value: 'No' },
+    ],
+  },
+];
+
 // ================================================ WORK HISTORY ===============================================
 
 const occupations = [

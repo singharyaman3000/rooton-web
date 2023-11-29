@@ -47,10 +47,13 @@ export const PersonalSection = (props: IPropsType) => {
     if (formNumber !== 1) return;
     if (onchange) {
       onchange(
-        formValues.age === '' || formValues.country_of_citizenship === '' || formValues.country_of_residence === '',
+        formValues.age === '' ||
+          formValues.country_of_citizenship === '' ||
+          formValues.country_of_residence === '' ||
+          formValues.marital_status === '',
       );
     }
-  }, [formValues, formNumber]);
+  }, [formValues]);
 
   useEffect(() => {
     if (!(formValues.preferred_destination_in_canada === 'Manitoba, Canada'))
@@ -59,6 +62,7 @@ export const PersonalSection = (props: IPropsType) => {
     if (!(formValues.preferred_destination_in_canada === 'Quebec, Canada'))
       handleFieldChange('ever_been_to_quebec_before', '');
   }, [formValues.preferred_destination_in_canada]);
+
 
   return (
     <div>

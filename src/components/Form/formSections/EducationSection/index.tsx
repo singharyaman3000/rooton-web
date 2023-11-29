@@ -55,7 +55,12 @@ export const EducationSection = (props: IPropsType) => {
         required
       />
       <div style={{ display: formValues.highSchool === 'Yes' ? 'block' : 'none' }}>
-        <FormRadioInput fields={training} onChange={(e) => {handleFieldChange('training', e.target.value);}} />
+        <FormRadioInput
+          fields={training}
+          onChange={(e) => {
+            handleFieldChange('training', e.target.value);
+          }}
+        />
       </div>
       <div className={`${formValues.training === 'Yes' ? 'flex flex-col' : 'hidden'}`}>
         <p>
