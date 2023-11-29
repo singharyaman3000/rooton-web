@@ -28,8 +28,8 @@ export default function Footer() {
     lg:pt-[49px]
     lg:pb-[94px]
     lg:gap-[80px]
-    xl:gap-[105px]
     relative
+    md:justify-between
   "
     >
       <div
@@ -57,7 +57,7 @@ export default function Footer() {
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center w-full z-10">
               <SocialMediaLinks
-                wrapperClass="justify-around w-full !gap-0 lg:!gap-7 !pr-0"
+                wrapperClass="justify-around w-full md:justify-between !gap-0 lg:!gap-7 !pr-0"
                 socialData={
                   headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []
                 }
@@ -80,9 +80,10 @@ export default function Footer() {
             font-semibold
             lg:w-full
             z-10
+            md:w-full
           "
         >
-          <div className=" flex flex-row flex-wrap md:flex-nowrap md:flex-col gap-3 lg:gap-[18px]">
+          <div className=" flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-3 lg:gap-[18px]">
             {/* <Link href={'/'}>Careers</Link> */}
             <Link className='basis-[47%] order-1' href={'/'}>Privacy Policy</Link>
             <Link className='basis-[47%] order-3 md:order-2' href={'/'}>Terms & Condition</Link>
