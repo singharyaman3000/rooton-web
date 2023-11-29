@@ -11,7 +11,7 @@ import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
-import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
+import AboutUsSubHeader from '../AboutUsSubHeader';
 
 interface Employee {
   imageUrl: { employeeImage: string; backgroundColor: string };
@@ -57,7 +57,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
       <SectionContainer cssClass="!pr-[0px] 2k:!pr-20 m-auto max-w-screen-2k py-10 md:pt-[80px] md:pb-20">
         <div className="flex gap-2 flex-wrap items-end justify-between md:pr-[48px] lg:pr-[80px]">
           <div className="md:max-w-[70%] lg:max-w-none">
-            <SubSectionTitle title={contentHeading} />
+            <AboutUsSubHeader title={contentHeading} />
           </div>
           <div className="items-center hidden md:flex md:mb-[8px]">
             <div>

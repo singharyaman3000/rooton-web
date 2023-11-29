@@ -29,9 +29,9 @@ const HonestyCard = ({ title, icon, value, containerClass, iconComponent: IconCo
         ) : null}
         {IconComponent ? <IconComponent /> : null}
       </div>
-      <h1 className="text-primary-font-color line-clamp-3 w-[80%] mb-4 text-xl md:text-[22px] leading-[1.5] md:leading-[1.36] font-bold leading-6 tracking-normal">
+      <h3 className="text-primary-font-color line-clamp-3 w-[80%] mb-4 text-xl md:text-[22px] leading-[1.5] md:leading-[1.36] font-bold leading-6 tracking-normal">
         {title}{' '}
-      </h1>
+      </h3>
       <p className="text-sm md:text-base font-[500] leading-[1.71] md:leading-[1.63] md:opacity-[0.68] text-primary-font-color">
         {value}
       </p>

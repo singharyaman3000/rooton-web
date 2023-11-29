@@ -8,6 +8,8 @@ const GET_BLOGS_LIST =
   '/api/blogs/?populate[0]=media_url&populate[1]=author_profile_image.media_url&pagination[page]=<pageNo>&pagination[pageSize]=<pageSize>&filters[category][$eq]=<articleType>&sort=<sortBy>';
 const GET_BLOGS_LIST_WITH_SERVICETYPE_AND_BLOGTYPE =
   '/api/blogs/?populate[0]=media_url&populate[1]=author_profile_image.media_url&populate[2]=blog_contents.media_url&pagination[page]=<pageNo>&pagination[pageSize]=8&filters[service_type][$eq]=<serviceType>&filters[category][$eq]=<articleType>&filters[id][$ne]=<currentBlogId>&sort=<sortBy>';
+const GET_BLOG_META_INFO =
+  '/api/blogs?fields[0]=meta_title&fields[1]=meta_description&fields[2]=unique_identifier_name&filters[id][$eq]=<blogId>';
 
 export const getBlogsListUrl = (
   articleType: ArticleCategoryType,
@@ -34,4 +36,8 @@ export const getBlogsListUrl = (
   }
 
   return url.replace('<pageNo>', pageNo.toString()).replace('<pageSize>', pageSize.toString());
+};
+
+export const getBlogMetaInfoUrl = (blogId: string) => {
+  return GET_BLOG_META_INFO.replace('<blogId>', blogId);
 };
