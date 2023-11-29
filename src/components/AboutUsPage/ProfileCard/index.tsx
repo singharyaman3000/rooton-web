@@ -39,7 +39,7 @@ const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
         />
       </div>
       <div className="py-[26px] pl-7 pr-2 blog-bg">
-        <h5 className="mb-1.5 text-primary-font-color font-bold text-[22px] leading-normal">{name}</h5>
+        <span className="mb-1.5 text-primary-font-color font-bold text-[22px] leading-normal">{name}</span>
         <p className="text-primary-font-color opacity-50 text-sm font-semibold leading-heading tracking-[2px]">{title}</p>
       </div>
     </div>

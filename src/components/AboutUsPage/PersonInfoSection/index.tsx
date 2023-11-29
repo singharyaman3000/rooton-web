@@ -3,6 +3,7 @@ import NextImage from '@/components/UIElements/NextImage';
 import ImagesSeparatedByLine from './ImagesSeparatedByLine';
 import Description from '@/components/UIElements/Description';
 import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
+import AboutUsSubHeader from '../AboutUsSubHeader';
 
 interface PersonInfoSectionProps {
   contentHeading: string;
@@ -24,7 +25,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
       <div className="flex justify-between">
         <div className="w-[100%] lg:w-[52%]">
           <div className="flex gap-2 flex-wrap items-end justify-between">
-            <SubSectionTitle title={contentHeading} />
+            <AboutUsSubHeader title={contentHeading} />
           </div>
           <Description cssClass="!text-primary-font-color my-5 md:mt-9" description={description} />
           <ul className="flex flex-col gap-3">
