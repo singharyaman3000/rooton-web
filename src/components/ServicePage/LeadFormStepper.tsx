@@ -357,7 +357,7 @@ const LeadFormStepper = (
   const getMeetingUrl = () => {
     if (calenderLink)
       // eslint-disable-next-line max-len
-      return `${calenderLink[consultationType as keyof IMeetingData]}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}`;
+      return `${calenderLink[consultationType as keyof IMeetingData]}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}&name=${userData.firstname} ${userData.lastname}`;
     return '';
 
   };
