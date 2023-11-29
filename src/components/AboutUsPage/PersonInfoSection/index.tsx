@@ -2,7 +2,6 @@ import { Li } from '@/components/Li';
 import NextImage from '@/components/UIElements/NextImage';
 import ImagesSeparatedByLine from './ImagesSeparatedByLine';
 import Description from '@/components/UIElements/Description';
-import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
 import AboutUsSubHeader from '../AboutUsSubHeader';
 
 interface PersonInfoSectionProps {

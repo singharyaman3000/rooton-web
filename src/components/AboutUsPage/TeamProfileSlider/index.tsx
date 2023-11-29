@@ -11,7 +11,6 @@ import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
 import SectionContainer from '@/components/Containers/SectionContainers';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
-import SubSectionTitle from '@/components/UIElements/SectionHeadings/SubSectiontitle';
 import AboutUsSubHeader from '../AboutUsSubHeader';
 
 interface Employee {
