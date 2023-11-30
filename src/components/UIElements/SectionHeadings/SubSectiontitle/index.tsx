@@ -4,11 +4,11 @@ import { ISectionTitle } from '../SectionTitle';
 
 const SubSectionTitle = ({ title, cssClass }: ISectionTitle) => {
   return (
-    <h4
+    <h3
       className={`max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] ${cssClass}`}
     >
       {ReactHtmlParser(title)}
-    </h4>
+    </h3>
   );
 };
 

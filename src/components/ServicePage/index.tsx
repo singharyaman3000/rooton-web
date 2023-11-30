@@ -206,6 +206,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         ]}
       />
       <RootOnBanner
+        sourcePage={SOURCE_PAGE.SERVICE}
         isVideoBanner={isVideo(response.data?.attributes.media_url?.data?.[0].attributes.mime)}
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}

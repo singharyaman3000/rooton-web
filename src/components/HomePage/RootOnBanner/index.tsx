@@ -7,6 +7,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { motion } from 'framer-motion';
 import VideoElement from '@/components/UIElements/VideoElement';
 import BannerGrids from './BannerGrid';
+import { SOURCE_PAGE } from '@/components/BlogsListPage/constants';
 
 type RTONBannerProps = {
   backgroundImageUrl: string;
@@ -14,9 +15,11 @@ type RTONBannerProps = {
   description: string;
   button: ReactElement;
   isVideoBanner: boolean;
+  sourcePage?: string;
 };
 
 export default function RootOnBanner({
+  sourcePage,
   backgroundImageUrl,
   isVideoBanner,
   heroText,
@@ -35,16 +38,18 @@ export default function RootOnBanner({
         min-h-[380px]
       "
     >
-      <div className=" w-full h-full flex flex-col justify-end z-20">
+      <div className={`${!(sourcePage && sourcePage === SOURCE_PAGE.SERVICE) ? 'md:justify-evenly' : ''}
+      w-full h-full flex flex-col justify-end  z-20`}>
         <div
-          className="
-          pb-[36px] md:pb-[120px]
+          className={` ${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
+            'xs:pb-[36px] sm:pb-[60px] md:pb-[101px] md:pt-[50px]' :
+            'pb-[36px] md:pb-0 md:pt-[50px]'}
           relative z-[10]
           px-[24px]
           whitespace-pre-wrap
           md:px-[48px]
           lg:px-[80px]
-          "
+          `}
         >
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -61,7 +66,8 @@ export default function RootOnBanner({
             <h1
               className="
                     banner-text
-                    text-[37.2px]
+                    xs:text-[30px]
+                    md:text-[37.2px]
                     lg:text-[62px]
                     mr-9
                     font-bold
@@ -73,12 +79,15 @@ export default function RootOnBanner({
             >
               {ReactHtmlParser(heroText)}
             </h1>
-            <p className="mt-[15px] md:mt-[35px] text-white font-bold text-[15px] leading-[1.67] lg:text-2xl">
+            <p className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
+              'mt-[24px] lg:mt-[20px] whitespace-normal md:whitespace-break-spaces' :
+              'mt-[15px] md:mt-[35px]'} text-white font-bold text-[15px] leading-[1.67] lg:text-2xl`}>
               {ReactHtmlParser(description)}
             </p>
           </motion.div>
 
-          <div className=" mt-[57.8px] w-full md:max-w-[418px]">{button}</div>
+          <div className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] lg:mt-[102px]' :
+            'mt-[32px] md:mt-[68.4px]'} w-full md:max-w-[418px]`}>{button}</div>
         </div>
       </div>
       {isVideoBanner ? (

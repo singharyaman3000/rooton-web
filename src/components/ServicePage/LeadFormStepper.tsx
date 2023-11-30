@@ -96,6 +96,7 @@ const LeadFormStepper = (
 
   const [disableNextButton, setDisableNextButton] = useState(false);
   const [disableBackButton, setDisableBackButton] = useState(true);
+  const [userData, setUserData] = useState({ firstname: '', lastname: '', email: '' });
   const [consultationType, setConsultationType] = useState('');
   const [showError, setShowError] = useState(false);
 
@@ -339,16 +340,26 @@ const LeadFormStepper = (
   }, [ctaClickSource]);
 
   const getConsultationType = (form: HTMLFormElement) => {
-    const consulationFields = Array.from(form.querySelectorAll('input')).filter((ele) => {
-      return ele.name.includes('preferred_consultation_type_');
-    });
-    const isFree = consulationFields.length ?
-      !!(consulationFields.length &&
-        consulationFields.find((item) => { return item.value.toLowerCase().includes('free'); })?.checked) :
-      !(ctaClickType.current && ctaClickType.current === CONSULTATION_TYPES.PAID);
-    // eslint-disable-next-line no-nested-ternary
-    const selectedType = isFree && calenderLink?.free ? 'free' : calenderLink?.paid ? 'paid' : 'free';
-    setConsultationType(selectedType);
+    if (form) {
+      const consulationFields = Array.from(form.querySelectorAll('input')).filter((ele) => {
+        return ele.name.includes('preferred_consultation_type_');
+      });
+      const isFree = consulationFields.length ?
+        !(consulationFields.length &&
+          consulationFields.find((item) => { return item.value.toLowerCase().includes('paid'); })?.checked) :
+        !(ctaClickType.current && ctaClickType.current === CONSULTATION_TYPES.PAID);
+      // eslint-disable-next-line no-nested-ternary
+      const selectedType = isFree && calenderLink?.free ? 'free' : calenderLink?.paid ? 'paid' : 'free';
+      setConsultationType(selectedType);
+    }
+  };
+
+  const getMeetingUrl = () => {
+    if (calenderLink)
+      // eslint-disable-next-line max-len
+      return `${calenderLink[consultationType as keyof IMeetingData]}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}&name=${userData.firstname} ${userData.lastname}`;
+    return '';
+
   };
 
   useEffect(() => {
@@ -381,7 +392,9 @@ const LeadFormStepper = (
                 onFormSubmit(form);
               }
             },
-            onFormSubmitted: () => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onFormSubmitted: (event: HTMLFormElement, form: {redirectUrl: string; submissionValues: any}) => {
+              setUserData(form.submissionValues);
               // show calender
               scrollToTop();
               setShowCalender(true);
@@ -433,8 +446,7 @@ const LeadFormStepper = (
     />
   ) : (
     <div id='scheduler-container' className=" h-[54rem] mt-2">
-      <iframe className=" w-full h-full" title="AA" src={calenderLink ?
-        calenderLink[consultationType as keyof IMeetingData] : ''} />
+      <iframe className=" w-full h-full" title="AA" src={getMeetingUrl()} />
     </div>
   );
 };

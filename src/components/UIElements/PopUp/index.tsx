@@ -22,7 +22,7 @@ const PopUp = ({ header, body, showPopuUp, onClose }: IPopUp) => {
             </button>
           </div>{' '}
         </div>
-        <div className="flex w-full justify-center items-center min-h-[550px] max-h-[500px] relative">{body}</div>
+        <div className="flex w-full justify-center items-center min-h-[480px] xl:min-h-[550px] max-h-[500px] relative">{body}</div>
         <div></div>
       </div>
     </PopUpOverlayWrapper>

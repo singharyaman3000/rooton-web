@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
 import FooterLogo from './FooterLogo';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import NextImage from '../UIElements/NextImage';
@@ -10,6 +12,7 @@ import FooterGrid from './FooterGrid';
 import SocialMediaLinks from '../ContactUsPage/SocialMediaLinks';
 
 export default function Footer() {
+  const params = useParams();
   const { headerFooterData } = useHeaderFooterContext();
 
   return (
@@ -25,8 +28,8 @@ export default function Footer() {
     lg:pt-[49px]
     lg:pb-[94px]
     lg:gap-[80px]
-    xl:gap-[153px]
     relative
+    md:justify-between
   "
     >
       <div
@@ -45,14 +48,16 @@ export default function Footer() {
       lg:justify-around
       justify-center
       lg:flex-shrink-0
+      z-10
     "
       >
         <div className=" lg:flex lg:flex-col mt-[10px] justify-between">
           <FooterLogo />
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
-            <div className=" flex gap-12 justify-center z-10">
+            <div className=" flex gap-12 justify-center w-full z-10">
               <SocialMediaLinks
+                wrapperClass="justify-around w-full md:justify-between !gap-0 lg:!gap-7 !pr-0"
                 socialData={
                   headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []
                 }
@@ -73,22 +78,23 @@ export default function Footer() {
             justify-between
             text-sm
             font-semibold
-            lg:w-full
+            md:w-full
             z-10
           "
         >
-          <div className=" flex flex-col gap-3 lg:gap-[18px]">
-            <Link href={'/'}>Careers</Link>
-            <Link href={'/'}>Privacy Policy</Link>
-            <Link href={'/'}>Terms & Condition</Link>
-            <Link href={'/'}>QnA Forum</Link>
-          </div>
-          <div className=" flex flex-col gap-3 lg:gap-[18px]">
-            <Link href={'/'}>Book a Meeting RCIC</Link>
-            <Link href={'/'}>Disclaimer</Link>
-            <Link href={'/'}>GCKey vs APR </Link>
-            <Link href={'/'}>Affiliate Program</Link>
-            <Link href={'/sitemap'}>Sitemap</Link>
+          <div className=" flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-3 lg:gap-[18px] w-full">
+            {/* <Link href={'/'}>Careers</Link> */}
+            <Link className='basis-[47%] order-1' href={'/'}>Privacy Policy</Link>
+            <Link className='basis-[47%] order-3 md:order-2' href={'/'}>Terms & Condition</Link>
+            {/* <Link href={'/'}>QnA Forum</Link> */}
+            {/* </div>
+          <div className=" flex flex-col gap-3 lg:gap-[18px]"> */}
+            <Link className='basis-[47%] order-2 md:order-3'
+              href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}>Book a Meeting RCIC</Link>
+            <Link className='basis-[47%] order-4' href={'/'}>Disclaimer</Link>
+            {/* <Link href={'/'}>GCKey vs APR </Link> */}
+            {/* <Link href={'/'}>Affiliate Program</Link> */}
+            <Link className='basis-[47%] order-5' href={'/sitemap'}>Sitemap</Link>
           </div>
         </div>
       </div>
@@ -99,11 +105,14 @@ export default function Footer() {
         px-6
         xl:pt-0
         xl:pb-0
+        xl:px-0
+        mg:flex-grow-1
         flex
         flex-col
         justify-center
         lg:justify-between
         lg:gap-0
+        z-10
     "
       >
         {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
@@ -121,16 +130,20 @@ export default function Footer() {
                   />
                 </div>
               </div>
-              <p className=" text-sm mb-[4px] whitespace-pre font-bold">{address?.attributes.name}</p>
-              <p className=" text-sm mb-[4px] whitespace-pre-line  whitespace-font-pre-line">
+              <p className=" text-sm mb-[4px] whitespace-pre md:whitespace-normal font-bold">
+                {address?.attributes.name}</p>
+              <p className=" text-sm mb-[4px] whitespace-normal">
                 {HtmlParser(address?.attributes?.location)}
               </p>
-              <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">Phone {address?.attributes?.phone_number}</p>
+              <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">
+                Phone <a className='cursor-pointer' href={`tel:${address?.attributes?.phone_number}`}>
+                  {address?.attributes?.phone_number} </a>
+              </p>
             </div>
           );
         })}
       </div>
-      <div className="absolute top-0 left-0 hidden w-full overflow-hidden xl:block">
+      <div className="absolute h-[380px] top-0 left-0 hidden w-full overflow-hidden xl:block z-1">
         <FooterGrid />
       </div>
     </footer>

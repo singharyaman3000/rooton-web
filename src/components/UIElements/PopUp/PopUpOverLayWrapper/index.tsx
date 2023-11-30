@@ -43,7 +43,7 @@ const PopUpOverlayWrapper = ({
     showPopUp && (
       <div className="fixed square-[100%] top-0 left-0 z-[1000]  flex  justify-center items-center">
         <div className="bg-[rgba(0,_0,_0,_0.5)] w-full h-full absolute"></div>
-        <div ref={wrapperRef} className="z-10">
+        <div ref={wrapperRef} className="z-10 max-h-[calc(100%-10px)] xl:max-h-full">
           {children}
         </div>
       </div>
