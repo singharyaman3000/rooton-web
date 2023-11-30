@@ -78,12 +78,11 @@ export default function Footer() {
             justify-between
             text-sm
             font-semibold
-            lg:w-full
-            z-10
             md:w-full
+            z-10
           "
         >
-          <div className=" flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-3 lg:gap-[18px]">
+          <div className=" flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-3 lg:gap-[18px] w-full">
             {/* <Link href={'/'}>Careers</Link> */}
             <Link className='basis-[47%] order-1' href={'/'}>Privacy Policy</Link>
             <Link className='basis-[47%] order-3 md:order-2' href={'/'}>Terms & Condition</Link>
