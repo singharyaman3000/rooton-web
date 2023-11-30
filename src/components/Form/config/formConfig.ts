@@ -1,3 +1,7 @@
+export type OptionType = {
+  id: string;
+  value: string;
+};
 export interface IFormField {
   label: string;
   name: string;
@@ -6,25 +10,10 @@ export interface IFormField {
 export interface IFormFieldOptions {
   label: string;
   name: string;
-  options: {
-    id: string;
-    value: string;
-  }[];
+  options: OptionType[];
 }
 
-// ===================================== PERSONAL PROFILE ===================================================
-
-const countriesArray = [
-  { id: 'af', value: 'Afghanistan' },
-  { id: 'al', value: 'Albania' },
-  { id: 'dz', value: 'Algeria' },
-  { id: 'as', value: 'American Samoa' },
-  { id: 'ad', value: 'Andorra' },
-  { id: 'vn', value: 'Vietnam' },
-  { id: 'ye', value: 'Yemen' },
-  { id: 'zm', value: 'Zambia' },
-  { id: 'zw', value: 'Zimbabwe' },
-];
+// ===================================== PERSONAL PROFILE ==================================================
 
 const placesInCanada = [
   { id: 'ca-ab', value: 'Alberta, Canada' },
@@ -62,10 +51,12 @@ export const ageGroups: IFormFieldOptions[] = [
     label: 'Age',
     options: [
       { id: 'under18', value: 'Under 18' },
-      ...Array.from({ length: 43 }, (_, index) => ({
-        id: `${index + 18}`,
-        value: `${index + 18}`,
-      })),
+      ...Array.from({ length: 43 }, (_, index) => {
+        return {
+          id: `${index + 18}`,
+          value: `${index + 18}`,
+        };
+      }),
       { id: 'over60', value: 'Over 60' },
     ],
   },
@@ -75,7 +66,7 @@ export const countriesOfCitizenship: IFormFieldOptions[] = [
   {
     name: 'country_of_citizenship',
     label: 'Country of Citizenship',
-    options: countriesArray,
+    options: [] as OptionType[],
   },
 ];
 
@@ -83,7 +74,7 @@ export const countriesOfResidence: IFormFieldOptions[] = [
   {
     name: 'country_of_residence',
     label: 'Country of Residence',
-    options: countriesArray,
+    options: [] as OptionType[],
   },
 ];
 
@@ -322,7 +313,7 @@ export const educationPlaceInCanada: IFormFieldOptions[] = [
 
 export const territoryCheck: IFormFieldOptions[] = [
   {
-    name: 'have_you_lived_in_canadas_atlantic_provinces',
+    name: 'have_you_lived_in_canada_atlantic_provinces',
     label:
       'Have you lived in one of Canada’s Atlantic provinces (New Brunswick, Newfoundland and Labrador, Nova Scotia, or Prince Edward Island) for at least 16 months in the 2 years before getting your degree, diploma or educational credential?',
     options: [
@@ -333,13 +324,6 @@ export const territoryCheck: IFormFieldOptions[] = [
 ];
 
 // ================================================ WORK HISTORY ===============================================
-
-const occupations = [
-  { id: 'homemaker', value: 'Homemaker' },
-  { id: 'privateSector', value: 'Private Sector' },
-  { id: 'government', value: 'Government' },
-  { id: 'unemployed', value: 'Unemployed' },
-];
 
 const workHistoryDurationOptions = [
   { id: '0.25', value: '3 months' },
@@ -405,7 +389,7 @@ export const workHistoryOccupation: IFormFieldOptions[] = [
   {
     name: 'work_history_occupation',
     label: 'Occupation',
-    options: occupations,
+    options: [] as OptionType[],
   },
 ];
 
@@ -512,7 +496,7 @@ export const occupation: IFormFieldOptions[] = [
   {
     name: 'occupation_canada ',
     label: 'Occupation',
-    options: occupations,
+    options: [] as OptionType[],
   },
 ];
 

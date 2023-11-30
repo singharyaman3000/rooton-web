@@ -1,7 +1,7 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormRadioInput } from '../../components/FormRadioInput';
 import { workHistoryOrNot } from '../../config/formConfig';
 import { IPropsType } from '../../config/models';
@@ -11,8 +11,7 @@ const intialFormStates = {
   workHistoryOrNot: '',
 };
 
-export const WorkHistorySection = (props: IPropsType) => {
-  const { onchange, formNumber } = props;
+export const WorkHistorySection: React.FC<IPropsType> = ({ onchange, formNumber }) => {
   const [formValues, setFormValues] = useState(intialFormStates);
   const [currentStep, setCurrentStep] = useState<number>(1);
 

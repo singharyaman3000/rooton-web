@@ -78,9 +78,26 @@ interface IOrganizationData {
   companyLogo: string;
 }
 
+export interface ICountryInfo {
+  name: string;
+  [key: string]: string;
+  currency: string;
+  phoneCode: string;
+}
+export interface IOccupationInfo {
+  occupation: string;
+  [key: string]: string;
+}
+
+interface ILeadFormData {
+  countryInfos: ICountryInfo[];
+  occupationList: IOccupationInfo[];
+}
+
 interface IJsonContent {
   socialMediaIcons: SocialMediaInterfaceType[];
   organizationDetails: IOrganizationData;
+  leadFormDatas: ILeadFormData;
 }
 
 export interface IAttributes {

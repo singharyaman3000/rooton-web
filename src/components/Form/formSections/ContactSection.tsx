@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormTextInput } from '../components/FormTextInput';
 import { contactInfo } from '../config/formConfig';
 import { IPropsType } from '../config/models';
@@ -12,8 +12,7 @@ const intialFormStates = {
   telephone: '',
 };
 
-export const ContactSection = (props: IPropsType) => {
-  const { onchange, formNumber } = props;
+export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) => {
   const [formValues, setFormValues] = useState(intialFormStates);
 
   const handleFieldChange = (fieldName: string, value: unknown) => {

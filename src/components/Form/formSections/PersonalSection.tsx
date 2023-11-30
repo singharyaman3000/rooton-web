@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IPropsType } from '../config/models';
 import { FormDropdown } from '../components/FormDropDown';
 import {
@@ -30,8 +30,7 @@ const intialFormStates = {
   ever_been_to_quebec_before: '',
 };
 
-export const PersonalSection = (props: IPropsType) => {
-  const { onchange, formNumber } = props;
+export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, countries }) => {
   const [formValues, setFormValues] = useState(intialFormStates);
 
   const handleFieldChange = (fieldName: string, value: unknown) => {
@@ -48,9 +47,9 @@ export const PersonalSection = (props: IPropsType) => {
     if (onchange) {
       onchange(
         formValues.age === '' ||
-          formValues.country_of_citizenship === '' ||
-          formValues.country_of_residence === '' ||
-          formValues.marital_status === '',
+        formValues.country_of_citizenship === '' ||
+        formValues.country_of_residence === '' ||
+        formValues.marital_status === '',
       );
     }
   }, [formValues]);
@@ -75,7 +74,7 @@ export const PersonalSection = (props: IPropsType) => {
         required
       />
       <FormDropdown
-        options={countriesOfResidence[0].options}
+        options={countries || []}
         label={countriesOfResidence[0].label}
         value={formValues.country_of_residence}
         onChange={(e) => {
@@ -84,7 +83,7 @@ export const PersonalSection = (props: IPropsType) => {
         required
       />
       <FormDropdown
-        options={countriesOfCitizenship[0].options}
+        options={countries || []}
         label={countriesOfCitizenship[0].label}
         value={formValues.country_of_citizenship}
         onChange={(e) => {

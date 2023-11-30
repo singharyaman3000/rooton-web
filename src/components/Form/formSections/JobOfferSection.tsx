@@ -1,10 +1,11 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FormDropdown } from '../components/FormDropDown';
 import { FormRadioInput } from '../components/FormRadioInput';
 import { contractDurationOptions, occupation, workHoursOptions, workProvinceTerritory } from '../config/formConfig';
+import { IPropsType } from '../config/models';
 
 const intialFormStates = {
   occupation: '',
@@ -13,7 +14,7 @@ const intialFormStates = {
   contractDurationOptions: '',
 };
 
-export const JobOfferSection = () => {
+export const JobOfferSection: React.FC<IPropsType> = ({ occupations }) => {
   const [formValues, setFormValues] = useState(intialFormStates);
 
   const handleFieldChange = (fieldName: string, value: unknown) => {
@@ -29,7 +30,7 @@ export const JobOfferSection = () => {
     <div className='flex flex-col gap-4 md:gap-16'>
       <div className="flex flex-col gap-4 md:grid grid-cols-2">
         <FormDropdown
-          options={occupation[0].options}
+          options={occupations || []}
           label={occupation[0].label}
           value={formValues.occupation}
           onChange={(e) => {

@@ -1,7 +1,8 @@
 import React, { ChangeEventHandler, useEffect, useState } from 'react';
+import { OptionType } from '../config/formConfig';
 
 type PropsType = {
-  options: { id: string; value: string }[];
+  options: OptionType[];
   value: string;
   label: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
@@ -29,7 +30,7 @@ export const FormDropdown: React.FC<PropsType> = ({ options, value, onChange, la
         <option disabled value="">
           Please Select
         </option>
-        {options.map((option) => {
+        {options?.map((option) => {
           return (
             <option key={option.id} value={option.value}>
               {option.value}

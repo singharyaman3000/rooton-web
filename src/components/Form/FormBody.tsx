@@ -14,10 +14,14 @@ import { FamilyOrFriendsSection } from './formSections/FamilyFriendsSection';
 import { NetWorthSection } from './formSections/NetWorthSection';
 import { ContactSection } from './formSections/ContactSection';
 import { FormButton } from './components/FormButton';
+import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
+
+type ValueType = 'country' | 'occupation';
 
 const FormBody = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isInvalid, setIsInValid] = useState<boolean>(true);
+  const { headerFooterData } = useHeaderFooterContext();
 
   const setTrigger = () => {
     if (isInvalid) return;
@@ -32,10 +36,28 @@ const FormBody = () => {
     });
   };
 
+  const getData = (valueType: ValueType) => {
+    if (!headerFooterData) return [];
+    const leadFormDatas = headerFooterData[0]?.attributes?.json_content?.leadFormDatas;
+
+    if (!leadFormDatas) return [];
+
+    const key = valueType === 'country' ? 'name' : 'occupation';
+    const data = leadFormDatas[valueType === 'country' ? 'countryInfos' : 'occupationList'];
+
+    return (
+      data?.map((item) => {
+        const id = item?.[key]?.toLowerCase()?.replace(/[^a-z]/g, '');
+        const value = item?.[key]?.split(' (')[0];
+        return { id, value };
+      }) || []
+    );
+  };
+
   useEffect(() => {
     const initHubSpot = () => {
       const script = document.createElement('script');
-      script.src = '//js.hs-scripts.com/43383438.js';
+      script.src = '//js.hs-scripts.com/44311898.js';
       document.body.appendChild(script);
     };
     initHubSpot();
@@ -52,7 +74,7 @@ const FormBody = () => {
       >
         <FormStep currentStep={currentStep} stepNumber={1}>
           <FormHeader>Personal Profile</FormHeader>
-          <PersonalSection onchange={setIsInValid} formNumber={currentStep} />
+          <PersonalSection onchange={setIsInValid} formNumber={currentStep} countries={getData('country')} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={2}>
@@ -67,7 +89,7 @@ const FormBody = () => {
 
         <FormStep currentStep={currentStep} stepNumber={4}>
           <FormHeader>Your Work History</FormHeader>
-          <WorkHistorySection onchange={setIsInValid} formNumber={currentStep} />
+          <WorkHistorySection onchange={setIsInValid} formNumber={currentStep} occupations={getData('occupation')} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={5}>
@@ -77,7 +99,7 @@ const FormBody = () => {
 
         <FormStep currentStep={currentStep} stepNumber={6}>
           <FormHeader>Canadian Job Offer</FormHeader>
-          <JobOfferSection />
+          <JobOfferSection occupations={getData('occupation')} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={7}>

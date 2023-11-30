@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { highSchool, training } from '../../config/formConfig';
 import { FormRadioInput } from '../../components/FormRadioInput';
 import { AdditionalQuestions } from './AdditionalQuestions';
@@ -11,8 +11,7 @@ const intialFormStates = {
   training: '',
 };
 
-export const EducationSection = (props: IPropsType) => {
-  const { onchange, formNumber } = props;
+export const EducationSection: React.FC<IPropsType> = ({ onchange, formNumber }) => {
   const [formValues, setFormValues] = useState(intialFormStates);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
