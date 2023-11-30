@@ -40,7 +40,7 @@ const Slider = ({
         <div
           className={`flex justify-between  
           w-full transition-transform md:delay-100 
-          md:duration-300 snap-x snap-mandatory ${slideParentClass}`}
+          md:duration-1000 snap-x snap-mandatory ${slideParentClass}`}
           style={{ transform: `translateX(${scrollPercent ?? `${-pageNum * 100}%`})` }}
           id={id}
         >

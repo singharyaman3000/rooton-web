@@ -65,6 +65,7 @@ module.exports = {
         'golden-honey': 'var(--golden-honey)',
         'smoky-steel': 'var(--smoky-steel)',
         'light-gray': 'var(--light-gray)',
+        'platinum': 'var(--platinum)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
