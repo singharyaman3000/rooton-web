@@ -7,7 +7,7 @@ import { getServicePageURL } from '@/utils';
 import { BOOK_AN_APPOINTMENT } from '@/constants/navigation';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
-const ListItems = ({ item, id }: { item: string; id: number }) => {
+const ListItems = ({ item, id }: { item: string; id: string }) => {
   const path = useParams();
   const { isModalShown, closeCoreServiceList } = useContext(ModalShowContextname);
 
@@ -18,7 +18,7 @@ const ListItems = ({ item, id }: { item: string; id: number }) => {
   return (
     <li
       key={id}
-      role='menuitem'
+      role="menuitem"
       onClick={() => {
         handleServicesDisplay();
       }}
@@ -29,10 +29,10 @@ const ListItems = ({ item, id }: { item: string; id: number }) => {
       <Link
         href={
           path.lang
-            ? `/${path.lang}${getServicePageURL(id)}${BOOK_AN_APPOINTMENT}`
-            : `${getServicePageURL(id)}${BOOK_AN_APPOINTMENT}`
+            ? `/${path.lang}/${id}${BOOK_AN_APPOINTMENT}`
+            : `${id}${BOOK_AN_APPOINTMENT}`
         }
-        className='block'
+        className="block"
       >
         {HtmlParser(item.replaceAll('**', ''))}
       </Link>
