@@ -17,6 +17,7 @@ export interface ISubServiceAttribute {
   CTA_text?: string | null;
   CTA_link?: string | null;
   sub_title?: string | null;
+  unique_identifier_name?: string;
 }
 
 export interface ISubServiceData {

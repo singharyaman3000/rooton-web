@@ -3,15 +3,17 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
+import { metaInfo } from './constants/pageMetaInfo';
 
 export const metadata: Metadata = {
-  title: 'ROOT ON IMMIGRATION CONSULTANT',
-  description: 'Root On',
+  title: metaInfo.home.title,
+  description: metaInfo.home.description,
+  alternates: { canonical: 'https://rooton.ca' },
   openGraph: {
     url: `${process.env.NEXT_APP_BASE_URL}`,
-    title: 'Root On',
+    title: metaInfo.home.title,
     images: `${process.env.NEXT_APP_BASE_URL}/images/og-image.png`,
-    description: 'What seems impossible to others has been made possible by Root On.',
+    description: metaInfo.home.description,
     type: 'article',
   },
   twitter: {
