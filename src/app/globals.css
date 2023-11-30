@@ -975,6 +975,18 @@ heading {
   background-color: #000;
 }
 
+.activedot {
+  background-color: #F59723;
+}
+
+.inactivedot {
+  background-color: #000; 
+}
+
+[data-theme='dark'] .inactivedot{
+  background-color: #fff;
+}
+
 [data-theme='dark'] .credibility-images{
   background-color: #fff;
 }

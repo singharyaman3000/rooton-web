@@ -84,6 +84,7 @@ const LeadFormStepper = (
   const [showError, setShowError] = useState(false);
 
   const [showCalender, setShowCalender] = useState(false);
+  const [userData, setUserData] = useState({ firstname: '', lastname: '', email: '' });
 
   const stepNo = useRef<number>(1);
   const formLength = useRef<number>(0);
@@ -343,7 +344,9 @@ const LeadFormStepper = (
                 onFormSubmit(form);
               }
             },
-            onFormSubmitted: () => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onFormSubmitted: (event: HTMLFormElement, form: {redirectUrl: string; submissionValues: any}) => {
+              setUserData(form.submissionValues);
               // show calender
               setShowCalender(true);
               stepNo.current += 1;
@@ -381,6 +384,8 @@ const LeadFormStepper = (
       initScroll();
     }
   }, [isBookAppointment, initScroll]);
+  /* eslint-disable max-len */
+  const calendarUrl = `${calenderLink}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}`;
 
   return !showCalender ? (
     <FormTarget
@@ -393,7 +398,7 @@ const LeadFormStepper = (
     />
   ) : (
     <div className=" h-[54rem] mt-2">
-      <iframe className=" w-full h-full" title="AA" src={calenderLink} />
+      <iframe className=" w-full h-full" title="AA" src={calendarUrl} />
     </div>
   );
 };
