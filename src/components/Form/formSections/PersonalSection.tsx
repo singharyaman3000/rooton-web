@@ -63,7 +63,6 @@ export const PersonalSection = (props: IPropsType) => {
       handleFieldChange('ever_been_to_quebec_before', '');
   }, [formValues.preferred_destination_in_canada]);
 
-
   return (
     <div>
       <FormDropdown

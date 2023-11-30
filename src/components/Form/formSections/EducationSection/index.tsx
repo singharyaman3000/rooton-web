@@ -62,7 +62,7 @@ export const EducationSection = (props: IPropsType) => {
           }}
         />
       </div>
-      <div className={`${formValues.training === 'Yes' ? 'flex flex-col' : 'hidden'}`}>
+      <div className={`${formValues.training === 'Yes' ? 'flex flex-col' : 'hidden'} overflow-auto max-h-[50rem]`}>
         <p>
           Please list all of your education and/or training other than high school (secondary school), starting with the
           most recent:

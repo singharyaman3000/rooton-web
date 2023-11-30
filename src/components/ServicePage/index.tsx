@@ -31,7 +31,6 @@ type ServicePageProps = {
 export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
-  
   const leadFormRef = useRef<HTMLDivElement>(null);
 
   const whyChooseOpen = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {

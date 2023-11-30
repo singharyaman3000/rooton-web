@@ -26,35 +26,39 @@ export const JobOfferSection = () => {
   };
 
   return (
-    <div>
-      <FormDropdown
-        options={occupation[0].options}
-        label={occupation[0].label}
-        value={formValues.occupation}
-        onChange={(e) => {
-          handleFieldChange('occupation', e.target.value);
-        }}
-      />
-      <FormDropdown
-        options={workProvinceTerritory[0].options}
-        label={workProvinceTerritory[0].label}
-        value={formValues.workProvinceTerritory}
-        onChange={(e) => {
-          handleFieldChange('workProvinceTerritory', e.target.value);
-        }}
-      />
-      <FormRadioInput
-        fields={workHoursOptions}
-        onChange={(e) => {
-          handleFieldChange('workHoursOptions', e.target.value);
-        }}
-      />
-      <FormRadioInput
-        fields={contractDurationOptions}
-        onChange={(e) => {
-          handleFieldChange('contractDurationOptions', e.target.value);
-        }}
-      />
+    <div className='flex flex-col gap-4 md:gap-16'>
+      <div className="flex flex-col gap-4 md:grid grid-cols-2">
+        <FormDropdown
+          options={occupation[0].options}
+          label={occupation[0].label}
+          value={formValues.occupation}
+          onChange={(e) => {
+            handleFieldChange('occupation', e.target.value);
+          }}
+        />
+        <FormDropdown
+          options={workProvinceTerritory[0].options}
+          label={workProvinceTerritory[0].label}
+          value={formValues.workProvinceTerritory}
+          onChange={(e) => {
+            handleFieldChange('workProvinceTerritory', e.target.value);
+          }}
+        />
+      </div>
+      <div className="flex flex-col gap-4 md:grid grid-cols-2">
+        <FormRadioInput
+          fields={workHoursOptions}
+          onChange={(e) => {
+            handleFieldChange('workHoursOptions', e.target.value);
+          }}
+        />
+        <FormRadioInput
+          fields={contractDurationOptions}
+          onChange={(e) => {
+            handleFieldChange('contractDurationOptions', e.target.value);
+          }}
+        />
+      </div>
     </div>
   );
 };

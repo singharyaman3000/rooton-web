@@ -101,6 +101,7 @@ const FormBody = () => {
             displayCondition={currentStep !== 1 && currentStep <= 9}
             buttonText="Previous"
             onClickHandler={() => {
+              if (currentStep === 9) setIsInValid(false);
               setCurrentStep((prevStep) => {
                 return Math.max(1, prevStep - 1);
               });

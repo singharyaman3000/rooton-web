@@ -43,7 +43,7 @@ export const LanguageSection = () => {
       {/* English Skills */}
       <div>
         <span className='block text-xl font-[500] mb-2'>English</span>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="flex flex-col gap-4 md:grid grid-cols-4">
           <FormDropdown
             options={englishListeningLevels[0].options}
             label={englishListeningLevels[0].label}
@@ -81,7 +81,7 @@ export const LanguageSection = () => {
       {/* French Skills */}
       <div>
         <span className='block text-xl font-[500] mb-2'>French</span>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="flex flex-col gap-4 md:grid grid-cols-4">
           <FormDropdown
             options={frenchListeningLevels[0].options}
             label={frenchListeningLevels[0].label}

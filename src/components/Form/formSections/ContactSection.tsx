@@ -29,10 +29,10 @@ export const ContactSection = (props: IPropsType) => {
     if (formNumber !== 9) return;
     if (onchange) {
       onchange(
-        formValues.firstname === '' &&
-          formValues.lastname === '' &&
-          formValues.email === '' &&
-          formValues.telephone === '',
+        formValues.firstname === '' ||
+        formValues.lastname === '' ||
+        formValues.email === '' ||
+        formValues.telephone === '',
       );
     }
   }, [formValues, formNumber]);

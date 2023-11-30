@@ -54,7 +54,7 @@ export const WorkHistorySection = (props: IPropsType) => {
         value={formValues.workHistoryOrNot}
         required
       />
-      <div className={`${formValues.workHistoryOrNot === 'Yes' ? 'flex flex-col' : 'hidden'}`}>
+      <div className={`${formValues.workHistoryOrNot === 'Yes' ? 'flex flex-col' : 'hidden'} overflow-auto max-h-[50rem]`}>
         <p>
           Starting with your current (or most recent) job, please list all the paid work you have done during the last
           10 years:
