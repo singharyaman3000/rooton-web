@@ -6,4 +6,5 @@ export interface IPropsType {
   formNumber?: number;
   countries?: OptionType[];
   occupations?: OptionType[];
+  currencies?: OptionType[];
 }

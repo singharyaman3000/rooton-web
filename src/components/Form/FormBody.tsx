@@ -17,6 +17,7 @@ import { FormButton } from './components/FormButton';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 
 type ValueType = 'country' | 'occupation';
+type keyType = 'name' | 'currency'
 
 const FormBody = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -36,14 +37,14 @@ const FormBody = () => {
     });
   };
 
-  const getData = (valueType: ValueType) => {
+  const getData = (valueType: ValueType, keyValue?: keyType) => {
     if (!headerFooterData) return [];
     const leadFormDatas = headerFooterData[0]?.attributes?.json_content?.leadFormDatas;
 
     if (!leadFormDatas) return [];
 
-    const key = valueType === 'country' ? 'name' : 'occupation';
-    const data = leadFormDatas[valueType === 'country' ? 'countryInfos' : 'occupationList'];
+    const key = valueType === 'occupation' ? 'occupation' : keyValue || 'name';
+    const data = leadFormDatas[key === 'occupation' ? 'occupationList' : 'countryInfos'];
 
     return (
       data?.map((item) => {
@@ -74,7 +75,7 @@ const FormBody = () => {
       >
         <FormStep currentStep={currentStep} stepNumber={1}>
           <FormHeader>Personal Profile</FormHeader>
-          <PersonalSection onchange={setIsInValid} formNumber={currentStep} countries={getData('country')} />
+          <PersonalSection onchange={setIsInValid} formNumber={currentStep} countries={getData('country', 'name')} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={2}>
@@ -109,7 +110,7 @@ const FormBody = () => {
 
         <FormStep currentStep={currentStep} stepNumber={8}>
           <FormHeader>Your Personal Net Worth</FormHeader>
-          <NetWorthSection />
+          <NetWorthSection currencies={getData('country', 'currency')} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={9}>

@@ -1,16 +1,17 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FormDropdown } from '../components/FormDropDown';
 import { currency, netWorth } from '../config/formConfig';
+import { IPropsType } from '../config/models';
 
 const intialFormStates = {
   currency: '',
   netWorth: '',
 };
 
-export const NetWorthSection = () => {
+export const NetWorthSection: React.FC<IPropsType> = ({ currencies }) => {
   const [formValues, setFormValues] = useState(intialFormStates);
 
   const handleFieldChange = (fieldName: string, value: unknown) => {
@@ -26,7 +27,7 @@ export const NetWorthSection = () => {
     <div>
       <p>This question is optional. Net worth is considered for some immigration programs.</p>
       <FormDropdown
-        options={currency[0].options}
+        options={currencies || []}
         label={currency[0].label}
         value={formValues.currency}
         onChange={(e) => {
