@@ -1,4 +1,4 @@
-import { ABOUT_US_PATH } from '../../../../constants/navigation';
+import { ABOUT_US_PATH } from '@/constants/navigation';
 import WinningWillIcon from '@/components/Icons/WinningWillIcon';
 import OpenMindednessIcon from '@/components/Icons/OpenMindednessIcon';
 import QualityServiceIcon from '@/components/Icons/QualityServiceIcon';
