@@ -72,7 +72,7 @@ export default async function Home() {
     apiRes?.length > 0 && (
       <>
         <StructuredData<Organization> data={organizationStructuredData} />
-        <HomePage homePageConfig={apiRes[0]} />;
+        <HomePage homePageConfig={apiRes[0]} />
       </>
     )
   );
