@@ -57,7 +57,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
         {/* Blogbody */}
         <div
           id="section-container"
-          className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px] pb-8 lg:pb-[60px]"
+          className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px] pb-8 lg:pb-[60px] lg:pl-[50px]"
         >
           <BlogHeader blogDetails={details} />
           <BlogBody blogContent={sortedContent?.length ? sortedContent[0] : ({} as IBlogContentData)} />
