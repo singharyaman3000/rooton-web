@@ -1,16 +1,20 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
+import HtmlParser from 'react-html-parser';
+import { useParams } from 'next/navigation';
+
+import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
 import { COACHING_SERVICES_ROUTES, SITE_ROUTES } from './constants';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
-import HtmlParser from 'react-html-parser';
-import React from 'react';
 
-type ServiceDataType = { serviceId: number; label: string };
+type ServiceDataType = { serviceId: number; label: string; uniqueIdentifierName: string };
 
 type CoreServicesType = { subService: ServiceDataType[] } & ServiceDataType;
 
 const SiteMap = () => {
+  const params = useParams();
   const { headerFooterData } = useHeaderFooterContext();
 
   const allServices: CoreServicesType[] = [];
@@ -26,7 +30,11 @@ const SiteMap = () => {
     if (subServices.length > 0) {
       const subServicesList: ServiceDataType[] = [];
       subServices.forEach((subService) => {
-        subServicesList.push({ label: subService.attributes.title, serviceId: subService.id });
+        subServicesList.push({
+          label: subService.attributes.title,
+          serviceId: subService.id,
+          uniqueIdentifierName: subService.attributes.unique_identifier_name || '',
+        });
       });
       const subServiceData = {
         subService: subServicesList,
@@ -38,7 +46,7 @@ const SiteMap = () => {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="mt-20 pt-4 pb-20 max-w-screen-2k mx-0 flex flex-col gap-5 lg:grid lg:grid-cols-2">
+      <div className="mt-20 lg:px-0 pt-4 pb-20 max-w-[360px] lg:max-w-screen-2k flex flex-col gap-5 lg:grid lg:grid-cols-2">
         {/* Services */}
         <div className="p-5 border w-max">
           <h2 className="text-lg font-bold">Services</h2>
@@ -55,16 +63,27 @@ const SiteMap = () => {
                       {service?.subService.map((data) => {
                         return (
                           <React.Fragment key={data.serviceId}>
-                            <li className="font-normal before:inline-block before:w-2 before:h-2 before:ml-8 before:mr-2 before:border before:border-black">
-                              <Link href={`/service/${data.serviceId}`} className="hover:underline">
+                            <li className="font-normal max-w-[250px] lg:max-w-max before:inline-block before:w-2 before:h-2 before:ml-8 before:mr-2 before:border before:border-black">
+                              <Link
+                                href={
+                                  params.lang
+                                    ? `/${params.lang}/${data.uniqueIdentifierName}`
+                                    : `/${data.uniqueIdentifierName}`
+                                }
+                                className="hover:underline whitespace-pre-wrap"
+                              >
                                 {HtmlParser(data.label)}
                               </Link>
                             </li>
                             <Link
-                              href={`/service/${data.serviceId}/book-an-appointment`}
+                              href={
+                                params.lang
+                                  ? `/${params.lang}/${data.uniqueIdentifierName}?${BOOK_AN_APPOINTMENT_QUERY}=true`
+                                  : `/${data.uniqueIdentifierName}?${BOOK_AN_APPOINTMENT_QUERY}=true`
+                              }
                               className="font-normal before:inline-block before:w-2 before:h-2 before:ml-16 before:mr-2 before:border before:border-black before:rounded-full hover:underline"
                             >
-                              Book an appoinment
+                              Book an appointment
                             </Link>
                           </React.Fragment>
                         );

@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
-import AboutUsPage from './AboutUsPage';
-import { resolveAboutUsApiIssues } from './config/aboutUsApiHandler';
-import { IAboutUsContent, getAboutUsContent } from '@/app/services/apiService/aboutUsPageAPI';
+
 import { metaInfo } from '@/app/constants/pageMetaInfo';
+import AboutUsPage from '../../../components/AboutUsPage';
+import { resolveAboutUsApiIssues } from '@/components/AboutUsPage/config/aboutUsApiHandler';
+import { IAboutUsContent, getAboutUsContent } from '@/app/services/apiService/aboutUsPageAPI';
 
 export const metadata: Metadata = {
   title: metaInfo.aboutUs.title,

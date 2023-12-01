@@ -1,14 +1,15 @@
 'use client';
 
+import { useParams } from 'next/navigation';
+
 import LoadingUI from '@/components/LoadingUI';
-import AboutUsPage from '@/app/(server-pages)/about-us/AboutUsPage';
+import AboutUsPage from '@/components/AboutUsPage';
+import useSetMetaInfo from '@/hooks/useSetMetaInfo';
+import { metaInfo } from '@/app/constants/pageMetaInfo';
 import useClientAPI from '@/components/UIElements/Slider/hooks/useClientAPI';
 import { useTranslationLoader } from '@/providers/translationLoadingProvider';
 import { IAboutUsContent, getAboutUsContent } from '@/app/services/apiService/aboutUsPageAPI';
-import { resolveAboutUsApiIssues } from '@/app/(server-pages)/about-us/config/aboutUsApiHandler';
-import { metaInfo } from '@/app/constants/pageMetaInfo';
-import { useParams } from 'next/navigation';
-import useSetMetaInfo from '@/hooks/useSetMetaInfo';
+import { resolveAboutUsApiIssues } from '@/components/AboutUsPage/config/aboutUsApiHandler';
 
 const AboutUsPageCSR = () => {
   const params = useParams();
