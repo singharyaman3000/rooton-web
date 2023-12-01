@@ -912,6 +912,10 @@ heading {
   }
 }
 
+#blog-details-body p {
+  line-height: 1.8;
+}
+
 #contact-us-form-container > :first-child {
   margin-top: 0;
   padding: 0;

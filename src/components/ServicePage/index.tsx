@@ -21,6 +21,7 @@ import { ServiceDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { CONSULTATION_TYPES } from './LeadFormStepper';
+import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -191,7 +192,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           },
           {
             title: 'Service',
-            path: '/',
+            path: '/?section=services',
           },
           {
             title: response.data?.attributes?.title,
@@ -205,8 +206,14 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_text}
-          onClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.PAID);}} />}
+        button={
+          <BookAnAppointmentButton
+            text={response.data?.attributes?.CTA_text}
+            onClick={() => {
+              return handleCTAButtonClick(CONSULTATION_TYPES.PAID);
+            }}
+          />
+        }
       />
       <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <ServiceDescription text={response.data?.attributes?.description} />

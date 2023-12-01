@@ -46,7 +46,7 @@ const SiteMap = () => {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="mt-20 pt-4 pb-20 max-w-screen-2k mx-0 flex flex-col gap-5 lg:grid lg:grid-cols-2">
+      <div className="mt-20 lg:px-0 pt-4 pb-20 max-w-[360px] lg:max-w-screen-2k flex flex-col gap-5 lg:grid lg:grid-cols-2">
         {/* Services */}
         <div className="p-5 border w-max">
           <h2 className="text-lg font-bold">Services</h2>
@@ -63,14 +63,14 @@ const SiteMap = () => {
                       {service?.subService.map((data) => {
                         return (
                           <React.Fragment key={data.serviceId}>
-                            <li className="font-normal before:inline-block before:w-2 before:h-2 before:ml-8 before:mr-2 before:border before:border-black">
+                            <li className="font-normal max-w-[250px] lg:max-w-max before:inline-block before:w-2 before:h-2 before:ml-8 before:mr-2 before:border before:border-black">
                               <Link
                                 href={
                                   params.lang
                                     ? `/${params.lang}/${data.uniqueIdentifierName}`
                                     : `/${data.uniqueIdentifierName}`
                                 }
-                                className="hover:underline"
+                                className="hover:underline whitespace-pre-wrap"
                               >
                                 {HtmlParser(data.label)}
                               </Link>
