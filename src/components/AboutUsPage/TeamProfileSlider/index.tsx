@@ -82,7 +82,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
             id={convertToHtmlId(contentHeading)}
             slideParentClass="!justify-start gap-10"
             pageNum={pageNum}
-            slideClass="!w-[320px] !px-0"
+            slideClass="team-slider-img-width !w-[320px] !px-0"
           >
             {teamData.map(({ employeeName, employeeRole, employeeDescription, imageUrl }) => {
               return (
