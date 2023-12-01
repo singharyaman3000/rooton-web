@@ -3,7 +3,7 @@ import ArrowIcon from '@/components/Icons/ArrowIcon';
 import { ISubServices } from '../../interafces';
 import HtmlParser from 'react-html-parser';
 import Link from 'next/link';
-import { getServicePageURL, getTranslatedURL } from '@/utils';
+import { getTranslatedURL } from '@/utils';
 import { useParams } from 'next/navigation';
 
 const AccordionBody = ({ data }: ISubServices) => {
@@ -12,7 +12,7 @@ const AccordionBody = ({ data }: ISubServices) => {
   return data?.map((service) => {
     return (
       <Link
-        href={getTranslatedURL(getServicePageURL(service.attributes.unique_identifier_name || ''), path.lang)}
+        href={getTranslatedURL(service.attributes.unique_identifier_name || '', path.lang)}
         className="w-full"
         key={service.attributes.title + service.attributes.publishedAt}
       >
