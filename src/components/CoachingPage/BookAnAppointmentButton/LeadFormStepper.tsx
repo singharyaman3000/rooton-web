@@ -384,8 +384,14 @@ const LeadFormStepper = (
       initScroll();
     }
   }, [isBookAppointment, initScroll]);
-  /* eslint-disable max-len */
-  const calendarUrl = `${calenderLink}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}`;
+
+  const getMeetingUrl = () => {
+    if (calenderLink)
+      // eslint-disable-next-line max-len
+      return `${calenderLink}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}`;
+    return '';
+
+  };
 
   return !showCalender ? (
     <FormTarget
@@ -398,7 +404,7 @@ const LeadFormStepper = (
     />
   ) : (
     <div className=" h-[54rem] mt-2">
-      <iframe className=" w-full h-full" title="AA" src={calendarUrl} />
+      <iframe className=" w-full h-full" title="AA" src={getMeetingUrl()} />
     </div>
   );
 };

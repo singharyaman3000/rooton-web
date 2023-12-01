@@ -987,6 +987,18 @@ heading {
   background-color: #fff;
 }
 
+.toggleInactiveDark {
+  background-color: #7e7e7e;
+}
+
+.toggleInactive {
+  background-color: #d3d3d3;
+}
+
+.toggleActiveDark {
+  background-color: #818181;
+}
+
 [data-theme='dark'] .credibility-images{
   background-color: #fff;
 }
