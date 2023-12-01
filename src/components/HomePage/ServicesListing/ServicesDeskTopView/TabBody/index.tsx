@@ -3,7 +3,7 @@ import ArrowIcon from '@/components/Icons/ArrowIcon';
 import { ISubServiceData } from '../../interafces';
 import HtmlParser from 'react-html-parser';
 import Link from 'next/link';
-import { getServicePageURL, getTranslatedURL } from '@/utils';
+import { getTranslatedURL } from '@/utils';
 import { useParams } from 'next/navigation';
 
 const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; cssClass?: string }) => {
@@ -16,7 +16,7 @@ const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; 
           <Link
             className="w-[45%]"
             key={service.attributes.title}
-            href={getTranslatedURL(getServicePageURL(service.id), path.lang)}
+            href={getTranslatedURL(service?.attributes?.unique_identifier_name ?? '', path.lang)}
           >
             <div
               className={

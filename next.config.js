@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const { getHeaderFooterServerData } = require('./src/app/services/apiService/headerFooterServerAPI');
 
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -18,6 +19,44 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60,
   },
   future: { webpack5: true },
+  async rewrites() {
+    const apiData = await getHeaderFooterServerData();
+
+    const allServicesIds = [];
+
+    apiData[0]?.attributes.core_services.data?.forEach((service) => {
+      const subServices = service?.attributes?.sub_services?.data ?? [];
+      if (subServices.length > 0) {
+        subServices.forEach((subService) => {
+          allServicesIds.push({
+            serviceName: subService.attributes.unique_identifier_name ?? '',
+            serviceId: subService.id ?? '',
+          });
+        });
+      }
+    });
+
+    const allLanguages = apiData[0]?.attributes.languages.data?.flatMap((language) => {
+      return language.attributes.code !== 'en' ? language.attributes.code : [];
+    });
+
+    const allServicesLanUrls = [];
+
+    allLanguages?.forEach((lan) => {
+      allServicesIds.forEach((service) => {
+        allServicesLanUrls.push({
+          source: `/${lan}/${service.serviceName}`,
+          destination: `/${lan}/service/${service.serviceId}`,
+        });
+      });
+    });
+
+    const reRouteMap = allServicesIds.map((service) => {
+      return { source: `/${service.serviceName}`, destination: `/service/${service.serviceId}` };
+    });
+
+    return [...reRouteMap, ...allServicesLanUrls];
+  },
 };
 
 module.exports = nextConfig;
