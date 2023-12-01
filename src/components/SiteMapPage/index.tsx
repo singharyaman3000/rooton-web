@@ -1,16 +1,20 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
+import HtmlParser from 'react-html-parser';
+import { useParams } from 'next/navigation';
+
+import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
 import { COACHING_SERVICES_ROUTES, SITE_ROUTES } from './constants';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
-import HtmlParser from 'react-html-parser';
-import React from 'react';
 
-type ServiceDataType = { serviceId: number; label: string };
+type ServiceDataType = { serviceId: number; label: string; uniqueIdentifierName: string };
 
 type CoreServicesType = { subService: ServiceDataType[] } & ServiceDataType;
 
 const SiteMap = () => {
+  const params = useParams();
   const { headerFooterData } = useHeaderFooterContext();
 
   const allServices: CoreServicesType[] = [];
@@ -26,7 +30,11 @@ const SiteMap = () => {
     if (subServices.length > 0) {
       const subServicesList: ServiceDataType[] = [];
       subServices.forEach((subService) => {
-        subServicesList.push({ label: subService.attributes.title, serviceId: subService.id });
+        subServicesList.push({
+          label: subService.attributes.title,
+          serviceId: subService.id,
+          uniqueIdentifierName: subService.attributes.unique_identifier_name || '',
+        });
       });
       const subServiceData = {
         subService: subServicesList,
@@ -56,15 +64,26 @@ const SiteMap = () => {
                         return (
                           <React.Fragment key={data.serviceId}>
                             <li className="font-normal before:inline-block before:w-2 before:h-2 before:ml-8 before:mr-2 before:border before:border-black">
-                              <Link href={`/service/${data.serviceId}`} className="hover:underline">
+                              <Link
+                                href={
+                                  params.lang
+                                    ? `/${params.lang}/${data.uniqueIdentifierName}`
+                                    : `/${data.uniqueIdentifierName}`
+                                }
+                                className="hover:underline"
+                              >
                                 {HtmlParser(data.label)}
                               </Link>
                             </li>
                             <Link
-                              href={`/service/${data.serviceId}/book-an-appointment`}
+                              href={
+                                params.lang
+                                  ? `/${params.lang}/${data.uniqueIdentifierName}?${BOOK_AN_APPOINTMENT_QUERY}=true`
+                                  : `/${data.uniqueIdentifierName}?${BOOK_AN_APPOINTMENT_QUERY}=true`
+                              }
                               className="font-normal before:inline-block before:w-2 before:h-2 before:ml-16 before:mr-2 before:border before:border-black before:rounded-full hover:underline"
                             >
-                              Book an appoinment
+                              Book an appointment
                             </Link>
                           </React.Fragment>
                         );

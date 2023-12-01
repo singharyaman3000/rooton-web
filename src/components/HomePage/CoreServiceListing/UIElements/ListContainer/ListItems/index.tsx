@@ -3,8 +3,7 @@ import React, { useContext } from 'react';
 import HtmlParser from 'react-html-parser';
 import { useParams } from 'next/navigation';
 
-import { getServicePageURL } from '@/utils';
-import { BOOK_AN_APPOINTMENT } from '@/constants/navigation';
+import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 
 const ListItems = ({ item, id }: { item: string; id: string }) => {
@@ -29,8 +28,8 @@ const ListItems = ({ item, id }: { item: string; id: string }) => {
       <Link
         href={
           path.lang
-            ? `/${path.lang}/${id}${BOOK_AN_APPOINTMENT}`
-            : `${id}${BOOK_AN_APPOINTMENT}`
+            ? `/${path.lang}/${id}?${BOOK_AN_APPOINTMENT_QUERY}=true`
+            : `${id}?${BOOK_AN_APPOINTMENT_QUERY}=true`
         }
         className="block"
       >

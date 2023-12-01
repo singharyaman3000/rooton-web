@@ -85,17 +85,29 @@ export default function Footer() {
         >
           <div className=" flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-3 lg:gap-[18px]">
             {/* <Link href={'/'}>Careers</Link> */}
-            <Link className='basis-[47%] order-1' href={'/'}>Privacy Policy</Link>
-            <Link className='basis-[47%] order-3 md:order-2' href={'/'}>Terms & Condition</Link>
+            <Link className="basis-[47%] order-1" href={'/'}>
+              Privacy Policy
+            </Link>
+            <Link className="basis-[47%] order-3 md:order-2" href={'/'}>
+              Terms & Condition
+            </Link>
             {/* <Link href={'/'}>QnA Forum</Link> */}
             {/* </div>
           <div className=" flex flex-col gap-3 lg:gap-[18px]"> */}
-            <Link className='basis-[47%] order-2 md:order-3'
-              href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}>Book a Meeting RCIC</Link>
-            <Link className='basis-[47%] order-4' href={'/'}>Disclaimer</Link>
+            <Link
+              className="basis-[47%] order-2 md:order-3"
+              href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}
+            >
+              Book a Meeting RCIC
+            </Link>
+            <Link className="basis-[47%] order-4" href={'/'}>
+              Disclaimer
+            </Link>
             {/* <Link href={'/'}>GCKey vs APR </Link> */}
             {/* <Link href={'/'}>Affiliate Program</Link> */}
-            <Link className='basis-[47%] order-5' href={'/sitemap'}>Sitemap</Link>
+            <Link className="basis-[47%] order-5" href={params.lang ? `/${params.lang}/sitemap` : '/sitemap'}>
+              Sitemap
+            </Link>
           </div>
         </div>
       </div>
@@ -132,13 +144,14 @@ export default function Footer() {
                 </div>
               </div>
               <p className=" text-sm mb-[4px] whitespace-pre md:whitespace-normal font-bold">
-                {address?.attributes.name}</p>
-              <p className=" text-sm mb-[4px] whitespace-normal">
-                {HtmlParser(address?.attributes?.location)}
+                {address?.attributes.name}
               </p>
+              <p className=" text-sm mb-[4px] whitespace-normal">{HtmlParser(address?.attributes?.location)}</p>
               <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">
-                Phone <a className='cursor-pointer' href={`tel:${address?.attributes?.phone_number}`}>
-                  {address?.attributes?.phone_number} </a>
+                Phone{' '}
+                <a className="cursor-pointer" href={`tel:${address?.attributes?.phone_number}`}>
+                  {address?.attributes?.phone_number}{' '}
+                </a>
               </p>
             </div>
           );
