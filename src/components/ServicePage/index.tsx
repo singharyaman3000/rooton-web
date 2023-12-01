@@ -21,7 +21,6 @@ import { ServiceDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { CONSULTATION_TYPES } from './LeadFormStepper';
-import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
 
 type ServicePageProps = {
   response: IServicePageContent;
