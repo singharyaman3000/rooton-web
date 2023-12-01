@@ -35,10 +35,10 @@ const ServicePageCSR = () => {
   if (loader || loading) return <LoadingUI />;
 
   return (
-    <>
+    <div>
       {(loader || loading) && <LoadingUI />}
       {data && <ServicePageComponent isBookAppointment={scrollToForms} response={data as IServicePageContent} />}
-    </>
+    </div>
   );
 };
 
