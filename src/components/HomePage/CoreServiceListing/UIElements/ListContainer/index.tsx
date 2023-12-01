@@ -7,7 +7,13 @@ const ListContainer = ({ services }: { services: ISubServices }) => {
   return (
     <ul role="menu" className="text-base text-black font-medium">
       {services?.data?.map((service) => {
-        return <ListItems id={service?.id} key={service?.id} item={service?.attributes?.title} />;
+        return (
+          <ListItems
+            id={service?.attributes?.unique_identifier_name ?? ''}
+            key={service?.id}
+            item={service?.attributes?.title}
+          />
+        );
       })}
     </ul>
   );
