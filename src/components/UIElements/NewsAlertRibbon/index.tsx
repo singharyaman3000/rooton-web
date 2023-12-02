@@ -62,7 +62,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
   const currentNews = newsList ? newsList[currentNewsIndex] : null;
 
   return currentNews ? (
-    <section className="flex justify-between items-center bg-pale-yellow-black py-3 px-6 md:px-10 xl:px-24">
+    <section className="flex justify-between items-center bg-platinum py-3 px-6 md:px-10 xl:px-24">
       <div className="flex gap-3.5 items-center w-[90%]">
         <motion.strong
           key={currentNews.id}

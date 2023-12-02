@@ -10,7 +10,7 @@ import { ArticleCategoryType } from '@/app/services/apiService/blogsListAPI';
 import BlogsCarousel from '../BlogsListPage/BlogsCarousel';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
 import { useParams, useRouter } from 'next/navigation';
-import { BOOK_AN_APPOINTMENT } from '@/constants/navigation';
+import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { BLOG_DETAILS_BREADCRUMBS, BLOG_DETAILS_BREADCRUMBS_COACHING } from './constants';
 import SocialMediaShare from './SocialMediaShare';
@@ -42,10 +42,10 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
     : [];
 
   const handleCTAButton = () => {
-    const serviceId = details?.attributes?.sub_service?.data?.id;
-    if (serviceId) {
-      const route = params?.lang ? `/${params?.lang}/service/${serviceId}` : `/service/${serviceId}`;
-      router.push(route + BOOK_AN_APPOINTMENT);
+    const serviceName = details?.attributes?.sub_service?.data.attributes.unique_identifier_name;
+    if (serviceName) {
+      const route = params?.lang ? `/${params?.lang}/${serviceName}` : `/${serviceName}`;
+      router.push(`${route}?${BOOK_AN_APPOINTMENT_QUERY}=true`);
     }
   };
 
@@ -57,7 +57,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
         {/* Blogbody */}
         <div
           id="section-container"
-          className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px] pb-8 lg:pb-[60px]"
+          className="w-full min-w-[312px] md:w-full lg:max-w-[800px] lg:mr-[160px] pb-8 lg:pb-[60px] lg:pl-[50px]"
         >
           <BlogHeader blogDetails={details} />
           <BlogBody blogContent={sortedContent?.length ? sortedContent[0] : ({} as IBlogContentData)} />

@@ -8,7 +8,7 @@ interface IServiceMetaAttributes {
   unique_identifier_name: string;
 }
 
-interface IServiceMetaData {
+export interface IServiceMetaData {
   id: number;
   attributes: IServiceMetaAttributes;
 }
