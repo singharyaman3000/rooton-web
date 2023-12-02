@@ -36,7 +36,7 @@ export default function ThemeToggleAndHamburger({
 
   const getbuttonBG = () => {
     if (isFixed) return isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg opacity-[0.23]';
-    return isDarkMode ? ' bg-white' : ' toggleInactiveDark';
+    return isDarkMode ? ' bg-white' : ' toggle-in-active-dark';
   };
   // isDarkMode ? ' bg-black' : ' bg-tansparent-bg'
   return (
@@ -65,7 +65,7 @@ export default function ThemeToggleAndHamburger({
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              isDarkMode ? 'bg-toggle-dark-bg' : 'toggleActiveDark'
+              isDarkMode ? 'bg-toggle-dark-bg' : 'toggle-active-dark'
             } flex justify-center items-center`}
           >
             <DarkModeIcon isScrolled={scrolledEnough} isFixed={isFixed} />
@@ -75,7 +75,7 @@ export default function ThemeToggleAndHamburger({
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              !isDarkMode ? ' bg-toggle-dark-bg' : 'toggleInactive'
+              !isDarkMode ? ' bg-toggle-dark-bg' : 'toggle-in-active'
             } flex justify-center items-center`}
           >
             <LightModeIcon isScrolled={scrolledEnough} />
@@ -84,7 +84,7 @@ export default function ThemeToggleAndHamburger({
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              !isDarkMode ? 'bg-white' : 'toggleInactiveDark'
+              !isDarkMode ? 'bg-white' : 'toggle-in-active-dark'
             } flex justify-center items-center`}
           >
             <LightModeIcon isScrolled={scrolledEnough} />

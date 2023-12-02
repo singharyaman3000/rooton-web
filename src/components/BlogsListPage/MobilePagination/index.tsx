@@ -35,7 +35,7 @@ const MobilePagination: React.FC<MobilePaginationPropsType> = ({ dotsToDisplay, 
       {dotsToDisplay?.map((number, index) => {
         return (
           <span
-            className={`h-1 w-1 inline-block ${pageNum === number ? 'activedot' : 'inactivedot'}`}
+            className={`h-1 w-1 inline-block ${pageNum === number ? 'active-dot' : 'in-active-dot'}`}
             style={{
               ...getStyles(index, number),
             }}

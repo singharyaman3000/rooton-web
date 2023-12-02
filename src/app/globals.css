@@ -989,27 +989,27 @@ heading {
   background-color: #000;
 }
 
-.activedot {
+.active-dot {
   background-color: #F59723;
 }
 
-.inactivedot {
+.in-active-dot {
   background-color: #000; 
 }
 
-[data-theme='dark'] .inactivedot{
+[data-theme='dark'] .in-active-dot{
   background-color: #fff;
 }
 
-.toggleInactiveDark {
+.toggle-in-active-dark {
   background-color: #7e7e7e;
 }
 
-.toggleInactive {
+.toggle-in-active {
   background-color: #d3d3d3;
 }
 
-.toggleActiveDark {
+.toggle-active-dark {
   background-color: #818181;
 }
 
