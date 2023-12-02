@@ -70,7 +70,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           title={currentNews.title}
-          className="text-base lg:text-xl font-normal text-primary-text max-w-[60%] sm:max-w-[74%] md:max-w-[77%] lg:max-w-[85%] truncate"
+          className="text-base lg:text-xl font-normal text-black max-w-[60%] sm:max-w-[74%] md:max-w-[77%] lg:max-w-[85%] truncate"
         >
           {currentNews.title}
         </motion.strong>
@@ -82,7 +82,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
           }
         >
           <Button
-            cssClass="border-0 !p-0 border-b-2 !font-bold border-primary-text truncate"
+            cssClass="border-0 !p-0 border-b-2 !font-bold border-black text-black truncate"
             label="Read more"
             tabIndex={-1}
             handleOnClick={() => {
