@@ -21,7 +21,7 @@ import {
   BOOK_APPOINTMENT_CONTENT,
   BOOK_CONSULTATION_CONTENT,
   COMPANY_STAT_VALUES_DEFAULT,
-} from '@/app/(server-pages)/about-us/config/aboutUsContent';
+} from './config/aboutUsContent';
 import { CONSULTATION_TYPES } from '@/components/ServicePage/LeadFormStepper';
 
 interface AboutUsPageProps {

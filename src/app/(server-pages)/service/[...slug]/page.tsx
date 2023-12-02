@@ -1,12 +1,15 @@
+import { Metadata } from 'next';
+
 import { IServicePageContent, getServicePageContent } from '@/app/services/apiService/serviceAPI';
 import { getServiceMetaInfo } from '@/app/services/apiService/serviceMetaInfo';
 import { ServicePageComponent } from '@/components/ServicePage';
-import { Metadata } from 'next';
+import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
 
 type ServicePageProps = {
   params: {
-    slug: string;
+    slug: string[];
   };
+  searchParams?: { [x: string]: string };
 };
 
 export async function generateMetadata(metaProps: ServicePageProps): Promise<Metadata> {
@@ -21,5 +24,7 @@ export async function generateMetadata(metaProps: ServicePageProps): Promise<Met
 export default async function ServicePage(props: ServicePageProps) {
   const response = (await getServicePageContent(props.params.slug[0])) as IServicePageContent;
 
-  return <ServicePageComponent response={response} isBookAppointment={Boolean(props.params.slug[1])} />;
+  const scrollToForm = Boolean(props.searchParams && props.searchParams[BOOK_AN_APPOINTMENT_QUERY] === 'true');
+
+  return <ServicePageComponent response={response} isBookAppointment={scrollToForm} />;
 }

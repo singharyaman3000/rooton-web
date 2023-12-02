@@ -12,19 +12,22 @@ const useSliderData = ({ slideId, sliderData, cardSpacing = 25 }: IUseSliderData
   const [unitPageWidth, setPageWidth] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [screenWidth, setScreenWidth] = useState(0);
-  const { pageNum, incrementPage, decrementPage , jumpToPage } = useSliderPagination({ slidesLength: totalPages, initialPage: 0 });
+  const { pageNum, incrementPage, decrementPage, jumpToPage } = useSliderPagination({
+    slidesLength: totalPages,
+    initialPage: 0,
+  });
 
   const handleResize = () => {
     const currentScreenWidth = window.innerWidth;
     setScreenWidth(currentScreenWidth);
   };
 
-  useEffect(()=>{
-    window.addEventListener('resize',handleResize);
-    return ()=> {
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
       window.removeEventListener('resize', handleResize);
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     handleResize();
@@ -41,7 +44,7 @@ const useSliderData = ({ slideId, sliderData, cardSpacing = 25 }: IUseSliderData
         if (children && children.length > 0) {
           for (const key in children) {
             if (children[key].clientWidth) {
-              const padding = screenWidth >=768 ? cardSpacing : 0;
+              const padding = screenWidth >= 320 ? cardSpacing : 0;
               if (totalWidth + children[key].clientWidth <= slide.clientWidth) {
                 totalWidth += children[key].clientWidth + padding;
                 itemsPerPage += 1;
@@ -55,7 +58,7 @@ const useSliderData = ({ slideId, sliderData, cardSpacing = 25 }: IUseSliderData
     }
   }, [sliderData, screenWidth]);
 
-  return { totalPages, pageNum, incrementPage, decrementPage, scrollAmt , jumpToPage };
+  return { totalPages, pageNum, incrementPage, decrementPage, scrollAmt, jumpToPage };
 };
 
 export default useSliderData;

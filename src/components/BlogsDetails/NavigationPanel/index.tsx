@@ -37,13 +37,13 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcru
   };
 
   return (
-    <div className="sticky hidden lg:flex flex-col items-center top-0 h-[calc(100vh-80px)] md:w-[300px] lg:w-[480px] px-20 items-center justify-center overflow-y-scroll overflow-x-hidden">
-      <div className="hidden lg:block absolute top-3 left-6 lg:left-20">
+    <div className="sticky hidden lg:flex flex-col top-0 h-[calc(100vh-80px)] md:w-[300px] lg:w-[480px] px-20 overflow-y-scroll overflow-x-hidden">
+      <div className="hidden lg:block pt-3">
         <Breadcrumbs className="text-black" data={breadcrumbsData} isStatic />
       </div>
-      <div className="mt-[100px]">
+      <div className="flex flex-col items-center justify-center h-full">
         {content?.length !== 0 ? (
-          <>
+          <div>
             <h3 className="font-bold text-xl mb-5">In this article</h3>
             <div className="flex gap-2">
               <div id="tab-parent-div" className="relative w-[1px] bg-[#d7d7d7]">
@@ -74,11 +74,11 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ content, breadcru
                 })}
               </nav>
             </div>
-          </>
+          </div>
         ) : null}
-        <div className="mt-[52px] mb-10">
-          <SocialMediaShare />
-        </div>
+      </div>
+      <div className="mt-[52px] mb-10">
+        <SocialMediaShare />
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
 
   return (
     <Link href={href}>
-      <div className="flex flex-col items-center bg-white-fixed blog-bg justify-between h-[514px] lg:h-[527px] border-t-[1px] border-[#b9b9b9] md:border hover:border-golden-yellow !min-w-[360px] md:w-[380px] cursor-pointer">
+      <div className="flex flex-col items-center bg-white-fixed blog-bg h-[514px] lg:h-[527px] border-t-[1px] border-[#b9b9b9] md:border hover:border-golden-yellow !min-w-[360px] md:w-[380px] cursor-pointer">
         <div className="h-[216px] w-[312px] md:min-h-[252px] md:w-full relative mt-6 md:mt-0">
           <NextImage
             sizes="(max-width: 768px) 100vw, 25vw"
@@ -30,14 +30,16 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
             altText={attributes.media_url?.data[0].attributes.alternativeText}
           />
         </div>
-        <div className="px-6">
-          <h2 className="max-h-[90px] text-base lg:text-lg font-bold mt-3 text-primary-font-color">
-            {attributes?.title ?? ''}
-          </h2>
-          <p className="pt-3 max-h-[75px] text-sm text-primary-font-color opacity-60 text-ellipsis overflow-hidden">
-            {attributes?.description}
-          </p>
-          <div className="flex justify-between  items-center mt-4 pt-[15px] pb-6 text-sm border-t-[1px] border-b-[1px] md:border-b-0 border-[#d7d7d7]">
+        <div className="px-6 h-full flex flex-col justify-between">
+          <div>
+            <h2 className="max-h-[90px] justify-self-start text-base lg:text-lg font-bold mt-3 text-primary-font-color">
+              {attributes?.title ?? ''}
+            </h2>
+            <p className="pt-3 max-h-[75px] text-sm text-primary-font-color opacity-60 text-ellipsis overflow-hidden">
+              {attributes?.description}
+            </p>
+          </div>
+          <div className="flex justify-between items-center mt-4 pt-[15px] pb-6 text-sm border-t-[1px] border-b-[1px] md:border-b-0 border-[#d7d7d7]">
             <div className="flex gap-2">
               <span className="text-primary-font-color opacity-[.36]">Last updated</span>
               <span className="text-primary-font-color">{formatDate(attributes?.updatedAt)}</span>
