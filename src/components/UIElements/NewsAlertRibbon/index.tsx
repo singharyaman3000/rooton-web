@@ -82,7 +82,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
           }
         >
           <Button
-            cssClass="border-0 !p-0 border-b-2 !font-bold border-black text-black truncate"
+            cssClass="border-0 !p-0 border-b-2 !font-bold !border-black text-black truncate"
             label="Read more"
             tabIndex={-1}
             handleOnClick={() => {
