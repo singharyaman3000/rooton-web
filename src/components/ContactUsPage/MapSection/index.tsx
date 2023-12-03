@@ -43,7 +43,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
   return (
     <section className="flex flex-col lg:flex-row">
       {/* Map component */}
-      <div className="h-[360px] lg:h-[794px] w-full lg:w-[650px]">
+      <div className="h-[360px] lg:h-[794px] w-full lg:!w-1/2">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.NEXT_GOOGLE_MAP_KEY ?? '' }}
           defaultZoom={locationData.zoom}
@@ -55,7 +55,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
         </GoogleMapReact>
       </div>
       {/* Address section */}
-      <div className="bg-pale-yellow blog-bg flex flex-col items-center  p-6 lg:px-10 lg:py-8 lg:w-1/2">
+      <div className="bg-pale-yellow blog-bg flex flex-col items-center p-6 lg:px-10 lg:py-8 w-full lg:w-1/2">
         <h2 className="text-[28px] lg:text-[40px] font-bold lg:mb-5">Contact Information</h2>
         <div className="flex contact-us-address flex-col gap-5 w-full items-center lg:items-start">
           {addressData.map((address) => {

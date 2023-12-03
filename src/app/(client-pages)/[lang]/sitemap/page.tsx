@@ -10,10 +10,10 @@ const SitemapPageCSR = () => {
   if (loader) return <LoadingUI />;
 
   return (
-    <>
+    <div>
       {loader && <LoadingUI />}
       <SiteMap />
-    </>
+    </div>
   );
 };
 
