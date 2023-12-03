@@ -492,6 +492,17 @@ export const expressEntryInvitation = [
 
 // ================================== CANADIAN JOB OFFER ===============================================
 
+export const haveWrittenOffer: IFormFieldOptions[] = [
+  {
+    name: 'written_job_offer_from_a_Canadian_employer? ',
+    label: 'Do you have a written job offer from a Canadian employer? ',
+    options: [
+      { id: 'hwo-yes', value: 'Yes' },
+      { id: 'hwo-no', value: 'No' },
+    ],
+  },
+];
+
 export const occupation: IFormFieldOptions[] = [
   {
     name: 'occupation_canada ',
@@ -532,6 +543,67 @@ export const workHoursOptions: IFormFieldOptions[] = [
       { id: 'fullTime', value: 'Full Time (At least 30 hours per week)' },
       { id: 'partTime', value: 'Part Time (At least 15 hours per week)' },
       { id: 'lessThan15Hours', value: 'Less than 15 hours per week' },
+    ],
+  },
+];
+
+export const jobOfferUnderLIMA: IFormFieldOptions[] = [
+  {
+    name: 'is_job_offer_under_LIMA',
+    label: 'Is this Job Offer supported by a Labour Market Impact Assessment (LMIA)?  ',
+    options: [
+      { id: 'jou-yes', value: 'Yes' },
+      { id: 'jou-no', value: 'No' },
+      { id: 'jou-dont', value: 'I don\'t know' },
+    ],
+  },
+];
+
+export const jobOfferUnderAtlanticProvince: IFormFieldOptions[] = [
+  {
+    name: 'Has_the_employer_offering_this_job_been_designated_as_an_employer_taking_part_in_the_Atlantic_Immigration_Pilot_by_the_Atlantic_province',
+    label:
+      'Has the employer offering this job been designated as an employer taking part in the Atlantic Immigration Pilot by the Atlantic province?  ',
+    options: [
+      { id: 'jouap-yes', value: 'Yes' },
+      { id: 'jouap-no', value: 'No' },
+      { id: 'jouap-dont', value: 'I don\'t know' },
+    ],
+  },
+];
+
+export const jobOfferFieldSaskatchewan: IFormFieldOptions[] = [
+  {
+    name: 'is_job_offer_related_to_your_field_of_study',
+    label: 'Is this job offer related to your field of study? ',
+    options: [
+      { id: 'jof-yes', value: 'Yes' },
+      { id: 'jof-no', value: 'No' },
+      { id: 'jof-dont', value: 'I don\'t know' },
+    ],
+  },
+];
+
+export const jobOfferFieldManitoba: IFormFieldOptions[] = [
+  {
+    name: 'you_received_an_Invitation_to_Apply_from_the_Manitoba_Provincial_Nominee_Program',
+    label: 'Have you received an Invitation to Apply from the Manitoba Provincial Nominee Program?  ? ',
+    options: [
+      { id: 'jofm-yes', value: 'Yes' },
+      { id: 'jofm-no', value: 'No' },
+      { id: 'jofm-dont', value: 'I don\'t know' },
+    ],
+  },
+];
+
+export const jobOfferFieldAlberta: IFormFieldOptions[] = [
+  {
+    name: 'Do_you_have_related_education,_training,_previous_work_experience_and_any_Alberta_licensing_needed_for_this_position?  ',
+    label: 'Do you have related education, training, previous work experience and any Alberta licensing needed for this position?  ? ',
+    options: [
+      { id: 'jofa-yes', value: 'Yes' },
+      { id: 'jofa-no', value: 'No' },
+      { id: 'jofa-dont', value: 'I don\'t know' },
     ],
   },
 ];

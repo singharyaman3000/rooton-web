@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FormCloseButton } from '@/components/Form/components/FormCloseButton';
 import { FormDropdown } from '@/components/Form/components/FormDropDown';
 import { FormRadioInput } from '@/components/Form/components/FormRadioInput';
+import { AtlanticProvinces } from '@/app/constants/textConstants';
 import {
   educationType,
   educationCompletedOrNot,
@@ -39,6 +40,7 @@ export const AdditionalQuestions = (props: PropsType) => {
       };
     });
   };
+  const shouldShow = () => { return AtlanticProvinces.includes(formValues.educationPlaceInCanada); };
 
   return (
     <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]">
@@ -84,7 +86,7 @@ export const AdditionalQuestions = (props: PropsType) => {
           }}
         />
       </div>
-      <div>
+      <div style={{ display: shouldShow() ? 'block' : 'none' }}>
         <FormRadioInput
           fields={territoryCheck}
           onChange={(e) => {

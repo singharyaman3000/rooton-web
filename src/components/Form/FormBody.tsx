@@ -100,7 +100,7 @@ const FormBody = () => {
 
         <FormStep currentStep={currentStep} stepNumber={6}>
           <FormHeader>Canadian Job Offer</FormHeader>
-          <JobOfferSection occupations={getData('occupation')} />
+          <JobOfferSection occupations={getData('occupation')} onchange={setIsInValid} formNumber={currentStep}/>
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={7}>
