@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     description: 'Root On',
     card: 'summary_large_image',
   },
+  // to be removed in production
+  robots: {
+    index: false,
+  },
 };
 
 export default async function Home() {

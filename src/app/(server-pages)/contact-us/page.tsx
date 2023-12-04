@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: metaInfo.contactUs.title,
   description: metaInfo.contactUs.description,
   alternates: { canonical: 'https://rooton.ca/contact-us' },
+  // to be removed in production
+  robots: {
+    index: false,
+  },
 };
 
 export default async function ContactUsPage() {
