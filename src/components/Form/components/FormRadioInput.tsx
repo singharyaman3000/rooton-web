@@ -46,7 +46,7 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
               );
             })}
             <p className="text-red-500 text-sm mt-2" style={{ display: isError ? 'block' : 'none' }}>
-              Please select an option.
+              Please select an option as this field is required..
             </p>
           </div>
         );

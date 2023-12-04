@@ -14,6 +14,7 @@ const intialFormStates = {
 
 export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) => {
   const [formValues, setFormValues] = useState(intialFormStates);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleFieldChange = (fieldName: string, value: unknown) => {
     setFormValues((prevFormValues) => {
@@ -31,7 +32,8 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) =
         formValues.firstname === '' ||
         formValues.lastname === '' ||
         formValues.email === '' ||
-        formValues.telephone === '',
+        formValues.telephone === '' ||
+        emailRegex.test(formValues.email),
       );
     }
   }, [formValues, formNumber]);

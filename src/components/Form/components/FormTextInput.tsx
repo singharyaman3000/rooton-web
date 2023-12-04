@@ -36,7 +36,7 @@ export const FormTextInput: React.FC<PropType> = (props) => {
           required={required}
         />
         <p className="text-red-500 text-sm mt-2" style={{ display: isError ? 'block' : 'none' }}>
-          Please select an option.
+          Please complete this required field.
         </p>
       </div>
     </div>

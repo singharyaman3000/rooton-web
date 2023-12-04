@@ -39,7 +39,7 @@ export const FormDropdown: React.FC<PropsType> = ({ options, value, onChange, la
         })}
       </select>
       <p className="text-red-500 text-sm mt-2" style={{ display: isError ? 'block' : 'none' }}>
-        Please select an option.
+        Please select an option from the dropdown menu.
       </p>
     </div>
   );
