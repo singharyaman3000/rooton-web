@@ -458,7 +458,7 @@ const LeadFormStepper = (
       showNavButtons={!singlePageForm}
     />
   ) : (
-    <div id='scheduler-container' className=" h-[54rem] mt-2">
+    <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
       <iframe className=" w-full h-full" title="AA" src={getMeetingUrl()} />
     </div>
   );
