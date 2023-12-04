@@ -16,6 +16,11 @@ import {
   jobOfferFieldSaskatchewan,
   jobOfferFieldManitoba,
   jobOfferFieldAlberta,
+  jobOfferFieldBCDistrict,
+  jobOfferFieldBC,
+  canadianJobOfferWages,
+  jobOfferFieldBCExperience,
+  jobOfferFieldBCTraining,
 } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 
@@ -30,6 +35,11 @@ const intialFormStates = {
   jobOfferFieldSaskatchewan: '',
   jobOfferFieldAlberta: '',
   jobOfferFieldManitoba: '',
+  jobOfferFieldBCDistrict: '',
+  jobOfferFieldBC: '',
+  canadianJobOfferWages: '',
+  jobOfferFieldBCExperience: '',
+  jobOfferFieldBCTraining: '',
 
 };
 
@@ -49,6 +59,7 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
   const shouldShowSaskatchewan = () => { return formValues.workProvinceTerritory === 'Saskatchewan, Canada'; };
   const shouldShowManitoba = () => { return formValues.workProvinceTerritory === 'Manitoba, Canada'; };
   const shouldShowAlberta = () => { return formValues.workProvinceTerritory === 'Alberta, Canada'; };
+  const shouldShowBritishColumbia = () => { return formValues.workProvinceTerritory === 'British Columbia, Canada'; };
 
   useEffect(() => {
     if (formNumber !== 6) return;
@@ -82,6 +93,31 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
             value={formValues.workProvinceTerritory}
             onChange={(e) => {
               handleFieldChange('workProvinceTerritory', e.target.value);
+            }}
+          />
+        </div>
+        <div style={{ display: shouldShowBritishColumbia() ? 'block' : 'none' }}>
+          <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+            <FormDropdown options={jobOfferFieldBCDistrict[0].options}
+              label={jobOfferFieldBCDistrict[0].label}
+              value={formValues.jobOfferFieldBCDistrict}
+              onChange={(e) => {
+                handleFieldChange('jobOfferFieldBCDistrict', e.target.value);
+              }}
+            />
+            <FormDropdown
+              options={canadianJobOfferWages[0].options}
+              label={canadianJobOfferWages[0].label}
+              value={formValues.canadianJobOfferWages}
+              onChange={(e) => {
+                handleFieldChange('canadianJobOfferWages', e.target.value);
+              }}
+            />
+          </div>
+          <FormRadioInput
+            fields={jobOfferFieldBC}
+            onChange={(e) => {
+              handleFieldChange('jobOfferFieldBC', e.target.value);
             }}
           />
         </div>
@@ -119,7 +155,6 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
               }}
             />
           </div>
-
           <div style={{ display: shouldShowAlberta() ? 'block' : 'none' }}>
             <FormRadioInput
               fields={jobOfferFieldAlberta}
@@ -136,9 +171,24 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
               }}
             />
           </div>
+          <div style={{ display: shouldShowBritishColumbia() ? 'block' : 'none' }}>
+            <FormDropdown
+              options={jobOfferFieldBCExperience[0].options}
+              label={jobOfferFieldBCExperience[0].label}
+              value={formValues.jobOfferFieldBCExperience}
+              onChange={(e) => {
+                handleFieldChange('jobOfferFieldBCExperience', e.target.value);
+              }}
+            />
+            <FormRadioInput
+              fields={jobOfferFieldBCTraining}
+              onChange={(e) => {
+                handleFieldChange('jobOfferFieldBCTraining', e.target.value);
+              }}
+            />
+          </div>
         </div>
       </div>
-
     </div>
   );
 };
