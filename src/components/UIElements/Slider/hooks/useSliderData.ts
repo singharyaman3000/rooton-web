@@ -5,9 +5,10 @@ type IUseSliderData = {
   slideId: string;
   sliderData: unknown;
   cardSpacing?: number;
+  minScreenWidthForSlider?: number;
 };
 
-const useSliderData = ({ slideId, sliderData, cardSpacing = 25 }: IUseSliderData) => {
+const useSliderData = ({ slideId, sliderData, cardSpacing = 25, minScreenWidthForSlider = 768 }: IUseSliderData) => {
   const [scrollAmt, setScrollAmt] = useState(0);
   const [unitPageWidth, setPageWidth] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -44,7 +45,7 @@ const useSliderData = ({ slideId, sliderData, cardSpacing = 25 }: IUseSliderData
         if (children && children.length > 0) {
           for (const key in children) {
             if (children[key].clientWidth) {
-              const padding = screenWidth >= 320 ? cardSpacing : 0;
+              const padding = screenWidth >= minScreenWidthForSlider ? cardSpacing : 0;
               if (totalWidth + children[key].clientWidth <= slide.clientWidth) {
                 totalWidth += children[key].clientWidth + padding;
                 itemsPerPage += 1;
