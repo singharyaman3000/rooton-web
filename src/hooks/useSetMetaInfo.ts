@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 
 const useSetMetaInfo = (title: string, description: string, canonicalUrl: string) => {
-  console.log(document);
-
   useEffect(() => {
     if (title) document.title = title;
     if (description) {
@@ -14,6 +12,15 @@ const useSetMetaInfo = (title: string, description: string, canonicalUrl: string
         newMetaTag.name = 'description';
         newMetaTag.content = description;
         document.head.appendChild(newMetaTag);
+      }
+
+      // to be removed in production
+      const noBotsMetaTag = document.querySelector('meta[name="robots"]');
+      if(!noBotsMetaTag){
+        const newNoBotsMetaTag = document.createElement('meta');
+        newNoBotsMetaTag.name = 'robots';
+        newNoBotsMetaTag.content = 'noindex';
+        document.head.appendChild(newNoBotsMetaTag);
       }
     }
     if (canonicalUrl) {
