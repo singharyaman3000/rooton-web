@@ -27,7 +27,11 @@ const BlogsDetailsPageCSR = () => {
   const { loader } = useTranslationLoader();
 
   const canonicalUrl = `https://rooton.ca/${params?.lang}/blogs/${params?.blogId}/${params?.blogType}`;
-  useSetMetaInfo(metaData![0]?.attributes?.meta_title ?? '', metaData![0]?.attributes?.meta_description, canonicalUrl);
+  useSetMetaInfo(
+    metaData![0]?.attributes?.meta_title ?? '',
+    metaData![0]?.attributes?.meta_description ?? '',
+    canonicalUrl ?? '',
+  );
 
   if (loader || loading) return <LoadingUI />;
   const isFromCoachingPage = params?.blogType === 'coaching-tips';

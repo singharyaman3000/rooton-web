@@ -18,6 +18,10 @@ export async function generateMetadata(metaProps: ServicePageProps): Promise<Met
     title: res[0]?.attributes.meta_title,
     description: res[0]?.attributes?.meta_description,
     alternates: { canonical: `https://rooton.ca/service/${res[0]?.attributes?.unique_identifier_name}` },
+    // to be removed in production
+    robots: {
+      index: false,
+    },
   };
 }
 
