@@ -989,18 +989,6 @@ heading {
   background-color: #000;
 }
 
-.active-dot {
-  background-color: #F59723;
-}
-
-.in-active-dot {
-  background-color: #000; 
-}
-
-[data-theme='dark'] .in-active-dot{
-  background-color: #fff;
-}
-
 .toggle-in-active-dark {
   background-color: #7e7e7e;
 }
