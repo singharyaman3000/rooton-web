@@ -3,6 +3,7 @@
 import React, { RefObject, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import useSelectedTabPosition from '../hooks/useGetTabPosition';
+import { useParams } from 'next/navigation';
 
 export type TabType = { key: number; label: string; id: string };
 
@@ -13,6 +14,7 @@ type TextTabsPropType = {
 };
 
 const TextTabs: React.FC<TextTabsPropType> = ({ onChange, tabs }) => {
+  const params = useParams();
   const refs = useMemo(() => {
     return tabs.map(() => {
       return React.createRef<HTMLDivElement>();
@@ -40,13 +42,16 @@ const TextTabs: React.FC<TextTabsPropType> = ({ onChange, tabs }) => {
               delay: 0.3,
               ease: [0, 0.71, 0.2, 1.01],
             }}
-            className={`whitespace-nowrap font-bold text-lg lg:text-2xl cursor-pointer ${
-              selectedTab.tab.id === data.id ? 'font-bold' : 'font-normal'
-            }`}
+            className={`whitespace-nowrap ${
+              params?.lang ? 'text-ellipsis max-w-[90px] ' : ''
+            } md:max-w-none overflow-hidden font-bold ${
+              params?.lang ? 'text-sm' : 'text-lg'
+            } md:text-2xl cursor-pointer ${selectedTab.tab.id === data.id ? 'font-bold' : 'font-normal'}`}
             onClick={() => {
               setSelectedTab({ tab: data, currentRef: refs[index] });
               onChange(data);
             }}
+            title={data.label}
           >
             {data.label}
           </motion.div>
