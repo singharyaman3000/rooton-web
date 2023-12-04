@@ -5,13 +5,14 @@ import { useSwipeable } from 'react-swipeable';
 
 import ProfileCard from '../ProfileCard';
 import { convertToHtmlId } from '@/utils';
+import AboutUsSubHeader from '../AboutUsSubHeader';
 import Slider from '@/components/UIElements/Slider';
 import ModalProfileCard from '../ProfileCard/ModalProfileCard';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import usePopUp from '@/components/UIElements/PopUp/hooks/usePopUp';
 import SectionContainer from '@/components/Containers/SectionContainers';
+import MobilePagination from '@/components/BlogsListPage/MobilePagination';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
-import AboutUsSubHeader from '../AboutUsSubHeader';
 
 interface Employee {
   imageUrl: { employeeImage: string; backgroundColor: string };
@@ -30,6 +31,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
     slideId: convertToHtmlId(contentHeading),
     sliderData: teamData,
     cardSpacing: 40,
+    minScreenWidthForSlider: 320,
   });
 
   const handlers = useSwipeable({
@@ -52,7 +54,7 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
     description: '',
   });
 
-  return (
+  return totalPages !== Infinity ? (
     <section className="w-full team-slider-section overflow-x-hidden mt-[58px] mb-20">
       <SectionContainer cssClass="!pr-[0px] 2k:!pr-20 m-auto max-w-screen-2k py-10 md:pt-[80px] md:pb-20">
         <div className="flex gap-2 flex-wrap items-end justify-between md:pr-[48px] lg:pr-[80px]">
@@ -100,10 +102,18 @@ const TeamProfileSlider = ({ contentHeading, teamData }: TeamProfileSliderProps)
             })}
           </Slider>
         </div>
+        <MobilePagination
+          className="bg-pale-yellow-black pr-6"
+          dotsToDisplay={Array.from({ length: totalPages }, (_, index) => {
+            return index;
+          })}
+          pageNum={pageNum}
+          singleRowDots
+        />
         <ModalProfileCard closePopUpFn={hidePopUp} showPopUp={poupState} profileData={profileDataForModal} />
       </SectionContainer>
     </section>
-  );
+  ) : null;
 };
 
 export default TeamProfileSlider;

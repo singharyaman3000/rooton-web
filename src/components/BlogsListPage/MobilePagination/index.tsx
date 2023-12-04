@@ -4,14 +4,22 @@ import { IPageMeta } from '@/app/services/apiService/interfaces';
 type MobilePaginationPropsType = {
   dotsToDisplay: number[];
   pageNum: number;
-  pageMeta: IPageMeta;
+  pageMeta?: IPageMeta;
   className: string;
- };
+  singleRowDots?: boolean;
+};
 
-const MobilePagination: React.FC<MobilePaginationPropsType> = ({ dotsToDisplay, pageNum, pageMeta, className }) => {
-  const totalArticleCount = pageMeta?.pagination?.total;
+const MobilePagination: React.FC<MobilePaginationPropsType> = ({
+  dotsToDisplay,
+  pageNum,
+  pageMeta,
+  className,
+  singleRowDots = false,
+}) => {
+  const totalArticleCount = pageMeta?.pagination?.total ?? 0;
 
-  const getStyles = (index: number, number: number) => {
+  const getStyles = (index: number, number: number, emptyReturn = false) => {
+    if (emptyReturn) return {};
     const obj = {};
     const smallDotStyle = { height: '3px', width: '3px', opacity: pageNum === number ? '1' : '0.4' };
     switch (index) {
@@ -38,7 +46,7 @@ const MobilePagination: React.FC<MobilePaginationPropsType> = ({ dotsToDisplay, 
             className="h-1 w-1 inline-block"
             style={{
               backgroundColor: pageNum === number ? '#F59723' : '#000',
-              ...getStyles(index, number),
+              ...getStyles(index, number, singleRowDots),
             }}
             key={number}
           ></span>
