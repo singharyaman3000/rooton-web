@@ -62,7 +62,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
   const currentNews = newsList ? newsList[currentNewsIndex] : null;
 
   return currentNews ? (
-    <section className="flex justify-between items-center bg-platinum py-3 px-6 md:px-10 xl:px-24">
+    <section className="flex justify-between items-center bg-platinum py-3.5 px-6 md:px-10 xl:px-20">
       <div className="flex gap-3.5 items-center w-[90%]">
         <motion.strong
           key={currentNews.id}
@@ -70,7 +70,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           title={currentNews.title}
-          className="text-base lg:text-xl font-normal text-primary-text max-w-[60%] sm:max-w-[74%] md:max-w-[77%] lg:max-w-[85%] truncate"
+          className="text-base font-normal text-black xl:pl-[18px] max-w-[60%] sm:max-w-[74%] md:max-w-[77%] lg:max-w-[85%] truncate"
         >
           {currentNews.title}
         </motion.strong>
@@ -82,7 +82,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
           }
         >
           <Button
-            cssClass="border-0 !p-0 border-b-2 !font-bold border-primary-text truncate"
+            cssClass="border-0 !p-0 border-b-2 !font-medium !border-black text-black truncate"
             label="Read more"
             tabIndex={-1}
             handleOnClick={() => {
