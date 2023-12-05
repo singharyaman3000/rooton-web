@@ -230,7 +230,7 @@ export const countriesOfResidence: IFormFieldOptions[] = [
   },
 ];
 
-export const martialStatusForm: IFormFieldOptions[] = [
+export const maritalStatusForm: IFormFieldOptions[] = [
   {
     name: 'martial_status',
     label: 'Marital Status',

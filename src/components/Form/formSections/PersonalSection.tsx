@@ -12,7 +12,7 @@ import {
   countriesOfResidence,
   destinationInCanada,
   manitobaPreference,
-  martialStatusForm,
+  maritalStatusForm,
   quebecHistory,
 } from '../config/formConfig';
 import { FormRadioInput } from '../components/FormRadioInput';
@@ -92,8 +92,8 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, co
         required
       />
       <FormDropdown
-        options={martialStatusForm[0].options}
-        label={martialStatusForm[0].label}
+        options={maritalStatusForm[0].options}
+        label={maritalStatusForm[0].label}
         value={formValues.marital_status}
         onChange={(e) => {
           handleFieldChange('marital_status', e.target.value);
