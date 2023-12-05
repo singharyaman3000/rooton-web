@@ -1,4 +1,4 @@
-import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef } from 'react';
 import { SelectedTagType } from '../NavigationPanel';
 
 const useSetScrollHeader = (refs: RefObject<HTMLElement>[], setState: Dispatch<SetStateAction<SelectedTagType>>) => {
@@ -13,15 +13,12 @@ const useSetScrollHeader = (refs: RefObject<HTMLElement>[], setState: Dispatch<S
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const intersectingHeaderText = entry.target.getAttribute('data-id') ?? '';        
+        const intersectingHeaderId = entry.target.getAttribute('data-id') ?? '';
         const intersectingRef = refs.find((ref, index) => {
-          console.log(index);
-          return index === +intersectingHeaderText;
+          return index === +intersectingHeaderId;
         });
-// console.log(intersectingRef);
-
         if (intersectingRef) {
-          setState({ tag: +intersectingHeaderText, activeRef: intersectingRef });
+          setState({ tag: +intersectingHeaderId, activeRef: intersectingRef });
         }
       }
     });
@@ -34,7 +31,6 @@ const useSetScrollHeader = (refs: RefObject<HTMLElement>[], setState: Dispatch<S
     });
   };
 
-  // eslint-disable-next-line no-undef
   const observeTargets = () => {
     const allHeadingsNodelist = document?.querySelectorAll('heading');
     return allHeadingsNodelist?.forEach((heading) => {
@@ -49,7 +45,7 @@ const useSetScrollHeader = (refs: RefObject<HTMLElement>[], setState: Dispatch<S
     return () => {
       observerRef.current?.disconnect();
     };
-  }, []);
+  }, [refs]);
 
   return { unObserveTargets, observeTargets };
 };

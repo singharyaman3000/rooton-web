@@ -1,4 +1,4 @@
-import { ABOUT_US_PATH } from '../../../../constants/navigation';
+import { ABOUT_US_PATH } from '@/constants/navigation';
 import WinningWillIcon from '@/components/Icons/WinningWillIcon';
 import OpenMindednessIcon from '@/components/Icons/OpenMindednessIcon';
 import QualityServiceIcon from '@/components/Icons/QualityServiceIcon';
@@ -54,8 +54,8 @@ export const BOOK_APPOINTMENT_FORM = {
     portalId: '7535538',
     formId: '61e819dd-78e2-4fff-983e-60e559f52cc3',
     calendarLink: {
-      free: 'https://meetings.hubspot.com/geethu-g1',
-      paid: 'https://calendly.com/root-on-immigration-consultants/discovery-call-with-client ',
+      free: 'https://meetings.hubspot.com/ronak-patel4/1-1-meeting-with-a-counsellor',
+      paid: 'https://calendly.com/root-on-immigration-consultants/discovery-call-with-client',
     },
   },
 };

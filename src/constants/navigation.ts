@@ -1,4 +1,6 @@
-export const BOOK_AN_APPOINTMENT = '/book-an-appointment';
+export const BOOK_AN_APPOINTMENT_QUERY = 'book-an-appointment';
+
+export const HOMEPAGE_PATH = '/';
 
 export const BLOG_LISTING_PATH = '/blogs';
 

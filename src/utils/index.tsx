@@ -63,3 +63,11 @@ export const convertToHtmlId = (input: string) => {
   id = id.replace(/[^a-z0-9-]/g, ''); // remove special characters except hyphen
   return id;
 };
+
+export const truncateText = (text: string, limit: number = 150) => {
+  if (text.length > limit) {
+    const truncatedText = text.slice(0, limit);
+    return `${truncatedText}...`;
+  }
+  return text;
+};
