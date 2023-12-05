@@ -15,7 +15,7 @@ import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
-const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us', 'home'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'home'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -54,6 +54,24 @@ export default function Header() {
     if (path === '/' || (path.split('/').length < 3 && params.lang)) {
       scrollIntoView('servicesHomePage');
     }
+  };
+
+  const setActiveTabFromUrl = () => {
+    const pathArray = path.split('/');
+
+    let currentTab = 'service';
+    if (HOMEPAGE_PATH.includes(path.replace(params.lang, ''))) {
+      currentTab = 'home';
+    } else {
+      const foundItem = pathArray.find((item) => {
+        return itemsToSetActive.includes(item);
+      });
+      if (foundItem) {
+        currentTab = foundItem;
+      }
+    }
+
+    setActiveTab(currentTab);
   };
 
   useEffect(() => {
@@ -96,24 +114,6 @@ export default function Header() {
       document.removeEventListener('scroll', onScroll);
     };
   });
-
-  function setActiveTabFromUrl() {
-    const pathArray: string[] = window.location.pathname.split('/');
-
-    const notHomePage = itemsToSetActive.some((elem) => {
-      return pathArray?.includes(elem);
-    });
-
-    if (notHomePage) {
-      itemsToSetActive?.forEach((item) => {
-        if (pathArray?.includes(item)) {
-          setActiveTab(item);
-        }
-      });
-    } else {
-      setActiveTab('home');
-    }
-  }
 
   function animateHeader() {
     const easeDown = [{ top: '-5rem' }, { top: '0' }];
