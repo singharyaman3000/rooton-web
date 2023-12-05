@@ -43,9 +43,8 @@ const MobilePagination: React.FC<MobilePaginationPropsType> = ({
       {dotsToDisplay?.map((number, index) => {
         return (
           <span
-            className="h-1 w-1 inline-block"
+            className={`h-1 w-1 inline-block ${pageNum === number ? 'bg-font-color-orange' : 'bg-toggle-dark-bg'}`}
             style={{
-              backgroundColor: pageNum === number ? '#F59723' : '#000',
               ...getStyles(index, number, singleRowDots),
             }}
             key={number}

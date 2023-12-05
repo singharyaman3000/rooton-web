@@ -36,7 +36,7 @@ export default function ThemeToggleAndHamburger({
 
   const getbuttonBG = () => {
     if (isFixed) return isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg opacity-[0.23]';
-    return isDarkMode ? ' bg-white' : ' bg-tansparent-bg';
+    return isDarkMode ? ' bg-white' : ' bg-[#7e7e7e]';
   };
   // isDarkMode ? ' bg-black' : ' bg-tansparent-bg'
   return (
@@ -65,7 +65,7 @@ export default function ThemeToggleAndHamburger({
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg opacity-[0.23]'
+              isDarkMode ? 'bg-toggle-dark-bg' : 'bg-[#818181]'
             } flex justify-center items-center`}
           >
             <DarkModeIcon isScrolled={scrolledEnough} isFixed={isFixed} />
@@ -75,7 +75,7 @@ export default function ThemeToggleAndHamburger({
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-tansparent-bg'
+              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-[#d3d3d3]'
             } flex justify-center items-center`}
           >
             <LightModeIcon isScrolled={scrolledEnough} />
@@ -84,7 +84,7 @@ export default function ThemeToggleAndHamburger({
           <span
             style={{ transition: 'background-color 0.2s' }}
             className={` w-1/2 h-full ${
-              !isDarkMode ? 'bg-white' : 'bg-tansparent-bg'
+              !isDarkMode ? 'bg-white' : 'bg-[#7e7e7e]'
             } flex justify-center items-center`}
           >
             <LightModeIcon isScrolled={scrolledEnough} />
