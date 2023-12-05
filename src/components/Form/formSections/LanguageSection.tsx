@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { FormDropdown } from '../components/FormDropDown';
 import {

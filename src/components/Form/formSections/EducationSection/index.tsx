@@ -41,15 +41,14 @@ export const EducationSection: React.FC<IPropsType> = ({ onchange, formNumber, f
         required
       />
       {formData.have_you_completed_high_school__12th_grade__ === 'Yes' &&
-        <div>
-          <FormRadioInput
-            fields={training}
-            onChange={(e) => {
-              onchange('have_you_received_any_education_or_training_other_than_high_school_', e.target.value);
-            }}
-            value={formData.have_you_received_any_education_or_training_other_than_high_school_}
-          />
-        </div>}
+        <FormRadioInput
+          fields={training}
+          onChange={(e) => {
+            onchange('have_you_received_any_education_or_training_other_than_high_school_', e.target.value);
+          }}
+          value={formData.have_you_received_any_education_or_training_other_than_high_school_}
+        />
+      }
       {formData.have_you_received_any_education_or_training_other_than_high_school_ === 'Yes' &&
         <div className='flex flex-col overflow-auto max-h-[50rem]'>
           <p>Please list all of your education and/or training other than high school (secondary school),

@@ -11,21 +11,30 @@ const validityIntialState = {
   telephoneValidity: false,
 };
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const mobileRegex = /^\d{6,10}$/;
+
 export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isInValid, formData }) => {
   const [validity, setFormatValidity] = useState<Record<string, boolean>>(validityIntialState);
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const mobileRegex = /^\d{7,10}$/;
+
+  const isEmailValid = (email: string) => {
+    return email === '' || emailRegex.test(email);
+  };
+
+  const isTelephoneValid = (telephone: string) => {
+    return telephone === '' || mobileRegex.test(telephone);
+  };
 
   useEffect(() => {
     if (formNumber !== 9) return;
     if (isInValid) {
       isInValid(
-        formData?.firstname === '' ||
-        formData?.lastname === '' ||
+        validity.telephoneValidity ||
+        validity.emailValidity ||
         formData?.email === '' ||
         formData?.mobilephone === '' ||
-        validity.emailValidity ||
-        validity.telephoneValidity,
+        formData?.lastname === '' ||
+        formData?.firstname === '',
       );
     }
   }, [formData, formNumber]);
@@ -41,11 +50,10 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         });
         return;
       }
-      const isEmailValid = emailRegex.test(formData?.email);
       setFormatValidity((prevValidity) => {
         return {
           ...prevValidity,
-          emailValidity: !isEmailValid,
+          emailValidity: !isEmailValid(formData.email),
         };
       });
     },
@@ -64,11 +72,10 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         });
         return;
       }
-      const isTelephoneValid = mobileRegex.test(formData.mobilephone);
       setFormatValidity((prevValidity) => {
         return {
           ...prevValidity,
-          telephoneValidity: !isTelephoneValid,
+          telephoneValidity: !isTelephoneValid(formData.mobilephone),
         };
       });
     },
@@ -101,7 +108,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         }}
         type='email'
         value={formData?.email}
-        invalidFormat={validity.emailValidity}
+        invalidFormat={!isEmailValid(formData?.email)}
         required
       />
       <FormTextInput
@@ -111,7 +118,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
           onchange('mobilephone', e.target.value);
         }}
         value={formData?.mobilephone}
-        invalidFormat={validity.telephoneValidity}
+        invalidFormat={!isTelephoneValid(formData?.mobilephone)}
         required
       />
     </div>

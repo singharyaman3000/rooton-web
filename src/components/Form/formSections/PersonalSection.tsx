@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect } from 'react';
 import { IPropsType } from '../config/models';
 import { FormDropdown } from '../components/FormDropDown';

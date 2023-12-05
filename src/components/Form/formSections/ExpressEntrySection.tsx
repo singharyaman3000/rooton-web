@@ -1,6 +1,3 @@
-'use client';
-
-import 'tailwindcss/tailwind.css';
 import React from 'react';
 import { FormRadioInput } from '../components/FormRadioInput';
 import { expressEntryInvitation, expressEntrySubmitted } from '../config/formConfig';
@@ -17,16 +14,15 @@ export const ExpressEntrySection: React.FC<IPropsType> = ({ onchange, formData }
         }}
         value={formData?.have_you_already_submitted_an_express_entry_profile_to_the_government_of_canada_within_the_past_12_}
       />
-      <div style={{ display: formData.expressEntry_submittedProfile === 'Yes' ? 'block' : 'none' }}>
+      {formData.have_you_already_submitted_an_express_entry_profile_to_the_government_of_canada_within_the_past_12_ === 'Yes' && (
         <FormRadioInput
           fields={expressEntryInvitation}
           onChange={(e) => {
             onchange('have_you_already_received_an_invitation_to_apply_for_permanent_residence_from_the_government_of_can', e.target.value);
           }}
           value={formData?.have_you_already_received_an_invitation_to_apply_for_permanent_residence_from_the_government_of_can}
-
         />
-      </div>
+      )}
     </div>
   );
 };

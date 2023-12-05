@@ -32,43 +32,45 @@ export const FamilyOrFriendsSection: React.FC<IPropsType> = ({ onchange, formDat
         }}
         value={formData?.family_members_or_relatives_living_in_canada_18_years_or_older_}
       />
-      <div style={{ display: formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' ? 'block' : 'none' }}>
-        <p>{'Please list all your and/or your spouse/common-law partner\'s relatives in Canada'}</p>
-        <div className=' flex flex-col md:grid grid-cols-4 gap-4'>
-          <FormDropdown
-            options={familyRelationshipOptions[0].options}
-            label={familyRelationshipOptions[0].label}
-            value={formData?.relationship_to_family_member_in_canada}
-            onChange={(e) => {
-              onchange('relationship_to_family_member_in_canada', e.target.value);
-            }}
-          />
-          <FormDropdown
-            options={residencyStatusOptions[0].options}
-            label={residencyStatusOptions[0].label}
-            value={formData?.residency_status_of_family_member}
-            onChange={(e) => {
-              onchange('residency_status_of_family_member', e.target.value);
-            }}
-          />
-          <FormDropdown
-            options={livingIn[0].options}
-            label={livingIn[0].label}
-            value={formData?.family_member_living_in}
-            onChange={(e) => {
-              onchange('family_member_living_in', e.target.value);
-            }}
-          />
-          <FormDropdown
-            options={relativeSince[0].options}
-            label={relativeSince[0].label}
-            value={formData?.family_member_living_in_current_area_for_}
-            onChange={(e) => {
-              onchange('family_member_living_in_current_area_for_', e.target.value);
-            }}
-          />
-        </div>
-      </div>
+      {formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' &&
+        <>
+          <p>{'Please list all your and/or your spouse/common-law partner\'s relatives in Canada'}</p>
+          <div className=' flex flex-col md:grid grid-cols-4 gap-4'>
+            <FormDropdown
+              options={familyRelationshipOptions[0].options}
+              label={familyRelationshipOptions[0].label}
+              value={formData?.relationship_to_family_member_in_canada}
+              onChange={(e) => {
+                onchange('relationship_to_family_member_in_canada', e.target.value);
+              }}
+            />
+            <FormDropdown
+              options={residencyStatusOptions[0].options}
+              label={residencyStatusOptions[0].label}
+              value={formData?.residency_status_of_family_member}
+              onChange={(e) => {
+                onchange('residency_status_of_family_member', e.target.value);
+              }}
+            />
+            <FormDropdown
+              options={livingIn[0].options}
+              label={livingIn[0].label}
+              value={formData?.family_member_living_in}
+              onChange={(e) => {
+                onchange('family_member_living_in', e.target.value);
+              }}
+            />
+            <FormDropdown
+              options={relativeSince[0].options}
+              label={relativeSince[0].label}
+              value={formData?.family_member_living_in_current_area_for_}
+              onChange={(e) => {
+                onchange('family_member_living_in_current_area_for_', e.target.value);
+              }}
+            />
+          </div>
+        </>
+      }
     </div>
   );
 };
