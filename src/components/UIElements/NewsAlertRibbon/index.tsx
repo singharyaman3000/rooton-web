@@ -93,6 +93,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
         </Link>
       </div>
       <button
+        aria-label="close-button"
         type="button"
         title="Close Alert"
         onClick={() => {
