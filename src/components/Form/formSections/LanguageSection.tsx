@@ -38,11 +38,10 @@ export const LanguageSection = () => {
   return (
     <div>
       <p className="mb-5">
-        Please describe your proficiency in English and/or French under each of the four skills listed below.{' '}
+        Please describe your proficiency in English and/or French under each of the four skills listed below.
       </p>
       {/* English Skills */}
       <div>
-        <span className='block text-xl font-[500] mb-2'>English</span>
         <div className="flex flex-col gap-4 md:grid grid-cols-4">
           <FormDropdown
             options={englishListeningLevels[0].options}
@@ -80,7 +79,6 @@ export const LanguageSection = () => {
       </div>
       {/* French Skills */}
       <div>
-        <span className='block text-xl font-[500] mb-2'>French</span>
         <div className="flex flex-col gap-4 md:grid grid-cols-4">
           <FormDropdown
             options={frenchListeningLevels[0].options}

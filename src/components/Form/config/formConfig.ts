@@ -315,7 +315,7 @@ const languageLevels = [
 export const englishWritingLevels = [
   {
     name: 'english_write',
-    label: 'Writing',
+    label: 'English Writing',
     options: languageLevels,
   },
 ];
@@ -323,7 +323,7 @@ export const englishWritingLevels = [
 export const englishReadingLevels = [
   {
     name: 'english_reading',
-    label: 'Reading',
+    label: 'English Reading',
     options: languageLevels,
   },
 ];
@@ -331,14 +331,14 @@ export const englishReadingLevels = [
 export const englishSpeakingLevels = [
   {
     name: 'english_speak',
-    label: 'Speaking',
+    label: 'English Speaking',
     options: languageLevels,
   },
 ];
 export const englishListeningLevels = [
   {
     name: 'english_listen',
-    label: 'Listening',
+    label: 'English Listening',
     options: languageLevels,
   },
 ];
@@ -346,7 +346,7 @@ export const englishListeningLevels = [
 export const frenchWritingLevels = [
   {
     name: 'french_write',
-    label: 'Writing',
+    label: 'French Writing',
     options: languageLevels,
   },
 ];
@@ -354,7 +354,7 @@ export const frenchWritingLevels = [
 export const frenchReadingLevels = [
   {
     name: 'french_reading',
-    label: 'Reading',
+    label: 'French Reading',
     options: languageLevels,
   },
 ];
@@ -362,14 +362,14 @@ export const frenchReadingLevels = [
 export const frenchSpeakingLevels = [
   {
     name: 'french_speak',
-    label: 'Speaking',
+    label: 'French Speaking',
     options: languageLevels,
   },
 ];
 export const frenchListeningLevels = [
   {
     name: 'french_listen',
-    label: 'Listening',
+    label: 'French Listening',
     options: languageLevels,
   },
 ];

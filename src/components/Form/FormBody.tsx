@@ -58,7 +58,7 @@ const FormBody = () => {
   useEffect(() => {
     const initHubSpot = () => {
       const script = document.createElement('script');
-      script.src = '//js.hs-scripts.com/44311898.js';
+      script.src = '//js.hs-scripts.com/7535538.js';
       document.body.appendChild(script);
     };
     initHubSpot();
@@ -100,7 +100,7 @@ const FormBody = () => {
 
         <FormStep currentStep={currentStep} stepNumber={6}>
           <FormHeader>Canadian Job Offer</FormHeader>
-          <JobOfferSection occupations={getData('occupation')} onchange={setIsInValid} formNumber={currentStep}/>
+          <JobOfferSection occupations={getData('occupation')} onchange={setIsInValid} formNumber={currentStep} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={7}>
