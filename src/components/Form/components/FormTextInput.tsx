@@ -22,9 +22,12 @@ export const FormTextInput: React.FC<PropType> = (props) => {
   return (
     <div className="flex-col">
       <div key={field.name} className="mb-5">
-        <label className="text-lg font-medium leading-[1.67] text-black" placeholder={placeholder} htmlFor={field.name}>
-          {field.label}
-        </label>
+        <div className='flex flex-row'>
+          <label className="text-lg font-medium leading-[1.67] text-black" placeholder={placeholder} htmlFor={field.name}>
+            {field.label}
+          </label>
+          <span style={{ display: required ? 'block' : 'none', color: 'red' }}>*</span>
+        </div>
         <input
           id={field.name}
           type={type}

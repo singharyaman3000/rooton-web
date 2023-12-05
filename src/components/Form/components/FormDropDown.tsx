@@ -20,7 +20,10 @@ export const FormDropdown: React.FC<PropsType> = ({ options, value, onChange, la
 
   return (
     <div className=" mb-5">
-      <div className="text-lg font-medium leading-[1.67] text-black">{label}</div>
+      <div className='flex flex-row'>
+        <div className="text-lg font-medium leading-[1.67] text-black">{label}</div>
+        <span style={{ display: required ? 'block' : 'none', color: 'red' }}>*</span>
+      </div>
       <select
         value={value}
         onChange={onChange}

@@ -22,13 +22,16 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
       {fields.map((field) => {
         return (
           <div key={field.name} className=" mb-5">
-            <label
-              className="text-lg font-medium leading-[1.67] text-black"
-              placeholder={placeholder}
-              htmlFor={field.name}
-            >
-              {field.label}
-            </label>
+            <div className='flex flex-row'>
+              <label
+                className="text-lg font-medium leading-[1.67] text-black"
+                placeholder={placeholder}
+                htmlFor={field.name}
+              >
+                {field.label}
+              </label>
+              <span style={{ display: required ? 'block' : 'none', color: 'red' }}>*</span>
+            </div>
             {field?.options?.map((option) => {
               return (
                 <div key={option.id} className="flex items-center gap-3 text-lg">
