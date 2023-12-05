@@ -6,50 +6,33 @@ import { contactInfo } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 import useDebounce from '@/hooks/useDebounce';
 
-const intialFormStates = {
-  firstname: '',
-  lastname: '',
-  email: '',
-  telephone: '',
-};
-
 const validityIntialState = {
   emailValidity: false,
   telephoneValidity: false,
 };
 
-export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) => {
-  const [formValues, setFormValues] = useState(intialFormStates);
+export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isInValid, formData }) => {
   const [validity, setFormatValidity] = useState<Record<string, boolean>>(validityIntialState);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const mobileRegex = /^\d{7,10}$/;
 
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
-  };
-
   useEffect(() => {
     if (formNumber !== 9) return;
-    if (onchange) {
-      onchange(
-        formValues.firstname === '' ||
-        formValues.lastname === '' ||
-        formValues.email === '' ||
-        formValues.telephone === '' ||
+    if (isInValid) {
+      isInValid(
+        formData?.firstname === '' ||
+        formData?.lastname === '' ||
+        formData?.email === '' ||
+        formData?.mobilephone === '' ||
         validity.emailValidity ||
         validity.telephoneValidity,
       );
     }
-  }, [formValues, formNumber]);
+  }, [formData, formNumber]);
 
   useDebounce(
     () => {
-      if (formValues.email === '') {
+      if (formData?.email === '') {
         setFormatValidity((prevValidity) => {
           return {
             ...prevValidity,
@@ -58,27 +41,21 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) =
         });
         return;
       }
-      const isEmailValid = emailRegex.test(formValues.email);
+      const isEmailValid = emailRegex.test(formData?.email);
       setFormatValidity((prevValidity) => {
         return {
           ...prevValidity,
           emailValidity: !isEmailValid,
         };
       });
-      setFormValues((prevFormValues) => {
-        return {
-          ...prevFormValues,
-          ...isEmailValid && { email: formValues.email },
-        };
-      });
     },
     1000,
-    [formValues.email],
+    [formData.email],
   );
 
   useDebounce(
     () => {
-      if (formValues.telephone === '') {
+      if (formData.mobilephone === '') {
         setFormatValidity((prevValidity) => {
           return {
             ...prevValidity,
@@ -87,23 +64,16 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) =
         });
         return;
       }
-      const isTelephoneValid = mobileRegex.test(formValues.telephone);
-      console.log(isTelephoneValid);
+      const isTelephoneValid = mobileRegex.test(formData.mobilephone);
       setFormatValidity((prevValidity) => {
         return {
           ...prevValidity,
           telephoneValidity: !isTelephoneValid,
         };
       });
-      setFormValues((prevFormValues) => {
-        return {
-          ...prevFormValues,
-          ...isTelephoneValid && { telephone: formValues.telephone },
-        };
-      });
     },
     1000,
-    [formValues.telephone],
+    [formData?.mobilephone],
   );
 
   return (
@@ -111,26 +81,26 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) =
       <FormTextInput
         field={contactInfo[0]}
         onChange={(e) => {
-          handleFieldChange('firstname', e.target.value);
+          onchange('firstname', e.target.value);
         }}
-        value={formValues.firstname}
+        value={formData?.firstname}
         required
       />
       <FormTextInput
         field={contactInfo[1]}
         onChange={(e) => {
-          handleFieldChange('lastname', e.target.value);
+          onchange('lastname', e.target.value);
         }}
-        value={formValues.lastname}
+        value={formData?.lastname}
         required
       />
       <FormTextInput
         field={contactInfo[2]}
         onChange={(e) => {
-          handleFieldChange('email', e.target.value);
+          onchange('email', e.target.value);
         }}
         type='email'
-        value={formValues.email}
+        value={formData?.email}
         invalidFormat={validity.emailValidity}
         required
       />
@@ -138,9 +108,9 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber }) =
         field={contactInfo[3]}
         type='phone'
         onChange={(e) => {
-          handleFieldChange('telephone', e.target.value);
+          onchange('mobilephone', e.target.value);
         }}
-        value={formValues.telephone}
+        value={formData?.mobilephone}
         invalidFormat={validity.telephoneValidity}
         required
       />

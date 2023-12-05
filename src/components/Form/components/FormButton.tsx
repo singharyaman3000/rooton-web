@@ -1,20 +1,20 @@
 import React from 'react';
 
 type PropsType = {
-  displayCondition: boolean;
   buttonText: string;
-  onClickHandler: () => void;
-  disabled?: boolean;
+  type: 'button' | 'submit';
+  onClickHandler?: () => void;
+  disable?: boolean;
 };
 
-export const FormButton: React.FC<PropsType> = ({ displayCondition, buttonText, onClickHandler, disabled }) => {
+export const FormButton: React.FC<PropsType> = ({ buttonText, onClickHandler, disable, type }) => {
+
   return (
     <button
-      type="button"
-      style={{ display: displayCondition ? 'block' : 'none' }}
+      type={type === 'button' ? 'button' : 'submit'}
       className="bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
       onClick={onClickHandler}
-      disabled={disabled}
+      disabled={disable}
     >
       {buttonText}
     </button>

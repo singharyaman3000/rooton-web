@@ -1,27 +1,12 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { FormDropdown } from '../components/FormDropDown';
 import { currency, netWorth } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 
-const intialFormStates = {
-  currency: '',
-  netWorth: '',
-};
-
-export const NetWorthSection: React.FC<IPropsType> = ({ currencies }) => {
-  const [formValues, setFormValues] = useState(intialFormStates);
-
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
-  };
+export const NetWorthSection: React.FC<IPropsType> = ({ currencies, formData, onchange }) => {
 
   return (
     <div>
@@ -29,17 +14,17 @@ export const NetWorthSection: React.FC<IPropsType> = ({ currencies }) => {
       <FormDropdown
         options={currencies || []}
         label={currency[0].label}
-        value={formValues.currency}
+        value={formData.preferred_currency_for_networth}
         onChange={(e) => {
-          handleFieldChange('currency', e.target.value);
+          onchange('preferred_currency_for_networth', e.target.value);
         }}
       />
       <FormDropdown
         options={netWorth[0].options}
         label={netWorth[0].label}
-        value={formValues.netWorth}
+        value={formData.total_networth_amount}
         onChange={(e) => {
-          handleFieldChange('netWorth', e.target.value);
+          onchange('total_networth_amount', e.target.value);
         }}
       />
     </div>

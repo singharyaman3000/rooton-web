@@ -1,40 +1,30 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import { useState } from 'react';
+import React from 'react';
 import { FormRadioInput } from '../components/FormRadioInput';
 import { expressEntryInvitation, expressEntrySubmitted } from '../config/formConfig';
+import { IPropsType } from '../config/models';
 
-const initialStates = {
-  expressEntry_submittedProfile: '',
-  expressEntry_receivedInvitation: '',
-};
+export const ExpressEntrySection: React.FC<IPropsType> = ({ onchange, formData }) => {
 
-export const ExpressEntrySection = () => {
-  const [formValues, setFormValues] = useState(initialStates);
-
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
-  };
   return (
     <div>
       <FormRadioInput
         fields={expressEntrySubmitted}
         onChange={(e) => {
-          handleFieldChange('expressEntry_submittedProfile', e.target.value);
+          onchange('have_you_already_submitted_an_express_entry_profile_to_the_government_of_canada_within_the_past_12_', e.target.value);
         }}
+        value={formData?.have_you_already_submitted_an_express_entry_profile_to_the_government_of_canada_within_the_past_12_}
       />
-      <div style={{ display: formValues.expressEntry_submittedProfile === 'Yes' ? 'block' : 'none' }}>
+      <div style={{ display: formData.expressEntry_submittedProfile === 'Yes' ? 'block' : 'none' }}>
         <FormRadioInput
           fields={expressEntryInvitation}
           onChange={(e) => {
-            handleFieldChange('expressEntry_receivedInvitation', e.target.value);
+            onchange('have_you_already_received_an_invitation_to_apply_for_permanent_residence_from_the_government_of_can', e.target.value);
           }}
+          value={formData?.have_you_already_received_an_invitation_to_apply_for_permanent_residence_from_the_government_of_can}
+
         />
       </div>
     </div>

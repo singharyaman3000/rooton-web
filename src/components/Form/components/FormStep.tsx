@@ -7,9 +7,5 @@ interface FormStepProps {
 }
 
 export const FormStep: React.FC<FormStepProps> = ({ currentStep, stepNumber, children }) => {
-  return (
-    <div className={`form-step transition-opacity ${currentStep === stepNumber ? 'opacity-100' : 'hidden'}`}>
-      {children}
-    </div>
-  );
+  return currentStep === stepNumber ? <div className="form-step">{children}</div> : null;
 };

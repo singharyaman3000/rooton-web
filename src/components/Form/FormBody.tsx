@@ -1,34 +1,32 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import { useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { FormStep } from './components/FormStep';
 import { FormHeader } from './components/FormHeader';
+import { servicesForm } from '@/app/constants/hubspotConfig';
 import { PersonalSection } from './formSections/PersonalSection';
-import { LanguageSection } from './formSections/LanguageSection';
-import { EducationSection } from './formSections/EducationSection';
-import { WorkHistorySection } from './formSections/WorkHistorySection';
-import { ExpressEntrySection } from './formSections/ExpressEntrySection';
-import { JobOfferSection } from './formSections/JobOfferSection';
-import { FamilyOrFriendsSection } from './formSections/FamilyFriendsSection';
-import { NetWorthSection } from './formSections/NetWorthSection';
-import { ContactSection } from './formSections/ContactSection';
 import { FormButton } from './components/FormButton';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
+import { LanguageSection } from './formSections/LanguageSection';
+import { initialStates } from './config/intialState';
+import { postPRSubmission } from '@/app/services/apiService/prFormSubmission';
+import { EducationSection } from './formSections/EducationSection';
+import { WorkHistorySection } from './formSections/WorkHistorySection';
+import { ContactSection } from './formSections/ContactSection';
+import { ExpressEntrySection } from './formSections/ExpressEntrySection';
+import { FamilyOrFriendsSection } from './formSections/FamilyFriendsSection';
+import { JobOfferSection } from './formSections/JobOfferSection';
+import { NetWorthSection } from './formSections/NetWorthSection';
 
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
 
 const FormBody = () => {
+  const [formData, setFormData] = useState(initialStates);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isInvalid, setIsInValid] = useState<boolean>(true);
   const { headerFooterData } = useHeaderFooterContext();
-
-  const setTrigger = () => {
-    if (isInvalid) return;
-    const trigger = document.getElementById('submitButton');
-    trigger?.click();
-  };
 
   const onNextClick = () => {
     if (isInvalid) return;
@@ -55,99 +53,150 @@ const FormBody = () => {
     );
   };
 
-  useEffect(() => {
-    const initHubSpot = () => {
-      const script = document.createElement('script');
-      script.src = '//js.hs-scripts.com/7535538.js';
-      document.body.appendChild(script);
-    };
-    initHubSpot();
-  }, []);
+  const handleData = (key: string, value: string) => {
+    setFormData((prevFormValues) => {
+      return {
+        ...prevFormValues,
+        [key]: value,
+      };
+    });
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!isInvalid) {
+      const formArray = Object.entries(formData).map(([name, value]) => {
+        return {
+          name,
+          value,
+        };
+      });
+      const payload = {
+        fields: formArray,
+        context: {
+          pageUri: 'https://rootonweb-dev.qburst.build/express-entry-fsw',
+          pageName: 'Services',
+        },
+      };
+
+      const response = await postPRSubmission(payload, servicesForm.form1);
+      console.log(response);
+    }
+  };
 
   return (
     <div className="mt-2 h-full w-full">
       <form
         id="testFormPOC-optimized-test-run"
+        onSubmit={handleSubmit}
         onInvalid={(e) => {
           e.preventDefault();
-          setIsInValid(true);
         }}
       >
-        <FormStep currentStep={currentStep} stepNumber={1}>
+        <FormStep stepNumber={currentStep} currentStep={1}>
           <FormHeader>Personal Profile</FormHeader>
-          <PersonalSection onchange={setIsInValid} formNumber={currentStep} countries={getData('country', 'name')} />
+          <PersonalSection
+            onchange={handleData}
+            formData={formData}
+            countries={getData('country', 'name')}
+            isInValid={setIsInValid}
+            formNumber={1} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={2}>
           <FormHeader>Your Language Skills</FormHeader>
-          <LanguageSection />
+          <LanguageSection
+            onchange={handleData}
+            formNumber={2}
+            formData={formData} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={3}>
           <FormHeader>Your Education and Training</FormHeader>
-          <EducationSection onchange={setIsInValid} formNumber={currentStep} />
+          <EducationSection
+            onchange={handleData}
+            formNumber={currentStep}
+            formData={formData}
+            isInValid={setIsInValid} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={4}>
           <FormHeader>Your Work History</FormHeader>
-          <WorkHistorySection onchange={setIsInValid} formNumber={currentStep} occupations={getData('occupation')} />
+          <WorkHistorySection
+            onchange={handleData}
+            formData={formData}
+            formNumber={currentStep}
+            occupations={getData('occupation')}
+            isInValid={setIsInValid} />
         </FormStep>
-
         <FormStep currentStep={currentStep} stepNumber={5}>
           <FormHeader>Express Entry Profile</FormHeader>
-          <ExpressEntrySection />
+          <ExpressEntrySection
+            onchange={handleData}
+            formData={formData}
+            formNumber={currentStep} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={6}>
           <FormHeader>Canadian Job Offer</FormHeader>
-          <JobOfferSection occupations={getData('occupation')} onchange={setIsInValid} formNumber={currentStep} />
+          <JobOfferSection
+            occupations={getData('occupation')}
+            onchange={handleData}
+            formData={formData}
+            formNumber={currentStep}
+            isInValid={setIsInValid} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={7}>
           <FormHeader>Family or Friends in Canada</FormHeader>
-          <FamilyOrFriendsSection />
+          <FamilyOrFriendsSection
+            onchange={handleData}
+            formData={formData}
+            formNumber={currentStep} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={8}>
           <FormHeader>Your Personal Net Worth</FormHeader>
-          <NetWorthSection currencies={getData('country', 'currency')} />
+          <NetWorthSection
+            onchange={handleData}
+            formData={formData}
+            formNumber={currentStep}
+            currencies={getData('country', 'currency')} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={9}>
           <FormHeader>Enter Your Contact Information</FormHeader>
-          <ContactSection onchange={setIsInValid} formNumber={currentStep} />
+          <ContactSection
+            onchange={handleData}
+            formData={formData}
+            formNumber={currentStep}
+            isInValid={setIsInValid} />
         </FormStep>
 
         {/* ======================================== BUTTONS =============================================== */}
         <div className="flex justify-between w-full mt-10">
-          <FormButton
-            displayCondition={currentStep !== 1 && currentStep <= 9}
+          {currentStep !== 1 && currentStep <= 9 && <FormButton
+            type='button'
             buttonText="Previous"
             onClickHandler={() => {
-              if (currentStep === 9) setIsInValid(false);
+              setIsInValid(false);
               setCurrentStep((prevStep) => {
                 return Math.max(1, prevStep - 1);
               });
             }}
-          />
-          <FormButton
-            displayCondition={currentStep < 9}
+          />}
+          {currentStep < 9 && currentStep !== 9 && <FormButton
+            type='button'
             buttonText="Next"
             onClickHandler={onNextClick}
-            disabled={isInvalid}
-          />
-          <FormButton
-            displayCondition={currentStep === 9}
-            buttonText="Submit Form"
-            onClickHandler={setTrigger}
-            disabled={isInvalid}
-          />
+            disable={isInvalid}
+          />}
+          {currentStep === 9 && <FormButton
+            type='submit'
+            buttonText="Submit"
+            disable={isInvalid}
+          />}
         </div>
-
-        {/* This button will be hidden and will be triggered using another buttons onclick . */}
-        <button type="submit" className="btn json-form-submit mt-4 p-4 border hidden" id="submitButton">
-          Submit Form
-        </button>
       </form>
     </div>
   );

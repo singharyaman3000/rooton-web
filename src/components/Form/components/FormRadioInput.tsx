@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IFormFieldOptions } from '../config/formConfig';
 
 type PropType = {
   value?: string | number;
-  fields?: IFormFieldOptions[];
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  fields: IFormFieldOptions[];
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   required?: boolean;
 };
@@ -13,9 +13,14 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
   const { value, fields = [], onChange, placeholder = '', required = false } = props;
 
   const [isError, setIsError] = useState(false);
-  useEffect(() => {
+
+  const handleBlur = () => {
     setIsError(required && value === '');
-  }, [value]);
+  };
+
+  const handleFocus = () => {
+    setIsError(false);
+  };
 
   return (
     <div className="flex flex-col">
@@ -42,6 +47,9 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
                     onChange={onChange}
                     required={required}
                     value={option.value}
+                    onBlur={handleBlur}
+                    checked={value === option.value}
+                    onFocus={handleFocus}
                     className="accent-[#000] w-5 h-5"
                   />
                   <label htmlFor={option.id}>{option.value}</label>

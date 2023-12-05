@@ -1,7 +1,7 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import { useState } from 'react';
+import React from 'react';
 import { FormRadioInput } from '../components/FormRadioInput';
 import { FormDropdown } from '../components/FormDropDown';
 import {
@@ -12,75 +12,59 @@ import {
   relativeSince,
   residencyStatusOptions,
 } from '../config/formConfig';
+import { IPropsType } from '../config/models';
 
-const intialFormStates = {
-  familyFriendsManitoba: '',
-  familyFriendsCanada: '',
-  familyRelationshipOptions: '',
-  relativeSince: '',
-  residencyStatusOptions: '',
-  livingIn: '',
-};
-
-export const FamilyOrFriendsSection = () => {
-  const [formValues, setFormValues] = useState(intialFormStates);
-
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
-  };
+export const FamilyOrFriendsSection: React.FC<IPropsType> = ({ onchange, formData }) => {
 
   return (
     <div>
       <FormRadioInput
         fields={familyFriendsManitoba}
         onChange={(e) => {
-          handleFieldChange('familyFriendsManitoba', e.target.value);
+          onchange('close_friend_living_in_manitoba_18_years_or_older_', e.target.value);
         }}
+        value={formData?.close_friend_living_in_manitoba_18_years_or_older_}
       />
       <FormRadioInput
         fields={familyFriendsCanada}
         onChange={(e) => {
-          handleFieldChange('familyFriendsCanada', e.target.value);
+          onchange('family_members_or_relatives_living_in_canada_18_years_or_older_', e.target.value);
         }}
+        value={formData?.family_members_or_relatives_living_in_canada_18_years_or_older_}
       />
-      <div style={{ display: formValues.familyFriendsCanada === 'Yes' ? 'block' : 'none' }}>
+      <div style={{ display: formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' ? 'block' : 'none' }}>
         <p>{'Please list all your and/or your spouse/common-law partner\'s relatives in Canada'}</p>
         <div className=' flex flex-col md:grid grid-cols-4 gap-4'>
           <FormDropdown
             options={familyRelationshipOptions[0].options}
             label={familyRelationshipOptions[0].label}
-            value={formValues.familyRelationshipOptions}
+            value={formData?.relationship_to_family_member_in_canada}
             onChange={(e) => {
-              handleFieldChange('familyRelationshipOptions', e.target.value);
+              onchange('relationship_to_family_member_in_canada', e.target.value);
             }}
           />
           <FormDropdown
             options={residencyStatusOptions[0].options}
             label={residencyStatusOptions[0].label}
-            value={formValues.residencyStatusOptions}
+            value={formData?.residency_status_of_family_member}
             onChange={(e) => {
-              handleFieldChange('residencyStatusOptions', e.target.value);
+              onchange('residency_status_of_family_member', e.target.value);
             }}
           />
           <FormDropdown
             options={livingIn[0].options}
             label={livingIn[0].label}
-            value={formValues.livingIn}
+            value={formData?.family_member_living_in}
             onChange={(e) => {
-              handleFieldChange('livingIn', e.target.value);
+              onchange('family_member_living_in', e.target.value);
             }}
           />
           <FormDropdown
             options={relativeSince[0].options}
             label={relativeSince[0].label}
-            value={formValues.relativeSince}
+            value={formData?.family_member_living_in_current_area_for_}
             onChange={(e) => {
-              handleFieldChange('relativeSince', e.target.value);
+              onchange('family_member_living_in_current_area_for_', e.target.value);
             }}
           />
         </div>

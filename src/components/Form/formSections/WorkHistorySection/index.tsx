@@ -7,12 +7,7 @@ import { workHistoryOrNot } from '../../config/formConfig';
 import { IPropsType } from '../../config/models';
 import { WorkHistoryAdditionalQuestions } from './WorkHistoryAdditionalQuestions';
 
-const intialFormStates = {
-  workHistoryOrNot: '',
-};
-
-export const WorkHistorySection: React.FC<IPropsType> = ({ onchange, formNumber }) => {
-  const [formValues, setFormValues] = useState(intialFormStates);
+export const WorkHistorySection: React.FC<IPropsType> = ({ onchange, formNumber, formData, isInValid }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const addEducation = () => {
@@ -27,33 +22,24 @@ export const WorkHistorySection: React.FC<IPropsType> = ({ onchange, formNumber 
     });
   };
 
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
-  };
-
   useEffect(() => {
     if (formNumber !== 4) return;
-    if (onchange) {
-      onchange(formValues.workHistoryOrNot === '');
+    if (isInValid) {
+      isInValid(formData?.have_you_done_any_paid_work_during_the_last_10_years_ === '');
     }
-  }, [formValues, formNumber]);
+  }, [formData, formNumber]);
 
   return (
     <div>
       <FormRadioInput
         fields={workHistoryOrNot}
         onChange={(e) => {
-          handleFieldChange('workHistoryOrNot', e.target.value);
+          onchange('have_you_done_any_paid_work_during_the_last_10_years_', e.target.value);
         }}
-        value={formValues.workHistoryOrNot}
+        value={formData?.have_you_done_any_paid_work_during_the_last_10_years_}
         required
       />
-      <div className={`${formValues.workHistoryOrNot === 'Yes' ? 'flex flex-col' : 'hidden'} overflow-auto max-h-[50rem]`}>
+      <div className={`${formData?.have_you_done_any_paid_work_during_the_last_10_years_ === 'Yes' ? 'flex flex-col' : 'hidden'} overflow-auto max-h-[50rem]`}>
         <p>
           Starting with your current (or most recent) job, please list all the paid work you have done during the last
           10 years:

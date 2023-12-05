@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { IPropsType } from '../config/models';
 import { FormDropdown } from '../components/FormDropDown';
 import {
@@ -17,133 +17,105 @@ import {
 } from '../config/formConfig';
 import { FormRadioInput } from '../components/FormRadioInput';
 
-const intialFormStates = {
-  age: '',
-  country_of_citizenship: '',
-  country_of_residence: '',
-  marital_status: '',
-  children_under_22: '',
-  children_count_13_to_21: '',
-  children_count_under_13: '',
-  preferred_destination_in_canada: '',
-  where_in_manitoba_wish_to_reside: '',
-  ever_been_to_quebec_before: '',
-};
-
-export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, countries }) => {
-  const [formValues, setFormValues] = useState(intialFormStates);
-
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
-  };
+export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, countries, isInValid, formData }) => {
 
   useEffect(() => {
-    if (formNumber !== 1) return;
-    if (onchange) {
-      onchange(
-        formValues.age === '' ||
-        formValues.country_of_citizenship === '' ||
-        formValues.country_of_residence === '' ||
-        formValues.marital_status === '',
-      );
-    }
-  }, [formValues]);
-
-  useEffect(() => {
-    if (!(formValues.preferred_destination_in_canada === 'Manitoba, Canada'))
-      handleFieldChange('where_in_manitoba_wish_to_reside', '');
-
-    if (!(formValues.preferred_destination_in_canada === 'Quebec, Canada'))
-      handleFieldChange('ever_been_to_quebec_before', '');
-  }, [formValues.preferred_destination_in_canada]);
+    if (formNumber !== 1 || !isInValid) return;
+    isInValid(
+      formData?.age === '' ||
+      formData?.country_of_citizenship === '' ||
+      formData?.country_of_residence === '',
+    );
+  }, [formData]);
 
   return (
     <div>
       <FormDropdown
         options={ageGroups[0].options}
         label={ageGroups[0].label}
-        value={formValues.age}
+        value={formData?.age}
         onChange={(e) => {
-          handleFieldChange('age', e.target.value);
+          onchange('age', e.target.value);
         }}
         required
       />
       <FormDropdown
         options={countries || []}
         label={countriesOfResidence[0].label}
-        value={formValues.country_of_residence}
+        value={formData?.country_of_residence}
         onChange={(e) => {
-          handleFieldChange('country_of_residence', e.target.value);
+          onchange('country_of_residence', e.target.value);
         }}
         required
       />
       <FormDropdown
         options={countries || []}
         label={countriesOfCitizenship[0].label}
-        value={formValues.country_of_citizenship}
+        value={formData?.country_of_citizenship}
         onChange={(e) => {
-          handleFieldChange('country_of_citizenship', e.target.value);
+          onchange('country_of_citizenship', e.target.value);
         }}
         required
       />
       <FormDropdown
         options={maritalStatusForm[0].options}
         label={maritalStatusForm[0].label}
-        value={formValues.marital_status}
+        value={formData?.marital}
         onChange={(e) => {
-          handleFieldChange('marital_status', e.target.value);
+          onchange('marital', e.target.value);
         }}
-        required
       />
       <FormRadioInput
         fields={children}
         onChange={(e) => {
-          handleFieldChange('children_under_22', e.target.value);
+          onchange('do_you_have_any_children_under_the_age_of_22_', e.target.value);
         }}
+        value={formData.do_you_have_any_children_under_the_age_of_22_}
       />
-      <div style={{ display: formValues.children_under_22 === 'Yes' ? 'block' : 'none' }}>
-        <FormRadioInput
-          fields={childCountUnder13}
-          onChange={(e) => {
-            handleFieldChange('children_count_under_13', e.target.value);
-          }}
-        />
-        <FormRadioInput
-          fields={childCountUnder22}
-          onChange={(e) => {
-            handleFieldChange('children_count_13_to_21', e.target.value);
-          }}
-        />
-      </div>
+      {formData?.do_you_have_any_children_under_the_age_of_22_ === 'Yes' && (
+        <>
+          <FormRadioInput
+            fields={childCountUnder13}
+            onChange={(e) => {
+              onchange('how_many_children_do_you_have_under_the_age_of_13_', e.target.value);
+            }}
+            value={formData.how_many_children_do_you_have_under_the_age_of_13_}
+          />
+          <FormRadioInput
+            fields={childCountUnder22}
+            onChange={(e) => {
+              onchange('how_many_children_do_you_have_aged_13_to_21_', e.target.value);
+            }}
+            value={formData.how_many_children_do_you_have_aged_13_to_21_}
+          />
+        </>
+      )}
       <FormDropdown
         options={destinationInCanada[0].options}
         label={destinationInCanada[0].label}
-        value={formValues.preferred_destination_in_canada}
+        value={formData?.preferred_destination_in_canada}
         onChange={(e) => {
-          handleFieldChange('preferred_destination_in_canada', e.target.value);
+          onchange('preferred_destination_in_canada', e.target.value);
         }}
       />
-      <div style={{ display: formValues.preferred_destination_in_canada === 'Manitoba, Canada' ? 'block' : 'none' }}>
+      {formData?.preferred_destination_in_canada === 'Manitoba, Canada' && (
         <FormRadioInput
           fields={manitobaPreference}
           onChange={(e) => {
-            handleFieldChange('where_in_manitoba_wish_to_reside', e.target.value);
+            onchange('where_in_manitoba_do_you_wish_to_reside', e.target.value);
           }}
+          value={formData.where_in_manitoba_do_you_wish_to_reside}
         />
-      </div>
-      <div style={{ display: formValues.preferred_destination_in_canada === 'Quebec, Canada' ? 'block' : 'none' }}>
+      )}
+      {formData?.preferred_destination_in_canada === 'Quebec, Canada' && (
         <FormRadioInput
           fields={quebecHistory}
           onChange={(e) => {
-            handleFieldChange('ever_been_to_quebec_before', e.target.value);
+            onchange('have_you_ever_been_to_quebec_before_', e.target.value);
           }}
+          value={formData.have_you_ever_been_to_quebec_before_}
         />
-      </div>
+      )}
     </div>
   );
 };

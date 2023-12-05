@@ -8,3 +8,7 @@ export const FormConstants = {
     hubspotSrc: 'https://js.hsforms.net/forms/embed/v2.js',
   },
 };
+
+export const servicesForm = {
+  form1: 'c0a0d9c3-2cc1-4c4a-acab-bff28496cdf7',
+};
