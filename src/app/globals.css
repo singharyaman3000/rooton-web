@@ -989,18 +989,6 @@ heading {
   background-color: #000;
 }
 
-.toggle-in-active-dark {
-  background-color: #7e7e7e;
-}
-
-.toggle-in-active {
-  background-color: #d3d3d3;
-}
-
-.toggle-active-dark {
-  background-color: #818181;
-}
-
 [data-theme='dark'] .credibility-images{
   background-color: #fff;
 }
