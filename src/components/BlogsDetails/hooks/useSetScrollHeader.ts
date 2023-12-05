@@ -6,7 +6,7 @@ const useSetScrollHeader = (refs: RefObject<HTMLElement>[], setState: Dispatch<S
 
   const options = {
     root: null,
-    rootMargin: '25% 0px -25% 0px',
+    rootMargin: '-25% 0px -25% 0px',
     threshold: 1,
   };
 
