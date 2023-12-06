@@ -5,7 +5,7 @@ export const BLOG_DETAILS_BREADCRUMBS = [
   },
   {
     title: 'Blogs',
-    path: '/blogs',
+    path: '/immigration-insights',
   },
   {
     title: 'Article',
