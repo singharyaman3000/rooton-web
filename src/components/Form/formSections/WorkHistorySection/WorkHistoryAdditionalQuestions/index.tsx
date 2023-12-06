@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
+
 'use client';
 
-import 'tailwindcss/tailwind.css';
-import { useState } from 'react';
 import { FormCloseButton } from '@/components/Form/components/FormCloseButton';
 import { FormDropdown } from '@/components/Form/components/FormDropDown';
 import { FormRadioInput } from '@/components/Form/components/FormRadioInput';
@@ -17,96 +17,82 @@ import {
 } from '@/components/Form/config/formConfig';
 
 type PropsType = {
-  close: () => void;
-};
-
-const intialFormStates = {
-  workHistoryOccupation: '',
-  workHistoryLength: '',
-  workHistoryWhen: '',
-  workHistoryWorkHour: '',
-  workHistoryType: '',
-  workHistoryPlaceInCanada: '',
-  workHistoryPlace: '',
-  workHistoryWorkPermit: '',
+  close?: () => void;
+  formData: Record<string, string>;
+  state: Record<string, string>;
+  onchange: (key: string, value: string) => void;
 };
 
 export const WorkHistoryAdditionalQuestions = (props: PropsType) => {
-  const { close } = props;
-  const [formValues, setFormValues] = useState(intialFormStates);
-
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
-  };
+  const { close, formData, state, onchange } = props;
 
   return (
     <div className=" relative border ml-8 my-4 p-4 border-solid border-[black]">
-      <FormCloseButton onclick={close}></FormCloseButton>
+      {close && <FormCloseButton onclick={close}></FormCloseButton>}
       <FormDropdown
         options={workHistoryOccupation[0].options}
         label={workHistoryOccupation[0].label}
-        value={formValues.workHistoryOccupation}
+        value={formData[state.occupation]}
         onChange={(e) => {
-          handleFieldChange('workHistoryOccupation', e.target.value);
+          onchange(state.occupation, e.target.value);
         }}
       />
       <FormDropdown
         options={workHistoryLength[0].options}
         label={workHistoryLength[0].label}
-        value={formValues.workHistoryLength}
+        value={formData[state.lengthOfWork]}
         onChange={(e) => {
-          handleFieldChange('workHistoryLength', e.target.value);
+          onchange(state.lengthOfWork, e.target.value);
         }}
       />
       <FormDropdown
         options={workHistoryWhen[0].options}
         label={workHistoryWhen[0].label}
-        value={formValues.workHistoryWhen}
+        value={formData[state.whenWasWork]}
         onChange={(e) => {
-          handleFieldChange('workHistoryWhen', e.target.value);
+          onchange(state.whenWasWork, e.target.value);
         }}
       />
       <FormRadioInput
         fields={workHistoryWorkHour}
+        value={formData[state.workHours]}
         onChange={(e) => {
-          handleFieldChange('workHistoryWorkHour', e.target.value);
+          onchange(state.workHours, e.target.value);
         }}
       />
       <FormRadioInput
         fields={workHistoryType}
+        value={formData[state.typeOfJob]}
         onChange={(e) => {
-          handleFieldChange('workHistoryType', e.target.value);
+          onchange(state.typeOfJob, e.target.value);
         }}
       />
       <FormRadioInput
         fields={workHistoryPlace}
         onChange={(e) => {
-          handleFieldChange('workHistoryPlace', e.target.value);
+          onchange(state.locationOfWork, e.target.value);
         }}
       />
-      <div style={{ display: formValues.workHistoryPlace === 'Inside Canada' ? 'block' : 'none' }}>
-        <FormDropdown
-          options={workHistoryPlaceInCanada[0].options}
-          label={workHistoryPlaceInCanada[0].label}
-          value={formValues.workHistoryPlaceInCanada}
-          onChange={(e) => {
-            handleFieldChange('workHistoryPlaceInCanada', e.target.value);
-          }}
-        />
-        <FormDropdown
-          options={workHistoryWorkPermit[0].options}
-          label={workHistoryWorkPermit[0].label}
-          value={formValues.workHistoryWorkPermit}
-          onChange={(e) => {
-            handleFieldChange('workHistoryWorkPermit', e.target.value);
-          }}
-        />
-      </div>
+      {formData[state.locationOfWork] === 'Inside Canada' &&
+        <>
+          <FormDropdown
+            options={workHistoryPlaceInCanada[0].options}
+            label={workHistoryPlaceInCanada[0].label}
+            value={formData[state.provinceOrTerritoryOfWork]}
+            onChange={(e) => {
+              onchange(state.provinceOrTerritoryOfWork, e.target.value);
+            }}
+          />
+          <FormDropdown
+            options={workHistoryWorkPermit[0].options}
+            label={workHistoryWorkPermit[0].label}
+            value={formData[state.workPermitType]}
+            onChange={(e) => {
+              onchange(state.workPermitType, e.target.value);
+            }}
+          />
+        </>
+      }
     </div>
   );
 };

@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
+
 'use client';
 
-import 'tailwindcss/tailwind.css';
-import { useState } from 'react';
 import { FormCloseButton } from '@/components/Form/components/FormCloseButton';
 import { FormDropdown } from '@/components/Form/components/FormDropDown';
 import { FormRadioInput } from '@/components/Form/components/FormRadioInput';
@@ -16,84 +16,74 @@ import {
 } from '@/components/Form/config/formConfig';
 
 type PropsType = {
-  close: () => void;
-};
-
-const intialFormStates = {
-  educationType: '',
-  educationDuration: '',
-  educationCompletedOrNot: '',
-  educationPlace: '',
-  educationPlaceInCanada: '',
-  have_you_lived_in_canadas_atlantic_provinces: '',
+  close?: () => void;
+  formData: Record<string, string>;
+  state: Record<string, string>;
+  onchange: (key: string, value: string) => void;
 };
 
 export const AdditionalQuestions = (props: PropsType) => {
-  const { close } = props;
-  const [formValues, setFormValues] = useState(intialFormStates);
+  const { close, formData, state, onchange } = props;
 
-  const handleFieldChange = (fieldName: string, value: unknown) => {
-    setFormValues((prevFormValues) => {
-      return {
-        ...prevFormValues,
-        [fieldName]: value,
-      };
-    });
+  const shouldShow = () => {
+    return AtlanticProvinces.includes(formData[state.educationPlaceInCanada]);
   };
-  const shouldShow = () => { return AtlanticProvinces.includes(formValues.educationPlaceInCanada); };
 
   return (
     <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]">
-      <FormCloseButton onclick={close}></FormCloseButton>
+      {close && <FormCloseButton onclick={close}></FormCloseButton>}
       <FormDropdown
         options={educationType[0].options}
         label={educationType[0].label}
-        value={formValues.educationType}
+        value={formData[state.educationType]}
         onChange={(e) => {
-          handleFieldChange('educationType', e.target.value);
+          onchange(state.educationType, e.target.value);
         }}
       />
       <FormDropdown
         options={educationDuration[0].options}
         label={educationDuration[0].label}
-        value={formValues.educationDuration}
+        value={formData[state.educationDuration]}
         onChange={(e) => {
-          handleFieldChange('educationDuration', e.target.value);
+          onchange(state.educationDuration, e.target.value);
         }}
       />
       <FormRadioInput
         fields={educationCompletedOrNot}
+        value={formData[state.educationCompletedOrNot]}
         onChange={(e) => {
-          handleFieldChange('educationCompletedOrNot', e.target.value);
+          onchange(state.educationCompletedOrNot, e.target.value);
         }}
       />
       <FormRadioInput
         fields={educationPlace}
+        value={formData[state.educationPlace]}
         onChange={(e) => {
-          handleFieldChange('educationPlace', e.target.value);
+          onchange(state.educationPlace, e.target.value);
           if (e.target.value === 'Outside Canada') {
-            handleFieldChange('educationPlaceInCanada', '');
+            onchange(state.educationPlaceInCanada, '');
+            onchange(state.territoryCHeckAtlantic, '');
           }
         }}
       />
-      <div style={{ display: formValues.educationPlace === 'Inside Canada' ? 'block' : 'none' }}>
+      {formData[state.educationPlace] === 'Inside Canada' &&
         <FormDropdown
           options={educationPlaceInCanada[0].options}
           label={educationPlaceInCanada[0].label}
-          value={formValues.educationPlaceInCanada}
+          value={formData[state.educationPlaceInCanada]}
           onChange={(e) => {
-            handleFieldChange('educationPlaceInCanada', e.target.value);
+            onchange(state.educationPlaceInCanada, e.target.value);
           }}
-        />
-      </div>
-      <div style={{ display: shouldShow() ? 'block' : 'none' }}>
-        <FormRadioInput
+        />}
+      {shouldShow() &&
+        < FormRadioInput
           fields={territoryCheck}
+          value={formData[state.territoryCHeckAtlantic]}
           onChange={(e) => {
-            handleFieldChange('have_you_lived_in_canadas_atlantic_provinces', e.target.value);
+            onchange(state.territoryCHeckAtlantic, e.target.value);
           }}
         />
-      </div>
+      }
     </div>
   );
 };
