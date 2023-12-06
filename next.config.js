@@ -42,6 +42,7 @@ const nextConfig = {
 
     const allServicesLanUrls = [];
 
+    // remapping /lan/service/[id] to /lan/[service-name]
     allLanguages?.forEach((lan) => {
       allServicesIds.forEach((service) => {
         allServicesLanUrls.push({
@@ -51,11 +52,18 @@ const nextConfig = {
       });
     });
 
+    // remapping /service/[id] to /[service-name]
     const reRouteMap = allServicesIds.map((service) => {
       return { source: `/${service.serviceName}`, destination: `/service/${service.serviceId}` };
     });
 
-    return [...reRouteMap, ...allServicesLanUrls];
+    // remapping /blogs urls to /immigration-insights
+    const blogsRemap = [
+      { source: '/immigration-insights', destination: '/blogs' },
+      { source: '/immigration-insights/:path*', destination: '/blogs/:path*' },
+    ];
+
+    return [...reRouteMap, ...allServicesLanUrls, ...blogsRemap];
   },
 };
 
