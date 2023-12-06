@@ -14,12 +14,13 @@ const Button = ({ ariaLabel, label, handleOnClick, tabIndex = 0, icon, cssClass 
   return (
     <button
       type="button"
-      className={`${cssClass} p-[8px_12px] md:p-[10px_16px] border border-solid border-deep-yellow flex items-center text-xs font-medium not-italic leading-[normal] tracking-[normal] md:text-sm`}
-      aria-label={ariaLabel ?? ''}
+      data-tooltip
+      className={`${cssClass} relative p-[8px_12px] md:p-[10px_16px] border border-solid border-deep-yellow flex items-center text-xs font-medium not-italic leading-[normal] tracking-[normal] md:text-sm`}
+      aria-label={label ?? ariaLabel}
       onClick={handleOnClick}
       tabIndex={tabIndex}
     >
-      {label}
+      <p className='truncate'>{label}</p>
       <div className="ml-[12px]">
         {icon ?? (
           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
