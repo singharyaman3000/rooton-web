@@ -58,4 +58,17 @@ export const initialStates = {
   lastname: '',
   email: '',
   mobilephone: '',
+  // education additional questions
+  type_of_education_or_training_1: '',
+  type_of_education_or_training_2: '',
+  duration_of_education_or_training_1: '',
+  duration_of_education_or_training_2: '',
+  completed_the_education_or_training_1: '',
+  completed_the_education_or_training_2: '',
+  location_of_education_or_training_1: '',
+  location_of_education_or_training_2: '',
+  province_of_education_or_training_1: '',
+  province_of_education_or_training_2: '',
+  have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_1: '',
+  have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_2: '',
 };

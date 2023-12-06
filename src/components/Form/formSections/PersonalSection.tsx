@@ -27,42 +27,46 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, co
   }, [formData]);
 
   return (
-    <div>
-      <FormDropdown
-        options={ageGroups[0].options}
-        label={ageGroups[0].label}
-        value={formData?.age}
-        onChange={(e) => {
-          onchange('age', e.target.value);
-        }}
-        required
-      />
-      <FormDropdown
-        options={countries || []}
-        label={countriesOfResidence[0].label}
-        value={formData?.country_of_residence}
-        onChange={(e) => {
-          onchange('country_of_residence', e.target.value);
-        }}
-        required
-      />
-      <FormDropdown
-        options={countries || []}
-        label={countriesOfCitizenship[0].label}
-        value={formData?.country_of_citizenship}
-        onChange={(e) => {
-          onchange('country_of_citizenship', e.target.value);
-        }}
-        required
-      />
-      <FormDropdown
-        options={maritalStatusForm[0].options}
-        label={maritalStatusForm[0].label}
-        value={formData?.marital}
-        onChange={(e) => {
-          onchange('marital', e.target.value);
-        }}
-      />
+    <>
+      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+        <FormDropdown
+          options={ageGroups[0].options}
+          label={ageGroups[0].label}
+          value={formData?.age}
+          onChange={(e) => {
+            onchange('age', e.target.value);
+          }}
+          required
+        />
+        <FormDropdown
+          options={maritalStatusForm[0].options}
+          label={maritalStatusForm[0].label}
+          value={formData?.marital}
+          onChange={(e) => {
+            onchange('marital', e.target.value);
+          }}
+        />
+      </div>
+      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+        <FormDropdown
+          options={countries || []}
+          label={countriesOfCitizenship[0].label}
+          value={formData?.country_of_citizenship}
+          onChange={(e) => {
+            onchange('country_of_citizenship', e.target.value);
+          }}
+          required
+        />
+        <FormDropdown
+          options={countries || []}
+          label={countriesOfResidence[0].label}
+          value={formData?.country_of_residence}
+          onChange={(e) => {
+            onchange('country_of_residence', e.target.value);
+          }}
+          required
+        />
+      </div>
       <FormRadioInput
         fields={children}
         onChange={(e) => {
@@ -71,7 +75,7 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, co
         value={formData.do_you_have_any_children_under_the_age_of_22_}
       />
       {formData?.do_you_have_any_children_under_the_age_of_22_ === 'Yes' && (
-        <>
+        <div className='flex flex-col gap-4 md:grid grid-cols-2'>
           <FormRadioInput
             fields={childCountUnder13}
             onChange={(e) => {
@@ -86,7 +90,7 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, co
             }}
             value={formData.how_many_children_do_you_have_aged_13_to_21_}
           />
-        </>
+        </div>
       )}
       <FormDropdown
         options={destinationInCanada[0].options}
@@ -114,6 +118,6 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, co
           value={formData.have_you_ever_been_to_quebec_before_}
         />
       )}
-    </div>
+    </>
   );
 };
