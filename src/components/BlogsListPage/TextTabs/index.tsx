@@ -3,7 +3,6 @@
 import React, { RefObject, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import useSelectedTabPosition from '../hooks/useGetTabPosition';
-import { useParams } from 'next/navigation';
 
 export type TabType = { key: number; label: string; id: string };
 
@@ -14,7 +13,6 @@ type TextTabsPropType = {
 };
 
 const TextTabs: React.FC<TextTabsPropType> = ({ onChange, tabs }) => {
-  const params = useParams();
   const refs = useMemo(() => {
     return tabs.map(() => {
       return React.createRef<HTMLDivElement>();
