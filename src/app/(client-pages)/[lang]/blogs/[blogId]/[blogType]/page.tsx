@@ -26,7 +26,7 @@ const BlogsDetailsPageCSR = () => {
   });
   const { loader } = useTranslationLoader();
 
-  const canonicalUrl = `https://rooton.ca/${params?.lang}/blogs/${params?.blogId}/${params?.blogType}`;
+  const canonicalUrl = `https://rooton.ca/${params?.lang}/immigration-insights/${params?.blogId}/${params?.blogType}`;
   useSetMetaInfo(
     metaData![0]?.attributes?.meta_title ?? '',
     metaData![0]?.attributes?.meta_description ?? '',

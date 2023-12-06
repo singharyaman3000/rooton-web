@@ -263,7 +263,7 @@ export default function Header() {
               className={`h-[100%] flex items-center relative
                ${activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'}`}
             >
-              <Link href={params.lang ? `/${params.lang}/blogs` : '/blogs'}> Blogs </Link>
+              <Link href={params.lang ? `/${params.lang}/immigration-insights` : '/immigration-insights'}> Blogs </Link>
               {activeTab === 'blogs' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}

@@ -16,7 +16,7 @@ const useSetMetaInfo = (title: string, description: string, canonicalUrl: string
 
       // to be removed in production
       const noBotsMetaTag = document.querySelector('meta[name="robots"]');
-      if(!noBotsMetaTag){
+      if (!noBotsMetaTag && process.env.NEXT_APP_ENVIRONMENT !== 'production') {
         const newNoBotsMetaTag = document.createElement('meta');
         newNoBotsMetaTag.name = 'robots';
         newNoBotsMetaTag.content = 'noindex';

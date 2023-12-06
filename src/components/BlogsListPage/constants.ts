@@ -1,6 +1,12 @@
 import { TabType } from './TextTabs';
 
-export const BLOG_CATEGORY = { ALL: 'all', NEWS: 'news', BLOGS: 'blogs', CASE_STUDIES: 'case_studies', COACHING_TIPS: 'coaching_tips' };
+export const BLOG_CATEGORY = {
+  ALL: 'all',
+  NEWS: 'news',
+  BLOGS: 'blogs',
+  CASE_STUDIES: 'case_studies',
+  COACHING_TIPS: 'coaching_tips',
+};
 
 export const tabsData: TabType[] = [
   { key: 1, label: 'All', id: BLOG_CATEGORY.ALL },
