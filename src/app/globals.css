@@ -645,7 +645,7 @@ body {
 }
 
 .huform .hs-form-field label,
-.huform .hs-richtext.hs-main-font-element {
+.huform .hs-main-font-element {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.67;

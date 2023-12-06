@@ -33,12 +33,12 @@ export const FormTextInput: React.FC<PropType> = (props) => {
   };
 
   return (
-    <div className="mb-5">
+    <div className="hs-form-field">
       <div className='flex flex-row'>
-        <label className="text-lg font-medium leading-[1.67] text-black" placeholder={placeholder} htmlFor={field.name}>
+        <label className="hs-main-font-element" placeholder={placeholder} htmlFor={field.name}>
           {field.label}
         </label>
-        {required && <span className='text-[red]'>*</span>}
+        {required && <span className="hs-form-required">*</span>}
       </div>
       <input
         id={field.name}
@@ -49,15 +49,15 @@ export const FormTextInput: React.FC<PropType> = (props) => {
         placeholder={placeholder}
         autoComplete={autoComplete ? 'on' : 'off'}
         name={field.name}
-        className="w-full text-black font-normal text-base leading-6 border bg-white p-3 border-solid border-[#ccccd3]"
+        // className="w-full text-black font-normal text-base leading-6 border bg-white p-3 border-solid border-[#ccccd3]"
         required={required}
       />
-      {required && isError && <p className="text-red-500 text-sm mt-2">Please complete this required field.</p>}
+      {required && isError && <p className="hs-main-font-element hs-error-msg">Please complete this required field.</p>}
       {type === 'email' && invalidFormat && (
-        <p className="text-red-500 text-sm mt-2">Email must be formatted correctly.</p>
+        <p className="hs-main-font-element hs-error-msg">Email must be formatted correctly.</p>
       )}
       {type === 'phone' && invalidFormat && (
-        <p className="text-red-500 text-sm mt-2">
+        <p className="hs-main-font-element hs-error-msg">
           The number you entered is not in range or must contain only numbers.
         </p>
       )}

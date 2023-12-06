@@ -88,6 +88,7 @@ const FormBody = () => {
     <div className="mt-2 h-full w-full">
       <form
         id="testFormPOC-optimized-test-run"
+        className='huform'
         onSubmit={handleSubmit}
         onInvalid={(e) => {
           e.preventDefault();

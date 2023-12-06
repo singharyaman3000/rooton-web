@@ -1,3 +1,3 @@
 export const FormHeader = ({ children }: { children: string }) => {
-  return <p className="text-3xl font-medium mb-8">{children}</p>;
+  return <p className="hs-richtext hs-main-font-element">{children}</p>;
 };

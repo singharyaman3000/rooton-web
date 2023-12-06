@@ -26,16 +26,16 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
     <div className="flex flex-col">
       {fields.map((field) => {
         return (
-          <div key={field.name} className=" mb-5">
+          <div key={field.name} className="hs-form-field">
             <div className='flex flex-row'>
               <label
-                className="text-lg font-medium leading-[1.67] text-black"
+                className="hs-main-font-element"
                 placeholder={placeholder}
                 htmlFor={field.name}
               >
                 {field.label}
               </label>
-              <span style={{ display: required ? 'block' : 'none', color: 'red' }}>*</span>
+              {required && <span className="hs-form-required">*</span>}
             </div>
             {field?.options?.map((option) => {
               return (
@@ -56,9 +56,9 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
                 </div>
               );
             })}
-            <p className="text-red-500 text-sm mt-2" style={{ display: isError ? 'block' : 'none' }}>
+            {isError && <p className="hs-main-font-element hs-error-msg">
               Please select an option as this field is required..
-            </p>
+            </p>}
           </div>
         );
       })}
