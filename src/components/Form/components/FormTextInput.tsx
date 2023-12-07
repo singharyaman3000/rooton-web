@@ -42,6 +42,7 @@ export const FormTextInput: React.FC<PropType> = (props) => {
       </div>
       <input
         id={field.name}
+        value={value}
         type="text"
         onChange={onChange}
         onBlur={handleBlur}
@@ -49,7 +50,6 @@ export const FormTextInput: React.FC<PropType> = (props) => {
         placeholder={placeholder}
         autoComplete={autoComplete ? 'on' : 'off'}
         name={field.name}
-        // className="w-full text-black font-normal text-base leading-6 border bg-white p-3 border-solid border-[#ccccd3]"
         required={required}
       />
       {required && isError && <p className="hs-main-font-element hs-error-msg">Please complete this required field.</p>}
