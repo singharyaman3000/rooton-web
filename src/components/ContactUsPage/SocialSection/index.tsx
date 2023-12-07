@@ -42,7 +42,7 @@ const SocialSection = ({
   return (
     <section ref={sectionRef} className="flex flex-col lg:flex-row w-full">
       <div className="text-sm px-6 lg:pl-0 lg:w-[50%] lg:text-base pb-[51px] pt-[68px] lg:pb-0 lg:pt-0 flex flex-col justify-center lg:w-1/2">
-        <h2 className="text-[28px] lg:text-[40px] mb-10 font-extrabold">{socialData?.attributes?.title}</h2>
+        <h2 className="text-[28px] max-w-[300px] lg:max-w-none lg:text-[40px] mb-10 font-extrabold leading-6 lg:leading-9">{socialData?.attributes?.title}</h2>
         <div className="relative h-[52px] lg:h-[68px] w-[174px] lg:w-[226px] mb-5">
           <NextImage
             sizes="100vw"
