@@ -15,7 +15,7 @@ type CoreServicesType = { subService: ServiceDataType[] } & ServiceDataType;
 
 const SiteMap = () => {
   const params = useParams();
-  const { headerFooterData } = useHeaderFooterContext();
+  const { headerFooterData = [] } = useHeaderFooterContext();
 
   const allServices: CoreServicesType[] = [];
 

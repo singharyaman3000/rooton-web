@@ -636,7 +636,12 @@ body {
 }
 
 .huform .hs-richtext.hs-main-font-element {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.huform .hs-richtext.hs-main-font-element > h2 {
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .huform .hs-form-field label, .huform .hs-richtext.hs-main-font-element {
