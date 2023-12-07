@@ -49,14 +49,14 @@ const BookAnAppointment = ({ appointmentBtnLabel, onClick, containerClass, btnCl
               />
             </div>
           </div>
-          <div className="md:absolute md:top-0 md:right-0 hidden md:block">
-            <div className="relative w-[377px] h-[240px]">
+          <div className="h-full md:absolute md:top-0 md:right-0 hidden md:block">
+            <div className="relative w-[377px] h-full">
               <NextImage
                 sizes={'30vw'}
                 src={'/images/homePage/bookanappointment.png'}
                 title={'book an appointment'}
                 fill
-                style={{ objectFit: 'contain' }}
+                style={{ objectFit: 'contain', objectPosition: 'bottom' }}
                 altText={'book an appointment'}
               />
             </div>

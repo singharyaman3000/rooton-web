@@ -57,12 +57,14 @@ export default function Header() {
   };
 
   const setActiveTabFromUrl = () => {
-    const pathArray = path.split('/');
+    const pathArray = path.substring(1).split('/');
 
     let currentTab = 'service';
     if (HOMEPAGE_PATH.includes(path.replace(params.lang, ''))) {
       currentTab = 'home';
-    } else {
+    } else if (pathArray.includes('sitemap')) {
+      currentTab = '';
+    }else {
       const foundItem = pathArray.find((item) => {
         return itemsToSetActive.includes(item);
       });
@@ -184,7 +186,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div className="flex-shrink-0">
+            <div className={`${params.lang ? '' : 'flex-shrink-0'}`}>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
