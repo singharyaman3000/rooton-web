@@ -26,7 +26,6 @@ export const EducationSection: React.FC<IPropsType> = ({ onchange, formNumber, f
       }, {});
       return stateObject;
     });
-
     setAdditionalQuestionsData(allStateObjects);
   }, [currentStep]);
 
@@ -41,7 +40,6 @@ export const EducationSection: React.FC<IPropsType> = ({ onchange, formNumber, f
       return prevStep + 1;
     });
   };
-console.log(additionalQuestionsData);
 
   const closeEducation = (indexToRemove: number) => {
     const filteredData = additionalQuestionsData.filter((_, index) => {

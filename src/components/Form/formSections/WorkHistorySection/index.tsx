@@ -2,31 +2,61 @@ import React, { useEffect, useState } from 'react';
 import { FormRadioInput } from '../../components/FormRadioInput';
 import { workHistoryOrNot } from '../../config/formConfig';
 import { IPropsType } from '../../config/models';
-import { WorkHistoryAdditionalQuestions } from './WorkHistoryAdditionalQuestions';
-import { generateAdditionalStateWork } from '@/app/constants/hubspotConfig';
+import { AdditionalQuestions } from './WorkHistoryAdditionalQuestions';
+
+const additionalQuestionsKeys = [
+  'occupation_1',
+  'type_of_job_1',
+  'when_was_work_1',
+  'length_of_work_1',
+  'location_of_work_1',
+  'work_hours_for_work_1',
+  'province_or_territory_of_work_1',
+  'what_type_of_work_permit_do_you_currently_hold_for_work_1',
+];
 
 export const WorkHistorySection: React.FC<IPropsType> = ({ onchange, formNumber, formData, isInValid }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [lastVisibleIndex, setLastVisibleIndex] = useState<number>(0);
-  const additionalStateWork = generateAdditionalStateWork();
-  const { work1, work2, work3, work4, work5, work6 } = additionalStateWork;
+  const [additionalQuestionsData, setAdditionalQuestionsData] = useState<Record<string, string>[]>([]);
 
-  const addWork = () => {
-    setCurrentStep((prevStep) => { return Math.min(prevStep + 1, 6); });
+  useEffect(() => {
+    const allStateObjects = [...Array(currentStep)].map((_, index) => {
+      const stateObject = additionalQuestionsKeys.reduce((acc, key) => {
+        const existingData =
+          additionalQuestionsData.length > 0 ? additionalQuestionsData?.[index]?.[key] : '';
+        return { ...acc, [key]: existingData ?? '' };
+      }, {});
+      return stateObject;
+    });
+    setAdditionalQuestionsData(allStateObjects);
+  }, [currentStep]);
+
+  const handleOnChange = (key: string, value: string, index: number, state: Record<string, string>[]) => {
+    const dataToUpdate = [...state];
+    dataToUpdate[index][key] = value;
+    setAdditionalQuestionsData(dataToUpdate);
   };
 
-  const closeWork = () => {
-    setCurrentStep((prevStep) => { return Math.max(1, prevStep - 1); });
+  const addWork = () => {
+    setCurrentStep((prevStep) => {
+      return prevStep + 1;
+    });
+  };
+
+  const closeWork = (indexToRemove: number) => {
+    const filteredData = additionalQuestionsData.filter((_, index) => {
+      return index !== indexToRemove;
+    });
+    setAdditionalQuestionsData(filteredData);
+    setCurrentStep((prevStep) => {
+      return Math.max(1, prevStep - 1);
+    });
   };
 
   useEffect(() => {
     if (formNumber !== 4 || !isInValid) return;
     isInValid(formData?.have_you_done_any_paid_work_during_the_last_10_years_ === '');
   }, [formData, formNumber]);
-
-  useEffect(() => {
-    setLastVisibleIndex(Math.min(currentStep, 6) - 1);
-  }, [currentStep]);
 
   return (
     <div>
@@ -44,16 +74,15 @@ export const WorkHistorySection: React.FC<IPropsType> = ({ onchange, formNumber,
             Starting with your current (or most recent) job, please list all the paid work you have done during the last
             10 years:
           </p>
-          {[work1, work2, work3, work4, work5, work6].map((education, index) => {
-            const isLastVisible = index === lastVisibleIndex;
-            const isFirstVisible = index === 0 && currentStep === 1;
+          {additionalQuestionsData?.map((_, index) => {
             return (
-              <div key={`${index + 1}`} className={`${currentStep >= index + 1 ? 'block' : 'hidden'}`}>
-                <WorkHistoryAdditionalQuestions
-                  close={isLastVisible && !isFirstVisible ? closeWork : undefined}
+              <div key={`${index + 1}`}>
+                <AdditionalQuestions
+                  id={index}
+                  close={closeWork}
                   formData={formData}
-                  state={education}
-                  onchange={onchange}
+                  state={additionalQuestionsData}
+                  onchange={handleOnChange}
                 />
               </div>
             );

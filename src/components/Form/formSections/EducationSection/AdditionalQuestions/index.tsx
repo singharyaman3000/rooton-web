@@ -6,6 +6,7 @@ import { FormCloseButton } from '@/components/Form/components/FormCloseButton';
 import { FormDropdown } from '@/components/Form/components/FormDropDown';
 import { FormRadioInput } from '@/components/Form/components/FormRadioInput';
 import { AtlanticProvinces } from '@/app/constants/textConstants';
+import { AdditionalPropsType, AddEducationKeyMap } from '@/components/Form/config/models';
 import {
   educationType,
   educationCompletedOrNot,
@@ -15,24 +16,7 @@ import {
   territoryCheck,
 } from '@/components/Form/config/formConfig';
 
-type PropsType = {
-  id: number;
-  close: (index: number) => void;
-  formData: Record<string, string>;
-  state: Record<string, string>[];
-  onchange: (key: string, value: string, index: number, state: Record<string, string>[]) => void;
-};
-
-type KeyMap = {
-  educationType: 'type_of_education_or_training_';
-  educationDuration: 'duration_of_education_or_training_';
-  educationCompletedOrNot: 'completed_the_education_or_training_';
-  educationPlace: 'location_of_education_or_training_';
-  educationPlaceInCanada: 'province_of_education_or_training_';
-  territoryCheckAtlantic: 'have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_';
-};
-
-const keyMap: KeyMap = {
+const keyMap: AddEducationKeyMap = {
   educationType: 'type_of_education_or_training_',
   educationDuration: 'duration_of_education_or_training_',
   educationCompletedOrNot: 'completed_the_education_or_training_',
@@ -41,11 +25,11 @@ const keyMap: KeyMap = {
   territoryCheckAtlantic: 'have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_',
 };
 
-export const AdditionalQuestions = (props: PropsType) => {
+export const AdditionalQuestions = (props: AdditionalPropsType) => {
   const { close, state, onchange, id } = props;
   const currentSectionState = state[id];
 
-  const getKeyWithId = (mapKey: keyof KeyMap) => {
+  const getKeyWithId = (mapKey: keyof AddEducationKeyMap) => {
     return `${keyMap[mapKey]}`;
   };
 
@@ -59,7 +43,7 @@ export const AdditionalQuestions = (props: PropsType) => {
         onclick={() => {
           close(id);
         }}
-      ></FormCloseButton>
+      />
       <FormDropdown
         options={educationType[0].options}
         label={educationType[0].label}
@@ -90,13 +74,13 @@ export const AdditionalQuestions = (props: PropsType) => {
         value={currentSectionState[getKeyWithId('educationPlace')]}
         onChange={(e) => {
           onchange(getKeyWithId('educationPlace'), e.target.value, id, state);
-          // if (e.target.value === 'Outside Canada') {
-          //   onchange(state.educationPlaceInCanada, '');
-          //   onchange(state.territoryCHeckAtlantic, '');
-          // }
+          if (e.target.value === 'Outside Canada') {
+            onchange(getKeyWithId('educationPlaceInCanada'), '', id, state);
+            onchange(getKeyWithId('territoryCheckAtlantic'), '', id, state);
+          }
         }}
       />
-      {currentSectionState[getKeyWithId('educationPlaceInCanada')] === 'Inside Canada' && (
+      {currentSectionState[getKeyWithId('educationPlace')] === 'Inside Canada' && (
         <FormDropdown
           options={educationPlaceInCanada[0].options}
           label={educationPlaceInCanada[0].label}
