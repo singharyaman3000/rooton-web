@@ -186,7 +186,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div className="flex-shrink-0">
+            <div className={`${params.lang ? '' : 'flex-shrink-0'}`}>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
