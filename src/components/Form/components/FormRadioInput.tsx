@@ -7,10 +7,11 @@ type PropType = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   required?: boolean;
+  id?: string;
 };
 
 export const FormRadioInput: React.FC<PropType> = (props) => {
-  const { value, fields = [], onChange, placeholder = '', required = false } = props;
+  const { value, fields = [], onChange, placeholder = '', required = false, id = '' } = props;
 
   const [isError, setIsError] = useState(false);
 
@@ -27,12 +28,8 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
       {fields.map((field) => {
         return (
           <div key={field.name} className="hs-form-field">
-            <div className='flex flex-row'>
-              <label
-                className="hs-main-font-element"
-                placeholder={placeholder}
-                htmlFor={field.name}
-              >
+            <div className="flex flex-row">
+              <label className="hs-main-font-element" placeholder={placeholder} htmlFor={field.name}>
                 {field.label}
               </label>
               {required && <span className="hs-form-required">*</span>}
@@ -42,8 +39,8 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
                 <div key={option.id} className="flex items-center gap-3 text-lg">
                   <input
                     type="radio"
-                    id={option.id}
-                    name={field.name}
+                    id={option.id + id}
+                    name={field.name + id}
                     onChange={onChange}
                     required={required}
                     value={option.value}
@@ -52,13 +49,13 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
                     onFocus={handleFocus}
                     className="accent-[#000] w-5 h-5"
                   />
-                  <label htmlFor={option.id}>{option.value}</label>
+                  <label htmlFor={option.id + id}>{option.value}</label>
                 </div>
               );
             })}
-            {isError && <p className="hs-main-font-element hs-error-msg">
-              Please select an option as this field is required..
-            </p>}
+            {isError && (
+              <p className="hs-main-font-element hs-error-msg">Please select an option as this field is required..</p>
+            )}
           </div>
         );
       })}

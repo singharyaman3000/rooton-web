@@ -95,7 +95,7 @@ export const initialStates = {
   have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_4: '',
   have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_5: '',
   have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_6: '',
-  // education additional questions
+  // work history
   occupation_1: '',
   occupation_2: '',
   occupation_3: '',

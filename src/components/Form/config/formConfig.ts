@@ -438,8 +438,8 @@ export const educationPlace: IFormFieldOptions[] = [
     name: 'education_place',
     label: 'Education Location',
     options: [
-      { id: 'et-ec-yes', value: 'Inside Canada' },
-      { id: 'et-ec-no', value: 'Outside Canada' },
+      { id: 'et-ep-yes', value: 'Inside Canada' },
+      { id: 'et-ep-no', value: 'Outside Canada' },
     ],
   },
 ];
