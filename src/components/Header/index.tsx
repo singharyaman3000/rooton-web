@@ -57,12 +57,14 @@ export default function Header() {
   };
 
   const setActiveTabFromUrl = () => {
-    const pathArray = path.split('/');
+    const pathArray = path.substring(1).split('/');
 
     let currentTab = 'service';
     if (HOMEPAGE_PATH.includes(path.replace(params.lang, ''))) {
       currentTab = 'home';
-    } else {
+    } else if (pathArray.includes('sitemap')) {
+      currentTab = '';
+    }else {
       const foundItem = pathArray.find((item) => {
         return itemsToSetActive.includes(item);
       });
