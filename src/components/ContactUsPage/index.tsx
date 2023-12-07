@@ -20,12 +20,8 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
   const [ctaClickSource, setCtaClickSource] = useState('');
 
   const scrollToLeadForm = () => {
-    const socialDivHeight = document.getElementById('social-section-id')?.clientHeight ?? 0;
-    const sectionTop = sectionRef?.current?.getBoundingClientRect().top;
-    if (sectionTop) {
-      const scrollHeight = window.innerWidth <= 1024 ? sectionTop - 80 + socialDivHeight : sectionTop - 80;
-      window?.scrollBy({ top: scrollHeight, left: 0, behavior: 'smooth' });
-    }
+    const element = document.getElementById('contact-us-form-container');
+    element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleCTAButton = (source: string) => {
