@@ -40,10 +40,10 @@ const SocialSection = ({
   const { theme } = useTheme();
 
   return (
-    <section ref={sectionRef} className="flex flex-col lg:flex-row w-full">
-      <div className="text-sm px-6 lg:pl-0 lg:w-[50%] lg:text-base pb-[51px] pt-[68px] lg:pb-0 lg:pt-0 flex flex-col justify-center lg:w-1/2">
-        <h2 className="text-[28px] lg:text-[40px] mb-10 font-extrabold">{socialData?.attributes?.title}</h2>
-        <div className="relative h-[52px] lg:h-[68px] w-[174px] lg:w-[226px] mb-5">
+    <section ref={sectionRef} className="flex flex-col xl:flex-row w-full">
+      <div className="text-sm px-6 md:px-12 lg:px-0 xl:pl-0 xl:w-[50%] xl:text-base pb-[51px] pt-[68px] xl:pb-0 xl:pt-0 flex flex-col justify-center xl:w-1/2">
+        <h2 className="text-[28px] xl:text-[40px] mb-10 font-extrabold">{socialData?.attributes?.title}</h2>
+        <div className="relative h-[52px] xl:h-[68px] w-[174px] xl:w-[226px] mb-5">
           <NextImage
             sizes="100vw"
             priority
@@ -57,10 +57,10 @@ const SocialSection = ({
         <p className="max-w-[469px]" id="contact-us-social-description">
           {HtmlParser(socialData?.attributes?.description ?? '')}
         </p>
-        <SocialMediaLinks socialData={socialMeta} wrapperClass="mt-6 lg:mt-10" />
+        <SocialMediaLinks socialData={socialMeta} wrapperClass="mt-6 xl:mt-10" />
       </div>
       {/* Form section */}
-      <div id="contact-us-form-container" className="px-6 lg:px-0 lg:w-1/2 lg:min-w-[680px]">
+      <div id="contact-us-form-container" className="px-6 md:px-12 lg:px-0 xl:px-0 xl:w-1/2 xl:min-w-[680px]">
         <BookAppointmentForm
           sectionRef={bookRef}
           scrollToLeadForm={scrollToLeadForm}

@@ -50,7 +50,7 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
       <div className="w-full flex flex-col items-center">
         <div
           id="contact-us-section-wrapper"
-          className="mb-[60px lg:px-[80px] lg:mb-[0] lg:py-20 w-full max-w-screen-2k flex flex-col gap-20"
+          className="mb-[60px] lg:px-[80px] lg:mb-[0] lg:py-20 w-full max-w-screen-2k flex flex-col gap-20"
         >
           <SocialSection
             ctaClickSource={ctaClickSource}

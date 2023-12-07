@@ -968,9 +968,11 @@ heading {
   height: 500px;
 }
 
-#contact-us-section-wrapper > div:last-of-type {
-  padding-left: 0;
-  padding-right: 0;
+@media screen and (min-width: 1024px) {
+  #contact-us-section-wrapper>div:last-of-type {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .carousel-dots {
