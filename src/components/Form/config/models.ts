@@ -57,3 +57,10 @@ export type AddWorkKeyMap = {
   provinceOrTerritoryOfWork: 'province_or_territory_of_work_';
   workPermitType: 'what_type_of_work_permit_do_you_currently_hold_for_work_';
 };
+
+export type AddFamilyKeyMap = {
+  relationship: 'relationship_with_relative_';
+  residencyStatus: 'residency_status_of_relative_';
+  livingIn: 'living_in_relative_';
+  livingInSince: 'living_there_for_relative_';
+};

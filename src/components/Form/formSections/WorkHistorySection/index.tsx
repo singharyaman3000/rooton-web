@@ -67,7 +67,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
   }, [formData, formNumber]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-y-4">
       <FormRadioInput
         fields={workHistoryOrNot}
         value={formData?.have_you_done_any_paid_work_during_the_last_10_years_}

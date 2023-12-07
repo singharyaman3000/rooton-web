@@ -27,8 +27,10 @@ const FormBody = () => {
   const [formData, setFormData] = useState(initialStates);
   const [additionalEducation, setAdditionalEducation] = useState<Record<string, string>[]>([]);
   const [additionalWork, setAdditionalWork] = useState<Record<string, string>[]>([]);
+  const [additionalFamily, setAdditionalFamily] = useState<Record<string, string>[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [addedEducations, setAddedEducations] = useState<number>(1);
+  const [addedFamily, setAddedFamily] = useState<number>(1);
   const [addedWorks, setAddedWorks] = useState<number>(1);
   const [isInvalid, setIsInValid] = useState<boolean>(true);
   const { headerFooterData } = useHeaderFooterContext();
@@ -72,9 +74,10 @@ const FormBody = () => {
     if (!isInvalid) {
       const educationDetails = convertFormDataToArray(addIndexToKeys(additionalEducation));
       const workDetails = convertFormDataToArray(addIndexToKeys(additionalWork));
+      const familyDetails = convertFormDataToArray(addIndexToKeys(additionalFamily));
       const generalFormData = convertFormDataToArray(formData);
       const payload = {
-        fields: [...generalFormData, ...educationDetails, ...workDetails],
+        fields: [...generalFormData, ...educationDetails, ...workDetails, ...familyDetails],
         context: {
           pageUri: 'https://rootonweb-dev.qburst.build/express-entry-fsw',
           pageName: 'Services',
@@ -163,7 +166,11 @@ const FormBody = () => {
           <FamilyOrFriendsSection
             onchange={handleData}
             formData={formData}
-            formNumber={currentStep} />
+            filledFields={addedFamily}
+            setFilledFields={setAddedFamily}
+            formNumber={currentStep}
+            additionalQuestionsData={additionalFamily}
+            setAdditionalQuestionsData={setAdditionalFamily} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={8}>
