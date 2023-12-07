@@ -33,10 +33,8 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
   const shouldShowBritishColumbia = () => { return formData?.province_or_territory_of_the_canadian_job_offer === 'British Columbia, Canada'; };
 
   useEffect(() => {
-    if (formNumber !== 6) return;
-    if (isInValid) {
-      isInValid(formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_ === '');
-    }
+    if (formNumber !== 6 || !isInValid) return;
+    isInValid(formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_ === '');
   }, [formData, formNumber]);
 
   return (

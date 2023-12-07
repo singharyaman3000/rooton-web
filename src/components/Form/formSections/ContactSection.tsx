@@ -26,17 +26,15 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
   };
 
   useEffect(() => {
-    if (formNumber !== 9) return;
-    if (isInValid) {
-      isInValid(
-        validity.telephoneValidity ||
-        validity.emailValidity ||
-        formData?.email === '' ||
-        formData?.mobilephone === '' ||
-        formData?.lastname === '' ||
-        formData?.firstname === '',
-      );
-    }
+    if (formNumber !== 9 || !isInValid) return;
+    isInValid(
+      validity.telephoneValidity ||
+      validity.emailValidity ||
+      formData?.email === '' ||
+      formData?.mobilephone === '' ||
+      formData?.lastname === '' ||
+      formData?.firstname === '',
+    );
   }, [formData, formNumber]);
 
   useDebounce(
