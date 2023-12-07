@@ -20,17 +20,17 @@ export const FamilyOrFriendsSection: React.FC<IPropsType> = ({ onchange, formDat
     <div>
       <FormRadioInput
         fields={familyFriendsManitoba}
+        value={formData?.close_friend_living_in_manitoba_18_years_or_older_}
         onChange={(e) => {
           onchange('close_friend_living_in_manitoba_18_years_or_older_', e.target.value);
         }}
-        value={formData?.close_friend_living_in_manitoba_18_years_or_older_}
       />
       <FormRadioInput
         fields={familyFriendsCanada}
+        value={formData?.family_members_or_relatives_living_in_canada_18_years_or_older_}
         onChange={(e) => {
           onchange('family_members_or_relatives_living_in_canada_18_years_or_older_', e.target.value);
         }}
-        value={formData?.family_members_or_relatives_living_in_canada_18_years_or_older_}
       />
       {formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' &&
         <>

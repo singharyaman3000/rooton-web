@@ -32,10 +32,10 @@ export const WorkHistorySection: React.FC<IPropsType> = ({ onchange, formNumber,
     <div>
       <FormRadioInput
         fields={workHistoryOrNot}
+        value={formData?.have_you_done_any_paid_work_during_the_last_10_years_}
         onChange={(e) => {
           onchange('have_you_done_any_paid_work_during_the_last_10_years_', e.target.value);
         }}
-        value={formData?.have_you_done_any_paid_work_during_the_last_10_years_}
         required
       />
       {formData?.have_you_done_any_paid_work_during_the_last_10_years_ === 'Yes' && (

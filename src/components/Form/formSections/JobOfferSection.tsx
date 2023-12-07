@@ -43,10 +43,10 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
     <div className='flex flex-col gap-4 md:gap-8'>
       <FormRadioInput
         fields={haveWrittenOffer}
+        value={formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_}
         onChange={(e) => {
           onchange('do_you_have_a_written_job_offer_from_a_canadian_employer_', e.target.value);
         }}
-        value={formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_}
         required
       />
       {formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_ === 'Yes' &&
@@ -90,69 +90,69 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
               </div>
               <FormRadioInput
                 fields={jobOfferFieldBC}
+                value={formData?.are_you_currently_working_in_the_northeast_development_region_of_british_columbia_}
                 onChange={(e) => {
                   onchange('are_you_currently_working_in_the_northeast_development_region_of_british_columbia_', e.target.value);
                 }}
-                value={formData?.are_you_currently_working_in_the_northeast_development_region_of_british_columbia_}
               />
             </>
           }
           <div className="flex flex-col gap-4 md:grid grid-cols-2">
             <FormRadioInput
               fields={workHoursOptions}
+              value={formData?.work_hours_for_the_canadian_job_offer}
               onChange={(e) => {
                 onchange('work_hours_for_the_canadian_job_offer', e.target.value);
               }}
-              value={formData?.work_hours_for_the_canadian_job_offer}
             />
             <FormRadioInput
               fields={contractDurationOptions}
+              value={formData?.what_is_the_contract_duration_for_the_canadian_job_offer_}
               onChange={(e) => {
                 onchange('what_is_the_contract_duration_for_the_canadian_job_offer_', e.target.value);
               }}
-              value={formData?.what_is_the_contract_duration_for_the_canadian_job_offer_}
             />
             <FormRadioInput
               fields={jobOfferUnderLIMA}
+              value={formData?.is_this_canadian_job_offer_supported_by_a_labour_market_impact_assessment__lmia__}
               onChange={(e) => {
                 onchange('is_this_canadian_job_offer_supported_by_a_labour_market_impact_assessment__lmia__', e.target.value);
               }}
-              value={formData?.is_this_canadian_job_offer_supported_by_a_labour_market_impact_assessment__lmia__}
             />
             {shouldShowAtlantic() &&
               <FormRadioInput
                 fields={jobOfferUnderAtlanticProvince}
+                value={formData?.is_employer_offering_job_part_of_atlantic_immigration_pilot_by_the_atlantic_province_}
                 onChange={(e) => {
                   onchange('is_employer_offering_job_part_of_atlantic_immigration_pilot_by_the_atlantic_province_', e.target.value);
                 }}
-                value={formData?.is_employer_offering_job_part_of_atlantic_immigration_pilot_by_the_atlantic_province_}
               />
             }
             {shouldShowSaskatchewan() &&
               <FormRadioInput
+                value={formData?.is_this_job_offer_related_to_your_field_of_study_saskatchewan__}
                 fields={jobOfferFieldSaskatchewan}
                 onChange={(e) => {
                   onchange('is_this_job_offer_related_to_your_field_of_study_saskatchewan__', e.target.value);
                 }}
-                value={formData?.is_this_job_offer_related_to_your_field_of_study_saskatchewan__}
               />
             }
             {shouldShowAlberta() &&
               <FormRadioInput
                 fields={jobOfferFieldAlberta}
+                value={formData?.have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_}
                 onChange={(e) => {
                   onchange('have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_', e.target.value);
                 }}
-                value={formData?.have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_}
               />
             }
             {shouldShowManitoba() &&
               <FormRadioInput
                 fields={jobOfferFieldManitoba}
+                value={formData?.have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_}
                 onChange={(e) => {
                   onchange('have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_', e.target.value);
                 }}
-                value={formData?.have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_}
               />
             }
             {shouldShowBritishColumbia() &&
@@ -167,10 +167,10 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
                 />
                 <FormRadioInput
                   fields={jobOfferFieldBCTraining}
+                  value={formData?.completed__itabc_s__challenge_certification_process_}
                   onChange={(e) => {
                     onchange('completed__itabc_s__challenge_certification_process_', e.target.value);
                   }}
-                  value={formData?.completed__itabc_s__challenge_certification_process_}
                 />
               </>}
           </div>

@@ -69,6 +69,7 @@ export const WorkHistoryAdditionalQuestions = (props: PropsType) => {
       />
       <FormRadioInput
         fields={workHistoryPlace}
+        value={formData[state.locationOfWork]}
         onChange={(e) => {
           onchange(state.locationOfWork, e.target.value);
         }}

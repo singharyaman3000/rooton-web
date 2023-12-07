@@ -78,9 +78,9 @@ export const AdditionalQuestions = (props: PropsType) => {
       {shouldShow() &&
         < FormRadioInput
           fields={territoryCheck}
-          value={formData[state.territoryCHeckAtlantic]}
+          value={formData[state.territoryCheckAtlantic]}
           onChange={(e) => {
-            onchange(state.territoryCHeckAtlantic, e.target.value);
+            onchange(state.territoryCheckAtlantic, e.target.value);
           }}
         />
       }

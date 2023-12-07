@@ -33,7 +33,7 @@ interface AdditionalStateEducation {
     educationCompletedOrNot: string;
     educationPlace: string;
     educationPlaceInCanada: string;
-    territoryCHeckAtlantic: string;
+    territoryCheckAtlantic: string;
   };
 }
 
@@ -68,7 +68,7 @@ export const generateAdditionalStateEducation = (): AdditionalStateEducation => 
       educationCompletedOrNot: `completed_the_education_or_training_${i}`,
       educationPlace: `location_of_education_or_training_${i}`,
       educationPlaceInCanada: `province_of_education_or_training_${i}`,
-      territoryCHeckAtlantic: `have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_${i}`,
+      territoryCheckAtlantic: `have_you_lived_in_one_of_canada_s_atlantic_provinces_for_education_or_training_${i}`,
     };
     i += 1;
   }
