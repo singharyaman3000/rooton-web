@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 export default async function ContactUsPage() {
   const res = await getContactUsContents();
   const footerRes = await getHeaderFooterData();
-
   const footerData = footerRes?.length > 0 ? footerRes[0] : ({} as IHeaderFooterData);
 
   const organizationData = footerData?.attributes?.json_content?.organizationDetails;
@@ -61,6 +60,7 @@ export default async function ContactUsPage() {
         name: address?.attributes?.name ?? '',
       };
     }),
+    foundingDate: organizationData?.startedYear ?? '',
   };
 
   return (

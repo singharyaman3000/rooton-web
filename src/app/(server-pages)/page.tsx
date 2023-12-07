@@ -69,6 +69,7 @@ export default async function Home() {
       gender: organizationData?.founderDetails?.gender ?? '',
       url: organizationData?.founderDetails?.profileUrl ?? '',
     },
+    foundingDate: organizationData?.startedYear ?? '',
   };
 
   return (
