@@ -46,10 +46,6 @@ export const initialStates = {
   // family or friends
   close_friend_living_in_manitoba_18_years_or_older_: '',
   family_members_or_relatives_living_in_canada_18_years_or_older_: '',
-  relationship_to_family_member_in_canada: '',
-  residency_status_of_family_member: '',
-  family_member_living_in: '',
-  family_member_living_in_current_area_for_: '',
   // networth
   preferred_currency_for_networth: '',
   total_networth_amount: '',

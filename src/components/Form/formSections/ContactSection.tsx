@@ -85,10 +85,10 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
     <div>
       <FormTextInput
         field={contactInfo[0]}
+        value={formData?.firstname}
         onChange={(e) => {
           onchange('firstname', e.target.value);
         }}
-        value={formData?.firstname}
         required
       />
       <FormTextInput
@@ -101,21 +101,21 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
       />
       <FormTextInput
         field={contactInfo[2]}
+        value={formData?.email}
         onChange={(e) => {
           onchange('email', e.target.value);
         }}
         type='email'
-        value={formData?.email}
         invalidFormat={!isEmailValid(formData?.email)}
         required
       />
       <FormTextInput
         field={contactInfo[3]}
+        value={formData?.mobilephone}
         type='phone'
         onChange={(e) => {
           onchange('mobilephone', e.target.value);
         }}
-        value={formData?.mobilephone}
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
         required
       />

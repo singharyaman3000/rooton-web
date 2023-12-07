@@ -8,10 +8,10 @@ import {
 } from '../../config/formConfig';
 
 const additionalQuestionsKeys = [
-  'relationship_with_relative_6',
-  'residency_status_of_relative_6',
-  'living_in_relative_6',
-  'living_there_for_relative_6',
+  'relationship_with_relative_',
+  'residency_status_of_relative_',
+  'living_in_relative_',
+  'living_there_for_relative_',
 ];
 
 export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
