@@ -6,6 +6,20 @@ export type FormItem = {
   value: string;
 };
 
+export interface IPropsAdditionalType {
+  onchange: (key: string, value: string) => void;
+  isInValid?: (value: boolean) => void;
+  formNumber: number;
+  formData: Record<string, string>;
+  countries?: OptionType[];
+  filledFields: number;
+  setFilledFields: (value: number) => void;
+  additionalQuestionsData: Record<string, string>[];
+  setAdditionalQuestionsData: (value: Record<string, string>[]) => void;
+  occupations?: OptionType[];
+  currencies?: OptionType[];
+}
+
 export interface IPropsType {
   onchange: (key: string, value: string) => void;
   isInValid?: (value: boolean) => void;
@@ -19,8 +33,8 @@ export interface IPropsType {
 export type AdditionalPropsType = {
   id: number;
   close: (index: number) => void;
-  formData: Record<string, string>;
   state: Record<string, string>[];
+  data?: OptionType[] | undefined;
   onchange: (key: string, value: string, index: number, state: Record<string, string>[]) => void;
 };
 

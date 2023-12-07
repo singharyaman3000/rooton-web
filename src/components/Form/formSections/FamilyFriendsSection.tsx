@@ -14,6 +14,14 @@ import {
 } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 
+const friendsKey = [
+  'family_members_or_relatives_living_in_canada_18_years_or_older_',
+  'relationship_to_family_member_in_canada',
+  'residency_status_of_family_member',
+  'family_member_living_in',
+  'family_member_living_in_current_area_for_',
+];
+
 export const FamilyOrFriendsSection: React.FC<IPropsType> = ({ onchange, formData }) => {
 
   return (
@@ -30,6 +38,12 @@ export const FamilyOrFriendsSection: React.FC<IPropsType> = ({ onchange, formDat
         value={formData?.family_members_or_relatives_living_in_canada_18_years_or_older_}
         onChange={(e) => {
           onchange('family_members_or_relatives_living_in_canada_18_years_or_older_', e.target.value);
+          if (e.target.value === 'No') {
+            friendsKey.forEach((key) => {
+              onchange(key, '');
+            });
+          }
+
         }}
       />
       {formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' &&

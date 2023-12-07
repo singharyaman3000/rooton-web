@@ -24,7 +24,12 @@ type keyType = 'name' | 'currency'
 
 const FormBody = () => {
   const [formData, setFormData] = useState(initialStates);
+  const [additionalEducation, setAdditionalEducation] = useState<Record<string, string>[]>([]);
+  const [additionalWork, setAdditionalWork] = useState<Record<string, string>[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [addedEducations, setAddedEducations] = useState<number>(1);
+  const [addedWorks, setAddedWorks] = useState<number>(1);
+
   const [isInvalid, setIsInValid] = useState<boolean>(true);
   const { headerFooterData } = useHeaderFooterContext();
 
@@ -34,6 +39,8 @@ const FormBody = () => {
       return prevStep + 1;
     });
   };
+
+  console.log(additionalWork);
 
   const getData = (valueType: ValueType, keyValue?: keyType) => {
     if (!headerFooterData) return [];
@@ -101,14 +108,14 @@ const FormBody = () => {
             formData={formData}
             countries={getData('country', 'name')}
             isInValid={setIsInValid}
-            formNumber={1} />
+            formNumber={currentStep} />
         </FormStep>
 
         <FormStep currentStep={currentStep} stepNumber={2}>
           <FormHeader>Your Language Skills</FormHeader>
           <LanguageSection
             onchange={handleData}
-            formNumber={2}
+            formNumber={currentStep}
             formData={formData} />
         </FormStep>
 
@@ -117,6 +124,10 @@ const FormBody = () => {
           <EducationSection
             onchange={handleData}
             formNumber={currentStep}
+            filledFields={addedEducations}
+            setFilledFields={setAddedEducations}
+            additionalQuestionsData={additionalEducation}
+            setAdditionalQuestionsData={setAdditionalEducation}
             formData={formData}
             isInValid={setIsInValid} />
         </FormStep>
@@ -126,7 +137,11 @@ const FormBody = () => {
           <WorkHistorySection
             onchange={handleData}
             formData={formData}
+            filledFields={addedWorks}
+            setFilledFields={setAddedWorks}
             formNumber={currentStep}
+            additionalQuestionsData={additionalWork}
+            setAdditionalQuestionsData={setAdditionalWork}
             occupations={getData('occupation')}
             isInValid={setIsInValid} />
         </FormStep>

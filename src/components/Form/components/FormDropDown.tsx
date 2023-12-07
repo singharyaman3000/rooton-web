@@ -2,11 +2,12 @@ import React, { ChangeEventHandler, useState } from 'react';
 import { OptionType } from '../config/formConfig';
 
 type PropsType = {
-  options: OptionType[];
+  options: OptionType[] | undefined;
   value: string;
   label: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   required?: boolean;
+  id?: string;
 };
 
 export const FormDropdown: React.FC<PropsType> = ({ options, value, onChange, label, required = false }) => {
@@ -26,22 +27,17 @@ export const FormDropdown: React.FC<PropsType> = ({ options, value, onChange, la
         <div className="hs-main-font-element">{label}</div>
         {required && <span className="hs-form-required">*</span>}
       </div>
-      <select
-        value={value}
-        onChange={onChange}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        required={required}
-        // className="w-full text-black font-normal text-base leading-6 border bg-white p-3 border-solid border-[#ccccd3]"
-      >
+      <select value={value} onChange={onChange} onBlur={handleBlur} onFocus={handleFocus} required={required}>
         <option disabled value="">
           Please Select
         </option>
-        {options?.map((option) => (
-          <option key={option.id} value={option.value}>
-            {option.value}
-          </option>
-        ))}
+        {options?.map((option) => {
+          return (
+            <option key={option.id} value={option.value}>
+              {option.value}
+            </option>
+          );
+        })}
       </select>
       {isError && <p className="hs-main-font-element hs-error-msg">Please select an option from the dropdown menu.</p>}
     </div>

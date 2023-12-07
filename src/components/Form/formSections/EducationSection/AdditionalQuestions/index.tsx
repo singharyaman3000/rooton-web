@@ -44,42 +44,46 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
           close(id);
         }}
       />
-      <FormDropdown
-        options={educationType[0].options}
-        label={educationType[0].label}
-        value={currentSectionState[getKeyWithId('educationType')]}
-        onChange={(e) => {
-          onchange(getKeyWithId('educationType'), e.target.value, id, state);
-        }}
-      />
-      <FormDropdown
-        options={educationDuration[0].options}
-        label={educationDuration[0].label}
-        value={currentSectionState[getKeyWithId('educationDuration')]}
-        onChange={(e) => {
-          onchange(getKeyWithId('educationDuration'), e.target.value, id, state);
-        }}
-      />
-      <FormRadioInput
-        id={id.toString()}
-        fields={educationCompletedOrNot}
-        value={currentSectionState[getKeyWithId('educationCompletedOrNot')]}
-        onChange={(e) => {
-          onchange(getKeyWithId('educationCompletedOrNot'), e.target.value, id, state);
-        }}
-      />
-      <FormRadioInput
-        id={id.toString()}
-        fields={educationPlace}
-        value={currentSectionState[getKeyWithId('educationPlace')]}
-        onChange={(e) => {
-          onchange(getKeyWithId('educationPlace'), e.target.value, id, state);
-          if (e.target.value === 'Outside Canada') {
-            onchange(getKeyWithId('educationPlaceInCanada'), '', id, state);
-            onchange(getKeyWithId('territoryCheckAtlantic'), '', id, state);
-          }
-        }}
-      />
+      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+        <FormDropdown
+          options={educationType[0].options}
+          label={educationType[0].label}
+          value={currentSectionState[getKeyWithId('educationType')]}
+          onChange={(e) => {
+            onchange(getKeyWithId('educationType'), e.target.value, id, state);
+          }}
+        />
+        <FormDropdown
+          options={educationDuration[0].options}
+          label={educationDuration[0].label}
+          value={currentSectionState[getKeyWithId('educationDuration')]}
+          onChange={(e) => {
+            onchange(getKeyWithId('educationDuration'), e.target.value, id, state);
+          }}
+        />
+      </div>
+      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+        <FormRadioInput
+          id={id.toString()}
+          fields={educationCompletedOrNot}
+          value={currentSectionState[getKeyWithId('educationCompletedOrNot')]}
+          onChange={(e) => {
+            onchange(getKeyWithId('educationCompletedOrNot'), e.target.value, id, state);
+          }}
+        />
+        <FormRadioInput
+          id={id.toString()}
+          fields={educationPlace}
+          value={currentSectionState[getKeyWithId('educationPlace')]}
+          onChange={(e) => {
+            onchange(getKeyWithId('educationPlace'), e.target.value, id, state);
+            if (e.target.value === 'Outside Canada') {
+              onchange(getKeyWithId('educationPlaceInCanada'), '', id, state);
+              onchange(getKeyWithId('territoryCheckAtlantic'), '', id, state);
+            }
+          }}
+        />
+      </div>
       {currentSectionState[getKeyWithId('educationPlace')] === 'Inside Canada' && (
         <FormDropdown
           options={educationPlaceInCanada[0].options}

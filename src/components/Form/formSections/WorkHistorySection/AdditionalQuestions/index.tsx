@@ -29,7 +29,7 @@ const keyMap: AddWorkKeyMap = {
 };
 
 export const AdditionalQuestions = (props: AdditionalPropsType) => {
-  const { id, close, state, onchange } = props;
+  const { id, close, state, onchange, data } = props;
   const currentSectionState = state[id];
 
   const getKeyWithId = (mapKey: keyof AddWorkKeyMap) => {
@@ -43,31 +43,34 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
           close(id);
         }}
       />
-      <FormDropdown
-        options={workHistoryOccupation[0].options}
-        label={workHistoryOccupation[0].label}
-        value={currentSectionState[getKeyWithId('occupation')]}
-        onChange={(e) => {
-          onchange(getKeyWithId('occupation'), e.target.value, id, state);
-        }}
-      />
-      <FormDropdown
-        options={workHistoryLength[0].options}
-        label={workHistoryLength[0].label}
-        value={currentSectionState[getKeyWithId('lengthOfWork')]}
-        onChange={(e) => {
-          onchange(getKeyWithId('lengthOfWork'), e.target.value, id, state);
-        }}
-      />
-      <FormDropdown
-        options={workHistoryWhen[0].options}
-        label={workHistoryWhen[0].label}
-        value={currentSectionState[getKeyWithId('whenWasWork')]}
-        onChange={(e) => {
-          onchange(getKeyWithId('whenWasWork'), e.target.value, id, state);
-        }}
-      />
+      <div className='flex flex-col gap-4 md:grid grid-cols-3'>
+        <FormDropdown
+          options={data}
+          label={workHistoryOccupation[0].label}
+          value={currentSectionState[getKeyWithId('occupation')]}
+          onChange={(e) => {
+            onchange(getKeyWithId('occupation'), e.target.value, id, state);
+          }}
+        />
+        <FormDropdown
+          options={workHistoryLength[0].options}
+          label={workHistoryLength[0].label}
+          value={currentSectionState[getKeyWithId('lengthOfWork')]}
+          onChange={(e) => {
+            onchange(getKeyWithId('lengthOfWork'), e.target.value, id, state);
+          }}
+        />
+        <FormDropdown
+          options={workHistoryWhen[0].options}
+          label={workHistoryWhen[0].label}
+          value={currentSectionState[getKeyWithId('whenWasWork')]}
+          onChange={(e) => {
+            onchange(getKeyWithId('whenWasWork'), e.target.value, id, state);
+          }}
+        />
+      </div>
       <FormRadioInput
+        id={id.toString()}
         fields={workHistoryWorkHour}
         value={currentSectionState[getKeyWithId('workHours')]}
         onChange={(e) => {
@@ -75,6 +78,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
         }}
       />
       <FormRadioInput
+        id={id.toString()}
         fields={workHistoryType}
         value={currentSectionState[getKeyWithId('typeOfJob')]}
         onChange={(e) => {
@@ -82,10 +86,15 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
         }}
       />
       <FormRadioInput
+        id={id.toString()}
         fields={workHistoryPlace}
         value={currentSectionState[getKeyWithId('locationOfWork')]}
         onChange={(e) => {
           onchange(getKeyWithId('locationOfWork'), e.target.value, id, state);
+          if (e.target.value === 'Outside Canada') {
+            onchange(getKeyWithId('provinceOrTerritoryOfWork'), '', id, state);
+            onchange(getKeyWithId('workPermitType'), '', id, state);
+          }
         }}
       />
       {currentSectionState[getKeyWithId('locationOfWork')] === 'Inside Canada' &&
