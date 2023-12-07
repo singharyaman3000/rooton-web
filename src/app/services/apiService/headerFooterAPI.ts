@@ -76,6 +76,7 @@ interface IOrganizationData {
   companyEmail: string;
   founderDetails: { name: string; gender: string; profileUrl: string };
   companyLogo: string;
+  startedYear: string;
 }
 
 interface IJsonContent {

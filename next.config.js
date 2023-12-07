@@ -57,13 +57,15 @@ const nextConfig = {
       return { source: `/${service.serviceName}`, destination: `/service/${service.serviceId}` };
     });
 
-    // remapping /blogs urls to /immigration-insights
-    const blogsRemap = [
-      { source: '/immigration-insights', destination: '/blogs' },
-      { source: '/immigration-insights/:path*', destination: '/blogs/:path*' },
-    ];
+    // remapping /blogs/* urls to /immigration-insights/*
+    const blogsRemap = { source: '/immigration-insights/:path*', destination: '/blogs/:path*' };
 
-    return [...reRouteMap, ...allServicesLanUrls, ...blogsRemap];
+    // remapping /lan/blogs/* to /lan/immigration-insights/*
+    const allBlogsLanUrls = allLanguages?.map((lan) => {
+      return { source: `/${lan}/immigration-insights/:path*`, destination: `/${lan}/blogs/:path*` };
+    });
+
+    return [...reRouteMap, ...allServicesLanUrls, ...allBlogsLanUrls, blogsRemap];
   },
 };
 
