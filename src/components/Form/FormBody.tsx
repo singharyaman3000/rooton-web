@@ -18,6 +18,7 @@ import { ExpressEntrySection } from './formSections/ExpressEntrySection';
 import { FamilyOrFriendsSection } from './formSections/FamilyFriendsSection';
 import { JobOfferSection } from './formSections/JobOfferSection';
 import { NetWorthSection } from './formSections/NetWorthSection';
+import { addIndexToKeys, convertFormDataToArray } from '@/utils';
 
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
@@ -29,7 +30,6 @@ const FormBody = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [addedEducations, setAddedEducations] = useState<number>(1);
   const [addedWorks, setAddedWorks] = useState<number>(1);
-
   const [isInvalid, setIsInValid] = useState<boolean>(true);
   const { headerFooterData } = useHeaderFooterContext();
 
@@ -70,21 +70,19 @@ const FormBody = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isInvalid) {
-      const formArray = Object.entries(formData).map(([name, value]) => {
-        return {
-          name,
-          value,
-        };
-      });
+      const educationDetails = convertFormDataToArray(addIndexToKeys(additionalEducation));
+      const workDetails = convertFormDataToArray(addIndexToKeys(additionalWork));
+      const generalFormData = convertFormDataToArray(formData);
       const payload = {
-        fields: formArray,
+        fields: [...generalFormData, ...educationDetails, ...workDetails],
         context: {
           pageUri: 'https://rootonweb-dev.qburst.build/express-entry-fsw',
           pageName: 'Services',
         },
       };
       const response = await postPRSubmission(payload, servicesForm.form1);
-      console.log(response);
+      if (response.status === 200) console.log('Form Submitted Successfully');
+      else console.log('Form Submission Unsuccessful');
     }
   };
 

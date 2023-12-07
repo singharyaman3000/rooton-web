@@ -34,7 +34,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
   };
 
   const shouldShow = () => {
-    return AtlanticProvinces.includes(getKeyWithId('educationPlaceInCanada'));
+    return AtlanticProvinces.includes(currentSectionState[getKeyWithId('educationPlaceInCanada')]);
   };
 
   return (

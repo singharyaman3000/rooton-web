@@ -64,12 +64,22 @@ export const convertToHtmlId = (input: string) => {
   return id;
 };
 
-export const addIndexToKeys = (data: Record<string, string>[]): Record<string, string>[] => {
-  return data.map((item, index) => {
-    const newItem: Record<string, string> = {};
-    Object.keys(item).forEach((key) => {
-      newItem[`${key}${index + 1}`] = item[key];
-    });
-    return newItem;
+export const convertFormDataToArray = (formData: Record<string,string>) => {
+  return Object.entries(formData).map(([name, value]) => {
+    return {
+      name,
+      value,
+    };
   });
 };
+
+export const addIndexToKeys = (data: Record<string, string>[]): Record<string, string> => {
+  const outputObject: Record<string, string> = {};
+  data.forEach((item, index) => {
+    Object.keys(item).forEach((key) => {
+      outputObject[`${key}_${index + 1}`] = item[key];
+    });
+  });
+  return outputObject;
+};
+
