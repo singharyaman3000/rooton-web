@@ -15,7 +15,7 @@ import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
-const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'home'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'immigration-insights', 'coaching', 'home'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -186,7 +186,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div>
+            <div className="flex-shrink-0">
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -263,10 +263,10 @@ export default function Header() {
             </span>
             <span
               className={`h-[100%] flex items-center relative
-               ${activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'}`}
+               ${activeTab === 'immigration-insights' ? 'font-extrabold' : 'font-bold'}`}
             >
               <Link href={params.lang ? `/${params.lang}/immigration-insights` : '/immigration-insights'}> Blogs </Link>
-              {activeTab === 'blogs' && (
+              {activeTab === 'immigration-insights' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
