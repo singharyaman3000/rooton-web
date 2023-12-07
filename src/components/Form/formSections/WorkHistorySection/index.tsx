@@ -5,14 +5,14 @@ import { IPropsAdditionalType } from '../../config/models';
 import { AdditionalQuestions } from './AdditionalQuestions';
 
 const additionalQuestionsKeys = [
-  'occupation_1',
-  'type_of_job_1',
-  'when_was_work_1',
-  'length_of_work_1',
-  'location_of_work_1',
-  'work_hours_for_work_1',
-  'province_or_territory_of_work_1',
-  'what_type_of_work_permit_do_you_currently_hold_for_work_1',
+  'occupation_',
+  'type_of_job_',
+  'when_was_work_',
+  'length_of_work_',
+  'location_of_work_',
+  'work_hours_for_work_',
+  'province_or_territory_of_work_',
+  'what_type_of_work_permit_do_you_currently_hold_for_work_',
 ];
 
 export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,

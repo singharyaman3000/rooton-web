@@ -7,7 +7,7 @@ export const getAssetUrl = (url = '') => {
   return url.startsWith('/') || url.startsWith(process.env.NEXT_ASSETS_BASEURL as string) ? url : basePath + url;
 };
 
-export const appendAssetUrl = (url: string) => {return url ? process.env.NEXT_ASSETS_BASEURL + url : '';};
+export const appendAssetUrl = (url: string) => { return url ? process.env.NEXT_ASSETS_BASEURL + url : ''; };
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -18,7 +18,7 @@ export const formatDate = (dateString: string): string => {
   return `${day}  ${month}  ${year}`;
 };
 
-export const isVideo = (url: string): boolean => {return url?.includes('video');};
+export const isVideo = (url: string): boolean => { return url?.includes('video'); };
 
 export const getSectionData = (data: IHomePageData, unique_identifier_name: string) => {
   return data.attributes.home_page_contents.data?.find((contents) => {
@@ -34,16 +34,16 @@ export const getSectionCoachingData = (data: ICoachingPage_Data, unique_identifi
 
 export const getDetraslatedURL = (url: string, lang: string) => {
   const modifiedUrl = url.replace(`/${lang}`, '');
-  return process.env.NEXT_APP_BASE_URL + (modifiedUrl.startsWith('/') ? modifiedUrl.replace('/',''):modifiedUrl) ;
+  return process.env.NEXT_APP_BASE_URL + (modifiedUrl.startsWith('/') ? modifiedUrl.replace('/', '') : modifiedUrl);
 };
 
 export const getFlagUrl = (flagData: IHeaderFooterData[] | undefined, langcode = 'en') => {
-  return flagData && flagData[0]?.attributes.languages.data?.find(({ attributes }) => {return attributes.code === langcode;});
+  return flagData && flagData[0]?.attributes.languages.data?.find(({ attributes }) => { return attributes.code === langcode; });
 };
 
-export const scrollIntoView = (id:string) => {
+export const scrollIntoView = (id: string) => {
   const element = document?.getElementById(id);
-  if(element){
+  if (element) {
     element?.scrollIntoView();
   }
 };
@@ -55,11 +55,21 @@ export const getTranslatedURL = (url: string, lang?: string) => {
   return url;
 };
 
-export const getServicePageURL = (id: string | number) => {return `/service/${id}`;};
+export const getServicePageURL = (id: string | number) => { return `/service/${id}`; };
 
 export const convertToHtmlId = (input: string) => {
   let id = input.toLowerCase();
   id = id.replace(/\s+/g, '-'); // replace spaces with hyphens
   id = id.replace(/[^a-z0-9-]/g, ''); // remove special characters except hyphen
   return id;
+};
+
+export const addIndexToKeys = (data: Record<string, string>[]): Record<string, string>[] => {
+  return data.map((item, index) => {
+    const newItem: Record<string, string> = {};
+    Object.keys(item).forEach((key) => {
+      newItem[`${key}${index + 1}`] = item[key];
+    });
+    return newItem;
+  });
 };

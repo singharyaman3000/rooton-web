@@ -40,8 +40,6 @@ const FormBody = () => {
     });
   };
 
-  console.log(additionalWork);
-
   const getData = (valueType: ValueType, keyValue?: keyType) => {
     if (!headerFooterData) return [];
     const leadFormDatas = headerFooterData[0]?.attributes?.json_content?.leadFormDatas;
@@ -85,7 +83,6 @@ const FormBody = () => {
           pageName: 'Services',
         },
       };
-
       const response = await postPRSubmission(payload, servicesForm.form1);
       console.log(response);
     }
