@@ -90,19 +90,19 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     return (first?.attributes?.position ?? 0) - (second?.attributes?.position ?? 0);
   });
 
-  const scrollToLeadForm = () => {
+  const scrollToLeadForm = (timeoutDuration = 0) => {
     setTimeout(() => {
       window.scrollTo({
         top: leadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
         behavior: 'smooth',
       });
-    }, 0);
+    }, timeoutDuration);
   };
 
-  const handleCTAButtonClick = (source: string) => {
+  const handleCTAButtonClick = (source: string, delayDuration = 0) => {
     setCtaClickSource(source);
     setShowBookAnAppointment(true);
-    scrollToLeadForm();
+    scrollToLeadForm(delayDuration);
   };
 
   const getSection = (identifier: string, data?: ISubServicesContent) => {
@@ -136,7 +136,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
               leadForm={leadForm}
               leadFormRef={leadFormRef}
               scrollToTop={scrollToLeadForm}
-              handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}}
+              handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE, 700);}}
               isBookAppointment={isBookAppointment}
             />
           </ServicePageWrapper>

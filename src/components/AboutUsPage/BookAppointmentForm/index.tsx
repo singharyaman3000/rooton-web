@@ -19,6 +19,7 @@ interface BookAppointmentFormProps {
     calendarLink: IMeetingData | undefined;
   };
   formHeadingCss?: string;
+  formContainerCss?: string;
 }
 
 const BookAppointmentForm = ({
@@ -30,6 +31,7 @@ const BookAppointmentForm = ({
   formData,
   ctaClickSource,
   formHeadingCss,
+  formContainerCss,
 }: BookAppointmentFormProps) => {
   const { region, portalId, formId, calendarLink } = formData;
 
@@ -42,9 +44,7 @@ const BookAppointmentForm = ({
     >
       <div className="flex gap-[34px] shadow-hubspot-form-shadow border border-golden-yellow justify-between relative overflow-hidden bg-pale-sandal">
         <div
-          className="
-        p-4 lg:pl-[60px] w-full lg:w-[83%] pt-12 pb-[100px] sm:pb-[100px] lg:pb-[118px] lg:pr-0 sm:p-12
-        "
+          className={`${formContainerCss} p-4 lg:pl-[60px] w-full lg:w-[83%] pt-12 pb-[100px] sm:pb-[100px] lg:pb-[118px] lg:pr-0 sm:p-12`}
         >
           {formHeading ? (
             <h5

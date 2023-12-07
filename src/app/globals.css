@@ -667,9 +667,16 @@ body {
 }
 
 .huform .hs-richtext.hs-main-font-element > h2 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
 }
+
+@media (max-width: 768px){
+  .huform .hs-richtext.hs-main-font-element > h2 {
+    font-size: 18px;
+  }
+}
+
 
 .huform .hs-form-field label, .huform .hs-richtext.hs-main-font-element {
   font-size: 18px;
@@ -943,6 +950,13 @@ heading {
   width: 100%;
   height: 440px;
   object-fit: cover;
+  margin: 10px 0;
+}
+
+#blog-details-body p {
+  line-height: 1.8;
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 @media (max-width: 768px){
@@ -950,13 +964,13 @@ heading {
     height: 172px;
   }
 
+  #blog-details-body p {
+    font-size: 14px;
+  }
+
   heading {
     font-size: 24px;
   }
-}
-
-#blog-details-body p {
-  line-height: 1.8;
 }
 
 #contact-us-form-container > :first-child {
@@ -968,9 +982,11 @@ heading {
   height: 500px;
 }
 
-#contact-us-section-wrapper > div:last-of-type {
-  padding-left: 0;
-  padding-right: 0;
+@media screen and (min-width: 1024px) {
+  #contact-us-section-wrapper>div:last-of-type {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .carousel-dots {
