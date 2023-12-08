@@ -25,11 +25,11 @@ const ToastMessage = ({ message, containerCss, textCss, durationInSeconds = 2, s
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ x: 100 }}
-        animate={{ x: 0 }}
-        exit={{ x: 100 }}
+        initial={{ y: 20 }}
+        animate={{ y: 0 }}
+        exit={{ y: 20 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`px-4 py-2.5 fixed right-0 top-[100px] bg-pale-sandal ${containerCss}`}
+        className={`truncate min-w-[224px] px-4 py-2 absolute left-0 top-24 lg:top-[-44px] bg-pale-sandal ${containerCss}`}
       >
         <span className={textCss}>{message}</span>
       </motion.div>
