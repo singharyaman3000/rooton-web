@@ -42,8 +42,8 @@ export default function RootOnBanner({
       w-full h-full flex flex-col justify-end  z-20`}>
         <div
           className={` ${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
-            'xs:pb-[36px] sm:pb-[60px] xl:pb-[101px] md:pt-[50px]' :
-            'pb-[36px] md:pb-0 md:pt-[50px]'}
+            'xs:pb-[36px] sm:pb-[60px] xl:pb-[101px] md:pt-[90px]' :
+            'pb-[36px] md:pb-0 md:pt-[90px]'}
           relative z-[10]
           px-[24px]
           whitespace-pre-wrap

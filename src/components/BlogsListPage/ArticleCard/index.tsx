@@ -32,9 +32,9 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
         </div>
         <div className="md:px-6 h-[214px] md:h-[263px] flex flex-col justify-between">
           <div>
-            <span className="block max-h-[70px] lg:max-h-[85px]  overflow-hidden justify-self-start text-base lg:text-lg font-bold text-primary-font-color">
+            <h3 className="max-h-[70px] lg:max-h-[85px]  overflow-hidden justify-self-start text-base lg:text-lg font-bold text-primary-font-color">
               {truncateText(attributes?.title ?? '')}
-            </span>
+            </h3>
             <p className="pt-3 max-h-[58px] overflow-hidden text-xs leading-4 text-primary-font-color opacity-60 text-ellipsis overflow-hidden">
               {truncateText(attributes?.description ?? '')}
             </p>

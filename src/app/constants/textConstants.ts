@@ -62,3 +62,10 @@ export const LAYOUT = {
 export const HUBSPOT = {
   src: 'https://js.hsforms.net/forms/embed/v2.js',
 };
+
+export const AtlanticProvinces = [
+  'New Brunswick, Canada',
+  'Newfoundland and Labrador, Canada',
+  'Nova Scotia, Canada',
+  'Prince Edward Island, Canada',
+];
