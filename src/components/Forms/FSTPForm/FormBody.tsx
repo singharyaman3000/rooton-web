@@ -212,6 +212,9 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
           e.preventDefault();
         }}
       >
+        <div className="hs-richtext hs-main-font-element">
+          <h2>Express Entry - FSTP (Federal Skilled Trades Program):</h2>
+        </div>
         {formSteps.map(({ stepNumber, header, component }) => {
           return (
             <FormStep key={stepNumber} stepNumber={stepNumber} currentStep={currentStep}>
