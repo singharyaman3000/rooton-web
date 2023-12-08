@@ -90,6 +90,10 @@
   -webkit-text-fill-color: transparent;
 }
 
+.banner-text span font {
+  position: unset;
+}
+
 html,
 body {
   font-size: 16px;
