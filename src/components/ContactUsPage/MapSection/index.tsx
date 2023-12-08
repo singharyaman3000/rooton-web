@@ -83,7 +83,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                       title="Flag Image"
                     />
                   </div>
-                  <span className="text-lg lg:text-2xl font-bold">{attributes?.name}</span>
+                  <h3 className="text-lg lg:text-2xl font-bold">{attributes?.name}</h3>
                 </div>
                 <div className="mb-3 max-w-[276px]">{attributes?.location}</div>
                 <div className="font-bold mb-3">{`Phone ${attributes?.phone_number}`}</div>

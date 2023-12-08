@@ -31,9 +31,9 @@ const ProcessesMobileView = ({ process }: IOurProcessData) => {
                   <span className="text-2xl text-golden-yellow mr-3  font-light not-italic leading-[normal] tracking-[normal]">
                     {position}
                   </span>{' '}
-                  <h4 className="text-sm font-bold text-primary-font-color not-italic leading-normal tracking-[normal]">
+                  <h3 className="text-sm font-bold text-primary-font-color not-italic leading-normal tracking-[normal]">
                     {title}
-                  </h4>
+                  </h3>
                 </div>
                 <p className="text-[13px] font-medium not-italic leading-[1.62] tracking-[normal] text-primary-font-color opacity-70">
                   {description}
