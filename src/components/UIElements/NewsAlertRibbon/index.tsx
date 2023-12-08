@@ -53,7 +53,7 @@ const NewsAlertRibbon = ({ displayRibbonHandler }: NewsAlertRibbonProps) => {
       setCurrentNewsIndex((prevIndex) => {
         return (prevIndex + 1) % (newsList?.length || 1);
       });
-    }, 500000);
+    }, 5000);
     return () => {
       return clearInterval(interval);
     };
