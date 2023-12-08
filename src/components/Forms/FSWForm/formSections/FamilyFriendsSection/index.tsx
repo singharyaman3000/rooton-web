@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FormRadioInput } from '../../components/FormRadioInput';
-import { IPropsAdditionalType } from '../../config/models';
+
+import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import { AdditionalQuestions } from './AdditionalQuestions';
 import {
   familyFriendsCanada,
   familyFriendsManitoba,
 } from '../../config/formConfig';
+import { IPropsAdditionalType } from '../../config/models';
 
 const additionalQuestionsKeys = [
   'relationship_with_relative_',

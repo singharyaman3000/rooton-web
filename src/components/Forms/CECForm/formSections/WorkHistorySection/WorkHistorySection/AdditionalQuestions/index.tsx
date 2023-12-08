@@ -2,20 +2,20 @@
 
 'use client';
 
-import { FormCloseButton } from '@/components/Form/components/FormCloseButton';
-import { FormDropdown } from '@/components/Form/components/FormDropDown';
-import { FormRadioInput } from '@/components/Form/components/FormRadioInput';
-import { AdditionalPropsType, AddWorkKeyMap } from '@/components/Form/config/models';
+import { AddWorkKeyMap, AdditionalPropsType } from '@/components/Forms/CECForm/config/models';
+import { FormCloseButton } from '@/components/Forms/components/FormCloseButton';
+import { FormDropdown } from '@/components/Forms/components/FormDropDown';
+import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import {
-  workHistoryWorkHour,
-  workHistoryLength,
   workHistoryOccupation,
+  workHistoryLength,
+  workHistoryWhen,
+  workHistoryWorkHour,
+  workHistoryType,
   workHistoryPlace,
   workHistoryPlaceInCanada,
-  workHistoryType,
-  workHistoryWhen,
   workHistoryWorkPermit,
-} from '@/components/Form/config/formConfig';
+} from '@/components/Forms/CECForm/config/formConfig';
 
 const keyMap: AddWorkKeyMap = {
   occupation: 'occupation_',
@@ -43,7 +43,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
           close(id);
         }}
       />
-      <div className='flex flex-col gap-4 md:grid grid-cols-3'>
+      <div className="flex flex-col gap-4 md:grid grid-cols-3">
         <FormDropdown
           options={data}
           label={workHistoryOccupation[0].label}
@@ -97,7 +97,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
           }
         }}
       />
-      {currentSectionState[getKeyWithId('locationOfWork')] === 'Inside Canada' &&
+      {currentSectionState[getKeyWithId('locationOfWork')] === 'Inside Canada' && (
         <>
           <FormDropdown
             options={workHistoryPlaceInCanada[0].options}
@@ -116,7 +116,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
             }}
           />
         </>
-      }
+      )}
     </div>
   );
 };

@@ -1,14 +1,9 @@
 /* eslint-disable no-unused-vars */
 
-import { FormCloseButton } from '@/components/Form/components/FormCloseButton';
-import { FormDropdown } from '@/components/Form/components/FormDropDown';
-import { AdditionalPropsType, AddFamilyKeyMap } from '@/components/Form/config/models';
-import {
-  familyRelationshipOptions,
-  livingIn,
-  relativeSince,
-  residencyStatusOptions,
-} from '@/components/Form/config/formConfig';
+import { FormCloseButton } from '@/components/Forms/components/FormCloseButton';
+import { FormDropdown } from '@/components/Forms/components/FormDropDown';
+import { familyRelationshipOptions, residencyStatusOptions, livingIn, relativeSince } from '../../../config/formConfig';
+import { AddFamilyKeyMap, AdditionalPropsType } from '../../../config/models';
 
 const keyMap: AddFamilyKeyMap = {
   relationship: 'relationship_with_relative_',
