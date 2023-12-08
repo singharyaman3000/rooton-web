@@ -21,7 +21,10 @@ import { ServiceDescription } from './Description';
 import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePage';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { CONSULTATION_TYPES } from './LeadFormStepper';
-import Form from '../Form';
+import FSWForm from '../Forms/FSWForm';
+import FSTPForm from '../Forms/FSTPForm';
+import QSWPForm from '../Forms/QSWPForm';
+import CECForm from '../Forms/CECForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -105,6 +108,21 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     scrollToLeadForm();
   };
 
+  const nonHubSpotFormSelector = (formIdentifier: string, formId: string) => {
+    switch (formIdentifier) {
+    case 'federal-skilled-worker-program':
+      return <FSWForm leadFormRef={leadFormRef} formId={formId} />;
+    case 'federal-skilled-trades':
+      return <FSTPForm leadFormRef={leadFormRef} formId={formId} />;
+    case 'quebec-immigration':
+      return <QSWPForm leadFormRef={leadFormRef} formId={formId}/>;
+    case 'canadian-experience-class':
+      return <CECForm leadFormRef={leadFormRef} formId={formId}/>;
+    default:
+      return <div></div>;
+    }
+  };
+
   const getSection = (identifier: string, data?: ISubServicesContent) => {
     switch (identifier) {
     case 'service-reason':
@@ -142,9 +160,12 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 }}
                 isBookAppointment={isBookAppointment}
               />
-            ) : (
-              <Form leadFormRef={leadFormRef} />
-            )}
+            ) :
+              nonHubSpotFormSelector(
+                response?.data?.attributes?.unique_identifier_name ?? '',
+                leadForm?.attributes?.json_content?.lead_forms![0]?.formId ?? '',
+              )
+            }
           </ServicePageWrapper>
         );
       }

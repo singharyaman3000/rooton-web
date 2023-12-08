@@ -9,8 +9,8 @@ type IPRForm = {
   };
 };
 
-export const postPRSubmission = async (payload: IPRForm, formNumber: string) => {
-  const url = SERVICES_FORM_API_PATH + formNumber;
+export const postPRSubmission = async (payload: IPRForm, formId: string) => {
+  const url = SERVICES_FORM_API_PATH + formId;
   const response = await axios.post(url, payload, {
     headers: {
       'Content-Type': 'application/json',
