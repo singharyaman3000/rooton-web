@@ -16,6 +16,7 @@ module.exports = {
       'xl': '1280px',
       '2k': '2048px',
       'max-screen': '2560px',
+      'md2': '1100px',
     },
     fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],
@@ -66,6 +67,7 @@ module.exports = {
         'smoky-steel': 'var(--smoky-steel)',
         'light-gray': 'var(--light-gray)',
         'platinum': 'var(--platinum)',
+        'hubspot-meeting-background': 'var(--hubspot-meeting-background)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',

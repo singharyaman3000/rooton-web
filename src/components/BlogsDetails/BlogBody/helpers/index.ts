@@ -15,7 +15,7 @@ function getObjectTagContent(result: string[]) {
   const videoId = getYoutubeVideoId(result[1]);
   const videoUrl = videoId ? `https://www.youtube.com/v/${videoId}` : result[1];
   return `
-         <object width="100%" height="344">
+         <object width="100%" height="344" style="margin: 10px 0;">
               <param name="movie" value="${videoUrl}"></param>
               <param name="allowFullScreen" value="true"></param>
               <param name="allowscriptaccess" value="always"></param>

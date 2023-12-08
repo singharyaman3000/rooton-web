@@ -10,10 +10,12 @@ type RTONButtonProps = {
 export default function RTONButton({ ariaLabel, onClick, text, icon }: RTONButtonProps) {
   return (
     <button
+      data-tooltip
       aria-label={ariaLabel}
       type="button"
       onClick={onClick}
       className="
+          relative
           pt-[17.8px]
           text-black
           pl-[22.5px]
@@ -29,7 +31,7 @@ export default function RTONButton({ ariaLabel, onClick, text, icon }: RTONButto
           md:w-fit
         "
     >
-      <p className=" font-bold text-[14px] lg:text-sm">{text}</p>
+      <p className="truncate font-bold text-[14px] lg:text-sm">{text}</p>
       {icon}
     </button>
   );

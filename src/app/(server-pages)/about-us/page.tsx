@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: metaInfo.aboutUs.title,
   description: metaInfo.aboutUs.description,
   alternates: { canonical: 'https://rooton.ca/about-us' },
+  robots: {
+    index: process.env.NEXT_APP_ENVIRONMENT === 'production',
+  },
 };
 
 export default async function AboutUs() {

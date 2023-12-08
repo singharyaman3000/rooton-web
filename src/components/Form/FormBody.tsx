@@ -1,7 +1,7 @@
 'use client';
 
 import 'tailwindcss/tailwind.css';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useMemo, useState } from 'react';
 import { FormStep } from './components/FormStep';
 import { FormHeader } from './components/FormHeader';
 import { servicesForm } from '@/app/constants/hubspotConfig';
@@ -45,12 +45,9 @@ const FormBody = () => {
   const getData = (valueType: ValueType, keyValue?: keyType) => {
     if (!headerFooterData) return [];
     const leadFormDatas = headerFooterData[0]?.attributes?.json_content?.leadFormDatas;
-
     if (!leadFormDatas) return [];
-
     const key = valueType === 'occupation' ? 'occupation' : keyValue || 'name';
     const data = leadFormDatas[key === 'occupation' ? 'occupationList' : 'countryInfos'];
-
     return (
       data?.map((item) => {
         const id = item?.[key]?.toLowerCase()?.replace(/[^a-z]/g, '');
@@ -84,10 +81,118 @@ const FormBody = () => {
         },
       };
       const response = await postPRSubmission(payload, servicesForm.form1);
-      if (response.status === 200) console.log('Form Submitted Successfully');
+      if (response.status === 200) {
+        setAddedEducations(1);
+        setAddedFamily(1);
+        setAddedWorks(1);
+        setAdditionalEducation([]);
+        setAdditionalFamily([]);
+        setAdditionalWork([]);
+        setFormData(initialStates);
+        setIsInValid(false);
+      }
       else console.log('Form Submission Unsuccessful');
     }
   };
+
+  const formSteps = useMemo(() => {
+    return [
+      {
+        stepNumber: 1,
+        header: 'Personal Profile',
+        component: <PersonalSection
+          onchange={handleData}
+          formData={formData}
+          countries={getData('country', 'name')}
+          isInValid={setIsInValid}
+          formNumber={currentStep} />,
+      },
+      {
+        stepNumber: 2,
+        header: 'Your Language Skills',
+        component: <LanguageSection
+          onchange={handleData}
+          formNumber={currentStep}
+          formData={formData} />,
+      },
+      {
+        stepNumber: 3,
+        header: 'Your Education and Training',
+        component: <EducationSection
+          onchange={handleData}
+          formNumber={currentStep}
+          filledFields={addedEducations}
+          setFilledFields={setAddedEducations}
+          additionalQuestionsData={additionalEducation}
+          setAdditionalQuestionsData={setAdditionalEducation}
+          formData={formData}
+          isInValid={setIsInValid} />,
+      },
+      {
+        stepNumber: 4,
+        header: 'Your Work History',
+        component: <WorkHistorySection
+          onchange={handleData}
+          formData={formData}
+          filledFields={addedWorks}
+          setFilledFields={setAddedWorks}
+          formNumber={currentStep}
+          additionalQuestionsData={additionalWork}
+          setAdditionalQuestionsData={setAdditionalWork}
+          occupations={getData('occupation')}
+          isInValid={setIsInValid} />,
+      },
+      {
+        stepNumber: 5,
+        header: 'Express Entry Profile',
+        component: <ExpressEntrySection
+          onchange={handleData}
+          formData={formData}
+          formNumber={currentStep} />,
+      },
+
+      {
+        stepNumber: 6,
+        header: 'Canadian Job Offer',
+        component: <JobOfferSection
+          occupations={getData('occupation')}
+          onchange={handleData}
+          formData={formData}
+          formNumber={currentStep}
+          isInValid={setIsInValid} />,
+      },
+      {
+        stepNumber: 7,
+        header: 'Family or Friends in Canada',
+        component: <FamilyOrFriendsSection
+          onchange={handleData}
+          formData={formData}
+          filledFields={addedFamily}
+          setFilledFields={setAddedFamily}
+          formNumber={currentStep}
+          additionalQuestionsData={additionalFamily}
+          setAdditionalQuestionsData={setAdditionalFamily} />,
+      },
+      {
+        stepNumber: 8,
+        header: 'Your Personal Net Worth',
+        component: <NetWorthSection
+          onchange={handleData}
+          formData={formData}
+          formNumber={currentStep}
+          currencies={getData('country', 'currency')} />,
+      },
+      {
+        stepNumber: 9,
+        header: 'Enter Your Contact Information',
+        component: <ContactSection
+          onchange={handleData}
+          formData={formData}
+          formNumber={currentStep}
+          isInValid={setIsInValid} />,
+      },
+    ];
+  }, [formData, handleData, getData]);
 
   return (
     <div className="mt-2 h-full w-full">
@@ -99,101 +204,18 @@ const FormBody = () => {
           e.preventDefault();
         }}
       >
-        <FormStep stepNumber={currentStep} currentStep={1}>
-          <FormHeader>Personal Profile</FormHeader>
-          <PersonalSection
-            onchange={handleData}
-            formData={formData}
-            countries={getData('country', 'name')}
-            isInValid={setIsInValid}
-            formNumber={currentStep} />
-        </FormStep>
-
-        <FormStep currentStep={currentStep} stepNumber={2}>
-          <FormHeader>Your Language Skills</FormHeader>
-          <LanguageSection
-            onchange={handleData}
-            formNumber={currentStep}
-            formData={formData} />
-        </FormStep>
-
-        <FormStep currentStep={currentStep} stepNumber={3}>
-          <FormHeader>Your Education and Training</FormHeader>
-          <EducationSection
-            onchange={handleData}
-            formNumber={currentStep}
-            filledFields={addedEducations}
-            setFilledFields={setAddedEducations}
-            additionalQuestionsData={additionalEducation}
-            setAdditionalQuestionsData={setAdditionalEducation}
-            formData={formData}
-            isInValid={setIsInValid} />
-        </FormStep>
-
-        <FormStep currentStep={currentStep} stepNumber={4}>
-          <FormHeader>Your Work History</FormHeader>
-          <WorkHistorySection
-            onchange={handleData}
-            formData={formData}
-            filledFields={addedWorks}
-            setFilledFields={setAddedWorks}
-            formNumber={currentStep}
-            additionalQuestionsData={additionalWork}
-            setAdditionalQuestionsData={setAdditionalWork}
-            occupations={getData('occupation')}
-            isInValid={setIsInValid} />
-        </FormStep>
-        <FormStep currentStep={currentStep} stepNumber={5}>
-          <FormHeader>Express Entry Profile</FormHeader>
-          <ExpressEntrySection
-            onchange={handleData}
-            formData={formData}
-            formNumber={currentStep} />
-        </FormStep>
-
-        <FormStep currentStep={currentStep} stepNumber={6}>
-          <FormHeader>Canadian Job Offer</FormHeader>
-          <JobOfferSection
-            occupations={getData('occupation')}
-            onchange={handleData}
-            formData={formData}
-            formNumber={currentStep}
-            isInValid={setIsInValid} />
-        </FormStep>
-
-        <FormStep currentStep={currentStep} stepNumber={7}>
-          <FormHeader>Family or Friends in Canada</FormHeader>
-          <FamilyOrFriendsSection
-            onchange={handleData}
-            formData={formData}
-            filledFields={addedFamily}
-            setFilledFields={setAddedFamily}
-            formNumber={currentStep}
-            additionalQuestionsData={additionalFamily}
-            setAdditionalQuestionsData={setAdditionalFamily} />
-        </FormStep>
-
-        <FormStep currentStep={currentStep} stepNumber={8}>
-          <FormHeader>Your Personal Net Worth</FormHeader>
-          <NetWorthSection
-            onchange={handleData}
-            formData={formData}
-            formNumber={currentStep}
-            currencies={getData('country', 'currency')} />
-        </FormStep>
-
-        <FormStep currentStep={currentStep} stepNumber={9}>
-          <FormHeader>Enter Your Contact Information</FormHeader>
-          <ContactSection
-            onchange={handleData}
-            formData={formData}
-            formNumber={currentStep}
-            isInValid={setIsInValid} />
-        </FormStep>
+        {formSteps.map(({ stepNumber, header, component }) => {
+          return (
+            <FormStep key={stepNumber} stepNumber={stepNumber} currentStep={currentStep}>
+              <FormHeader>{header}</FormHeader>
+              {component}
+            </FormStep>
+          );
+        })}
 
         {/* ======================================== BUTTONS =============================================== */}
         <div className="flex justify-between w-full mt-10">
-          {currentStep !== 1 && currentStep <= 9 && <FormButton
+          {currentStep > 1 && <FormButton
             type='button'
             buttonText="Previous"
             onClickHandler={() => {
@@ -203,15 +225,10 @@ const FormBody = () => {
               });
             }}
           />}
-          {currentStep < 9 && currentStep !== 9 && <FormButton
-            type='button'
-            buttonText="Next"
-            onClickHandler={onNextClick}
-            disable={isInvalid}
-          />}
-          {currentStep === 9 && <FormButton
-            type='submit'
-            buttonText="Submit"
+          {currentStep <= 9 && <FormButton
+            type={currentStep === 9 ? 'submit' : 'button'}
+            buttonText={currentStep === 9 ? 'Submit' : 'Next'}
+            onClickHandler={currentStep === 9 ? undefined : onNextClick}
             disable={isInvalid}
           />}
         </div>

@@ -37,7 +37,7 @@
   --golden-honey: #f0c236;
   --smoky-steel: #979797;
   --light-gray: #717171;
-  --platinum: #e5e5e5;
+  --platinum:  #e5e5e5;
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
   --preloader-overlay: hsl(252deg 9% 6% / 18%), hsl(252deg 3% 16% / 19%), hsl(0deg 2% 5% / 15%);
@@ -105,6 +105,33 @@ body {
   font-family: var(--font-jakarta);
   background-color: var(--primary-bg);
   overflow-wrap: break-word;
+}
+
+[data-tooltip]:hover::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 120%;
+  z-index: 900;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #000;
+  transform: translateX(-50%) translateY(-100%);
+}
+
+[data-tooltip]:hover::after {
+  content: attr(aria-label);
+  position: absolute;
+  z-index: 900;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 5px;
+  left: 50%;
+  top: 118%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 .gradient-text span {
@@ -641,8 +668,20 @@ body {
 }
 
 .huform .hs-richtext.hs-main-font-element {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
+
+.huform .hs-richtext.hs-main-font-element > h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px){
+  .huform .hs-richtext.hs-main-font-element > h2 {
+    font-size: 18px;
+  }
+}
+
 
 .huform .hs-form-field label,
 .huform .hs-main-font-element {
@@ -921,6 +960,13 @@ heading {
   width: 100%;
   height: 440px;
   object-fit: cover;
+  margin: 10px 0;
+}
+
+#blog-details-body p {
+  line-height: 1.8;
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 @media (max-width: 768px) {
@@ -928,13 +974,13 @@ heading {
     height: 172px;
   }
 
+  #blog-details-body p {
+    font-size: 14px;
+  }
+
   heading {
     font-size: 24px;
   }
-}
-
-#blog-details-body p {
-  line-height: 1.8;
 }
 
 #contact-us-form-container > :first-child {
@@ -946,9 +992,11 @@ heading {
   height: 500px;
 }
 
-#contact-us-section-wrapper > div:last-of-type {
-  padding-left: 0;
-  padding-right: 0;
+@media screen and (min-width: 1024px) {
+  #contact-us-section-wrapper>div:last-of-type {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .carousel-dots {

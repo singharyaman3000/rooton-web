@@ -17,11 +17,13 @@ export default function RTONButtonBlackThemed({
 }: RTONButtonBlackThemedProps) {
   return (
     <button
+      data-tooltip
       aria-label={ariaLabel}
       type="button"
       onClick={onClick}
       className={`
           ${className}
+          relative
           py-4
           text-primary
           px-2
@@ -33,7 +35,7 @@ export default function RTONButtonBlackThemed({
           font-semibold
       `}
     >
-      <p className=" font-bold text-[14px]">{text}</p>
+      <p className="truncate font-bold text-[14px]">{text}</p>
       {icon}
     </button>
   );

@@ -12,10 +12,12 @@ export default function RTONButtonBlack({ className, ariaLabel, onClick, text, i
   return (
     <button
       aria-label={ariaLabel}
+      data-tooltip
       type="button"
       onClick={onClick}
       className={`
           ${className}
+          relative
           py-4
           text-white
           px-6
@@ -27,7 +29,7 @@ export default function RTONButtonBlack({ className, ariaLabel, onClick, text, i
           font-semibold
       `}
     >
-      <p className=" font-semibold text-[14px]">{text}</p>
+      <p className="truncate font-semibold text-[14px]">{text}</p>
       {icon}
     </button>
   );
