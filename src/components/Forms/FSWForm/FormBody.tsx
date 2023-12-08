@@ -228,8 +228,8 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
         <div className="flex justify-between w-full mt-10">
           {currentStep <= 9 && <FormButton
             type='button'
-            buttonText="Previous"
-            disable={currentStep === 1 }
+            buttonText="Back"
+            disable={currentStep === 1}
             onClickHandler={() => {
               setIsInValid(false);
               setCurrentStep((prevStep) => {
