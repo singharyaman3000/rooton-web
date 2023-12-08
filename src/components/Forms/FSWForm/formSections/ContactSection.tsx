@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { contactInfo } from '../config/formConfig';
+import { contactInfo, consultationType } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 import useDebounce from '@/hooks/useDebounce';
 import { FormTextInput } from '../../components/FormTextInput';
+import { FormRadioInput } from '../../components/FormRadioInput';
 
 const validityIntialState = {
   emailValidity: false,
@@ -118,6 +119,13 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         }}
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
         required
+      />
+      <FormRadioInput
+        fields={consultationType}
+        value={formData?.consultation_type}
+        onChange={(e) => {
+          onchange('consultation_type', e.target.value);
+        }}
       />
     </div>
   );

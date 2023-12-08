@@ -860,3 +860,20 @@ export const contactInfo: IFormField[] = [
   { name: 'email', label: 'Email' },
   { name: 'telephone', label: 'Telephone' },
 ];
+
+export const consultationType: IFormFieldOptions[] = [
+  {
+    name: 'consultation_type',
+    label: 'Consultation TYpe',
+    options: [
+      {
+        id: 'free',
+        value: 'Counselling Specialist (Free)',
+      },
+      {
+        id: 'paid',
+        value: 'Consultation with RCIC (Paid)',
+      },
+    ],
+  },
+];
