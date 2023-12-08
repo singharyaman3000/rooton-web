@@ -355,11 +355,24 @@ const LeadFormStepper = (
   };
 
   const getMeetingUrl = () => {
-    if (calenderLink)
-      // eslint-disable-next-line max-len
-      return `${calenderLink[consultationType as keyof IMeetingData]}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}&name=${userData.firstname} ${userData.lastname}`;
-    return '';
+    if (!calenderLink) return '';
+    const { firstname, lastname, email } = userData;
+    const meetingLink = calenderLink[consultationType as keyof IMeetingData];
 
+    let finalFirstName = firstname.trim();
+    let finalLastName = lastname ? lastname.trim() : '';
+
+    if (!finalLastName && finalFirstName.includes(' ')) {
+      const names = firstname.split(' ');
+      finalLastName = names.length > 1 ? names.pop() || '' : '';
+      finalFirstName = names.join(' ');
+    }
+
+    const encodedFirstName = encodeURIComponent(finalFirstName);
+    const encodedLastName = encodeURIComponent(finalLastName);
+    const encodedEmail = encodeURIComponent(email);
+
+    return `${meetingLink}?firstname=${encodedFirstName}&lastname=${encodedLastName}&email=${encodedEmail}&name=${encodedFirstName} ${encodedLastName}`;
   };
 
   useEffect(() => {
@@ -445,7 +458,7 @@ const LeadFormStepper = (
       showNavButtons={!singlePageForm}
     />
   ) : (
-    <div id='scheduler-container' className=" h-[54rem] mt-2">
+    <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
       <iframe className=" w-full h-full" title="AA" src={getMeetingUrl()} />
     </div>
   );

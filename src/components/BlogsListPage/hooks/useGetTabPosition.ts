@@ -5,7 +5,7 @@ const useSelectedTabPosition = (currentRef: RefObject<HTMLDivElement>) => {
 
   useEffect(() => {
     if (currentRef.current) {
-      setFromLeft(currentRef.current.getBoundingClientRect().left + currentRef.current.offsetWidth / 2 - 12.5);
+      setFromLeft(currentRef.current.offsetLeft + currentRef.current.offsetWidth / 2 - 12.5);
     }
   }, [currentRef.current]);
 

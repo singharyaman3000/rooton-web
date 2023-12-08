@@ -15,7 +15,7 @@ type CoreServicesType = { subService: ServiceDataType[] } & ServiceDataType;
 
 const SiteMap = () => {
   const params = useParams();
-  const { headerFooterData } = useHeaderFooterContext();
+  const { headerFooterData = [] } = useHeaderFooterContext();
 
   const allServices: CoreServicesType[] = [];
 
@@ -55,7 +55,7 @@ const SiteMap = () => {
               return (
                 <li
                   key={service.serviceId}
-                  className="font-bold before:inline-block before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
+                  className="font-bold pt-2 before:inline-block before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
                 >
                   {service.label}
                   {service?.subService?.length > 0 && (
@@ -63,7 +63,7 @@ const SiteMap = () => {
                       {service?.subService.map((data) => {
                         return (
                           <React.Fragment key={data.serviceId}>
-                            <li className="font-normal max-w-[250px] lg:max-w-max before:inline-block before:w-2 before:h-2 before:ml-8 before:mr-2 before:border before:border-black">
+                            <li className="font-normal max-w-[250px] py-2 lg:max-w-max before:inline-block before:w-2 before:h-2 before:ml-4 before:mr-2 before:border before:border-black">
                               <Link
                                 href={
                                   params.lang
@@ -81,7 +81,7 @@ const SiteMap = () => {
                                   ? `/${params.lang}/${data.uniqueIdentifierName}?${BOOK_AN_APPOINTMENT_QUERY}=true`
                                   : `/${data.uniqueIdentifierName}?${BOOK_AN_APPOINTMENT_QUERY}=true`
                               }
-                              className="font-normal before:inline-block before:w-2 before:h-2 before:ml-16 before:mr-2 before:border before:border-black before:rounded-full hover:underline"
+                              className="font-normal before:inline-block before:w-2 before:h-2 before:ml-8 before:mr-2 before:border before:border-black before:rounded-full hover:underline"
                             >
                               Book an appointment
                             </Link>
@@ -104,7 +104,7 @@ const SiteMap = () => {
                 return (
                   <li
                     key={data.id}
-                    className="before:inline-block before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
+                    className="before:inline-block py-1 before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
                   >
                     <Link href={data.path} className="text-[#337ab7] hover:underline">
                       {data.label}
@@ -122,7 +122,7 @@ const SiteMap = () => {
                 return (
                   <li
                     key={data.id}
-                    className="before:inline-block before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
+                    className="before:inline-block py-1 before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
                   >
                     <Link href={`/coaching/${data.id}`} className="text-[#337ab7] hover:underline">
                       {data.label}

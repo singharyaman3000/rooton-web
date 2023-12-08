@@ -8,13 +8,15 @@ import CopyLinkIcon from '@/components/Icons/CopyLinkIcon';
 import ToastMessage from '@/components/UIElements/ToastMessage';
 import FacebookIconBlue from '@/components/Icons/FacebookIconBlue';
 import LinkedInIconBlue from '@/components/Icons/LinkedInIconBlue';
+import { usePathname } from 'next/navigation';
 
 const SocialMediaShare = () => {
   const toastMessage = 'Copied to clipboard';
   const [displayToast, setDisplayToast] = useState(false);
+  const path = usePathname();
 
   const getCurrentBlogUrl = () => {
-    return window.location.href;
+    return process.env.NEXT_APP_BASE_URL + path;
   };
 
   const handleCopyLink = () => {

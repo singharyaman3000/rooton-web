@@ -2,9 +2,8 @@
 
 import { IBlogContentData, IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
 import NavigationPanel from './NavigationPanel';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BlogBody from './BlogBody';
-import { getAllPageIndex } from './BlogBody/helpers';
 import BlogHeader from './BlogHeader';
 import { ArticleCategoryType } from '@/app/services/apiService/blogsListAPI';
 import BlogsCarousel from '../BlogsListPage/BlogsCarousel';
@@ -24,6 +23,9 @@ type BlogDetailsParamsType = {
 const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromCoachingPage = false }) => {
   const params = useParams();
   const router = useRouter();
+  // eslint-disable-next-line no-undef
+  const [allHeadingsList, setAllHeadingsList] = useState<Element[]>([]);
+
   const breadcrumbsData = fromCoachingPage ? BLOG_DETAILS_BREADCRUMBS_COACHING : BLOG_DETAILS_BREADCRUMBS;
   const blogContents = details?.attributes?.blog_contents?.data || [];
   const sortedContent = blogContents.sort((a, b) => {
@@ -35,11 +37,8 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
     allHeadings.forEach((heading, index) => {
       heading.setAttribute('data-id', index.toString());
     });
+    setAllHeadingsList(Array.from(allHeadings));
   }, []);
-
-  const allHeadingsList = sortedContent?.length
-    ? getAllPageIndex(sortedContent[0]?.attributes.body_content, '<heading>', '</heading>')
-    : [];
 
   const handleCTAButton = () => {
     const serviceName = details?.attributes?.sub_service?.data.attributes.unique_identifier_name;
@@ -51,9 +50,9 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
 
   return (
     <div className="mt-[60px] lg:mt-20 text-primary-font-color flex flex-col justify-start min-w-[360px]">
-      <div id="scroll-container" className="flex px-6 lg:px-0">
+      <div id="scroll-container" className="flex">
         {/* Article navigation */}
-        <NavigationPanel content={allHeadingsList} breadcrumbsData={breadcrumbsData} />
+        <NavigationPanel breadcrumbsData={breadcrumbsData} allHeadingsList={allHeadingsList} />
         {/* Blogbody */}
         <div
           id="section-container"

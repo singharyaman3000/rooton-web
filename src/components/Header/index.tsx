@@ -15,7 +15,7 @@ import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
-const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'contact-us', 'home'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'immigration-insights', 'coaching', 'home'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -54,6 +54,26 @@ export default function Header() {
     if (path === '/' || (path.split('/').length < 3 && params.lang)) {
       scrollIntoView('servicesHomePage');
     }
+  };
+
+  const setActiveTabFromUrl = () => {
+    const pathArray = path.substring(1).split('/');
+
+    let currentTab = 'service';
+    if (HOMEPAGE_PATH.includes(path.replace(params.lang, ''))) {
+      currentTab = 'home';
+    } else if (pathArray.includes('sitemap')) {
+      currentTab = '';
+    }else {
+      const foundItem = pathArray.find((item) => {
+        return itemsToSetActive.includes(item);
+      });
+      if (foundItem) {
+        currentTab = foundItem;
+      }
+    }
+
+    setActiveTab(currentTab);
   };
 
   useEffect(() => {
@@ -96,24 +116,6 @@ export default function Header() {
       document.removeEventListener('scroll', onScroll);
     };
   });
-
-  function setActiveTabFromUrl() {
-    const pathArray: string[] = window.location.pathname.split('/');
-
-    const notHomePage = itemsToSetActive.some((elem) => {
-      return pathArray?.includes(elem);
-    });
-
-    if (notHomePage) {
-      itemsToSetActive?.forEach((item) => {
-        if (pathArray?.includes(item)) {
-          setActiveTab(item);
-        }
-      });
-    } else {
-      setActiveTab('home');
-    }
-  }
 
   function animateHeader() {
     const easeDown = [{ top: '-5rem' }, { top: '0' }];
@@ -184,7 +186,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div>
+            <div className={`${params.lang ? '' : 'flex-shrink-0'}`}>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -261,10 +263,10 @@ export default function Header() {
             </span>
             <span
               className={`h-[100%] flex items-center relative
-               ${activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'}`}
+               ${activeTab === 'immigration-insights' ? 'font-extrabold' : 'font-bold'}`}
             >
-              <Link href={params.lang ? `/${params.lang}/blogs` : '/blogs'}> Blogs </Link>
-              {activeTab === 'blogs' && (
+              <Link href={params.lang ? `/${params.lang}/immigration-insights` : '/immigration-insights'}> Blogs </Link>
+              {activeTab === 'immigration-insights' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>

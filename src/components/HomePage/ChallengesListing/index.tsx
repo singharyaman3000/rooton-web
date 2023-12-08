@@ -48,6 +48,7 @@ const ChallengesListing = ({ title, sub_title, description, json_content, media_
               {HtmlParser(description ?? '')}
             </p>
             <Button
+              toolTip
               label="Get your queries solved"
               ariaLabel="Get your queries solved"
               cssClass="text-white !font-semibold !text-[14px] bg-black border-0 w-full md:w-auto justify-center !py-[17px] mt-5 mb-3 gap-[4px]"

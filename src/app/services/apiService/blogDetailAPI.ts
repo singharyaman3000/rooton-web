@@ -59,6 +59,7 @@ interface IBlogAttributes {
   media_url: MediaUrl;
   blog_contents: IBlogContents;
   sub_service: ISubService;
+  word_count: number;
 }
 
 export interface IBlogDetails {
