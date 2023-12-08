@@ -47,11 +47,11 @@ const BookAppointmentForm = ({
           className={`${formContainerCss} p-4 lg:pl-[60px] w-full lg:w-[83%] pt-12 pb-[100px] sm:pb-[100px] lg:pb-[118px] lg:pr-0 sm:p-12`}
         >
           {formHeading ? (
-            <h5
-              className={`font-extrabold text-[28px] leading-heading lg:text-2xl xl:text-5xl lg:leading-heading-lg xl:leading-heading-lg ${formHeadingCss}`}
+            <span
+              className={`block font-extrabold text-[28px] leading-heading lg:text-2xl xl:text-5xl lg:leading-heading-lg xl:leading-heading-lg ${formHeadingCss}`}
             >
               {formHeading}
-            </h5>
+            </span>
           ) : null}
           <LeadFormStepper
             scrollToTop={scrollToLeadForm}
