@@ -46,8 +46,7 @@ export default function ThemeToggleAndHamburger({
         items-center
         hover:cursor-pointer
         gap-[3.33vw]
-        lg:gap-[1.33vw]
-        xl:gap-[3.33vw]
+        lg:gap-[20px]
       "
     >
       <div className=" hidden xl:block">

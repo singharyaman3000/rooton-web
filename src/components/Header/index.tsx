@@ -160,8 +160,7 @@ export default function Header() {
           className="
           flex
           gap-5
-          lg:gap-[1.33vw]
-          xl:gap-[3.33vw]
+          lg:gap-[16px]
           justify-between
           px-6
           py-3
@@ -200,9 +199,9 @@ export default function Header() {
           )}
           <div
             className={`
-            lg:gap-[1.33vw]
-            xl:gap-[3.33vw]
-            justify-end
+            w-[calc(100%-593px)]
+            justify-around
+            grow
             items-center
             text-base
             font-medium
