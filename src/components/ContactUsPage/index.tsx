@@ -21,7 +21,12 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
 
   const scrollToLeadForm = () => {
     const element = document.getElementById('contact-us-form-container');
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      window.scrollTo({
+        top: element.getBoundingClientRect().top - 65 + window.pageYOffset,
+        behavior: 'smooth',
+      });
+    }
   };
 
   const handleCTAButton = (source: string) => {
