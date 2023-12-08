@@ -67,7 +67,7 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
         <div className="pb-8 lg:pb-[60px]">{!fromCoachingPage && <BookAnAppointment onClick={handleCTAButton} />}</div>
       ) : null}
       {/* SocialMediaShare for small screens */}
-      <div className=" lg:hidden mb-10 self-center">
+      <div className="lg:hidden mb-12 self-center">
         <SocialMediaShare />
       </div>
       {/* Related Articles */}
