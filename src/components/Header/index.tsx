@@ -160,8 +160,7 @@ export default function Header() {
           className="
           flex
           gap-5
-          lg:gap-[1.33vw]
-          xl:gap-[3.33vw]
+          lg:gap-[16px]
           justify-between
           px-6
           py-3
@@ -174,7 +173,7 @@ export default function Header() {
         "
         >
           {scrolledEnough ? (
-            <div className="h-fit">
+            <div className="h-fit xl:flex-shrink-0">
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -186,7 +185,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div className={`${params.lang ? '' : 'flex-shrink-0'}`}>
+            <div className={`${params.lang ? 'xl:flex-shrink-0' : 'flex-shrink-0'}`}>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -200,14 +199,14 @@ export default function Header() {
           )}
           <div
             className={`
-            lg:gap-[1.33vw]
-            xl:gap-[3.33vw]
-            justify-end
+            w-[calc(100%-593px)]
+            justify-around
+            grow
             items-center
             text-base
             font-medium
             hidden
-            lg:flex
+            xl:flex
             flex-shrink-0
             ${getHeaderTextColor()}
           `}
