@@ -23,7 +23,7 @@ import { addIndexToKeys, convertFormDataToArray } from '@/utils';
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
 
-const FormBody = ({ formId }: { formId: string }) => {
+const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record<string, string> }) => {
   const path = usePathname();
   const [formData, setFormData] = useState(initialStates);
   const [additionalEducation, setAdditionalEducation] = useState<Record<string, string>[]>([]);
@@ -91,8 +91,10 @@ const FormBody = ({ formId }: { formId: string }) => {
         setAdditionalWork([]);
         setFormData(initialStates);
         setIsInValid(false);
+        setCurrentStep((prevStep) => {
+          return prevStep + 1;
+        });
       }
-      else console.log('Form Submission Unsuccessful');
     }
   };
 
@@ -192,6 +194,13 @@ const FormBody = ({ formId }: { formId: string }) => {
           formNumber={currentStep}
           isInValid={setIsInValid} />,
       },
+      {
+        stepNumber: 10,
+        header: '',
+        component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
+          <iframe className=" w-full h-full" title="AA" src={meetingLink.free} />
+        </div>,
+      },
     ];
   }, [formData, handleData, getData]);
 
@@ -216,9 +225,10 @@ const FormBody = ({ formId }: { formId: string }) => {
 
         {/* ======================================== BUTTONS =============================================== */}
         <div className="flex justify-between w-full mt-10">
-          {currentStep > 1 && <FormButton
+          {currentStep <= 9 && <FormButton
             type='button'
-            buttonText="Previous"
+            buttonText="Back"
+            disable={currentStep === 1}
             onClickHandler={() => {
               setIsInValid(false);
               setCurrentStep((prevStep) => {

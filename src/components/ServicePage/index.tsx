@@ -108,16 +108,16 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     scrollToLeadForm(delayDuration);
   };
 
-  const nonHubSpotFormSelector = (formIdentifier: string, formId: string) => {
+  const nonHubSpotFormSelector = (formIdentifier: string, formId: string, meetingLink: Record<string,string> ) => {
     switch (formIdentifier) {
     case 'federal-skilled-worker-program':
-      return <FSWForm leadFormRef={leadFormRef} formId={formId} />;
+      return <FSWForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
     case 'federal-skilled-trades':
-      return <FSTPForm leadFormRef={leadFormRef} formId={formId} />;
+      return <FSTPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} />;
     case 'quebec-immigration':
-      return <QSWPForm leadFormRef={leadFormRef} formId={formId}/>;
+      return <QSWPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
     case 'canadian-experience-class':
-      return <CECForm leadFormRef={leadFormRef} formId={formId}/>;
+      return <CECForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
     default:
       return <div></div>;
     }
@@ -164,6 +164,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
               nonHubSpotFormSelector(
                 response?.data?.attributes?.unique_identifier_name ?? '',
                 leadForm?.attributes?.json_content?.lead_forms![0]?.formId ?? '',
+                leadForm?.attributes?.json_content.lead_forms![1]?.url ?? {},
               )
             }
           </ServicePageWrapper>
