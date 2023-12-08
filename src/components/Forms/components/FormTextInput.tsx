@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IFormField } from '../config/formConfig';
+import { IFormField } from './model';
 
 type PropType = {
   field: IFormField;

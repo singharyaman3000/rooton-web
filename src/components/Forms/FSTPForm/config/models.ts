@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { OptionType } from './formConfig';
+
+import { OptionType } from '../../components/model';
 
 export type FormItem = {
   name: string;

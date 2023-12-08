@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IFormFieldOptions } from '../config/formConfig';
+import { IFormFieldOptions } from './model';
 
 type PropType = {
   value?: string | number;

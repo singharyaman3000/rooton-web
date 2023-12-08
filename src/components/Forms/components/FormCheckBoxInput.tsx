@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from 'react';
-import { IFormFieldOptions } from '../config/formConfig';
+import { IFormFieldOptions } from './model';
 
 type PropType = {
   fields?: IFormFieldOptions[];

@@ -1,20 +1,6 @@
-export type OptionType = {
-  id: string;
-  value: string;
-};
-export interface IFormField {
-  label: string;
-  name: string;
-}
-
-export interface IFormFieldOptions {
-  label: string;
-  name: string;
-  options: OptionType[];
-}
+import { IFormFieldOptions, OptionType, IFormField } from '../../components/model';
 
 // =================================== COMMON CONSTANTS ====================================================
-
 const placesInCanada = [
   { id: 'ca-ab', value: 'Alberta, Canada' },
   { id: 'ca-bc', value: 'British Columbia, Canada' },

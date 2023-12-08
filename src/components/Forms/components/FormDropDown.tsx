@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, useState } from 'react';
-import { OptionType } from '../config/formConfig';
+import { OptionType } from './model';
 
 type PropsType = {
   options: OptionType[] | undefined;
