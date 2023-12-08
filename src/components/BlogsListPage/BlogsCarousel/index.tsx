@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import SectionHeadings from '@/components/UIElements/SectionHeadings';
 import Slider from '@/components/UIElements/Slider';
 import useSliderData from '@/components/UIElements/Slider/hooks/useSliderData';
 import ArticleCard from '../ArticleCard';
@@ -19,6 +18,7 @@ import Button from '@/components/UIElements/Button';
 import Link from 'next/link';
 import { SOURCE_PAGE } from '../constants';
 import { useParams } from 'next/navigation';
+import BlogsSectionHeadings from '../BlogsSectionHeadings';
 
 type BlogsCarouselParamsType = {
   articleType: ArticleCategoryType;
@@ -126,7 +126,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
           ${serviceType ? 'md:px-20' : ''}`}
       >
         <div>
-          <SectionHeadings title={title} subTitle={subHeading} />
+          <BlogsSectionHeadings title={title} subTitle={subHeading} />
         </div>
         <div className="hidden md:flex">
           {showMore && (
