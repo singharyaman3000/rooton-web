@@ -3,7 +3,6 @@ import SectionTitle, { ISectionTitle } from './SectionTitle';
 import SubSectionTitle from './SubSectiontitle';
 import ReactHtmlParser from 'react-html-parser';
 
-
 export interface ISectionContent extends ISectionTitle {
   subTitle: string;
   subCssClass?: string;
