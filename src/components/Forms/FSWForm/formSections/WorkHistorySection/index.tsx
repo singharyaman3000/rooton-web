@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { workHistoryOrNot } from '../../config/formConfig';
 import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
-import { AdditionalQuestions } from '../EducationSection/AdditionalQuestions';
 import { IPropsAdditionalType } from '../../config/models';
+import { AdditionalQuestions } from './AdditionalQuestions';
 
 const additionalQuestionsKeys = [
   'occupation_',
