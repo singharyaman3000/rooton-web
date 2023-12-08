@@ -22,6 +22,7 @@ export type ILeadForm = {
   portalId?: string;
   formId?: string;
   url?: IMeetingData;
+  isHubSpotForm: boolean;
 };
 
 export type IFaq = {
