@@ -84,10 +84,10 @@ export default function Footer() {
         >
           <div className=" flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-3 lg:gap-[18px] w-full">
             {/* <Link href={'/'}>Careers</Link> */}
-            <Link className="basis-[47%] order-1" href={'/'}>
+            <Link className="basis-[47%] order-1" href={params.lang ? `/${params.lang}/policy/2` : '/policy/2'}>
               Privacy Policy
             </Link>
-            <Link className="basis-[47%] order-3 md:order-2" href={'/'}>
+            <Link className="basis-[47%] order-3 md:order-2" href={params.lang ? `/${params.lang}/policy/1` : '/policy/1'}>
               Terms & Condition
             </Link>
             {/* <Link href={'/'}>QnA Forum</Link> */}
