@@ -50,7 +50,7 @@ export default function ThemeToggleAndHamburger({
         xl:gap-[3.33vw]
       "
     >
-      <div className=" hidden lg:block">
+      <div className=" hidden xl:block">
         <RTONLanguageDropDown scrolledEnough={scrolledEnough} isFixed={isFixed}/>
       </div>
       <div className=" flex gap-0 w-12 lg:w-16 lg:h-8 h-6" role="button" tabIndex={0} onClick={toggleTheme}>
@@ -91,7 +91,7 @@ export default function ThemeToggleAndHamburger({
           </span>
         )}
       </div>
-      <button aria-label="Hamburger menu open" type="button" onClick={toggleSlideOverlay} className=" lg:hidden">
+      <button aria-label="Hamburger menu open" type="button" onClick={toggleSlideOverlay} className=" xl:hidden">
         <HamburgerIcon isScrolled={scrolledEnough} isFixed={isFixed}/>
       </button>
     </div>

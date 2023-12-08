@@ -174,7 +174,7 @@ export default function Header() {
         "
         >
           {scrolledEnough ? (
-            <div className="h-fit">
+            <div className="h-fit xl:flex-shrink-0">
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -186,7 +186,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div className={`${params.lang ? '' : 'flex-shrink-0'}`}>
+            <div className={`${params.lang ? 'xl:flex-shrink-0' : 'flex-shrink-0'}`}>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -207,7 +207,7 @@ export default function Header() {
             text-base
             font-medium
             hidden
-            lg:flex
+            xl:flex
             flex-shrink-0
             ${getHeaderTextColor()}
           `}

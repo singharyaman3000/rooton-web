@@ -29,7 +29,7 @@ const TalkToOurExpert = () => {
   }, [wrapperRef, buttonRef, isOpen]);
 
   return (
-    <div className="relative hidden lg:block">
+    <div className="relative hidden xl:block">
       <button
         type='button'
         ref={buttonRef}
