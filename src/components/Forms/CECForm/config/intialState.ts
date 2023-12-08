@@ -54,4 +54,5 @@ export const initialStates = {
   lastname: '',
   email: '',
   mobilephone: '',
+  consultation_type:'',
 };
