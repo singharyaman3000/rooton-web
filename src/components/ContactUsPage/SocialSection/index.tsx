@@ -1,4 +1,5 @@
 import { RefObject, useRef } from 'react';
+import { useParams } from 'next/navigation';
 import BookAppointmentForm from '@/components/AboutUsPage/BookAppointmentForm';
 import { IContactUsContents } from '@/app/services/apiService/contactUsPageAPI';
 import NextImage from '@/components/UIElements/NextImage';
@@ -20,6 +21,7 @@ const SocialSection = ({
   socialMeta: SocialMediaInterfaceType[];
   ctaClickSource: string;
 }) => {
+  const params = useParams();
   const bookRef = useRef<HTMLElement>(null);
   const socialData = formData?.data?.find((a) => {
     return a.attributes.unique_identifier_name === 'social_and_lead_form';
@@ -42,7 +44,7 @@ const SocialSection = ({
   return (
     <section ref={sectionRef} className="flex flex-col items-center gap-4 md2:flex-row w-full">
       <div className="text-sm px-6 md:px-12 lg:px-0 xl:pl-0 xl:w-[50%] xl:text-base pb-[51px] pt-[68px] xl:pb-0 xl:pt-0 flex flex-col justify-center xl:w-1/2">
-        <h2 className="max-w-[300px] lg:max-w-none text-[28px] xl:text-[40px] mb-10 font-extrabold leading-6 lg:leading-9">{socialData?.attributes?.title}</h2>
+        <h2 className={`${params.lang && 'xl:!text-[38px]'} max-w-[300px] lg:max-w-none text-[28px] xl:text-[40px] mb-10 font-extrabold leading-6 lg:leading-9`}>{socialData?.attributes?.title}</h2>
         <div className="relative h-[52px] xl:h-[68px] w-[174px] xl:w-[226px] mb-5">
           <NextImage
             sizes="100vw"
