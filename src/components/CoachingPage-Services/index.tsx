@@ -516,11 +516,11 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         data={[
           {
             title: 'Home',
-            path: params.lang ? `/${params.lang}/coaching` : '/',
+            path:  '/',
           },
           {
             title: 'Coaching',
-            path: params.lang ? `/${params.lang}/coaching` : '/coaching',
+            path: '/coaching',
           },
           {
             title: response.data?.attributes?.title,
