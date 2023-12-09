@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const { getHeaderFooterServerData } = require('./src/app/services/apiService/headerFooterServerAPI');
+// eslint-disable-next-line max-len
+const { getCoachingCoachingServicesServerData } = require('./src/app/services/apiService/coachingCoachingServicesServerAPI');
 
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -21,8 +23,10 @@ const nextConfig = {
   future: { webpack5: true },
   async rewrites() {
     const apiData = await getHeaderFooterServerData();
+    const coaching_apiData = await getCoachingCoachingServicesServerData();
 
     const allServicesIds = [];
+    const allCoachingIds = [];
 
     apiData[0]?.attributes.core_services.data?.forEach((service) => {
       const subServices = service?.attributes?.sub_services?.data ?? [];
@@ -36,11 +40,24 @@ const nextConfig = {
       }
     });
 
+    coaching_apiData[0]?.attributes.coaching_page_contents.data?.forEach((coaching) => {
+      const coaching_services = coaching?.attributes?.coaching_services?.data ?? [];
+      if (coaching_services.length > 0) {
+        coaching_services.forEach((coaching_service) => {
+          allCoachingIds.push({
+            coaching_serviceName: coaching_service.attributes.unique_identifier_name ?? '',
+            coaching_serviceId: coaching_service.id ?? '',
+          });
+        });
+      }
+    });
+
     const allLanguages = apiData[0]?.attributes.languages.data?.flatMap((language) => {
       return language.attributes.code !== 'en' ? language.attributes.code : [];
     });
 
     const allServicesLanUrls = [];
+    const allCoachingServicesLanUrls = [];
 
     allLanguages?.forEach((lan) => {
       allServicesIds.forEach((service) => {
@@ -51,11 +68,24 @@ const nextConfig = {
       });
     });
 
+    allLanguages?.forEach((lan) => {
+      allCoachingIds.forEach((coaching) => {
+        allCoachingServicesLanUrls.push({
+          source: `/${lan}/${coaching.coaching_serviceName}`,
+          destination: `/${lan}/coaching/${coaching.coaching_serviceId}`,
+        });
+      });
+    });
+
     const reRouteMap = allServicesIds.map((service) => {
       return { source: `/${service.serviceName}`, destination: `/service/${service.serviceId}` };
     });
 
-    return [...reRouteMap, ...allServicesLanUrls];
+    const reRouteMap_coaching = allCoachingIds.map((coaching) => {
+      return { source: `/${coaching.coaching_serviceName}`, destination: `/coaching/${coaching.coaching_serviceId}` };
+    });
+
+    return [...reRouteMap, ...reRouteMap_coaching, ...allServicesLanUrls, ...allCoachingServicesLanUrls];
   },
 };
 
