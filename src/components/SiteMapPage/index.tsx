@@ -124,7 +124,7 @@ const SiteMap = () => {
                     key={data.id}
                     className="before:inline-block before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
                   >
-                    <Link href={`/coaching/${data.id}`} className="text-[#337ab7] hover:underline">
+                    <Link href={`/${data.label}`} className="text-[#337ab7] hover:underline">
                       {data.label}
                     </Link>
                   </li>
