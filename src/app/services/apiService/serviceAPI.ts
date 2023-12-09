@@ -23,6 +23,7 @@ export type ILeadForm = {
   formId?: string;
   url?: IMeetingData;
   isHubSpotForm: boolean;
+  isSeparateForm: boolean;
 };
 
 export type IFaq = {

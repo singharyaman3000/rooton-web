@@ -22,6 +22,7 @@ import { TESTIMONIAL_API_SERVICE } from '@/app/services/apiService/apiUrl/homePa
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { CONSULTATION_TYPES } from './LeadFormStepper';
 import Form from '../Form';
+import FSForm from '../FamilySponsorshipForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -105,6 +106,28 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     scrollToLeadForm(delayDuration);
   };
 
+  const determineFormComponent = () => {
+    const isHubSpotForm = leadForm?.attributes?.json_content?.lead_forms![0]?.isHubSpotForm;
+    const isSeparateForm = leadForm?.attributes?.json_content?.lead_forms![0]?.isSeparateForm;
+    if (isHubSpotForm) {
+      return (
+        <LeadFormSection
+          ctaClickSource={ctaClickSource}
+          leadForm={leadForm}
+          leadFormRef={leadFormRef}
+          scrollToTop={scrollToLeadForm}
+          handleCTAButtonClick={() => handleCTAButtonClick(CONSULTATION_TYPES.FREE)}
+          isBookAppointment={isBookAppointment}
+        />
+      );
+    // eslint-disable-next-line no-else-return
+    } else if (!isHubSpotForm && isSeparateForm) {
+      return <FSForm leadFormRef={leadFormRef} />;
+    } else {
+      return <Form leadFormRef={leadFormRef} />;
+    }
+  };
+
   const getSection = (identifier: string, data?: ISubServicesContent) => {
     switch (identifier) {
     case 'service-reason':
@@ -127,28 +150,13 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       if (leadForm) {
         return (
           <ServicePageWrapper
-            className={`${
-              showBookAnAppointment ? 'block' : 'hidden'
-            } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
+            // eslint-disable-next-line max-len
+            className={`${showBookAnAppointment ? 'block' : 'hidden'} p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
           >
-            {leadForm?.attributes?.json_content?.lead_forms![0]?.isHubSpotForm ? (
-              <LeadFormSection
-                ctaClickSource={ctaClickSource}
-                leadForm={leadForm}
-                leadFormRef={leadFormRef}
-                scrollToTop={scrollToLeadForm}
-                handleCTAButtonClick={() => {
-                  return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-                }}
-                isBookAppointment={isBookAppointment}
-              />
-            ) : (
-              <Form leadFormRef={leadFormRef} />
-            )}
+            {determineFormComponent()}
           </ServicePageWrapper>
         );
       }
-
       return null;
     case 'service-CTA-banner-1':
       return <CTAWrapperSection handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}} />;

@@ -1,0 +1,161 @@
+/* eslint-disable max-len */
+/* eslint-disable react/button-has-type */
+import React, { useEffect, useState } from 'react';
+import { IPropsType } from '../config/models';
+import { FormDropdown } from '../components/FormDropDown';
+import { FormRadioInput } from '../components/FormRadioInput';
+import { FormCloseButton } from '../components/FormCloseButton';
+import {
+  likeToDo,
+  sponsorRelationship,
+  sponsorStatus,
+  yourStatus,
+  yourAge,
+  yourSponsor,
+  residingInCanada,
+  yourChildGrandchildAge,
+  yourChildGrandchildMaritalStatus,
+  yourChildGrandchildSubstantially,
+} from '../config/formConfig';
+import { SponsorDropDown } from '../components/SponsorDropDown';
+
+export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, isInValid, formData }) => {
+  const [childGrandchildDropdowns, setChildGrandchildDropdowns] = useState([{ id: 1, value: '' }]);
+
+  useEffect(() => {
+    if (formNumber !== 1 || !isInValid) return;
+    isInValid(formData?.What_would_you_like_to_do === '');
+  }, [formData, formNumber, isInValid]);
+
+  const handleFieldChange = (fieldName: string, value: string, id: number) => {
+    const modifiedFieldName = `${fieldName}_${id}`;
+    onchange(modifiedFieldName, value);
+  };
+
+  const isAgeInRange = (ageValue: string, min: number, max: number) => {
+    const age = parseInt(ageValue || '0', 10);
+    return age >= min && age <= max;
+  };
+
+  const addDropdown = () => {
+    const newId = childGrandchildDropdowns.length + 1;
+    setChildGrandchildDropdowns([...childGrandchildDropdowns, { id: newId, value: '' }]);
+  };
+
+  const removeDropdown = (id: number) => {
+    setChildGrandchildDropdowns(childGrandchildDropdowns.filter((dropdown) => {return dropdown.id !== id;}));
+  };
+
+  return (
+    <>
+      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+        {/* Like To Do */}
+        <FormRadioInput
+          fields={likeToDo}
+          value={formData.What_would_you_like_to_do}
+          onChange={(e: { target: { value: string; }; }) => {return onchange('What_would_you_like_to_do', e.target.value);}}
+        />
+
+        {/* Your Status */}
+        {formData.What_would_you_like_to_do === 'I want to Sponsor' && (
+          <FormDropdown
+            options={yourStatus[0].options}
+            label={yourStatus[0].label}
+            value={formData.Are_you_a_citizen_or_permanent}
+            onChange={(e: { target: { value: string; }; }) => {return onchange('Are_you_a_citizen_or_permanent', e.target.value);}}
+          />
+        )}
+
+        {/* Sponsor Relationship */}
+        {formData.What_would_you_like_to_do === 'I want be Sponsored' && (
+          <FormDropdown
+            options={sponsorRelationship[0].options}
+            label={sponsorRelationship[0].label}
+            value={formData.What_is_your_relationship_person}
+            onChange={(e: { target: { value: string; }; }) => {return onchange('What_is_your_relationship_person', e.target.value);}}
+          />
+        )}
+      </div>
+
+      {/* Sponsor Status */}
+      {['Spouse', 'Common-Law Partner', 'Parent', 'Child', 'Grandchild'].includes(formData.What_is_your_relationship_person) && (
+        <FormDropdown
+          options={sponsorStatus[0].options}
+          label={sponsorStatus[0].label}
+          value={formData.What_is_your_sponsor_Status}
+          onChange={(e: { target: { value: string; }; }) => {return onchange('What_is_your_sponsor_Status', e.target.value);}}
+        />
+      )}
+
+      {/* Your Age */}
+      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+        {(formData.Are_you_a_citizen_or_permanent === 'Citizen' || formData.Are_you_a_citizen_or_permanent === 'Permanent Resident') && (
+          <FormRadioInput
+            fields={yourAge}
+            value={formData.How_old_are_you}
+            onChange={(e: { target: { value: string; }; }) => {return onchange('How_old_are_you', e.target.value);}}
+          />
+        )}
+
+        {/* Your Sponsor */}
+        <div style={{ display: formData.How_old_are_you === '17 or above' ? 'block' : 'none' }}>
+          {formData.Are_you_a_citizen_or_permanent === 'Permanent Resident' && (
+            <FormRadioInput
+              fields={residingInCanada}
+              value={formData.currently_residing_in_Canada}
+              onChange={(e: { target: { value: string; }; }) => {return onchange('currently_residing_in_Canada', e.target.value);}}
+            />
+          )}
+          <SponsorDropDown
+            options={yourSponsor[0].options}
+            label={yourSponsor[0].label}
+            value={formData.my_sponsor}
+            onChange={(e: { target: { value: string; }; }) => {return onchange('my_sponsor', e.target.value);}}
+          />
+        </div>
+      </div>
+
+      {formData.my_sponsor === 'Child' || formData.my_sponsor === 'Grandchild' ? (
+        <div>
+          {childGrandchildDropdowns.map((dropdown) => {return (
+            <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]" key={dropdown.id}>
+              {/* Close Button */}
+              <FormCloseButton onclick={() => removeDropdown(dropdown.id)}></FormCloseButton>
+
+              {/* Child/Grandchild Age Dropdown */}
+              <FormDropdown
+                options={yourChildGrandchildAge[0].options}
+                label={yourChildGrandchildAge[0].label}
+                value={formData[`your_child_grandchild_age_${dropdown.id}`] || ''}
+                onChange={(e) => {return handleFieldChange('your_child_grandchild_age', e.target.value, dropdown.id);}}
+              />
+
+              {/* Conditional Marital Status Dropdown */}
+              {isAgeInRange(formData[`your_child_grandchild_age_${dropdown.id}`], 16, 22) && (
+                <FormDropdown
+                  options={yourChildGrandchildMaritalStatus[0].options}
+                  label={yourChildGrandchildMaritalStatus[0].label}
+                  value={formData[`your_child_grandchild_marial_status_${dropdown.id}`] || ''}
+                  onChange={(e) => {return handleFieldChange('your_child_grandchild_marial_status', e.target.value, dropdown.id);}}
+                />
+              )}
+
+              {/* Conditional Financial Support Dropdown */}
+              {isAgeInRange(formData[`your_child_grandchild_age_${dropdown.id}`], 23, Infinity) && (
+                <FormDropdown
+                  options={yourChildGrandchildSubstantially[0].options}
+                  label={yourChildGrandchildSubstantially[0].label}
+                  value={formData[`your_child_grandchild_dependeds_substantially_on_your_financial_support_${dropdown.id}`] || ''}
+                  onChange={(e) => {return handleFieldChange('your_child_grandchild_dependeds_substantially_on_your_financial_support', e.target.value, dropdown.id);}}
+                />
+              )}
+            </div>
+          );})}
+          <button className="add-another-field-button flex float-right" type="button" onClick={addDropdown}>
+              + Add another field
+          </button>
+        </div>
+      ) : null}
+    </>
+  );
+};
