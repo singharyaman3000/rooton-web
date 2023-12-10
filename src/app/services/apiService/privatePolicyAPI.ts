@@ -49,7 +49,7 @@ export interface IPrivatePolicyPageContent {
   meta: IPageMeta;
 }
 
-export const getPrivatePolicyContents = async (privatePolicyId: string) => {
+export const getPolicyContents = async (privatePolicyId: string) => {
   try {
     const res = await getFetch<IPrivatePolicyPageContent>
     (getPrivatePolicyAPIUrl(privatePolicyId), { next: { revalidate: 10 } });

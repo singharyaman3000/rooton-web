@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /** @type {import('next').NextConfig} */
 const { getHeaderFooterServerData } = require('./src/app/services/apiService/headerFooterServerAPI');
 // eslint-disable-next-line max-len
@@ -69,6 +70,7 @@ const nextConfig = {
       });
     });
 
+    // remapping /lan/coaching/[id] to /lan/[coaching-name]
     allLanguages?.forEach((lan) => {
       allCoachingIds.forEach((coaching) => {
         allCoachingServicesLanUrls.push({
@@ -83,6 +85,7 @@ const nextConfig = {
       return { source: `/${service.serviceName}`, destination: `/service/${service.serviceId}` };
     });
 
+    // remapping /coaching/[id] to /[coaching-name]
     const reRouteMap_coaching = allCoachingIds.map((coaching) => {
       return { source: `/${coaching.coaching_serviceName}`, destination: `/coaching/${coaching.coaching_serviceId}` };
     });
@@ -95,7 +98,7 @@ const nextConfig = {
       return { source: `/${lan}/immigration-insights/:path*`, destination: `/${lan}/blogs/:path*` };
     });
 
-    return [...reRouteMap, ...reRouteMap_coaching, ...allServicesLanUrls, ...allBlogsLanUrls, blogsRemap];
+    return [...reRouteMap, ...reRouteMap_coaching, ...allServicesLanUrls, ...allCoachingServicesLanUrls, ...allBlogsLanUrls, blogsRemap];
   },
 };
 
