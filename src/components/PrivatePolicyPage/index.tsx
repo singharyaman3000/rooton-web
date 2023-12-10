@@ -20,7 +20,6 @@ const PrivatePolicy = ({ response }: PrivatePolicyPageProps) => {
       path: '',
     },
   ];
-  console.log('hello', response?.data?.attributes.json_content.Policy[0].position);
 
   return (
     <>
@@ -42,6 +41,7 @@ const PrivatePolicy = ({ response }: PrivatePolicyPageProps) => {
             // Skipping the first section title
             if (response?.data?.attributes.json_content.Policy[index].position === 1) {
               return (
+                // eslint-disable-next-line react/no-array-index-key
                 <div key={index} className="mb-10">
                   <p className="mt-4 text-base text-justify">{policySection.description}</p>
                 </div>

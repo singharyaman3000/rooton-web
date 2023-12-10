@@ -29,7 +29,7 @@ interface IJSONContent {
 
 export type PrivatePolicyAttributesType = {
   createdAt: string;
-  media_url: { data: IMediaUrlData };
+  media_url: { data: IMediaUrlData[] };
   publishedAt: string;
   sub_title: string;
   title: string;
