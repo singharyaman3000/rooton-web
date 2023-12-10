@@ -18,7 +18,7 @@ export interface IHonesty extends ITitleAttributes {
   json_content: IJsonContent;
 }
 
-const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
+const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {return (
   <div className="relative pt-[30px] md:pt-[73px] lg:mt-[50px]">
     <Container>
       <motion.div className="lg:flex lg:flex-row justify-between mb-11 lg:mb-[21px] relative">
@@ -46,6 +46,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
                 title={whyRootOn.title}
                 cardKey={whyRootOn.id}
                 id={whyRootOn.id}
+                unique_identifier_name={whyRootOn.unique_identifier_name}
                 value={whyRootOn.value}
                 icon={process.env.NEXT_ASSETS_BASEURL + whyRootOn.icon}
                 position={whyRootOn.position}
@@ -59,6 +60,6 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => (
       <HonestyGrid />
     </div>
   </div>
-);
+);};
 
 export default Honesty;
