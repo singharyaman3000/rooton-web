@@ -2,7 +2,9 @@
 /** @type {import('next').NextConfig} */
 const { getHeaderFooterServerData } = require('./src/app/services/apiService/headerFooterServerAPI');
 // eslint-disable-next-line max-len
-const { getCoachingCoachingServicesServerData } = require('./src/app/services/apiService/coachingCoachingServicesServerAPI');
+const {
+  getCoachingCoachingServicesServerData,
+} = require('./src/app/services/apiService/coachingCoachingServicesServerAPI');
 const { getPolicyServerData } = require('./src/app/services/apiService/policyServerAPI');
 
 const withPWA = require('next-pwa')({
@@ -130,7 +132,16 @@ const nextConfig = {
       return { source: `/${lan}/immigration-insights/:path*`, destination: `/${lan}/blogs/:path*` };
     });
 
-    return [...reRouteMap, ...reRouteMap_coaching, ...reRouteMap_policy, ...allServicesLanUrls, ...allCoachingServicesLanUrls, ...allBlogsLanUrls, blogsRemap];
+    return [
+      ...reRouteMap,
+      ...reRouteMap_coaching,
+      ...reRouteMap_policy,
+      ...allPolicyServicesLanUrls,
+      ...allServicesLanUrls,
+      ...allCoachingServicesLanUrls,
+      ...allBlogsLanUrls,
+      blogsRemap,
+    ];
   },
 };
 
