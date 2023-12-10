@@ -13,6 +13,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const pageData = seoDataRes?.length > 0 ? seoDataRes[0]?.attributes : ({} as IPageMetaAttributes);
 
+  // const ALL_COACHING_IDS = ['ielts-online-coaching', 'pte-online-classes', 'celpip-course-online', 'duolingo-english-test-preparation', 'toefl-online-course', 'delf-preparation-course-online'];
+
   const allServicesIds: { serviceId: string; lastUpdated: string }[] = [];
 
   apiRes![0]?.attributes.core_services.data?.forEach((service) => {
@@ -36,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   const allCoachingUrls = COACHING_SERVICES_ROUTES.map((coaching) => {
-    return { url: `${SITE_URL}${coaching.label}`, lastModified: new Date() };
+    return { url: `${SITE_URL}${coaching.link}`, lastModified: new Date() };
   });
 
   const allHomeLanRoutes =
@@ -75,6 +77,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   });
 
+  const allCoachingServicesLanUrls: SiteDataType[] = [];
+
+  allLanguages?.forEach((lan) => {
+    COACHING_SERVICES_ROUTES.forEach((coaching) => {
+      allCoachingServicesLanUrls.push({
+        url: `${SITE_URL}${lan}${coaching.link}`,
+        lastModified: '',
+      });
+    });
+  });
+
   return [
     { url: SITE_URL, lastModified: pageData?.home_page?.data?.attributes?.updatedAt },
     { url: `${SITE_URL}about-us`, lastModified: pageData?.home_page?.data?.attributes?.updatedAt },
@@ -89,5 +102,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...allBlogsLanRoutes,
     ...allContactUsLanRoutes,
     ...allServicesLanUrls,
+    ...allCoachingServicesLanUrls,
   ];
 }
