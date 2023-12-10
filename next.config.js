@@ -3,6 +3,7 @@
 const { getHeaderFooterServerData } = require('./src/app/services/apiService/headerFooterServerAPI');
 // eslint-disable-next-line max-len
 const { getCoachingCoachingServicesServerData } = require('./src/app/services/apiService/coachingCoachingServicesServerAPI');
+const { getPolicyServerData } = require('./src/app/services/apiService/policyServerAPI');
 
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -25,9 +26,11 @@ const nextConfig = {
   async rewrites() {
     const apiData = await getHeaderFooterServerData();
     const coaching_apiData = await getCoachingCoachingServicesServerData();
+    const policy_apiData = await getPolicyServerData();
 
     const allServicesIds = [];
     const allCoachingIds = [];
+    const allPolicyIds = [];
 
     apiData[0]?.attributes.core_services.data?.forEach((service) => {
       const subServices = service?.attributes?.sub_services?.data ?? [];
@@ -40,6 +43,18 @@ const nextConfig = {
         });
       }
     });
+
+    // policy_apiData[0]?.attributes.core_services.data?.forEach((service) => {
+    const policyServices = policy_apiData ?? [];
+    if (policyServices.length > 0) {
+      policyServices.forEach((policy) => {
+        allPolicyIds.push({
+          policyName: policy.attributes.unique_identifier_name ?? '',
+          policyId: policy.id ?? '',
+        });
+      });
+    }
+    // });
 
     coaching_apiData[0]?.attributes.coaching_page_contents.data?.forEach((coaching) => {
       const coaching_services = coaching?.attributes?.coaching_services?.data ?? [];
@@ -59,6 +74,7 @@ const nextConfig = {
 
     const allServicesLanUrls = [];
     const allCoachingServicesLanUrls = [];
+    const allPolicyServicesLanUrls = [];
 
     // remapping /lan/service/[id] to /lan/[service-name]
     allLanguages?.forEach((lan) => {
@@ -67,6 +83,17 @@ const nextConfig = {
           source: `/${lan}/${service.serviceName}`,
           destination: `/${lan}/service/${service.serviceId}`,
         });
+      });
+    });
+
+    // remapping /lan/policy/[id] to /lan/[policy-name]
+    allLanguages?.forEach((lan) => {
+      allPolicyIds.forEach((policy) => {
+        const newRoute = {
+          source: `/${lan}/${policy.policyName}`,
+          destination: `/${lan}/policy/${policy.policyId}`,
+        };
+        allPolicyServicesLanUrls.push(newRoute);
       });
     });
 
@@ -85,6 +112,11 @@ const nextConfig = {
       return { source: `/${service.serviceName}`, destination: `/service/${service.serviceId}` };
     });
 
+    // remapping /policy/[id] to /[policy-name]
+    const reRouteMap_policy = allPolicyIds.map((policy) => {
+      return { source: `/${policy.policyName}`, destination: `/policy/${policy.policyId}` };
+    });
+
     // remapping /coaching/[id] to /[coaching-name]
     const reRouteMap_coaching = allCoachingIds.map((coaching) => {
       return { source: `/${coaching.coaching_serviceName}`, destination: `/coaching/${coaching.coaching_serviceId}` };
@@ -98,7 +130,7 @@ const nextConfig = {
       return { source: `/${lan}/immigration-insights/:path*`, destination: `/${lan}/blogs/:path*` };
     });
 
-    return [...reRouteMap, ...reRouteMap_coaching, ...allServicesLanUrls, ...allCoachingServicesLanUrls, ...allBlogsLanUrls, blogsRemap];
+    return [...reRouteMap, ...reRouteMap_coaching, ...reRouteMap_policy, ...allServicesLanUrls, ...allCoachingServicesLanUrls, ...allBlogsLanUrls, blogsRemap];
   },
 };
 

@@ -45,7 +45,7 @@ export interface PrivatePolicyResponseData {
 }
 
 export interface IPrivatePolicyPageContent {
-  data: PrivatePolicyResponseData[];
+  data: PrivatePolicyResponseData;
   meta: IPageMeta;
 }
 

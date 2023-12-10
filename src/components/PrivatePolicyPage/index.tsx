@@ -20,6 +20,8 @@ const PrivatePolicy = ({ response }: PrivatePolicyPageProps) => {
       path: '',
     },
   ];
+  console.log('hello', response?.data?.attributes.json_content.Policy[0].position);
+
   return (
     <>
       <RTONBanner
@@ -38,10 +40,10 @@ const PrivatePolicy = ({ response }: PrivatePolicyPageProps) => {
         >
           {response?.data?.attributes.json_content.Policy.map((policySection, index) => {
             // Skipping the first section title
-            if (index === 0) {
+            if (response?.data?.attributes.json_content.Policy[index].position === 1) {
               return (
                 <div key={index} className="mb-10">
-                  <p className="mt-4 text-base">{policySection.description}</p>
+                  <p className="mt-4 text-base text-justify">{policySection.description}</p>
                 </div>
               );
             }
@@ -49,7 +51,7 @@ const PrivatePolicy = ({ response }: PrivatePolicyPageProps) => {
               // eslint-disable-next-line react/no-array-index-key
               <div key={index} className="mb-10">
                 <h2 className="text-2xl font-bold">{policySection.title}</h2>
-                <p className="mt-4 text-base">{policySection.description}</p>
+                <p className="mt-4 text-base text-justify">{policySection.description}</p>
               </div>
             );
           })}
