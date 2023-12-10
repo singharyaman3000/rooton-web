@@ -1,6 +1,6 @@
 import { getFetch } from '@/utils/apiUtils';
-import { getPolicyMetaInfoUrl } from './apiUrl/servicePage';
 import { IPageMeta } from './interfaces';
+import { getPolicyMetaInfoUrl } from './apiUrl/privatePolicyPage';
 
 interface IServiceMetaAttributes {
   meta_description: string;

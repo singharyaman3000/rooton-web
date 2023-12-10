@@ -37,15 +37,8 @@ export const getServiceMetaInfoUrl = (serviceId: string) => {
 };
 
 const COACHING_SERVICE_META_INFO =
-  '/api/sub-services?fields[0]=meta_title&fields[1]=meta_description&fields[2]=unique_identifier_name&filters[id][$eq]=<serviceId>';
+  '/api/coaching-services?fields[0]=meta_title&fields[1]=meta_description&fields[2]=unique_identifier_name&filters[id][$eq]=<serviceId>';
 
 export const getCoachingMetaInfoUrl = (coachingId: string) => {
   return COACHING_SERVICE_META_INFO.replace('<serviceId>', coachingId);
-};
-
-const GET_POLICY_META_INFO =
-  '/api/sub-services?fields[0]=meta_title&fields[1]=meta_description&fields[2]=unique_identifier_name&filters[id][$eq]=<serviceId>';
-
-export const getPolicyMetaInfoUrl = (policyId: string) => {
-  return GET_POLICY_META_INFO.replace('<serviceId>', policyId);
 };
