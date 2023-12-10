@@ -6,10 +6,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: metaInfo.blogs.title,
   description: metaInfo.blogs.description,
-  alternates: { canonical: 'https://rooton.ca/blogs' },
-  // to be removed in production
+  alternates: { canonical: 'https://rooton.ca/immigration-insights' },
   robots: {
-    index: false,
+    index: process.env.NEXT_APP_ENVIRONMENT === 'production',
   },
 };
 

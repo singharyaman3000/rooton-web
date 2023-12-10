@@ -41,13 +41,14 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ breadcrumbsData, 
   };
 
   return (
-    <div className="sticky hidden lg:flex flex-col top-0 h-[calc(100vh-80px)] md:w-[300px] lg:w-[480px] px-20 overflow-y-scroll overflow-x-hidden">
-      <div className="hidden lg:block pt-3">
+    <div className="sticky hidden lg:flex flex-col top-0 h-[calc(100vh-80px)] md:w-[300px]
+    lg:w-[480px] pl-20 pr-[20px] overflow-y-scroll overflow-x-hidden">
+      <div className="hidden lg:block pt-3 mb-7">
         <Breadcrumbs className="text-black" data={breadcrumbsData} isStatic />
       </div>
       <div className="flex flex-col items-center justify-center h-full">
         {allHeadingsList?.length > 0 ? (
-          <div>
+          <div className='w-full'>
             <h3 className="font-bold text-xl mb-5">In this article</h3>
             <div className="flex gap-2">
               <div id="tab-parent-div" className="relative w-[1px] bg-[#d7d7d7]">
@@ -63,7 +64,7 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ breadcrumbsData, 
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
                       ref={refs[index]}
-                      className="max-w-[320px] hover:font-bold min-w-[300px] text-base"
+                      className="max-w-[320px] hover:font-bold min-w-[200px] text-base"
                       onClick={() => {
                         handleScrollToHeading(refs[index], index);
                       }}

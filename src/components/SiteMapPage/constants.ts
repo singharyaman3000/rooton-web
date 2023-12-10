@@ -2,7 +2,7 @@ export const SITE_ROUTES = [
   { id: 1, label: 'Home', path: '/' },
   { id: 2, label: 'About Us', path: '/about-us' },
   { id: 3, label: 'Coaching', path: '/coaching' },
-  { id: 4, label: 'Blogs', path: '/blogs' },
+  { id: 4, label: 'Blogs', path: '/immigration-insights' },
   { id: 5, label: 'Contact Us', path: '/contact-us' },
 ];
 

@@ -22,7 +22,7 @@ export default function RTONBanner({
   heroText,
   description,
   breadCrumbData,
-  heightStyle = ' h-[67.5vh] max-h-[400px] min-h-[380px]',
+  heightStyle = 'h-[67.5vh] max-h-[400px] min-h-[380px]',
   subDescription,
   button,
   noGrid,
@@ -32,7 +32,7 @@ export default function RTONBanner({
     <div className={`w-full mt-0 ${heightStyle}`}>
       <Breadcrumbs className=" hidden lg:flex" data={breadCrumbData} />
       <div
-        className=" w-full h-full"
+        className="w-full h-full"
         style={{
           backgroundImage: addGradient
             ? 'linear-gradient(190deg, rgb(0 0 0 / 20%) 80%, rgb(0 0 0 / 40%) 90%, #0009 90%)'

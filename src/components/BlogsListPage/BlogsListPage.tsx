@@ -25,6 +25,7 @@ const BlogsListPage: React.FC<BlogsListPropType> = ({ blogsHeaderData }) => {
         backgroundImageUrl={appendAssetUrl(headerData?.attributes?.media_url?.data[0]?.attributes?.url ?? '')}
         noGrid
         fontSizes={{ description: 'text-[15px] lg:text-2xl' }}
+        heightStyle='h-[67.5vh] max-h-[500px] min-h-[400px]'
       />
       <TextTabs tabs={tabsData} onChange={setSelectedTab} />
       <div className="pt-10 md:py-20 bg-secondary-grey flex flex-col gap-[60px] md:gap-20">

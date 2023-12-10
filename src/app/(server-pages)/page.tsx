@@ -23,9 +23,8 @@ export const metadata: Metadata = {
     description: 'Root On',
     card: 'summary_large_image',
   },
-  // to be removed in production
   robots: {
-    index: false,
+    index: process.env.NEXT_APP_ENVIRONMENT === 'production',
   },
 };
 
@@ -70,6 +69,7 @@ export default async function Home() {
       gender: organizationData?.founderDetails?.gender ?? '',
       url: organizationData?.founderDetails?.profileUrl ?? '',
     },
+    foundingDate: organizationData?.startedYear ?? '',
   };
 
   return (

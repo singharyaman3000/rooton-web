@@ -59,6 +59,7 @@ const nextConfig = {
     const allServicesLanUrls = [];
     const allCoachingServicesLanUrls = [];
 
+    // remapping /lan/service/[id] to /lan/[service-name]
     allLanguages?.forEach((lan) => {
       allServicesIds.forEach((service) => {
         allServicesLanUrls.push({
@@ -77,6 +78,7 @@ const nextConfig = {
       });
     });
 
+    // remapping /service/[id] to /[service-name]
     const reRouteMap = allServicesIds.map((service) => {
       return { source: `/${service.serviceName}`, destination: `/service/${service.serviceId}` };
     });
@@ -85,7 +87,15 @@ const nextConfig = {
       return { source: `/${coaching.coaching_serviceName}`, destination: `/coaching/${coaching.coaching_serviceId}` };
     });
 
-    return [...reRouteMap, ...reRouteMap_coaching, ...allServicesLanUrls, ...allCoachingServicesLanUrls];
+    // remapping /blogs/* urls to /immigration-insights/*
+    const blogsRemap = { source: '/immigration-insights/:path*', destination: '/blogs/:path*' };
+
+    // remapping /lan/blogs/* to /lan/immigration-insights/*
+    const allBlogsLanUrls = allLanguages?.map((lan) => {
+      return { source: `/${lan}/immigration-insights/:path*`, destination: `/${lan}/blogs/:path*` };
+    });
+
+    return [...reRouteMap, ...reRouteMap_coaching, ...allServicesLanUrls, ...allBlogsLanUrls, blogsRemap];
   },
 };
 

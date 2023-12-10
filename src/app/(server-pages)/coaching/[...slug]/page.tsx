@@ -12,12 +12,6 @@ type CoachingPageProps = {
   searchParams?: { [x: string]: string };
 };
 
-// export default async function CoachingServicePage(props: CoachingPageProps) {
-//   const response = (await getCoachingServicePageContent(props.params.slug[0])) as ICoachingServicePageContent;
-
-//   return <CoachingServicePageComponent response={response} isBookAppointment={Boolean(props.params.slug[1])} />;
-// }
-
 export async function generateMetadata(metaProps: CoachingPageProps): Promise<Metadata> {
   const res = await getCoachingServiceMetaInfo(metaProps.params.slug[0]);
   return {

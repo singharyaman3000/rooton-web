@@ -153,7 +153,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Coaching
                         </div>
                       </Link>
-                      <Link href={params.lang ? `/${params.lang}/blogs` : '/blogs'}>
+                      <Link href={params.lang ? `/${params.lang}/immigration-insights` : '/immigration-insights'}>
                         <div
                           onClick={() => {
                             setOpen(false);

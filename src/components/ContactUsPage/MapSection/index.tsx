@@ -56,7 +56,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
       </div>
       {/* Address section */}
       <div className="bg-pale-yellow blog-bg flex flex-col items-center p-6 lg:px-10 lg:py-8 w-full lg:w-1/2">
-        <h2 className="text-[28px] lg:text-[40px] font-bold lg:mb-5">Contact Information</h2>
+        <h2 className="self-start text-[28px] lg:text-[40px] font-bold mb-7 lg:mb-5 xl:pl-10">Contact Information</h2>
         <div className="flex contact-us-address flex-col gap-5 w-full items-center lg:items-start">
           {addressData.map((address) => {
             const { id, attributes } = address;
@@ -83,7 +83,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
                       title="Flag Image"
                     />
                   </div>
-                  <span className="text-lg lg:text-2xl font-bold">{attributes?.name}</span>
+                  <h3 className="text-lg lg:text-2xl font-bold">{attributes?.name}</h3>
                 </div>
                 <div className="mb-3 max-w-[276px]">{attributes?.location}</div>
                 <div className="font-bold mb-3">{`Phone ${attributes?.phone_number}`}</div>

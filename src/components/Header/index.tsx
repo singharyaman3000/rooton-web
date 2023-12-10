@@ -15,7 +15,7 @@ import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
-const itemsToSetActive = ['service', 'contact-us', 'about-us', 'blogs', 'coaching', 'home'];
+const itemsToSetActive = ['service', 'contact-us', 'about-us', 'immigration-insights', 'coaching', 'home'];
 
 export default function Header() {
   const [scrolledEnough, setscrolledEnough] = useState(false);
@@ -57,11 +57,13 @@ export default function Header() {
   };
 
   const setActiveTabFromUrl = () => {
-    const pathArray = path.split('/');
+    const pathArray = path.substring(1).split('/');
 
     let currentTab = 'service';
     if (HOMEPAGE_PATH.includes(path.replace(params.lang, ''))) {
       currentTab = 'home';
+    } else if (pathArray.includes('sitemap')) {
+      currentTab = '';
     } else {
       const foundItem = pathArray.find((item) => {
         return itemsToSetActive.includes(item);
@@ -158,8 +160,7 @@ export default function Header() {
           className="
           flex
           gap-5
-          lg:gap-[1.33vw]
-          xl:gap-[3.33vw]
+          lg:gap-[16px]
           justify-between
           px-6
           py-3
@@ -172,7 +173,7 @@ export default function Header() {
         "
         >
           {scrolledEnough ? (
-            <div className="h-fit">
+            <div className="h-fit xl:flex-shrink-0">
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -184,7 +185,7 @@ export default function Header() {
               </Link>
             </div>
           ) : (
-            <div>
+            <div className={`${params.lang ? 'xl:flex-shrink-0' : 'flex-shrink-0'}`}>
               <Link href={params.lang ? `/${params.lang}/` : '/'}>
                 <Image
                   className=" lg:w-[173px] lg:h-[52px]"
@@ -198,14 +199,14 @@ export default function Header() {
           )}
           <div
             className={`
-            lg:gap-[1.33vw]
-            xl:gap-[3.33vw]
-            justify-end
+            w-[calc(100%-593px)]
+            justify-around
+            grow
             items-center
             text-base
             font-medium
             hidden
-            lg:flex
+            xl:flex
             flex-shrink-0
             ${getHeaderTextColor()}
           `}
@@ -213,7 +214,14 @@ export default function Header() {
             <span
               className={`h-[100%] flex items-center relative ${activeTab === 'home' ? 'font-extrabold' : 'font-bold'}`}
             >
-              <Link href={params.lang ? `/${params.lang}/` : '/'}> Home </Link>
+              <Link
+                href={params.lang ? `/${params.lang}/` : '/'}
+                title="Home"
+                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+              >
+                {' '}
+                Home{' '}
+              </Link>
               {activeTab === 'home' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
@@ -222,7 +230,14 @@ export default function Header() {
               className={`h-[100%] flex items-center relative
               ${activeTab === 'about-us' ? 'font-extrabold' : 'font-bold'}`}
             >
-              <Link href={params.lang ? `/${params.lang}/about-us` : '/about-us'}> About Us</Link>
+              <Link
+                href={params.lang ? `/${params.lang}/about-us` : '/about-us'}
+                title="About Us"
+                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+              >
+                {' '}
+                About Us
+              </Link>
               {activeTab === 'about-us' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
@@ -234,13 +249,21 @@ export default function Header() {
               {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
               {path === '/' || (path.split('/').length < 3 && params.lang) ? (
                 // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <span onClick={scrollToServiceListing}>Services</span>
+                <span
+                  title="Services"
+                  className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                  onClick={scrollToServiceListing}
+                >
+                  Services
+                </span>
               ) : (
                 <Link
                   href={{
                     pathname: params.lang ? `/${params.lang}/` : '/',
                     query: { section: 'services' },
                   }}
+                  className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                  title="Services"
                 >
                   Services
                 </Link>
@@ -254,17 +277,31 @@ export default function Header() {
                 activeTab === 'coaching' ? 'font-extrabold' : 'font-bold'
               }`}
             >
-              <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}> Coaching </Link>
+              <Link
+                href={params.lang ? `/${params.lang}/coaching` : '/coaching'}
+                title="Coaching"
+                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+              >
+                {' '}
+                Coaching{' '}
+              </Link>
               {activeTab === 'coaching' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
             <span
               className={`h-[100%] flex items-center relative
-               ${activeTab === 'blogs' ? 'font-extrabold' : 'font-bold'}`}
+               ${activeTab === 'immigration-insights' ? 'font-extrabold' : 'font-bold'}`}
             >
-              <Link href={params.lang ? `/${params.lang}/blogs` : '/blogs'}> Blogs </Link>
-              {activeTab === 'blogs' && (
+              <Link
+                href={params.lang ? `/${params.lang}/immigration-insights` : '/immigration-insights'}
+                title="Blogs"
+                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+              >
+                {' '}
+                Blogs{' '}
+              </Link>
+              {activeTab === 'immigration-insights' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}
             </span>
@@ -272,7 +309,14 @@ export default function Header() {
               className={`h-[100%] flex items-center relative 
               ${activeTab === 'contact-us' ? 'font-extrabold' : 'font-bold'}`}
             >
-              <Link href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}> Contact Us </Link>
+              <Link
+                href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}
+                title="Contact Us"
+                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+              >
+                {' '}
+                Contact Us{' '}
+              </Link>
               {activeTab === 'contact-us' && (
                 <span className="w-[100%] h-[2px] border-b-[4px] border-b-[#e3a430] absolute bottom-[-29px]" />
               )}

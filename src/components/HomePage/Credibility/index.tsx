@@ -11,7 +11,6 @@ import SubSectionTitle from '../../UIElements/SectionHeadings/SubSectiontitle';
 import CredibilityGrid from './CredibilityGrid';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
 import useSliderPagination from '@/components/UIElements/Slider/hooks/useSlider';
-import Paginator from './Paginator';
 
 interface ICredibilitycontent {
   sub_title: string;
@@ -131,7 +130,6 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
             />
           </div>
         </div>
-        <Paginator totalPages={Math.ceil(media_url.data.length / 2)} selectedIndex={pageNum} />
       </Container>
       <div className="absolute top-[118px] overflow-hidden bottom-0 right-0 hidden lg:block">
         <CredibilityGrid />
