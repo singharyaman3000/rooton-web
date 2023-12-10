@@ -52,7 +52,7 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, is
         {/* Like To Do */}
         <FormRadioInput
           fields={likeToDo}
-          value={formData.What_would_you_like_to_do}
+          value={formData?.What_would_you_like_to_do}
           onChange={(e: { target: { value: string; }; }) => {return onchange('What_would_you_like_to_do', e.target.value);}}
         />
 
@@ -61,8 +61,8 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, is
           <FormDropdown
             options={yourStatus[0].options}
             label={yourStatus[0].label}
-            value={formData.Are_you_a_citizen_or_permanent}
-            onChange={(e: { target: { value: string; }; }) => {return onchange('Are_you_a_citizen_or_permanent', e.target.value);}}
+            value={formData?.Are_you_a_citizen_or_permanent || ''}
+            onChange={(e) => { onchange('Are_you_a_citizen_or_permanent', e.target.value);}}
           />
         )}
 
@@ -71,7 +71,7 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, is
           <FormDropdown
             options={sponsorRelationship[0].options}
             label={sponsorRelationship[0].label}
-            value={formData.What_is_your_relationship_person}
+            value={formData?.What_is_your_relationship_person || ''}
             onChange={(e: { target: { value: string; }; }) => {return onchange('What_is_your_relationship_person', e.target.value);}}
           />
         )}
@@ -82,7 +82,7 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, is
         <FormDropdown
           options={sponsorStatus[0].options}
           label={sponsorStatus[0].label}
-          value={formData.What_is_your_sponsor_Status}
+          value={formData?.What_is_your_sponsor_Status || ''}
           onChange={(e: { target: { value: string; }; }) => {return onchange('What_is_your_sponsor_Status', e.target.value);}}
         />
       )}
@@ -92,7 +92,7 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, is
         {(formData.Are_you_a_citizen_or_permanent === 'Citizen' || formData.Are_you_a_citizen_or_permanent === 'Permanent Resident') && (
           <FormRadioInput
             fields={yourAge}
-            value={formData.How_old_are_you}
+            value={formData?.How_old_are_you}
             onChange={(e: { target: { value: string; }; }) => {return onchange('How_old_are_you', e.target.value);}}
           />
         )}
@@ -102,14 +102,14 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, is
           {formData.Are_you_a_citizen_or_permanent === 'Permanent Resident' && (
             <FormRadioInput
               fields={residingInCanada}
-              value={formData.currently_residing_in_Canada}
+              value={formData?.currently_residing_in_Canada}
               onChange={(e: { target: { value: string; }; }) => {return onchange('currently_residing_in_Canada', e.target.value);}}
             />
           )}
           <SponsorDropDown
             options={yourSponsor[0].options}
             label={yourSponsor[0].label}
-            value={formData.my_sponsor}
+            value={formData?.my_sponsor || ''}
             onChange={(e: { target: { value: string; }; }) => {return onchange('my_sponsor', e.target.value);}}
           />
         </div>

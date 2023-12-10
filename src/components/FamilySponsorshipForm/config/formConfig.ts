@@ -168,7 +168,7 @@ export const contactInfo: IFormField[] = [
   { name: 'firstname', label: 'First Name' },
   { name: 'lastname', label: 'Last Name' },
   { name: 'email', label: 'Email' },
-  { name: 'telephone', label: 'Telephone' },
+  { name: 'mobilephone', label: 'Mobile Phone' },
 ];
 
 // ======================================= QUESTIONS AND COMMENTS & IMMIGRATION NEWSLETTER ================================
