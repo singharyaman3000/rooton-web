@@ -25,6 +25,7 @@ import FSWForm from '../Forms/FSWForm';
 import FSTPForm from '../Forms/FSTPForm';
 import QSWPForm from '../Forms/QSWPForm';
 import CECForm from '../Forms/CECForm';
+import PNPForm from '../Forms/PNPForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -118,6 +119,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return <QSWPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
     case 'canadian-experience-class':
       return <CECForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
+    case 'provincial-nominee-program':
+      return <PNPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
     default:
       return <div></div>;
     }
