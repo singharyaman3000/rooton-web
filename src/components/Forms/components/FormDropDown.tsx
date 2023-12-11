@@ -24,8 +24,7 @@ export const FormDropdown: React.FC<PropsType> = ({ options, value, onChange, la
   return (
     <div className="hs-form-field">
       <div className="flex flex-row">
-        <div className="hs-main-font-element">{label}</div>
-        {required && <span className="hs-form-required">*</span>}
+        <div className="hs-main-font-element">{label} {required && <span className="hs-form-required">*</span>}</div>
       </div>
       <select value={value} onChange={onChange} onBlur={handleBlur} onFocus={handleFocus} required={required}>
         <option disabled value="">

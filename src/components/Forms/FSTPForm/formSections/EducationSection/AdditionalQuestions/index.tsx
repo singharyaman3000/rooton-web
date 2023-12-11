@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-'use client';
-
 import { AtlanticProvinces } from '@/app/constants/textConstants';
 import { FormCloseButton } from '@/components/Forms/components/FormCloseButton';
 import { FormDropdown } from '@/components/Forms/components/FormDropDown';
@@ -38,7 +36,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
   };
 
   return (
-    <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]">
+    <div className="relative border md:ml-8 my-4 p-4 py-10 border-solid border-[black]">
       <FormCloseButton
         onclick={() => {
           close(id);

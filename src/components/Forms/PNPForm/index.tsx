@@ -3,9 +3,9 @@
 import { RefObject } from 'react';
 import FormBody from './FormBody';
 
-type FSTPFormParamsType = { title: string, leadFormRef: RefObject<HTMLDivElement>; formId: string; meetingLink: Record<string, string> };
+type PNPFormParamsType = { title: string, leadFormRef: RefObject<HTMLDivElement>; formId: string; meetingLink: Record<string, string> };
 
-const FSTPForm = ({ title, leadFormRef, formId, meetingLink }: FSTPFormParamsType) => {
+const PNPForm = ({ leadFormRef, formId, meetingLink, title }: PNPFormParamsType) => {
   return (
     <div ref={leadFormRef} className="block p-5 m-auto max-w-screen-2k">
       <div className=" p-4 lg:px-[60px] w-full pt-12 pb-[100px] sm:pb-[100px] lg:pb-[118px] sm:p-12 shadow-hubspot-form-shadow border border-golden-yellow overflow-hidden bg-pale-sandal ">
@@ -18,4 +18,4 @@ const FSTPForm = ({ title, leadFormRef, formId, meetingLink }: FSTPFormParamsTyp
   );
 };
 
-export default FSTPForm;
+export default PNPForm;

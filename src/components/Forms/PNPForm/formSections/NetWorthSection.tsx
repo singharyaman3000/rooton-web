@@ -1,3 +1,4 @@
+import 'tailwindcss/tailwind.css';
 import React from 'react';
 import { currency, netWorth } from '../config/formConfig';
 import { IPropsType } from '../config/models';

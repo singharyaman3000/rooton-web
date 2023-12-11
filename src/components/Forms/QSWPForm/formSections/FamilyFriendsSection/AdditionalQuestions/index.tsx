@@ -21,7 +21,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
   };
 
   return (
-    <div className=" relative border ml-8 my-4 p-4 border-solid border-[black]">
+    <div className=" relative border md:ml-8 my-4 p-4 border-solid border-[black]">
       <FormCloseButton
         onclick={() => {
           close(id);

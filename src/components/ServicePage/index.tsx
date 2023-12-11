@@ -25,6 +25,7 @@ import FSWForm from '../Forms/FSWForm';
 import FSTPForm from '../Forms/FSTPForm';
 import QSWPForm from '../Forms/QSWPForm';
 import CECForm from '../Forms/CECForm';
+import PNPForm from '../Forms/PNPForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -108,16 +109,18 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     scrollToLeadForm(delayDuration);
   };
 
-  const nonHubSpotFormSelector = (formIdentifier: string, formId: string, meetingLink: Record<string,string> ) => {
+  const nonHubSpotFormSelector = (formIdentifier: string, formId: string, meetingLink: Record<string, string>, formTitle: string) => {
     switch (formIdentifier) {
     case 'federal-skilled-worker-program':
-      return <FSWForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
+      return <FSWForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
     case 'federal-skilled-trades':
-      return <FSTPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} />;
+      return <FSTPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
     case 'quebec-immigration':
-      return <QSWPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
+      return <QSWPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
     case 'canadian-experience-class':
-      return <CECForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
+      return <CECForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
+    case 'provincial-nominee-program':
+      return <PNPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
     default:
       return <div></div>;
     }
@@ -163,8 +166,9 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
             ) :
               nonHubSpotFormSelector(
                 response?.data?.attributes?.unique_identifier_name ?? '',
-                leadForm?.attributes?.json_content?.lead_forms![0]?.formId ?? '',
-                leadForm?.attributes?.json_content.lead_forms![1]?.url ?? {},
+                  leadForm?.attributes?.json_content?.lead_forms![0]?.formId ?? '',
+                  leadForm?.attributes?.json_content.lead_forms![1]?.url ?? {},
+                  leadForm?.attributes?.title ?? 'Tell us more about yourself',
               )
             }
           </ServicePageWrapper>
