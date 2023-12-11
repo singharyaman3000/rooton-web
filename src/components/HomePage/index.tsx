@@ -119,11 +119,11 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
         }
       />
       {getComponentsAboveBookAppointments()}
-      <div className='mb-[100px]'>
+      <div className='mb-[100px] max-w-screen-2k mx-auto'>
         <BookAnAppointmentSection/>
       </div>
       {getComponentsAfterBookAppointments()}
-      <div className=' pb-10 md:pb-[80px]'>
+      <div className=' pb-10 md:pb-[80px] max-w-screen-2k mx-auto'>
         <Testimonials apiUrl={TESTIMONIAL_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
       </div>
       {faqData && (

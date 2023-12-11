@@ -662,9 +662,9 @@ export const jobOfferNotLIMA: IFormFieldOptions[] = [
     name: 'is_job_offer_exempt_from_LIMA',
     label: 'Is the job being offered exempt from a LMIA by an international trade agreement (e.g. NAFTA) or a federal-provincial agreement? ',
     options: [
-      { id: 'jou-yes', value: 'Yes' },
-      { id: 'jou-no', value: 'No' },
-      { id: 'jou-dont', value: 'I don\'t know' },
+      { id: 'jonl-yes', value: 'Yes' },
+      { id: 'jonl-no', value: 'No' },
+      { id: 'jonl-dont', value: 'I don\'t know' },
     ],
   },
 ];
