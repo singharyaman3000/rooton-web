@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import { AdditionalQuestions } from './AdditionalQuestions';
 import {
@@ -82,7 +81,7 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
           <div className="flex flex-col overflow-auto max-h-[50rem]">
             {additionalQuestionsData?.map((_, index) => {
               return (
-                <div key={`${index + 1}`} className="mr-8">
+                <div key={`${index + 1}`} className="m-0 md:mr-8">
                   <AdditionalQuestions
                     id={index}
                     close={closeFamily}

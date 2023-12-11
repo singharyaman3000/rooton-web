@@ -46,7 +46,7 @@ const NavigationPanel: React.FC<NavigationPanelPropsType> = ({ breadcrumbsData, 
       <div className="hidden lg:block pt-3 mb-7">
         <Breadcrumbs className="text-black" data={breadcrumbsData} isStatic />
       </div>
-      <div className="flex flex-col items-center justify-center h-full">
+      <div className="flex flex-col items-center justify-center h-auto flex-shrink-0">
         {allHeadingsList?.length > 0 ? (
           <div className='w-full'>
             <h3 className="font-bold text-xl mb-5">In this article</h3>

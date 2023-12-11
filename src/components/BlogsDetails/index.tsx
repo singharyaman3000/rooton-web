@@ -49,7 +49,8 @@ const BlogDetails: React.FC<BlogDetailsParamsType> = ({ details, blogType, fromC
   };
 
   return (
-    <div className="mt-[60px] lg:mt-20 text-primary-font-color flex flex-col justify-start min-w-[360px]">
+    <div className="mt-[60px] lg:mt-20 text-primary-font-color flex flex-col
+    justify-start min-w-[360px] max-w-screen-2k mx-auto">
       <div id="scroll-container" className="flex">
         {/* Article navigation */}
         <NavigationPanel breadcrumbsData={breadcrumbsData} allHeadingsList={allHeadingsList} />

@@ -1,7 +1,5 @@
-'use client';
-
 import 'tailwindcss/tailwind.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AtlanticProvinces } from '@/app/constants/textConstants';
 import {
   contractDurationOptions,
@@ -19,6 +17,7 @@ import {
   canadianJobOfferWages,
   jobOfferFieldBCExperience,
   jobOfferFieldBCTraining,
+  jobOfferNotLIMA,
 } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 import { FormDropdown } from '../../components/FormDropDown';
@@ -39,9 +38,10 @@ const offerDetailsKey = [
   'have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_',
   'is_employer_offering_job_part_of_atlantic_immigration_pilot_by_the_atlantic_province_',
   'is_this_job_offer_related_to_your_field_of_study_saskatchewan__',
+  'is_the_canadian_job_offer_exempt_from_lmia',
 ];
 
-export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber, onchange, isInValid, formData }) => {
+export const JobOfferSection: React.FC<IPropsType> = ({ occupations, onchange, formData }) => {
   const shouldShowAtlantic = () => {
     return AtlanticProvinces.includes(formData?.province_or_territory_of_the_canadian_job_offer);
   };
@@ -58,11 +58,6 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
     return formData?.province_or_territory_of_the_canadian_job_offer === 'British Columbia, Canada';
   };
 
-  useEffect(() => {
-    if (formNumber !== 6 || !isInValid) return;
-    isInValid(formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_ === '');
-  }, [formData, formNumber]);
-
   return (
     <div className="flex flex-col gap-4 md:gap-8">
       <FormRadioInput
@@ -76,7 +71,6 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
             });
           }
         }}
-        required
       />
       {formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_ === 'Yes' && (
         <div className="gap-8">
@@ -177,8 +171,20 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
                   'is_this_canadian_job_offer_supported_by_a_labour_market_impact_assessment__lmia__',
                   e.target.value,
                 );
+                if (e.target.value === 'Yes') onchange('is_the_canadian_job_offer_exempt_from_lmia', '');
               }}
             />
+            {formData?.is_this_canadian_job_offer_supported_by_a_labour_market_impact_assessment__lmia__ === 'No' &&
+              <FormRadioInput
+                fields={jobOfferNotLIMA}
+                value={formData?.is_the_canadian_job_offer_exempt_from_lmia}
+                onChange={(e) => {
+                  onchange(
+                    'is_the_canadian_job_offer_exempt_from_lmia',
+                    e.target.value,
+                  );
+                }}
+              />}
             {shouldShowAtlantic() && (
               <FormRadioInput
                 fields={jobOfferUnderAtlanticProvince}

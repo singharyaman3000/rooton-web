@@ -1,6 +1,3 @@
-'use client';
-
-import 'tailwindcss/tailwind.css';
 import { FormEvent, useMemo, useState } from 'react';
 import { PersonalSection } from './formSections/PersonalSection';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
@@ -23,7 +20,7 @@ import { addIndexToKeys, convertFormDataToArray } from '@/utils';
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
 
-const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record<string, string> }) => {
+const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetingLink: Record<string, string> , scrollToTop: () => void }) => {
   const path = usePathname();
   const [formData, setFormData] = useState(initialStates);
   const [additionalEducation, setAdditionalEducation] = useState<Record<string, string>[]>([]);
@@ -41,6 +38,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
     setCurrentStep((prevStep) => {
       return prevStep + 1;
     });
+    scrollToTop();
   };
 
   const getData = (valueType: ValueType, keyValue?: keyType) => {
@@ -83,16 +81,10 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
       };
       const response = await postPRSubmission(payload, formId);
       if (response.status === 200) {
-        setAddedEducations(1);
-        setAddedFamily(1);
-        setAddedWorks(1);
-        setAdditionalEducation([]);
-        setAdditionalFamily([]);
-        setAdditionalWork([]);
-        setFormData(initialStates);
-        setIsInValid(false);
+        setCurrentStep((prevStep) => {
+          return prevStep + 1;
+        });
       }
-      else console.log('Form Submission Unsuccessful');
     }
   };
 
@@ -196,7 +188,9 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
         stepNumber: 10,
         header: '',
         component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
-          <iframe className=" w-full h-full" title="AA" src={meetingLink.free} />
+          <iframe className=" w-full h-full"
+            title="AA"
+            src={formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free} />
         </div>,
       },
     ];
@@ -235,6 +229,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
               setCurrentStep((prevStep) => {
                 return Math.max(1, prevStep - 1);
               });
+              scrollToTop();
             }}
           />}
           {currentStep <= 9 && <FormButton

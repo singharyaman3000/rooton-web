@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-'use client';
-
 import { AddWorkKeyMap, AdditionalPropsType } from '@/components/Forms/CECForm/config/models';
 import { FormCloseButton } from '@/components/Forms/components/FormCloseButton';
 import { FormDropdown } from '@/components/Forms/components/FormDropDown';
@@ -37,7 +35,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
   };
 
   return (
-    <div className=" relative border ml-8 my-4 p-4 border-solid border-[black]">
+    <div className=" relative border md:ml-8 my-4 p-4 border-solid border-[black]">
       <FormCloseButton
         onclick={() => {
           close(id);

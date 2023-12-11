@@ -20,16 +20,20 @@ export const FormTextInput: React.FC<PropType> = (props) => {
     placeholder = '',
     required = false,
     autoComplete = false,
-    invalidFormat = false } = props;
+    invalidFormat = true } = props;
 
   const [isError, setIsError] = useState(false);
 
   const handleBlur = () => {
-    setIsError(required && value === '');
+    setIsError(required && value.trim() === '');
   };
 
   const handleFocus = () => {
     setIsError(false);
+  };
+
+  const showCustomError = () => {
+    return !!value.length && invalidFormat;
   };
 
   return (
@@ -37,8 +41,8 @@ export const FormTextInput: React.FC<PropType> = (props) => {
       <div className='flex flex-row'>
         <label className="hs-main-font-element" placeholder={placeholder} htmlFor={field.name}>
           {field.label}
+          {required && <span className="hs-form-required">*</span>}
         </label>
-        {required && <span className="hs-form-required">*</span>}
       </div>
       <input
         id={field.name}
@@ -53,12 +57,12 @@ export const FormTextInput: React.FC<PropType> = (props) => {
         required={required}
       />
       {required && isError && <p className="hs-main-font-element hs-error-msg">Please complete this required field.</p>}
-      {type === 'email' && invalidFormat && (
+      {type === 'email' && showCustomError() && (
         <p className="hs-main-font-element hs-error-msg">Email must be formatted correctly.</p>
       )}
-      {type === 'phone' && invalidFormat && (
+      {type === 'phone' && showCustomError() && (
         <p className="hs-main-font-element hs-error-msg">
-          The number you entered is not in range or must contain only numbers.
+          Please enter a valid telephone number and ensure that it contains only numerical characters.
         </p>
       )}
     </div>
