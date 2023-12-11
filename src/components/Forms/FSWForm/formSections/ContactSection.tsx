@@ -10,11 +10,11 @@ const { emailRegex, mobileRegex } = regex;
 export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isInValid, formData }) => {
 
   const isEmailValid = (email: string) => {
-    return email.trim() !== '' && emailRegex.test(email);
+    return email !== '' && emailRegex.test(email);
   };
 
   const isTelephoneValid = (telephone: string) => {
-    return telephone.trim() !== '' && mobileRegex.test(telephone);
+    return telephone !== '' && mobileRegex.test(telephone);
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         field={contactInfo[2]}
         value={formData.email}
         onChange={(e) => {
-          onchange('email', e.target.value);
+          onchange('email', e.target.value.trim());
         }}
         type='email'
         invalidFormat={!isEmailValid(formData?.email)}
@@ -60,7 +60,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         value={formData.mobilephone}
         type='phone'
         onChange={(e) => {
-          onchange('mobilephone', e.target.value);
+          onchange('mobilephone', e.target.value.trim());
         }}
         required
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
