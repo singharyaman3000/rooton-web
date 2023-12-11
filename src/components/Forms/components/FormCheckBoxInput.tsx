@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, useState } from 'react';
 import { IFormFieldOptions } from './model';
 
 type PropType = {
@@ -7,10 +7,21 @@ type PropType = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   required?: boolean;
+  id?: string
 };
 
 export const FormCheckBoxInput: React.FC<PropType> = (props) => {
-  const { fields = [], values = [], onChange, placeholder = '', required = false } = props;
+  const { fields = [], values = [], onChange, placeholder = '', required = false, id = '' } = props;
+
+  const [isError, setIsError] = useState(false);
+
+  const handleBlur = () => {
+    setIsError(required && values.length === 0);
+  };
+
+  const handleFocus = () => {
+    setIsError(false);
+  };
 
   const concatenatedValues = values.join(',');
 
@@ -27,22 +38,35 @@ export const FormCheckBoxInput: React.FC<PropType> = (props) => {
             >
               <span>{field.label}</span>
             </label>
-            {field.options.map((option) => {
-              return (
-                <div key={option.id} className="flex items-center gap-3 text-lg">
-                  <input
-                    type="checkbox"
-                    id={option.id}
-                    name={field.name}
-                    onChange={onChange}
-                    required={required}
-                    value={option.value}
-                    className="accent-[#000] w-5 h-5"
-                  />
-                  <label htmlFor={option.id}>{option.value}</label>
-                </div>
-              );
-            })}
+            <ul className='inputs-list multi-container'>
+              {field?.options?.map((option) => {
+                return (
+                  <li key={option.id} className='hs-form-radio'>
+                    <label key={option.id}
+                      htmlFor={option.id + id}
+                      className="hs-form-radio-display text-lg"
+                    >
+                      <input
+                        type="radio"
+                        id={option.id + id}
+                        name={field.name + id}
+                        onChange={onChange}
+                        required={required}
+                        value={option.value}
+                        onBlur={handleBlur}
+                        checked={values.includes(option.value)}
+                        className='hs-input'
+                        onFocus={handleFocus}
+                      />
+                      <span>{option.value}</span>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+            {isError && (
+              <p className="hs-main-font-element hs-error-msg">Please select an option as this field is required..</p>
+            )}
           </div>
         );
       })}
