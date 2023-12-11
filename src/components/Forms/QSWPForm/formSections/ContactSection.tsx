@@ -1,4 +1,3 @@
-'use client';
 
 import React, { useEffect } from 'react';
 import { contactInfo, consultationType } from '../config/formConfig';
