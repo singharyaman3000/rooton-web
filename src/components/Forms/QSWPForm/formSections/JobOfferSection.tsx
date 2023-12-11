@@ -19,6 +19,7 @@ import {
   canadianJobOfferWages,
   jobOfferFieldBCExperience,
   jobOfferFieldBCTraining,
+  jobOfferNotLIMA,
 } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 import { FormDropdown } from '../../components/FormDropDown';
@@ -39,6 +40,7 @@ const offerDetailsKey = [
   'have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_',
   'is_employer_offering_job_part_of_atlantic_immigration_pilot_by_the_atlantic_province_',
   'is_this_job_offer_related_to_your_field_of_study_saskatchewan__',
+  'is_the_canadian_job_offer_exempt_from_lmia',
 ];
 
 export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber, onchange, isInValid, formData }) => {
@@ -177,8 +179,20 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
                   'is_this_canadian_job_offer_supported_by_a_labour_market_impact_assessment__lmia__',
                   e.target.value,
                 );
+                if (e.target.value === 'Yes') onchange('is_the_canadian_job_offer_exempt_from_lmia', '');
               }}
             />
+            {formData?.is_this_canadian_job_offer_supported_by_a_labour_market_impact_assessment__lmia__ === 'No' &&
+              <FormRadioInput
+                fields={jobOfferNotLIMA}
+                value={formData?.is_the_canadian_job_offer_exempt_from_lmia}
+                onChange={(e) => {
+                  onchange(
+                    'is_the_canadian_job_offer_exempt_from_lmia',
+                    e.target.value,
+                  );
+                }}
+              />}
             {shouldShowAtlantic() && (
               <FormRadioInput
                 fields={jobOfferUnderAtlanticProvince}

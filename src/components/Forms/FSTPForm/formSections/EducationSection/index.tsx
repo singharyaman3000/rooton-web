@@ -89,10 +89,10 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
             Please list all of your education and/or training other than high school (secondary school), starting with
             the most recent:
           </p>
-          <div className="flex flex-col overflow-auto max-h-[50rem] pb-8">
+          <div className="flex flex-col overflow-auto max-h-[50rem] pb-4 md:pb-8">
             {additionalQuestionsData?.map((_, index) => {
               return (
-                <div key={`${index + 1}`} className="mr-8">
+                <div key={`${index + 1}`} className="m-0 md:mr-8">
                   <AdditionalQuestions
                     id={index}
                     close={closeEducation}
