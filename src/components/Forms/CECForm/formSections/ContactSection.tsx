@@ -3,9 +3,9 @@ import { contactInfo, consultationType } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 import { FormTextInput } from '../../components/FormTextInput';
 import { FormRadioInput } from '../../components/FormRadioInput';
+import { regex } from '@/constants/regex';
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const mobileRegex = /^\d{7,10}$/;
+const { emailRegex, mobileRegex } = regex;
 
 export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isInValid, formData }) => {
 
