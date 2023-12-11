@@ -46,11 +46,10 @@ export default function ThemeToggleAndHamburger({
         items-center
         hover:cursor-pointer
         gap-[3.33vw]
-        lg:gap-[1.33vw]
-        xl:gap-[3.33vw]
+        lg:gap-[20px]
       "
     >
-      <div className=" hidden lg:block">
+      <div className=" hidden xl:block">
         <RTONLanguageDropDown scrolledEnough={scrolledEnough} isFixed={isFixed}/>
       </div>
       <div className=" flex gap-0 w-12 lg:w-16 lg:h-8 h-6" role="button" tabIndex={0} onClick={toggleTheme}>
@@ -74,8 +73,8 @@ export default function ThemeToggleAndHamburger({
         {scrolledEnough ? (
           <span
             style={{ transition: 'background-color 0.2s' }}
-            className={` w-1/2 h-full ${
-              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-[#d3d3d3]'
+            className={` w-1/2 h-full border-[1px] border-[#7e7e7e] ${
+              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-toggle-lite-bg'
             } flex justify-center items-center`}
           >
             <LightModeIcon isScrolled={scrolledEnough} />
@@ -91,7 +90,7 @@ export default function ThemeToggleAndHamburger({
           </span>
         )}
       </div>
-      <button aria-label="Hamburger menu open" type="button" onClick={toggleSlideOverlay} className=" lg:hidden">
+      <button aria-label="Hamburger menu open" type="button" onClick={toggleSlideOverlay} className=" xl:hidden">
         <HamburgerIcon isScrolled={scrolledEnough} isFixed={isFixed}/>
       </button>
     </div>

@@ -29,14 +29,16 @@ const TalkToOurExpert = () => {
   }, [wrapperRef, buttonRef, isOpen]);
 
   return (
-    <div className="relative hidden lg:block">
+    <div className="relative hidden xl:block">
       <button
+        data-tooltipleft
+        aria-label='Talk to our Expert'
         type='button'
         ref={buttonRef}
         onClick={() => {
           setIsOpen((prevState) => !prevState);
         }}
-        className="text-sm talk-to-expert-btn font-bold min-h-[52px] text-white bg-black lg:min-w-[157px] px-5 py-4"
+        className="text-sm talk-to-expert-btn font-bold min-h-[52px] text-white bg-black w-[157px] truncate px-5 py-4"
       >
         Talk to our Expert
       </button>

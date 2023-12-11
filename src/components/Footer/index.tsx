@@ -84,10 +84,10 @@ export default function Footer() {
         >
           <div className=" flex flex-row flex-wrap lg:flex-nowrap lg:flex-col gap-3 lg:gap-[18px] w-full">
             {/* <Link href={'/'}>Careers</Link> */}
-            <Link className="basis-[47%] order-1" href={'/'}>
+            <Link className="basis-[47%] order-1" href={params.lang ? `/${params.lang}/privacy-policy` : '/privacy-policy'}>
               Privacy Policy
             </Link>
-            <Link className="basis-[47%] order-3 md:order-2" href={'/'}>
+            <Link className="basis-[47%] order-3 md:order-2" href={params.lang ? `/${params.lang}/terms-and-conditions` : '/terms-and-conditions'}>
               Terms & Condition
             </Link>
             {/* <Link href={'/'}>QnA Forum</Link> */}
@@ -99,8 +99,14 @@ export default function Footer() {
             >
               Book a Meeting RCIC
             </Link>
-            <Link className="basis-[47%] order-4" href={'/'}>
+            <Link className="basis-[47%] order-1" href={params.lang ? `/${params.lang}/disclaimer` : '/disclaimer'}>
               Disclaimer
+            </Link>
+            <Link className="basis-[47%] order-4" target='_blank' href={'https://merchant.razorpay.com/policy/N4MfufxTo5bg1L/refund'}>
+              Cancellation & Refund Policy
+            </Link>
+            <Link className="basis-[47%] order-4" target='_blank' href={'https://merchant.razorpay.com/policy/N4MfufxTo5bg1L/shipping'}>
+              Shipping Policy
             </Link>
             {/* <Link href={'/'}>GCKey vs APR </Link> */}
             {/* <Link href={'/'}>Affiliate Program</Link> */}

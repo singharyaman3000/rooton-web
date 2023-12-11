@@ -8,30 +8,18 @@ import { servicesForm } from '@/app/constants/hubspotConfig';
 import { PersonalSection } from './formSections/PersonalSection';
 import { FormButton } from './components/FormButton';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
-// import { LanguageSection } from './formSections/LanguageSection';
 import { initialStates } from './config/intialState';
 import { postPRSubmission } from '@/app/services/apiService/prFormSubmission';
-import { EducationSection } from './formSections/EducationSection';
-// import { WorkHistorySection } from './formSections/WorkHistorySection';
+import { AdditionalInformationSection } from './formSections/AdditionalInformationSection';
 import { ContactSection } from './formSections/ContactSection';
-// import { ExpressEntrySection } from './formSections/ExpressEntrySection';
-// import { FamilyOrFriendsSection } from './formSections/FamilyFriendsSection';
-// import { JobOfferSection } from './formSections/JobOfferSection';
-// import { NetWorthSection } from './formSections/NetWorthSection';
-import { addIndexToKeys, convertFormDataToArray } from '@/utils';
+import { convertFormDataToArray } from '@/utils';
 
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
 
 const FormBody = () => {
   const [formData, setFormData] = useState(initialStates);
-  const [additionalEducation, setAdditionalEducation] = useState<Record<string, string>[]>([]);
-  const [additionalWork, setAdditionalWork] = useState<Record<string, string>[]>([]);
-  const [additionalFamily, setAdditionalFamily] = useState<Record<string, string>[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [addedEducations, setAddedEducations] = useState<number>(1);
-  // const [addedFamily, setAddedFamily] = useState<number>(1);
-  // const [addedWorks, setAddedWorks] = useState<number>(1);
   const [isInvalid, setIsInValid] = useState<boolean>(true);
   const { headerFooterData } = useHeaderFooterContext();
 
@@ -69,27 +57,21 @@ const FormBody = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isInvalid) {
-      const educationDetails = convertFormDataToArray(addIndexToKeys(additionalEducation));
-      const workDetails = convertFormDataToArray(addIndexToKeys(additionalWork));
-      const familyDetails = convertFormDataToArray(addIndexToKeys(additionalFamily));
       const generalFormData = convertFormDataToArray(formData);
+      console.log('Form Data before Submission:', generalFormData);
+
       const payload = {
-        fields: [...generalFormData, ...educationDetails, ...workDetails, ...familyDetails],
+        fields: [...generalFormData],
         context: {
-          pageUri: 'https://rootonweb-dev.qburst.build/express-entry-fsw',
+          pageUri: 'https://rootonweb-dev.qburst.build/parents-and-grandparents-sponsorship',
           pageName: 'Services',
         },
       };
       const response = await postPRSubmission(payload, servicesForm.form1);
       if (response.status === 200) {
-        setAddedEducations(1);
-        // setAddedFamily(1);
-        // setAddedWorks(1);
-        setAdditionalEducation([]);
-        setAdditionalFamily([]);
-        setAdditionalWork([]);
         setFormData(initialStates);
         setIsInValid(false);
+        console.log('Form submission successful with data:', generalFormData);
       }
       else console.log('Form Submission Unsuccessful');
     }
@@ -103,6 +85,7 @@ const FormBody = () => {
         component: <PersonalSection
           onchange={handleData}
           formData={formData}
+          setFormData={setFormData}
           isInValid={setIsInValid}
           formNumber={currentStep} />,
       },
@@ -119,79 +102,11 @@ const FormBody = () => {
       {
         stepNumber: 3,
         header: 'Your Education and Training',
-        component: <EducationSection
+        component: <AdditionalInformationSection
           onchange={handleData}
           formNumber={currentStep}
-          filledFields={addedEducations}
-          setFilledFields={setAddedEducations}
-          additionalQuestionsData={additionalEducation}
-          setAdditionalQuestionsData={setAdditionalEducation}
-          formData={formData}
-          isInValid={setIsInValid} />,
+          formData={formData} />,
       },
-      // {
-      //   stepNumber: 4,
-      //   header: 'Your Work History',
-      //   component: <WorkHistorySection
-      //     onchange={handleData}
-      //     formData={formData}
-      //     filledFields={addedWorks}
-      //     setFilledFields={setAddedWorks}
-      //     formNumber={currentStep}
-      //     additionalQuestionsData={additionalWork}
-      //     setAdditionalQuestionsData={setAdditionalWork}
-      //     occupations={getData('occupation')}
-      //     isInValid={setIsInValid} />,
-      // },
-      // {
-      //   stepNumber: 5,
-      //   header: 'Express Entry Profile',
-      //   component: <ExpressEntrySection
-      //     onchange={handleData}
-      //     formData={formData}
-      //     formNumber={currentStep} />,
-      // },
-
-      // {
-      //   stepNumber: 6,
-      //   header: 'Canadian Job Offer',
-      //   component: <JobOfferSection
-      //     occupations={getData('occupation')}
-      //     onchange={handleData}
-      //     formData={formData}
-      //     formNumber={currentStep}
-      //     isInValid={setIsInValid} />,
-      // },
-      // {
-      //   stepNumber: 7,
-      //   header: 'Family or Friends in Canada',
-      //   component: <FamilyOrFriendsSection
-      //     onchange={handleData}
-      //     formData={formData}
-      //     filledFields={addedFamily}
-      //     setFilledFields={setAddedFamily}
-      //     formNumber={currentStep}
-      //     additionalQuestionsData={additionalFamily}
-      //     setAdditionalQuestionsData={setAdditionalFamily} />,
-      // },
-      // {
-      //   stepNumber: 8,
-      //   header: 'Your Personal Net Worth',
-      //   component: <NetWorthSection
-      //     onchange={handleData}
-      //     formData={formData}
-      //     formNumber={currentStep}
-      //     currencies={getData('country', 'currency')} />,
-      // },
-      // {
-      //   stepNumber: 9,
-      //   header: 'Enter Your Contact Information',
-      //   component: <ContactSection
-      //     onchange={handleData}
-      //     formData={formData}
-      //     formNumber={currentStep}
-      //     isInValid={setIsInValid} />,
-      // },
     ];
   }, [formData, handleData, getData]);
 

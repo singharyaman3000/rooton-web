@@ -14,9 +14,11 @@ module.exports = {
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
+      'hd': '1440px',
       '2k': '2048px',
       'max-screen': '2560px',
       'md2': '1100px',
+      'xl2': '1440px',
     },
     fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],

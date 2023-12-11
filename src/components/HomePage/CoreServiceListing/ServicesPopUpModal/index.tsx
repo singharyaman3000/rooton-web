@@ -45,7 +45,7 @@ const ServicesPopUpModal = () => {
   return (
     <div ref={modalRef} className="hidden lg:block h-full w-full">
       <PopUpOverlayWrapper onClose={handleModalClose} showPopUp={isModalShown}>
-        <ServiceListingWrapper cssClass="!md:h-[755px]">
+        <ServiceListingWrapper cssClass="!md:h-[755px] flex flex-col">
           <div className="w-full flex justify-end px-5">
             <CloseIconButton onClick={closeCoreServiceList} />
           </div>
