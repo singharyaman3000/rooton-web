@@ -209,7 +209,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
         }}
       >
         <div className="hs-richtext hs-main-font-element">
-          <h2>Express Entry - CEC(Canadian Experience Class):</h2>
+          <h2>Provincial Nominee Program (PNP) Service:</h2>
         </div>
         {formSteps.map(({ stepNumber, header, component }) => {
           return (

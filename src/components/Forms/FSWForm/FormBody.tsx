@@ -86,16 +86,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
         setCurrentStep((prevStep) => {
           return prevStep + 1;
         });
-        setAddedEducations(1);
-        setAddedFamily(1);
-        setAddedWorks(1);
-        setAdditionalEducation([]);
-        setAdditionalFamily([]);
-        setAdditionalWork([]);
-        setFormData(initialStates);
-        setIsInValid(false);
       }
-      else console.log('Form Submission Unsuccessful');
     }
   };
 
@@ -199,7 +190,9 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
         stepNumber: 10,
         header: '',
         component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
-          <iframe className=" w-full h-full" title="AA" src={meetingLink.free} />
+          <iframe className=" w-full h-full"
+            title="AA"
+            src={formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free} />
         </div>,
       },
     ];
