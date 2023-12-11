@@ -14,14 +14,13 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
   };
 
   const isTelephoneValid = (telephone: string) => {
-    return telephone !== '' && mobileRegex.test(telephone);
+    return mobileRegex.test(telephone);
   };
 
   useEffect(() => {
     if (formNumber !== 9 || !isInValid) return;
     isInValid(
       !isEmailValid(formData.email) ||
-      !isTelephoneValid(formData.mobilephone) ||
       !formData?.lastname.trim() ||
       !formData?.firstname.trim(),
     );
@@ -62,7 +61,6 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         onChange={(e) => {
           onchange('mobilephone', e.target.value.trim());
         }}
-        required
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
       />
       <FormRadioInput
