@@ -43,6 +43,7 @@ export const initialStates = {
   have_you_received_an_invitation_to_apply_from_the_manitoba_provincial_nominee_program_for_canadian_: '',
   is_employer_offering_job_part_of_atlantic_immigration_pilot_by_the_atlantic_province_: '',
   is_this_job_offer_related_to_your_field_of_study_saskatchewan__: '',
+  is_the_canadian_job_offer_exempt_from_lmia: '',
   // family or friends
   close_friend_living_in_manitoba_18_years_or_older_: '',
   family_members_or_relatives_living_in_canada_18_years_or_older_: '',
@@ -54,5 +55,5 @@ export const initialStates = {
   lastname: '',
   email: '',
   mobilephone: '',
-  consultation_type:'',
+  consultation_type: '',
 };

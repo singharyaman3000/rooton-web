@@ -1,4 +1,4 @@
-import { IFormField, IFormFieldOptions, OptionType } from '../../components/model';
+import { IFormFieldOptions, IFormField, OptionType } from '../../components/model';
 
 // =================================== COMMON CONSTANTS ====================================================
 
@@ -649,6 +649,18 @@ export const jobOfferUnderLIMA: IFormFieldOptions[] = [
   {
     name: 'is_job_offer_under_LIMA',
     label: 'Is this Job Offer supported by a Labour Market Impact Assessment (LMIA)?  ',
+    options: [
+      { id: 'jou-yes', value: 'Yes' },
+      { id: 'jou-no', value: 'No' },
+      { id: 'jou-dont', value: 'I don\'t know' },
+    ],
+  },
+];
+
+export const jobOfferNotLIMA: IFormFieldOptions[] = [
+  {
+    name: 'is_job_offer_exempt_from_LIMA',
+    label: 'Is the job being offered exempt from a LMIA by an international trade agreement (e.g. NAFTA) or a federal-provincial agreement? ',
     options: [
       { id: 'jou-yes', value: 'Yes' },
       { id: 'jou-no', value: 'No' },

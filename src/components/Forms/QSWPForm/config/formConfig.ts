@@ -657,6 +657,18 @@ export const jobOfferUnderLIMA: IFormFieldOptions[] = [
   },
 ];
 
+export const jobOfferNotLIMA: IFormFieldOptions[] = [
+  {
+    name: 'is_job_offer_exempt_from_LIMA',
+    label: 'Is the job being offered exempt from a LMIA by an international trade agreement (e.g. NAFTA) or a federal-provincial agreement? ',
+    options: [
+      { id: 'jou-yes', value: 'Yes' },
+      { id: 'jou-no', value: 'No' },
+      { id: 'jou-dont', value: 'I don\'t know' },
+    ],
+  },
+];
+
 export const jobOfferUnderAtlanticProvince: IFormFieldOptions[] = [
   {
     name: 'Has_the_employer_offering_this_job_been_designated_as_an_employer_taking_part_in_the_Atlantic_Immigration_Pilot_by_the_Atlantic_province',
