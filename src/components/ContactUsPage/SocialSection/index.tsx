@@ -72,7 +72,7 @@ const SocialSection = ({
           imageUrl={appoinmentForm.imageUrl}
           ctaClickSource={ctaClickSource}
           formHeadingCss='!font-bold !text-2xl md:!text-[32px]'
-          formContainerCss='!pt-5 md:!pt-10'
+          formContainerCss='!pt-5 md:!pt-10 xl:min-h-[708px]'
         />
       </div>
     </section>
