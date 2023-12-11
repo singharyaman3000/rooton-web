@@ -43,7 +43,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
   return (
     <section className="flex flex-col lg:flex-row">
       {/* Map component */}
-      <div className="h-[360px] lg:h-[794px] w-full lg:!w-1/2">
+      <div className="h-[360px] lg:h-auto w-full lg:!w-1/2">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.NEXT_GOOGLE_MAP_KEY ?? '' }}
           defaultZoom={locationData.zoom}
