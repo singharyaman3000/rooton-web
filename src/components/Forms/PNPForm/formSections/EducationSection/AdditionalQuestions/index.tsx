@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-'use client';
-
 import { AtlanticProvinces } from '@/app/constants/textConstants';
 import { FormCloseButton } from '@/components/Forms/components/FormCloseButton';
 import { FormDropdown } from '@/components/Forms/components/FormDropDown';

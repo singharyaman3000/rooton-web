@@ -1,7 +1,5 @@
-'use client';
-
 import 'tailwindcss/tailwind.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AtlanticProvinces } from '@/app/constants/textConstants';
 import {
   contractDurationOptions,
@@ -43,7 +41,7 @@ const offerDetailsKey = [
   'is_the_canadian_job_offer_exempt_from_lmia',
 ];
 
-export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber, onchange, isInValid, formData }) => {
+export const JobOfferSection: React.FC<IPropsType> = ({ occupations, onchange, formData }) => {
   const shouldShowAtlantic = () => {
     return AtlanticProvinces.includes(formData?.province_or_territory_of_the_canadian_job_offer);
   };
@@ -60,11 +58,6 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
     return formData?.province_or_territory_of_the_canadian_job_offer === 'British Columbia, Canada';
   };
 
-  useEffect(() => {
-    if (formNumber !== 6 || !isInValid) return;
-    isInValid(formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_ === '');
-  }, [formData, formNumber]);
-
   return (
     <div className="flex flex-col gap-4 md:gap-8">
       <FormRadioInput
@@ -78,7 +71,6 @@ export const JobOfferSection: React.FC<IPropsType> = ({ occupations, formNumber,
             });
           }
         }}
-        required
       />
       {formData?.do_you_have_a_written_job_offer_from_a_canadian_employer_ === 'Yes' && (
         <div className="gap-8">
