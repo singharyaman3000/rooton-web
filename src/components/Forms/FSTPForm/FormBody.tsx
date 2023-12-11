@@ -1,6 +1,3 @@
-'use client';
-
-import 'tailwindcss/tailwind.css';
 import { FormEvent, useMemo, useState } from 'react';
 import { PersonalSection } from './formSections/PersonalSection';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';

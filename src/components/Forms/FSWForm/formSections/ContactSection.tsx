@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect } from 'react';
 import { contactInfo, consultationType } from '../config/formConfig';
 import { IPropsType } from '../config/models';
@@ -7,7 +5,7 @@ import { FormTextInput } from '../../components/FormTextInput';
 import { FormRadioInput } from '../../components/FormRadioInput';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const mobileRegex = /^\d{6,10}$/;
+const mobileRegex = /^\d{7,10}$/;
 
 export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isInValid, formData }) => {
 
@@ -16,13 +14,14 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
   };
 
   const isTelephoneValid = (telephone: string) => {
-    return mobileRegex.test(telephone);
+    return telephone.trim() !== '' && mobileRegex.test(telephone);
   };
 
   useEffect(() => {
     if (formNumber !== 9 || !isInValid) return;
     isInValid(
       !isEmailValid(formData.email) ||
+      !isTelephoneValid(formData.mobilephone) ||
       !formData?.lastname.trim() ||
       !formData?.firstname.trim(),
     );
@@ -63,6 +62,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         onChange={(e) => {
           onchange('mobilephone', e.target.value);
         }}
+        required
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
       />
       <FormRadioInput
