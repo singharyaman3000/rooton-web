@@ -34,7 +34,7 @@ const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
                   <span className=" min-w-[24px] flex-shrink-0  text-[40px] font-light not-italic leading-[normal] tracking-[normal] text-[#e3a430]">
                     {position}
                   </span>
-                  <h3 className="text-xl font-bold not-italic leading-normal tracking-[normal] text-primary-font-color md:pr-[12px]">
+                  <h3 className="text-xl font-bold not-italic leading-normal tracking-[normal] text-primary-font-color md:pr-[50px]">
                     {title}
                   </h3>
                 </div>
