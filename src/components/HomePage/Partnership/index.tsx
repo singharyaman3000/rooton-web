@@ -36,7 +36,7 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
   }, [pageNum, data.length]);
 
   return (
-    <div className="relative">
+    <div className="relative max-w-screen-2k mx-auto">
       <Container>
         <div>
           <SectionTitle title={title} />

@@ -123,7 +123,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
     >
       <div
         className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
-          ${serviceType ? 'md:px-20' : ''}`}
+          ${serviceType ? 'md:px-20' : 'max-w-screen-2k m-auto'}`}
       >
         <div>
           <BlogsSectionHeadings title={title} subTitle={subHeading} />
