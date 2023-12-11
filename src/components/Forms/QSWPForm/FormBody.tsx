@@ -20,7 +20,8 @@ import { addIndexToKeys, convertFormDataToArray } from '@/utils';
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
 
-const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record<string, string> }) => {
+const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetingLink: Record<string, string>, scrollToTop: () => void }) => {
+
   const path = usePathname();
   const [formData, setFormData] = useState(initialStates);
   const [additionalEducation, setAdditionalEducation] = useState<Record<string, string>[]>([]);
@@ -38,6 +39,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
     setCurrentStep((prevStep) => {
       return prevStep + 1;
     });
+    scrollToTop();
   };
 
   const getData = (valueType: ValueType, keyValue?: keyType) => {
@@ -228,6 +230,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
               setCurrentStep((prevStep) => {
                 return Math.max(1, prevStep - 1);
               });
+              scrollToTop();
             }}
           />}
           {currentStep <= 9 && <FormButton

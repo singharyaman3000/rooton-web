@@ -109,18 +109,41 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     scrollToLeadForm(delayDuration);
   };
 
-  const nonHubSpotFormSelector = (formIdentifier: string, formId: string, meetingLink: Record<string, string>, formTitle: string) => {
+  const nonHubSpotFormSelector = (formIdentifier: string,
+    formId: string, meetingLink:
+      Record<string, string>,
+    formTitle: string) => {
     switch (formIdentifier) {
     case 'federal-skilled-worker-program':
-      return <FSWForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
+      return <FSWForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
     case 'federal-skilled-trades':
-      return <FSTPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
+      return <FSTPForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
     case 'quebec-immigration':
-      return <QSWPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
+      return <QSWPForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
     case 'canadian-experience-class':
-      return <CECForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
+      return <CECForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
     case 'provincial-nominee-program':
-      return <PNPForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink} title={formTitle} />;
+      return <PNPForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
     default:
       return <div></div>;
     }
@@ -132,14 +155,14 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return (
         <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <WhyChooseRootonSection whyChooseOpen={data}
-            handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.PAID);}} />
+            handleCTAButtonClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.PAID); }} />
         </ServicePageWrapper>
       );
     case 'service-eligibility':
       return (
         <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <EligibilitySection eligibility={eligibility}
-            handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}} />
+            handleCTAButtonClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.FREE); }} />
         </ServicePageWrapper>
       );
     case 'service-process':
@@ -148,8 +171,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       if (leadForm) {
         return (
           <ServicePageWrapper
-            className={`${
-              showBookAnAppointment ? 'block' : 'hidden'
+            className={`${showBookAnAppointment ? 'block' : 'hidden'
             } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
           >
             {leadForm?.attributes?.json_content?.lead_forms![0]?.isHubSpotForm ? (
@@ -177,11 +199,11 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
 
       return null;
     case 'service-CTA-banner-1':
-      return <CTAWrapperSection handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}} />;
+      return <CTAWrapperSection handleCTAButtonClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.FREE); }} />;
     case 'service-CTA-banner-2':
       return (
         <ServicePageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
-          <BookAnAppointment onClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.FREE);}} />
+          <BookAnAppointment onClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.FREE); }} />
         </ServicePageWrapper>
       );
     case 'service-testimonial':
