@@ -130,7 +130,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     switch (identifier) {
     case 'service-reason':
       return (
-        <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+        <ServicePageWrapper className="pt-[40px] px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
           <WhyChooseRootonSection whyChooseOpen={data}
             handleCTAButtonClick={() => {return handleCTAButtonClick(CONSULTATION_TYPES.PAID);}} />
         </ServicePageWrapper>
@@ -198,7 +198,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return <FAQSection faqs={faqs?.attributes?.json_content?.faq} />;
     case 'blogs':
       return (
-        <div className=" mt-[74px] bg-secondary-grey">
+        <div className=" mt-[40px] bg-secondary-grey">
           <BlogSection
             title=""
             subtitle={blogs?.attributes.title ?? ''}
@@ -246,7 +246,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           />
         }
       />
-      <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+      <ServicePageWrapper className="pt-[40px] px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <ServiceDescription text={response.data?.attributes?.description} />
       </ServicePageWrapper>
       {sectionsByPosition.map((section) => {
