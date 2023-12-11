@@ -1,7 +1,5 @@
-/* eslint-disable max-len */
 /** @type {import('next').NextConfig} */
 const { getHeaderFooterServerData } = require('./src/app/services/apiService/headerFooterServerAPI');
-// eslint-disable-next-line max-len
 const {
   getCoachingCoachingServicesServerData,
 } = require('./src/app/services/apiService/coachingCoachingServicesServerAPI');
@@ -46,7 +44,6 @@ const nextConfig = {
       }
     });
 
-    // policy_apiData[0]?.attributes.core_services.data?.forEach((service) => {
     const policyServices = policy_apiData ?? [];
     if (policyServices.length > 0) {
       policyServices.forEach((policy) => {
@@ -56,7 +53,6 @@ const nextConfig = {
         });
       });
     }
-    // });
 
     coaching_apiData[0]?.attributes.coaching_page_contents.data?.forEach((coaching) => {
       const coaching_services = coaching?.attributes?.coaching_services?.data ?? [];
