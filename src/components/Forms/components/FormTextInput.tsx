@@ -62,7 +62,7 @@ export const FormTextInput: React.FC<PropType> = (props) => {
       )}
       {type === 'phone' && showCustomError() && (
         <p className="hs-main-font-element hs-error-msg">
-          The number you entered is not in range or must contain only numbers.
+          Please enter a valid telephone number and ensure that it contains only numerical characters.
         </p>
       )}
     </div>
