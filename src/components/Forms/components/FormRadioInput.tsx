@@ -31,8 +31,8 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
             <div className="flex flex-row">
               <label className="hs-main-font-element" placeholder={placeholder} htmlFor={field.name}>
                 {field.label}
+                {required && <span className="hs-form-required">*</span>}
               </label>
-              {required && <span className="hs-form-required">*</span>}
             </div>
             {field?.options?.map((option) => {
               return (

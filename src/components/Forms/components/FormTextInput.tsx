@@ -41,8 +41,8 @@ export const FormTextInput: React.FC<PropType> = (props) => {
       <div className='flex flex-row'>
         <label className="hs-main-font-element" placeholder={placeholder} htmlFor={field.name}>
           {field.label}
+          {required && <span className="hs-form-required">*</span>}
         </label>
-        {required && <span className="hs-form-required">*</span>}
       </div>
       <input
         id={field.name}

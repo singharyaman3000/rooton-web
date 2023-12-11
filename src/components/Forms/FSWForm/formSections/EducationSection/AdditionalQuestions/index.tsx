@@ -38,7 +38,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
   };
 
   return (
-    <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]">
+    <div className="relative border ml-8 my-4 p-4 py-10 border-solid border-[black]">
       <FormCloseButton
         onclick={() => {
           close(id);
