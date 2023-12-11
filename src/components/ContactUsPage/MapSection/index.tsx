@@ -56,7 +56,7 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
       </div>
       {/* Address section */}
       <div className="bg-pale-yellow blog-bg flex flex-col items-center p-6 lg:px-10 lg:py-8 w-full lg:w-1/2">
-        <h2 className="self-start text-[28px] lg:text-[40px] font-bold mb-7 lg:mb-5 xl:pl-10">Contact Information</h2>
+        <h2 className="self-start text-[28px] lg:text-[40px] font-bold mb-6 lg:mb-5 xl:pl-10">Contact Information</h2>
         <div className="flex contact-us-address flex-col gap-5 w-full items-center lg:items-start">
           {addressData.map((address) => {
             const { id, attributes } = address;
