@@ -20,7 +20,7 @@ export const FormTextInput: React.FC<PropType> = (props) => {
     placeholder = '',
     required = false,
     autoComplete = false,
-    invalidFormat = false } = props;
+    invalidFormat = true } = props;
 
   const [isError, setIsError] = useState(false);
 
@@ -30,6 +30,10 @@ export const FormTextInput: React.FC<PropType> = (props) => {
 
   const handleFocus = () => {
     setIsError(false);
+  };
+
+  const showCustomError = () => {
+    return !!value.length && invalidFormat;
   };
 
   return (
@@ -53,10 +57,10 @@ export const FormTextInput: React.FC<PropType> = (props) => {
         required={required}
       />
       {required && isError && <p className="hs-main-font-element hs-error-msg">Please complete this required field.</p>}
-      {type === 'email' && invalidFormat && (
+      {type === 'email' && showCustomError() && (
         <p className="hs-main-font-element hs-error-msg">Email must be formatted correctly.</p>
       )}
-      {type === 'phone' && invalidFormat && (
+      {type === 'phone' && showCustomError() && (
         <p className="hs-main-font-element hs-error-msg">
           The number you entered is not in range or must contain only numbers.
         </p>
