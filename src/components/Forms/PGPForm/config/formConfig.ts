@@ -62,7 +62,7 @@ const your_child_grandchild_substantially = [
 
 export const likeToDo: IFormFieldOptions[] = [
   {
-    name: 'What_would_you_like_to_do ',
+    name: 'what_would_you_like_to_do ',
     label: 'What would you like to do?  ',
     options: [
       { id: 'wa_to_sponsor', value: 'I want to Sponsor' },
@@ -89,7 +89,7 @@ export const sponsorStatus: IFormFieldOptions[] = [
 
 export const yourStatus: IFormFieldOptions[] = [
   {
-    name: 'Are_you_a_citizen_or_permanent ',
+    name: 'are_you_a_citizen_or_permanent ',
     label: 'Are you a citizen or permanent resident of Canada? ',
     options: your_canadian_status,
   },

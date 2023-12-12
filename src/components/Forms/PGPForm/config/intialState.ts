@@ -1,9 +1,9 @@
 export const initialStates = {
   // personal
-  What_would_you_like_to_do: '',
+  what_would_you_like_to_do: '',
   What_is_your_relationship_person: '',
   What_is_your_sponsor_Status: '',
-  Are_you_a_citizen_or_permanent: '',
+  are_you_a_citizen_or_permanent: '',
   How_old_are_you: '',
   my_sponsor: '',
   currently_residing_in_Canada: '',

@@ -31,7 +31,7 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
 
   useEffect(() => {
     if (formNumber !== 1 || !isInValid) return;
-    isInValid(formData?.What_would_you_like_to_do === '');
+    isInValid(formData?.what_would_you_like_to_do === '');
   }, [formData, formNumber, isInValid]);
 
   useEffect(() => {
@@ -83,22 +83,22 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
         {/* Like To Do */}
         <FormRadioInput
           fields={likeToDo}
-          value={formData?.What_would_you_like_to_do}
-          onChange={(e: { target: { value: string; }; }) => {return onchange('What_would_you_like_to_do', e.target.value);}}
+          value={formData?.what_would_you_like_to_do}
+          onChange={(e: { target: { value: string; }; }) => {return onchange('what_would_you_like_to_do', e.target.value);}}
         />
 
         {/* Your Status */}
-        {formData.What_would_you_like_to_do === 'I want to Sponsor' && (
+        {formData.what_would_you_like_to_do === 'I want to Sponsor' && (
           <FormDropdown
             options={yourStatus[0].options}
             label={yourStatus[0].label}
-            value={formData?.Are_you_a_citizen_or_permanent || ''}
-            onChange={(e) => { onchange('Are_you_a_citizen_or_permanent', e.target.value);}}
+            value={formData?.are_you_a_citizen_or_permanent || ''}
+            onChange={(e) => { onchange('are_you_a_citizen_or_permanent', e.target.value);}}
           />
         )}
 
         {/* Sponsor Relationship */}
-        {formData.What_would_you_like_to_do === 'I want be Sponsored' && (
+        {formData.what_would_you_like_to_do === 'I want be Sponsored' && (
           <FormDropdown
             options={sponsorRelationship[0].options}
             label={sponsorRelationship[0].label}
@@ -120,7 +120,7 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
 
       {/* Your Age */}
       <div className='flex flex-col gap-4 md:grid grid-cols-2'>
-        {(formData.Are_you_a_citizen_or_permanent === 'Citizen' || formData.Are_you_a_citizen_or_permanent === 'Permanent Resident') && (
+        {(formData.are_you_a_citizen_or_permanent === 'Citizen' || formData.are_you_a_citizen_or_permanent === 'Permanent Resident') && (
           <FormRadioInput
             fields={yourAge}
             value={formData?.How_old_are_you}
@@ -130,7 +130,7 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
 
         {/* Your Sponsor */}
         <div style={{ display: formData.How_old_are_you === '17 or above' ? 'block' : 'none' }}>
-          {formData.Are_you_a_citizen_or_permanent === 'Permanent Resident' && (
+          {formData.are_you_a_citizen_or_permanent === 'Permanent Resident' && (
             <FormRadioInput
               fields={residingInCanada}
               value={formData?.currently_residing_in_Canada}

@@ -60,7 +60,6 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
     event.preventDefault();
     if (!isInvalid) {
       const generalFormData = convertFormDataToArray(formData);
-      console.log('Form Data before Submission:', generalFormData);
 
       const payload = {
         fields: [...generalFormData],
@@ -152,10 +151,15 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
               scrollToTop();
             }}
           />}
-          {currentStep <= 3 && <FormButton
-            type={currentStep === 3 ? 'submit' : 'button'}
-            buttonText={currentStep === 3 ? 'Submit' : 'Next'}
-            onClickHandler={currentStep === 3 ? undefined : onNextClick}
+          {currentStep < 3 && <FormButton
+            type='button'
+            buttonText="Next"
+            onClickHandler={onNextClick}
+            disable={isInvalid}
+          />}
+          {currentStep === 3 && <FormButton
+            type='submit'
+            buttonText="Submit"
             disable={isInvalid}
           />}
         </div>
