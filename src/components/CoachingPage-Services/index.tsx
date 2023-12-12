@@ -498,7 +498,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     case 'blogs':
       return (
         <div className="py-[11px] mt-[74px]">
-          <BlogSection title="" sourcePage={SOURCE_PAGE.COACHING} subtitle={blogs?.attributes.title ?? ''} />
+          <BlogSection title="" sourcePage={SOURCE_PAGE.COACHING} serviceType={response?.data?.attributes?.unique_identifier_name} subtitle={blogs?.attributes.title ?? ''} />
         </div>
       );
     default:
