@@ -29,7 +29,7 @@ const BlogsListPage: React.FC<BlogsListPropType> = ({ blogsHeaderData }) => {
       />
       <TextTabs tabs={tabsData} onChange={setSelectedTab} />
       <div className="pt-10 md:py-20 bg-secondary-grey">
-        <div className='flex flex-col gap-[60px] md:gap-20 max-w-screen-2k mx-auto'>
+        <div className='flex flex-col gap-[60px] md:gap-20'>
           {(selectedTab.id === BLOG_CATEGORY.ALL || selectedTab.id === BLOG_CATEGORY.NEWS) && (
             <BlogsCarousel articleType="news" title="NEWS" subHeading="Latest Immigration Alerts" id="news_listing" />
           )}
