@@ -578,7 +578,7 @@ body {
 
 @media screen and (min-width: 1024px) {
   .honestyCard:nth-child(1),
-  .honestyCard:nth-child(4n) {
+  .honestyCard:nth-child(3n + 1) {
     padding-left: 0;
   }
 
