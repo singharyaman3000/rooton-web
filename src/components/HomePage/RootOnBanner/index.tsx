@@ -42,7 +42,7 @@ export default function RootOnBanner({
       w-full h-full flex flex-col justify-end  z-20`}>
         <div
           className={` ${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
-            'xs:pb-[36px] sm:pb-[60px] md:pb-[101px] md:pt-[90px]' :
+            'xs:pb-[36px] sm:pb-[60px] xl:pb-[101px] md:pt-[90px]' :
             'pb-[36px] md:pb-0 md:pt-[90px]'}
           relative z-[10]
           px-[24px]
@@ -64,30 +64,30 @@ export default function RootOnBanner({
             className="overflow-hidden w-full"
           >
             <h1
-              className="
+              className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mr-0' :
+                'mr-9 '}
                     banner-text
                     xs:text-[30px]
                     md:text-[37.2px]
-                    lg:text-[62px]
-                    mr-9
+                    xl:text-[62px]
                     font-bold
                     leading-[normal]
                     text-white
                     font-jakartaSans
                     banner-text
-                "
+                `}
             >
               {ReactHtmlParser(heroText)}
             </h1>
             <p className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
-              'mt-[24px] lg:mt-[20px] whitespace-normal md:whitespace-break-spaces' :
-              'mt-[15px] md:mt-[35px]'} text-white font-bold text-[15px] leading-[1.67] lg:text-2xl`}>
+              'mt-[24px] md:mt-[20px] whitespace-normal md:whitespace-break-spaces' :
+              'mt-[15px] md:mt-[20px]'} text-white font-bold text-[15px] leading-[1.67] xl:text-2xl`}>
               {ReactHtmlParser(description)}
             </p>
           </motion.div>
 
-          <div className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] lg:mt-[102px]' :
-            'mt-[32px] md:mt-[68.4px]'} w-full md:max-w-[418px]`}>{button}</div>
+          <div className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] xl2:mt-[102px]' :
+            'mt-[32px] md:mt-[50px]'} w-full md:max-w-[418px]`}>{button}</div>
         </div>
       </div>
       {isVideoBanner ? (

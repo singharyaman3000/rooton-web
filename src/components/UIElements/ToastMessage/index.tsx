@@ -29,7 +29,7 @@ const ToastMessage = ({ message, containerCss, textCss, durationInSeconds = 2, s
         animate={{ y: 0 }}
         exit={{ y: 20 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`truncate min-w-[224px] px-4 py-2 absolute left-0 top-24 lg:top-[-44px] bg-pale-sandal ${containerCss}`}
+        className={`truncate min-w-[300px] lg:min-w-[224px] px-4 py-2 absolute left-[-15%] lg:left-0 top-24 lg:top-[-44px] bg-pale-sandal ${containerCss}`}
       >
         <span className={textCss}>{message}</span>
       </motion.div>

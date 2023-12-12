@@ -41,9 +41,9 @@ const DynamicBannerSection = ({
         min-h-[380px]
       `}
     >
-      <Breadcrumbs className=" hidden lg:flex" data={breadCrumbData} />
+      <Breadcrumbs className="hidden lg:flex" data={breadCrumbData} />
       <div
-        className=" w-full h-full"
+        className="w-full h-full"
         style={{
           backgroundImage: addGradient
             ? 'linear-gradient(190deg, rgb(0 0 0 / 43%) 10%, rgb(0 0 0 / 59%) 42%, #0009 10%)'
@@ -52,7 +52,6 @@ const DynamicBannerSection = ({
       >
         <div
           className="
-            lg:bg-banner-grid-overlay
             lg:bg-cover
             px-6
             pb-[57px]

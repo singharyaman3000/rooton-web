@@ -1,10 +1,9 @@
 import { MetadataRoute } from 'next';
 import { getHeaderFooterData } from './services/apiService/headerFooterAPI';
 import { IPageMetaAttributes, getPagesSEOMetaData } from './services/apiService/pagesSEOMetadata';
+import { COACHING_SERVICES_ROUTES } from '@/components/SiteMapPage/constants';
 
 const SITE_URL = process.env.NEXT_APP_BASE_URL ?? '';
-
-const ALL_COACHING_IDS = [1, 2, 3, 4, 5, 6];
 
 type SiteDataType = { url: string; lastModified: string };
 
@@ -36,8 +35,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return { url: `${SITE_URL}service/${data.serviceId}`, lastModified: new Date(data.lastUpdated) };
   });
 
-  const allCoachingUrls = ALL_COACHING_IDS.map((id) => {
-    return { url: `${SITE_URL}coaching/${id}`, lastModified: new Date() };
+  const allCoachingUrls = COACHING_SERVICES_ROUTES.map((coaching) => {
+    return { url: `${SITE_URL}${coaching.link}`, lastModified: new Date() };
   });
 
   const allHomeLanRoutes =
@@ -76,6 +75,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   });
 
+  const allCoachingServicesLanUrls: SiteDataType[] = [];
+
+  allLanguages?.forEach((lan) => {
+    COACHING_SERVICES_ROUTES.forEach((coaching) => {
+      allCoachingServicesLanUrls.push({
+        url: `${SITE_URL}${lan}${coaching.link}`,
+        lastModified: '',
+      });
+    });
+  });
+
   return [
     { url: SITE_URL, lastModified: pageData?.home_page?.data?.attributes?.updatedAt },
     { url: `${SITE_URL}about-us`, lastModified: pageData?.home_page?.data?.attributes?.updatedAt },
@@ -90,5 +100,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...allBlogsLanRoutes,
     ...allContactUsLanRoutes,
     ...allServicesLanUrls,
+    ...allCoachingServicesLanUrls,
   ];
 }

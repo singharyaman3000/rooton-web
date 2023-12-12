@@ -9,6 +9,11 @@ export const metaInfo = {
     description:
       'Embark on your Canadian journey with us, a licensed Canada immigration agency . We will guide you through the intricacies of Canadian immigration.',
   },
+  coaching: {
+    title: 'Your Coaching Trusted Canada Immigration Consultants | Root On',
+    description:
+      'Embark on your Canadian journey with us, a licensed Canada immigration agency . We will guide you through the intricacies of Canadian immigration.',
+  },
   contactUs: {
     title: 'Canada Immigration Consultant in Montreal | Root On',
     description:

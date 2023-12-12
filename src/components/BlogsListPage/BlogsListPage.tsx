@@ -28,21 +28,23 @@ const BlogsListPage: React.FC<BlogsListPropType> = ({ blogsHeaderData }) => {
         heightStyle='h-[67.5vh] max-h-[500px] min-h-[400px]'
       />
       <TextTabs tabs={tabsData} onChange={setSelectedTab} />
-      <div className="pt-10 md:py-20 bg-secondary-grey flex flex-col gap-[60px] md:gap-20">
-        {(selectedTab.id === BLOG_CATEGORY.ALL || selectedTab.id === BLOG_CATEGORY.NEWS) && (
-          <BlogsCarousel articleType="news" title="NEWS" subHeading="Latest Immigration Alerts" id="news_listing" />
-        )}
-        {(selectedTab.id === BLOG_CATEGORY.ALL || selectedTab.id === BLOG_CATEGORY.BLOGS) && (
-          <BlogsCarousel articleType="blog" title="BLOGS" subHeading="Immigration Articles" id="blogs_listing" />
-        )}
-        {(selectedTab.id === BLOG_CATEGORY.ALL || selectedTab.id === BLOG_CATEGORY.CASE_STUDIES) && (
-          <BlogsCarousel
-            articleType="case-study"
-            title="CASE STUDIES"
-            subHeading="Immigration Success Stories"
-            id="case_study_listing"
-          />
-        )}
+      <div className="pt-10 md:py-20 bg-secondary-grey">
+        <div className='flex flex-col gap-[60px] md:gap-20'>
+          {(selectedTab.id === BLOG_CATEGORY.ALL || selectedTab.id === BLOG_CATEGORY.NEWS) && (
+            <BlogsCarousel articleType="news" title="NEWS" subHeading="Latest Immigration Alerts" id="news_listing" />
+          )}
+          {(selectedTab.id === BLOG_CATEGORY.ALL || selectedTab.id === BLOG_CATEGORY.BLOGS) && (
+            <BlogsCarousel articleType="blog" title="BLOGS" subHeading="Immigration Articles" id="blogs_listing" />
+          )}
+          {(selectedTab.id === BLOG_CATEGORY.ALL || selectedTab.id === BLOG_CATEGORY.CASE_STUDIES) && (
+            <BlogsCarousel
+              articleType="case-study"
+              title="CASE STUDIES"
+              subHeading="Immigration Success Stories"
+              id="case_study_listing"
+            />
+          )}
+        </div>
       </div>
     </>
   );

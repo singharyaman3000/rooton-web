@@ -7,7 +7,7 @@ export const getAssetUrl = (url = '') => {
   return url.startsWith('/') || url.startsWith(process.env.NEXT_ASSETS_BASEURL as string) ? url : basePath + url;
 };
 
-export const appendAssetUrl = (url: string) => {return url ? process.env.NEXT_ASSETS_BASEURL + url : '';};
+export const appendAssetUrl = (url: string) => { return url ? process.env.NEXT_ASSETS_BASEURL + url : ''; };
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -18,7 +18,7 @@ export const formatDate = (dateString: string): string => {
   return `${day}  ${month}  ${year}`;
 };
 
-export const isVideo = (url: string): boolean => {return url?.includes('video');};
+export const isVideo = (url: string): boolean => { return url?.includes('video'); };
 
 export const getSectionData = (data: IHomePageData, unique_identifier_name: string) => {
   return data.attributes.home_page_contents.data?.find((contents) => {
@@ -34,16 +34,16 @@ export const getSectionCoachingData = (data: ICoachingPage_Data, unique_identifi
 
 export const getDetraslatedURL = (url: string, lang: string) => {
   const modifiedUrl = url.replace(`/${lang}`, '');
-  return process.env.NEXT_APP_BASE_URL + (modifiedUrl.startsWith('/') ? modifiedUrl.replace('/',''):modifiedUrl) ;
+  return process.env.NEXT_APP_BASE_URL + (modifiedUrl.startsWith('/') ? modifiedUrl.replace('/', '') : modifiedUrl);
 };
 
 export const getFlagUrl = (flagData: IHeaderFooterData[] | undefined, langcode = 'en') => {
-  return flagData && flagData[0]?.attributes.languages.data?.find(({ attributes }) => {return attributes.code === langcode;});
+  return flagData && flagData[0]?.attributes.languages.data?.find(({ attributes }) => { return attributes.code === langcode; });
 };
 
-export const scrollIntoView = (id:string) => {
+export const scrollIntoView = (id: string) => {
   const element = document?.getElementById(id);
-  if(element){
+  if (element) {
     element?.scrollIntoView();
   }
 };
@@ -55,7 +55,7 @@ export const getTranslatedURL = (url: string, lang?: string) => {
   return url;
 };
 
-export const getServicePageURL = (id: string | number) => {return `/service/${id}`;};
+export const getServicePageURL = (id: string | number) => { return `/service/${id}`; };
 
 export const convertToHtmlId = (input: string) => {
   let id = input.toLowerCase();
@@ -64,10 +64,46 @@ export const convertToHtmlId = (input: string) => {
   return id;
 };
 
+export const convertFormDataToArray = (formData: Record<string, string>) => {
+  return Object.entries(formData).map(([name, value]) => {
+    return {
+      name,
+      value,
+    };
+  });
+};
+
+export const addIndexToKeys = (data: Record<string, string>[]): Record<string, string> => {
+  const outputObject: Record<string, string> = {};
+  data.forEach((item, index) => {
+    Object.keys(item).forEach((key) => {
+      outputObject[`${key}_${index + 1}`] = item[key];
+    });
+  });
+  return outputObject;
+};
+
 export const truncateText = (text: string, limit: number = 150) => {
   if (text.length > limit) {
     const truncatedText = text.slice(0, limit);
     return `${truncatedText}...`;
   }
   return text;
+};
+
+export const createMeetingUrl = (firstname: string, lastname: string, email: string, link: string) => {
+  let finalFirstName = firstname.trim();
+  let finalLastName = lastname ? lastname.trim() : '';
+
+  if (!finalLastName && finalFirstName.includes(' ')) {
+    const names = firstname.split(' ');
+    finalLastName = names.length > 1 ? names.pop() || '' : '';
+    finalFirstName = names.join(' ');
+  }
+
+  const encodedFirstName = encodeURIComponent(finalFirstName);
+  const encodedLastName = encodeURIComponent(finalLastName);
+  const encodedEmail = encodeURIComponent(email);
+
+  return `${link}?firstname=${encodedFirstName}&lastname=${encodedLastName}&email=${encodedEmail}&name=${encodedFirstName} ${encodedLastName}`;
 };

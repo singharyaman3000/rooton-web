@@ -20,7 +20,7 @@ const HonestyCard = ({ title, icon, value, containerClass, iconComponent: IconCo
         {icon ? (
           <NextImage
             sizes={'30vw'}
-            src={icon}
+            src={`${process.env.NEXT_ASSETS_BASEURL}${icon}`}
             title={title || 'icon image'}
             fill
             style={{ objectFit: 'contain' }}
