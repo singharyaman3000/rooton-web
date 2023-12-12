@@ -41,7 +41,7 @@ const SocialSection = ({
   const { theme } = useTheme();
 
   return (
-    <section ref={sectionRef} className="flex flex-col items-center lg:flex-row w-full">
+    <section ref={sectionRef} className="flex flex-col items-center lg:flex-row lg:gap-5 xl:gap-0 w-full">
       <div className="text-sm px-6 md:px-12 lg:px-0 xl:pl-0 lg:w-[47%] xl:text-base pb-[51px] pt-[68px] xl:pb-0 xl:pt-0 flex flex-col justify-center">
         <h2
           className={`${
