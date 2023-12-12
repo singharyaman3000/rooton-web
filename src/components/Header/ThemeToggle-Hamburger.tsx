@@ -73,8 +73,8 @@ export default function ThemeToggleAndHamburger({
         {scrolledEnough ? (
           <span
             style={{ transition: 'background-color 0.2s' }}
-            className={` w-1/2 h-full ${
-              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-[#d3d3d3]'
+            className={` w-1/2 h-full border-[1px] border-[#7e7e7e] ${
+              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-toggle-lite-bg'
             } flex justify-center items-center`}
           >
             <LightModeIcon isScrolled={scrolledEnough} />
