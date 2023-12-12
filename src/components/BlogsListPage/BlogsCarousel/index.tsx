@@ -119,7 +119,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
   return allArticlesList?.length ? (
     <section
       className={`${containerStyle} ${serviceType ? 'pt-[40px] md:py-[80px] max-w-screen-2k m-auto' : ''}
-        md:border-none`}
+        md:border-none max-w-screen-2k m-auto`}
     >
       <div
         className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end

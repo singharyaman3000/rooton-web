@@ -116,8 +116,7 @@ body {
   overflow-wrap: break-word;
 }
 
-[data-tooltip]:hover::before,
-[data-tooltipleft]:hover::before {
+[data-tooltip]:hover::before {
   content: '';
   position: absolute;
   left: 50%;
@@ -129,8 +128,7 @@ body {
   transform: translateX(-50%) translateY(-100%);
 }
 
-[data-tooltip]:hover::after,
-[data-tooltipleft]:hover::after {
+[data-tooltip]:hover::after {
   content: attr(aria-label);
   position: absolute;
   z-index: 900;
@@ -143,11 +141,6 @@ body {
   top: 118%;
   transform: translateX(-50%);
   white-space: nowrap;
-}
-
-[data-tooltipleft]:hover::before,
-[data-tooltipleft]:hover::after {
-  left: 14% !important;
 }
 
 .gradient-text span {
@@ -1005,13 +998,23 @@ heading {
 }
 
 #contact-us-form-container #scheduler-container {
-  height: 500px;
+  height: 693px;
+}
+
+#contact-us-section-wrapper #LeadForm {
+  min-height: 421px;
 }
 
 @media screen and (min-width: 1024px) {
   #contact-us-section-wrapper>div:last-of-type {
     padding-left: 0;
     padding-right: 0;
+  }
+  #contact-us-form-container #scheduler-container {
+    height: 655px;
+  }
+  #contact-us-form-container #LeadFormContainer {
+    margin-top: 32px;
   }
 }
 
