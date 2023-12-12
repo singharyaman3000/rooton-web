@@ -30,7 +30,6 @@ const nextConfig = {
 
     const allServicesIds = [];
     const allCoachingIds = [];
-    const allPolicyIds = [];
 
     apiData[0]?.attributes.core_services.data?.forEach((service) => {
       const subServices = service?.attributes?.sub_services?.data ?? [];
@@ -44,15 +43,12 @@ const nextConfig = {
       }
     });
 
-    const policyServices = policy_apiData ?? [];
-    if (policyServices.length > 0) {
-      policyServices.forEach((policy) => {
-        allPolicyIds.push({
-          policyName: policy.attributes.unique_identifier_name ?? '',
-          policyId: policy.id ?? '',
-        });
-      });
-    }
+    const policyServices = Array.isArray(policy_apiData)
+      ? policy_apiData.map((policy) => ({
+        policyName: policy.attributes.unique_identifier_name ?? '',
+        policyId: policy.id ?? '',
+      }))
+      : [];
 
     coaching_apiData[0]?.attributes.coaching_page_contents.data?.forEach((coaching) => {
       const coaching_services = coaching?.attributes?.coaching_services?.data ?? [];
@@ -72,7 +68,6 @@ const nextConfig = {
 
     const allServicesLanUrls = [];
     const allCoachingServicesLanUrls = [];
-    const allPolicyServicesLanUrls = [];
 
     // remapping /lan/service/[id] to /lan/[service-name]
     allLanguages?.forEach((lan) => {
@@ -85,13 +80,12 @@ const nextConfig = {
     });
 
     // remapping /lan/policy/[id] to /lan/[policy-name]
-    allLanguages?.forEach((lan) => {
-      allPolicyIds.forEach((policy) => {
-        const newRoute = {
+    const allPolicyServicesLanUrls = allLanguages?.flatMap((lan) => {
+      return policyServices.map((policy) => {
+        return {
           source: `/${lan}/${policy.policyName}`,
           destination: `/${lan}/policy/${policy.policyId}`,
         };
-        allPolicyServicesLanUrls.push(newRoute);
       });
     });
 
@@ -111,8 +105,11 @@ const nextConfig = {
     });
 
     // remapping /policy/[id] to /[policy-name]
-    const reRouteMap_policy = allPolicyIds.map((policy) => {
-      return { source: `/${policy.policyName}`, destination: `/policy/${policy.policyId}` };
+    const reRouteMap_policy = policyServices.map((policy) => {
+      return {
+        source: `/${policy.policyName}`,
+        destination: `/policy/${policy.policyId}`,
+      };
     });
 
     // remapping /coaching/[id] to /[coaching-name]
