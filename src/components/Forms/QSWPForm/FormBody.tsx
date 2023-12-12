@@ -15,12 +15,13 @@ import { usePathname } from 'next/navigation';
 import { FormButton } from '../components/FormButton';
 import { FormHeader } from '../components/FormHeader';
 import { FormStep } from '../components/FormStep';
-import { addIndexToKeys, convertFormDataToArray } from '@/utils';
+import { addIndexToKeys, convertFormDataToArray, createMeetingUrl } from '@/utils';
 
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
 
-const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record<string, string> }) => {
+const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetingLink: Record<string, string>, scrollToTop: () => void }) => {
+
   const path = usePathname();
   const [formData, setFormData] = useState(initialStates);
   const [additionalEducation, setAdditionalEducation] = useState<Record<string, string>[]>([]);
@@ -38,6 +39,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
     setCurrentStep((prevStep) => {
       return prevStep + 1;
     });
+    scrollToTop();
   };
 
   const getData = (valueType: ValueType, keyValue?: keyType) => {
@@ -189,7 +191,10 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
         component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
           <iframe className=" w-full h-full"
             title="AA"
-            src={formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free} />
+            src={createMeetingUrl(formData.firstname,
+              formData.lastname,
+              formData.email,
+              formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free)} />
         </div>,
       },
     ];
@@ -228,6 +233,7 @@ const FormBody = ({ formId, meetingLink }: { formId: string, meetingLink: Record
               setCurrentStep((prevStep) => {
                 return Math.max(1, prevStep - 1);
               });
+              scrollToTop();
             }}
           />}
           {currentStep <= 9 && <FormButton
