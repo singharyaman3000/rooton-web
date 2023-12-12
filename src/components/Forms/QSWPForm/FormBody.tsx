@@ -15,7 +15,7 @@ import { usePathname } from 'next/navigation';
 import { FormButton } from '../components/FormButton';
 import { FormHeader } from '../components/FormHeader';
 import { FormStep } from '../components/FormStep';
-import { addIndexToKeys, convertFormDataToArray } from '@/utils';
+import { addIndexToKeys, convertFormDataToArray, createMeetingUrl } from '@/utils';
 
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
@@ -191,7 +191,10 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
         component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
           <iframe className=" w-full h-full"
             title="AA"
-            src={formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free} />
+            src={createMeetingUrl(formData.firstname,
+              formData.lastname,
+              formData.email,
+              formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free)} />
         </div>,
       },
     ];
