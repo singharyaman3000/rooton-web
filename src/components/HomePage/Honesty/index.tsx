@@ -28,14 +28,10 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
 
   const length = json_content?.['why-rooton']?.length ?? 0;
 
-  const generateCardsToDisplay = (cardsPerRow: 1 | 2 | 3, positionMap: PositionMapType) => {
+  const generateCardsToDisplay = (cardsPerRow: 2 | 3, positionMap: PositionMapType) => {
     const lastCardPosition = length % cardsPerRow;
 
-    if (cardsPerRow === 2 && lastCardPosition === 0) {
-      setCardsArray(json_content?.['why-rooton'] ?? []);
-      return;
-    }
-    if (cardsPerRow === 3 && lastCardPosition === 0) {
+    if (lastCardPosition === 0) {
       setCardsArray(json_content?.['why-rooton'] ?? []);
       return;
     }
