@@ -19,4 +19,5 @@ export const initialStates = {
   // additional
   additionalInformation: '',
   ad_info: '',
+  consultation_type: '',
 };

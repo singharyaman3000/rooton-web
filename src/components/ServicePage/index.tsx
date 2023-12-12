@@ -25,8 +25,9 @@ import FSWForm from '../Forms/FSWForm';
 import FSTPForm from '../Forms/FSTPForm';
 import QSWPForm from '../Forms/QSWPForm';
 import CECForm from '../Forms/CECForm';
-import FSForm from '../Forms/FamilySponsorshipForm';
 import PNPForm from '../Forms/PNPForm';
+import PGPorm from '../Forms/PGPForm';
+import SSForm from '../Forms/SSForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -134,13 +135,25 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         title={formTitle}
         scrollToTop={scrollToLeadForm} />;
     case 'canadian-experience-class':
-      return <CECForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
-    case 'parents-and-grandparents-sponsorship':
-      return <FSForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
-    case 'spouse-visa-canada':
-      return <FSForm leadFormRef={leadFormRef} formId={formId} meetingLink={meetingLink}/>;
+      return <CECForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
     case 'provincial-nominee-program':
       return <PNPForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
+    case 'parents-and-grandparents-sponsorship':
+      return <PGPorm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
+    case 'spouse-visa-canada':
+      return <SSForm leadFormRef={leadFormRef}
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
@@ -197,6 +210,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           </ServicePageWrapper>
         );
       }
+
       return null;
     case 'service-CTA-banner-1':
       return <CTAWrapperSection handleCTAButtonClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.FREE); }} />;

@@ -4,7 +4,6 @@ import 'tailwindcss/tailwind.css';
 import { FormEvent, useMemo, useState } from 'react';
 import { FormStep } from './components/FormStep';
 import { FormHeader } from './components/FormHeader';
-import { servicesForm } from '@/app/constants/hubspotConfig';
 import { PersonalSection } from './formSections/PersonalSection';
 import { FormButton } from './components/FormButton';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
@@ -13,11 +12,13 @@ import { postPRSubmission } from '@/app/services/apiService/prFormSubmission';
 import { AdditionalInformationSection } from './formSections/AdditionalInformationSection';
 import { ContactSection } from './formSections/ContactSection';
 import { convertFormDataToArray } from '@/utils';
+import { usePathname } from 'next/navigation';
 
 type ValueType = 'country' | 'occupation';
 type keyType = 'name' | 'currency'
 
-const FormBody = () => {
+const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetingLink: Record<string, string>, scrollToTop: () => void }) => {
+  const path = usePathname();
   const [formData, setFormData] = useState(initialStates);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isInvalid, setIsInValid] = useState<boolean>(true);
@@ -28,6 +29,7 @@ const FormBody = () => {
     setCurrentStep((prevStep) => {
       return prevStep + 1;
     });
+    scrollToTop();
   };
 
   const getData = (valueType: ValueType, keyValue?: keyType) => {
@@ -63,17 +65,16 @@ const FormBody = () => {
       const payload = {
         fields: [...generalFormData],
         context: {
-          pageUri: 'https://rootonweb-dev.qburst.build/parents-and-grandparents-sponsorship',
+          pageUri: process.env.NEXT_APP_BASE_URL + path.slice(1),
           pageName: 'Services',
         },
       };
-      const response = await postPRSubmission(payload, servicesForm.form1);
+      const response = await postPRSubmission(payload, formId);
       if (response.status === 200) {
-        setFormData(initialStates);
-        setIsInValid(false);
-        console.log('Form submission successful with data:', generalFormData);
+        setCurrentStep((prevStep) => {
+          return prevStep + 1;
+        });
       }
-      else console.log('Form Submission Unsuccessful');
     }
   };
 
@@ -107,6 +108,15 @@ const FormBody = () => {
           formNumber={currentStep}
           formData={formData} />,
       },
+      {
+        stepNumber: 4,
+        header: '',
+        component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
+          <iframe className=" w-full h-full"
+            title="AA"
+            src={formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free} />
+        </div>,
+      },
     ];
   }, [formData, handleData, getData]);
 
@@ -139,6 +149,7 @@ const FormBody = () => {
               setCurrentStep((prevStep) => {
                 return Math.max(1, prevStep - 1);
               });
+              scrollToTop();
             }}
           />}
           {currentStep <= 3 && <FormButton

@@ -497,8 +497,13 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       return <FAQSection faqs={faqs?.attributes.json_content.faq} />;
     case 'blogs':
       return (
-        <div className="py-[11px] mt-[74px]">
-          <BlogSection title="" sourcePage={SOURCE_PAGE.COACHING} subtitle={blogs?.attributes.title ?? ''} />
+        <div className=" mt-[40px] bg-secondary-grey">
+          <BlogSection
+            title=""
+            subtitle={blogs?.attributes.title ?? ''}
+            serviceType={response?.data.attributes.unique_identifier_name}
+            sourcePage={SOURCE_PAGE.COACHING}
+          />
         </div>
       );
     default:
