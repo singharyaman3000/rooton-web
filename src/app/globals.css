@@ -1,6 +1,7 @@
 :root {
   --primary-bg: #fff;
   --toggle-dark-bg: #000;
+  --toggle-lite-bg: #fff;
   --tansparent-bg: #00000045;
   --grey-bullet: #cbcbcb;
 
@@ -38,7 +39,9 @@
   --smoky-steel: #979797;
   --light-gray: #717171;
   --platinum:  #e5e5e5;
-
+  --hubspot-meeting-background: #f5f8fa;
+  --services-tab-color: #000;
+  
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
   --preloader-overlay: hsl(252deg 9% 6% / 18%), hsl(252deg 3% 16% / 19%), hsl(0deg 2% 5% / 15%);
   --hubspot-form-shadow: 0 22px 60px 0 rgba(0, 0, 0, 0.1);
@@ -72,6 +75,7 @@
   --sandal: rgba(234, 213, 169, 0.32);
   --pale-sandal: #fddba2;
   --hover-lang-dropdown: #282828;
+  --services-tab-color: #fff6e7;
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(255, 255, 255, 0.5);
   --preloader-overlay: rgb(228 228 228), hsl(0deg 0% 89% / 43%), rgb(228 228 228);

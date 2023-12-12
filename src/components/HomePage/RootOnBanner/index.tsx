@@ -81,13 +81,13 @@ export default function RootOnBanner({
             </h1>
             <p className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
               'mt-[24px] md:mt-[20px] whitespace-normal md:whitespace-break-spaces' :
-              'mt-[15px] md:mt-[35px]'} text-white font-bold text-[15px] leading-[1.67] xl:text-2xl`}>
+              'mt-[15px] md:mt-[20px]'} text-white font-bold text-[15px] leading-[1.67] xl:text-2xl`}>
               {ReactHtmlParser(description)}
             </p>
           </motion.div>
 
           <div className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] xl2:mt-[102px]' :
-            'mt-[32px] md:mt-[68.4px]'} w-full md:max-w-[418px]`}>{button}</div>
+            'mt-[32px] md:mt-[50px]'} w-full md:max-w-[418px]`}>{button}</div>
         </div>
       </div>
       {isVideoBanner ? (

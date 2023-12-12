@@ -70,6 +70,7 @@ module.exports = {
         'light-gray': 'var(--light-gray)',
         'platinum': 'var(--platinum)',
         'hubspot-meeting-background': 'var(--hubspot-meeting-background)',
+        'services-tab-color': 'var(--services-tab-color)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',
