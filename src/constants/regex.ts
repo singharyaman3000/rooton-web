@@ -1,4 +1,4 @@
 export const regex = {
   emailRegex: /^[^s@]+@[^s@]+.[^s@]+$/,
-  mobileRegex: /^d{7,10}$/,
+  mobileRegex: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{1,8}$/,
 };
