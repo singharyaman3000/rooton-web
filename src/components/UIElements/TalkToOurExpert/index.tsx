@@ -31,7 +31,7 @@ const TalkToOurExpert = () => {
   return (
     <div className="relative hidden xl:block">
       <button
-        data-tooltipleft
+        data-tooltip
         aria-label='Talk to our Expert'
         type='button'
         ref={buttonRef}
