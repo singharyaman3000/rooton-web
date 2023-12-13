@@ -33,7 +33,7 @@ const ProfileCard = ({ profileData, popUpDisplayFns }: ProfileCardProps) => {
           altText={`${name}`}
           fill
           sizes="100vw"
-          style={{ objectFit: 'contain', paddingTop: '10px' }}
+          style={{ objectFit: 'contain', paddingTop: '30px' }}
           title={`${name}`}
           priority
         />
