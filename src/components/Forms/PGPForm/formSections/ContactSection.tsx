@@ -7,8 +7,10 @@ import { FormDropdown } from '@/components/Forms/components/FormDropDown';
 import {
   countriesOfResidence,
   contactInfo,
+  consultationType,
 } from '../config/formConfig';
 import { regex } from '@/constants/regex';
+import { FormRadioInput } from '../../components/FormRadioInput';
 
 const { emailRegex, mobileRegex } = regex;
 
@@ -28,12 +30,13 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
       !isEmailValid(formData.email) ||
       !formData?.lastname.trim() ||
       !formData?.firstname.trim() ||
+      !formData?.consultation_type ||
       !formData?.country_of_residence.trim(),
     );
   }, [formData, formNumber]);
 
   return (
-    <div className='flex flex-col gap-2 md:grid grid-cols-2'>
+    <div className='flex flex-col gap-2 md:grid'>
       <FormTextInput
         field={contactInfo[0]}
         value={formData.firstname}
@@ -76,6 +79,14 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         value={formData.country_of_residence}
         onChange={(e) => {
           onchange('country_of_residence', e.target.value);
+        }}
+        required
+      />
+      <FormRadioInput
+        fields={consultationType}
+        value={formData?.consultation_type}
+        onChange={(e) => {
+          onchange('consultation_type', e.target.value);
         }}
         required
       />

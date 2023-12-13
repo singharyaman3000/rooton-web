@@ -15,9 +15,17 @@ import { convertFormDataToArray, createMeetingUrl } from '@/utils';
 import { usePathname } from 'next/navigation';
 
 type ValueType = 'country' | 'occupation';
-type keyType = 'name' | 'currency'
+type keyType = 'name' | 'currency';
 
-const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetingLink: Record<string, string>, scrollToTop: () => void }) => {
+const FormBody = ({
+  formId,
+  meetingLink,
+  scrollToTop,
+}: {
+  formId: string;
+  meetingLink: Record<string, string>;
+  scrollToTop: () => void;
+}) => {
   const path = usePathname();
   const [formData, setFormData] = useState(initialStates);
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -82,42 +90,51 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
       {
         stepNumber: 1,
         header: 'Personal Profile',
-        component: <PersonalSection
-          onchange={handleData}
-          formData={formData}
-          setFormData={setFormData}
-          isInValid={setIsInValid}
-          formNumber={currentStep} />,
+        component: (
+          <PersonalSection
+            onchange={handleData}
+            formData={formData}
+            setFormData={setFormData}
+            isInValid={setIsInValid}
+            formNumber={currentStep}
+          />
+        ),
       },
       {
         stepNumber: 2,
         header: 'Enter Your Contact Information',
-        component: <ContactSection
-          onchange={handleData}
-          formData={formData}
-          countries={getData('country', 'name')}
-          formNumber={currentStep}
-          isInValid={setIsInValid} />,
+        component: (
+          <ContactSection
+            onchange={handleData}
+            formData={formData}
+            countries={getData('country', 'name')}
+            formNumber={currentStep}
+            isInValid={setIsInValid}
+          />
+        ),
       },
       {
         stepNumber: 3,
         header: 'Your Education and Training',
-        component: <AdditionalInformationSection
-          onchange={handleData}
-          formNumber={currentStep}
-          formData={formData} />,
+        component: <AdditionalInformationSection onchange={handleData} formNumber={currentStep} formData={formData} />,
       },
       {
         stepNumber: 4,
         header: '',
-        component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
-          <iframe className=" w-full h-full "
-            title="AA"
-            src={createMeetingUrl(formData.firstname,
-              formData.lastname,
-              formData.email,
-              formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free)} />
-        </div>,
+        component: (
+          <div id="scheduler-container" className="bg-hubspot-meeting-background h-[54rem] mt-2">
+            <iframe
+              className=" w-full h-full "
+              title="AA"
+              src={createMeetingUrl(
+                formData.firstname,
+                formData.lastname,
+                formData.email,
+                formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free,
+              )}
+            />
+          </div>
+        ),
       },
     ];
   }, [formData, handleData, getData]);
@@ -126,7 +143,7 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
     <div className="mt-2 h-full w-full">
       <form
         id="testFormPOC-optimized-test-run"
-        className='huform'
+        className="huform"
         onSubmit={handleSubmit}
         onInvalid={(e) => {
           e.preventDefault();
@@ -146,28 +163,24 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
 
         {/* ======================================== BUTTONS =============================================== */}
         <div className="flex justify-between w-full mt-10">
-          {currentStep > 1 && <FormButton
-            type='button'
-            buttonText="Previous"
-            onClickHandler={() => {
-              setIsInValid(false);
-              setCurrentStep((prevStep) => {
-                return Math.max(1, prevStep - 1);
-              });
-              scrollToTop();
-            }}
-          />}
-          {currentStep < 3 && <FormButton
-            type='button'
-            buttonText="Next"
-            onClickHandler={onNextClick}
-            disable={isInvalid}
-          />}
-          {currentStep === 3 && <FormButton
-            type='submit'
-            buttonText="Submit"
-            disable={isInvalid}
-          />}
+          {currentStep <= 3 && (
+            <FormButton
+              type="button"
+              buttonText="Back"
+              disable={currentStep === 1}
+              onClickHandler={() => {
+                setIsInValid(false);
+                setCurrentStep((prevStep) => {
+                  return Math.max(1, prevStep - 1);
+                });
+                scrollToTop();
+              }}
+            />
+          )}
+          {currentStep < 3 && (
+            <FormButton type="button" buttonText="Next" onClickHandler={onNextClick} disable={isInvalid} />
+          )}
+          {currentStep === 3 && <FormButton type="submit" buttonText="Submit" disable={isInvalid} />}
         </div>
       </form>
     </div>

@@ -187,3 +187,20 @@ export const additionalInformation: IFormFieldOptions[] = [
 export const additionalInformationField: IFormField[] = [
   { name: 'ad_info', label: 'Additional Information' },
 ];
+
+export const consultationType: IFormFieldOptions[] = [
+  {
+    name: 'consultation_type',
+    label: 'Preferred Consultation Type:',
+    options: [
+      {
+        id: 'free',
+        value: 'Counselling Specialist (Free)',
+      },
+      {
+        id: 'paid',
+        value: 'Consultation with RCIC (Paid)',
+      },
+    ],
+  },
+];

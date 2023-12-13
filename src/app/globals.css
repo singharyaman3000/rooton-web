@@ -39,7 +39,7 @@
   --smoky-steel: #979797;
   --light-gray: #717171;
   --platinum:  #e5e5e5;
-  --hubspot-meeting-background: #FDDBA2;
+  --hubspot-meeting-background: #f5f8fa;
   --services-tab-color: #000;
   
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
@@ -1110,8 +1110,4 @@ heading {
   align-self: flex-end;
   cursor: pointer;
   padding: 0.5rem 1rem;
-}
-
-.hubspot-meeting-background {
-  background-color: var(--hubspot-meeting-background) !important;
 }
