@@ -73,17 +73,6 @@ export const convertFormDataToArray = (formData: Record<string, string>) => {
   });
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const convertFormDataToArray1 = (formData: { [x: string]: any; }) => {
-  return Object.keys(formData).map((key) => {
-    if (Array.isArray(formData[key])) {
-      return { name: key, value: formData[key].join(', ') };
-    }
-    return { name: key, value: formData[key] };
-
-  });
-};
-
 export const addIndexToKeys = (data: Record<string, string>[]): Record<string, string> => {
   const outputObject: Record<string, string> = {};
   data.forEach((item, index) => {
