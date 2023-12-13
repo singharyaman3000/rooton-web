@@ -64,7 +64,7 @@ const ContactUsAppointmentForm = ({
           />
         </div>
       </div>
-      <div className="hidden xl:block w-[87px] hd:w-[214px] 2k:w-[281px] relative">
+      <div className="hidden xl:block w-[87px] hd:w-[210px] 2k:w-[281px] relative">
         <NextImage
           classSelector="object-right"
           src={'/images/my-project-46@3x.png'}
