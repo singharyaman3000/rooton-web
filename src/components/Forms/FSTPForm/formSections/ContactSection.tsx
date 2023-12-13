@@ -3,7 +3,9 @@ import { contactInfo, consultationType } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 import { FormTextInput } from '../../components/FormTextInput';
 import { FormRadioInput } from '../../components/FormRadioInput';
+import { FormSingleCheckBoxInput } from '../../components/FormSingleCheckBoxInput';
 import { regex } from '@/constants/regex';
+import { texts } from '@/constants/texts';
 
 const { emailRegex, mobileRegex } = regex;
 
@@ -72,6 +74,28 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
           onchange('consultation_type', e.target.value);
         }}
       />
+      <FormSingleCheckBoxInput
+        id=''
+        label={texts.CONSENT} onChange={(value: 'Yes' | 'No') => {
+          onchange('i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_', value);
+        }}
+      />
+
+      <div className="hs-richtext hs-main-font-element">
+        <p><span className="text-[12pt] text-black bg-transparent font-normal no-underline align-baseline">
+          <strong>Privacy Note:<br></br> </strong>
+          By submitting this form, you agree to our <a href="/privacy-policy" target="_blank" rel="noopener">
+            <span className="underline text-[#3574e3]">Privacy Policy</span></a> &amp;
+          <a href="/terms-and-conditions" target="_blank" rel="noopener">
+            <span className="text-[#3574e3]"><span className="underline">Terms &amp;</span>
+              <span className="underline">Conditions</span>
+            </span>
+          </a>
+          . We respect your privacy and will only use your information
+          to provide you with the information and services you request.
+        </span>
+        </p>
+      </div>
     </div>
   );
 };
