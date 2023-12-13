@@ -20,12 +20,14 @@ import { FormDropdown } from '@/components/Forms/components/FormDropDown';
 import { SponsorDropDown } from '@/components/Forms/components/SponsorDropDown';
 import { FormCloseButton } from '@/components/Forms/components/FormCloseButton';
 
-export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatch<React.SetStateAction<typeof initialStates>> }> = ({
+export const PersonalSection: React.FC<
+  IPropsType & { setFormData: React.Dispatch<React.SetStateAction<typeof initialStates>> }
+> = ({
   onchange,
   formNumber,
   isInValid,
   formData,
-  setFormData,// Add this prop
+  setFormData, // Add this prop
 }) => {
   const [childGrandchildDropdowns, setChildGrandchildDropdowns] = useState([{ id: 1, value: '' }]);
 
@@ -37,10 +39,12 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
   useEffect(() => {
     const dropdownIds = Object.keys(formData)
       .filter((key) => key.startsWith('your_child_grandchild_age_'))
-      .map((key) => {return {
-        id: parseInt(key.split('_').pop() ?? '', 10),
-        value: formData[key],
-      };});
+      .map((key) => {
+        return {
+          id: parseInt(key.split('_').pop() ?? '', 10),
+          value: formData[key],
+        };
+      });
     if (dropdownIds.length > 0) {
       setChildGrandchildDropdowns(dropdownIds);
     }
@@ -79,12 +83,14 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
 
   return (
     <>
-      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
+      <div className="flex flex-col gap-4 md:grid">
         {/* Like To Do */}
         <FormRadioInput
           fields={likeToDo}
           value={formData?.What_would_you_like_to_do}
-          onChange={(e: { target: { value: string; }; }) => {return onchange('What_would_you_like_to_do', e.target.value);}}
+          onChange={(e: { target: { value: string } }) => {
+            return onchange('What_would_you_like_to_do', e.target.value);
+          }}
         />
 
         {/* Your Status */}
@@ -93,7 +99,9 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
             options={yourStatus[0].options}
             label={yourStatus[0].label}
             value={formData?.Are_you_a_citizen_or_permanent || ''}
-            onChange={(e) => { onchange('Are_you_a_citizen_or_permanent', e.target.value);}}
+            onChange={(e) => {
+              onchange('Are_you_a_citizen_or_permanent', e.target.value);
+            }}
           />
         )}
 
@@ -103,28 +111,37 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
             options={sponsorRelationship[0].options}
             label={sponsorRelationship[0].label}
             value={formData?.What_is_your_relationship_person || ''}
-            onChange={(e: { target: { value: string; }; }) => {return onchange('What_is_your_relationship_person', e.target.value);}}
+            onChange={(e: { target: { value: string } }) => {
+              return onchange('What_is_your_relationship_person', e.target.value);
+            }}
           />
         )}
       </div>
 
       {/* Sponsor Status */}
-      {['Spouse', 'Common-Law Partner', 'Parent', 'Child', 'Grandchild'].includes(formData.What_is_your_relationship_person) && (
+      {['Spouse', 'Common-Law Partner', 'Parent', 'Child', 'Grandchild'].includes(
+        formData.What_is_your_relationship_person,
+      ) && (
         <FormDropdown
           options={sponsorStatus[0].options}
           label={sponsorStatus[0].label}
           value={formData?.What_is_your_sponsor_Status || ''}
-          onChange={(e: { target: { value: string; }; }) => {return onchange('What_is_your_sponsor_Status', e.target.value);}}
+          onChange={(e: { target: { value: string } }) => {
+            return onchange('What_is_your_sponsor_Status', e.target.value);
+          }}
         />
       )}
 
       {/* Your Age */}
-      <div className='flex flex-col gap-4 md:grid grid-cols-2'>
-        {(formData.Are_you_a_citizen_or_permanent === 'Citizen' || formData.Are_you_a_citizen_or_permanent === 'Permanent Resident') && (
+      <div className="flex flex-col gap-4 md:grid">
+        {(formData.Are_you_a_citizen_or_permanent === 'Citizen' ||
+          formData.Are_you_a_citizen_or_permanent === 'Permanent Resident') && (
           <FormRadioInput
             fields={yourAge}
             value={formData?.How_old_are_you}
-            onChange={(e: { target: { value: string; }; }) => {return onchange('How_old_are_you', e.target.value);}}
+            onChange={(e: { target: { value: string } }) => {
+              return onchange('How_old_are_you', e.target.value);
+            }}
           />
         )}
 
@@ -134,57 +151,79 @@ export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatc
             <FormRadioInput
               fields={residingInCanada}
               value={formData?.currently_residing_in_Canada}
-              onChange={(e: { target: { value: string; }; }) => {return onchange('currently_residing_in_Canada', e.target.value);}}
+              onChange={(e: { target: { value: string } }) => {
+                return onchange('currently_residing_in_Canada', e.target.value);
+              }}
             />
           )}
           <SponsorDropDown
             options={yourSponsor[0].options}
             label={yourSponsor[0].label}
             value={formData?.my_sponsor || ''}
-            onChange={(e: { target: { value: string; }; }) => {return onchange('my_sponsor', e.target.value);}}
+            onChange={(e: { target: { value: string } }) => {
+              return onchange('my_sponsor', e.target.value);
+            }}
           />
         </div>
       </div>
 
       {formData.my_sponsor === 'Child' || formData.my_sponsor === 'Grandchild' ? (
         <div>
-          {childGrandchildDropdowns.map((dropdown) => {return (
-            <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]" key={dropdown.id}>
-              {/* Close Button */}
-              <FormCloseButton onclick={() => removeDropdown(dropdown.id)}></FormCloseButton>
+          {childGrandchildDropdowns.map((dropdown) => {
+            return (
+              <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]" key={dropdown.id}>
+                {/* Close Button */}
+                <FormCloseButton onclick={() => removeDropdown(dropdown.id)}></FormCloseButton>
 
-              {/* Child/Grandchild Age Dropdown */}
-              <FormDropdown
-                options={yourChildGrandchildAge[0].options}
-                label={yourChildGrandchildAge[0].label}
-                value={formData[`your_child_grandchild_age_${dropdown.id}`] || ''}
-                onChange={(e) => {return handleFieldChange('your_child_grandchild_age', e.target.value, dropdown.id);}}
-              />
-
-              {/* Conditional Marital Status Dropdown */}
-              {isAgeInRange(formData[`your_child_grandchild_age_${dropdown.id}`], 16, 22) && (
+                {/* Child/Grandchild Age Dropdown */}
                 <FormDropdown
-                  options={yourChildGrandchildMaritalStatus[0].options}
-                  label={yourChildGrandchildMaritalStatus[0].label}
-                  value={formData[`your_child_grandchild_marial_status_${dropdown.id}`] || ''}
-                  onChange={(e) => {return handleFieldChange('your_child_grandchild_marial_status', e.target.value, dropdown.id);}}
+                  options={yourChildGrandchildAge[0].options}
+                  label={yourChildGrandchildAge[0].label}
+                  value={formData[`your_child_grandchild_age_${dropdown.id}`] || ''}
+                  onChange={(e) => {
+                    return handleFieldChange('your_child_grandchild_age', e.target.value, dropdown.id);
+                  }}
                 />
-              )}
 
-              {/* Conditional Financial Support Dropdown */}
-              {isAgeInRange(formData[`your_child_grandchild_age_${dropdown.id}`], 23, Infinity) && (
-                <FormDropdown
-                  options={yourChildGrandchildSubstantially[0].options}
-                  label={yourChildGrandchildSubstantially[0].label}
-                  value={formData[`your_child_grandchild_dependeds_substantially_on_your_financial_support_${dropdown.id}`] || ''}
-                  onChange={(e) => {return handleFieldChange('your_child_grandchild_dependeds_substantially_on_your_financial_support', e.target.value, dropdown.id);}}
-                />
-              )}
-            </div>
-          );})}
-          <button className="add-another-field-button flex float-right" type="button" onClick={addDropdown}>
+                {/* Conditional Marital Status Dropdown */}
+                {isAgeInRange(formData[`your_child_grandchild_age_${dropdown.id}`], 16, 22) && (
+                  <FormDropdown
+                    options={yourChildGrandchildMaritalStatus[0].options}
+                    label={yourChildGrandchildMaritalStatus[0].label}
+                    value={formData[`your_child_grandchild_marial_status_${dropdown.id}`] || ''}
+                    onChange={(e) => {
+                      return handleFieldChange('your_child_grandchild_marial_status', e.target.value, dropdown.id);
+                    }}
+                  />
+                )}
+
+                {/* Conditional Financial Support Dropdown */}
+                {isAgeInRange(formData[`your_child_grandchild_age_${dropdown.id}`], 23, Infinity) && (
+                  <FormDropdown
+                    options={yourChildGrandchildSubstantially[0].options}
+                    label={yourChildGrandchildSubstantially[0].label}
+                    value={
+                      formData[
+                        `your_child_grandchild_dependeds_substantially_on_your_financial_support_${dropdown.id}`
+                      ] || ''
+                    }
+                    onChange={(e) => {
+                      return handleFieldChange(
+                        'your_child_grandchild_dependeds_substantially_on_your_financial_support',
+                        e.target.value,
+                        dropdown.id,
+                      );
+                    }}
+                  />
+                )}
+              </div>
+            );
+          })}
+          <div className="flex justify-end pt-4 md:pt-8">
+            <button className="add-another-field-button flex" type="button" onClick={addDropdown}>
               + Add another field
-          </button>
+            </button>
+          </div>
         </div>
       ) : null}
     </>

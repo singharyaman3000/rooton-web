@@ -130,6 +130,9 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
           e.preventDefault();
         }}
       >
+        <div className="hs-richtext hs-main-font-element">
+          <h2>Parents and Grandparents :</h2>
+        </div>
         {formSteps.map(({ stepNumber, header, component }) => {
           return (
             <FormStep key={stepNumber} stepNumber={stepNumber} currentStep={currentStep}>

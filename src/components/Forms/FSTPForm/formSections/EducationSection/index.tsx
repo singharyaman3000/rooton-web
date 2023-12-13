@@ -92,7 +92,7 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
           <div className="flex flex-col overflow-auto max-h-[50rem] pb-4 md:pb-8">
             {additionalQuestionsData?.map((_, index) => {
               return (
-                <div key={`${index + 1}`} className="m-0 md:mr-8">
+                <div key={`${index + 1}`} className="m-0">
                   <AdditionalQuestions
                     id={index}
                     close={closeEducation}
