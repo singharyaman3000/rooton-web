@@ -17,6 +17,9 @@ export const CONTENT_TYPES = {
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
   QUESTIONS: 'questions',
+  BLOGS: 'blogs',
+  TESTIMONIALS: 'testimonials',
+  APPOINTMENT: 'appointment',
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
