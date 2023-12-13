@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { highSchool, training } from '../../config/formConfig';
 import { AdditionalQuestions } from './AdditionalQuestions';
 import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import { IPropsAdditionalType } from '../../config/models';
+import useScrollToBottom from '@/hooks/useScrollToBottom';
 
 const additionalQuestionsKeys = [
   'type_of_education_or_training_',
@@ -24,6 +25,8 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
   setAdditionalQuestionsData,
 }) => {
   const [currentStep, setCurrentStep] = useState<number>(filledFields);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useScrollToBottom(containerRef, [currentStep, additionalQuestionsData]);
 
   const handleOnChange = (key: string, value: string, index: number, state: Record<string, string>[]) => {
     const dataToUpdate = [...state];
@@ -89,7 +92,8 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
             Please list all of your education and/or training other than high school (secondary school), starting with
             the most recent:
           </p>
-          <div className="flex flex-col overflow-auto max-h-[50rem] pb-4 md:pb-8">
+          <div ref={containerRef}
+            className='flex flex-col overflow-auto max-h-[50rem] pb-4 md:pb-8'>
             {additionalQuestionsData?.map((_, index) => {
               return (
                 <div key={`${index + 1}`} className="m-0 md:mr-8">
