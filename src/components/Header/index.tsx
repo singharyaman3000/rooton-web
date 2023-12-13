@@ -14,6 +14,7 @@ import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
+import { COACHING_SERVICES_ROUTES } from '../SiteMapPage/constants';
 
 const headerLangException = ['ml', 'bho'];
 const itemsToSetActive = ['service', 'contact-us', 'about-us', 'immigration-insights', 'coaching', 'home'];
@@ -63,8 +64,19 @@ export default function Header() {
     let currentTab = 'service';
     if (HOMEPAGE_PATH.includes(path.replace(params.lang, ''))) {
       currentTab = 'home';
-    } else if (pathArray.includes('sitemap')) {
+    } else if (
+      pathArray.includes('sitemap') ||
+      pathArray.includes('privacy-policy') ||
+      pathArray.includes('disclaimer') ||
+      pathArray.includes('terms-and-conditions')
+    ) {
       currentTab = '';
+    } else if (
+      COACHING_SERVICES_ROUTES.find((obj) => {
+        return obj.link === path?.replace(params.lang, '')?.replaceAll('/', '');
+      })
+    ) {
+      currentTab = 'coaching';
     } else {
       const foundItem = pathArray.find((item) => {
         return itemsToSetActive.includes(item);
