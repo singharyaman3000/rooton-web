@@ -65,6 +65,7 @@ export default function RTONBanner({
                     leading-[normal]
                     font-jakartaSans
                     md:max-h-[unset]
+                    banner-text
                 "
           >
             {HtmlParser(heroText)}

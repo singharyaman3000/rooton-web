@@ -95,7 +95,8 @@
 }
 
 .open-work-permit span font,
-.banner-text span font {
+.banner-text span font,
+.banner-text font {
   position: unset;
 }
 
