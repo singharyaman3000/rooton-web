@@ -10,6 +10,9 @@ import {
   additionalInformation,
   additionalInformationField,
 } from '../config/formConfig';
+import { FormSingleCheckBoxInput } from '../../components/FormSingleCheckBoxInput';
+import { PrivacyPolicy } from '../../components/PrivacySection';
+import { texts } from '@/constants/texts';
 
 export const AdditionalInformationSection: React.FC<IPropsType> = ({ onchange, formData }) => {
 
@@ -29,6 +32,13 @@ export const AdditionalInformationSection: React.FC<IPropsType> = ({ onchange, f
             onchange('ad_info', e.target.value);
           } } />
       )}
+      <FormSingleCheckBoxInput
+        id=''
+        label={texts.CONSENT} onChange={(value: 'Yes' | 'No') => {
+          onchange('i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_', value);
+        }}
+      />
+      <PrivacyPolicy />
     </div>
   );
 };
