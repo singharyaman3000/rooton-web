@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { workHistoryOrNot } from '../../config/formConfig';
 import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import { IPropsAdditionalType } from '../../config/models';
 import { AdditionalQuestions } from './AdditionalQuestions';
+import useScrollToBottom from '@/hooks/useScrollToBottom';
+import { generateAllStateObjects } from '@/utils';
 
 const additionalQuestionsKeys = [
   'occupation_',
@@ -25,6 +27,8 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
   setAdditionalQuestionsData,
   additionalQuestionsData }) => {
   const [currentStep, setCurrentStep] = useState<number>(filledFields);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useScrollToBottom(containerRef, [currentStep, additionalQuestionsData]);
 
   const handleOnChange = (key: string, value: string, index: number, state: Record<string, string>[]) => {
     const dataToUpdate = [...state];
@@ -49,14 +53,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
   };
 
   useEffect(() => {
-    const allStateObjects = [...Array(currentStep)].map((_, index) => {
-      const stateObject = additionalQuestionsKeys.reduce((acc, key) => {
-        const existingData =
-          additionalQuestionsData.length > 0 ? additionalQuestionsData?.[index]?.[key] : '';
-        return { ...acc, [key]: existingData ?? '' };
-      }, {});
-      return stateObject;
-    });
+    const allStateObjects = generateAllStateObjects(currentStep, additionalQuestionsKeys, additionalQuestionsData);
     setAdditionalQuestionsData(allStateObjects);
     setFilledFields(currentStep);
   }, [currentStep]);
@@ -82,7 +79,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
             Starting with your current (or most recent) job, please list all the paid work you have done during the last
             10 years:
           </p>
-          <div className="flex flex-col overflow-auto max-h-[50rem]">
+          <div ref={containerRef} className="flex flex-col overflow-auto max-h-[50rem]">
             {additionalQuestionsData?.map((_, index) => {
               return (
                 <div key={`${index + 1}`} className='m-0'>

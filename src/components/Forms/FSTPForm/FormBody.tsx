@@ -223,7 +223,7 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
 
         {/* ======================================== BUTTONS =============================================== */}
         <div className="flex justify-between w-full mt-10">
-          {currentStep <= 9 && <FormButton
+          {currentStep <= (formSteps.length - 1) && <FormButton
             type='button'
             buttonText="Back"
             disable={currentStep === 1}
@@ -235,10 +235,10 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
               scrollToTop();
             }}
           />}
-          {currentStep <= 9 && <FormButton
-            type={currentStep === 9 ? 'submit' : 'button'}
-            buttonText={currentStep === 9 ? 'Submit' : 'Next'}
-            onClickHandler={currentStep === 9 ? undefined : onNextClick}
+          {currentStep <= (formSteps.length - 1) && <FormButton
+            type={currentStep === (formSteps.length - 1) ? 'submit' : 'button'}
+            buttonText={currentStep === (formSteps.length - 1) ? 'Submit' : 'Next'}
+            onClickHandler={currentStep === (formSteps.length - 1) ? undefined : onNextClick}
             disable={isInvalid}
           />}
         </div>
