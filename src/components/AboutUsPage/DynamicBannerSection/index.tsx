@@ -41,9 +41,9 @@ const DynamicBannerSection = ({
         min-h-[380px]
       `}
     >
-      <Breadcrumbs className=" hidden lg:flex" data={breadCrumbData} />
+      <Breadcrumbs className="hidden lg:flex" data={breadCrumbData} />
       <div
-        className=" w-full h-full"
+        className="w-full h-full"
         style={{
           backgroundImage: addGradient
             ? 'linear-gradient(190deg, rgb(0 0 0 / 43%) 10%, rgb(0 0 0 / 59%) 42%, #0009 10%)'
@@ -52,7 +52,6 @@ const DynamicBannerSection = ({
       >
         <div
           className="
-            lg:bg-banner-grid-overlay
             lg:bg-cover
             px-6
             pb-[57px]
@@ -76,6 +75,7 @@ const DynamicBannerSection = ({
                     font-bold
                     leading-[normal]
                     font-jakartaSans
+                    banner-text
                 "
           >
             {HtmlParser(heroText)}
@@ -86,9 +86,7 @@ const DynamicBannerSection = ({
         </div>
         <div className={`${bannerHeightTailwind} h-[400px] w-full absolute left-0 top-0 z-[-1]`}>
           <picture>
-            {desktopBackgroundUrl ? (
-              <source media="(min-width: 480px)" srcSet={desktopBackgroundUrl} />
-            ) : null}
+            {desktopBackgroundUrl ? <source media="(min-width: 480px)" srcSet={desktopBackgroundUrl} /> : null}
             <NextImage
               sizes="100vw"
               priority

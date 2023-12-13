@@ -6,8 +6,8 @@ import Honesty, { IJsonContent } from '@/components/HomePage/Honesty';
 import PartnerShip from '@/components/HomePage/Partnership';
 import ServicesListing from '@/components/HomePage/ServicesListing';
 import OurProcess from '@/components/HomePage/OurProcess';
-import { CONTENT_TYPES, IHomePageData } from '@/app/services/apiService/homeAPI';
-import { appendAssetUrl, getSectionData, isVideo, scrollIntoView } from '@/utils';
+import { Attributes2, CONTENT_TYPES, IHomePageData } from '@/app/services/apiService/homeAPI';
+import { appendAssetUrl, isVideo, scrollIntoView } from '@/utils';
 import ChallengesListing, { IChallenges } from './ChallengesListing';
 import { IOurProcessData } from './OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -24,83 +24,90 @@ import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import { useSearchParams } from 'next/navigation';
 
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
-  const getComponentsAboveBookAppointments = () => {
-    return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
-      const { title, sub_title, description } = contents.attributes;
-      switch (contents.attributes.unique_identifier_name) {
-      case CONTENT_TYPES.SERVICES:
-        return (
-          <ServicesListing
-            title={title}
-            sub_title={sub_title}
-            core_services={contents.attributes.core_services || []}
+  const homePageContents = homePageConfig?.attributes?.home_page_contents ?? [];
+
+  const sortedContents = homePageContents?.data?.sort((a, b) => {
+    return a.attributes.content_position - b.attributes.content_position;
+  });
+
+  const generateContentSections = (attributes: Attributes2) => {
+    if (!attributes) return null;
+    const { title, sub_title, description } = attributes;
+
+    switch (attributes.unique_identifier_name) {
+    case CONTENT_TYPES.SERVICES:
+      return <ServicesListing title={title} sub_title={sub_title} core_services={attributes.core_services || []} />;
+    case CONTENT_TYPES.CREDIBILITY:
+      return (
+        <Credibility
+          description={description ?? ''}
+          title={title}
+          sub_title={sub_title}
+          media_url={attributes.media_url}
+        />
+      );
+    case CONTENT_TYPES.WHY_ROOT_ON:
+      return (
+        <Honesty
+          title={title}
+          description={description ?? ''}
+          sub_title={sub_title}
+          json_content={attributes.json_content as IJsonContent}
+        />
+      );
+    case CONTENT_TYPES.OUR_PROCESSES:
+      return (
+        <div className=" mb-20">
+          <OurProcess title={title} sub_title={sub_title} json_content={attributes.json_content as IOurProcessData} />
+        </div>
+      );
+    case CONTENT_TYPES.CHALLENGES:
+      return (
+        <ChallengesListing
+          description={description ?? ''}
+          sub_title={sub_title}
+          title={title}
+          json_content={attributes.json_content as IChallenges}
+          media_url={attributes.media_url}
+        />
+      );
+    case CONTENT_TYPES.PARTNERSHIPS:
+      return <PartnerShip sub_title={sub_title} title={title} data={attributes.media_url.data} />;
+    case CONTENT_TYPES.BLOG:
+      return <BlogSection sourcePage={SOURCE_PAGE.HOME} title={title} subtitle={sub_title} />;
+    case CONTENT_TYPES.QUESTIONS:
+      return (
+        <FaqListing
+          sub_title={attributes?.sub_title}
+          title={attributes?.title}
+          json_content={attributes?.json_content as IFaqData}
+        />
+      );
+    case CONTENT_TYPES.TESTIMONIALS:
+      return (
+        <div className=" pb-10 md:pb-[80px] max-w-screen-2k mx-auto">
+          <Testimonials
+            apiUrl={TESTIMONIAL_API}
+            title={TESTIMONIAL_TITLE.title}
+            subTitle={TESTIMONIAL_TITLE.subTitle}
           />
-        );
-      case CONTENT_TYPES.CREDIBILITY:
-        return (
-          <Credibility
-            description={description ?? ''}
-            title={title}
-            sub_title={sub_title}
-            media_url={contents.attributes.media_url}
-          />
-        );
-      case CONTENT_TYPES.WHY_ROOT_ON:
-        return (
-          <Honesty
-            title={title}
-            description={description ?? ''}
-            sub_title={sub_title}
-            json_content={contents.attributes.json_content as IJsonContent}
-          />
-        );
-      case CONTENT_TYPES.OUR_PROCESSES:
-        return (
-          <div className=' mb-20'>
-            <OurProcess
-              title={title}
-              sub_title={sub_title}
-              json_content={contents.attributes.json_content as IOurProcessData}
-            />
-          </div>
-        );
-      case CONTENT_TYPES.CHALLENGES:
-        return (
-          <ChallengesListing
-            description={description ?? ''}
-            sub_title={sub_title}
-            title={title}
-            json_content={contents.attributes.json_content as IChallenges}
-            media_url={contents.attributes.media_url}
-          />
-        );
-      default:
-        return null;
-      }
-    });
+        </div>
+      );
+    case CONTENT_TYPES.APPOINTMENT:
+      return (
+        <div className="mb-[100px] max-w-screen-2k mx-auto">
+          <BookAnAppointmentSection />
+        </div>
+      );
+    default:
+      return null;
+    }
   };
 
   const searchParams = useSearchParams();
   useEffect(() => {
-    if (searchParams.get('section') === 'services')
-      scrollIntoView('servicesHomePage');
+    if (searchParams.get('section') === 'services') scrollIntoView('servicesHomePage');
   });
-
-  const getComponentsAfterBookAppointments = () => {
-    return homePageConfig?.attributes?.home_page_contents?.data?.map((contents) => {
-      const { title, sub_title } = contents.attributes;
-      switch (contents.attributes.unique_identifier_name) {
-      case CONTENT_TYPES.PARTNERSHIPS:
-        return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
-      case CONTENT_TYPES.BLOG:
-        return <BlogSection sourcePage={SOURCE_PAGE.HOME} title={title} subtitle={sub_title} />;
-      default:
-        return null;
-      }
-    });
-  };
-
-  const faqData = getSectionData(homePageConfig, CONTENT_TYPES.QUESTIONS);
 
   return (
     <>
@@ -118,21 +125,9 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           />
         }
       />
-      {getComponentsAboveBookAppointments()}
-      <div className='mb-[100px] max-w-screen-2k mx-auto'>
-        <BookAnAppointmentSection/>
-      </div>
-      {getComponentsAfterBookAppointments()}
-      <div className=' pb-10 md:pb-[80px] max-w-screen-2k mx-auto'>
-        <Testimonials apiUrl={TESTIMONIAL_API} title={TESTIMONIAL_TITLE.title} subTitle={TESTIMONIAL_TITLE.subTitle}/>
-      </div>
-      {faqData && (
-        <FaqListing
-          sub_title={faqData?.attributes?.sub_title}
-          title={faqData?.attributes?.title}
-          json_content={faqData?.attributes?.json_content as IFaqData}
-        />
-      )}
+      {sortedContents?.map((content) => {
+        return generateContentSections(content.attributes);
+      })}
       <NewsLetter />
     </>
   );

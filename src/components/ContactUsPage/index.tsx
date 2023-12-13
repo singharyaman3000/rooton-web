@@ -23,7 +23,7 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
     const element = document.getElementById('contact-us-form-container');
     if (element) {
       window.scrollTo({
-        top: element.getBoundingClientRect().top - 65 + window.pageYOffset,
+        top: element.getBoundingClientRect().top - 90 + window.pageYOffset,
         behavior: 'smooth',
       });
     }
