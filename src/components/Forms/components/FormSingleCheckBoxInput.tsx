@@ -15,16 +15,17 @@ export const FormSingleCheckBoxInput: React.FC<CheckboxProps> = ({ label, onChan
   };
 
   return (
-    <div className='flex items-center gap-[10px] pb-4'>
-      <input
-        type="checkbox"
-        id={id}
-        className='accent-black w-5 h-5'
-        checked={value === 'Yes'}
-        onChange={handleCheckboxChange}
-      />
-      <label htmlFor={id} className="text-lg">
-        <span>{label}</span>
+    <div className='pb-4 relative'>
+      <label htmlFor={id}
+        id='custom-single-checkbox'
+        className="inline-flex items-baseline text-lg font-medium leading-[1.67] text-black">
+        <input
+          type="checkbox"
+          id={id}
+          checked={value === 'Yes'}
+          onChange={handleCheckboxChange}
+        />
+        <span className={value === 'Yes' ? 'checked' : ''}>{label}</span>
       </label>
     </div>
   );
