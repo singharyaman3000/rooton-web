@@ -180,7 +180,7 @@ const Testimonials = ({ title, subTitle, apiUrl }: TestimonialProps) => {
             showPopuUp={poupState}
             body={
               <VideoElement
-                cssClass={'object-cover absolute h-full top-0'}
+                cssClass={'object-contain absolute h-full top-0'}
                 poster=""
                 src={getVideoUrl(popUpData?.media_url)}
               />
