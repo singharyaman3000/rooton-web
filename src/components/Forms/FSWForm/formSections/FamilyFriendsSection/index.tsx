@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { IPropsAdditionalType } from '../../config/models';
 import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import { AdditionalQuestions } from './AdditionalQuestions';
 import {
   familyFriendsCanada,
   familyFriendsManitoba,
 } from '../../config/formConfig';
-import { IPropsAdditionalType } from '../../config/models';
+import useScrollToBottom from '@/hooks/useScrollToBottom';
+import { generateAllStateObjects } from '@/utils';
 
 const additionalQuestionsKeys = [
   'relationship_with_relative_',
@@ -24,6 +26,8 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
 }) => {
 
   const [currentStep, setCurrentStep] = useState<number>(filledFields);
+  const containerRef = useRef<HTMLDivElement>(null);
+  useScrollToBottom(containerRef, [currentStep, additionalQuestionsData]);
 
   const handleOnChange = (key: string, value: string, index: number, state: Record<string, string>[]) => {
     const dataToUpdate = [...state];
@@ -48,13 +52,7 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
   };
 
   useEffect(() => {
-    const allStateObjects = [...Array(currentStep)].map((_, index) => {
-      const stateObject = additionalQuestionsKeys.reduce((acc, key) => {
-        const existingData = additionalQuestionsData?.length > 0 ? additionalQuestionsData?.[index]?.[key] : '';
-        return { ...acc, [key]: existingData ?? '' };
-      }, {});
-      return stateObject;
-    });
+    const allStateObjects = generateAllStateObjects(currentStep, additionalQuestionsKeys, additionalQuestionsData);
     setAdditionalQuestionsData(allStateObjects);
     setFilledFields(currentStep);
   }, [currentStep]);
@@ -78,7 +76,7 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
       {formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' &&
         <>
           <p>{'Please list all your and/or your spouse/common-law partner\'s relatives in Canada'}</p>
-          <div className="flex flex-col overflow-auto max-h-[50rem]">
+          <div ref={containerRef} className="flex flex-col overflow-auto max-h-[50rem]">
             {additionalQuestionsData?.map((_, index) => {
               return (
                 <div key={`${index + 1}`} className="m-0 md:mr-8">

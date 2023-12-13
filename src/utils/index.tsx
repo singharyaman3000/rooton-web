@@ -107,3 +107,21 @@ export const createMeetingUrl = (firstname: string, lastname: string, email: str
 
   return `${link}?firstname=${encodedFirstName}&lastname=${encodedLastName}&email=${encodedEmail}&name=${encodedFirstName} ${encodedLastName}`;
 };
+
+// utils.ts
+
+export const generateAllStateObjects = (
+  currentStep: number,
+  additionalQuestionsKeys: string[],
+  additionalQuestionsData: Record<string, string>[],
+) => {
+  const allStateObjects = [...Array(currentStep)].map((_, index) => {
+    const stateObject = additionalQuestionsKeys.reduce((acc, key) => {
+      const existingData = additionalQuestionsData?.length > 0 ? additionalQuestionsData?.[index]?.[key] : '';
+      return { ...acc, [key]: existingData ?? '' };
+    }, {});
+    return stateObject;
+  });
+  return allStateObjects;
+};
+
