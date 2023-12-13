@@ -57,8 +57,6 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
     setFilledFields(currentStep);
   }, [currentStep]);
 
-  console.log(additionalQuestionsData);
-
   useEffect(() => {
     if (formNumber !== 3 || !isInValid) return;
     isInValid(formData.have_you_completed_high_school__12th_grade__ === '');
