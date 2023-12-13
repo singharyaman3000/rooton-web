@@ -57,14 +57,16 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
         </div>
       </div>
       {licenseNumber ? (
-        <p className="text-sm md:text-lg text-center md:text-left leading-[2.14] md:leading-primary-lg font-medium text-primary-font-color md:mt-6">
-          CICC license number:{' '}
-          <strong className="text-cicc-border font-bold">
-            <a href="https://college-ic.ca/protecting-the-public/find-an-immigration-consultant" target="_blank">
+        <div className='w-[100%] lg:w-[52%]'>&nbsp;&nbsp;<p className='!text-primary-font-color font-medium text-sm md:text-lg'>Validate the authenticity of the License by simply entering the License number <span className="text-cicc-border font-bold"> {licenseNumber} </span>on the below link:</p><a href="https://college-ic.ca/protecting-the-public/find-an-immigration-consultant" target="_blank">
+          <p className="text-sm md:text-lg text-center md:text-left leading-[2.14] md:leading-primary-lg font-medium text-blue-600  md:mt-1">
+            <span className="underline">Verify my RCIC{' '}</span>
+            {/* <strong className="text-cicc-border font-bold">
+
               {licenseNumber}
-            </a>
-          </strong>
-        </p>
+
+            </strong> */}
+          </p>
+        </a></div>
       ) : null}
     </section>
   );

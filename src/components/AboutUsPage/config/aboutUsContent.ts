@@ -21,9 +21,9 @@ export const BANNER_SECTION_CONTENT = {
 /* About Us Description Section */
 export const WELCOME_SECTION_DATA = {
   companyDescription:
-    'Welcome to Root On Immigration Consultants! We are a dedicated team of professionals specializing in helping individuals and families immigrate to Canada. Our mission is to help you achieve your dream of living and working in Canada, whether it\'s for study, work, investment, or reuniting with loved ones.  Trust us for accurate and timely advice as we stay up-to-date with immigration laws.',
+    'Root On Immigration Consultants, founded by Ronak Patel, is a licensed Canadian Immigration firm specialising in Study Permit, Work Permit, Visitor Visa, Permanent Residency and Business Immigration applications. It has had its Canadian office in Downtown Montreal, QC since 2015 and its overseas Indian office is incorporated in Surat, Gujarat since 2019. <br/> <br /><strong>We help international students, working professionals, businesses and families immigrate to Canada in the most ethical, efficient and optimal manner possible.</strong> <br /><br />By far, we have represented a diverse clientele from countries including India, Malaysia, Ghana, Cameroon, Morocco, the UAE, Sri Lanka, Turkey, Nepal, the UK and more, even receiving inquiries from the USA. Root On is a recognized and leading immigration firm when it comes to complex visa situations and for its successful appeals against unjust denials.What sets us apart is our expertise in complex visa situations and successful appeals against unjust denials. <br />Contact us today to discover your true immigration potential and make a knowledgeable decision for your Canadian journey!',
   companyMission:
-    'We believe in transparency and work closely with you to understand your goals. Our qualified team tailors our services to your needs, making the process smooth and stress-free. Contact us to learn more and start your new life in Canada! Immigrate to Canada with Root On!',
+    '',
   experienceYearsText: 'years of experience,<br />we excel in immigration services.',
   clientsCountText: 'clients fulfilled their<br />Canada dreams with us.',
   welcomeImageUrl: '/images/aboutUs/traveling-man.png',
@@ -99,18 +99,11 @@ export const COMPANY_MEMBERS_SECTION = {
   sectionHeading: 'Who we are',
   companyMembers: [
     {
-      employeeName: 'Ronak Patel',
-      employeeRole: 'FOUNDER & CEO',
+      employeeName: 'Anjali Agarwal',
+      employeeRole: 'TEAM LEADER',
       employeeDescription:
-        'Hi, I\'m Ronak Patel, the founder of Root On Immigration Consultants Inc. With over 15 years of experience as an RCIC, I specialize in handling challenging study visa applications and a wide range of other immigration services, including Spousal Open Work Permit Visas, Canadian Permanent Residence, and more. My passion for immigration consulting was ignited by the struggles faced by immigrants, inspiring me to establish Root On Consultants.\n\nMy goal?\nTo simplify the complex immigration process for students and immigrants worldwide, helping them realize their dreams of a life in Canada. It\'s a journey that brings me immense joy and satisfaction every single day!',
-      imageUrl: { employeeImage: '/images/aboutUs/team-members/001.png', backgroundColor: '#ee4e6e' },
-    },
-    {
-      employeeName: 'Darshinee Desai',
-      employeeRole: 'LANGUAGE TRAINER',
-      employeeDescription:
-        'I am a science graduate with a marketing twist and an avid teaching enthusiast. I thrive on connecting with individuals, delving into their perspectives, and aiding them on their exam journeys. What once started as a hobby has blossomed into a fulfilling profession.\n\nA firm believer in embracing the best and being prepared for the worst. For me, success isn\'t an alternative; it\'s a blend of hard work and smart strategies.Beyond the hustle, I find solace in reading novels, the rhythm of music, the serenity of long walks, and cherishing moments with family and friends.\n\nReady to explore, learn, and conquer challenges together!',
-      imageUrl: { employeeImage: '/images/aboutUs/team-members/002.png', backgroundColor: '#00aba3' },
+        'I am Anjali Agarwal, a seasoned and driven professional with over 9 years of dedicated experience in the realm of immigration consultancy and education counseling. Holding a Master of Business Administration in Finance, I bring a robust educational background to my role. Currently serving as the Team Leader at Root On Immigration Consultants Pvt Ltd, a distinguished Canadian Immigration Consultant (RCIC) firm located in Surat, Gujarat, I specialize in streamlining immigration processes exclusively for Canada.\n\nIn my current leadership role, I lead a dynamic team engaged in applications and counseling initiatives for Canada. Overseeing the entire spectrum of admissions and visa applications, my responsibilities span career counseling, meticulous application management, and delivering the same with the utmost professionalism. I take pride in my ability to convert leads into valued clients and maintain well-organized databases to enhance operational efficiency.',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/005.png', backgroundColor: '#71597B' },
     },
     {
       employeeName: 'Harnisha Dumasia',
@@ -127,13 +120,6 @@ export const COMPANY_MEMBERS_SECTION = {
       imageUrl: { employeeImage: '/images/aboutUs/team-members/004.png', backgroundColor: '#2993a5' },
     },
     {
-      employeeName: 'Anjali Agarwal',
-      employeeRole: 'TEAM LEADER',
-      employeeDescription:
-        'I am Anjali Agarwal, a seasoned and driven professional with over 9 years of dedicated experience in the realm of immigration consultancy and education counseling. Holding a Master of Business Administration in Finance, I bring a robust educational background to my role. Currently serving as the Team Leader at Root On Immigration Consultants Pvt Ltd, a distinguished Canadian Immigration Consultant (RCIC) firm located in Surat, Gujarat, I specialize in streamlining immigration processes exclusively for Canada.\n\nIn my current leadership role, I lead a dynamic team engaged in applications and counseling initiatives for Canada. Overseeing the entire spectrum of admissions and visa applications, my responsibilities span career counseling, meticulous application management, and delivering the same with the utmost professionalism. I take pride in my ability to convert leads into valued clients and maintain well-organized databases to enhance operational efficiency.',
-      imageUrl: { employeeImage: '/images/aboutUs/team-members/005.png', backgroundColor: '#71597B' },
-    },
-    {
       employeeName: 'Krishna Parekh',
       employeeRole: 'COUNSELOR',
       employeeDescription:
@@ -145,7 +131,7 @@ export const COMPANY_MEMBERS_SECTION = {
       employeeRole: 'CLIENT ACCOUNT MANAGER',
       employeeDescription:
         'Meet Ms. Nishi Chawla, our Client Account Manager at Root On Immigration. As an MBA graduate, Nishi is your dedicated guide through the Canadian immigration journey. As a Trained Professional in Study Visa , Work permits, LMIA, and PR, she provides personalized support from onboarding to visa success.\n\nNishi simplifies immigration complexities, ensuring a stress-free process. Her dedication goes beyond account management; she\'s genuinely invested in your success. With a friendly demeanor, Nishi is ready to address your queries, ensuring a pleasant and successful immigration experience. Your Canadian dream starts with Nishi by your side.',
-      imageUrl: { employeeImage: '/images/aboutUs/team-members/007.png', backgroundColor: '#C45F77' },
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/0071.JPG', backgroundColor: '#FFF6E7' },
     },
     {
       employeeName: 'Anjali Uttamchandani',
@@ -174,6 +160,13 @@ export const COMPANY_MEMBERS_SECTION = {
       employeeDescription:
         'I am Aakash Shah, currently serving as a Client Account Manager at Root On Immigration\'s Surat branch. Holding a Bachelor of Business Administration degree, my academic foundation aligns seamlessly with my over 2 years of dedicated involvement in the immigration field in international student recruitment sector, both nationally and globally.\n\nMy experience encompasses successfully handling a diverse range of cases involving intricate challenges such as multiple academic backlogs, educational gaps, and refusals across multiple countries, SOWPs, visitor visa, Super visa. I specialize in managing cases with meticulous attention to detail, ensuring compliance with all policies while maintaining transparency throughout the process.',
       imageUrl: { employeeImage: '/images/aboutUs/team-members/011.png', backgroundColor: '#2993a5' },
+    },
+    {
+      employeeName: 'Darshinee Desai',
+      employeeRole: 'LANGUAGE TRAINER',
+      employeeDescription:
+        'I am a science graduate with a marketing twist and an avid teaching enthusiast. I thrive on connecting with individuals, delving into their perspectives, and aiding them on their exam journeys. What once started as a hobby has blossomed into a fulfilling profession.\n\nA firm believer in embracing the best and being prepared for the worst. For me, success isn\'t an alternative; it\'s a blend of hard work and smart strategies.Beyond the hustle, I find solace in reading novels, the rhythm of music, the serenity of long walks, and cherishing moments with family and friends.\n\nReady to explore, learn, and conquer challenges together!',
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/002.png', backgroundColor: '#00aba3' },
     },
   ],
 };

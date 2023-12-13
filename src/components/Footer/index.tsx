@@ -152,8 +152,8 @@ export default function Footer() {
                 {address?.attributes.name}
               </p>
               <p className=" text-sm mb-[4px] whitespace-normal">{HtmlParser(address?.attributes?.location)}</p>
-              <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2">
-                Phone{' '}
+              <p className=" text-sm mb-[4px] lg:mb-0 font-bold mt-2 text-blue-600 underline">
+                Ph:{' '}
                 <a className="cursor-pointer" href={`tel:${address?.attributes?.phone_number}`}>
                   {address?.attributes?.phone_number}{' '}
                 </a>
