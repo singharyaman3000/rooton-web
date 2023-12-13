@@ -5,12 +5,13 @@ export interface CheckboxProps {
   label: string;
   onChange: (value: 'Yes' | 'No') => void;
   id: string;
+  value: string;
 }
 
-export const FormSingleCheckBoxInput: React.FC<CheckboxProps> = ({ label, onChange, id }) => {
+export const FormSingleCheckBoxInput: React.FC<CheckboxProps> = ({ label, onChange, id, value }) => {
   const handleCheckboxChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const value = event.target.checked ? 'Yes' : 'No';
-    onChange(value);
+    const isChecked = event.target.checked ? 'Yes' : 'No';
+    onChange(isChecked);
   };
 
   return (
@@ -19,6 +20,7 @@ export const FormSingleCheckBoxInput: React.FC<CheckboxProps> = ({ label, onChan
         type="checkbox"
         id={id}
         className='accent-black w-5 h-5'
+        checked={value === 'Yes'}
         onChange={handleCheckboxChange}
       />
       <label htmlFor={id} className="text-lg">

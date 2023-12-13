@@ -76,7 +76,8 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         }}
       />
       <FormSingleCheckBoxInput
-        id=''
+        id='FSW-Form-consent'
+        value={formData?.i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_}
         label={texts.CONSENT} onChange={(value: 'Yes' | 'No') => {
           onchange('i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_', value);
         }}
