@@ -22,7 +22,8 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
     isInValid(
       !isEmailValid(formData.email) ||
       !formData?.lastname.trim() ||
-      !formData?.firstname.trim(),
+      !formData?.firstname.trim() ||
+      !formData?.consultation_type,
     );
   }, [formData, formNumber]);
 
@@ -64,6 +65,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
       />
       <FormRadioInput
+        required
         fields={consultationType}
         value={formData?.consultation_type}
         onChange={(e) => {
