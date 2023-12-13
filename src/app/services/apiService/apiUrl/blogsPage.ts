@@ -10,6 +10,8 @@ const GET_BLOGS_LIST_WITH_SERVICETYPE_AND_BLOGTYPE =
   '/api/blogs/?populate[0]=media_url&populate[1]=author_profile_image.media_url&populate[2]=blog_contents.media_url&pagination[page]=<pageNo>&pagination[pageSize]=8&filters[service_type][$eq]=<serviceType>&filters[category][$eq]=<articleType>&filters[id][$ne]=<currentBlogId>&sort=<sortBy>';
 const GET_BLOG_META_INFO =
   '/api/blogs?fields[0]=meta_title&fields[1]=meta_description&fields[2]=unique_identifier_name&filters[id][$eq]=<blogId>';
+const GET_COACHING_SERVICE_BLOGS =
+  '/api/blogs/?populate[0]=media_url&populate[1]=author_profile_image.media_url&populate[2]=blog_contents.media_url&pagination[page]=<pageNo>&pagination[pageSize]=8&filters[service_type][$eq]=<serviceType>&filters[category][$eq]=<articleType>&sort=<sortBy>';
 
 export const getBlogsListUrl = (
   articleType: ArticleCategoryType,
@@ -28,6 +30,9 @@ export const getBlogsListUrl = (
       .replace('<articleType>', articleType)
       .replace('<currentBlogId>', blogId ?? '')
       .replace('<sortBy>', articleType === 'blog' ? 'views:desc' : 'updatedAt:desc');
+  else if (sourcePage === SOURCE_PAGE.COACHING) url = GET_COACHING_SERVICE_BLOGS.replace('<serviceType>', serviceType)
+    .replace('<articleType>', articleType)
+    .replace('<sortBy>', articleType === 'coaching-tips' ? 'views:desc' : 'updatedAt:desc');
   else {
     url = GET_BLOGS_LIST.replace('<articleType>', articleType).replace(
       '<sortBy>',
