@@ -1,10 +1,8 @@
-/* eslint-disable max-len */
-
 import React, { useEffect, useState } from 'react';
 import { IPropsType } from '../config/models';
-import { FormDropdown } from '../components/FormDropDown';
-import { FormRadioInput } from '../components/FormRadioInput';
-import { FormCloseButton } from '../components/FormCloseButton';
+import { FormDropdown } from '@/components/Forms/components/FormDropDown';
+import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
+import { FormCloseButton } from '@/components/Forms/components/FormCloseButton';
 import {
   likeToDo,
   sponsorRelationship,
@@ -17,7 +15,7 @@ import {
   yourChildGrandchildMaritalStatus,
   yourChildGrandchildSubstantially,
 } from '../config/formConfig';
-import { SponsorDropDown } from '../components/SponsorDropDown';
+import { SponsorDropDown } from '@/components/Forms/components/SponsorDropDown';
 import { initialStates } from '../config/intialState';
 
 export const PersonalSection: React.FC<IPropsType & { setFormData: React.Dispatch<React.SetStateAction<typeof initialStates>> }> = ({

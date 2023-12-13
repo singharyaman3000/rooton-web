@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, useEffect, useState } from 'react';
-import { OptionType } from '../config/formConfig';
+import { OptionType } from '../PGPForm/config/formConfig';
 
 type PropsType = {
   options: OptionType[];

@@ -1,17 +1,15 @@
-'use client';
-
 import 'tailwindcss/tailwind.css';
 import { FormEvent, useMemo, useState } from 'react';
-import { FormStep } from './components/FormStep';
-import { FormHeader } from './components/FormHeader';
+import { FormStep } from '@/components/Forms/components/FormStep';
+import { FormHeader } from '@/components/Forms/components/FormHeader';
 import { PersonalSection } from './formSections/PersonalSection';
-import { FormButton } from './components/FormButton';
+import { FormButton } from '@/components/Forms/components/FormButton';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 import { initialStates } from './config/intialState';
 import { postPRSubmission } from '@/app/services/apiService/prFormSubmission';
 import { AdditionalInformationSection } from './formSections/AdditionalInformationSection';
 import { ContactSection } from './formSections/ContactSection';
-import { convertFormDataToArray } from '@/utils';
+import { convertFormDataToArray, createMeetingUrl } from '@/utils';
 import { usePathname } from 'next/navigation';
 
 type ValueType = 'country' | 'occupation';
@@ -113,7 +111,10 @@ const FormBody = ({ formId, meetingLink, scrollToTop }: { formId: string, meetin
         component: <div id='scheduler-container' className="bg-hubspot-meeting-background h-[54rem] mt-2">
           <iframe className=" w-full h-full"
             title="AA"
-            src={formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free} />
+            src={createMeetingUrl(formData.firstname,
+              formData.lastname,
+              formData.email,
+              formData.consultation_type === 'Consultation with RCIC (Paid)' ? meetingLink.paid : meetingLink.free)} />
         </div>,
       },
     ];

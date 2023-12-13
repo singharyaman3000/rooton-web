@@ -39,7 +39,8 @@
   --smoky-steel: #979797;
   --light-gray: #717171;
   --platinum:  #e5e5e5;
-  --hubspot-meeting-background: #f5f8fa;
+  --hubspot-meeting-background: #FDDBA2;
+  --services-tab-color: #000;
   
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
   --preloader-overlay: hsl(252deg 9% 6% / 18%), hsl(252deg 3% 16% / 19%), hsl(0deg 2% 5% / 15%);
@@ -74,6 +75,7 @@
   --sandal: rgba(234, 213, 169, 0.32);
   --pale-sandal: #fddba2;
   --hover-lang-dropdown: #282828;
+  --services-tab-color: #fff6e7;
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(255, 255, 255, 0.5);
   --preloader-overlay: rgb(228 228 228), hsl(0deg 0% 89% / 43%), rgb(228 228 228);
@@ -114,8 +116,7 @@ body {
   overflow-wrap: break-word;
 }
 
-[data-tooltip]:hover::before,
-[data-tooltipleft]:hover::before {
+[data-tooltip]:hover::before {
   content: '';
   position: absolute;
   left: 50%;
@@ -127,8 +128,7 @@ body {
   transform: translateX(-50%) translateY(-100%);
 }
 
-[data-tooltip]:hover::after,
-[data-tooltipleft]:hover::after {
+[data-tooltip]:hover::after {
   content: attr(aria-label);
   position: absolute;
   z-index: 900;
@@ -141,11 +141,6 @@ body {
   top: 118%;
   transform: translateX(-50%);
   white-space: nowrap;
-}
-
-[data-tooltipleft]:hover::before,
-[data-tooltipleft]:hover::after {
-  left: 14% !important;
 }
 
 .gradient-text span {
@@ -583,7 +578,7 @@ body {
 
 @media screen and (min-width: 1024px) {
   .honestyCard:nth-child(1),
-  .honestyCard:nth-child(4n) {
+  .honestyCard:nth-child(3n + 1) {
     padding-left: 0;
   }
 
@@ -1003,13 +998,23 @@ heading {
 }
 
 #contact-us-form-container #scheduler-container {
-  height: 500px;
+  height: 693px;
+}
+
+#contact-us-section-wrapper #LeadForm {
+  min-height: 421px;
 }
 
 @media screen and (min-width: 1024px) {
   #contact-us-section-wrapper>div:last-of-type {
     padding-left: 0;
     padding-right: 0;
+  }
+  #contact-us-form-container #scheduler-container {
+    height: 655px;
+  }
+  #contact-us-form-container #LeadFormContainer {
+    margin-top: 32px;
   }
 }
 
@@ -1104,4 +1109,8 @@ heading {
   align-self: flex-end;
   cursor: pointer;
   padding: 0.5rem 1rem;
+}
+
+.hubspot-meeting-background {
+  background-color: var(--hubspot-meeting-background) !important;
 }

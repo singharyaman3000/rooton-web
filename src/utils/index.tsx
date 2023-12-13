@@ -64,7 +64,7 @@ export const convertToHtmlId = (input: string) => {
   return id;
 };
 
-export const convertFormDataToArray = (formData: Record<string,string>) => {
+export const convertFormDataToArray = (formData: Record<string, string>) => {
   return Object.entries(formData).map(([name, value]) => {
     return {
       name,
@@ -100,4 +100,21 @@ export const truncateText = (text: string, limit: number = 150) => {
     return `${truncatedText}...`;
   }
   return text;
+};
+
+export const createMeetingUrl = (firstname: string, lastname: string, email: string, link: string) => {
+  let finalFirstName = firstname.trim();
+  let finalLastName = lastname ? lastname.trim() : '';
+
+  if (!finalLastName && finalFirstName.includes(' ')) {
+    const names = firstname.split(' ');
+    finalLastName = names.length > 1 ? names.pop() || '' : '';
+    finalFirstName = names.join(' ');
+  }
+
+  const encodedFirstName = encodeURIComponent(finalFirstName);
+  const encodedLastName = encodeURIComponent(finalLastName);
+  const encodedEmail = encodeURIComponent(email);
+
+  return `${link}?firstname=${encodedFirstName}&lastname=${encodedLastName}&email=${encodedEmail}&name=${encodedFirstName} ${encodedLastName}`;
 };

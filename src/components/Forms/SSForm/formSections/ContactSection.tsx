@@ -1,90 +1,36 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { FormTextInput } from '../components/FormTextInput';
+import React, { useEffect } from 'react';
+import { FormTextInput } from '@/components/Forms/components/FormTextInput';
 import { IPropsType } from '../config/models';
-import useDebounce from '@/hooks/useDebounce';
-import { FormDropdown } from '../components/FormDropDown';
+import { FormDropdown } from '@/components/Forms/components/FormDropDown';
 import {
   countriesOfResidence,
   contactInfo,
 } from '../config/formConfig';
+import { regex } from '@/constants/regex';
 
-const validityIntialState = {
-  emailValidity: false,
-  telephoneValidity: false,
-};
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const mobileRegex = /^\d{6,10}$/;
+const { emailRegex, mobileRegex } = regex;
 
 export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isInValid, formData, countries }) => {
-  const [validity, setFormatValidity] = useState<Record<string, boolean>>(validityIntialState);
 
   const isEmailValid = (email: string) => {
-    return email === '' || emailRegex.test(email);
+    return email !== '' && emailRegex.test(email);
   };
 
   const isTelephoneValid = (telephone: string) => {
-    return telephone === '' || mobileRegex.test(telephone);
+    return mobileRegex.test(telephone);
   };
 
   useEffect(() => {
     if (formNumber !== 2 || !isInValid) return;
     isInValid(
-      validity.telephoneValidity ||
-      validity.emailValidity ||
-      formData?.email === '' ||
-      formData?.mobilephone === '' ||
-      formData?.lastname === '' ||
-      formData?.country_of_residence === '' ||
-      formData?.firstname === '',
+      !isEmailValid(formData.email) ||
+      !formData?.lastname.trim() ||
+      !formData?.firstname.trim() ||
+      !formData?.country_of_residence.trim(),
     );
   }, [formData, formNumber]);
-
-  useDebounce(
-    () => {
-      if (formData?.email === '') {
-        setFormatValidity((prevValidity) => {
-          return {
-            ...prevValidity,
-            emailValidity: false,
-          };
-        });
-        return;
-      }
-      setFormatValidity((prevValidity) => {
-        return {
-          ...prevValidity,
-          emailValidity: !isEmailValid(formData.email),
-        };
-      });
-    },
-    1000,
-    [formData.email],
-  );
-
-  useDebounce(
-    () => {
-      if (formData.mobilephone === '') {
-        setFormatValidity((prevValidity) => {
-          return {
-            ...prevValidity,
-            telephoneValidity: false,
-          };
-        });
-        return;
-      }
-      setFormatValidity((prevValidity) => {
-        return {
-          ...prevValidity,
-          telephoneValidity: !isTelephoneValid(formData.mobilephone),
-        };
-      });
-    },
-    1000,
-    [formData?.mobilephone],
-  );
 
   return (
     <div className='flex flex-col gap-2 md:grid grid-cols-2'>
@@ -108,7 +54,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         field={contactInfo[2]}
         value={formData.email}
         onChange={(e) => {
-          onchange('email', e.target.value);
+          onchange('email', e.target.value.trim());
         }}
         type='email'
         invalidFormat={!isEmailValid(formData?.email)}
@@ -119,7 +65,7 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         value={formData.mobilephone}
         type='phone'
         onChange={(e) => {
-          onchange('mobilephone', e.target.value);
+          onchange('mobilephone', e.target.value.trim());
         }}
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
         required

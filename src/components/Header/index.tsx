@@ -15,6 +15,7 @@ import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
 import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 
+const headerLangException = ['ml', 'bho'];
 const itemsToSetActive = ['service', 'contact-us', 'about-us', 'immigration-insights', 'coaching', 'home'];
 
 export default function Header() {
@@ -145,6 +146,8 @@ export default function Header() {
     return '/root-on-logo-svg.svg';
   };
 
+  const isLangException = headerLangException.includes(params.lang);
+
   return (
     <header
       ref={headerRef}
@@ -217,7 +220,9 @@ export default function Header() {
               <Link
                 href={params.lang ? `/${params.lang}/` : '/'}
                 title="Home"
-                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                className={`truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:!max-w-none ${
+                  isLangException ? 'hd:!max-w-[130px]' : ''
+                }`}
               >
                 {' '}
                 Home{' '}
@@ -233,7 +238,9 @@ export default function Header() {
               <Link
                 href={params.lang ? `/${params.lang}/about-us` : '/about-us'}
                 title="About Us"
-                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                className={`truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:!max-w-none ${
+                  isLangException ? 'hd:!max-w-[130px]' : ''
+                }`}
               >
                 {' '}
                 About Us
@@ -251,7 +258,9 @@ export default function Header() {
                 // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                 <span
                   title="Services"
-                  className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                  className={`truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:!max-w-none ${
+                    isLangException ? 'hd:!max-w-[130px]' : ''
+                  }`}
                   onClick={scrollToServiceListing}
                 >
                   Services
@@ -262,7 +271,9 @@ export default function Header() {
                     pathname: params.lang ? `/${params.lang}/` : '/',
                     query: { section: 'services' },
                   }}
-                  className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                  className={`truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:!max-w-none ${
+                    isLangException ? 'hd:!max-w-[130px]' : ''
+                  }`}
                   title="Services"
                 >
                   Services
@@ -280,7 +291,9 @@ export default function Header() {
               <Link
                 href={params.lang ? `/${params.lang}/coaching` : '/coaching'}
                 title="Coaching"
-                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                className={`truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:!max-w-none ${
+                  isLangException ? 'hd:!max-w-[130px]' : ''
+                }`}
               >
                 {' '}
                 Coaching{' '}
@@ -296,7 +309,9 @@ export default function Header() {
               <Link
                 href={params.lang ? `/${params.lang}/immigration-insights` : '/immigration-insights'}
                 title="Blogs"
-                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                className={`truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:!max-w-none ${
+                  isLangException ? 'hd:!max-w-[130px]' : ''
+                }`}
               >
                 {' '}
                 Blogs{' '}
@@ -312,7 +327,9 @@ export default function Header() {
               <Link
                 href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}
                 title="Contact Us"
-                className="truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:max-w-none"
+                className={`truncate lg:max-w-[90px] xl:max-w-[100px] hd:max-w-[200px] 2k:!max-w-none ${
+                  isLangException ? 'hd:!max-w-[130px]' : ''
+                }`}
               >
                 {' '}
                 Contact Us{' '}

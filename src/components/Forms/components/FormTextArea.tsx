@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IFormField } from '../config/formConfig';
+import { IFormField } from '../PGPForm/config/formConfig';
 
 type PropType = {
   field: IFormField;
@@ -41,4 +41,3 @@ export const FormTextArea: React.FC<PropType> = (props) => {
     </div>
   );
 };
-

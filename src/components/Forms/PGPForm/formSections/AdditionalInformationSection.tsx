@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { IPropsType } from '../config/models';
-import { FormRadioInput } from '../components/FormRadioInput';
-import { FormTextArea } from '../components/FormTextArea';
+import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
+import { FormTextArea } from '@/components/Forms/components/FormTextArea';
 import {
   additionalInformation,
   additionalInformationField,
