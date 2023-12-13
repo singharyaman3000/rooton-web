@@ -4,6 +4,7 @@ import { AdditionalQuestions } from './AdditionalQuestions';
 import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import { IPropsAdditionalType } from '../../config/models';
 import useScrollToBottom from '@/hooks/useScrollToBottom';
+import { generateAllStateObjects } from '@/utils';
 
 const additionalQuestionsKeys = [
   'type_of_education_or_training_',
@@ -51,16 +52,12 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
   };
 
   useEffect(() => {
-    const allStateObjects = [...Array(currentStep)].map((_, index) => {
-      const stateObject = additionalQuestionsKeys.reduce((acc, key) => {
-        const existingData = additionalQuestionsData?.length > 0 ? additionalQuestionsData?.[index]?.[key] : '';
-        return { ...acc, [key]: existingData ?? '' };
-      }, {});
-      return stateObject;
-    });
+    const allStateObjects = generateAllStateObjects(currentStep, additionalQuestionsKeys, additionalQuestionsData);
     setAdditionalQuestionsData(allStateObjects);
     setFilledFields(currentStep);
   }, [currentStep]);
+
+  console.log(additionalQuestionsData);
 
   useEffect(() => {
     if (formNumber !== 3 || !isInValid) return;

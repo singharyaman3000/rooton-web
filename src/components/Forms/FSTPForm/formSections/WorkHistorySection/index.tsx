@@ -4,6 +4,7 @@ import { FormRadioInput } from '@/components/Forms/components/FormRadioInput';
 import { IPropsAdditionalType } from '../../config/models';
 import { AdditionalQuestions } from './AdditionalQuestions';
 import useScrollToBottom from '@/hooks/useScrollToBottom';
+import { generateAllStateObjects } from '@/utils';
 
 const additionalQuestionsKeys = [
   'occupation_',
@@ -52,14 +53,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
   };
 
   useEffect(() => {
-    const allStateObjects = [...Array(currentStep)].map((_, index) => {
-      const stateObject = additionalQuestionsKeys.reduce((acc, key) => {
-        const existingData =
-          additionalQuestionsData.length > 0 ? additionalQuestionsData?.[index]?.[key] : '';
-        return { ...acc, [key]: existingData ?? '' };
-      }, {});
-      return stateObject;
-    });
+    const allStateObjects = generateAllStateObjects(currentStep, additionalQuestionsKeys, additionalQuestionsData);
     setAdditionalQuestionsData(allStateObjects);
     setFilledFields(currentStep);
   }, [currentStep]);
