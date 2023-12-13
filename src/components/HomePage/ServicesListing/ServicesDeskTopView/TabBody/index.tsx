@@ -8,15 +8,14 @@ import { useParams } from 'next/navigation';
 
 const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; cssClass?: string }) => {
   const path = useParams();
-  const parser = new DOMParser();
+
+  const findHTMLTextContent = (stringHTML: string) => {
+    return stringHTML.replace(/<[^>]*>/g, '');
+  };
 
   return (
     <div className={`w-full flex items-center flex-wrap ${cssClass}`}>
       {services.map((service) => {
-        const htmlString = service.attributes.title;
-        const htmlDoc = parser.parseFromString(htmlString, 'text/html');
-        const title = htmlDoc.body.textContent || htmlDoc.body.innerText;
-
         return (
           <Link
             className="w-[45%]"
@@ -25,7 +24,7 @@ const ServicesListing = ({ services, cssClass }: { services: ISubServiceData[]; 
           >
             <div
               data-tooltip
-              aria-label={title}
+              aria-label={findHTMLTextContent(service.attributes.title)}
               className={
                 'relative items-center service justify-between w-full  delay-75 cursor-pointer text-black hover:text-white transition-all hover:bg-deep-yellow  hover:[&svg]:fill-white [&>svg]:fill-deep-yellow p-[24px_24px_0px_24px]  text-lg font-bold not-italic leading-[normal] tracking-[normal] flex-shrink-0'
               }

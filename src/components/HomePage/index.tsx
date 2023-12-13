@@ -26,7 +26,7 @@ import { useSearchParams } from 'next/navigation';
 const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
   const homePageContents = homePageConfig?.attributes?.home_page_contents ?? [];
 
-  const sortedContents = homePageContents?.data?.sort((a, b) => {
+  const sortedContents = homePageContents?.data?.toSorted((a, b) => {
     return a.attributes.content_position - b.attributes.content_position;
   });
 
