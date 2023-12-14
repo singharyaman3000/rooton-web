@@ -95,7 +95,8 @@
 }
 
 .open-work-permit span font,
-.banner-text span font {
+.banner-text span font,
+.banner-text font {
   position: unset;
 }
 
@@ -828,6 +829,7 @@ body {
 
 .huform .hs-form-booleancheckbox span:not(.hs-form-required):before,
 .huform .hs-form-checkbox span:before,
+#custom-single-checkbox span::before ,
 .huform .hs-form-radio-display span::before {
   content: '';
   background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="19" height="19" rx="0" fill="white"/><rect x="0.5" y="0.5" width="19" height="19" rx="0" stroke="%23B3B3BD"/></svg>');
@@ -841,7 +843,8 @@ body {
 }
 
 .huform .hs-form-booleancheckbox input[type='checkbox']:checked + span:before,
-.huform .hs-form-checkbox input[type='checkbox']:checked + span:before {
+.huform .hs-form-checkbox input[type='checkbox']:checked + span:before,
+#custom-single-checkbox span.checked::before {
   background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(%23clip0_236_9350)"><rect width="20" height="20" rx="0" fill="%23000000"/><rect width="10.1089" height="1.66667" rx="0.833333" transform="matrix(-0.707107 0.707107 0.707107 0.707107 14.7997 5.84872)" fill="white"/><rect x="8.8231" y="14.1683" width="6.58522" height="1.66667" rx="0.833333" transform="rotate(-135 8.8231 14.1683)" fill="white"/></g><defs><clipPath id="clip0_236_9350"><rect width="20" height="20" rx="0" fill="white"/></clipPath></defs></svg>');
 }
 .huform .hs-form-radio-display span::before {
@@ -856,6 +859,25 @@ body {
 .huform textarea:focus {
   outline-color: #000;
   outline-offset: 0;
+}
+
+.add-another-field-button {
+  background-color: black !important;
+  color: white;
+  font-weight: 500;
+  align-self: flex-end;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+#custom-single-checkbox span {
+  padding-left: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#custom-single-checkbox input {
+  width: auto;
 }
 
 /* Service Form CSS ends */
@@ -1100,13 +1122,4 @@ heading {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.add-another-field-button {
-  background-color: black !important;
-  color: white;
-  font-weight: 500;
-  align-self: flex-end;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
 }

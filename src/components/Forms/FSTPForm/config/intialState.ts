@@ -59,5 +59,6 @@ export const initialStates = {
   lastname: '',
   email: '',
   mobilephone: '',
-  consultation_type:'',
+  consultation_type: '',
+  i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_:'Yes',
 };

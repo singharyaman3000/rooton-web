@@ -3,7 +3,10 @@ import { contactInfo, consultationType } from '../config/formConfig';
 import { IPropsType } from '../config/models';
 import { FormTextInput } from '../../components/FormTextInput';
 import { FormRadioInput } from '../../components/FormRadioInput';
+import { FormSingleCheckBoxInput } from '../../components/FormSingleCheckBoxInput';
 import { regex } from '@/constants/regex';
+import { texts } from '@/constants/texts';
+import { PrivacyPolicy } from '../../components/PrivacySection';
 
 const { emailRegex, mobileRegex } = regex;
 
@@ -22,7 +25,8 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
     isInValid(
       !isEmailValid(formData.email) ||
       !formData?.lastname.trim() ||
-      !formData?.firstname.trim(),
+      !formData?.firstname.trim() ||
+      !formData?.consultation_type,
     );
   }, [formData, formNumber]);
 
@@ -64,12 +68,21 @@ export const ContactSection: React.FC<IPropsType> = ({ onchange, formNumber, isI
         invalidFormat={!isTelephoneValid(formData?.mobilephone)}
       />
       <FormRadioInput
+        required
         fields={consultationType}
         value={formData?.consultation_type}
         onChange={(e) => {
           onchange('consultation_type', e.target.value);
         }}
       />
+      <FormSingleCheckBoxInput
+        id='QWSP-Form-consent'
+        value={formData?.i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_}
+        label={texts.CONSENT} onChange={(value: 'Yes' | 'No') => {
+          onchange('i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_', value);
+        }}
+      />
+      <PrivacyPolicy />
     </div>
   );
 };

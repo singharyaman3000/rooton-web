@@ -119,30 +119,50 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
+        isBookAppointment={isBookAppointment}
+        initScroll={() => {
+          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+        }}
         scrollToTop={scrollToLeadForm} />;
     case 'federal-skilled-trades':
       return <FSTPForm leadFormRef={leadFormRef}
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
+        isBookAppointment={isBookAppointment}
+        initScroll={() => {
+          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+        }}
         scrollToTop={scrollToLeadForm} />;
     case 'quebec-immigration':
       return <QSWPForm leadFormRef={leadFormRef}
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
+        isBookAppointment={isBookAppointment}
+        initScroll={() => {
+          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+        }}
         scrollToTop={scrollToLeadForm} />;
     case 'canadian-experience-class':
       return <CECForm leadFormRef={leadFormRef}
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
+        isBookAppointment={isBookAppointment}
+        initScroll={() => {
+          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+        }}
         scrollToTop={scrollToLeadForm} />;
     case 'provincial-nominee-program':
       return <PNPForm leadFormRef={leadFormRef}
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
+        isBookAppointment={isBookAppointment}
+        initScroll={() => {
+          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+        }}
         scrollToTop={scrollToLeadForm} />;
     default:
       return <div></div>;

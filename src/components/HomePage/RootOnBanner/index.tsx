@@ -86,7 +86,7 @@ export default function RootOnBanner({
             </p>
           </motion.div>
 
-          <div className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] xl2:mt-[102px]' :
+          <div className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] hd:mt-[102px]' :
             'mt-[32px] md:mt-[50px]'} w-full md:max-w-[418px]`}>{button}</div>
         </div>
       </div>

@@ -7,7 +7,9 @@ export const getAssetUrl = (url = '') => {
   return url.startsWith('/') || url.startsWith(process.env.NEXT_ASSETS_BASEURL as string) ? url : basePath + url;
 };
 
-export const appendAssetUrl = (url: string) => { return url ? process.env.NEXT_ASSETS_BASEURL + url : ''; };
+export const appendAssetUrl = (url: string) => {
+  return url ? process.env.NEXT_ASSETS_BASEURL + url : '';
+};
 
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -18,7 +20,9 @@ export const formatDate = (dateString: string): string => {
   return `${day}  ${month}  ${year}`;
 };
 
-export const isVideo = (url: string): boolean => { return url?.includes('video'); };
+export const isVideo = (url: string): boolean => {
+  return url?.includes('video');
+};
 
 export const getSectionData = (data: IHomePageData, unique_identifier_name: string) => {
   return data.attributes.home_page_contents.data?.find((contents) => {
@@ -38,7 +42,12 @@ export const getDetraslatedURL = (url: string, lang: string) => {
 };
 
 export const getFlagUrl = (flagData: IHeaderFooterData[] | undefined, langcode = 'en') => {
-  return flagData && flagData[0]?.attributes.languages.data?.find(({ attributes }) => { return attributes.code === langcode; });
+  return (
+    flagData &&
+    flagData[0]?.attributes.languages.data?.find(({ attributes }) => {
+      return attributes.code === langcode;
+    })
+  );
 };
 
 export const scrollIntoView = (id: string) => {
@@ -55,7 +64,9 @@ export const getTranslatedURL = (url: string, lang?: string) => {
   return url;
 };
 
-export const getServicePageURL = (id: string | number) => { return `/service/${id}`; };
+export const getServicePageURL = (id: string | number) => {
+  return `/service/${id}`;
+};
 
 export const convertToHtmlId = (input: string) => {
   let id = input.toLowerCase();
@@ -106,4 +117,30 @@ export const createMeetingUrl = (firstname: string, lastname: string, email: str
   const encodedEmail = encodeURIComponent(email);
 
   return `${link}?firstname=${encodedFirstName}&lastname=${encodedLastName}&email=${encodedEmail}&name=${encodedFirstName} ${encodedLastName}`;
+};
+
+// utils.ts
+
+export const generateAllStateObjects = (
+  currentStep: number,
+  additionalQuestionsKeys: string[],
+  additionalQuestionsData: Record<string, string>[],
+) => {
+  const allStateObjects = [...Array(currentStep)].map((_, index) => {
+    const stateObject = additionalQuestionsKeys.reduce((acc, key) => {
+      const existingData = additionalQuestionsData?.length > 0 ? additionalQuestionsData?.[index]?.[key] : '';
+      return { ...acc, [key]: existingData ?? '' };
+    }, {});
+    return stateObject;
+  });
+  return allStateObjects;
+};
+
+export const valueNotPresent = (arr: Record<string, string>[], keys: string[]) => {
+  if (!arr.length) return true;
+  return arr.every((obj) => {
+    return keys.every((key) => {
+      return obj[key];
+    });
+  });
 };

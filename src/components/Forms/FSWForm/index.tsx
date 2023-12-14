@@ -1,6 +1,6 @@
 'use client';
 
-import { RefObject } from 'react';
+import { RefObject, useEffect } from 'react';
 import FormBody from './FormBody';
 
 type FSWFormParamsType = {
@@ -8,10 +8,19 @@ type FSWFormParamsType = {
   leadFormRef: RefObject<HTMLDivElement>;
   formId: string;
   meetingLink: Record<string, string>,
-  scrollToTop: () => void
+  scrollToTop: () => void,
+  isBookAppointment: boolean,
+  initScroll?: () => void,
 };
 
-const FSWForm = ({ title, leadFormRef, formId, meetingLink, scrollToTop }: FSWFormParamsType) => {
+const FSWForm = ({ title, leadFormRef, formId, meetingLink, scrollToTop, isBookAppointment, initScroll }: FSWFormParamsType) => {
+
+  useEffect(() => {
+    if (isBookAppointment) {
+      if (initScroll) initScroll();
+    }
+  }, [isBookAppointment, initScroll]);
+
   return (
     <div ref={leadFormRef} className="block p-5 m-auto max-w-screen-2k">
       <div className=" p-4 lg:px-[60px] w-full pt-12 pb-[100px] sm:pb-[100px] lg:pb-[118px] sm:p-12 shadow-hubspot-form-shadow border border-golden-yellow overflow-hidden bg-pale-sandal ">
