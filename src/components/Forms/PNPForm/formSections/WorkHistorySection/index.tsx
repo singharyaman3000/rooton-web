@@ -29,7 +29,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
   const [currentStep, setCurrentStep] = useState<number>(filledFields);
   const containerRef = useRef<HTMLDivElement>(null);
   useScrollToBottom(containerRef, [filledFields]);
-  const helperMessage = formData?.have_you_done_any_paid_work_during_the_last_10_years_ === 'Yes' && !additionalQuestionsData.length;
+  const showHelperMessage = formData?.have_you_done_any_paid_work_during_the_last_10_years_ === 'Yes' && !additionalQuestionsData.length;
 
   const handleOnChange = (key: string, value: string, index: number, state: Record<string, string>[]) => {
     const dataToUpdate = [...state];
@@ -63,10 +63,10 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
 
   useEffect(() => {
     if (formNumber !== 4 || !isInValid) return;
-    console.log(valueNotPresent(additionalQuestionsData, ['when_was_work_', 'length_of_work_']));
     isInValid(
       formData?.have_you_done_any_paid_work_during_the_last_10_years_ === '' ||
-      !valueNotPresent(additionalQuestionsData, ['when_was_work_', 'length_of_work_']));
+      !valueNotPresent(additionalQuestionsData, ['when_was_work_', 'length_of_work_']) ||
+      showHelperMessage);
   }, [formData, formNumber, additionalQuestionsData]);
 
   return (
@@ -75,6 +75,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
         fields={workHistoryOrNot}
         value={formData?.have_you_done_any_paid_work_during_the_last_10_years_}
         onChange={(e) => {
+          setCurrentStep(1);
           onchange('have_you_done_any_paid_work_during_the_last_10_years_', e.target.value);
         }}
         required
@@ -85,7 +86,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
             Starting with your current (or most recent) job, please list all the paid work you have done during the last
             10 years:
           </p>
-          {helperMessage &&
+          {showHelperMessage &&
             <span className='text-[red] font-bold self-center'>Please add at least one Work History information</span>}
           <div ref={containerRef} className="flex flex-col overflow-auto max-h-[50rem]">
             {additionalQuestionsData?.map((_, index) => {
