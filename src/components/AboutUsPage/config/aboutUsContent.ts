@@ -22,8 +22,6 @@ export const BANNER_SECTION_CONTENT = {
 export const WELCOME_SECTION_DATA = {
   companyDescription:
     'Root On Immigration Consultants, founded by Ronak Patel, is a licensed Canadian Immigration firm specialising in Study Permit, Work Permit, Visitor Visa, Permanent Residency and Business Immigration applications. It has had its Canadian office in Downtown Montreal, QC since 2015 and its overseas Indian office is incorporated in Surat, Gujarat since 2019. <br/> <br /><strong>We help international students, working professionals, businesses and families immigrate to Canada in the most ethical, efficient and optimal manner possible.</strong> <br /><br />By far, we have represented a diverse clientele from countries including India, Malaysia, Ghana, Cameroon, Morocco, the UAE, Sri Lanka, Turkey, Nepal, the UK and more, even receiving inquiries from the USA. Root On is a recognized and leading immigration firm when it comes to complex visa situations and for its successful appeals against unjust denials.What sets us apart is our expertise in complex visa situations and successful appeals against unjust denials. <br />Contact us today to discover your true immigration potential and make a knowledgeable decision for your Canadian journey!',
-  companyMission:
-    '',
   experienceYearsText: 'years of experience,<br />we excel in immigration services.',
   clientsCountText: 'clients fulfilled their<br />Canada dreams with us.',
   welcomeImageUrl: '/images/aboutUs/traveling-man.png',

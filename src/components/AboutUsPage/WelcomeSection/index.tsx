@@ -10,11 +10,10 @@ interface StatDataFormat {
 interface WelcomeSectionProps {
   imageUrl: string;
   companyDescription: string;
-  companyMission: string;
   companyStatList: StatDataFormat[];
 }
 
-const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyStatList }: WelcomeSectionProps) => {
+const WelcomeSection = ({ imageUrl, companyDescription, companyStatList }: WelcomeSectionProps) => {
   return (
     <section className="px-[24px] md:px-[48px] lg:px-[80px] m-auto max-w-screen-2k my-10 md:my-20">
       <div className="flex justify-between">
@@ -42,7 +41,6 @@ const WelcomeSection = ({ imageUrl, companyDescription, companyMission, companyS
               })}
             </ul>
           ) : null}
-          <Description cssClass="!text-primary-font-color mt-8" description={companyMission} />
         </div>
       </div>
     </section>
