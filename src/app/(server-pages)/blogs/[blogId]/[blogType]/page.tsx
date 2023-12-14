@@ -15,7 +15,7 @@ export async function generateMetadata(metaProps: BlogsDetailPageProps): Promise
     description: res[0]?.attributes?.meta_description,
     // to be removed in production
     robots: {
-      index: false,
+      index:  process.env.NEXT_APP_ENVIRONMENT === 'production',
     },
   };
 }

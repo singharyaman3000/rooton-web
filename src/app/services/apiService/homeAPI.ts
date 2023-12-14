@@ -79,6 +79,6 @@ export interface IHomePageDataRes {
 }
 
 export const getHomePageContents = async () => {
-  const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 1200 } });
+  const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 60 } });
   return apiRes.data;
 };
