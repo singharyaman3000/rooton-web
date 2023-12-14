@@ -86,7 +86,7 @@ export type IServicePageContent = {
 
 export const getServicePageContent = async (serviceId: string) => {
   try {
-    const res = await getFetch<IServicePageContent>(getServiceAPIUrl(serviceId), { next: { revalidate: 10 } });
+    const res = await getFetch<IServicePageContent>(getServiceAPIUrl(serviceId), { next: { revalidate: 60 } });
     return res;
   } catch (error) {
     return { error };

@@ -17,6 +17,7 @@ const nextConfig = {
     NEXT_APP_BASE_URL: process.env.NEXT_APP_BASE_URL,
     NEXT_APP_MAIN_DOMAIN: process.env.NEXT_APP_MAIN_DOMAIN,
     NEXT_GOOGLE_MAP_KEY: process.env.NEXT_GOOGLE_MAP_KEY,
+    NEXT_NEWS_API_START_LIMIT: process.env.NEXT_NEWS_API_START_LIMIT,
   },
   images: {
     domains: [process.env.NEXT_ASSET_DOMAIN.toString()],

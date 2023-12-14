@@ -1,8 +1,8 @@
 import { getFetch } from '@/utils/apiUtils';
 import { IBlogDetailsResponse } from './blogDetailAPI';
-import { NEWS_ALERT_DATA_API } from './apiUrl/homePage';
+import { getNewsAlertDataApi } from './apiUrl/homePage';
 
 export const getNewsAlertContent = async () => {
-  const res = await getFetch<IBlogDetailsResponse>(NEWS_ALERT_DATA_API, { next: { revalidate: 60 * 60 * 24 } });
+  const res = await getFetch<IBlogDetailsResponse>(getNewsAlertDataApi(), { next: { revalidate: 60 } });
   return res;
 };

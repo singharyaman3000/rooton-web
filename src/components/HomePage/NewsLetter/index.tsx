@@ -8,7 +8,7 @@ const NewsLetter = () => {
   return (
     <SectionContainer cssClass="pt-10 pb-20 md:pt-0 md:pb-0 max-w-screen-2k mx-auto">
       <div className=" overflow-hidden relative md:mb-[52px] bg-pale-sandal py-6 px-5 md:pt-16 md:pb-16 md:px-[52px] flex flex-col md:flex-row md:justify-between md:gap-x-[4%]  lg:pb-[110px]">
-        <div className=" relative z-[1] w-full">
+        <div className="newsletter-translated relative z-[1] w-full">
           <h4 className="text-2xl lg:text-[40px] gradient-text text-black font-extrabold not-italic !leading-[1.42] tracking-[normal] mb-2 md:mb-[11px]">
             Sign up for Newsletter
           </h4>
