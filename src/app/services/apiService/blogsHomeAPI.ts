@@ -18,7 +18,7 @@ export interface IBlogsHomeContent {
 
 export const getBlogsHomeContent = async () => {
   try {
-    const res = await getFetch<IBlogsHomeContent>(GET_BLOGS_HEADER_CONTENT, { next: { revalidate: 0 } });
+    const res = await getFetch<IBlogsHomeContent>(GET_BLOGS_HEADER_CONTENT, { next: { revalidate: 60 } });
     return res;
   } catch (error) {
     return { error };
