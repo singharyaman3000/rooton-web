@@ -56,7 +56,7 @@ const DynamicBannerSection = ({
             px-6
             pb-[57px]
             sm:pb-9
-            lg:pb-[69px]
+            lg:pb-[57px]
             w-full
             h-full
             flex
