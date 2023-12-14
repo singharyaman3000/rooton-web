@@ -171,7 +171,7 @@ export const COMPANY_MEMBERS_SECTION = {
       employeeRole: 'MARKETING SPECIALIST',
       employeeDescription:
         'I am Yash Gohil, a passionate Marketing Specialist at Root On Immigration Consultants. For the past year, I have been dedicating my skills and expertise to this dynamic field, employing a range of marketing strategies to boost our consultancy\'s visibility and reach. My role involves innovating and adapting to the ever-changing marketing landscape, ensuring that potential clients are effectively connected with the services we offer. Through my efforts, I aim to significantly contribute to shaping the brand\'s presence in a competitive market, showcasing my ability to excel in the challenging and exciting world of marketing.',
-      imageUrl: { employeeImage: '/images/aboutUs/team-members/Yash-01.svg', backgroundColor: '#C45F77' },
+      imageUrl: { employeeImage: '/images/aboutUs/team-members/Yash final-01.svg', backgroundColor: '#C45F77' },
     },
   ],
 };
