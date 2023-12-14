@@ -27,7 +27,7 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
 
   const [currentStep, setCurrentStep] = useState<number>(filledFields);
   const containerRef = useRef<HTMLDivElement>(null);
-  useScrollToBottom(containerRef, [currentStep, additionalQuestionsData]);
+  useScrollToBottom(containerRef, [filledFields]);
 
   const handleOnChange = (key: string, value: string, index: number, state: Record<string, string>[]) => {
     const dataToUpdate = [...state];
