@@ -141,7 +141,7 @@ export const yourChildGrandchildAge: IFormFieldOptions[] = [
 export const yourChildGrandchildMaritalStatus: IFormFieldOptions[] = [
   {
     name: 'your_child_grandchild_marial_status ',
-    label: 'What is your Child/Grandchild\'s marial status?   ',
+    label: 'What is your Child/Grandchild\'s martial status?   ',
     options: your_child_maritalstatus,
   },
 ];
@@ -149,7 +149,7 @@ export const yourChildGrandchildMaritalStatus: IFormFieldOptions[] = [
 export const yourChildGrandchildSubstantially: IFormFieldOptions[] = [
   {
     name: 'your_child_grandchild_dependeds_substantially_on_your_financial_support ',
-    label: 'Does your Child/Grandchild dependeds substantially on your financial support since before the age of 22 and be unable to support her/him self financially due to a physical or mental condition? ',
+    label: 'Does your Child/Grandchild depend substantially on your financial support since before the age of 22 and be unable to support her/him self financially due to a physical or mental condition? ',
     options: your_child_grandchild_substantially,
   },
 ];
