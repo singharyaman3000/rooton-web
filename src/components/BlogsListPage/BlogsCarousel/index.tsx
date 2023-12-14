@@ -130,7 +130,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
         </div>
         <div className="hidden md:flex">
           {showMore && (
-            <Link href={'/blogs'} className="mr-[30px]">
+            <Link href={'/immigration-insights'} className="mr-[30px]">
               <Button
                 cssClass="border-0 slider-nav bg-white font-bold"
                 label="More"
