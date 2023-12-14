@@ -51,6 +51,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
           }}
         />
         <FormDropdown
+          required
           options={workHistoryLength[0].options}
           label={workHistoryLength[0].label}
           value={currentSectionState[getKeyWithId('lengthOfWork')]}
@@ -59,6 +60,7 @@ export const AdditionalQuestions = (props: AdditionalPropsType) => {
           }}
         />
         <FormDropdown
+          required
           options={workHistoryWhen[0].options}
           label={workHistoryWhen[0].label}
           value={currentSectionState[getKeyWithId('whenWasWork')]}
