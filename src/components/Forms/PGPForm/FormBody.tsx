@@ -66,7 +66,7 @@ const FormBody = ({
     event.preventDefault();
     if (!isInvalid) {
       const generalFormData = convertFormDataToArray(formData);
-
+      console.log('generalFormData', generalFormData);
       const payload = {
         fields: [...generalFormData],
         context: {
