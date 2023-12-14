@@ -52,6 +52,6 @@ interface IContactUsContentResponse {
 }
 
 export const getContactUsContents = async () => {
-  const res = await getFetch<IContactUsContentResponse>(GET_CONTACT_US_CONTENTS, { next: { revalidate: 120 } });
+  const res = await getFetch<IContactUsContentResponse>(GET_CONTACT_US_CONTENTS, { next: { revalidate: 60 } });
   return res;
 };

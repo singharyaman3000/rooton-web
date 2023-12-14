@@ -26,6 +26,6 @@ export interface IPageSEOMetaDataResponse {
 }
 
 export const getPagesSEOMetaData = async () => {
-  const apiRes = await getFetch<IPageSEOMetaDataResponse>(GET_PAGE_UPDATE_DATA, { next: { revalidate: 1200 } });
+  const apiRes = await getFetch<IPageSEOMetaDataResponse>(GET_PAGE_UPDATE_DATA, { next: { revalidate: 60 } });
   return apiRes.data;
 };
