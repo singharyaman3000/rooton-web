@@ -34,6 +34,7 @@ const GET_SERVICE_META_INFO =
 
 export const getServiceMetaInfoUrl = (serviceId: string) => {
   return GET_SERVICE_META_INFO.replace('<serviceId>', serviceId);
+  
 };
 
 const COACHING_SERVICE_META_INFO =
@@ -41,4 +42,11 @@ const COACHING_SERVICE_META_INFO =
 
 export const getCoachingMetaInfoUrl = (coachingId: string) => {
   return COACHING_SERVICE_META_INFO.replace('<serviceId>', coachingId);
+};
+
+const BLOGS_META_INFO =
+  '/api/blogs?fields[0]=meta_title&fields[1]=meta_description&fields[2]=unique_identifier_name&filters[id][$eq]=<blogId>';
+
+export const getBlogsMetaInfoUrl = (serviceId: string) => {
+  return BLOGS_META_INFO.replace('<blogId>', serviceId);
 };

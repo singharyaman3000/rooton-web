@@ -1,5 +1,5 @@
 import { getFetch } from '@/utils/apiUtils';
-import { getServiceMetaInfoUrl } from './apiUrl/servicePage';
+import { getBlogsMetaInfoUrl } from './apiUrl/servicePage';
 import { IPageMeta } from './interfaces';
 
 interface IBlogMetaAttributes {
@@ -17,7 +17,7 @@ export interface IBlogMetaInfo {
   meta: IPageMeta;
 }
 
-export const getBlogMetaInfo = async (serviceId: string) => {
-  const apiRes = await getFetch<IBlogMetaInfo>(getServiceMetaInfoUrl(serviceId));
+export const getBlogMetaInfo = async (blogId: string) => {
+  const apiRes = await getFetch<IBlogMetaInfo>(getBlogsMetaInfoUrl(blogId));
   return apiRes?.data;
 };
