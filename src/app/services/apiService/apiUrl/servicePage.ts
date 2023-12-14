@@ -34,7 +34,6 @@ const GET_SERVICE_META_INFO =
 
 export const getServiceMetaInfoUrl = (serviceId: string) => {
   return GET_SERVICE_META_INFO.replace('<serviceId>', serviceId);
-  
 };
 
 const COACHING_SERVICE_META_INFO =
