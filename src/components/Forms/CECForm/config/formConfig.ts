@@ -876,7 +876,7 @@ export const contactInfo: IFormField[] = [
 export const consultationType: IFormFieldOptions[] = [
   {
     name: 'consultation_type',
-    label: 'Consultation Type',
+    label: 'Preferred Consultation Type',
     options: [
       {
         id: 'free',

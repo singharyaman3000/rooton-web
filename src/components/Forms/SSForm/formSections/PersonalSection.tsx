@@ -89,7 +89,14 @@ export const PersonalSection: React.FC<
           fields={likeToDo}
           value={formData?.What_would_you_like_to_do}
           onChange={(e: { target: { value: string } }) => {
-            return onchange('What_would_you_like_to_do', e.target.value);
+            onchange('What_would_you_like_to_do', e.target.value);
+            onchange('are_you_a_citizen_or_permanent', '');
+            onchange('How_old_are_you', '');
+            onchange('currently_residing_in_Canada', '');
+            onchange('my_sponsor', '');
+
+            onchange('What_is_your_relationship_person', '');
+            onchange('What_is_your_sponsor_Status', '');
           }}
         />
 

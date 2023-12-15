@@ -23,6 +23,7 @@ export const AdditionalInformationSection: React.FC<IPropsType> = ({ onchange, f
         value={formData?.additional_information_for_immigration_assessment}
         onChange={(e) => {
           onchange('additional_information_for_immigration_assessment', e.target.value);
+          onchange('ad_info', '');
         } } />
       {formData.additional_information_for_immigration_assessment === 'Yes' && (
         <FormTextArea

@@ -75,7 +75,9 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
       />
       {formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' &&
         <>
-          <p>{'Please list all your and/or your spouse/common-law partner\'s relatives in Canada'}</p>
+          <p className='text-black'>
+            {'Please list all your and/or your spouse/common-law partner\'s relatives in Canada'}
+          </p>
           <div ref={containerRef} className="flex flex-col overflow-auto max-h-[50rem]">
             {additionalQuestionsData?.map((_, index) => {
               return (

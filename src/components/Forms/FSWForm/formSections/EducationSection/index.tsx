@@ -83,7 +83,7 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
       )}
       {formData.have_you_received_any_education_or_training_other_than_high_school_ === 'Yes' && (
         <>
-          <p>
+          <p className='text-black'>
             Please list all of your education and/or training other than high school (secondary school), starting with
             the most recent:
           </p>
