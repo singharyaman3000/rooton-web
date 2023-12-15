@@ -41,7 +41,7 @@ export const getBlogsList = async (
 ) => {
   try {
     const url = getBlogsListUrl(articleType, pageNo, sourcePage, serviceType || '', blogId);
-    const res = await getFetch<IBlogsListResponse>(url, { cache: 'no-cache' });
+    const res = await getFetch<IBlogsListResponse>(url, { cache: 'no-store' });
     return { status: 1, res };
   } catch (error) {
     return { status: 0, error };
