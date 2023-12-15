@@ -82,7 +82,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
       />
       {formData?.have_you_done_any_paid_work_during_the_last_10_years_ === 'Yes' && (
         <>
-          <p>
+          <p className='text-black'>
             Starting with your current (or most recent) job, please list all the paid work you have done during the last
             10 years:
           </p>
@@ -91,7 +91,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
           <div ref={containerRef} className="flex flex-col overflow-auto max-h-[50rem]">
             {additionalQuestionsData?.map((_, index) => {
               return (
-                <div key={`${index + 1}`} className='m-0 md:mr-8'>
+                <div key={`${index + 1}`} className='m-0'>
                   <AdditionalQuestions
                     id={index}
                     data={occupations}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import style from '../WhatsApp-Integration/WhatsappCss.module.css';
 
 /**
@@ -8,34 +8,6 @@ import style from '../WhatsApp-Integration/WhatsappCss.module.css';
  */
 
 const WhatsappIcon: React.FC<{ theme: string }> = ({ theme }): React.JSX.Element => {
-  // Define the initial opacity state
-  const [opacity, setOpacity] = useState<number>(0);
-  // Handle scroll event and update opacity based on scroll position
-  useEffect(() => {
-    // Define the maximum scroll height at which the opacity is 1
-    const maxOpacityScrollHeight: number = 400;
-
-    // Scroll event listener
-    const handleScroll = () => {
-      // Get the current scroll position
-      const currentScroll: number = window.scrollY;
-
-      // Calculate the opacity based on the current scroll position
-      const calculatedOpacity: number = currentScroll / maxOpacityScrollHeight;
-
-      // Set the opacity state, ensuring it does not exceed 1
-      setOpacity(Math.min(calculatedOpacity, 1));
-    };
-
-    // Add scroll event listener
-    window.addEventListener('scroll', handleScroll);
-
-    // Clean up by removing the scroll event listener
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   const filterG =
     theme === 'dark' ? (
       <g fill="rgba(0,0,0,1)" transform="translate(0,0) scale(0.6,0.6)">
@@ -94,7 +66,6 @@ const WhatsappIcon: React.FC<{ theme: string }> = ({ theme }): React.JSX.Element
   return (
     <svg
       className={`${style.bottomRightIcon}`}
-      style={{ opacity }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 256 256"

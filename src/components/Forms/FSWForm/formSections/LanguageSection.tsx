@@ -15,7 +15,7 @@ import { FormDropdown } from '../../components/FormDropDown';
 export const LanguageSection: React.FC<IPropsType> = ({ formData, onchange }) => {
   return (
     <div>
-      <p className="mb-5">
+      <p className="mb-5 text-black">
         Please describe your proficiency in English and/or French under each of the four skills listed below.
       </p>
       {/* English Skills */}

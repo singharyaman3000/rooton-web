@@ -1,11 +1,11 @@
 import { getFetch } from '@/utils/apiUtils';
 import { IHonesty, IJsonContent } from '@/components/CoachingPage/Honesty';
-import { IOurProcessData } from '@/components/CoachingPage/OurProcess/interfaces';
-import { IBlogCard } from '@/components/CoachingPage/BlogListings';
-import { IChallenges } from '@/components/CoachingPage/ChallengesListing';
-import { IFaqData } from '@/components/CoachingPage/FaqListings';
 import { COACHING_API } from './apiUrl/homePage';
 import { IMediaUrlData, MediaUrl } from './interfaces';
+import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
+import { IChallenges } from '@/components/HomePage/ChallengesListing';
+import { IFaqData } from '@/components/HomePage/FaqListings';
+import { IBlogCard } from '@/components/HomePage/BlogListings';
 
 export const CONTENT_TYPES = {
   SERVICES: 'coaching_services',
