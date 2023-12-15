@@ -14,7 +14,7 @@ export const FormDropdown: React.FC<PropsType> = ({ options, value, onChange, la
   const [isError, setIsError] = useState(false);
 
   const handleBlur = () => {
-    setIsError(required && value === '');
+    setIsError(required && !value);
   };
 
   const handleFocus = () => {

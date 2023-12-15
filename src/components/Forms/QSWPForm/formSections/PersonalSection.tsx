@@ -20,9 +20,9 @@ export const PersonalSection: React.FC<IPropsType> = ({ onchange, formNumber, co
   useEffect(() => {
     if (formNumber !== 1 || !isInValid) return;
     isInValid(
-      formData?.age === '' ||
-      formData?.country_of_citizenship === '' ||
-      formData?.country_of_residence === '',
+      !formData?.age ||
+      !formData?.country_of_citizenship ||
+      !formData?.country_of_residence,
     );
   }, [formData]);
 
