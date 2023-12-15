@@ -11,6 +11,6 @@ interface Response {
 }
 
 export const getBlogs = async (url: string) => {
-  const res = await getFetch<Response>(url, { next: { revalidate: 0 } });
+  const res = await getFetch<Response>(url, { next: { revalidate: 60 } });
   return res.data;
 };
