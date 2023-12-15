@@ -11,7 +11,7 @@ import { ITitleAttributes } from '@/components/HomePage/ServicesListing/interafc
 import HonestyGrid from './HonestyGrid';
 
 export type IJsonContent = {
-  'why_rooton': IWhyRootON[] | null; // Keeping the key as in file1
+  why_rooton: IWhyRootON[] | null; // Keeping the key as in file1
 };
 
 type PositionMapType = { [x: string]: number };
@@ -21,7 +21,7 @@ export interface IHonesty extends ITitleAttributes {
 
 const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
   const [cardsArray, setCardsArray] = useState<IWhyRootON[]>(json_content?.why_rooton ?? []);
-  const [windowWidth, setWindowWidth] = useState<number>(window?.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number | undefined>(undefined);
 
   const length = json_content?.why_rooton?.length ?? 0;
 
@@ -47,10 +47,10 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
   };
 
   useEffect(() => {
-    if (windowWidth > 1024) {
+    if (windowWidth && windowWidth > 1024) {
       const positionMap: PositionMapType = { '1': 2, '2': 1 };
       generateCardsToDisplay(3, positionMap);
-    } else if (windowWidth <= 1024 && windowWidth > 768) {
+    } else if (windowWidth && windowWidth <= 1024 && windowWidth > 768) {
       const positionMap: PositionMapType = { '1': 1 };
       generateCardsToDisplay(2, positionMap);
     } else {
@@ -59,6 +59,10 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
   }, [windowWidth]);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
+    }
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -89,7 +93,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
             {cardsArray?.map((whyRootOn, index) => {
               return (
                 <HonestyCard
-                // eslint-disable-next-line react/no-array-index-key
+                  // eslint-disable-next-line react/no-array-index-key
                   key={index.toString()}
                   title={whyRootOn.title}
                   unique_identifier_name={whyRootOn.unique_identifier_name}

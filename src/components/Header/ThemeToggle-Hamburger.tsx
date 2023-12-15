@@ -18,9 +18,8 @@ export default function ThemeToggleAndHamburger({
   toggleSlideOverlay,
   isFixed,
 }: ThemeToggleAndHamburgerProps) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   const { theme, setTheme } = useTheme();
+  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark' || false);
 
   useEffect(() => {
     setTheme(theme ?? '');
@@ -31,7 +30,9 @@ export default function ThemeToggleAndHamburger({
   };
 
   useEffect(() => {
-    setIsDarkMode((state) => !state);
+    setIsDarkMode((state) => {
+      return !state;
+    });
   }, [theme]);
 
   const getbuttonBG = () => {
@@ -50,7 +51,7 @@ export default function ThemeToggleAndHamburger({
       "
     >
       <div className=" hidden xl:block">
-        <RTONLanguageDropDown scrolledEnough={scrolledEnough} isFixed={isFixed}/>
+        <RTONLanguageDropDown scrolledEnough={scrolledEnough} isFixed={isFixed} />
       </div>
       <div className=" flex gap-0 w-12 lg:w-16 lg:h-8 h-6" role="button" tabIndex={0} onClick={toggleTheme}>
         {!scrolledEnough ? (
@@ -82,16 +83,14 @@ export default function ThemeToggleAndHamburger({
         ) : (
           <span
             style={{ transition: 'background-color 0.2s' }}
-            className={` w-1/2 h-full ${
-              !isDarkMode ? 'bg-white' : 'bg-[#7e7e7e]'
-            } flex justify-center items-center`}
+            className={` w-1/2 h-full ${!isDarkMode ? 'bg-white' : 'bg-[#7e7e7e]'} flex justify-center items-center`}
           >
             <LightModeIcon isScrolled={scrolledEnough} />
           </span>
         )}
       </div>
       <button aria-label="Hamburger menu open" type="button" onClick={toggleSlideOverlay} className=" xl:hidden">
-        <HamburgerIcon isScrolled={scrolledEnough} isFixed={isFixed}/>
+        <HamburgerIcon isScrolled={scrolledEnough} isFixed={isFixed} />
       </button>
     </div>
   );
