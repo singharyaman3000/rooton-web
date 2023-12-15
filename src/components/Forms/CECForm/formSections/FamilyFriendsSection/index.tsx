@@ -52,10 +52,12 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
   };
 
   useEffect(() => {
+    if (!formData.family_members_or_relatives_living_in_canada_18_years_or_older_) return;
     const allStateObjects = generateAllStateObjects(currentStep, additionalQuestionsKeys, additionalQuestionsData);
-    setAdditionalQuestionsData(allStateObjects);
+    const noData = formData.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'No' ? [] : allStateObjects;
+    setAdditionalQuestionsData(noData);
     setFilledFields(currentStep);
-  }, [currentStep]);
+  }, [currentStep, formData]);
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -71,6 +73,7 @@ export const FamilyOrFriendsSection: React.FC<IPropsAdditionalType> = ({
         value={formData?.family_members_or_relatives_living_in_canada_18_years_or_older_}
         onChange={(e) => {
           onchange('family_members_or_relatives_living_in_canada_18_years_or_older_', e.target.value);
+          setCurrentStep(1);
         }}
       />
       {formData?.family_members_or_relatives_living_in_canada_18_years_or_older_ === 'Yes' &&
