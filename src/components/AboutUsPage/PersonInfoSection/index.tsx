@@ -52,7 +52,7 @@ const PersonInfoSection = ({ contentHeading, personInfo }: PersonInfoSectionProp
             sizes=""
             style={{ objectFit: 'contain' }}
             title={`${contentHeading}`}
-            classSelector="!static !h-auto self-end !max-w-[450px] !max-h-[496px]"
+            classSelector="!static !h-auto self-end !max-w-[332px] !max-h-[482px]"
           />
         </div>
       </div>
