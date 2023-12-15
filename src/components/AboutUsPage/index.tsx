@@ -73,6 +73,20 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
         companyStatList={companyStatValues}
       />
 
+      {/* About the CEO section */}
+      <PersonInfoSection contentHeading={COMPANY_CEO_INFO.sectionHeading} personInfo={COMPANY_CEO_INFO} />
+
+      {/* Book Appointment Form Section */}
+      <BookAppointmentForm
+        scrollToLeadForm={scrollToLeadForm}
+        sectionRef={bookAppointmentRef}
+        displayBookAppointment={displayBookAppointment}
+        ctaClickSource={ctaClickSource}
+        formData={BOOK_APPOINTMENT_FORM.formData}
+        formHeading={BOOK_APPOINTMENT_FORM.formHeading}
+        imageUrl={BOOK_APPOINTMENT_FORM.imageUrl}
+      />
+
       {/* Book a Consultation Section */}
       <section className="mt-10 m-auto max-w-screen-2k px-6 md:px-12 lg:px-20">
         <RootOnCTAWrapper
@@ -93,20 +107,6 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
           }
         />
       </section>
-
-      {/* Book Appointment Form Section */}
-      <BookAppointmentForm
-        scrollToLeadForm={scrollToLeadForm}
-        sectionRef={bookAppointmentRef}
-        displayBookAppointment={displayBookAppointment}
-        ctaClickSource={ctaClickSource}
-        formData={BOOK_APPOINTMENT_FORM.formData}
-        formHeading={BOOK_APPOINTMENT_FORM.formHeading}
-        imageUrl={BOOK_APPOINTMENT_FORM.imageUrl}
-      />
-
-      {/* About the CEO section */}
-      <PersonInfoSection contentHeading={COMPANY_CEO_INFO.sectionHeading} personInfo={COMPANY_CEO_INFO} />
 
       {/* Who we are Section */}
       <TeamProfileSlider

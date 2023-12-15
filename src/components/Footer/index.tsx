@@ -56,7 +56,7 @@ export default function Footer() {
           <FooterLogo />
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <div className=" m-auto lg:m-0">
-              <p className=" text-sm">Copyright © {currentYear} Root On Immigration.</p>
+              <p className=" text-sm">Copyright © {currentYear} Root On Immigration Consultants, Inc. or its affiliates.</p>
               <p className="text-center lg:text-left text-sm">All Rights Reserved.</p>
             </div>
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
