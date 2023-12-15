@@ -80,7 +80,7 @@ const DynamicBannerSection = ({
           >
             {HtmlParser(heroText)}
           </h1>
-          <p className="mt-8 sm:mt-5 text-white font-bold text-[15px] leading-[1.67] lg:text-2xl max-w-[800px]">
+          <p className="mt-8 sm:mt-5 text-white font-bold text-[15px] leading-[1.67] lg:text-2xl max-w-[800px] ">
             {HtmlParser(description)}
           </p>
         </div>
