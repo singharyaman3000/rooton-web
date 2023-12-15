@@ -4,10 +4,11 @@ import { IPropsType } from '../config/models';
 import { FormDropdown } from '../../components/FormDropDown';
 
 export const NetWorthSection: React.FC<IPropsType> = ({ currencies, formData, onchange }) => {
-
   return (
     <div>
-      <p>This question is optional. Net worth is considered for some immigration programs.</p>
+      <p className="mb-2 text-black">
+        This question is optional. Net worth is considered for some immigration programs.
+      </p>
       <FormDropdown
         options={currencies || []}
         label={currency[0].label}

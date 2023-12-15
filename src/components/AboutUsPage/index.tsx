@@ -69,7 +69,6 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
       {/* About Us Description Section */}
       <WelcomeSection
         companyDescription={WELCOME_SECTION_DATA.companyDescription}
-        companyMission={WELCOME_SECTION_DATA.companyMission}
         imageUrl={WELCOME_SECTION_DATA.welcomeImageUrl}
         companyStatList={companyStatValues}
       />

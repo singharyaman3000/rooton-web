@@ -26,6 +26,8 @@ import FSTPForm from '../Forms/FSTPForm';
 import QSWPForm from '../Forms/QSWPForm';
 import CECForm from '../Forms/CECForm';
 import PNPForm from '../Forms/PNPForm';
+import PGPorm from '../Forms/PGPForm';
+import SSForm from '../Forms/SSForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -163,6 +165,18 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         initScroll={() => {
           return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
         }}
+        scrollToTop={scrollToLeadForm} />;
+    case 'parents-and-grandparents-sponsorship':
+      return <PGPorm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
+        scrollToTop={scrollToLeadForm} />;
+    case 'spouse-visa-canada':
+      return <SSForm leadFormRef={leadFormRef}
+        formId={formId}
+        meetingLink={meetingLink}
+        title={formTitle}
         scrollToTop={scrollToLeadForm} />;
     default:
       return <div></div>;

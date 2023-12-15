@@ -7,7 +7,9 @@ export const NetWorthSection: React.FC<IPropsType> = ({ currencies, formData, on
 
   return (
     <div>
-      <p>This question is optional. Net worth is considered for some immigration programs.</p>
+      <p className="mb-2 text-black">
+        This question is optional. Net worth is considered for some immigration programs.
+      </p>
       <FormDropdown
         options={currencies || []}
         label={currency[0].label}
