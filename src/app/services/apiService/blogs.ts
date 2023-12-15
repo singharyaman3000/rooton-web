@@ -11,6 +11,6 @@ interface Response {
 }
 
 export const getBlogs = async (url: string) => {
-  const res = await getFetch<Response>(url, { next: { revalidate: 60 } });
+  const res = await getFetch<Response>(url, { cache: 'no-store' });
   return res.data;
 };

@@ -54,7 +54,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
   };
 
   useEffect(() => {
-    if (formData.have_you_done_any_paid_work_during_the_last_10_years_ === '') return;
+    if (!formData.have_you_done_any_paid_work_during_the_last_10_years_) return;
     const allStateObjects = generateAllStateObjects(currentStep, additionalQuestionsKeys, additionalQuestionsData);
     const noData = formData.have_you_done_any_paid_work_during_the_last_10_years_ === 'No' ? [] : allStateObjects;
     setAdditionalQuestionsData(noData);
@@ -64,7 +64,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
   useEffect(() => {
     if (formNumber !== 4 || !isInValid) return;
     isInValid(
-      formData?.have_you_done_any_paid_work_during_the_last_10_years_ === '' ||
+      !formData?.have_you_done_any_paid_work_during_the_last_10_years_ ||
       !valueNotPresent(additionalQuestionsData, ['when_was_work_', 'length_of_work_']) ||
       showHelperMessage);
   }, [formData, formNumber, additionalQuestionsData]);
@@ -82,7 +82,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
       />
       {formData?.have_you_done_any_paid_work_during_the_last_10_years_ === 'Yes' && (
         <>
-          <p>
+          <p className='text-black'>
             Starting with your current (or most recent) job, please list all the paid work you have done during the last
             10 years:
           </p>
@@ -91,7 +91,7 @@ export const WorkHistorySection: React.FC<IPropsAdditionalType> = ({ onchange,
           <div ref={containerRef} className="flex flex-col overflow-auto max-h-[50rem]">
             {additionalQuestionsData?.map((_, index) => {
               return (
-                <div key={`${index + 1}`} className='m-0 md:mr-8'>
+                <div key={`${index + 1}`} className='m-0'>
                   <AdditionalQuestions
                     id={index}
                     data={occupations}

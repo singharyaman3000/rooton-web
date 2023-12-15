@@ -52,14 +52,18 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
   };
 
   useEffect(() => {
+    if (!formData.have_you_completed_high_school__12th_grade__) return;
+    if (!formData.have_you_received_any_education_or_training_other_than_high_school_) return;
     const allStateObjects = generateAllStateObjects(currentStep, additionalQuestionsKeys, additionalQuestionsData);
-    setAdditionalQuestionsData(allStateObjects);
+    const noData = formData.have_you_completed_high_school__12th_grade__ === 'No' ||
+      formData.have_you_received_any_education_or_training_other_than_high_school_ === 'No' ? [] : allStateObjects;
+    setAdditionalQuestionsData(noData);
     setFilledFields(currentStep);
-  }, [currentStep]);
+  }, [currentStep, formData]);
 
   useEffect(() => {
     if (formNumber !== 3 || !isInValid) return;
-    isInValid(formData.have_you_completed_high_school__12th_grade__ === '');
+    isInValid(!formData.have_you_completed_high_school__12th_grade__);
   }, [formData, formNumber]);
 
   return (
@@ -69,47 +73,56 @@ export const EducationSection: React.FC<IPropsAdditionalType> = ({
         value={formData.have_you_completed_high_school__12th_grade__}
         onChange={(e) => {
           onchange('have_you_completed_high_school__12th_grade__', e.target.value);
+          if (e.target.value === 'No') {
+            onchange('have_you_received_any_education_or_training_other_than_high_school_', '');
+            setCurrentStep(1);
+          }
         }}
         required
       />
       {formData.have_you_completed_high_school__12th_grade__ === 'Yes' && (
-        <FormRadioInput
-          fields={training}
-          value={formData.have_you_received_any_education_or_training_other_than_high_school_}
-          onChange={(e) => {
-            onchange('have_you_received_any_education_or_training_other_than_high_school_', e.target.value);
-          }}
-        />
-      )}
-      {formData.have_you_received_any_education_or_training_other_than_high_school_ === 'Yes' && (
         <>
-          <p>
-            Please list all of your education and/or training other than high school (secondary school), starting with
-            the most recent:
-          </p>
-          <div ref={containerRef}
-            id="additional_education"
-            className='flex flex-col overflow-auto max-h-[50rem] pb-4 md:pb-8'>
-            {additionalQuestionsData?.map((_, index) => {
-              return (
-                <div key={`${index + 1}`} className="m-0 md:mr-8">
-                  <AdditionalQuestions
-                    id={index}
-                    close={closeEducation}
-                    state={additionalQuestionsData}
-                    onchange={handleOnChange}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          {currentStep < 6 && (
-            <button className="add-another-field-button" type="button" onClick={addEducation}>
-              + Add another field
-            </button>
+          <FormRadioInput
+            fields={training}
+            value={formData.have_you_received_any_education_or_training_other_than_high_school_}
+            onChange={(e) => {
+              onchange('have_you_received_any_education_or_training_other_than_high_school_', e.target.value);
+              if (e.target.value) {
+                setCurrentStep(1);
+              }
+            }}
+          />
+          {formData.have_you_received_any_education_or_training_other_than_high_school_ === 'Yes' && (
+            <>
+              <p className='text-black'>
+                Please list all of your education and/or training other than high school
+                (secondary school), starting with
+                the most recent:
+              </p>
+              <div ref={containerRef} className='flex flex-col overflow-auto max-h-[50rem] pb-4 md:pb-8'>
+                {additionalQuestionsData?.map((_, index) => {
+                  return (
+                    <div key={`${index + 1}`} className="m-0 md:mr-8">
+                      <AdditionalQuestions
+                        id={index}
+                        close={closeEducation}
+                        state={additionalQuestionsData}
+                        onchange={handleOnChange}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              {currentStep < 6 && (
+                <button className="add-another-field-button" type="button" onClick={addEducation}>
+                  + Add another field
+                </button>
+              )}
+            </>
           )}
         </>
       )}
     </div>
   );
+
 };

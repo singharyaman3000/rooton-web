@@ -24,7 +24,7 @@ export interface IHonesty extends ITitleAttributes {
 const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [cardsArray, setCardsArray] = useState<IWhyRootON[]>(json_content?.['why-rooton'] ?? []);
-  const [windowWidth, setWindowWidth] = useState<number>(window?.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number | undefined>(undefined);
 
   const length = json_content?.['why-rooton']?.length ?? 0;
 
@@ -50,20 +50,23 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
   };
 
   useEffect(() => {
-    if (windowWidth > 1024) {
+    if (windowWidth && windowWidth > 1024) {
       const positionMap: PositionMapType = { '1': 2, '2': 1 };
       generateCardsToDisplay(3, positionMap);
     }
-    if (windowWidth < 1024 && windowWidth > 768) {
+    if (windowWidth && windowWidth < 1024 && windowWidth > 768) {
       const positionMap: PositionMapType = { '1': 1 };
       generateCardsToDisplay(2, positionMap);
     }
-    if (windowWidth < 768) {
+    if (windowWidth&& windowWidth < 768) {
       setCardsArray(json_content?.['why-rooton'] ?? []);
     }
   }, [windowWidth]);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
+    }
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);

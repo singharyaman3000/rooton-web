@@ -25,7 +25,7 @@ export const FormTextInput: React.FC<PropType> = (props) => {
   const [isError, setIsError] = useState(false);
 
   const handleBlur = () => {
-    setIsError(required && value.trim() === '');
+    setIsError(required && !value.trim());
   };
 
   const handleFocus = () => {

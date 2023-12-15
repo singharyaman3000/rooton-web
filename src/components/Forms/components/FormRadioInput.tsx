@@ -16,7 +16,7 @@ export const FormRadioInput: React.FC<PropType> = (props) => {
   const [isError, setIsError] = useState(false);
 
   const handleBlur = () => {
-    setIsError(required && value === '');
+    setIsError(required && !value);
   };
 
   const handleFocus = () => {
