@@ -171,6 +171,11 @@ body {
   display: none !important;
 }
 
+/*Google translator logo*/
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none;
+}
+
 /*Services tabs design*/
 .service svg {
   fill: var(--deep-yellow);
