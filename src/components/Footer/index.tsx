@@ -101,7 +101,7 @@ export default function Footer() {
               className="basis-[47%] order-3 md:order-2"
               href={params.lang ? `/${params.lang}/terms-and-conditions` : '/terms-and-conditions'}
             >
-              Terms & Condition
+              Terms & Conditions
             </Link>
             {/* <Link href={'/'}>QnA Forum</Link> */}
             {/* </div>
