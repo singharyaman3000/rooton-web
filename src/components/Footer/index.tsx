@@ -56,8 +56,10 @@ export default function Footer() {
           <FooterLogo />
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <div className=" m-auto lg:m-0">
-              <p className=" text-sm">Copyright © {currentYear} Root On Immigration Consultants, Inc. or its affiliates.</p>
-              <p className="text-center lg:text-left text-sm">All Rights Reserved.</p>
+              <p className=" text-center lg:text-left text-sm mb-2">
+                Copyright © {currentYear} Root On Immigration Consultants, Inc. or its affiliates.
+              </p>
+              <p className=" text-center lg:text-left text-sm">All Rights Reserved.</p>
             </div>
             <p className=" m-auto lg:m-0 text-sm">Follow us on</p>
             <div className=" flex gap-12 justify-center w-full z-10">
@@ -99,7 +101,7 @@ export default function Footer() {
               className="basis-[47%] order-3 md:order-2"
               href={params.lang ? `/${params.lang}/terms-and-conditions` : '/terms-and-conditions'}
             >
-              Terms & Condition
+              Terms & Conditions
             </Link>
             {/* <Link href={'/'}>QnA Forum</Link> */}
             {/* </div>

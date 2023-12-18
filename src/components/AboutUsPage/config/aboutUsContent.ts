@@ -21,7 +21,7 @@ export const BANNER_SECTION_CONTENT = {
 /* About Us Description Section */
 export const WELCOME_SECTION_DATA = {
   companyDescription:
-    'Root On Immigration Consultants, founded by Ronak Patel, is a licensed Canadian Immigration firm specialising in Study Permit, Work Permit, Visitor Visa, Permanent Residency and Business Immigration applications. It has had its Canadian office in Downtown Montreal, QC since 2015 and its overseas Indian office is incorporated in Surat, Gujarat since 2019. <br /><br />By far, we have represented a diverse clientele from countries including India, Malaysia, Ghana, Cameroon, Morocco, the UAE, Sri Lanka, Turkey, Nepal, the UK and more, even receiving inquiries from the USA. Root On is a recognized and leading immigration firm when it comes to complex visa situations and for its successful appeals against unjust denials.What sets us apart is our expertise in complex visa situations and successful appeals against unjust denials.<br /><br />Contact us today to discover your true immigration potential and make a knowledgeable decision for your Canadian journey!<br /><br /><strong>Your aspirations, our dedication,</strong><br />— Team Root On.',
+    'Root On Immigration Consultants, founded by Ronak Patel, is a licensed Canadian Immigration firm specialising in Study Permit, Work Permit, Visitor Visa, Permanent Residency and Business Immigration applications. It has had its Canadian office in Downtown Montreal, QC since 2015 and its overseas Indian office is incorporated in Surat, Gujarat since 2019. <br /><br />By far, we have represented a diverse clientele from countries including India, Malaysia, Ghana, Cameroon, Morocco, the UAE, Sri Lanka, Turkey, Nepal, the UK and more, even receiving inquiries from the USA. Root On is a recognized and leading immigration firm when it comes to complex visa situations and for its successful appeals against unjust denials.<br /><br />Contact us today to discover your true immigration potential and make a knowledgeable decision for your Canadian journey!<br /><br /><strong>Your aspirations, our dedication,</strong><br />— Team Root On.',
   experienceYearsText: 'years of experience,<br />we excel in immigration services.',
   clientsCountText: 'clients fulfilled their<br />Canada dreams with us.',
   welcomeImageUrl: '/images/aboutUs/traveling-man.png',
@@ -62,7 +62,7 @@ export const BOOK_APPOINTMENT_FORM = {
 export const COMPANY_CEO_INFO = {
   sectionHeading: 'About the Founder',
   description:
-    'Hi, I\'m Ronak Patel, a passionate entrepreneur, husband, and father of two adorable daughters from Surat, India. While I wear my Canadian citizenship with pride, my soul resonates with the vibrant fabric of Indian culture. My immigration firm embodies this dual essence, marrying the values of my homeland with the inclusivity and freedom of my chosen home, Canada.<br /><br />In my 15 years in Canadian immigration, I\'ve seen ghost agents deceive clients with false promises of an ideal life abroad, often putting their own interests first and resulting in bad decisions and shattered dreams. Motivated to make a change, I started Root On, a firm dedicated to providing honest, tailored advice to ensure clients\' decisions match their true goals and needs.<br /><br />Our goal at Root On is simple: to be the most trusted and valued immigration firm for our clients.<br /><br />So, I invite you to book a discovery call with our team today and learn why immigrating to Canada can be a transformative experience, especially with the RIGHT guidance.<br /><br /><strong>Live Bigger, Happier & Keep Inspiring,</strong><br />— Ronak Patel',
+    'Hi, I\'m Ronak Patel, a passionate entrepreneur, husband, and father of two adorable daughters from Surat, India. While I wear my Canadian citizenship with pride, my soul resonates with the vibrant fabric of Indian culture. My immigration firm embodies this dual essence, marrying the values of my homeland with the inclusivity and freedom of my chosen home, Canada.<br /><br />In my 15 years in Canadian immigration, I\'ve seen ghost agents deceive clients with false promises of an ideal life abroad, often putting their own interests first and resulting in bad decisions and shattered dreams. Motivated to make a change, I started Root On, a firm dedicated to providing honest, tailored advice to ensure clients\' decisions match their true goals and needs.<br /><br />Our vision at Root On is simple: to be the most trusted and valued immigration firm for our clients.<br /><br />So, I invite you to book a discovery call with our team today and learn why immigrating to Canada can be a transformative experience, especially with the RIGHT guidance.<br /><br /><strong>Live Bigger, Happier & Keep Inspiring,</strong><br />— Ronak Patel',
   licenseNumber: 'R529956',
   imageUrl: '/images/aboutUs/team-members/Ronak.png',
   certificationImagesUrl: [
@@ -132,14 +132,14 @@ export const COMPANY_MEMBERS_SECTION = {
       employeeName: 'Anjali Uttamchandani',
       employeeRole: 'CLIENT ACCOUNT MANAGER',
       employeeDescription:
-        'Greetings! I\'m Anjali Uttamchandani, your dedicated Case Officer. Bringing five years of dynamic expertise working outside India, I am thrilled to have recently joined the Root on Immigration Firm With a fervent belief in the transformative power of immigration, I specialize in handling the application process to make the submission process easy and efficient.\n\nMy journey in this field is driven by a commitment to turn challenges into opportunities. Navigating the intricate web of immigration processes, I provide personalized solutions with a keen eye for detail. Every client has a unique story, and I am honored to play a role in shaping their path to a brighter future.\n\nAt Rooton Immigration firm, we don\'t just handle the Immigration process; we build bridges to new beginnings. Join us on this expedition, and let\'s make your immigration journey a seamless and successful adventure.',
+        'Greetings! I\'m Anjali Uttamchandani, your dedicated Case Officer. Bringing five years of dynamic expertise working outside India, I am thrilled to have recently joined the Root On Immigration Consultants. With a fervent belief in the transformative power of immigration, I specialize in handling the application process to make the submission process easy and efficient.\n\nMy journey in this field is driven by a commitment to turn challenges into opportunities. Navigating the intricate web of immigration processes, I provide personalized solutions with a keen eye for detail. Every client has a unique story, and I am honored to play a role in shaping their path to a brighter future.\n\nAt Rooton Immigration firm, we don\'t just handle the Immigration process; we build bridges to new beginnings. Join us on this expedition, and let\'s make your immigration journey a seamless and successful adventure.',
       imageUrl: { employeeImage: '/images/aboutUs/team-members/Anjali Uttamchandani.svg', backgroundColor: '#FC616A' },
     },
     {
       employeeName: 'Nikita Motirade',
       employeeRole: 'CLIENT ACCOUNT MANAGER',
       employeeDescription:
-        'I am Nikita Motirade, an MBA-educated professional and dedicated Client Account Manager at Root On Immigration Consultants Firm. With unwavering commitment, I will guide you through every step of your immigration journey, serving as not just a facilitator but as your partner in turning your aspirations into reality. From our first conversation to securing your visa, my role extends beyond routine assistance. I am here to provide personalized support and guidance, ensuring each step is seamlessly tailored to your unique needs. As your advocate within Root On, I am passionate about delivering a client-centric experience. I understand your individual requirements and leverage my MBA expertise to make your immigration process not just a formality, but a personalized and gratifying endeavor.',
+        'I am Nikita Motirade, an MBA-educated professional and a dedicated Client Account Manager at Root On Immigration Consultants Firm. With unwavering commitment, I will guide you through every step of your immigration journey, serving as not just a facilitator but as your partner in turning your aspirations into reality. From our first conversation to securing your visa, my role extends beyond routine assistance. I am here to provide personalized support and guidance, ensuring each step is seamlessly tailored to your unique needs. As your advocate within Root On, I am passionate about delivering a client-centric experience. I understand your individual requirements and leverage my MBA expertise to make your immigration process not just a formality, but a personalized and gratifying endeavor.',
       imageUrl: { employeeImage: '/images/aboutUs/team-members/Nikita.svg', backgroundColor: '#2B5073' },
     },
     {
@@ -175,7 +175,7 @@ export const WHAT_WE_VALUE_SECTION = {
     {
       key: 'Customer Obsession',
       iconComponent: CustomerObsessionIcon,
-      value: 'We obsess over customer success and so, start with the customer, then work for the business.',
+      value: 'We obsess over customer success and so, we start with the customer, then work for the business.',
       position: 1,
     },
     {
@@ -187,7 +187,7 @@ export const WHAT_WE_VALUE_SECTION = {
     {
       key: 'A Will To Win',
       iconComponent: WinningWillIcon,
-      value: 'With a strong will to succeed. We are constantly ready for new challenges.',
+      value: 'With a strong will to succeed, we are constantly ready for new challenges.',
       position: 3,
     },
     {
