@@ -171,12 +171,20 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
+        isBookAppointment={isBookAppointment}
+        initScroll={() => {
+          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+        }}
         scrollToTop={scrollToLeadForm} />;
     case 'spouse-visa-canada':
       return <SSForm leadFormRef={leadFormRef}
         formId={formId}
         meetingLink={meetingLink}
         title={formTitle}
+        isBookAppointment={isBookAppointment}
+        initScroll={() => {
+          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+        }}
         scrollToTop={scrollToLeadForm} />;
     default:
       return <div></div>;
