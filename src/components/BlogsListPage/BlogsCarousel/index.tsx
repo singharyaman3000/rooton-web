@@ -76,7 +76,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
     if (res?.status) {
       setBlogsListData(res?.res as IBlogsListResponse);
       setAllArticlesList((prev: IBlogData[]) => {
-        return [...prev, ...(res?.res?.data ?? [])];
+        return [...prev, ...res?.res?.data ?? []];
       });
     }
   };
