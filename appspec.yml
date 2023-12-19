@@ -2,7 +2,11 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/deploy/codebuild/fe/
+    destination: /home/deploy/codedeploy/fe/
+    permissions:
+      - object: "*"
+        owner: deploy
+        group: deploy
 hooks:
   BeforeInstall:
     - location: BeforeInstall.sh
