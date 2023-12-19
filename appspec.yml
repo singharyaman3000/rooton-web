@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/deploy/codebuild/fe/
+hooks:
+  BeforeInstall:
+    - location: BeforeInstall.sh
+      timeout: 300
+      runas: deploy
