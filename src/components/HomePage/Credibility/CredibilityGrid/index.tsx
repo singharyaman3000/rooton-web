@@ -20,16 +20,16 @@ const CredibilityGrid = () => {
           gradientTransform="matrix(-1 0 0 -.675 1.443 .463)"
           id="qckto480yc"
         >
-          <stop stop-color="#D8D8D8" offset="0%" />
-          <stop stop-color="#FFF" stop-opacity="0" offset="100%" />
+          <stop stopColor="#D8D8D8" offset="0%" />
+          <stop stopColor="#FFF" stopOpacity="0" offset="100%" />
         </radialGradient>
         <path id="2nzklzpara" d="M0 0h1440v534H0z" />
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <mask id="6hp331zcjb" fill="#fff">
           <use xlinkHref="#2nzklzpara" />
         </mask>
-        <use fill-opacity="0" fill="#D8D8D8" xlinkHref="#2nzklzpara" />
+        <use fillOpacity="0" fill="#D8D8D8" xlinkHref="#2nzklzpara" />
         <g mask="url(#6hp331zcjb)">
           <path fill="none" d="M0-135h1441v1441H0z" />
           <path

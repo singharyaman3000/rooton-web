@@ -21,11 +21,11 @@ const NewsLetterGrid = () => {
           gradientTransform="matrix(0 1 -3.4228 0 2.091 -.365)"
           id="j0bj7i1jie"
         >
-          <stop stop-color="#D58D19" offset="0%" />
-          <stop stop-color="#FFBC50" stop-opacity="0" offset="100%" />
+          <stop stopColor="#D58D19" offset="0%" />
+          <stop stopColor="#FFBC50" stopOpacity="0" offset="100%" />
         </radialGradient>
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <mask id="rgay62q4wb" fill="#fff">
           <use xlinkHref="#mv3zgdtjoa" />
         </mask>
@@ -34,7 +34,7 @@ const NewsLetterGrid = () => {
             <mask id="4lv0eq2qqd" fill="#fff">
               <use xlinkHref="#6x7kjgro8c" />
             </mask>
-            <use fill-opacity="0" fill="#D8D8D8" xlinkHref="#6x7kjgro8c" />
+            <use fillOpacity="0" fill="#D8D8D8" xlinkHref="#6x7kjgro8c" />
             <g mask="url(#4lv0eq2qqd)">
               <path fill="none" d="M0 0h1441v1441H0z" />
               <path

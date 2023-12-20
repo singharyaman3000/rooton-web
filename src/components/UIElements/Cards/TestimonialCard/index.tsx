@@ -33,7 +33,7 @@ export interface ITestimonialData extends ITestimonial {
 const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) => {
   const getVideoThumbnail = () => {
     const thumbnailObj = attributes?.media_url?.data?.find((item) => {
-      return item.attributes.formats;
+      return Object.keys(item?.attributes?.formats ?? {}).length > 0;
     });
     let thumbnailUrl = '';
     if (thumbnailObj) thumbnailUrl = thumbnailObj?.attributes?.url;

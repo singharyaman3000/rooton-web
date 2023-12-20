@@ -23,7 +23,6 @@ const nextConfig = {
     domains: [process.env.NEXT_ASSET_DOMAIN.toString()],
     minimumCacheTTL: 60 * 60,
   },
-  future: { webpack5: true },
   async rewrites() {
     const apiData = await getHeaderFooterServerData();
     const coaching_apiData = await getCoachingCoachingServicesServerData();
