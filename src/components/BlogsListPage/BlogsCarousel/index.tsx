@@ -116,10 +116,22 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
     if (allArticlesList?.length !== blogsListData?.meta?.pagination?.total) getArticles();
   };
 
+  const removeDuplicates = (blogsList: IBlogData[]) => {
+    const uniqueIds: { [key: number]: number } = {};
+    const uniqueBlogs = blogsList.filter((blog) => {
+      if (!uniqueIds[blog?.id]) {
+        uniqueIds[blog.id] = blog.id;
+        return blog;
+      }
+      return null;
+    });
+    return uniqueBlogs;
+  };
+
   return allArticlesList?.length ? (
     <section
       className={`${containerStyle} ${serviceType ? 'pt-[40px] md:py-[80px]' : ''}
-        md:border-none ${sourcePage === 'home'|| sourcePage === 'service'? 'max-w-screen-2k m-auto': ''}`}
+        md:border-none ${sourcePage === 'home' || sourcePage === 'service' ? 'max-w-screen-2k m-auto' : ''}`}
     >
       <div
         className={`pl-6 pb-8 md:pb-12 xl:px-20 flex justify-between items-end
@@ -157,7 +169,7 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
           slideParentClass="!justify-start md:gap-[30px]"
           slideClass="!w-full md:!w-[380px] !px-0"
         >
-          {allArticlesList?.map((detail: IBlogData) => {
+          {removeDuplicates(allArticlesList)?.map((detail: IBlogData) => {
             return <ArticleCard key={detail.id} attributes={detail.attributes} articleId={detail.id} />;
           })}
         </Slider>
