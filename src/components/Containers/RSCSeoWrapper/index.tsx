@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 export const metadata: Metadata = {
   title: 'ROOT ON IMMIGRATION CONSULTANT',
   description: 'Root On',
+  metadataBase: new URL(process.env.NEXT_APP_BASE_URL ?? ''),
   openGraph: {
     url: `${process.env.NEXT_APP_BASE_URL}`,
     title: 'Root On',

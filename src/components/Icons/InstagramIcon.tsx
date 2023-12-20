@@ -3,18 +3,18 @@ export default function InstagramIcon() {
     <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient cx="26.563%" cy="107.702%" fx="26.563%" fy="107.702%" r="99.107%" id="hrs65ul7ya">
-          <stop stop-color="#FD5" offset="0%" />
-          <stop stop-color="#FD5" offset="10%" />
-          <stop stop-color="#FF543E" offset="50%" />
-          <stop stop-color="#C837AB" offset="100%" />
+          <stop stopColor="#FD5" offset="0%" />
+          <stop stopColor="#FD5" offset="10%" />
+          <stop stopColor="#FF543E" offset="50%" />
+          <stop stopColor="#C837AB" offset="100%" />
         </radialGradient>
         <radialGradient cx="-16.751%" cy="7.204%" fx="-16.751%" fy="7.204%" r="44.301%" id="ilso2b69mb">
-          <stop stop-color="#3771C8" offset="0%" />
-          <stop stop-color="#3771C8" offset="12.8%" />
-          <stop stop-color="#60F" stop-opacity="0" offset="100%" />
+          <stop stopColor="#3771C8" offset="0%" />
+          <stop stopColor="#3771C8" offset="12.8%" />
+          <stop stopColor="#60F" stopOpacity="0" offset="100%" />
         </radialGradient>
       </defs>
-      <g fill-rule="nonzero" fill="none">
+      <g fillRule="nonzero" fill="none">
         <path
           d="M16.005 0H0c.005 4.647.005 8.245.001 10.793-.002 1.274 0 2.951 0 5.2 0 6.677.007 8.828.04 9.207.073.89.109 3.156.106 6.8 4.275-.05 6.725-.06 7.348-.03.396.018 4.435.03 8.476.03 4.041 0 8.082-.005 8.469-.025.721-.034 3.231-.072 7.528-.116-.065-3.563-.065-5.766.001-6.609.022-.276.031-4.87.031-9.26 0-2.928-.01-8.209-.032-15.843C27.348.053 23.763.004 21.213 0h-5.208z"
           fill="url(#hrs65ul7ya)"
