@@ -8,8 +8,8 @@ export default function TwitterIcon() {
       xmlns="http://www.w3.org/2000/svg"
       // xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-      <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Rooton_homepage_v1.3_Mobile" transform="translate(-94, -10169)" fill-rule="nonzero">
+      <g id="Home" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="Rooton_homepage_v1.3_Mobile" transform="translate(-94, -10169)" fillRule="nonzero">
           <g id="Group-15" transform="translate(0, 10009)">
             <g id="Group-24" transform="translate(24, 160)">
               <g id="Group-38" transform="translate(70, 0)">

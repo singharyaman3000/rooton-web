@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: metaInfo.home.title,
   description: metaInfo.home.description,
   alternates: { canonical: 'https://rooton.ca' },
+  metadataBase: new URL(process.env.NEXT_APP_BASE_URL ?? ''),
   openGraph: {
     url: `${process.env.NEXT_APP_BASE_URL}`,
     title: metaInfo.home.title,

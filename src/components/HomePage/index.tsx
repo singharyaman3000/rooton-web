@@ -36,7 +36,14 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
 
     switch (attributes.unique_identifier_name) {
     case CONTENT_TYPES.SERVICES:
-      return <ServicesListing title={title} sub_title={sub_title} core_services={attributes.core_services || []} />;
+      return (
+        <ServicesListing
+          title={title}
+          sub_title={sub_title}
+          core_services={attributes.core_services || []}
+          key="service"
+        />
+      );
     case CONTENT_TYPES.CREDIBILITY:
       return (
         <Credibility
@@ -44,6 +51,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           title={title}
           sub_title={sub_title}
           media_url={attributes.media_url}
+          key="credibility"
         />
       );
     case CONTENT_TYPES.WHY_ROOT_ON:
@@ -53,12 +61,17 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           description={description ?? ''}
           sub_title={sub_title}
           json_content={attributes.json_content as IJsonContent}
+          key="honesty"
         />
       );
     case CONTENT_TYPES.OUR_PROCESSES:
       return (
-        <div className=" mb-20">
-          <OurProcess title={title} sub_title={sub_title} json_content={attributes.json_content as IOurProcessData} />
+        <div className=" mb-20" key="our-process">
+          <OurProcess
+            title={title}
+            sub_title={sub_title}
+            json_content={attributes.json_content as IOurProcessData}
+          />
         </div>
       );
     case CONTENT_TYPES.CHALLENGES:
@@ -69,23 +82,25 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
           title={title}
           json_content={attributes.json_content as IChallenges}
           media_url={attributes.media_url}
+          key="challanges"
         />
       );
     case CONTENT_TYPES.PARTNERSHIPS:
-      return <PartnerShip sub_title={sub_title} title={title} data={attributes.media_url.data} />;
+      return <PartnerShip sub_title={sub_title} title={title} data={attributes.media_url.data} key="partnership" />;
     case CONTENT_TYPES.BLOG:
-      return <BlogSection sourcePage={SOURCE_PAGE.HOME} title={title} subtitle={sub_title} />;
+      return <BlogSection sourcePage={SOURCE_PAGE.HOME} title={title} subtitle={sub_title} key="blogs" />;
     case CONTENT_TYPES.QUESTIONS:
       return (
         <FaqListing
           sub_title={attributes?.sub_title}
           title={attributes?.title}
           json_content={attributes?.json_content as IFaqData}
+          key="faq"
         />
       );
     case CONTENT_TYPES.TESTIMONIALS:
       return (
-        <div className=" pb-10 md:pb-[80px] max-w-screen-2k mx-auto">
+        <div className=" pb-10 md:pb-[80px] max-w-screen-2k mx-auto" key="testimonials">
           <Testimonials
             apiUrl={TESTIMONIAL_API}
             title={TESTIMONIAL_TITLE.title}
@@ -95,7 +110,7 @@ const HomePage = ({ homePageConfig }: { homePageConfig: IHomePageData }) => {
       );
     case CONTENT_TYPES.APPOINTMENT:
       return (
-        <div className="mb-[100px] max-w-screen-2k mx-auto">
+        <div className="mb-[100px] max-w-screen-2k mx-auto" key="appoinment">
           <BookAnAppointmentSection />
         </div>
       );
