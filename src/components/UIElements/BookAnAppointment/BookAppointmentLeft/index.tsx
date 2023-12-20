@@ -25,8 +25,8 @@ const BookAppointmentGridLeft = () => {
           gradientTransform="matrix(.9477 0 0 .4732 0 .192)"
           id="1opdrhtnye"
         >
-          <stop stop-color="#D58D19" offset="0%" />
-          <stop stop-color="#FFBC50" stop-opacity="0" offset="100%" />
+          <stop stopColor="#D58D19" offset="0%" />
+          <stop stopColor="#FFBC50" stopOpacity="0" offset="100%" />
         </radialGradient>
         <radialGradient
           cx="83.853%"
@@ -37,21 +37,21 @@ const BookAppointmentGridLeft = () => {
           gradientTransform="matrix(.9477 0 0 .4732 .044 .191)"
           id="px25ufbf3g"
         >
-          <stop stop-color="#D58D19" offset="0%" />
-          <stop stop-color="#FFBC50" stop-opacity="0" offset="100%" />
+          <stop stopColor="#D58D19" offset="0%" />
+          <stop stopColor="#FFBC50" stopOpacity="0" offset="100%" />
         </radialGradient>
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <mask id="hzpppqoulb" fill="#fff">
           <use xlinkHref="#x1177b0xoa" />
         </mask>
-        <use fill-opacity="0" fill="#FDDBA2" xlinkHref="#x1177b0xoa" />
+        <use fillOpacity="0" fill="#FDDBA2" xlinkHref="#x1177b0xoa" />
         <g mask="url(#hzpppqoulb)">
           <g transform="translate(-386 -400)">
             <mask id="t5d057r45d" fill="#fff">
               <use xlinkHref="#vnj9s5e8ac" />
             </mask>
-            <use fill-opacity="0" fill="#D8D8D8" xlinkHref="#vnj9s5e8ac" />
+            <use fillOpacity="0" fill="#D8D8D8" xlinkHref="#vnj9s5e8ac" />
             <g mask="url(#t5d057r45d)">
               <path fill="none" d="M0 0h1441v1441H0z" />
               <g>

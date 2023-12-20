@@ -11,17 +11,17 @@ const PartnerShipGrid = () => {
     >
       <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="27.927%" id="rg9gyhahdc">
-          <stop stop-color="#FFF" stop-opacity=".5" offset="0%" />
-          <stop stop-color="#7D7D7D" stop-opacity=".5" offset="50.97%" />
-          <stop stop-color="#FFF" stop-opacity=".5" offset="100%" />
+          <stop stopColor="#FFF" stopOpacity=".5" offset="0%" />
+          <stop stopColor="#7D7D7D" stopOpacity=".5" offset="50.97%" />
+          <stop stopColor="#FFF" stopOpacity=".5" offset="100%" />
         </linearGradient>
         <path id="x3tbd2ibpa" d="M0 0h1440v393H0z" />
       </defs>
-      <g fill="none" fill-rule="evenodd" opacity=".503">
+      <g fill="none" fillRule="evenodd" opacity=".503">
         <mask id="rtj0xeeqsb" fill="#fff">
           <use xlinkHref="#x3tbd2ibpa" />
         </mask>
-        <use fill-opacity="0" fill="#D8D8D8" xlinkHref="#x3tbd2ibpa" />
+        <use fillOpacity="0" fill="#D8D8D8" xlinkHref="#x3tbd2ibpa" />
         <g mask="url(#rtj0xeeqsb)">
           <path fill="none" d="M0 0h1441v1441H0z" />
           <path

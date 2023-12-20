@@ -510,7 +510,7 @@ body {
   font-size: 14px;
   font-weight: 500;
   color: #fff;
-  background-image: url('data:image/svg+xml,<svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><path d="M1.187 10 0 8.813l7.109-7.109H.786V0H10v9.214H8.296V2.891z" fill="%23FFAF00" fill-rule="nonzero"/></svg>');
+  background-image: url('data:image/svg+xml,<svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><path d="M1.187 10 0 8.813l7.109-7.109H.786V0H10v9.214H8.296V2.891z" fill="%23FFAF00" fillRule="nonzero"/></svg>');
   background-repeat: no-repeat;
   background-position: calc(50% + 38px);
   background-size: 8px;
@@ -800,7 +800,7 @@ body {
 
 .huform .hs-form-field select {
   appearance: none;
-  background-image: url('data:image/svg+xml,<svg width="10.043" height="5.979" viewBox="0 0 10.043 5.979" xmlns="http://www.w3.org/2000/svg"><path d="m9.146 0 .897.897L4.96 5.979 0 1.018.92.099l4.063 4.063L9.146 0z" fill="%23000000" fill-rule="nonzero" /></svg>');
+  background-image: url('data:image/svg+xml,<svg width="10.043" height="5.979" viewBox="0 0 10.043 5.979" xmlns="http://www.w3.org/2000/svg"><path d="m9.146 0 .897.897L4.96 5.979 0 1.018.92.099l4.063 4.063L9.146 0z" fill="%23000000" fillRule="nonzero" /></svg>');
   background-repeat: no-repeat;
   padding-right: 35px;
   background-position-x: calc(100% - 20px);
