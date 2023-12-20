@@ -1,6 +1,7 @@
 :root {
   --primary-bg: #fff;
   --toggle-dark-bg: #000;
+  --toggle-lite-bg: #fff;
   --tansparent-bg: #00000045;
   --grey-bullet: #cbcbcb;
 
@@ -39,7 +40,8 @@
   --light-gray: #717171;
   --platinum:  #e5e5e5;
   --hubspot-meeting-background: #f5f8fa;
-
+  --services-tab-color: #000;
+  
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
   --preloader-overlay: hsl(252deg 9% 6% / 18%), hsl(252deg 3% 16% / 19%), hsl(0deg 2% 5% / 15%);
   --hubspot-form-shadow: 0 22px 60px 0 rgba(0, 0, 0, 0.1);
@@ -73,6 +75,7 @@
   --sandal: rgba(234, 213, 169, 0.32);
   --pale-sandal: #fddba2;
   --hover-lang-dropdown: #282828;
+  --services-tab-color: #fff6e7;
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(255, 255, 255, 0.5);
   --preloader-overlay: rgb(228 228 228), hsl(0deg 0% 89% / 43%), rgb(228 228 228);
@@ -89,6 +92,12 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.open-work-permit span font,
+.banner-text span font,
+.banner-text font {
+  position: unset;
 }
 
 html,
@@ -160,6 +169,11 @@ body {
 /*Google translator layout*/
 .skiptranslate {
   display: none !important;
+}
+
+/*Google translator logo*/
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none;
 }
 
 /*Services tabs design*/
@@ -314,7 +328,9 @@ body {
 .training-cards {
   background: var(--primary-bg);
   border-top: 65px solid #000;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
   transform: translateY(0px) scale(1);
   transition: transform 0.3s ease;
 }
@@ -345,7 +361,9 @@ body {
 
 [data-theme='dark'] .training-cards {
   background: #000;
-  box-shadow: rgb(192 192 192 / 45%) 0px 2px 4px 0px, rgb(192 192 192 / 45%) 0px 2px 16px 0px;
+  box-shadow:
+    rgb(192 192 192 / 45%) 0px 2px 4px 0px,
+    rgb(192 192 192 / 45%) 0px 2px 16px 0px;
   transition: all 0.3s ease;
   border-top: 65px solid rgb(149 149 149);
 }
@@ -372,7 +390,7 @@ body {
 /* Hover effect for profile card (Who we are section- About-us) */
 
 .card-hover-effect::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -20px;
   left: 20px;
@@ -381,7 +399,7 @@ body {
   background-color: #000;
   opacity: 0;
   filter: blur(30px);
-  transition: opacity .5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .card-hover-effect:hover::after {
@@ -518,6 +536,18 @@ body {
   }
 }
 
+@media screen and (min-width: 1440px) and (max-width: 1483px) {
+  .newsletter-translated {
+    max-width: 480px;
+  }
+}
+
+@media screen and (min-width: 1483px) and (max-width: 1524px) {
+  .newsletter-translated {
+    max-width: 530px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .honestyBackground {
     background-image: radial-gradient(
@@ -566,15 +596,17 @@ body {
 
 @media screen and (min-width: 1024px) {
   .honestyCard:nth-child(1),
-  .honestyCard:nth-child(4n) {
+  .honestyCard:nth-child(3n + 1) {
     padding-left: 0;
   }
 
   .honestyBackground {
-    background-image: radial-gradient(ellipse at center,
-        #e5e5e5,
-        rgba(219, 219, 219, 0.21) 60%,
-        rgba(255, 255, 255, 1) 69%);
+    background-image: radial-gradient(
+      ellipse at center,
+      #e5e5e5,
+      rgba(219, 219, 219, 0.21) 60%,
+      rgba(255, 255, 255, 1) 69%
+    );
   }
 
   #hubspotForm .actions .hs-button {
@@ -678,7 +710,8 @@ body {
 }
 
 
-.huform .hs-form-field label, .huform .hs-richtext.hs-main-font-element {
+.huform .hs-form-field label,
+.huform .hs-main-font-element {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.67;
@@ -813,6 +846,7 @@ body {
 
 .huform .hs-form-booleancheckbox span:not(.hs-form-required):before,
 .huform .hs-form-checkbox span:before,
+#custom-single-checkbox span::before ,
 .huform .hs-form-radio-display span::before {
   content: '';
   background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="19" height="19" rx="0" fill="white"/><rect x="0.5" y="0.5" width="19" height="19" rx="0" stroke="%23B3B3BD"/></svg>');
@@ -826,7 +860,8 @@ body {
 }
 
 .huform .hs-form-booleancheckbox input[type='checkbox']:checked + span:before,
-.huform .hs-form-checkbox input[type='checkbox']:checked + span:before {
+.huform .hs-form-checkbox input[type='checkbox']:checked + span:before,
+#custom-single-checkbox span.checked::before {
   background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(%23clip0_236_9350)"><rect width="20" height="20" rx="0" fill="%23000000"/><rect width="10.1089" height="1.66667" rx="0.833333" transform="matrix(-0.707107 0.707107 0.707107 0.707107 14.7997 5.84872)" fill="white"/><rect x="8.8231" y="14.1683" width="6.58522" height="1.66667" rx="0.833333" transform="rotate(-135 8.8231 14.1683)" fill="white"/></g><defs><clipPath id="clip0_236_9350"><rect width="20" height="20" rx="0" fill="white"/></clipPath></defs></svg>');
 }
 .huform .hs-form-radio-display span::before {
@@ -841,6 +876,25 @@ body {
 .huform textarea:focus {
   outline-color: #000;
   outline-offset: 0;
+}
+
+.add-another-field-button {
+  background-color: black !important;
+  color: white;
+  font-weight: 500;
+  align-self: flex-end;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+#custom-single-checkbox span {
+  padding-left: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#custom-single-checkbox input {
+  width: auto;
 }
 
 /* Service Form CSS ends */
@@ -917,7 +971,7 @@ button:disabled {
 }
 
 [data-theme='dark'] .planName-heading {
-  background: rgb(149,149,149);
+  background: rgb(149, 149, 149);
   color: #000;
 }
 
@@ -931,14 +985,18 @@ button:disabled {
 
 .pricing-card {
   background: #f5f5f5;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.12) 0px 2px 16px 0px;
   transform: translateY(0px) scale(1);
   transition: transform 0.3s ease;
 }
 
 [data-theme='dark'] .pricing-card {
   background: #000;
-  box-shadow: rgb(192 192 192 / 45%) 0px 2px 4px 0px, rgb(192 192 192 / 45%) 0px 2px 16px 0px;
+  box-shadow:
+    rgb(192 192 192 / 45%) 0px 2px 4px 0px,
+    rgb(192 192 192 / 45%) 0px 2px 16px 0px;
 }
 
 heading {
@@ -959,7 +1017,7 @@ heading {
   margin: 10px 0;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   #blog-details-body img {
     height: 172px;
   }
@@ -979,13 +1037,23 @@ heading {
 }
 
 #contact-us-form-container #scheduler-container {
-  height: 500px;
+  height: 693px;
+}
+
+#contact-us-section-wrapper #LeadForm {
+  min-height: 421px;
 }
 
 @media screen and (min-width: 1024px) {
   #contact-us-section-wrapper>div:last-of-type {
     padding-left: 0;
     padding-right: 0;
+  }
+  #contact-us-form-container #scheduler-container {
+    height: 655px;
+  }
+  #contact-us-form-container #LeadFormContainer {
+    margin-top: 32px;
   }
 }
 
@@ -999,13 +1067,13 @@ heading {
   height: 4px;
   width: 4px;
   margin: 0 5px;
-  background-color: #000000; 
+  background-color: #000000;
   border-radius: 20%;
   display: inline-block;
 }
 
 .dot.active {
-  background-color: #F59723;
+  background-color: #f59723;
 }
 
 @media screen and (max-width: 767px) {
@@ -1019,7 +1087,7 @@ heading {
 }
 
 [data-theme='dark'] .dot.active {
-  background-color: #F59723;
+  background-color: #f59723;
 }
 
 [data-theme='dark'] .slider-nav {
@@ -1030,40 +1098,40 @@ heading {
   background-color: rgba(256, 256, 256, 0.14);
 }
 
-[data-theme='dark'] .blog-bg{
+[data-theme='dark'] .blog-bg {
   background: #000;
 }
 
-[data-theme='dark'] .mobile-pagination{
+[data-theme='dark'] .mobile-pagination {
   background-color: #000;
 }
 
-[data-theme='dark'] .credibility-images{
+[data-theme='dark'] .credibility-images {
   background-color: #fff;
 }
 
-[data-theme='dark'] .testimonial-footer{
+[data-theme='dark'] .testimonial-footer {
   background-color: #333333;
 }
 
-[data-theme='dark'] .testimonial-border{
+[data-theme='dark'] .testimonial-border {
   border: 1px solid #fff;
 }
 
-[data-theme='dark'] .talk-to-expert-btn{
+[data-theme='dark'] .talk-to-expert-btn {
   background-color: #fff6e7;
   color: #000;
 }
 
-[data-theme='dark'] .contact-us-address{
+[data-theme='dark'] .contact-us-address {
   background-color: #000;
 }
 
-.mapAddressBorder{
+.mapAddressBorder {
   border: 1px solid #d8d8d8;
 }
 
-.mapAddressBorder:hover{
+.mapAddressBorder:hover {
   border: 1px solid #f59723;
 }
 

@@ -10,10 +10,11 @@ export const COACHING_SERVICES_ROUTES = [
   {
     id: 1,
     label: 'IELTS',
+    link: 'ielts-online-coaching',
   },
-  { id: 2, label: 'PTE' },
-  { id: 3, label: 'CELPIP' },
-  { id: 4, label: 'DUOLINGO' },
-  { id: 5, label: 'TOEFL' },
-  { id: 6, label: 'DELF-DALF' },
+  { id: 2, label: 'PTE', link: 'pte-online-classes' },
+  { id: 3, label: 'CELPIP', link: 'celpip-course-online' },
+  { id: 4, label: 'DUOLINGO', link: 'duolingo-english-language-test-preparation' },
+  { id: 5, label: 'TOEFL', link: 'toefl-online-course' },
+  { id: 6, label: 'DELF', link: 'delf-preparation-course-online' },
 ];

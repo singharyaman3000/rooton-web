@@ -79,9 +79,26 @@ interface IOrganizationData {
   startedYear: string;
 }
 
+export interface ICountryInfo {
+  name: string;
+  [key: string]: string;
+  currency: string;
+  phoneCode: string;
+}
+export interface IOccupationInfo {
+  occupation: string;
+  [key: string]: string;
+}
+
+interface ILeadFormData {
+  countryInfos: ICountryInfo[];
+  occupationList: IOccupationInfo[];
+}
+
 interface IJsonContent {
   socialMediaIcons: SocialMediaInterfaceType[];
   organizationDetails: IOrganizationData;
+  leadFormDatas: ILeadFormData;
 }
 
 export interface IAttributes {
@@ -100,6 +117,6 @@ export interface IHeaderFooterRes {
 }
 
 export const getHeaderFooterData = async () => {
-  const apiRes = await getFetch<IHeaderFooterRes>(HEADER_FOOTER_API, { next: { revalidate: 1200 } });
+  const apiRes = await getFetch<IHeaderFooterRes>(HEADER_FOOTER_API, { next: { revalidate: 60 } });
   return apiRes.data;
 };

@@ -17,6 +17,9 @@ export const CONTENT_TYPES = {
   CHALLENGES: 'challenges',
   PARTNERSHIPS: 'partnerships',
   QUESTIONS: 'questions',
+  BLOGS: 'blogs',
+  TESTIMONIALS: 'testimonials',
+  APPOINTMENT: 'appointment',
 };
 
 type TContentTypes = (typeof CONTENT_TYPES)[keyof typeof CONTENT_TYPES];
@@ -76,6 +79,6 @@ export interface IHomePageDataRes {
 }
 
 export const getHomePageContents = async () => {
-  const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 1200 } });
+  const apiRes = await getFetch<IHomePageDataRes>(HOME_API, { next: { revalidate: 60 } });
   return apiRes.data;
 };

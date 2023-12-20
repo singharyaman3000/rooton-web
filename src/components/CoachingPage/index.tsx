@@ -1,17 +1,14 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Credibility from '@/components/CoachingPage/Credibility';
 import Honesty, { IJsonContent } from '@/components/CoachingPage/Honesty';
-import PartnerShip from '@/components/CoachingPage/Partnership';
-import OurProcess from '@/components/CoachingPage/OurProcess';
+import OurProcess from '@/components/HomePage/OurProcess';
 import { CONTENT_TYPES, ICoachingPage_Data, DataEntity1 } from '@/app/services/apiService/CoachingAPI';
 import { appendAssetUrl, getSectionCoachingData, isVideo } from '@/utils';
-import ChallengesListing, { IChallenges } from './ChallengesListing';
-import { IOurProcessData } from './OurProcess/interfaces';
+import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
-import Testimonials from './Testimonials';
-import FaqListing, { IFaqData } from './FaqListings';
+import Testimonials from '@/components/HomePage/Testimonials';
+import FaqListing, { IFaqData } from '@/components/HomePage/FaqListings';
 import { TESTIMONIAL_TITLE } from '@/app/constants/textConstants';
 import { TESTIMONIAL_COACHING_API } from '@/app/services/apiService/apiUrl/homePage';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
@@ -46,15 +43,6 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
     return data?.map((contents) => {
       const { title, sub_title, description } = contents.attributes;
       switch (contents.attributes.unique_identifier_name) {
-      case CONTENT_TYPES.CREDIBILITY:
-        return (
-          <Credibility
-            description={description ?? ''}
-            title={title}
-            sub_title={sub_title}
-            media_url={contents.attributes.media_url}
-          />
-        );
       case CONTENT_TYPES.WHY_ROOT_ON:
         return (
           <Honesty
@@ -89,29 +77,6 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
             />
           </CoachingPageWrapper>
         );
-      case CONTENT_TYPES.CHALLENGES:
-        return (
-          <ChallengesListing
-            description={description ?? ''}
-            sub_title={sub_title}
-            title={title}
-            json_content={contents.attributes.json_content as IChallenges}
-            media_url={contents.attributes.media_url}
-          />
-        );
-      default:
-        return null;
-      }
-    });
-  };
-
-  const getComponentsAfterBookAppointments = () => {
-    return data?.map((contents) => {
-      const { title, sub_title } = contents.attributes;
-      switch (contents.attributes.unique_identifier_name) {
-      case CONTENT_TYPES.PARTNERSHIPS:
-        return <PartnerShip sub_title={sub_title} title={title} data={contents.attributes.media_url.data} />;
-
       default:
         return null;
       }
@@ -144,7 +109,6 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
       />
       {getComponentsAboveBookAppointments()}
 
-      {getComponentsAfterBookAppointments()}
       <div className="pb-10 md:pb-[80px]">
         <Testimonials
           apiUrl={TESTIMONIAL_COACHING_API}

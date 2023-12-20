@@ -22,6 +22,7 @@ export type ILeadForm = {
   portalId?: string;
   formId?: string;
   url?: IMeetingData;
+  isHubSpotForm: boolean;
 };
 
 export type IFaq = {
@@ -85,7 +86,7 @@ export type IServicePageContent = {
 
 export const getServicePageContent = async (serviceId: string) => {
   try {
-    const res = await getFetch<IServicePageContent>(getServiceAPIUrl(serviceId), { next: { revalidate: 10 } });
+    const res = await getFetch<IServicePageContent>(getServiceAPIUrl(serviceId), { cache: 'no-store' });
     return res;
   } catch (error) {
     return { error };

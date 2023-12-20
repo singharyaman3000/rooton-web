@@ -36,7 +36,7 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
       return item.attributes.formats;
     });
     let thumbnailUrl = '';
-    if (thumbnailObj) thumbnailUrl = thumbnailObj?.attributes?.formats?.thumbnail?.url;
+    if (thumbnailObj) thumbnailUrl = thumbnailObj?.attributes?.url;
     else thumbnailUrl = attributes?.icon?.data?.[0]?.attributes?.url;
     return appendAssetUrl(thumbnailUrl);
   };

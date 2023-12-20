@@ -90,7 +90,7 @@ const LeadFormStepper = (
     singlePageForm = false,
     ctaClickSource,
   }: LeadFormStepperProps) => {
-  const { noOfFieldsAtaTime } = SERVICES_TITLE.leadForm;
+  const noOfFieldsAtaTime = singlePageForm? 7 : SERVICES_TITLE.leadForm.noOfFieldsAtaTime;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
 

@@ -10,7 +10,7 @@ type TrainingCardProps = {
   redirectUrl?: string;
 };
 
-const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick,redirectUrl }) => {
+const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl }) => {
   const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => false));
   const handleButtonClick = () => {
     // Check if there is a redirect URL and use it if no lead forms are present
@@ -43,7 +43,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
           <div className="px-6 pb-6 ">
             <div className="mb-5 md:text-xs sm:text-xs">
               <div className="flex items-center justify-center items-baseline mb-5">
-                <div className="pricing-text font-bold text-4xl pt-8">${our_plans.price}</div>
+                {our_plans.price && <div className="pricing-text font-bold text-4xl pt-8">${our_plans.price}</div>}
               </div>
               <div className="font-semibold text-sm h-[70px] pricing-text mb-5">{our_plans.planDescription}</div>
               <button

@@ -17,8 +17,7 @@ export interface IAboutUsContent {
 
 export const getAboutUsContent = async () => {
   try {
-    // Revalidate data after 24 hours
-    const res = await getFetch<IAboutUsContent>(ABOUT_US_API_PATH, { next: { revalidate: 60 * 60 * 24 } });
+    const res = await getFetch<IAboutUsContent>(ABOUT_US_API_PATH, { next: { revalidate: 60 } });
     return res;
   } catch (error) {
     return { error };

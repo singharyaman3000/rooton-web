@@ -21,7 +21,7 @@ const FaqListing = ({ json_content, title, sub_title }: IFaQListing) => {
 
   return (
     <section>
-      <SectionContainer cssClass="py-10 md:pt-[20px] md:pb-[100px]">
+      <SectionContainer cssClass="py-10 md:pt-[20px] md:pb-[100px] max-w-screen-2k mx-auto">
         <SectionHeadings subCssClass="mb-[2px] md:mb-[38px]" title={title} subTitle={sub_title} />
         {json_content?.faq?.map(({ key, value, position }) => {
           return (

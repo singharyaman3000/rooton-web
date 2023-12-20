@@ -19,7 +19,7 @@ export interface ITestimonialPageData {
 
 export const getTestimonials = async (url: string) => {
   try {
-    const res = await getFetch<ITestimonialPageData>(url, { next: { revalidate: 1200 } });
+    const res = await getFetch<ITestimonialPageData>(url, { next: { revalidate: 60 } });
     return { status: 1, res };
   } catch (error) {
     return { status: 0, error };

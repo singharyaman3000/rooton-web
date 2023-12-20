@@ -14,9 +14,11 @@ module.exports = {
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
+      'hd': '1440px',
       '2k': '2048px',
       'max-screen': '2560px',
       'md2': '1100px',
+      'xl2': '1440px',
     },
     fontFamily: {
       jakartaSans: ['var(--jakarta-sans)'],
@@ -68,6 +70,7 @@ module.exports = {
         'light-gray': 'var(--light-gray)',
         'platinum': 'var(--platinum)',
         'hubspot-meeting-background': 'var(--hubspot-meeting-background)',
+        'services-tab-color': 'var(--services-tab-color)',
       },
       boxShadow: {
         'language-dropdown': 'var(--language-dropdown-shadow)',

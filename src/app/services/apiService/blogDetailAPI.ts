@@ -73,6 +73,6 @@ export interface IBlogDetailsResponse {
 }
 
 export const getBlogDetails = async (blogId: string) => {
-  const res = await getFetch<IBlogDetailsResponse>(getBlogDetailsUrl(blogId), { next: { revalidate: 0 } });
+  const res = await getFetch<IBlogDetailsResponse>(getBlogDetailsUrl(blogId), { cache: 'no-store' });
   return res;
 };

@@ -46,6 +46,7 @@ export const WhyChoose = ({ title, description, imageAlt, imageUrl, onClickCTA }
             lg:font-medium
             xl:text-lg
             lg:leading-primary-lg
+            text-justify
             "
         >
           {description}
