@@ -64,7 +64,7 @@ export const COMPANY_CEO_INFO = {
   description:
     'Hi, I\'m Ronak Patel, a passionate entrepreneur, husband, and father of two adorable daughters from Surat, India. While I wear my Canadian citizenship with pride, my soul resonates with the vibrant fabric of Indian culture. My immigration firm embodies this dual essence, marrying the values of my homeland with the inclusivity and freedom of my chosen home, Canada.<br /><br />In my 15 years in Canadian immigration, I\'ve seen ghost agents deceive clients with false promises of an ideal life abroad, often putting their own interests first and resulting in bad decisions and shattered dreams. Motivated to make a change, I started Root On, a firm dedicated to providing honest, tailored advice to ensure clients\' decisions match their true goals and needs.<br /><br />Our vision at Root On is simple: to be the most trusted and valued immigration firm for our clients.<br /><br />So, I invite you to book a discovery call with our team today and learn why immigrating to Canada can be a transformative experience, especially with the RIGHT guidance.<br /><br /><strong>Live Bigger, Happier & Keep Inspiring,</strong><br />— Ronak Patel',
   licenseNumber: 'R529956',
-  imageUrl: '/images/aboutUs/team-members/Ronak.png',
+  imageUrl: '/images/aboutUs/team-members/Ronak.webp',
   certificationImagesUrl: [
     {
       imageUrl: '/images/aboutUs/cicc-logo.png',
