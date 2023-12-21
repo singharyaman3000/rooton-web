@@ -195,26 +195,35 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     switch (identifier) {
     case 'service-reason':
       return (
-        <ServicePageWrapper className="pt-[40px] px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <WhyChooseRootonSection whyChooseOpen={data}
-            handleCTAButtonClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.PAID); }} />
+        <ServicePageWrapper key="why-rooton" className="pt-[40px] px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+          <WhyChooseRootonSection
+            whyChooseOpen={data}
+            handleCTAButtonClick={() => {
+              return handleCTAButtonClick(CONSULTATION_TYPES.PAID);
+            }}
+          />
         </ServicePageWrapper>
       );
     case 'service-eligibility':
       return (
-        <ServicePageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
-          <EligibilitySection eligibility={eligibility}
-            handleCTAButtonClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.FREE); }} />
+        <ServicePageWrapper key="eligibility" className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
+          <EligibilitySection
+            eligibility={eligibility}
+            handleCTAButtonClick={() => {
+              return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+            }}
+          />
         </ServicePageWrapper>
       );
     case 'service-process':
-      return <ProcessSection process={process} />;
+      return <ProcessSection key="process" process={process} />;
     case 'service-lead-form':
       if (leadForm) {
         return (
           <ServicePageWrapper
             className={`${showBookAnAppointment ? 'block' : 'hidden'
             } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
+            key="lead-form"
           >
             {leadForm?.attributes?.json_content?.lead_forms![0]?.isHubSpotForm ? (
               <LeadFormSection
@@ -241,16 +250,27 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
 
       return null;
     case 'service-CTA-banner-1':
-      return <CTAWrapperSection handleCTAButtonClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.FREE); }} />;
+      return (
+        <CTAWrapperSection
+          key="cta-btn"
+          handleCTAButtonClick={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+        />
+      );
     case 'service-CTA-banner-2':
       return (
-        <ServicePageWrapper className=" mt-20 m-auto max-w-screen-2k pb-0">
-          <BookAnAppointment onClick={() => { return handleCTAButtonClick(CONSULTATION_TYPES.FREE); }} />
+        <ServicePageWrapper key="book-appoinment" className=" mt-20 m-auto max-w-screen-2k pb-0">
+          <BookAnAppointment
+            onClick={() => {
+              return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+            }}
+          />
         </ServicePageWrapper>
       );
     case 'service-testimonial':
       return (
-        <div className="m-auto max-w-screen-2k">
+        <div key="testimonials" className="m-auto max-w-screen-2k">
           <Testimonials
             apiUrl={TESTIMONIAL_API_SERVICE.replace('<service_type>', response?.data.attributes.unique_identifier_name)}
             title={SERVICES_TITLE.testimonial.title}
@@ -259,10 +279,10 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
         </div>
       );
     case 'service-faq':
-      return <FAQSection faqs={faqs?.attributes?.json_content?.faq} />;
+      return <FAQSection key="faq" faqs={faqs?.attributes?.json_content?.faq} />;
     case 'blogs':
       return (
-        <div className=" mt-[40px] bg-secondary-grey">
+        <div key="blogs" className=" mt-[40px] bg-secondary-grey">
           <BlogSection
             title=""
             subtitle={blogs?.attributes.title ?? ''}
