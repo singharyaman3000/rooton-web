@@ -5,3 +5,4 @@ source /home/deploy/.profile
 cd /home/deploy/codedeploy/fe/v1/
 rm -rf node_modules
 npm install --legacy-peer-deps
+echo "install completed."
