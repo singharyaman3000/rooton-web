@@ -51,8 +51,9 @@ export interface IPrivatePolicyPageContent {
 
 export const getPolicyContents = async (privatePolicyId: string) => {
   try {
-    const res = await getFetch<IPrivatePolicyPageContent>
-    (getPrivatePolicyAPIUrl(privatePolicyId), { next: { revalidate: 10 } });
+    const res = await getFetch<IPrivatePolicyPageContent>(getPrivatePolicyAPIUrl(privatePolicyId), {
+      next: { revalidate: 86400 },
+    });
     return res;
   } catch (error) {
     return { error };
