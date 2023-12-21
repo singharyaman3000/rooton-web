@@ -92,7 +92,6 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
   };
 
   const faqData = getSectionCoachingData(coachingPageConfig, CONTENT_TYPES.QUESTIONS);
-  console.log('Rendering Table1',data[5]?.attributes?.json_content as ITableData);
   return (
     <>
       <Breadcrumbs
