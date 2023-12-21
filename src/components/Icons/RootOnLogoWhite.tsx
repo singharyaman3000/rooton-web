@@ -127,8 +127,8 @@ const RootOnLogoWhite = () => {
         <text
           fillRule="nonzero"
           fontFamily="Helvetica-Bold, Helvetica"
-          font-size="24.178"
-          font-weight="bold"
+          fontSize="24.178"
+          fontWeight="bold"
           fill="#FFF"
         >
           <tspan x="60" y="31">
@@ -138,8 +138,8 @@ const RootOnLogoWhite = () => {
         <text
           fillRule="nonzero"
           fontFamily="Helvetica-Bold, Helvetica"
-          font-size="8.368"
-          font-weight="bold"
+          fontSize="8.368"
+          fontWeight="bold"
           fill="#FFF"
         >
           <tspan x="60" y="40">
