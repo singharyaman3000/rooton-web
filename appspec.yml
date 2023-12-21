@@ -2,13 +2,26 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/deploy/codedeploy/fe/
-    permissions:
-      - object: "*"
-        owner: deploy
-        group: deploy
+    destination: /home/deploy/codedeploy/fe/v1/
+permissions:
+  - object: /home/deploy/codedeploy/fe/v1/
+    pattern: "**"
+    owner: deploy
+    group: deploy
 hooks:
   BeforeInstall:
     - location: BeforeInstall.sh
       timeout: 300
+      runas: deploy
+  AfterInstall:
+    - location: AfterInstall.sh
+      timeout: 30
+      runas: deploy
+  ApplicationStart:
+    - location: ApplicationStart.sh
+      timeout: 300
+      runas: deploy
+  ValidateService:
+    - location: ValidateService.sh
+      timeout: 60
       runas: deploy
