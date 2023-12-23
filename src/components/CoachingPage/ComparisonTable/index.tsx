@@ -34,7 +34,7 @@ const ComparisonTable: React.FC<TableAllData> = ({ title, sub_title, json_conten
                     {columns.map((col, index) => {return (
                       <TableCell
                         key={index}
-                        className={`${index === 0 ? 'min-w-[200px] sticky left-0 z-30 table-header font-semibold text-center border-r border-[#D2D2D2]' : 'min-w-[200px] table-header font-semibold'}`}
+                        className={`${index === 0 ? 'min-w-[200px] sticky left-0 z-30 table-header font-semibold text-center border-r border-[#D2D2D2]' : 'min-w-[200px] table-header text-center font-semibold'}`}
                       >
                         {col.label}
                       </TableCell>
