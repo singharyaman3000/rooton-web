@@ -1142,7 +1142,8 @@ heading {
 }
 
 .table-header {
-  background-color: #fff;
+  background-color: var(--pale-sandal);
+  color: #000;
 }
 
 [data-theme='dark'] .table-header {
