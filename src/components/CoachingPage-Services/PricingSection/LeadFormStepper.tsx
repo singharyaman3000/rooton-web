@@ -79,7 +79,7 @@ const LeadFormStepper = (
     initScroll,
     singlePageForm = false,
   }: LeadFormStepperProps) => {
-  const noOfFieldsAtaTime = 100;
+  const noOfFieldsAtaTime = 4;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
 
@@ -357,7 +357,7 @@ const LeadFormStepper = (
             },
             onFormReady: () => {
               formReady();
-              if (!singlePageForm) hideSubmitButton(true);
+              if (singlePageForm) hideSubmitButton(true);
               const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
               if(form) {
                 form[0].addEventListener('change', onFormBlur);
@@ -404,7 +404,7 @@ const LeadFormStepper = (
       onBackClick={onBackClick}
       onNextClick={onNextClick}
       target={target}
-      showNavButtons={!singlePageForm}
+      showNavButtons={singlePageForm}
     />
   ) : (
     <div className=" h-[54rem] mt-2">
