@@ -14,6 +14,7 @@ export default function RTONButton({ ariaLabel, onClick, text, icon }: RTONButto
       aria-label={ariaLabel}
       type="button"
       onClick={onClick}
+      id={text}
       className="
           relative
           pt-[17.8px]
@@ -29,9 +30,10 @@ export default function RTONButton({ ariaLabel, onClick, text, icon }: RTONButto
           w-full
           justify-center
           md:w-fit
+          trackable-element
         "
     >
-      <p className="truncate font-bold text-[14px] lg:text-sm">{text}</p>
+      <p className="trackable-element truncate font-bold text-[14px] lg:text-sm">{text}</p>
       {icon}
     </button>
   );

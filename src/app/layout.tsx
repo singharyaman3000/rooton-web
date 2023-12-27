@@ -1,10 +1,13 @@
+'use client';
+
 import './globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
 import { metaInfo } from './constants/pageMetaInfo';
 import GoogleAnalytics from './GoogleAnalytics';
+import { trackClicks } from '../../gtag';
 
 export const metadata: Metadata = {
   title: metaInfo.home.title,
@@ -33,6 +36,10 @@ const FontJakarta = Plus_Jakarta_Sans({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    trackClicks();
+  }, []);
+
   return (
     <html suppressHydrationWarning lang="en">
       <body className={`${FontJakarta.variable} ${FontJakarta.className} bg-primary-bg !static`}>
