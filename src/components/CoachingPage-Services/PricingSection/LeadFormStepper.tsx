@@ -82,7 +82,6 @@ const LeadFormStepper = (
   const noOfFieldsAtaTime = 4;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
-
   const [disableNextButton, setDisableNextButton] = useState(false);
   const [disableBackButton, setDisableBackButton] = useState(true);
   const [showError, setShowError] = useState(false);
@@ -98,7 +97,7 @@ const LeadFormStepper = (
   };
 
   const hideSubmitButton = (hide: boolean) => {
-    (document.querySelector('.actions') as HTMLDivElement).style.display = hide ? 'none' : 'block';
+    (document.querySelector(`#${target} .actions`) as HTMLDivElement).style.display = hide ? 'none' : 'block';
   };
 
   // eslint-disable-next-line no-undef
@@ -122,7 +121,7 @@ const LeadFormStepper = (
       const fields = fieldsets[i].querySelectorAll('.hs-form-field');
 
       for(let j = 0; j < fields.length; j+=1) {
-        const errorList = fields[j].querySelector('.no-list') as HTMLUListElement;
+        const errorList = fields[j].querySelector(`#${target} .no-list`) as HTMLUListElement;
 
         if (errorList) {
           errorList.style.display = hide ? 'none' : 'block';
@@ -135,15 +134,15 @@ const LeadFormStepper = (
 
   const checkForErrors = () => {
     const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
-    const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
+    const fieldsets = (form && form[0].querySelectorAll(`#${target} fieldset`)) || [];
 
     let hasError = false;
 
     for (let i = 0; i < fieldsets.length; i += 1) {
-      const fieldset = fieldsets[i];
+      const fieldset = fieldsets[i] as HTMLElement;
       hasError =
         fieldset.style.display !== 'none' &&
-        (fieldset.querySelector('fieldset')?.querySelectorAll('.no-list').length ?? 0) > 0;
+        (fieldset.querySelector(`#${target} fieldset`)?.querySelectorAll(`#${target} .no-list`).length ?? 0) > 0;
 
       if (hasError) {
         break;
@@ -167,7 +166,7 @@ const LeadFormStepper = (
       let checked = false;
       for (let i = 0; i < (checkboxes?.length ?? 0); i += 1) {
         if (checkboxes && checkboxes[i]) {
-          checked = checkboxes[i].checked;
+          checked = (checkboxes[i] as HTMLInputElement).checked;
         }
 
         if (checked) {
@@ -181,46 +180,46 @@ const LeadFormStepper = (
     const checkValue = (input: Element) => {
       let hasValue = false;
 
-      const inputQuerySelectedInput = input?.querySelector('input');
+      const inputQuerySelectedInput = input?.querySelector(`#${target} input`) as HTMLInputElement;
 
       let tagname =
         inputQuerySelectedInput?.tagName ||
-        input?.querySelector('select')?.tagName ||
-        input?.querySelector('textarea')?.tagName;
+        input?.querySelector(`#${target} select`)?.tagName ||
+        input?.querySelector(`#${target} textarea`)?.tagName;
 
-      if (inputQuerySelectedInput?.type === 'checkbox') {
+      if (inputQuerySelectedInput && inputQuerySelectedInput.type === 'checkbox') {
         tagname = 'CHECKBOX';
-      } else if (inputQuerySelectedInput?.type === 'radio') {
+      } else if (inputQuerySelectedInput && inputQuerySelectedInput.type === 'radio') {
         tagname = 'RADIO';
-      } else if (inputQuerySelectedInput?.type === 'tel') {
+      } else if (inputQuerySelectedInput && inputQuerySelectedInput.type === 'tel') {
         tagname = 'PHONE';
       }
 
       switch (tagname) {
       case 'INPUT':
-        if ((input.querySelector('input') as HTMLInputElement).value) {
+        if ((input.querySelector(`#${target} input`) as HTMLInputElement).value) {
           hasValue = true;
         }
         break;
       case 'PHONE': {
-        const { value } = (input.querySelector('input') as HTMLInputElement);
+        const { value } = (input.querySelector(`#${target} input`) as HTMLInputElement);
         if (value.split('').length > 5 && value.split(' ')[1].match(/^\d+$/)) {
           hasValue = true;
         }
         break;
       }
       case 'SELECT':
-        if ((input.querySelector('select') as HTMLSelectElement).value) {
+        if ((input.querySelector(`#${target} select`) as HTMLSelectElement).value) {
           hasValue = true;
         }
         break;
       case 'CHECKBOX' || 'RADIO':
-        if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
+        if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector(`#${target} .input`))) {
           hasValue = true;
         }
         break;
       case 'TEXTAREA':
-        if ((input.querySelector('textarea') as HTMLTextAreaElement).value) {
+        if ((input.querySelector(`#${target} textarea`) as HTMLTextAreaElement).value) {
           hasValue = true;
         }
         break;
@@ -232,14 +231,14 @@ const LeadFormStepper = (
     };
 
     const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
-    const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
+    const fieldsets = (form && form[0].querySelectorAll(`#${target} fieldset`)) || [];
 
     let hasError: boolean = false;
 
     for (let i = 0; i < fieldsets.length; i += 1) {
       const inputs = fieldsets[i].querySelectorAll('.hs-form-field');
 
-      if (fieldsets[i].style.display !== 'none') {
+      if ((fieldsets[i] as HTMLElement).style.display !== 'none') {
         for (let j = 0; j < inputs.length; j += 1) {
           const input = inputs[j];
 
@@ -271,9 +270,9 @@ const LeadFormStepper = (
 
   const triggerAfakeSubmit = () => {
     const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form')[0];
-    form?.querySelector('.actions')?.querySelector('input')?.click();
+    const button = form?.querySelector(`#${target} .actions`)?.querySelector(`#${target} input`) as HTMLButtonElement;
+    button?.click();
   };
-
   const onNextClick = () => {
     if (checkForErrors() || checkForMandatoryFields()) {
       triggerAfakeSubmit();
@@ -313,6 +312,7 @@ const LeadFormStepper = (
     const el = document.querySelectorAll('.hs-form-field, .hs-submit');
     if (showTo.current < el.length + noOfFieldsAtaTime && showTo.current > noOfFieldsAtaTime) {
       showTo.current -= noOfFieldsAtaTime;
+      hideSubmitButton(true);
     }
 
     formReady();
