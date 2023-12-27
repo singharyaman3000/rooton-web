@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
 import { metaInfo } from './constants/pageMetaInfo';
+import GoogleAnalytics from './GoogleAnalytics';
 
 export const metadata: Metadata = {
   title: metaInfo.home.title,
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning lang="en">
       <body className={`${FontJakarta.variable} ${FontJakarta.className} bg-primary-bg !static`}>
         <ThemeSwitchProvider>
+          <GoogleAnalytics/>
           {children}
         </ThemeSwitchProvider>
       </body>
