@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { SOURCE_PAGE } from '../constants';
 import { useParams } from 'next/navigation';
 import BlogsSectionHeadings from '../BlogsSectionHeadings';
+import { trackEvent } from '../../../../gtag';
 
 type BlogsCarouselParamsType = {
   articleType: ArticleCategoryType;
@@ -148,6 +149,11 @@ const BlogsCarousel: React.FC<BlogsCarouselParamsType> = ({
                 label="More"
                 tabIndex={0}
                 handleOnClick={() => {
+                  trackEvent({
+                    action: 'More News Click',
+                    category: 'Home Page',
+                    label: 'More News',
+                  });
                   return null;
                 }}
                 ariaLabel="More  News"

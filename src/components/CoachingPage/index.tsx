@@ -16,6 +16,7 @@ import { CoachingPageWrapper } from '../CoachingPage-Services/Wrapper';
 import LeadFormSection from './BookAnAppointmentButton/LeadFormSection';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
 import { Breadcrumbs } from '../Breadcrumbs';
+import { trackEvent } from '../../../gtag';
 
 type CoachingServicePageProps = {
   coachingPageConfig: ICoachingPage_Data;
@@ -105,7 +106,14 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
         backgroundImageUrl={appendAssetUrl(coachingPageConfig?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={coachingPageConfig?.attributes?.title}
         description={coachingPageConfig?.attributes?.sub_title}
-        button={<BookAnAppointmentButton text={data[4]?.attributes?.CTA_text || ''} onClick={handleCTAButtonClick} />}
+        button={<BookAnAppointmentButton text={data[4]?.attributes?.CTA_text || ''} onClick={() => {
+          handleCTAButtonClick();
+          trackEvent({
+            action: 'Coaching Banner CTA',
+            category: 'Coaching Page',
+            label: data[4]?.attributes?.CTA_text,
+          });
+        }} />}
       />
       {getComponentsAboveBookAppointments()}
 
@@ -117,7 +125,14 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
         />
       </div>
       <div className="mb-[100px]">
-        <BookAnAppointment onClick={handleCTAButtonClick} />
+        <BookAnAppointment onClick={() => {
+          trackEvent({
+            action: 'Coaching CTA',
+            category: 'Coaching Page',
+            label: data[4]?.attributes?.CTA_text,
+          });
+          handleCTAButtonClick();
+        }} />
       </div>
       {faqData && (
         <FaqListing

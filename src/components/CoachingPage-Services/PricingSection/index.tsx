@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import DropDownCaret from '@/components/Icons/DropDownCaret';
+import { trackEvent } from '../../../../gtag';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
@@ -52,7 +53,14 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
               text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
               focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
               transition-colors duration-150"
-                onClick={handleButtonClick}
+                onClick={() => {
+                  trackEvent({
+                    action: 'Coaching Plans',
+                    category: 'Coaching',
+                    label: our_plans.planName,
+                  });
+                  handleButtonClick();
+                }}
               >
                 {our_plans.ctapurchase}
               </button>
