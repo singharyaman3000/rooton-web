@@ -181,11 +181,11 @@ const LeadFormStepper = ({
       );
     };
 
-    const checkValue = (input) => {
-      const inputElement = input.querySelector('input, select, textarea');
+    const checkValue = (input: Element) => {
+      const inputElement = input.querySelector('input, select, textarea') as HTMLInputElement;
       if (!inputElement) return false;
 
-      const type = inputElement.type;
+      const { type } = inputElement;
       switch (type) {
       case 'checkbox':
       case 'radio':
@@ -236,7 +236,8 @@ const LeadFormStepper = ({
     const form = document.getElementById(target)?.querySelector('form');
 
     // Trigger a click on the submit button of the form
-    form?.querySelector('input[type="submit"], button[type="submit"]')?.click();
+    (form?.querySelector('input[type="submit"], button[type="submit"]') as HTMLElement)?.click();
+
   };
 
   const onNextClick = () => {
