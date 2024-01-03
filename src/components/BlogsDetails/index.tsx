@@ -1,7 +1,7 @@
 'use client';
 
-import NavigationPanel from './NavigationPanel';
 import { IBlogContentData, IBlogDetails } from '@/app/services/apiService/blogDetailAPI';
+import NavigationPanel from './NavigationPanel';
 import React, { useEffect, useState } from 'react';
 import BlogBody from './BlogBody';
 import BlogHeader from './BlogHeader';
