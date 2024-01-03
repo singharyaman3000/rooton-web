@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 'use client';
 
 import { FormConstants } from '@/app/constants/hubspotConfig';
@@ -18,32 +20,36 @@ const FormTarget = ({
   target,
   onNextClick,
   onBackClick,
-  disableNextButton,
+  disableNextButton = false,
   disableBackButton,
   showNavButtons,
 }: FormTargetProps) => {
   return (
     <div id={SERVICES_TITLE.leadForm.wrapperId} className="mt-12 h-full w-full">
-      <div className=" h-full w-full" id={target} />
-      <div className={`${showNavButtons? 'flex': 'hidden'} justify-between w-full mt-10`}>
-        <button
-          disabled={disableBackButton}
-          type="button"
-          className=" bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
-          onClick={onBackClick}
-        >
-          Back
-        </button>
-        {disableNextButton || (
+      <div className="h-full w-full" id={target} />
+
+      {showNavButtons && (
+        <div className="flex justify-between w-full mt-10">
           <button
+            disabled={disableBackButton}
             type="button"
-            className=" bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
-            onClick={onNextClick}
+            className="bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
+            onClick={onBackClick}
           >
-            Next
+            Back
           </button>
-        )}
-      </div>
+
+          {!disableNextButton && (
+            <button
+              type="button"
+              className="bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
+              onClick={onNextClick}
+            >
+              Next
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
@@ -61,56 +67,68 @@ type LeadFormStepperProps = {
   // eslint-disable-next-line no-unused-vars
   onFormSubmitted?: (data: HTMLFormElement) => void;
   // eslint-disable-next-line no-unused-vars
-  onProgress: (progress: number) => void;
+  onProgress?: (progress: number) => void;
   // eslint-disable-next-line no-unused-vars
-  initScroll: () => void;
+  scrollToTop: () => void;
+  // eslint-disable-next-line no-unused-vars
+  initScroll?: () => void;
 };
 
-const LeadFormStepper = (
-  {
-    region,
-    portalId,
-    formId,
-    target,
-    onFormSubmit,
-    onProgress,
-    calenderLink,
-    isBookAppointment,
-    initScroll,
-    singlePageForm = false,
-  }: LeadFormStepperProps) => {
-  const noOfFieldsAtaTime = 100;
+const LeadFormStepper = ({
+  region,
+  portalId,
+  formId,
+  target,
+  onFormSubmit,
+  onProgress,
+  scrollToTop,
+  calenderLink,
+  isBookAppointment,
+  initScroll,
+  singlePageForm = false,
+}: LeadFormStepperProps) => {
+  const noOfFieldsAtaTime = singlePageForm ? 5 : SERVICES_TITLE.leadForm.noOfFieldsAtaTime;
   const showFrom = useRef<number>(0);
   const showTo = useRef<number>(noOfFieldsAtaTime);
 
   const [disableNextButton, setDisableNextButton] = useState(false);
   const [disableBackButton, setDisableBackButton] = useState(true);
+  const [userData, setUserData] = useState({ firstname: '', lastname: '', email: '' });
   const [showError, setShowError] = useState(false);
 
   const [showCalender, setShowCalender] = useState(false);
-  const [userData, setUserData] = useState({ firstname: '', lastname: '', email: '' });
+
   const stepNo = useRef<number>(1);
   const formLength = useRef<number>(0);
 
   const calculateProgress = () => {
     const progress = (stepNo.current / formLength.current) * 100;
-    onProgress(progress);
+    if (onProgress) onProgress(progress);
   };
 
   const hideSubmitButton = (hide: boolean) => {
-    (document.querySelector('.actions') as HTMLDivElement).style.display = hide ? 'none' : 'block';
+    const form = document.getElementById(target);
+    if (!form) {
+      console.error(`Form with ID '${target}' not found.`);
+      return;
+    }
+    (form.querySelector('.actions') as HTMLDivElement).style.display = hide ? 'none' : 'block';
   };
 
-  // eslint-disable-next-line no-undef
-  const handleMultiStep = (formEl: NodeListOf<Element>) => {
-    for (let i = 0; i < (formEl?.length ?? 0); i += 1) {
-      const child = formEl[i];
-      if (child?.tagName === 'FIELDSET' && i < showTo.current && i >= showFrom.current) {
-        (child as HTMLDivElement).style.display = 'block';
+  const handleMultiStep = () => {
+    const form = document.getElementById(target); // Get the form using the target ID
+    if (!form) return;
+
+    const fieldsets = form.querySelectorAll('fieldset');
+    for (let i = 0; i < fieldsets.length; i += 1) {
+      // Check if the current fieldset is within the range of the current step
+      if (i >= showFrom.current && i < showTo.current) {
+        fieldsets[i].style.display = 'block';
       } else {
-        (child as HTMLDivElement).style.display = 'none';
+        fieldsets[i].style.display = 'none';
       }
     }
+
     calculateProgress();
   };
 
@@ -118,160 +136,108 @@ const LeadFormStepper = (
     const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
     const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
     for (let i = 0; i < fieldsets.length; i += 1) {
-
       const fields = fieldsets[i].querySelectorAll('.hs-form-field');
 
-      for(let j = 0; j < fields.length; j+=1) {
+      for (let j = 0; j < fields.length; j += 1) {
         const errorList = fields[j].querySelector('.no-list') as HTMLUListElement;
 
         if (errorList) {
           errorList.style.display = hide ? 'none' : 'block';
         }
-
       }
-
     }
   };
 
   const checkForErrors = () => {
-    const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
-    const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
-
-    let hasError = false;
-
-    for (let i = 0; i < fieldsets.length; i += 1) {
-      const fieldset = fieldsets[i];
-      hasError =
-        fieldset.style.display !== 'none' &&
-        (fieldset.querySelector('fieldset')?.querySelectorAll('.no-list').length ?? 0) > 0;
-
-      if (hasError) {
-        break;
-      }
+    // Use the target prop to get the specific form
+    const form = document.getElementById(target);
+    if (!form) {
+      console.error(`Form with ID '${target}' not found.`);
+      return false;
     }
 
-    if (hasError) {
-      setShowError(true);
-      hideAllErrorMessages(false);
-      return true;
-    }
+    // Get only the fieldsets that are currently displayed
+    const displayedFieldsets = Array.from(form.querySelectorAll('fieldset')).filter((fieldset) => {
+      return fieldset.style.display !== 'none';
+    });
 
-    setShowError(false);
-    hideAllErrorMessages(true);
-    return false;
-  };
+    // Check for errors in displayed fieldsets
+    const hasError = displayedFieldsets.some((fieldset) => {
+      return fieldset.querySelectorAll('.hs-error').length > 0;
+    });
 
-  const checkForMandatoryFields = () => {
-    const checkIfCheckboxOrRadioAnyIschecked = (fields: Element | null) => {
-      const checkboxes = fields?.querySelectorAll('input');
-      let checked = false;
-      for (let i = 0; i < (checkboxes?.length ?? 0); i += 1) {
-        if (checkboxes && checkboxes[i]) {
-          checked = checkboxes[i].checked;
-        }
-
-        if (checked) {
-          break;
-        }
-      }
-
-      return checked;
-    };
-
-    const checkValue = (input: Element) => {
-      let hasValue = false;
-
-      const inputQuerySelectedInput = input?.querySelector('input');
-
-      let tagname =
-        inputQuerySelectedInput?.tagName ||
-        input?.querySelector('select')?.tagName ||
-        input?.querySelector('textarea')?.tagName;
-
-      if (inputQuerySelectedInput?.type === 'checkbox') {
-        tagname = 'CHECKBOX';
-      } else if (inputQuerySelectedInput?.type === 'radio') {
-        tagname = 'RADIO';
-      } else if (inputQuerySelectedInput?.type === 'tel') {
-        tagname = 'PHONE';
-      }
-
-      switch (tagname) {
-      case 'INPUT':
-        if ((input.querySelector('input') as HTMLInputElement).value) {
-          hasValue = true;
-        }
-        break;
-      case 'PHONE': {
-        const { value } = (input.querySelector('input') as HTMLInputElement);
-        if (value.split('').length > 5 && value.split(' ')[1].match(/^\d+$/)) {
-          hasValue = true;
-        }
-        break;
-      }
-      case 'SELECT':
-        if ((input.querySelector('select') as HTMLSelectElement).value) {
-          hasValue = true;
-        }
-        break;
-      case 'CHECKBOX' || 'RADIO':
-        if (checkIfCheckboxOrRadioAnyIschecked(input.querySelector('.input'))) {
-          hasValue = true;
-        }
-        break;
-      case 'TEXTAREA':
-        if ((input.querySelector('textarea') as HTMLTextAreaElement).value) {
-          hasValue = true;
-        }
-        break;
-      default:
-        hasValue = false;
-      }
-
-      return hasValue;
-    };
-
-    const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
-    const fieldsets = (form && form[0].querySelectorAll('fieldset')) || [];
-
-    let hasError: boolean = false;
-
-    for (let i = 0; i < fieldsets.length; i += 1) {
-      const inputs = fieldsets[i].querySelectorAll('.hs-form-field');
-
-      if (fieldsets[i].style.display !== 'none') {
-        for (let j = 0; j < inputs.length; j += 1) {
-          const input = inputs[j];
-
-          if (input.querySelector('.hs-form-required') && !checkValue(input)) {
-            hasError = true;
-          }
-
-          setShowError(hasError ?? false);
-
-          if (hasError) {
-            break;
-          }
-        }
-      }
-
-      if (hasError) {
-        break;
-      }
-    }
-
+    // Update the showError state based on whether an error was found
+    setShowError(hasError);
     return hasError;
   };
 
+  const checkForMandatoryFields = () => {
+    const checkIfCheckboxOrRadioAnyIsChecked = (fields: Element | null) => {
+      return Array.from(fields?.querySelectorAll('input[type="checkbox"], input[type="radio"]') || []).some(
+        (element) => {
+          const input = element as HTMLInputElement;
+          return input.checked;
+        },
+      );
+    };
+
+    const checkValue = (input: Element) => {
+      const inputElement = input.querySelector('input, select, textarea') as HTMLInputElement;
+      if (!inputElement) return false;
+
+      const { type } = inputElement;
+      switch (type) {
+      case 'checkbox':
+      case 'radio':
+        return checkIfCheckboxOrRadioAnyIsChecked(input);
+      default:
+        return !!inputElement.value;
+      }
+    };
+
+    const form = document.getElementById(target);
+    if (!form) {
+      console.error(`Form with ID '${target}' not found.`);
+      return false;
+    }
+
+    // Only check the fieldsets that are currently displayed
+    const displayedFieldsets = Array.from(form.querySelectorAll('fieldset')).filter((fieldset) => {
+      return fieldset.style.display !== 'none';
+    });
+
+    for (const fieldset of displayedFieldsets) {
+      const inputs = fieldset.querySelectorAll('.hs-form-field');
+      for (const input of inputs) {
+        if (input.querySelector('.hs-form-required') && !checkValue(input)) {
+          setShowError(true);
+          return true;
+        }
+      }
+    }
+
+    setShowError(false);
+    return false;
+  };
+
   const formReady = () => {
-    const el = document.querySelectorAll(`#${target} fieldset`);
+    const form = document.getElementById(target);
+    if (!form) {
+      console.error(`Form with ID '${target}' not found.`);
+      return;
+    }
+    const el = form.querySelectorAll('fieldset');
     formLength.current = (el?.length ?? 0) / noOfFieldsAtaTime;
-    handleMultiStep(el);
+    handleMultiStep();
   };
 
   const triggerAfakeSubmit = () => {
-    const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form')[0];
-    form?.querySelector('.actions')?.querySelector('input')?.click();
+    // Use the target prop to find the specific form
+    const form = document.getElementById(target)?.querySelector('form');
+
+    // Trigger a click on the submit button of the form
+    (form?.querySelector('input[type="submit"], button[type="submit"]') as HTMLElement)?.click();
+
   };
 
   const onNextClick = () => {
@@ -279,9 +245,14 @@ const LeadFormStepper = (
       triggerAfakeSubmit();
       return;
     }
-
+    scrollToTop();
     setDisableBackButton(false);
-    const el = document.querySelectorAll(`#${target} fieldset`);
+    const form = document.getElementById(target);
+    if (!form) {
+      console.error(`Form with ID '${target}' not found.`);
+      return;
+    }
+    const el = form.querySelectorAll('fieldset');
     if (showFrom.current < el.length - noOfFieldsAtaTime) {
       showFrom.current += noOfFieldsAtaTime;
       stepNo.current += 1;
@@ -300,7 +271,9 @@ const LeadFormStepper = (
   };
 
   const onBackClick = () => {
+    scrollToTop();
     setDisableNextButton(false);
+    hideSubmitButton(true);
     if (showFrom.current > 1) {
       showFrom.current -= noOfFieldsAtaTime;
       stepNo.current -= 1;
@@ -318,6 +291,13 @@ const LeadFormStepper = (
     formReady();
   };
 
+  const getMeetingUrl = () => {
+    if (calenderLink)
+      // eslint-disable-next-line max-len
+      return `${calenderLink}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}`;
+    return '';
+  };
+
   useEffect(() => {
     const onFormBlur = () => {
       setShowError(false);
@@ -330,10 +310,9 @@ const LeadFormStepper = (
     };
 
     const initHubSpot = () => {
-      const script = document.createElement('script');
-      script.src = FormConstants.SERVICE.hubspotSrc;
-      document.body.appendChild(script);
-      script.addEventListener('load', () => {
+      // Function to initialize HubSpot form
+      const loadHubSpotForm = () => {
+        // Check if the HubSpot forms library is available
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((window as any).hbspt) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -348,28 +327,48 @@ const LeadFormStepper = (
               }
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onFormSubmitted: (event: HTMLFormElement, form: {redirectUrl: string; submissionValues: any}) => {
+            onFormSubmitted: (event: HTMLFormElement, form: { redirectUrl: string; submissionValues: any }) => {
               setUserData(form.submissionValues);
-              // show calender
+              // show calendar
+              scrollToTop();
               setShowCalender(true);
               stepNo.current += 1;
               calculateProgress();
             },
+
             onFormReady: () => {
               formReady();
-              if (!singlePageForm) hideSubmitButton(true);
-              const form = document.getElementById(SERVICES_TITLE.leadForm.wrapperId)?.getElementsByTagName('form');
-              if(form) {
-                form[0].addEventListener('change', onFormBlur);
-                form[0].addEventListener('click', onFormClick);
+              if (singlePageForm) hideSubmitButton(true);
+              const formElement = document.getElementById(target)?.querySelector('form');
+              if (formElement) {
+                formElement.addEventListener('change', onFormBlur);
+                formElement.addEventListener('click', onFormClick);
               }
             },
             cssClass: 'huform',
             submitText: 'Submit',
           });
         }
-      });
+      };
+
+      // Create script element to load HubSpot
+      const script = document.createElement('script');
+      script.src = FormConstants.SERVICE.hubspotSrc;
+      script.async = true; // Load the script asynchronously
+      document.body.appendChild(script);
+
+      // Event listener for script load
+      script.onload = loadHubSpotForm;
+      script.onerror = () => {
+        console.error('Error loading the HubSpot script.');
+      };
     };
+
+    // Ensuring the script is not already loaded before initializing
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!(window as any).hbspt) {
+      initHubSpot();
+    }
 
     initHubSpot();
 
@@ -383,18 +382,10 @@ const LeadFormStepper = (
   }, []);
 
   useEffect(() => {
-    if(isBookAppointment) {
-      initScroll();
+    if (isBookAppointment) {
+      if (initScroll) initScroll();
     }
   }, [isBookAppointment, initScroll]);
-
-  const getMeetingUrl = () => {
-    if (calenderLink)
-      // eslint-disable-next-line max-len
-      return `${calenderLink}?firstname=${userData.firstname}&lastname=${userData.lastname}&email=${userData.email}`;
-    return '';
-
-  };
 
   return !showCalender ? (
     <FormTarget
@@ -404,10 +395,10 @@ const LeadFormStepper = (
       onBackClick={onBackClick}
       onNextClick={onNextClick}
       target={target}
-      showNavButtons={!singlePageForm}
+      showNavButtons={singlePageForm}
     />
   ) : (
-    <div className=" h-[54rem] mt-2">
+    <div id="scheduler-container" className="bg-hubspot-meeting-background h-[54rem] mt-2">
       <iframe className=" w-full h-full" title="AA" src={getMeetingUrl()} />
     </div>
   );

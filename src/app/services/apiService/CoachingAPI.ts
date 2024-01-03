@@ -11,6 +11,7 @@ export const CONTENT_TYPES = {
   SERVICES: 'coaching_services',
   CREDIBILITY: 'credibility',
   WHY_ROOT_ON: 'why_rooton_coaching',
+  TABLE: 'coaching_table',
   OUR_PROCESSES:'coaching_processes',
   BLOG: 'coaching_blogs',
   CHALLENGES: 'challenges',
@@ -33,6 +34,40 @@ export type ILeadForm = {
   lead_forms?: ILeadFormData[];
 };
 
+export interface IRowsData {
+  cost: string;
+  modes: string;
+  purpose: string;
+  results: string;
+  scoring: string;
+  duration: string;
+  fullName: string;
+  sessions: string;
+  testName: string;
+  scoreValidity: string;
+  reTestWaitPeriod: string;
+  testAvailability: string;
+  testRegistration: string;
+  typesOfQuestions: string;
+  numberOfQuestions: string;
+  modulesAndSkillsTested: string;
+}
+
+export interface IColumnData {
+  label: string;
+  width: string;
+  dataKey: keyof IRowsData;
+}
+
+export interface ILanguageTestData {
+  rows: IRowsData[];
+  columns: IColumnData[];
+}
+
+export interface ITableData {
+  languageTests: ILanguageTestData;
+}
+
 export interface Attributes2 {
   title: string;
   sub_title: string;
@@ -44,7 +79,7 @@ export interface Attributes2 {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges | IFaqData | ILeadForm;
+  json_content: IHonesty | IOurProcessData | IJsonContent | IChallenges | IFaqData | ILeadForm | ITableData;
   blogs: IBlogCard;
   media_url: MediaUrl;
 }

@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import Honesty, { IJsonContent } from '@/components/CoachingPage/Honesty';
 import OurProcess from '@/components/HomePage/OurProcess';
-import { CONTENT_TYPES, ICoachingPage_Data, DataEntity1 } from '@/app/services/apiService/CoachingAPI';
+import { CONTENT_TYPES, ICoachingPage_Data, DataEntity1, ITableData } from '@/app/services/apiService/CoachingAPI';
 import { appendAssetUrl, getSectionCoachingData, isVideo } from '@/utils';
 import { IOurProcessData } from '@/components/HomePage/OurProcess/interfaces';
 import RootOnBanner from './RootOnBanner';
@@ -17,6 +17,7 @@ import LeadFormSection from './BookAnAppointmentButton/LeadFormSection';
 import BookAnAppointment from '../UIElements/BookAnAppointment';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { trackEvent } from '../../../gtag';
+import ComparisonTable from './ComparisonTable';
 
 type CoachingServicePageProps = {
   coachingPageConfig: ICoachingPage_Data;
@@ -53,6 +54,13 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
             json_content={contents.attributes.json_content as IJsonContent}
           />
         );
+      case CONTENT_TYPES.TABLE:
+        return (
+          <ComparisonTable
+            title={title}
+            sub_title={sub_title}
+            json_content={contents.attributes.json_content as ITableData} />
+        );
       case CONTENT_TYPES.OUR_PROCESSES:
         return (
           <div className=" mb-20">
@@ -85,7 +93,6 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
   };
 
   const faqData = getSectionCoachingData(coachingPageConfig, CONTENT_TYPES.QUESTIONS);
-
   return (
     <>
       <Breadcrumbs
@@ -116,7 +123,6 @@ const CoachingPageComponent = ({ coachingPageConfig, isBookAppointment }: Coachi
         }} />}
       />
       {getComponentsAboveBookAppointments()}
-
       <div className="pb-10 md:pb-[80px]">
         <Testimonials
           apiUrl={TESTIMONIAL_COACHING_API}
