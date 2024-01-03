@@ -68,7 +68,7 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
   }, [pageNum, media_url.data.length]);
 
   return (
-    <div className="relative overflow-x-hidden overflow-y-hidden">
+    <div className="relative overflow-x-hidden overflow-y-hidden bg-slate-400">
       <Container>
         <div className="mt-10 lg:mt-[120px] md:flex md:justify-between md:w-full">
           <motion.div
