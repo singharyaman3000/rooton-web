@@ -4,7 +4,7 @@ import NextImage from '@/components/UIElements/NextImage';
 import { ReactElement } from 'react';
 import Image from 'next/image';
 import ReactHtmlParser from 'react-html-parser';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import VideoElement from '@/components/UIElements/VideoElement';
 import BannerGrids from './BannerGrid';
 import { SOURCE_PAGE } from '@/components/BlogsListPage/constants';
