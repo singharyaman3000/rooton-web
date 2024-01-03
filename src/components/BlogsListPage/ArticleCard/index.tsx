@@ -34,6 +34,7 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
           style={{ objectFit: 'cover' }}
           fill
           altText={attributes.media_url?.data[0].attributes.alternativeText}
+          priority
         />
       </div>
       <div className="md:px-6 h-[214px] md:h-[263px] flex flex-col justify-between">
