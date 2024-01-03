@@ -9,11 +9,13 @@ type LeadFormSectionProps = {
   PricingleadFormRef: RefObject<HTMLDivElement>;
   onPricingCTAButtonClick: () => void;
   isBookAppointment: boolean;
+  scrollToTop: () => void;
 };
 
 const PricingLeadFormSection = ({
   PricingleadForm,
   PricingleadFormRef,
+  scrollToTop,
   onPricingCTAButtonClick,
   isBookAppointment,
 }: LeadFormSectionProps) => {
@@ -39,6 +41,7 @@ const PricingLeadFormSection = ({
           <H2>{'Evaluate yourself' ?? ''}</H2>
           <div className="" id="lead-form">
             <LeadFormStepper
+              scrollToTop={scrollToTop}
               initScroll={onPricingCTAButtonClick}
               isBookAppointment={isBookAppointment}
               onProgress={(progress) => {

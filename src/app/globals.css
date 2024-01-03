@@ -1141,6 +1141,21 @@ heading {
   gap: 20px;
 }
 
+.table-header {
+  background-color: var(--pale-sandal);
+  color: #000;
+}
+
+[data-theme='dark'] .table-header {
+  background-color: #000;
+  color: #fff;
+}
+
+[data-theme='dark'] .table-body {
+  background-color: #1e1f1f;
+  color: #fff;
+}
+
 .animate-fadeIn {
   animation: fadeIn 500ms ease-in-out;
 }
