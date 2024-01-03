@@ -25,6 +25,7 @@ import PricingSection from './PricingSection';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import PricingLeadFormSection from './PricingSection/LeadFormSection';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
+import { trackEvent } from '../../../gtag';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
@@ -107,6 +108,9 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   const blogs = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'blogs';
   });
+
+  const textContent = new DOMParser().parseFromString(response.data?.attributes?.title, 'text/html').body.textContent || '';
+
   const sectionsByPosition = [
     whyChooseOpen,
     eligibility,
@@ -557,7 +561,14 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />}
+        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={() => {
+          handleCTAButtonClick();
+          trackEvent({
+            action: `${textContent} Banner CTA`,
+            category: 'Coaching Service',
+            label: response.data?.attributes?.CTA_Text,
+          });
+        }} />}
       />
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={response.data?.attributes?.description} />
