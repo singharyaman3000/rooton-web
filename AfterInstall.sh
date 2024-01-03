@@ -6,4 +6,4 @@ cd /home/deploy/codedeploy/fe/v1/
 rm -rf node_modules
 npm install --legacy-peer-deps
 npm run build
-echo "install completed."
+echo "install completed"
