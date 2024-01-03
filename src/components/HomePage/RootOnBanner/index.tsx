@@ -4,7 +4,7 @@ import NextImage from '@/components/UIElements/NextImage';
 import { ReactElement } from 'react';
 import Image from 'next/image';
 import ReactHtmlParser from 'react-html-parser';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import VideoElement from '@/components/UIElements/VideoElement';
 import BannerGrids from './BannerGrid';
 import { SOURCE_PAGE } from '@/components/BlogsListPage/constants';
@@ -38,12 +38,16 @@ export default function RootOnBanner({
         min-h-[380px]
       "
     >
-      <div className={`${!(sourcePage && sourcePage === SOURCE_PAGE.SERVICE) ? 'md:justify-evenly' : ''}
-      w-full h-full flex flex-col justify-end  z-20`}>
+      <div
+        className={`${!(sourcePage && sourcePage === SOURCE_PAGE.SERVICE) ? 'md:justify-evenly' : ''}
+      w-full h-full flex flex-col justify-end  z-20`}
+      >
         <div
-          className={` ${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
-            'xs:pb-[36px] sm:pb-[60px] xl:pb-[101px] md:pt-[90px]' :
-            'pb-[36px] md:pb-0 md:pt-[90px]'}
+          className={` ${
+            sourcePage && sourcePage === SOURCE_PAGE.SERVICE
+              ? 'xs:pb-[36px] sm:pb-[60px] xl:pb-[101px] md:pt-[90px]'
+              : 'pb-[36px] md:pb-0 md:pt-[90px]'
+          }
           relative z-[10]
           px-[24px]
           whitespace-pre-wrap
@@ -51,7 +55,7 @@ export default function RootOnBanner({
           lg:px-[80px]
           `}
         >
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{
               opacity: 1,
@@ -62,10 +66,10 @@ export default function RootOnBanner({
               duration: 0.5,
             }}
             className="overflow-hidden w-full"
-          >
+          > */}
+          <div className='animate-fadeIn'>
             <h1
-              className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mr-0' :
-                'mr-9 '}
+              className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mr-0' : 'mr-9 '}
                     banner-text
                     xs:text-[30px]
                     md:text-[37.2px]
@@ -79,15 +83,25 @@ export default function RootOnBanner({
             >
               {ReactHtmlParser(heroText)}
             </h1>
-            <p className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ?
-              'mt-[24px] md:mt-[20px] whitespace-normal md:whitespace-break-spaces' :
-              'mt-[15px] md:mt-[20px]'} text-white font-bold text-[15px] leading-[1.67] xl:text-2xl`}>
+            <p
+              className={`${
+                sourcePage && sourcePage === SOURCE_PAGE.SERVICE
+                  ? 'mt-[24px] md:mt-[20px] whitespace-normal md:whitespace-break-spaces'
+                  : 'mt-[15px] md:mt-[20px]'
+              } text-white font-bold text-[15px] leading-[1.67] xl:text-2xl`}
+            >
               {ReactHtmlParser(description)}
             </p>
-          </motion.div>
+          </div>
+          {/* </motion.div> */}
 
-          <div className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] hd:mt-[102px]' :
-            'mt-[32px] md:mt-[50px]'} w-full md:max-w-[418px]`}>{button}</div>
+          <div
+            className={`${
+              sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mt-[40px] hd:mt-[102px]' : 'mt-[32px] md:mt-[50px]'
+            } w-full md:max-w-[418px]`}
+          >
+            {button}
+          </div>
         </div>
       </div>
       {isVideoBanner ? (
@@ -101,7 +115,7 @@ export default function RootOnBanner({
         />
       ) : (
         <NextImage
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
           src={backgroundImageUrl}
           fill

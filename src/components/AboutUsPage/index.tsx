@@ -23,6 +23,7 @@ import {
   COMPANY_STAT_VALUES_DEFAULT,
 } from './config/aboutUsContent';
 import { CONSULTATION_TYPES } from '@/components/ServicePage/LeadFormStepper';
+import { trackEvent } from '../../../gtag';
 
 interface AboutUsPageProps {
   companyStatValues: typeof COMPANY_STAT_VALUES_DEFAULT;
@@ -95,7 +96,13 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
           buttonAriaLabel={BOOK_CONSULTATION_CONTENT.btnText}
           buttonText={BOOK_CONSULTATION_CONTENT.btnText}
           buttonIcon={<CalenderIconYellow />}
-          onClick={() => { bookAppointmentHandler(CONSULTATION_TYPES.PAID);}}
+          onClick={() => {
+            bookAppointmentHandler(CONSULTATION_TYPES.PAID);
+            trackEvent({
+              action: 'About Us Paid CTA',
+              category: 'About Us',
+              label: BOOK_CONSULTATION_CONTENT.btnText,
+            });}}
           imageSrc={BOOK_CONSULTATION_CONTENT.imageUrl}
           imageAlt={BOOK_CONSULTATION_CONTENT.imageAltText}
           imageTitle={BOOK_CONSULTATION_CONTENT.imageAltText}
@@ -126,7 +133,14 @@ const AboutUsPage = ({ companyStatValues }: AboutUsPageProps) => {
         <BookAnAppointment
           containerClass='!px-4 sm:!px-6 md:!px-0'
           appointmentBtnLabel={BOOK_APPOINTMENT_CONTENT.contentText}
-          onClick={() => { bookAppointmentHandler(CONSULTATION_TYPES.FREE);}}
+          onClick={() => {
+            bookAppointmentHandler(CONSULTATION_TYPES.FREE);
+            trackEvent({
+              action: 'About Us Free CTA',
+              category: 'About Us',
+              label: BOOK_CONSULTATION_CONTENT.contentText,
+            });
+          }}
         />
       </section>
     </>
