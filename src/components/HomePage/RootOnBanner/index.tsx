@@ -67,7 +67,7 @@ export default function RootOnBanner({
             }}
             className="overflow-hidden w-full"
           > */}
-          <div>
+          <div className='animate-fadeIn'>
             <h1
               className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mr-0' : 'mr-9 '}
                     banner-text
