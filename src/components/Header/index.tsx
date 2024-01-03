@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable no-unused-vars */
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -13,7 +12,7 @@ import { HOMEPAGE_PATH } from '@/constants/navigation';
 import NewsAlertRibbon from '../UIElements/NewsAlertRibbon';
 import TalkToOurExpert from '../UIElements/TalkToOurExpert';
 import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
-// import WhatsAppButton from '@/components/WhatsApp-Integration';
+import WhatsAppButton from '@/components/WhatsApp-Integration';
 import { getHeaderFooterData, IWhatsApp, IWhatsAppAttributes } from '../../app/services/apiService/headerFooterAPI';
 import { COACHING_SERVICES_ROUTES } from '../SiteMapPage/constants';
 
@@ -385,9 +384,9 @@ export default function Header() {
         />
         {displayAlertRibbon ? <NewsAlertRibbon displayRibbonHandler={setDisplayAlertRibbon} /> : null}
         <div>
-          {/* {shouldRenderWhatsAppButton && (
+          {shouldRenderWhatsAppButton && (
             <WhatsAppButton whatsapp={whatsAppData!.data!.attributes} theme={theme || 'light'} />
-          )} */}
+          )}
         </div>
       </nav>
     </header>

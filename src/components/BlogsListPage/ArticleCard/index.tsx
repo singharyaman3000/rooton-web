@@ -28,7 +28,7 @@ const ArticleCard = ({ attributes, articleId }: ArticleCardPropType) => {
     >
       <div className="relative h-[216px] min-w-[312px] md:h-[252px] w-full my-6 md:mt-0">
         <NextImage
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           src={appendAssetUrl(attributes.media_url?.data[0]?.attributes?.url)}
           title="Blog Image"
           style={{ objectFit: 'cover' }}
