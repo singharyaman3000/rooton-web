@@ -55,7 +55,7 @@ export default function RootOnBanner({
           lg:px-[80px]
           `}
         >
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{
               opacity: 1,
@@ -66,7 +66,8 @@ export default function RootOnBanner({
               duration: 0.5,
             }}
             className="overflow-hidden w-full"
-          >
+          > */}
+          <div>
             <h1
               className={`${sourcePage && sourcePage === SOURCE_PAGE.SERVICE ? 'mr-0' : 'mr-9 '}
                     banner-text
@@ -91,7 +92,8 @@ export default function RootOnBanner({
             >
               {ReactHtmlParser(description)}
             </p>
-          </motion.div>
+          </div>
+          {/* </motion.div> */}
 
           <div
             className={`${
