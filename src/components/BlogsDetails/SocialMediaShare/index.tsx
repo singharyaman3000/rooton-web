@@ -16,7 +16,7 @@ const SocialMediaShare = () => {
   const path = usePathname();
 
   const getCurrentBlogUrl = () => {
-    return process.env.NEXT_APP_BASE_URL + path;
+    return process.env.NEXT_APP_BASE_URL + path.slice(1);
   };
 
   const handleCopyLink = () => {

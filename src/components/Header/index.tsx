@@ -196,6 +196,8 @@ export default function Header() {
                   height={36}
                   alt="Root On logo"
                   src={theme === 'light' ? '/root-on-logo-black.svg' : '/root-on-logo-svg.svg'}
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </Link>
             </div>
@@ -208,6 +210,8 @@ export default function Header() {
                   height={36}
                   alt="Root On logo"
                   src={getIconStyle()}
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </Link>
             </div>

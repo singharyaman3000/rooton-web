@@ -41,6 +41,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
             title=""
             sizes="(max-width: 768px) 100vw, 50vw"
             style={{ objectFit: 'cover' }}
+            priority
           />
         </motion.div>
       </div>

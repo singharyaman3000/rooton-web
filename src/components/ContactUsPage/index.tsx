@@ -12,6 +12,7 @@ import { ContactUsResponseData } from '@/app/services/apiService/contactUsPageAP
 import { appendAssetUrl } from '@/utils';
 import { useRef, useState } from 'react';
 import { CONSULTATION_TYPES } from '../ServicePage/LeadFormStepper';
+import { trackEvent } from '../../../gtag';
 
 const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
   const { headerFooterData } = useHeaderFooterContext();
@@ -46,7 +47,14 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
         noGrid
         fontSizes={{ description: 'text-[15px] lg:text-xl' }}
         button={<BookAnAppointmentButton text={contents?.attributes?.CTA_text ?? ''}
-          onClick={() => { return handleCTAButton(CONSULTATION_TYPES.PAID); }} />}
+          onClick={() => {
+            trackEvent({
+              action: `${contents?.attributes?.title} Banner CTA`,
+              category: 'Contact Us Page',
+              label: contents?.attributes?.CTA_text,
+            });
+            return handleCTAButton(CONSULTATION_TYPES.PAID);
+          }} />}
       />
       <div className="w-full flex flex-col items-center">
         <div
@@ -60,7 +68,14 @@ const ContactUs = ({ contents }: { contents: ContactUsResponseData }) => {
             socialMeta={headerFooterData?.length ? headerFooterData[0]?.attributes?.json_content?.socialMediaIcons : []}
           />
           <MapSection footerData={headerFooterData?.length ? headerFooterData[0] : ({} as IHeaderFooterData)} />
-          <BookAnAppointment onClick={() => { return handleCTAButton(CONSULTATION_TYPES.FREE); }} />
+          <BookAnAppointment onClick={() => {
+            trackEvent({
+              action: `${contents?.attributes?.title} CTA`,
+              category: 'Contact Us Page',
+              label: contents?.attributes?.CTA_text,
+            });
+            return handleCTAButton(CONSULTATION_TYPES.FREE);
+          }} />
         </div>
       </div>
     </>

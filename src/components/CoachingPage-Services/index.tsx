@@ -25,6 +25,7 @@ import PricingSection from './PricingSection';
 import { SOURCE_PAGE } from '../BlogsListPage/constants';
 import PricingLeadFormSection from './PricingSection/LeadFormSection';
 import SliderNav from '@/components/UIElements/Slider/sliderNav';
+import { trackEvent } from '../../../gtag';
 
 type CoachingServicePageProps = {
   response: ICoachingServicePageContent;
@@ -107,6 +108,9 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
   const blogs = response?.data?.attributes?.coaching_service_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'blogs';
   });
+
+  const textContent = new DOMParser().parseFromString(response.data?.attributes?.title, 'text/html').body.textContent || '';
+
   const sectionsByPosition = [
     whyChooseOpen,
     eligibility,
@@ -136,17 +140,19 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       });
     }, 0);
   };
-
-  const handlePricingCTAButtonClick = (index: number) => {
-    setShowLeadForm(true);
-    setShowBookAnAppointment(false);
-    setSelectedPlan(index);
+  const scrollToLeadForm = (timeoutDuration = 0) => {
     setTimeout(() => {
       window.scrollTo({
         top: PricingleadFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
         behavior: 'smooth',
       });
-    }, 0);
+    }, timeoutDuration);
+  };
+  const handlePricingCTAButtonClick = (index: number, delayDuration = 0) => {
+    setShowLeadForm(true);
+    setShowBookAnAppointment(false);
+    setSelectedPlan(index);
+    scrollToLeadForm(delayDuration);
   };
 
   const [isLeftNavDisabled, setIsLeftNavDisabled] = useState(false);
@@ -173,7 +179,6 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
       setIsLeftNavDisabledT(isScrollAtStart);
       setIsRightNavDisabledT(isScrollAtEnd);
     }
-
   }, []);
 
   const SCROLL_DISTANCE = 400;
@@ -315,6 +320,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
               <PricingLeadFormSection
                 PricingleadForm={pricingLeadForms?.[selectedPlan]}
                 PricingleadFormRef={PricingleadFormRef}
+                scrollToTop={scrollToLeadForm}
                 onPricingCTAButtonClick={() => {
                   return handlePricingCTAButtonClick(selectedPlan);
                 }}
@@ -329,21 +335,29 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
               </div>
               <div className="items-center hidden md:flex md:mb-[8px]">
                 <div>
-                  <SliderNav handleOnClick={scrollLeft} cssClass="mr-[16px] bg-[#f3f3f3]"
-                    leftNav disable={isLeftNavDisabled}/>
-                  <SliderNav handleOnClick={scrollRight} cssClass='bg-[#f3f3f3] ' disable={isRightNavDisabled}/>
+                  <SliderNav
+                    handleOnClick={scrollLeft}
+                    cssClass="mr-[16px] bg-[#f3f3f3]"
+                    leftNav
+                    disable={isLeftNavDisabled}
+                  />
+                  <SliderNav handleOnClick={scrollRight} cssClass="bg-[#f3f3f3] " disable={isRightNavDisabled} />
                 </div>
               </div>
             </div>
             <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
               {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-              <div ref={scrollContainerRef} className="scrollable-container" onKeyDown={(event) => {
-                if (event.key === 'ArrowLeft') {
-                  scrollLeft();
-                } else if (event.key === 'ArrowRight') {
-                  scrollRight();
-                }
-              }}>
+              <div
+                ref={scrollContainerRef}
+                className="scrollable-container"
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowLeft') {
+                    scrollLeft();
+                  } else if (event.key === 'ArrowRight') {
+                    scrollRight();
+                  }
+                }}
+              >
                 {Array.isArray(filteredPricings) &&
                     filteredPricings.map((pricing, index) => {
                       // Check if lead_forms are present, otherwise use the URL
@@ -353,16 +367,19 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                         <PricingSection
                           key={''}
                           our_plans={pricing}
-                          onPricingCTAButtonClick={() => {return handlePricingCTAButtonClick(index);}}
+                          onPricingCTAButtonClick={() => {
+                            return handlePricingCTAButtonClick(index);
+                          }}
                           redirectUrl={redirectUrl}
                         />
                       );
                     })}
               </div>
               <div className="carousel-dots">
-                {Array.isArray(filteredPricings) && filteredPricings.map((_, index) => {return (
-                  <span key={''} className={`dot ${index === activeCard ? 'active' : ''}`} />
-                );})}
+                {Array.isArray(filteredPricings) &&
+                    filteredPricings.map((_, index) => {
+                      return <span key={''} className={`dot ${index === activeCard ? 'active' : ''}`} />;
+                    })}
               </div>
             </div>
           </div>
@@ -423,9 +440,13 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 </div>
                 <div className="items-center hidden md:flex md:mb-[8px]">
                   <div>
-                    <SliderNav handleOnClick={scrollLeftT} cssClass="mr-[16px] bg-[#f3f3f3]"
-                      leftNav disable={isLeftNavDisabledT}/>
-                    <SliderNav handleOnClick={scrollRightT} cssClass='bg-[#f3f3f3] ' disable={isRightNavDisabledT}/>
+                    <SliderNav
+                      handleOnClick={scrollLeftT}
+                      cssClass="mr-[16px] bg-[#f3f3f3]"
+                      leftNav
+                      disable={isLeftNavDisabledT}
+                    />
+                    <SliderNav handleOnClick={scrollRightT} cssClass="bg-[#f3f3f3] " disable={isRightNavDisabledT} />
                   </div>
                 </div>
               </div>
@@ -455,13 +476,17 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                         })}
                 </div>
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-                <div ref={scrollContainerRef2} className="scrollable-container px-[8px]" onKeyDown={(event) => {
-                  if (event.key === 'ArrowLeft') {
-                    scrollLeftT();
-                  } else if (event.key === 'ArrowRight') {
-                    scrollRightT();
-                  }
-                }}>
+                <div
+                  ref={scrollContainerRef2}
+                  className="scrollable-container px-[8px]"
+                  onKeyDown={(event) => {
+                    if (event.key === 'ArrowLeft') {
+                      scrollLeftT();
+                    } else if (event.key === 'ArrowRight') {
+                      scrollRightT();
+                    }
+                  }}
+                >
                   {filteredTrainings.map((training, index) => {
                     if (index > 0) {
                       return <TrainingCard key={training.id} training={training} />;
@@ -470,9 +495,10 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                   })}
                 </div>
                 <div className="carousel-dots">
-                  {Array.isArray(filteredTrainings) && filteredTrainings.slice(0, -1).map((_, index) => {return (
-                    <span key={''} className={`dot ${index === activeCardT ? 'active' : ''}`} />
-                  );})}
+                  {Array.isArray(filteredTrainings) &&
+                      filteredTrainings.slice(0, -1).map((_, index) => {
+                        return <span key={''} className={`dot ${index === activeCardT ? 'active' : ''}`} />;
+                      })}
                 </div>
               </div>
             </div>
@@ -498,7 +524,12 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
     case 'blogs':
       return (
         <div className="py-[11px] mt-[74px]">
-          <BlogSection title="" sourcePage={SOURCE_PAGE.COACHING} serviceType={response?.data?.attributes?.unique_identifier_name} subtitle={blogs?.attributes.title ?? ''} />
+          <BlogSection
+            title=""
+            sourcePage={SOURCE_PAGE.COACHING}
+            serviceType={response?.data?.attributes?.unique_identifier_name}
+            subtitle={blogs?.attributes.title ?? ''}
+          />
         </div>
       );
     default:
@@ -513,7 +544,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         data={[
           {
             title: 'Home',
-            path:  '/',
+            path: '/',
           },
           {
             title: 'Coaching',
@@ -530,7 +561,14 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
         backgroundImageUrl={appendAssetUrl(response.data?.attributes?.media_url?.data?.[0]?.attributes.url ?? '')}
         heroText={response.data?.attributes?.title}
         description={response.data?.attributes?.sub_title}
-        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={handleCTAButtonClick} />}
+        button={<BookAnAppointmentButton text={response.data?.attributes?.CTA_Text} onClick={() => {
+          handleCTAButtonClick();
+          trackEvent({
+            action: `${textContent} Banner CTA`,
+            category: 'Coaching Service',
+            label: response.data?.attributes?.CTA_Text,
+          });
+        }} />}
       />
       <CoachingPageWrapper className="pt-20 px-6 xl:px-20 m-auto max-w-screen-2k lg:px-[80px]">
         <CoachingDescription text={response.data?.attributes?.description} />

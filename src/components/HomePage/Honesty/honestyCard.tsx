@@ -25,6 +25,7 @@ const HonestyCard = ({ title, icon, value, containerClass, iconComponent: IconCo
             fill
             style={{ objectFit: 'contain' }}
             altText={title || 'icon image'}
+            priority
           />
         ) : null}
         {IconComponent ? <IconComponent /> : null}
