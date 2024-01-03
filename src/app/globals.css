@@ -1140,3 +1140,18 @@ heading {
   flex-direction: column;
   gap: 20px;
 }
+
+.table-header {
+  background-color: var(--pale-sandal);
+  color: #000;
+}
+
+[data-theme='dark'] .table-header {
+  background-color: #000;
+  color: #fff;
+}
+
+[data-theme='dark'] .table-body {
+  background-color: #1e1f1f;
+  color: #fff;
+}
