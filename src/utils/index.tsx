@@ -94,6 +94,7 @@ export const addIndexToKeys = (data: Record<string, string>[]): Record<string, s
   return outputObject;
 };
 
+// truncate text by adding ... at end
 export const truncateText = (text: string, limit: number = 150) => {
   if (text.length > limit) {
     const truncatedText = text.slice(0, limit);
