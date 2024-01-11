@@ -29,7 +29,7 @@ const ServicePageCSR = () => {
   });
   const { loader } = useTranslationLoader();
 
-  const canonicalUrl = `https://rooton.ca/${params.lang}/service/${metaData![0]?.attributes?.unique_identifier_name}`;
+  const canonicalUrl = `https://rooton.ca/${params?.lang}/${metaData![0]?.attributes?.unique_identifier_name}`;
   useSetMetaInfo(metaData![0]?.attributes?.meta_title ?? '', metaData![0]?.attributes?.meta_description, canonicalUrl);
 
   if (loader || loading) return <LoadingUI />;

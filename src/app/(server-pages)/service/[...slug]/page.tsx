@@ -17,7 +17,7 @@ export async function generateMetadata(metaProps: ServicePageProps): Promise<Met
   return {
     title: res[0]?.attributes.meta_title,
     description: res[0]?.attributes?.meta_description,
-    alternates: { canonical: `https://rooton.ca/service/${res[0]?.attributes?.unique_identifier_name}` },
+    alternates: { canonical: `https://rooton.ca/${res[0]?.attributes?.unique_identifier_name}` },
     robots: {
       index: process.env.NEXT_APP_ENVIRONMENT === 'production',
     },
