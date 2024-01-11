@@ -13,9 +13,11 @@ export async function generateMetadata(metaProps: BlogsDetailPageProps): Promise
   return {
     title: res[0]?.attributes.meta_title,
     description: res[0]?.attributes?.meta_description,
-    // to be removed in production
+    alternates: {
+      canonical: `https://rooton.ca/immigration-insights/${metaProps.params?.blogId}/${metaProps.params?.blogType}`,
+    },
     robots: {
-      index:  process.env.NEXT_APP_ENVIRONMENT === 'production',
+      index: process.env.NEXT_APP_ENVIRONMENT === 'production',
     },
   };
 }

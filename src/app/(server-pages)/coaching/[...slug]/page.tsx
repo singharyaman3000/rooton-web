@@ -17,10 +17,9 @@ export async function generateMetadata(metaProps: CoachingPageProps): Promise<Me
   return {
     title: res[0]?.attributes.meta_title,
     description: res[0]?.attributes?.meta_description,
-    alternates: { canonical: `https://rooton.ca/coaching/${res[0]?.attributes?.unique_identifier_name}` },
-    // to be removed in production
+    alternates: { canonical: `https://rooton.ca/${res[0]?.attributes?.unique_identifier_name}` },
     robots: {
-      index: false,
+      index:  process.env.NEXT_APP_ENVIRONMENT === 'production',
     },
   };
 }
