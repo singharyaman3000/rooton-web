@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { expressEntryInvitation, expressEntrySubmitted } from '../config/formConfig';
 import { IPropsType } from '../config/models';

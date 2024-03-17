@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import 'tailwindcss/tailwind.css';
 import React from 'react';
 import { AtlanticProvinces } from '@/app/constants/textConstants';

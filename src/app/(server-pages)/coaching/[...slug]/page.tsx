@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+
 import { Metadata } from 'next';
 
 import { ICoachingServicePageContent, getCoachingServicePageContent } from '@/app/services/apiService/coachingContentsAPI';

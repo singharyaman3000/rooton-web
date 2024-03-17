@@ -27,7 +27,7 @@ const FlagComponentWrapper = ({ handleOnClick }: { handleOnClick: (selectedLangu
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
-        className={`hover:bg-hover-lang-dropdown ${isSelecetdLang(item.attributes.code) && 'bg-hover-lang-dropdown'}`}
+        className={`hover:bg-[#b89c6133] ${isSelecetdLang(item.attributes.code) && 'bg-[#b89c6133]'}`}
         key={item?.attributes.name}
         onClick={() => {
           return handleOnClick(item);

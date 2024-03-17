@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getHeaderFooterData } from './services/apiService/headerFooterAPI';
 import { IPageMetaAttributes, getPagesSEOMetaData } from './services/apiService/pagesSEOMetadata';
-import { COACHING_SERVICES_ROUTES } from '@/components/SiteMapPage/constants';
+import { COACHING_SERVICES_ROUTES, TOOLS_SERVICES_ROUTES } from '@/components/SiteMapPage/constants';
 
 const SITE_URL = process.env.NEXT_APP_BASE_URL ?? '';
 
@@ -39,6 +39,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return { url: `${SITE_URL}${coaching.link}`, lastModified: new Date().toISOString() };
   });
 
+  const allToolsUrls = TOOLS_SERVICES_ROUTES.map((tools) => {
+    return { url: `${SITE_URL}${tools.link}`, lastModified: new Date().toISOString() };
+  });
+
   const allHomeLanRoutes =
     allLanguages?.map((lan) => {
       return { url: `${SITE_URL}${lan}`, lastModified: pageData?.home_page?.data?.attributes?.updatedAt };
@@ -52,6 +56,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allCoachingLanRoutes =
     allLanguages?.map((lan) => {
       return { url: `${SITE_URL}${lan}/coaching`, lastModified: pageData?.coaching_page?.data?.attributes?.updatedAt };
+    }) ?? [];
+
+  const allToolsLanRoutes =
+    allLanguages?.map((lan) => {
+      return { url: `${SITE_URL}${lan}/tools`, lastModified: pageData?.tools_page?.data?.attributes?.updatedAt };
     }) ?? [];
 
   const allBlogsLanRoutes =
@@ -111,6 +120,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE_URL, lastModified: pageData?.home_page?.data?.attributes?.updatedAt },
     { url: `${SITE_URL}about-us`, lastModified: pageData?.home_page?.data?.attributes?.updatedAt },
     { url: `${SITE_URL}coaching`, lastModified: pageData?.coaching_page?.data?.attributes?.updatedAt },
+    { url: `${SITE_URL}tools`, lastModified: pageData?.tools_page?.data?.attributes?.updatedAt },
     { url: `${SITE_URL}blogs`, lastModified: pageData?.home_page?.data?.attributes?.updatedAt },
     { url: `${SITE_URL}contact-us`, lastModified: pageData?.contact_us?.data?.attributes?.updatedAt },
     { url: `${SITE_URL}privacy-policy`, lastModified: pageData?.contact_us?.data?.attributes?.updatedAt },
@@ -118,9 +128,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}terms-and-conditions`, lastModified: pageData?.contact_us?.data?.attributes?.updatedAt },
     ...allServiceUrls,
     ...allCoachingUrls,
+    ...allToolsUrls,
     ...allHomeLanRoutes,
     ...allAboutUsLanRoutes,
     ...allCoachingLanRoutes,
+    ...allToolsLanRoutes,
     ...allBlogsLanRoutes,
     ...allContactUsLanRoutes,
     ...allServicesLanUrls,

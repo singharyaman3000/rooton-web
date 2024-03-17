@@ -1,0 +1,116 @@
+.activeButton {
+  background-color: #ffaf00 !important;
+  color: white;
+  width: max-content;
+}
+
+.inactiveButton {
+  background-color: #fff6e7;
+  color: #333;
+  width: max-content;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mainContent {
+  background: linear-gradient(90deg, #fff6e7 0%, #ffecd2 100%);
+  position: relative;
+  top: -22px;
+}
+
+@media screen and (max-width: 500px) {
+  .mainContent {
+    top: 0px;
+  }
+}
+
+.scrollableSidebar {
+  overflow-y: auto;
+  max-height: 100vh;
+  width: 50vh;
+}
+
+@media screen and (max-width: 1024px) {
+  .scrollableSidebar {
+    width: auto;
+  }
+  .container {
+    padding: 0 !important;
+  }
+}
+
+.scrollableContent {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 88vh;
+}
+
+@media screen and (max-width: 768px) {
+  .mainContainer {
+    height: auto;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px 0px 25px 25px;
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+.buttonContainer {
+  margin-bottom: 15px;
+  padding: 0 20px 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .buttonContainer {
+    margin: auto;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .stickyButton {
+    position: sticky;
+    top: 0;
+    z-index: 888;
+  }
+}
+
+.slideInRight {
+  animation: slideInRight 0.5s forwards;
+}
+
+.slideOutLeft {
+  animation: slideOutLeft 0.5s forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

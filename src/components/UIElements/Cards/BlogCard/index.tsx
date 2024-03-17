@@ -31,7 +31,7 @@ const BlogCard = ({ attributes }: IBlogCardData) => {
             label="Read More"
             ariaLabel="Read More"
             cssClass="text-black"
-            handleOnClick={() => null}
+            handleOnClick={() => {return null;}}
             tabIndex={0}
           />
           <div className="text-xs mb-[8px] md:mb-[0px] mt-[8px] md:mt-0 order-2 md:order-1  not-italic leading-[normal] tracking-[normal] md:text-sm">

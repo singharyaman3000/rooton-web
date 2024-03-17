@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+
 import { Metadata } from 'next';
 
 import { IServicePageContent, getServicePageContent } from '@/app/services/apiService/serviceAPI';

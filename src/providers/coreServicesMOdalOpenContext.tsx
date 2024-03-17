@@ -24,7 +24,7 @@ const IModalShowContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const [isFormFocusRouting, setIsFormFocus] = useState<boolean>(false);
   const toggleModalShown = () => {
-    setIsModalShown((isOpen) => !isOpen);
+    setIsModalShown((isOpen) => {return !isOpen;});
   };
   const openCoreServiceList = () => {
     setIsModalShown(true);
@@ -38,14 +38,14 @@ const IModalShowContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   };
 
   const contextValue = useMemo(
-    () => ({
+    () => {return {
       isModalShown,
       enableFormFocus,
       isFormFocusRouting,
       toggleModalShown,
       openCoreServiceList,
       closeCoreServiceList,
-    }),
+    };},
     [isModalShown, isFormFocusRouting],
   );
   return <ModalShowContextname.Provider value={contextValue}>{children}</ModalShowContextname.Provider>;

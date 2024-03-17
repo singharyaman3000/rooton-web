@@ -44,13 +44,13 @@ const ServiceListingOnAdviceMobile = () => {
 
     window?.addEventListener('resize', updateWidth);
 
-    return () => window?.removeEventListener('resize', updateWidth);
+    return () => {return window?.removeEventListener('resize', updateWidth);};
   }, []);
 
   const getServiceListing = () => {
     const ServicesList = headerFooterData && headerFooterData[0]?.attributes?.core_services?.data;
     /* eslint-disable no-unsafe-optional-chaining */
-    ServicesList?.sort((a,b) => a?.id - b?.id);
+    ServicesList?.sort((a,b) => {return a?.id - b?.id;});
     return ServicesList?.map((listItem) => {
       return (
         <div className="mb-7" key={listItem?.id}>

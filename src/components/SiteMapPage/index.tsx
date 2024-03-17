@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 'use client';
 
 import React from 'react';
@@ -6,7 +8,7 @@ import HtmlParser from 'react-html-parser';
 import { useParams } from 'next/navigation';
 
 import { BOOK_AN_APPOINTMENT_QUERY } from '@/constants/navigation';
-import { COACHING_SERVICES_ROUTES, SITE_ROUTES } from './constants';
+import { COACHING_SERVICES_ROUTES, SITE_ROUTES, TOOLS_SERVICES_ROUTES } from './constants';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
 
 type ServiceDataType = { serviceId: number; label: string; uniqueIdentifierName: string };
@@ -132,6 +134,30 @@ const SiteMap = () => {
                           : `/${coaching.link}`}
                       className="text-[#337ab7] hover:underline">
                       {coaching.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          {/* Tools Services */}
+          <div className="p-5 border w-full h-max mt-5">
+            <h2 className="text-lg font-bold">Tools Services</h2>
+            <ul className="text-xs">
+              {TOOLS_SERVICES_ROUTES?.map((tools) => {
+                return (
+                  <li
+                    key={tools.id}
+                    className="before:inline-block py-1 before:w-2 before:h-2 before:mx-2 before:bg-black before:rounded-full"
+                  >
+                    <Link
+                      href={
+                        params.lang
+                          ? `/${params.lang}/${tools.
+                            link}`
+                          : `/${tools.link}`}
+                      className="text-[#337ab7] hover:underline">
+                      {tools.label}
                     </Link>
                   </li>
                 );

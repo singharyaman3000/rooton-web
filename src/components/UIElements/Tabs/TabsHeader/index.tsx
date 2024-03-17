@@ -41,7 +41,7 @@ const TabHeader = ({ headerData, handleOnClick, selectedTab }: ITabHeader) => {
           <motion.button
             variants={btnVarient}
             type="button"
-            onHoverStart={() => handleOnClick({ service })}
+            onHoverStart={() => {return handleOnClick({ service });}}
             className={`relative p-[15px] tab-header text-primary-text  w-[180px] flex items-center flex-col ${
               service === selectedTab.service ? 'bg-services-tab-color text-primary-white font-bold' : ''
             }`}

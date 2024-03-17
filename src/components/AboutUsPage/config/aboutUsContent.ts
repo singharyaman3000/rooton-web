@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { ABOUT_US_PATH } from '@/constants/navigation';
 import WinningWillIcon from '@/components/Icons/WinningWillIcon';
 import OpenMindednessIcon from '@/components/Icons/OpenMindednessIcon';

@@ -18,3 +18,13 @@ export const COACHING_SERVICES_ROUTES = [
   { id: 5, label: 'TOEFL', link: 'toefl-online-course' },
   { id: 6, label: 'DELF', link: 'delf-preparation-course-online' },
 ];
+
+export const TOOLS_SERVICES_ROUTES = [
+  {
+    id: 1,
+    label: 'CRS',
+    link: 'canada-course-recommendation-tool',
+  },
+  { id: 2, label: 'SOP Builder', link: 'statement-of-purpose-builder-canada' },
+  { id: 3, label: 'SOWP Builder', link: 'sowp-statement-builder-canada' },
+];

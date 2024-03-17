@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default function FlagCanadaIcon() {
   return (
     <svg width="32" height="16" viewBox="0 0 32 16" xmlns="http://www.w3.org/2000/svg">

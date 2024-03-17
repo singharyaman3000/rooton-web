@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+
 import { Metadata } from 'next';
 import { getPolicyContents,IPrivatePolicyPageContent } from '@/app/services/apiService/privatePolicyAPI';
 import PrivatePolicy from '@/components/PrivatePolicyPage';

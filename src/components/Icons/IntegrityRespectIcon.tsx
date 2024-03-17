@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const IntegrityRespectIcon = () => {
   return (
     <svg width="42" height="35" viewBox="0 0 42 35" xmlns="http://www.w3.org/2000/svg">

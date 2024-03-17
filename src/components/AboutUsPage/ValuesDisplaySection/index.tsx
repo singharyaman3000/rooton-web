@@ -27,7 +27,7 @@ const ValuesDisplaySection = ({ heading, description, valuesList }: ValuesDispla
       </h2>
       <Description cssClass="!text-primary-font-color mb-3" description={description} />
       <div className="mb-6  lg:mb-[69px]">
-        <div className="honestyBackground honestycard grid grid-cols-1 border-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
+        <div className="honestyBackground honestycard grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
           {valuesList.map(({ key, value, iconComponent, position }) => {
             return (
               <HonestyCard

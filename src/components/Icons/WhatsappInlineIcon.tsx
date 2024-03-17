@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import styles from '../WhatsApp-Integration/WhatsappCss.module.css';
 /**
  * Renders a Whatsapp inline icon as an SVG element.

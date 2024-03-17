@@ -42,9 +42,9 @@ const PartnerShip = ({ data, title, sub_title }: IPartnershipData) => {
           <SectionTitle title={title} />
           <SubSectionTitle title={sub_title} />
         </div>
-        <div className="gap-x-[6.38%] flex content-center items-center border-1 lg:gap-[5%]">
+        <div className="gap-x-[6.38%] flex content-center items-center lg:gap-[5%]">
           <Marquee style={{ display: 'flex' }} pauseOnClick pauseOnHover>
-            {data?.map((card) => <ImageCard key={card.attributes.url} attributes={card.attributes} />)}{' '}
+            {data?.map((card) => {return <ImageCard key={card.attributes.url} attributes={card.attributes} />;})}{' '}
           </Marquee>
         </div>
       </Container>

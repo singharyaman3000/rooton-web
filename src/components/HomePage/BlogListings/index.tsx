@@ -46,7 +46,7 @@ const BlogListings = ({ blogs, title, sub_title }: IBlogListing) => {
                   cssClass="border-0 slider-nav bg-white font-bold"
                   label="More"
                   tabIndex={0}
-                  handleOnClick={() => null}
+                  handleOnClick={() => {return null;}}
                   ariaLabel="More  News"
                 />
               </div>

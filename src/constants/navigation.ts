@@ -14,3 +14,14 @@ export const ABOUT_US_PATH = [
     path: '',
   },
 ];
+
+export const PROFILE_PATH = [
+  {
+    title: 'Home',
+    path: '/',
+  },
+  {
+    title: 'Profile',
+    path: '',
+  },
+];

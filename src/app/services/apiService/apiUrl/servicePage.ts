@@ -6,12 +6,19 @@ const COACHING_SERVICE_API =
   '/api/coaching-services/<service-id>?populate[0]=media_url&populate[1]=coaching_s' +
   'ervice_contents.media_url&populate[2]=blogs.media_url';
 
+const TOOLS_SERVICE_API =
+  '/api/tools/<service-id>?populate[0]=media_url&populate[1]=tools_contents.media_url&populate[2]=blogs.media_url';
+
 export const getServiceAPIUrl = (serviceId: unknown) => {
   return SERVICE_API.replace('<service-id>', serviceId as string);
 };
 
 export const getCoachingAPIUrl = (coachingId: unknown) => {
   return COACHING_SERVICE_API.replace('<service-id>', coachingId as string);
+};
+
+export const getToolsAPIUrl = (toolsId: unknown) => {
+  return TOOLS_SERVICE_API.replace('<service-id>', toolsId as string);
 };
 
 export const GET_BLOGS_SERVICE =
@@ -41,6 +48,13 @@ const COACHING_SERVICE_META_INFO =
 
 export const getCoachingMetaInfoUrl = (coachingId: string) => {
   return COACHING_SERVICE_META_INFO.replace('<serviceId>', coachingId);
+};
+
+const TOOLS_SERVICE_META_INFO =
+  '/api/tools?fields[0]=meta_title&fields[1]=meta_description&fields[2]=unique_identifier_name&filters[id][$eq]=<serviceId>';
+
+export const getToolsMetaInfoUrl = (toolsId: string) => {
+  return TOOLS_SERVICE_META_INFO.replace('<serviceId>', toolsId);
 };
 
 const BLOGS_META_INFO =

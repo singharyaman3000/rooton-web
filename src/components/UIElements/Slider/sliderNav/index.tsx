@@ -12,7 +12,7 @@ const SliderNav = ({ cssClass, disable, leftNav, handleOnClick }: ISliderNav) =>
     <button
       type="button"
       disabled={disable}
-      onClick={() => handleOnClick()}
+      onClick={() => {return handleOnClick();}}
       aria-label={`${leftNav ? 'Previous' : 'Next'}`}
       className={`w-11 h-11 disabled:bg-white  px-[17px] slider-nav py-[13px] bg-white ${cssClass} ${
         leftNav ? 'rotate-180  right-[24px]   md:right-[-9px]' : 'left-[24px] md:left-[-9px]'

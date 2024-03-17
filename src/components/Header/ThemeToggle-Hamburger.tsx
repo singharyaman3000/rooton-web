@@ -1,45 +1,24 @@
 'use client';
 
-import DarkModeIcon from '@/components/Icons/DarkModeIcon';
-import HamburgerIcon from '@/components/Icons/HamBurgerIcon';
-import LightModeIcon from '@/components/Icons/LightModeIcon';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import RTONLanguageDropDown from './LanguageDropDown';
+import { useEffect } from 'react';
+import { SunIcon } from '../Icons/SunIcon';
+import { HalfMoonIcon } from '../Icons/MoonIcon';
 
-type ThemeToggleAndHamburgerProps = {
-  scrolledEnough: boolean;
-  toggleSlideOverlay: () => void;
-  isFixed: boolean;
-};
-
-export default function ThemeToggleAndHamburger({
-  scrolledEnough,
-  toggleSlideOverlay,
-  isFixed,
-}: ThemeToggleAndHamburgerProps) {
+export default function ThemeToggleAndHamburger() {
   const { theme, setTheme } = useTheme();
-  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark' || false);
 
   useEffect(() => {
-    setTheme(theme ?? '');
+    if (!theme) {
+      setTheme('light');
+    }
   }, [theme, setTheme]);
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
   };
 
-  useEffect(() => {
-    setIsDarkMode((state) => {
-      return !state;
-    });
-  }, [theme]);
-
-  const getbuttonBG = () => {
-    if (isFixed) return isDarkMode ? 'bg-toggle-dark-bg' : 'bg-tansparent-bg opacity-[0.23]';
-    return isDarkMode ? ' bg-white' : ' bg-[#7e7e7e]';
-  };
-  // isDarkMode ? ' bg-black' : ' bg-tansparent-bg'
   return (
     <div
       className="
@@ -50,48 +29,24 @@ export default function ThemeToggleAndHamburger({
         lg:gap-[20px]
       "
     >
-      <div className=" hidden xl:block">
-        <RTONLanguageDropDown scrolledEnough={scrolledEnough} isFixed={isFixed} />
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={toggleTheme}
+        className="flex gap-1 w-12 lg:w-16 lg:h-8 h-6 justify-start items-center text-primary-font-color"
+        style={{ width: '-webkit-fill-available' }}
+      >
+        <span>{theme === 'dark' ? 'Light ' : 'Dark '}</span>
+        <span
+          className="text-xl lg:text-2xl"
+        >
+          {theme === 'dark' ? (
+            <SunIcon className="text-xl lg:text-2xl sun-icon" />
+          ) : (
+            <HalfMoonIcon className="text-xl lg:text-2xl moon-icon" />
+          )}
+        </span>
       </div>
-      <div className=" flex gap-0 w-12 lg:w-16 lg:h-8 h-6" role="button" tabIndex={0} onClick={toggleTheme}>
-        {!scrolledEnough ? (
-          <span
-            style={{ transition: 'background-color 0.2s' }}
-            className={` w-1/2 h-full ${getbuttonBG()} flex justify-center items-center`}
-          >
-            <DarkModeIcon isScrolled={scrolledEnough} isFixed={isFixed} />
-          </span>
-        ) : (
-          <span
-            style={{ transition: 'background-color 0.2s' }}
-            className={` w-1/2 h-full ${
-              isDarkMode ? 'bg-toggle-dark-bg' : 'bg-[#818181]'
-            } flex justify-center items-center`}
-          >
-            <DarkModeIcon isScrolled={scrolledEnough} isFixed={isFixed} />
-          </span>
-        )}
-        {scrolledEnough ? (
-          <span
-            style={{ transition: 'background-color 0.2s' }}
-            className={` w-1/2 h-full border-[1px] border-[#7e7e7e] ${
-              !isDarkMode ? ' bg-toggle-dark-bg' : 'bg-toggle-lite-bg'
-            } flex justify-center items-center`}
-          >
-            <LightModeIcon isScrolled={scrolledEnough} />
-          </span>
-        ) : (
-          <span
-            style={{ transition: 'background-color 0.2s' }}
-            className={` w-1/2 h-full ${!isDarkMode ? 'bg-white' : 'bg-[#7e7e7e]'} flex justify-center items-center`}
-          >
-            <LightModeIcon isScrolled={scrolledEnough} />
-          </span>
-        )}
-      </div>
-      <button aria-label="Hamburger menu open" type="button" onClick={toggleSlideOverlay} className=" xl:hidden">
-        <HamburgerIcon isScrolled={scrolledEnough} isFixed={isFixed} />
-      </button>
     </div>
   );
 }

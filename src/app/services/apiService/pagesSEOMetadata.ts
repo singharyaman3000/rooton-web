@@ -8,6 +8,7 @@ interface IPageData {
 
 export interface IPageMetaAttributes {
   coaching_page: IPageData;
+  tools_page: IPageData;
   contact_us: IPageData;
   home_page: IPageData;
   createdAt: string;

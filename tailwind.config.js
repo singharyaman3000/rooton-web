@@ -92,13 +92,14 @@ module.exports = {
       },
     },
   },
+  darkmode: 'class',
   plugins: [
     plugin(({ matchUtilities }) => {
       matchUtilities({
-        square: (value) => ({
+        square: (value) => {return {
           width: value,
           height: value,
-        }),
+        };},
       });
     }),
   ],

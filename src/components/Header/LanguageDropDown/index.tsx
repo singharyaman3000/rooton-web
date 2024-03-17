@@ -24,7 +24,12 @@ export default function RTONLanguageDropDown({ scrolledEnough, isFixed }: RTONLa
     e.stopPropagation();
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   const onLanguageChange = (selectedLanguage: ILanguageData) => {
+    handleClose();
     let nextRoute = '';
     if (params.lang) {
       if (selectedLanguage.attributes.code === 'en') {
@@ -41,57 +46,51 @@ export default function RTONLanguageDropDown({ scrolledEnough, isFixed }: RTONLa
     }
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   const getTextColor = () => {
     if (isFixed) return 'text-primary-font-color';
     return scrolledEnough ? 'text-primary-font-color' : 'text-white';
   };
 
   return (
-    <>
-      <button
-        aria-label="Language dropdown button "
-        type="button"
-        onClick={() => {
-          setIsOpen((o) => {
-            return !o;
-          });
-        }}
-        className=" flex gap-2 items-center relative z-[1001]"
-      >
-        <div className="w-[16px] h-[16px] relative">
-          {selectedLang && (
-            <NextImage
-              src={appendAssetUrl(selectedLang?.attributes?.media_url?.data?.attributes?.url)}
-              altText={selectedLang.attributes?.media_url?.data?.attributes?.alternativeText}
-              title=""
-              sizes="100vw"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          )}
-        </div>
-        <p className={`text-base font-medium ${getTextColor()}`}>
-          {selectedLang?.attributes.code}
-        </p>
-        <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
-          <DownArrowIcon isScrolled={scrolledEnough} isFixed={isFixed}/>
-        </span>
-        {isOpen && (
-          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-          <div
-            onClick={(e) => {
-              return dropdownContainerOnClick(e);
-            }}
-            className="
+    <button
+      aria-label="Language dropdown button "
+      type="button"
+      onClick={() => {
+        setIsOpen((o) => {
+          return !o;
+        });
+      }}
+      className=" flex gap-2 items-center relative z-[1000]"
+    >
+      <div className="w-[16px] h-[16px] relative">
+        {selectedLang && (
+          <NextImage
+            src={appendAssetUrl(selectedLang?.attributes?.media_url?.data?.attributes?.url)}
+            altText={selectedLang.attributes?.media_url?.data?.attributes?.alternativeText}
+            title=""
+            sizes="100vw"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        )}
+      </div>
+      <p className={`text-base font-medium ${getTextColor()}`}>{selectedLang?.attributes.code}</p>
+      <span className={`text-base ${scrolledEnough ? ' text-spanrimary-font-color' : 'text-white'}`}>
+        <DownArrowIcon isScrolled={scrolledEnough} isFixed={isFixed} />
+      </span>
+      {isOpen && (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div
+          onClick={(e) => {
+            return dropdownContainerOnClick(e);
+          }}
+          className="
                overscroll-contain
                 z-[1001]
                 absolute
                 w-[180px]
                 bg-primary
+                text-primary-font-color
                 shadow-language-dropdown
                 pt-[17px]
                 pb-[15px]
@@ -105,16 +104,10 @@ export default function RTONLanguageDropDown({ scrolledEnough, isFixed }: RTONLa
                 h-[276px]
                 overflow-y-scroll
             "
-          >
-            {<FlagComponentWrapper handleOnClick={onLanguageChange} />}
-          </div>
-        )}
-      </button>
-
-      {isOpen && (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div onClick={handleClose} className="cursor-[default] fixed top-0 left-0 square-[100%] z-[1000]"></div>
+        >
+          {<FlagComponentWrapper handleOnClick={onLanguageChange} />}
+        </div>
       )}
-    </>
+    </button>
   );
 }

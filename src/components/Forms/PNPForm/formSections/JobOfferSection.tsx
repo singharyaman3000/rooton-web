@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { AtlanticProvinces } from '@/app/constants/textConstants';
 import {

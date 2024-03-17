@@ -6,7 +6,7 @@ import useScrollHeighLight from '../hooks/useScrollHeighLight';
 const APPROX_NAV_BAR_HEIGHT = 60;
 
 const ProcessesMobileView = ({ process }: IOurProcessData) => {
-  const refs = useMemo(() => process.map(() => React.createRef<HTMLDivElement>()), [process]);
+  const refs = useMemo(() => {return process.map(() => {return React.createRef<HTMLDivElement>();});}, [process]);
 
   const { selectedElem } = useScrollHeighLight({
     isMobile: true,

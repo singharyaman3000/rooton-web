@@ -15,7 +15,6 @@ type BlogsBannerPropsType = {
   noGrid?: boolean;
   fontSizes: { description: string; heading?: string; subHeading?: string };
 };
-// "text-[15px] lg:text-2xl"
 export default function RTONBanner({
   backgroundImageUrl,
   addGradient,
@@ -66,21 +65,22 @@ export default function RTONBanner({
                     font-jakartaSans
                     md:max-h-[unset]
                     banner-text
+                    text-position
                 "
           >
             {HtmlParser(heroText)}
           </h1>
-          <p className={`mt-[22.2px] text-white ${fontSizes.description} font-bold leading-[1.67] max-w-[800px]`}>
+          <p className={`mt-[22.2px] text-white ${fontSizes.description} font-bold leading-[1.67] max-w-[800px] text-position`}>
             {HtmlParser(description)}
           </p>
           {subDescription && (
-            <h2 className="mt-5 text-[17px] lg:text-[32px] font-bold lg:font-extrabold text-white">
+            <h2 className="mt-5 text-[17px] lg:text-[32px] font-bold lg:font-extrabold text-white text-position">
               {HtmlParser(subDescription)}
             </h2>
           )}
           {button && <div className=" mt-10 w-full md:max-w-[418px]">{button}</div>}
         </div>
-        <div className={`${heightStyle} w-full absolute left-0 top-0 z-[-1]`}>
+        <div className={`${heightStyle} w-full absolute left-0 top-0`}>
           <NextImage
             sizes="100vw"
             priority

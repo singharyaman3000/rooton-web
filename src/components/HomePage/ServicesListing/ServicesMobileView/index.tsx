@@ -17,7 +17,7 @@ const ServicesMobileView = ({ serviceData }: IServicesMobileView) => {
     return (
       <Accordion
         cssClass={`block md:hidden ${clickedAccordionId === sevice?.attributes?.title && 'open-mobile-accordion'}`}
-        handleOnClick={(accordionId) => updateAccordion(accordionId === clickedAccordionId ? null : accordionId)}
+        handleOnClick={(accordionId) => {return updateAccordion(accordionId === clickedAccordionId ? null : accordionId);}}
         accordionId={sevice.attributes?.title}
         openAccordion={clickedAccordionId === sevice?.attributes?.title}
         accordionBodyCss="bg-pale-yellow py-0"
