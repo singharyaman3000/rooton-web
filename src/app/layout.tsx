@@ -7,6 +7,7 @@ import { metaInfo } from './constants/pageMetaInfo';
 import GoogleAnalytics from './GoogleAnalytics';
 import { UserProvider } from '@/components/LoginInPage/UserData';
 import { HeaderDataProvider } from '@/hooks/HeaderDataProvider';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: metaInfo.home.title,
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <UserProvider>
             <HeaderDataProvider>
               {children}
+              <SpeedInsights />
             </HeaderDataProvider>
           </UserProvider>
         </ThemeSwitchProvider>
