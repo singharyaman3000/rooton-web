@@ -70,7 +70,7 @@ const TestimonialCard = ({ attributes, type, handleOnClick }: ITestimonialData) 
           <button
             className="relative z-10"
             type="button"
-            onClick={() => handleOnClick(attributes)}
+            onClick={() => {return handleOnClick(attributes);}}
             aria-label="Button Label"
           >
             <PlayButton />

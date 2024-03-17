@@ -1,18 +1,21 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+
 'use client';
 
+import { useEffect, useState, useContext, Fragment } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
-import { Fragment, useContext } from 'react';
-
 import CloseIcon from '@/components/Icons/CloseIcon';
 import RTONLanguageDropDown from './LanguageDropDown';
 import { Dialog, Transition } from '@headlessui/react';
 import { ModalShowContextname } from '@/providers/coreServicesMOdalOpenContext';
 import { scrollIntoView } from '@/utils';
+import ThemeToggleAndHamburger from './ThemeToggle-Hamburger';
+import { useHeaderData } from '@/hooks/HeaderDataProvider';
 
 interface SliderOverlayProps {
   open: boolean;
-  // eslint-disable-next-line no-unused-vars
   setOpen: (open: boolean) => void;
 }
 
@@ -20,12 +23,29 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
   const { openCoreServiceList } = useContext(ModalShowContextname);
   const params = useParams();
   const path = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const { updateProfileOverlayState } = useHeaderData();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
 
   const scrollToServiceListing = () => {
     if (path === '/' || (path.split('/').length < 3 && params.lang)) {
       scrollIntoView('servicesHomePage');
     }
     setOpen(false);
+  };
+
+  const handleLogout = () => {
+    setOpen(false);
+    if (typeof window !== 'undefined') {
+      localStorage.clear();
+      const logoutUrl = params.lang ? `/${params.lang}/` : '/';
+      window.location.href = logoutUrl;
+    }
   };
 
   return (
@@ -60,6 +80,24 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       </button>
                     </div>
                     <div className="relative flex-1 px-[28px] py-[40px] sm:px-6">
+
+                      <div
+
+                        role="button"
+                        tabIndex={0}
+                        className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                      >
+                        <ThemeToggleAndHamburger />
+                      </div>
+
                       <Link href={params.lang ? `/${params.lang}/` : '/'}>
                         <div
                           onClick={() => {
@@ -100,25 +138,29 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           About Us
                         </div>
                       </Link>
-                      {
-                        path === '/' || (path.split('/').length < 3 && params.lang) ?
-                          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                          <div className='text-primary-font-color pb-5 text-xl
-                          font-bold border-b border-primary-border mb-5'
-                          onClick={scrollToServiceListing}>
-                            Services
-                          </div> :
-                          <Link href={{
+                      {path === '/' || (path.split('/').length < 3 && params.lang) ? (
+                        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                        <div
+                          className="text-primary-font-color pb-5 text-xl
+                          font-bold border-b border-primary-border mb-5"
+                          onClick={scrollToServiceListing}
+                        >
+                          Services
+                        </div>
+                      ) : (
+                        <Link
+                          href={{
                             pathname: params.lang ? `/${params.lang}` : '/',
-                            query: { 'section': 'services' },
-                          }}>
-                            <div
-                              onClick={() => {
-                                setOpen(false);
-                              }}
-                              role="button"
-                              tabIndex={0}
-                              className="
+                            query: { section: 'services' },
+                          }}
+                        >
+                          <div
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                            role="button"
+                            tabIndex={0}
+                            className="
                           text-primary-font-color
                           pb-5
                           text-xl
@@ -128,11 +170,11 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           mb-5
                           cursor-pointer
                         "
-                            >
-                              Services
-                            </div>
-                          </Link>
-                      }
+                          >
+                            Services
+                          </div>
+                        </Link>
+                      )}
                       <Link href={params.lang ? `/${params.lang}/coaching` : '/coaching'}>
                         <div
                           onClick={() => {
@@ -174,6 +216,26 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Blogs
                         </div>
                       </Link>
+                      <Link href={params.lang ? `/${params.lang}/tools` : '/tools'}>
+                        <div
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          className="
+                          text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                        >
+                          Tools
+                        </div>
+                      </Link>
                       <Link href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}>
                         <div
                           onClick={() => {
@@ -194,26 +256,6 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                           Contact Us
                         </div>
                       </Link>
-                      {/* <Link href={params.lang ? `/${params.lang}/` : '/'}>
-                        <div
-                          onClick={() => {
-                            setOpen(false);
-                          }}
-                          role="button"
-                          tabIndex={0}
-                          className="
-                          text-primary-font-color
-                          pb-5
-                          text-xl
-                          font-bold
-                          border-b
-                          border-primary-border
-                          mb-5
-                        "
-                        >
-                          Tools
-                        </div>
-                      </Link> */}
                       <button
                         type="button"
                         className="
@@ -225,6 +267,7 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       border-primary-border
                       mb-5
                     "
+                        style={{ width: '-webkit-fill-available', display: 'flex', justifyContent: 'start' }}
                         onClick={() => {
                           openCoreServiceList();
                           setOpen(false);
@@ -245,6 +288,73 @@ export default function SliderOverlay({ open, setOpen }: SliderOverlayProps) {
                       >
                         <RTONLanguageDropDown scrolledEnough />
                       </div>
+                      {isLoggedIn ? (
+                        <>
+                          <button
+                            type="button"
+                            className="
+                          text-red-500
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                            style={{ width: '-webkit-fill-available', display: 'flex', justifyContent: 'start' }}
+                            onClick={() => {
+                              updateProfileOverlayState(true);
+                              setOpen(false);
+                            }}
+                          >
+                            <div
+                              className="text-primary-font-color"
+                              style={{ width: '-webkit-fill-available', display: 'flex', justifyContent: 'start' }}
+                            >
+                              Profile
+                            </div>
+                          </button>
+                          <Link href={params.lang ? `/${params.lang}/contact-us` : '/contact-us'}>
+                            <div
+                              onClick={handleLogout}
+                              role="button"
+                              tabIndex={0}
+                              className="
+                          text-red-500
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                            >
+                              Logout
+                            </div>
+                          </Link>
+                        </>
+                      ) : (
+                        <Link href={params.lang ? `/${params.lang}/login` : '/login'}>
+                          <div
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                            role="button"
+                            tabIndex={0}
+                            className="
+                            text-primary-font-color
+                          pb-5
+                          text-xl
+                          font-bold
+                          border-b
+                          border-primary-border
+                          mb-5
+                        "
+                          >
+                            Sign in
+                          </div>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </Dialog.Panel>

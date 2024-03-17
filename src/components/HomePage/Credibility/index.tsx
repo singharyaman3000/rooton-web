@@ -121,12 +121,12 @@ const Credibility = ({ description, title, sub_title, media_url }: ICredibilityc
               disable={pageNum === 0}
               cssClass="absolute hidden md:block top-[calc(50%_-_22px)] !right-[unset] -left-[40px]"
               leftNav
-              handleOnClick={() => decrementPage()}
+              handleOnClick={() => {return decrementPage();}}
             />
             <SliderNav
               disable={pageNum === Math.ceil(media_url.data.length / 2) - 1}
               cssClass="absolute hidden md:block  top-[calc(50%_-_22px)] -right-[40px] !left-[unset]"
-              handleOnClick={() => incrementPage()}
+              handleOnClick={() => {return incrementPage();}}
             />
           </div>
         </div>

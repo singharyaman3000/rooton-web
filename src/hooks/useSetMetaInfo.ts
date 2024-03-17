@@ -1,3 +1,7 @@
+/* eslint-disable no-lonely-if */
+
+'use client';
+
 import { useEffect } from 'react';
 
 const useSetMetaInfo = (title: string, description: string, canonicalUrl: string) => {
@@ -14,13 +18,26 @@ const useSetMetaInfo = (title: string, description: string, canonicalUrl: string
         document.head.appendChild(newMetaTag);
       }
 
-      // to be removed in production
-      const noBotsMetaTag = document.querySelector('meta[name="robots"]');
-      if (!noBotsMetaTag && process.env.NEXT_APP_ENVIRONMENT !== 'production') {
-        const newNoBotsMetaTag = document.createElement('meta');
-        newNoBotsMetaTag.name = 'robots';
-        newNoBotsMetaTag.content = 'noindex';
-        document.head.appendChild(newNoBotsMetaTag);
+      const robotsMetaTag = document.querySelector('meta[name="robots"]');
+
+      if (process.env.NEXT_APP_ENVIRONMENT === 'production') {
+        // In production, ensure the meta tag exists and is set for indexing
+        if (!robotsMetaTag) {
+          // If the tag doesn't exist, create it and append it to the head
+          const newRobotsMetaTag = document.createElement('meta');
+          newRobotsMetaTag.name = 'robots';
+          newRobotsMetaTag.content = 'index';
+          document.head.appendChild(newRobotsMetaTag);
+        }
+      } else {
+        // Not in production, ensure the site is not indexed
+        if (!robotsMetaTag) {
+          // If the tag doesn't exist, create it with 'noindex'
+          const newNoBotsMetaTag = document.createElement('meta');
+          newNoBotsMetaTag.name = 'robots';
+          newNoBotsMetaTag.content = 'noindex';
+          document.head.appendChild(newNoBotsMetaTag);
+        }
       }
     }
     if (canonicalUrl) {

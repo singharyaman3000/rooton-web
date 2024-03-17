@@ -15,10 +15,10 @@ export const MobileModalShowContextname = createContext<IModalShowContext>({
 const MobileModalShowContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const toggleModalShown = () => {
-    setIsModalShown((isOpen) => !isOpen);
+    setIsModalShown((isOpen) => {return !isOpen;});
   };
 
-  const contextValue = useMemo(() => ({ isModalShown, toggleModalShown }), [isModalShown]);
+  const contextValue = useMemo(() => {return { isModalShown, toggleModalShown };}, [isModalShown]);
   return <MobileModalShowContextname.Provider value={contextValue}>{children}</MobileModalShowContextname.Provider>;
 };
 export default MobileModalShowContextProvider;

@@ -38,7 +38,7 @@ export const PersonalSection: React.FC<
 
   useEffect(() => {
     const dropdownIds = Object.keys(formData)
-      .filter((key) => key.startsWith('your_child_grandchild_age_'))
+      .filter((key) => {return key.startsWith('your_child_grandchild_age_');})
       .map((key) => {
         return {
           id: parseInt(key.split('_').pop() ?? '', 10),
@@ -60,7 +60,7 @@ export const PersonalSection: React.FC<
   };
 
   const addDropdown = () => {
-    const newId = childGrandchildDropdowns.length > 0 ? Math.max(...childGrandchildDropdowns.map((d) => d.id)) + 1 : 1;
+    const newId = childGrandchildDropdowns.length > 0 ? Math.max(...childGrandchildDropdowns.map((d) => {return d.id;})) + 1 : 1;
     setChildGrandchildDropdowns([...childGrandchildDropdowns, { id: newId, value: '' }]);
     // Initialize new dropdown data in formData
     const newFields = {
@@ -68,10 +68,10 @@ export const PersonalSection: React.FC<
       [`your_child_grandchild_marial_status_${newId}`]: '',
       [`your_child_grandchild_dependeds_substantially_on_your_financial_support_${newId}`]: '',
     };
-    setFormData((prevFormData) => ({ ...prevFormData, ...newFields }));
+    setFormData((prevFormData) => {return { ...prevFormData, ...newFields };});
   };
   const removeDropdown = (id: number) => {
-    setChildGrandchildDropdowns((current) => current.filter((d) => d.id !== id));
+    setChildGrandchildDropdowns((current) => {return current.filter((d) => {return d.id !== id;});});
     setFormData((prevFormData) => {
       const newFormData = { ...prevFormData };
       ['age', 'marital_status', 'financial_support'].forEach((field) => {
@@ -180,7 +180,7 @@ export const PersonalSection: React.FC<
             return (
               <div className="relative border ml-8 my-4 p-4 py-6 border-solid border-[black]" key={dropdown.id}>
                 {/* Close Button */}
-                <FormCloseButton onclick={() => removeDropdown(dropdown.id)}></FormCloseButton>
+                <FormCloseButton onclick={() => {return removeDropdown(dropdown.id);}}></FormCloseButton>
 
                 {/* Child/Grandchild Age Dropdown */}
                 <FormDropdown

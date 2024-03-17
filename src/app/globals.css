@@ -74,7 +74,6 @@
   --light-brown: #fff;
   --sandal: rgba(234, 213, 169, 0.32);
   --pale-sandal: #fddba2;
-  --hover-lang-dropdown: #282828;
   --services-tab-color: #fff6e7;
 
   --language-dropdown-shadow: 0 2px 60px 0 rgba(255, 255, 255, 0.5);
@@ -1142,12 +1141,12 @@ heading {
 }
 
 .table-header {
-  background-color: var(--pale-sandal);
+  background-color: var(--pale-sandal) !important;
   color: #000;
 }
 
 [data-theme='dark'] .table-header {
-  background-color: #000;
+  background-color: #000 !important;
   color: #fff;
 }
 
@@ -1170,3 +1169,52 @@ heading {
     transform: translateY(0);
   }
 }
+
+.text-position {
+  display: flex;
+  z-index: 1;
+}
+
+.login-background {
+  background: #F1F1F0;
+}
+
+[data-theme='dark'] .login-background {
+  background-color: #252525;
+}
+
+/*  */
+.tableContainer {
+  max-height: 450px;
+  overflow: auto;
+}
+
+.stickyHeader {
+  background-color: white; /* Ensure the background is not transparent */
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensure the header is above other content */
+}
+
+/* Hide HTML5 Up and Down arrows. */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.transparent-button {
+  background-color: transparent !important;
+  display: flex;
+  justify-content: center;
+  width: -webkit-fill-available;
+}
+
+.transparent-button:disabled {
+  cursor: text;
+}
+

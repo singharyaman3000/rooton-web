@@ -20,7 +20,7 @@ type BreadcrumbsProps = {
 export const Breadcrumbs = ({ data, className, isStatic = false }: BreadcrumbsProps) => {
   const params = useParams();
   const styleClass = `
-  ${isStatic ? 'text-primary-font-color' : 'text-white'} font-medium left-6 xl:left-20 top-[93px] text-sm`;
+  ${isStatic ? 'text-primary-font-color' : 'text-white'} font-medium left-6 xl:left-20 top-[93px] text-sm text-position`;
 
   return (
     <div className={`${className} ${isStatic ? '' : 'absolute'} flex items-center gap-[14px] ${styleClass}`}>

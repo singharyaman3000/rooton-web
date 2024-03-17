@@ -70,21 +70,21 @@ const DynamicBannerSection = ({
                     open-work-permit
                     text-[37.2px]
                     lg:text-[62px]
-                    pt-[320px]
                     mr-9
                     font-bold
                     leading-[normal]
                     font-jakartaSans
                     banner-text
+                    text-position
                 "
           >
             {HtmlParser(heroText)}
           </h1>
-          <p className="mt-8 sm:mt-5 text-white font-bold text-[15px] leading-[1.67] lg:text-2xl max-w-[1200px] ">
+          <p className="mt-8 sm:mt-5 text-white font-bold text-[15px] leading-[1.67] lg:text-2xl max-w-[1200px] text-position ">
             {HtmlParser(description)}
           </p>
         </div>
-        <div className={`${bannerHeightTailwind} h-[400px] w-full absolute left-0 top-0 z-[-1]`}>
+        <div className={`${bannerHeightTailwind} h-[400px] w-full absolute left-0 top-0`}>
           <picture>
             {desktopBackgroundUrl ? <source media="(min-width: 480px)" srcSet={desktopBackgroundUrl} /> : null}
             <NextImage

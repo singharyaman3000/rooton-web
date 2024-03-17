@@ -37,7 +37,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
   };
 
   const changeSelectedTab = (data: { service: string }) => {
-    const updatedTabData = serviceData.data?.find((service) => service.attributes.title === data.service);
+    const updatedTabData = serviceData.data?.find((service) => {return service.attributes.title === data.service;});
     updateTab({
       service: updatedTabData?.attributes.title ?? '',
       icon: appendAssetUrl(updatedTabData?.attributes.media_url.data[0].attributes.url ?? ''),
@@ -47,7 +47,7 @@ const ServicesDeskTopView = ({ serviceData }: IServicesDeskTopView) => {
   return (
     <Tabs
       cssClass="hidden md:block services-tab"
-      onTabChange={(data) => changeSelectedTab(data)}
+      onTabChange={(data) => {return changeSelectedTab(data);}}
       selectedTab={tab}
       headerData={getHeaderData()}
       tabBody={getServises()}

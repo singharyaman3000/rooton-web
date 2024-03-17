@@ -32,9 +32,9 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes, theme: string }>
       const whatsAppLink = `https://wa.me/${whatsAppData?.whatsappnumber}?text=${encodeURIComponent(whatsAppData?.welcomeText || '')}`;
       window.open(whatsAppLink, '_blank', 'width=1080,height=800,left=200,top=200');
     } else {
-      setShowTemplate((prev) => !prev);
+      setShowTemplate((prev) => {return !prev;});
       if (showTypingInitial) {
-        setTimeout(() => setShowTypingInitial(false), 1000);
+        setTimeout(() => {return setShowTypingInitial(false);}, 1000);
       }
     }
   };
@@ -44,13 +44,13 @@ const WhatsAppButton: React.FC<{ whatsapp: IWhatsAppAttributes, theme: string }>
     };
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {return window.removeEventListener('resize', handleResize);};
   }, []);
 
   return (
     <div className={styles.whatsAppIntegration}>
       <div className={showTemplate ? styles.fade_show : styles.fade}>{showTemplate && whatsAppData && (<WhatsAppTemp
-        hideTemplate={() => setShowTemplate(false)}
+        hideTemplate={() => {return setShowTemplate(false);}}
         showTypingInitial={showTypingInitial}
         whatsapp={whatsAppData}
       />

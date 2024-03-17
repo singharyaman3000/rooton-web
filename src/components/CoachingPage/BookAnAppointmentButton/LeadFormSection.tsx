@@ -47,19 +47,19 @@ const LeadFormSection = ({ leadForm, leadFormRef, handleCTAButtonClick, isBookAp
               }}
               calenderLink={
                 isLeadForm(leadForm?.attributes.json_content) ?
-                  leadForm.attributes.json_content.lead_forms?.find((f) => f.type === 'meeting')?.url ?? ''
+                  leadForm.attributes.json_content.lead_forms?.find((f) => {return f.type === 'meeting';})?.url ?? ''
                   : ''
               }
               region={
                 isLeadForm(leadForm?.attributes.json_content) ?
-                  leadForm.attributes.json_content.lead_forms?.find((f) => f.type === 'form')?.region ?? ''
+                  leadForm.attributes.json_content.lead_forms?.find((f) => {return f.type === 'form';})?.region ?? ''
                   : ''
               }
               portalId={
-                leadFormsAvailable?.find((f) => f.type === 'form')?.portalId ?? ''
+                leadFormsAvailable?.find((f) => {return f.type === 'form';})?.portalId ?? ''
               }
               formId={
-                leadFormsAvailable?.find((f) => f.type === 'form')?.formId ?? ''
+                leadFormsAvailable?.find((f) => {return f.type === 'form';})?.formId ?? ''
               }
               target="LeadForm"
             />

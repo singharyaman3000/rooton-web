@@ -1,0 +1,141 @@
+
+   .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .card {
+    background: #f8f7ff;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  @media (max-width: 600px) {
+    .card {
+      width: 90%;
+    }
+  }  
+  
+  .title {
+    margin-bottom: 0.5rem;
+    font-size: 28px;
+    font-weight: 500;;
+  }
+  
+  .subtitle {
+    margin-bottom: 2rem;
+    color: #000;
+  }
+  
+  .inputGroup {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  .countryCode {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+  }
+  
+  .inputField {
+    background-color: rgb(0 0 0 / 0%);
+    color: #000;
+    flex: 1;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #747474;
+    cursor: not-allowed;
+  }
+  
+  .continueButton {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #000;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  .separator {
+    margin: 2rem 0;
+  }
+  
+  .socialLogin > button {
+    margin-right: 0.5rem;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .terms {
+    margin-top: 2rem;
+    font-size: 12px;
+    color: #000;
+  }
+
+  .otpInputContainer {
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .otpActions {
+    display: flex;
+    flex-direction: row;
+    float: right;
+    margin-top: 0.2rem;
+  }
+  
+  .resendButton {
+    background-color: rgb(0 0 0 / 0%);
+    color: #3574e3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .resendButton:disabled {
+    background-color: rgb(0 0 0 / 0%); 
+    color: #666666;
+    text-decoration: none;
+    cursor: not-allowed;
+  }
+  
+  .timerText {
+    color: #888;
+    font-size: 0.8rem;
+    margin-left: 2px;
+    margin-top: 3px;
+  }
+  
+  .logo {
+    width: 138px;
+    margin: auto;
+  }
+
+.resendButton {
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+    margin: 0;
+  }
+  
+  .resendButton:disabled {
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+    margin: 0;
+  }
+  

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { IFormFieldOptions, IFormField, OptionType } from '../../components/model';
 
 // =================================== COMMON CONSTANTS ====================================================

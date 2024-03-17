@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export default function YoutubeIcon() {
   return (
     <svg width="32" height="32" style={{ fill: 'var(--header-font-color)' }} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">

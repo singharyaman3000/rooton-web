@@ -1,6 +1,7 @@
 import { IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { IHomePageData } from '@/app/services/apiService/homeAPI';
 import { ICoachingPage_Data } from '@/app/services/apiService/CoachingAPI';
+import { IToolsPage_Data } from '@/app/services/apiService/ToolsAPI';
 
 export const getAssetUrl = (url = '') => {
   const basePath = process.env.NEXT_ASSETS_BASEURL;
@@ -32,6 +33,11 @@ export const getSectionData = (data: IHomePageData, unique_identifier_name: stri
 
 export const getSectionCoachingData = (data: ICoachingPage_Data, unique_identifier_name: string) => {
   return data.attributes.coaching_page_contents.data?.find((contents) => {
+    return contents.attributes.unique_identifier_name === unique_identifier_name;
+  });
+};
+export const getSectionToolsData = (data: IToolsPage_Data, unique_identifier_name: string) => {
+  return data.attributes.tools_page_contents.data?.find((contents) => {
     return contents.attributes.unique_identifier_name === unique_identifier_name;
   });
 };

@@ -35,7 +35,7 @@ const ServicesPopUpModal = () => {
 
     window?.addEventListener('resize', updateWidth);
 
-    return () => window?.removeEventListener('resize', updateWidth);
+    return () => {return window?.removeEventListener('resize', updateWidth);};
   }, []);
 
   const handleModalClose = () => {

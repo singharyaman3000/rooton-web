@@ -1,0 +1,29 @@
+@media screen and (min-width: 40.0625em) {
+  .heading_page {
+    font-size: 2.25rem;
+    letter-spacing: 0.5px;
+    line-height: 2.75rem;
+    margin-bottom: 32px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .heading_page {
+    font-size: 25px;
+    letter-spacing: 0.5px;
+    line-height: 2.75rem;
+    margin-bottom: 32px;
+  }
+}
+
+.heading {
+  margin: 0;
+  font-weight: 300;
+  margin-bottom: 24px;
+  margin-top: 64px;
+}
+
+@media screen and (max-width: 600px) {
+  .button_width {
+    width: 100% !important;
+  }
+}

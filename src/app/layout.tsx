@@ -5,6 +5,8 @@ import React from 'react';
 import ThemeSwitchProvider from '../providers/themeProviders';
 import { metaInfo } from './constants/pageMetaInfo';
 import GoogleAnalytics from './GoogleAnalytics';
+import { UserProvider } from '@/components/LoginInPage/UserData';
+import { HeaderDataProvider } from '@/hooks/HeaderDataProvider';
 
 export const metadata: Metadata = {
   title: metaInfo.home.title,
@@ -37,8 +39,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning lang="en">
       <body className={`${FontJakarta.variable} ${FontJakarta.className} bg-primary-bg !static`}>
         <ThemeSwitchProvider>
-          <GoogleAnalytics/>
-          {children}
+          <GoogleAnalytics />
+          <UserProvider>
+            <HeaderDataProvider>
+              {children}
+            </HeaderDataProvider>
+          </UserProvider>
         </ThemeSwitchProvider>
       </body>
     </html>

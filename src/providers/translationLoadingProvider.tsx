@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useState, useEffect, ReactNode, useContext, useMemo } from 'react';
 
 interface ILoaderContext {
@@ -21,10 +23,10 @@ export const TranslationLoadingProvider = ({ children }: { children: ReactNode }
     const timer = setTimeout(() => {
       setLoader(false);
     }, 3200);
-    return () => clearTimeout(timer);
+    return () => {return clearTimeout(timer);};
   }, []);
 
-  const loaderValue = useMemo(() => ({ loader }), [loader]);
+  const loaderValue = useMemo(() => {return { loader };}, [loader]);
 
   return <LoaderContext.Provider value={loaderValue}>{children}</LoaderContext.Provider>;
 };

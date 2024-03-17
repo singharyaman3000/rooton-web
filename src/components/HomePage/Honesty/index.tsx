@@ -93,7 +93,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
           </motion.div>
         </motion.div>
         <div className="mb-6  lg:mb-[69px]">
-          <div className="honestyBackground honestycard grid grid-cols-1 border-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
+          <div className="honestyBackground honestycard grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px]">
             {cardsArray?.map((whyRootOn, index) => {
               return (
                 <HonestyCard

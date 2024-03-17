@@ -36,7 +36,7 @@ const TalkToOurExpert = () => {
         type='button'
         ref={buttonRef}
         onClick={() => {
-          setIsOpen((prevState) => !prevState);
+          setIsOpen((prevState) => {return !prevState;});
         }}
         className="text-sm talk-to-expert-btn font-bold min-h-[52px] text-white bg-black w-[157px] truncate px-5 py-4"
       >

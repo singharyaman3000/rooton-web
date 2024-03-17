@@ -11,7 +11,7 @@ import useScrollHeighLight from '../hooks/useScrollHeighLight';
 const APPROX_NAV_BAR_HEIGHT = 80;
 
 const ProcessesDeskTopView = ({ process }: IOurProcessData) => {
-  const refs = useMemo(() => process.map(() => React.createRef<HTMLDivElement>()), [process]);
+  const refs = useMemo(() => {return process.map(() => {return React.createRef<HTMLDivElement>();});}, [process]);
   const processLength: number = process?.length;
   const { selectedElem, movableTop } = useScrollHeighLight({
     isMobile: false,

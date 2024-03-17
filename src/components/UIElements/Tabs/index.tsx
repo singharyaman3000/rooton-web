@@ -18,7 +18,7 @@ const Tabs = ({ headerData, cssClass, tabBody, onTabChange, selectedTab }: ITabs
     <div className={cssClass}>
       <TabHeader
         selectedTab={selectedTab}
-        handleOnClick={(selectedTabData) => onTabChange(selectedTabData)}
+        handleOnClick={(selectedTabData) => {return onTabChange(selectedTabData);}}
         headerData={headerData}
       />
       <div className="min-h-[550px] max-h-[500px] mt-[26px] bg-pale-yellow relative">
