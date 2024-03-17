@@ -47,7 +47,9 @@ const LoginModalComponent = () => {
     try {
       setLoading(true);
       setSnackbarOpen(false);
-      const apiUrl = `${process.env.NEXT_SERVER_API_BASE_URL}/api/login`;
+      const API_BASEURL = process.env.NEXT_SERVER_API_BASE_URL;
+      console.log('API_BASEURL', API_BASEURL);
+      const apiUrl = `${API_BASEURL}/api/login`;
       const response = await axios.post(apiUrl, values);
       const token = response.data.access_token;
       if (token) {
