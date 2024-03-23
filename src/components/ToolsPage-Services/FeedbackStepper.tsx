@@ -60,6 +60,7 @@ const FeedbackStepper = ({ region, portalId, formId, target, onFormSubmit }: Fee
             target: `#${target}`,
             onFormSubmitted: () => {
               if (onFormSubmit) {
+                localStorage.setItem('feedback', 'Filled');
                 onFormSubmit();
               }
             },

@@ -20,7 +20,7 @@ export const getFetch = <T>(url: string, configs?: RequestInit): Promise<IFetchR
     .catch((error) => {
       const errorObj = {
         status: error.response?.status || error.response?.data.statusCode,
-        message: error.response?.statusText || error.response?.data.message || 'Something Went Wrong',
+        message: error.response?.statusText || error.response?.data?.message || 'Something Went Wrong',
         ...error.response?.data,
         error: true,
       };

@@ -191,11 +191,11 @@ const SignupModalComponent = () => {
           email: values.email,
         };
         localStorage.setItem('userToken', JSON.stringify(tokenData));
-        setApiMessage(apiResponse.Message || 'Oops! Looks like something went wrong. Please try again.');
+        setApiMessage(apiResponse?.Message || 'Oops! Looks like something went wrong. Please try again.');
         setApiError(false);
         setApiSuccess(true);
       } else {
-        setApiMessage(apiResponse.Message || 'Oops! Looks like something went wrong. Please try again.');
+        setApiMessage(apiResponse?.Message || 'Oops! Looks like something went wrong. Please try again.');
         setApiError(true);
         setApiSuccess(false);
       }

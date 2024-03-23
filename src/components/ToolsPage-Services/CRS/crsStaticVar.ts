@@ -1,13 +1,6 @@
-export const intake = [
-  'Fall 2024',
-  'Summer 2024',
-  'Winter 2024',
-  'Fall 2025',
-  'Summer 2025',
-  'Winter 2025',
-];
+export const intake = ['Fall 2024', 'Summer 2024', 'Winter 2024', 'Fall 2025', 'Summer 2025', 'Winter 2025'];
 
-export const languageProficiency = ['IELTS', 'PTE', 'GRE', 'GMAT', 'Duolingo'];
+export const languageProficiency = ['IELTS', 'TOEFL', 'PTE', 'GRE', 'GMAT', 'Duolingo'];
 
 export const budgetOptions = [
   { label: 'Up to 25000', value: '0 - 25000' },
