@@ -31,8 +31,8 @@ const EmailVerification = () => {
     try {
       const apiUrl = `${process.env.NEXT_SERVER_API_BASE_URL}/api/verification`;
       const response = await axios.post(apiUrl, { authId });
-      setMessage(response.data.Message);
-      setStatus(response.data.Status);
+      setMessage(response?.data?.Message || '');
+      setStatus(response?.data?.Status || '');
     } catch (error) {
       setMessage('An error occurred during verification.');
       setStatus('Error');
@@ -105,8 +105,8 @@ const EmailVerification = () => {
 
       const apiUrl = `${process.env.NEXT_SERVER_API_BASE_URL}/api/send-otp`;
       const response = await axios.post(apiUrl, dataToSend);
-      setMessage(response.data.Message);
-      setVerificationStatus(response.data.Status);
+      setMessage(response?.data?.Message || '');
+      setVerificationStatus(response?.data?.Status || '');
     } catch (error) {
       setMessage('Error resending email. Please try again.');
     } finally {
@@ -169,7 +169,7 @@ const EmailVerification = () => {
     <div className={styles.container}>
       <div className={styles.card}>
         <Image className={styles.logo} src={logo} alt="Logo" width={192} height={192} />
-        <p className={styles.subtitle}>{message}</p>
+        {message && <p className={styles.subtitle}>{message}</p>}
         <div className={styles.continueButton}>{renderContent()}</div>
         {status !== 'NoAuthId' && (
           <p className={styles.terms}>

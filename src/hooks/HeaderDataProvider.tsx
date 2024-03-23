@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 'use client';
 
 import React, { createContext, useContext, ReactNode, useMemo, useState } from 'react';
@@ -9,8 +11,11 @@ interface HeaderData {
   email: string;
   isLoggedIn: boolean;
   isProfileOverlay: boolean;
-  // eslint-disable-next-line no-unused-vars
   updateProfileOverlayState: (flag: boolean) => void;
+  updateProfileState: (flag: string) => void;
+  profileState: string;
+  toolsFormState: boolean;
+  updateToolsFormState: (flag: boolean) => void;
 }
 
 const HeaderDataContext = createContext<HeaderData | undefined>(undefined);
@@ -18,10 +23,28 @@ const HeaderDataContext = createContext<HeaderData | undefined>(undefined);
 export const HeaderDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { user } = useUser();
 
+  let profile_state: string | null = '';
   const [isProfileOverlay, setIsProfileOverlay] = useState(false);
+  const [toolsFormState, setToolsFormState] = useState(false);
+  const [profileState, setProfileState] = useState(profile_state||'');
+
+  if (typeof window !== 'undefined') {
+    profile_state = localStorage && localStorage.getItem('PROFILE_STATUS');
+  }
 
   const updateProfileOverlayState = (flag: boolean) => {
     setIsProfileOverlay(flag);
+  };
+
+  const updateToolsFormState = (flag: boolean) => {
+    setToolsFormState(flag);
+  };
+
+  const updateProfileState = (status: string) => {
+    setProfileState(status);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('PROFILE_STATUS',status);
+    }
   };
 
   const headerData = useMemo(() => {
@@ -34,9 +57,13 @@ export const HeaderDataProvider: React.FC<{ children: ReactNode }> = ({ children
       email: userEmail,
       isLoggedIn,
       isProfileOverlay,
+      profileState,
+      toolsFormState,
       updateProfileOverlayState,
+      updateProfileState,
+      updateToolsFormState,
     };
-  }, [user, isProfileOverlay]);
+  }, [user, isProfileOverlay, profileState, toolsFormState]);
 
   return <HeaderDataContext.Provider value={headerData}>{children}</HeaderDataContext.Provider>;
 };

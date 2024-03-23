@@ -42,6 +42,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import CSVIcon from '@/components/Icons/CSVIcon';
 import StepperPopup from '../Feedback';
 import { FaSync } from 'react-icons/fa';
+import Joyride, { STATUS } from 'react-joyride';
 
 type CollapsibleRowProps = {
   row: any;
@@ -54,10 +55,11 @@ type CollapsibleRowProps = {
   loading?: any;
   activeTab?: string;
   disabledButtons?: any;
+  profileState?: string;
 };
 
-const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => {
-  return <Tooltip {...props} classes={{ popper: className }} />;
+export const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => {
+  return <Tooltip {...props} classes={{ popper: className }} enterTouchDelay={0} />;
 })({
   [`& .${tooltipClasses.tooltip}`]: {
     fontSize: '14px',
@@ -73,6 +75,7 @@ const CollapsibleRow = memo(
     Role,
     updateVisaPRStatus,
     visaPRStatus,
+    profileState,
     loading,
     activeTab,
     disabledButtons,
@@ -212,12 +215,12 @@ const CollapsibleRow = memo(
                           <CustomWidthTooltip title={visaPRStatus[rowId]?.visa.description} arrow>
                             <HelpIcon className="cursor-pointer" />
                           </CustomWidthTooltip>
-                          <FaSync
+                          {profileState === 'UPDATED' && <FaSync
                             className={'ml-2 cursor-pointer'}
                             onClick={() => {
                               return updateVisaPRStatus && updateVisaPRStatus('Visa', row, rowId);
                             }}
-                          />
+                          />}
                         </>
                       )}
                     </div>
@@ -249,12 +252,12 @@ const CollapsibleRow = memo(
                           <CustomWidthTooltip title={visaPRStatus[rowId]?.pr.description} arrow>
                             <HelpIcon className="cursor-pointer" />
                           </CustomWidthTooltip>
-                          <FaSync
+                          {profileState === 'UPDATED' && <FaSync
                             className={'ml-2 cursor-pointer'}
                             onClick={() => {
                               return updateVisaPRStatus && updateVisaPRStatus('PR', row, rowId);
                             }}
-                          />
+                          />}
                         </>
                       )}
                     </div>
@@ -346,8 +349,9 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
   const [errorMessage, setErrorMessage] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
   const [fileType, setFileType] = useState('');
-  const { updateProfileOverlayState } = useHeaderData();
+  const { updateProfileOverlayState, updateProfileState, profileState } = useHeaderData();
   const { logo_name } = useHeaderData();
+  const [run, setRun] = useState(false);
 
   const portalId = '7535538';
   const formId = 'c4d218bc-6b53-4471-af8a-23dec8e26ab7';
@@ -361,6 +365,27 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
     // Reseting disabledButtons when tableData or tableData2 changes
     setDisabledButtons({});
   }, [tableData, tableData2]);
+
+  useEffect(() => {
+    if (tableData.table1.length > 0) {
+      const isTour = localStorage.getItem('CRS_TABLE_TOUR_DISABLE');
+      if (isTour === 'Yes' && !spin) {
+        setRun(false);
+      } else if(!spin) {
+        setRun(true);
+      }
+    }
+  }, [spin, tableData]);
+
+  // Callback function to handle the tour events
+  const handleJoyrideCallback = (data: any) => {
+    const { status, action } = data;
+    // Check if the tour is finished or skipped
+    if (!spin && [STATUS.FINISHED, STATUS.SKIPPED].includes(status) || action === 'close') {
+      localStorage.setItem('CRS_TABLE_TOUR_DISABLE', 'Yes');
+      setRun(false); // Stops the tour
+    }
+  };
 
   const updateVisaPRStatus = (action: string, course: object, rowId: any) => {
     setSnackbarOpen(false);
@@ -386,6 +411,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       .then((response) => {
+        updateProfileState('');
         setLoading((prev) => {
           return { ...prev, [`${action.toLowerCase()}_${rowId}`]: false };
         });
@@ -395,8 +421,8 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
             [rowId]: {
               ...prev[rowId],
               [action.includes('Visa') ? 'visa' : 'pr']: {
-                chances: response.data.Message['PR Chances'] || response.data.Message['Visa Chances'],
-                description: response.data.Message.Description || '',
+                chances: response?.data?.Message?.['PR Chances'] || response?.data?.Message?.['Visa Chances'],
+                description: response?.data?.Message?.Description || '',
               },
             },
           };
@@ -450,7 +476,6 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
       : [];
 
   const handleFileDownload = () => {
-
     if (fileType === 'Eligible') {
       downloadCSV(tableData.table1, `${logo_name}'s Eligible Courses.csv`);
     } else if (fileType === 'NonEligible') {
@@ -461,12 +486,65 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
     setShowFeedback(false);
   };
 
+  const handleFileDownloadWithoutFeedback = (type: string) => {
+    if (type === 'Eligible') {
+      downloadCSV(tableData.table1, `${logo_name}'s Eligible Courses.csv`);
+    } else if (type === 'NonEligible') {
+      downloadCSV(tableData2.table2, `${logo_name}'s Non Eligible Courses.csv`);
+    }
+  };
+
+  const steps = [
+    {
+      target: '.step01',
+      content: 'Select a tab to display the courses you are eligible or ineligible for.',
+      disableBeacon: true,
+    },
+    {
+      target: '.step02',
+      content: 'You can get the list of recommended courses from here after providing feedback.',
+      disableBeacon: true,
+    },
+    {
+      target: '.step03',
+      content: 'If you want more accurate Visa and Pr probablity, we suggest you fill the profile page details for best outcomes.',
+      disableBeacon: true,
+    },
+    {
+      target: '.step04',
+      content: 'Click on the arrow icons to expand the rows and view more information about the course.',
+      disableBeacon: true,
+    },
+  ];
+
   return (
     <div>
       <div className="txtContainer setHeight bblack-bac">
+        <Joyride
+          continuous
+          scrollToFirstStep
+          run={run}
+          scrollOffset={300}
+          showProgress
+          showSkipButton
+          disableOverlayClose
+          steps={steps}
+          callback={handleJoyrideCallback}
+          styles={{
+            options: {
+              zIndex: 100,
+            },
+            buttonNext: {
+              backgroundColor: '#D08420',
+            },
+            buttonBack: {
+              color: '#2A2B2D',
+            },
+          }}
+        />
         {uniqueTableData1.length > 0 && (
           <div className={`${styles.tabsContainer}`}>
-            <div className={`${styles.tabs}`}>
+            <div className={`step01 ${styles.tabs}`}>
               <button
                 type="button"
                 className={`${styles.tab_button} ${activeTab === 'eligible' ? `${styles.active}` : ''}`}
@@ -491,11 +569,16 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
               <div
                 data-tooltip
                 onClick={() => {
-                  setShowFeedback(true);
-                  setFileType('Eligible');
+                  const feedback = localStorage.getItem('feedback');
+                  if (feedback === 'Filled') {
+                    handleFileDownloadWithoutFeedback('Eligible');
+                  } else {
+                    setShowFeedback(true);
+                    setFileType('Eligible');
+                  }
                 }}
                 aria-label="Download Eligible"
-                className="relative cursor-pointer mr-4"
+                className="relative step02 cursor-pointer mr-4"
               >
                 <CSVIcon />
               </div>
@@ -504,8 +587,13 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
               <div
                 data-tooltip
                 onClick={() => {
-                  setShowFeedback(true);
-                  setFileType('NonEligible');
+                  const feedback = localStorage.getItem('feedback');
+                  if (feedback === 'Filled') {
+                    handleFileDownloadWithoutFeedback('NonEligible');
+                  } else {
+                    setShowFeedback(true);
+                    setFileType('NonEligible');
+                  }
                 }}
                 aria-label="Download Non Eligible"
                 className="relative cursor-pointer mr-4"
@@ -543,7 +631,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                     </TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody className='step04'>
                   {uniqueTableData1.map((row, index) => {
                     return (
                       <CollapsibleRow
@@ -558,13 +646,14 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                         loading={loading}
                         activeTab={activeTab}
                         disabledButtons={disabledButtons}
+                        profileState={profileState}
                       />
                     );
                   })}
                 </TableBody>
               </Table>
             </TableContainer>
-            <Alert variant="outlined" severity="warning" className="mt-4">
+            <Alert variant="outlined" severity="warning" className="mt-4 step03">
               <div className="text-primary-text !font-bold">
                 If you&apos;re not happy with the PR or Visa Probability, we encourage you to fully complete your
                 profile information by{' '}
@@ -614,6 +703,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                           toggleNotes={toggleNotes}
                           expandedNotes={expandedNotes}
                           rowId={`not-eligible-${index}`}
+                          profileState={profileState}
                         />
                       );
                     })}

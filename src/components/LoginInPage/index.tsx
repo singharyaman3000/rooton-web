@@ -56,7 +56,7 @@ const LoginModalComponent = () => {
         window.location.href = toolsUrl;
       }
     } catch (error: any) {
-      if (error.response && error.response.data.detail) {
+      if (error?.response && error?.response?.data?.detail) {
         setErrorMessage(error.response.data.detail);
       } else {
         setErrorMessage('Oops! Looks like something went wrong. Please try again.');

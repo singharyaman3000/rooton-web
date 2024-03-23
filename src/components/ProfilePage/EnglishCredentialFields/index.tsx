@@ -15,9 +15,11 @@ import Select, { MultiValue } from 'react-select';
 
 const examOptions = [
   { value: 'IELTS', label: 'IELTS' },
+  { value: 'TOEFL', label: 'TOEFL' },
   { value: 'PTE', label: 'PTE' },
   { value: 'GRE', label: 'GRE' },
   { value: 'GMAT', label: 'GMAT' },
+  { value: 'DUOLINGO', label: 'DUOLINGO' },
 ];
 
 type PersonalInformationFieldsProps = {
@@ -157,7 +159,9 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
         ? profileData.map((data: any) => {
           return {
             id: data.id || uuidv4(),
-            selectedExams: Object.keys(data.exams).map((exam) => { return exam.toUpperCase(); }),
+            selectedExams: Object.keys(data.exams).map((exam) => {
+              return exam.toUpperCase();
+            }),
             decision: data.exams,
             scores: Object.keys(data.exams).reduce((acc: any, examKey: string) => {
               const examScores = data.exams[examKey].scores || {};
@@ -358,7 +362,6 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
               max={90}
               errorMessage="Please enter a number between 10 and 90."
               value={experiences[index]?.decision?.[examType]?.scores?.listening || ''}
-
             />
             <ScoreInputField
               label="Speaking"
@@ -519,7 +522,7 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
               examType="GMAT"
               index={index}
               onChange={(value) => {
-                return handleScoreChange(value, 'GMAT', 'GMAT', index);
+                return handleScoreChange(value, 'verbal', 'GMAT', index);
               }}
               type="number"
               placeholder="0 to 60"
@@ -598,6 +601,190 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
       return null;
     };
 
+    const renderAdditionalDUOLINGOFields = (index: number) => {
+      const examType = 'DUOLINGO';
+      const examDecision = experiences[index]?.decision?.DUOLINGO?.decision ?? '';
+      if (examDecision === 'Already gave the exam') {
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-9 mt-4">
+            <ScoreInputField
+              label="Literacy"
+              id={`duolingo-literacy-${index}`}
+              fieldName="literacy"
+              examType="DUOLINGO"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'literacy', 'DUOLINGO', index);
+              }}
+              type="number"
+              placeholder="10 to 160"
+              min={10}
+              max={160}
+              errorMessage="Please enter a number between 10 and 160."
+              value={experiences[index]?.decision?.[examType]?.scores?.literacy || ''}
+            />
+            <ScoreInputField
+              label="Comprehension"
+              id={`duolingo-comprehension-${index}`}
+              fieldName="comprehension"
+              examType="DUOLINGO"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'comprehension', 'DUOLINGO', index);
+              }}
+              type="number"
+              placeholder="10 to 160"
+              min={10}
+              max={160}
+              errorMessage="Please enter a number between 10 and 160."
+              value={experiences[index]?.decision?.[examType]?.scores?.comprehension || ''}
+            />
+            <ScoreInputField
+              label="Conversation"
+              id={`duolingo-conversation-${index}`}
+              fieldName="conversation"
+              examType="DUOLINGO"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'conversation', 'DUOLINGO', index);
+              }}
+              type="number"
+              placeholder="10 to 160"
+              min={10}
+              max={160}
+              errorMessage="Please enter a number between 10 and 160."
+              value={experiences[index]?.decision?.[examType]?.scores?.conversation || ''}
+            />
+            <ScoreInputField
+              label="Production"
+              id={`duolingo-production-${index}`}
+              fieldName="production"
+              examType="DUOLINGO"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'production', 'DUOLINGO', index);
+              }}
+              type="number"
+              placeholder="10 to 160"
+              min={10}
+              max={160}
+              errorMessage="Please enter a number between 10 and 160."
+              value={experiences[index]?.decision?.[examType]?.scores?.production || ''}
+            />
+            <ScoreInputField
+              label="Overall"
+              id={`duolingo-overall-${index}`}
+              fieldName="overall"
+              examType="DUOLINGO"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'overall', 'DUOLINGO', index);
+              }}
+              type="number"
+              placeholder="10 to 160"
+              min={10}
+              max={160}
+              errorMessage="Please enter a number between 10 and 160."
+              value={experiences[index]?.decision?.[examType]?.scores?.overall || ''}
+            />
+          </div>
+        );
+      }
+      return null;
+    };
+
+    const renderAdditionalTOEFLFields = (index: number) => {
+      const examType = 'TOEFL';
+      const examDecision = experiences[index]?.decision?.TOEFL?.decision ?? '';
+      if (examDecision === 'Already gave the exam') {
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-9 mt-4">
+            <ScoreInputField
+              label="Reading"
+              id={`toefl-reading-${index}`}
+              fieldName="reading"
+              examType="TOEFL"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'reading', 'TOEFL', index);
+              }}
+              type="number"
+              placeholder="0 to 30"
+              min={0}
+              max={30}
+              errorMessage="Please enter a number between 0 and 30."
+              value={experiences[index]?.decision?.[examType]?.scores?.reading || ''}
+            />
+            <ScoreInputField
+              label="Listening"
+              id={`toefl-listening-${index}`}
+              fieldName="listening"
+              examType="TOEFL"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'listening', 'TOEFL', index);
+              }}
+              type="number"
+              placeholder="0 to 30"
+              min={0}
+              max={30}
+              errorMessage="Please enter a number between 0 and 30."
+              value={experiences[index]?.decision?.[examType]?.scores?.listening || ''}
+            />
+            <ScoreInputField
+              label="Speaking"
+              id={`toefl-speaking-${index}`}
+              fieldName="speaking"
+              examType="TOEFL"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'speaking', 'TOEFL', index);
+              }}
+              type="number"
+              placeholder="0 to 30"
+              min={0}
+              max={30}
+              errorMessage="Please enter a number between 0 and 30."
+              value={experiences[index]?.decision?.[examType]?.scores?.speaking || ''}
+            />
+            <ScoreInputField
+              label="Writing"
+              id={`toefl-writing-${index}`}
+              fieldName="writing"
+              examType="TOEFL"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'writing', 'TOEFL', index);
+              }}
+              type="number"
+              placeholder="0 to 30"
+              min={0}
+              max={30}
+              errorMessage="Please enter a number between 0 and 30."
+              value={experiences[index]?.decision?.[examType]?.scores?.writing || ''}
+            />
+            <ScoreInputField
+              label="Overall"
+              id={`toefl-overall-${index}`}
+              fieldName="overall"
+              examType="TOEFL"
+              index={index}
+              onChange={(value) => {
+                return handleScoreChange(value, 'overall', 'TOEFL', index);
+              }}
+              type="number"
+              placeholder="0 to 120"
+              min={0}
+              max={120}
+              errorMessage="Please enter a number between 0 and 120."
+              value={experiences[index]?.decision?.[examType]?.scores?.overall || ''}
+            />
+          </div>
+        );
+      }
+      return null;
+    };
+
     const renderScoreFields = (exam: string, index: number) => {
       if (experiences[index]?.decision?.[exam]?.decision === 'Already gave the exam') {
         switch (exam) {
@@ -609,6 +796,10 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
           return renderAdditionalGREFields(index);
         case 'GMAT':
           return renderAdditionalGMATFields(index);
+        case 'DUOLINGO':
+          return renderAdditionalDUOLINGOFields(index);
+        case 'TOEFL':
+          return renderAdditionalTOEFLFields(index);
         default:
           return null;
         }
@@ -622,7 +813,8 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
           return (
             <div
               key={experience.id}
-              className={`${style.mainContent} ${index !== 0 ? 'mt-[20px]' : 'mt-[47px]'
+              className={`${style.mainContent} ${
+                index !== 0 ? 'mt-[20px]' : 'mt-[47px]'
               } pl-5 pr-5 pb-8 mr-1 border-2 border-gray-300 p-4 mr-4`}
             >
               <div className="text-black position-relative font-bold text-lg mt-4 mb-4">Proficiency Test</div>
@@ -641,13 +833,13 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
                   })}
                 />
               </div>
-              {experience.selectedExams?.map((exam: string) => {
+              {experience.selectedExams?.map((exam: string, examIndex: number) => {
                 return (
                   <React.Fragment key={`${index}-${exam}`}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-9 mt-4">
                       <SelectFieldWithLabel
-                        id={`visarefusal-${index}-${exam}`}
-                        label={`${exam} Previous Visa Refusal`}
+                        id={`examdetails-${index}-${exam}`}
+                        label={`${exam} DETAILS`}
                         options={[
                           'Not decided',
                           'Already gave the exam',
@@ -657,13 +849,16 @@ export const EnglishCredentialFields = forwardRef<HTMLDivElement, FieldsProps>(
                         onChange={(event) => {
                           return handleExamDecisionChange(exam, index, event.target.value);
                         }}
-                        name="visarefusal"
+                        name="examdetails"
                         value={experiences[index].decision[exam]?.decision || ''}
                       />
                     </div>
                     {experience.decision &&
                       experience.decision[exam]?.decision === 'Already gave the exam' &&
                       renderScoreFields(exam, index)}
+                    {experience?.selectedExams?.length > 1 && experience?.selectedExams?.length !== examIndex + 1 && (
+                      <hr className="mt-4 border" />
+                    )}
                   </React.Fragment>
                 );
               })}

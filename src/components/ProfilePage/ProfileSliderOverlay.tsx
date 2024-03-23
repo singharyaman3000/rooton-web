@@ -48,12 +48,12 @@ type ProfileInfo = {
   additionalInformation?: any;
   spouseData?: any;
   _id?: string;
-}
+};
 
 type Payload = {
-  email: string,
-  profileInfo: ProfileInfo
-}
+  email: string;
+  profileInfo: ProfileInfo;
+};
 
 const ProfilePageComponent: React.FC<any> = () => {
   const { logo_name, email } = useHeaderData();
@@ -96,6 +96,7 @@ const ProfilePageComponent: React.FC<any> = () => {
   const [loadingProfileData, setLoadingProfileData] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const { updateProfileState } = useHeaderData();
 
   const fetchProfileData = () => {
     const token = localStorage.getItem('token');
@@ -121,7 +122,11 @@ const ProfilePageComponent: React.FC<any> = () => {
         setLoadingProfileData(false);
       })
       .catch((error) => {
-        setErrorMessage(`Error fetching profile data:${ error}`);
+        if (error?.response && error?.response?.data?.detail) {
+          setErrorMessage(error.response.data.detail);
+        } else {
+          setErrorMessage('Oops! Looks like something went wrong. Please try again.');
+        }
         setLoadingProfileData(false);
       });
   };
@@ -232,7 +237,8 @@ const ProfilePageComponent: React.FC<any> = () => {
   const SectionButton = ({ sectionKey, label }: SectionButtonProps) => {
     const isActive = activeSection === sectionKey && isSectionVisible;
     const Icon = isActive ? ProfileIcon : ProfileOrangeIcon;
-    const buttonClasses = `flex justify-between items-center w-full px-4 py-6 text-left font-bold text-md ${isActive ? `${style.activeButton} ${style.stickyButton}` : style.inactiveButton
+    const buttonClasses = `flex justify-between items-center w-full px-4 py-6 text-left font-bold text-md ${
+      isActive ? `${style.activeButton} ${style.stickyButton}` : style.inactiveButton
     }`;
 
     return (
@@ -268,7 +274,9 @@ const ProfilePageComponent: React.FC<any> = () => {
 
     const key = section === 'user' ? 'educationalExperiences' : 'spouseEducationalExperiences';
     const experiences = Array.isArray(newData[key]) ? newData[key] : [];
-    const experienceIndex = experiences.findIndex((exp: { id: string }) => { return exp.id === id; });
+    const experienceIndex = experiences.findIndex((exp: { id: string }) => {
+      return exp.id === id;
+    });
 
     if (experienceIndex > -1) {
       experiences[experienceIndex][field] = value;
@@ -286,7 +294,9 @@ const ProfilePageComponent: React.FC<any> = () => {
 
     const key = section === 'work' ? 'workExperiences' : 'spouseWorkExperiences';
     const experiences = Array.isArray(updatedData[key]) ? updatedData[key] : [];
-    const index = experiences.findIndex((exp: { id: string }) => { return exp.id === id; });
+    const index = experiences.findIndex((exp: { id: string }) => {
+      return exp.id === id;
+    });
 
     if (index !== -1) {
       experiences[index][field] = value;
@@ -300,7 +310,6 @@ const ProfilePageComponent: React.FC<any> = () => {
   };
 
   const handleTravelHistoryChange = (updatedHistories: any) => {
-
     setProfileData((prevProfileData: any) => {
       return {
         ...prevProfileData,
@@ -366,7 +375,8 @@ const ProfilePageComponent: React.FC<any> = () => {
               <SpouseFields
                 onChange={handleSpouseDataChange}
                 maritalStatus={profileData.maritalStatus}
-                spouseData={profileData.spouseData ?? {}} />
+                spouseData={profileData.spouseData ?? {}}
+              />
             ),
           },
         ]
@@ -429,10 +439,7 @@ const ProfilePageComponent: React.FC<any> = () => {
         content: loadingProfileData ? (
           <ProfileDataLoader />
         ) : (
-          <VisaHistoryField
-            onChange={handleVisaHistoryChange}
-            experiencesData={profileData.visaHistories || []}
-          />
+          <VisaHistoryField onChange={handleVisaHistoryChange} experiencesData={profileData.visaHistories || []} />
         ),
       },
       {
@@ -441,7 +448,10 @@ const ProfilePageComponent: React.FC<any> = () => {
         content: loadingProfileData ? (
           <ProfileDataLoader />
         ) : (
-          <AdditionalInformationFields onChange={handleAdditionalInformationChange} data={profileData.additionalInformation ?? {}} />
+          <AdditionalInformationFields
+            onChange={handleAdditionalInformationChange}
+            data={profileData.additionalInformation ?? {}}
+          />
         ),
       },
     ];
@@ -485,7 +495,8 @@ const ProfilePageComponent: React.FC<any> = () => {
             <SpouseFields
               onChange={handleSpouseDataChange}
               maritalStatus={profileData.maritalStatus}
-              spouseData={profileData.spouseData ?? {}} />
+              spouseData={profileData.spouseData ?? {}}
+            />
           )}
         </>
       );
@@ -538,16 +549,18 @@ const ProfilePageComponent: React.FC<any> = () => {
         return <ProfileDataLoader />;
       }
       return (
-        <VisaHistoryField
-          onChange={handleVisaHistoryChange}
-          experiencesData={profileData.visaHistories || []}
-        />
+        <VisaHistoryField onChange={handleVisaHistoryChange} experiencesData={profileData.visaHistories || []} />
       );
     case 'addInfo':
       if (loadingProfileData) {
         return <ProfileDataLoader />;
       }
-      return <AdditionalInformationFields onChange={handleAdditionalInformationChange} data={profileData.additionalInformation ?? {}} />;
+      return (
+        <AdditionalInformationFields
+          onChange={handleAdditionalInformationChange}
+          data={profileData.additionalInformation ?? {}}
+        />
+      );
     default:
       return null;
     }
@@ -587,25 +600,33 @@ const ProfilePageComponent: React.FC<any> = () => {
 
     try {
       setSnackbarOpen(false);
-      await axios.put(
-        `${process.env.NEXT_SERVER_API_BASE_URL}/api/update-profile-info`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await axios.put(`${process.env.NEXT_SERVER_API_BASE_URL}/api/update-profile-info`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       setSaveStatus('Saved !');
       setFormEdited(false);
       callback();
+      updateProfileState('UPDATED');
     } catch (error: any) {
       setLoadingSaveAndNext(false);
       setLoadingSave(false);
       setSnackbarOpen(true);
-      const apiErrorMessage = error?.response?.data?.detail || error?.message || error;
-      setErrorMessage(apiErrorMessage);
+      if (axios.isAxiosError(error) && error.response) {
+        const apiErrorMessage = error?.response?.data?.detail || error?.message || error;
+        setErrorMessage(apiErrorMessage);
+        // Check for 404 status code and handle accordingly
+        if (error?.response?.status === 404) {
+          localStorage.clear();
+          const loginUrl = params.lang ? `/${params.lang}/login` : '/login';
+          window.location.href = loginUrl;
+        }
+      } else {
+        setErrorMessage('An unexpected error occurred.');
+      }
+      updateProfileState('');
     }
   };
 
@@ -696,10 +717,7 @@ const ProfilePageComponent: React.FC<any> = () => {
         </div>
       </div>
 
-      <SnackbarAlert
-        open={snackbarOpen}
-        message={errorMessage}
-      />
+      <SnackbarAlert open={snackbarOpen} message={errorMessage} />
     </>
   );
 };

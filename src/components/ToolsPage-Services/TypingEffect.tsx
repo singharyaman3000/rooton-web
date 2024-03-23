@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import PDFIcon from '../Icons/PDFIcon';
 import WordIcon from '../Icons/WordIcon';
 import StepperPopup from './Feedback';
+import { useHeaderData } from '@/hooks/HeaderDataProvider';
 
 interface TypingEffectProps {
   text: string;
@@ -20,6 +21,7 @@ const TypingEffect: React.FC<TypingEffectProps> = ({ text }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
   const [fileType, setFileType] = useState<'pdf' | 'docx' | null>(null);
+  const { updateToolsFormState } = useHeaderData();
 
   const portalId = '7535538';
   const formId = 'c4d218bc-6b53-4471-af8a-23dec8e26ab7';
@@ -34,12 +36,15 @@ const TypingEffect: React.FC<TypingEffectProps> = ({ text }) => {
           return prevIndex + 1;
         });
       }
+      if (currentIndex === text.length) {
+        updateToolsFormState(false);
+      }
     }, 5);
 
     return () => {
       return clearInterval(typingInterval);
     };
-  }, [text, currentIndex]);
+  }, [text, currentIndex, updateToolsFormState]);
 
   const generatePDF = () => {
     const doc = new JsPDF();
@@ -229,33 +234,53 @@ const TypingEffect: React.FC<TypingEffectProps> = ({ text }) => {
     setShowFeedback(false);
   };
 
+  const handleFileDownloadWithoutFeedback = (type: string) => {
+    if (type === 'pdf') {
+      generatePDF();
+    } else if (type === 'docx') {
+      generateWordDocument();
+    }
+  };
+
   return (
     <div>
       <div className="w-full h-screen">
-        {currentIndex === text.length && <div className="flex justify-end mb-2 mr-2">
-          <div
-            data-tooltip
-            onClick={() => {
-              setShowFeedback(true);
-              setFileType('pdf');
-            }}
-            aria-label="Download as PDF"
-            className="relative cursor-pointer mr-4"
-          >
-            <PDFIcon />
+        {currentIndex === text.length && (
+          <div className="flex justify-end mb-2 mr-2">
+            <div
+              data-tooltip
+              onClick={() => {
+                const feedback = localStorage.getItem('feedback');
+                if (feedback === 'Filled') {
+                  handleFileDownloadWithoutFeedback('pdf');
+                } else {
+                  setShowFeedback(true);
+                  setFileType('pdf');
+                }
+              }}
+              aria-label="Download as PDF"
+              className="relative cursor-pointer mr-4"
+            >
+              <PDFIcon />
+            </div>
+            <div
+              data-tooltip
+              onClick={() => {
+                const feedback = localStorage.getItem('feedback');
+                if (feedback === 'Filled') {
+                  handleFileDownloadWithoutFeedback('docx');
+                } else {
+                  setShowFeedback(true);
+                  setFileType('docx');
+                }
+              }}
+              aria-label="Download as Document"
+              className="relative cursor-pointer"
+            >
+              <WordIcon />
+            </div>
           </div>
-          <div
-            data-tooltip
-            onClick={() => {
-              setShowFeedback(true);
-              setFileType('docx');
-            }}
-            aria-label="Download as Document"
-            className="relative cursor-pointer"
-          >
-            <WordIcon />
-          </div>
-        </div>}
+        )}
         <div ref={htmlContentRef}>
           <ReactMarkdown className="w-full h-screen border border-golden-yellow p-2 leading-8 overflow-auto text-justify">
             {typedText}

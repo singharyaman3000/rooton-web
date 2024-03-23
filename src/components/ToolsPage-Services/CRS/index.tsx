@@ -11,7 +11,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Priority from '../Priority';
 import { useForm, Controller } from 'react-hook-form';
-import { GotData } from '@/components/ToolsPage-Services/Priority/GotData';
+import { CustomWidthTooltip, GotData } from '@/components/ToolsPage-Services/Priority/GotData';
 import { useUser } from '@/components/LoginInPage/UserData';
 import axios from 'axios';
 import Select from 'react-select';
@@ -21,6 +21,8 @@ import SnackbarAlert from '../Snackbar';
 import { intake, languageProficiency, budgetOptions } from '@/components/ToolsPage-Services/CRS/crsStaticVar';
 import getUserRole from '@/utils/userRole';
 import ToggleSwitch from './ToggleSwitch';
+import InfoIcon from '@mui/icons-material/Info';
+import Joyride, { STATUS } from 'react-joyride';
 
 interface OptionType {
   value: string;
@@ -75,19 +77,14 @@ export const CRS = () => {
   };
 
   const handleSubmitForm = (formData: any) => {
+    setIsError(false);
     setSpin(true);
     setSubmitting(true);
 
     const majorAndFieldOfStudy = `${formData.major ? `${formData.major}, ` : ''}${formData.fieldOfStudy}`;
 
     formData.Duration = formData.Duration ? String(formData.Duration * 12) : '';
-    const prepriority = [
-      'Level',
-      'Budget',
-      'Duration',
-      'Province',
-      'Intake',
-    ];
+    const prepriority = ['Level', 'Budget', 'Duration', 'Province', 'Intake'];
     let priorityOrder = prepriority;
     if (localStorage.getItem('prioritySaved')) {
       priorityOrder = JSON.parse(localStorage.getItem('prioritySaved') || '[]');
@@ -208,19 +205,18 @@ export const CRS = () => {
 
   const section0 = (
     <>
-      <div className="my-4">
-        <div className="flex justify-between">
+      <div className="my-4 step1">
+        <div className="flex justify-between mb-2">
           <label className="text-lg font-medium leading-6 text-black" htmlFor="fieldOfStudy">
             Preferred Field Of Study
             <span className="text-[#ff0000]">*</span>
           </label>
-          <div className='flex mb-1 hidden'>
+          <div className="flex mb-1 hidden">
             <ToggleSwitch isToggled={isToggled} onToggle={setIsToggled} />
             <label className="ml-2 text-lg font-small leading-6 text-black" htmlFor="fieldOfStudy">
               Fast Results (Experimental)
             </label>
           </div>
-
         </div>
         <Controller
           name="fieldOfStudy"
@@ -270,22 +266,26 @@ export const CRS = () => {
         />
       </div>
 
-      <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor={'major'}>
+      <div className="my-4 step2">
+        <label className="flex text-lg font-medium leading-6 text-black mb-2" htmlFor={'major'}>
           {'Preferred Area of Specialization'}
-          <span className="text-[#ff0000]">*</span>
+          <CustomWidthTooltip
+            title='If you’re unsure about your specialization, you’re welcome to leave this field blank'
+            arrow
+            placement="top"
+          >
+            <InfoIcon className="ml-2 cursor-pointer" />
+          </CustomWidthTooltip>
         </label>
         <input
           type="text"
           className="w-full px-3 py-3 text-black font-normal text-base leading-6 border border-solid border-gray-300 bg-white"
-          {...register('major', {
-            required: true,
-          })}
+          {...register('major')}
         />
       </div>
 
       <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor="LevelOfStudy">
+        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor="LevelOfStudy">
           Preferred Level Of Study<span className="text-[#ff0000]">*</span>
         </label>
         <Controller
@@ -331,7 +331,7 @@ export const CRS = () => {
       </div>
 
       <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor={'Budget'}>
+        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'Budget'}>
           {'Preferred Budget'}
         </label>
         <select
@@ -350,8 +350,15 @@ export const CRS = () => {
         </select>
       </div>
       <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor={'Duration'}>
-          {'Duration'}
+        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'Duration'}>
+          {'Duration'}{' '}
+          <CustomWidthTooltip
+            title="If you're open to varying durations, you may leave this field blank. If not, kindly indicate your preferred maximum course length."
+            arrow
+            placement="top"
+          >
+            <InfoIcon className="cursor-pointer ml-2" />
+          </CustomWidthTooltip>
         </label>
         <input
           type="number"
@@ -367,7 +374,7 @@ export const CRS = () => {
   const section1 = (
     <>
       <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor="Province">
+        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor="Province">
           Province
         </label>
         <Controller
@@ -381,7 +388,9 @@ export const CRS = () => {
               valueArray = value;
             }
 
-            const selectedOption = provinces.filter((option: OptionType) => { return valueArray.includes(option.value); });
+            const selectedOption = provinces.filter((option: OptionType) => {
+              return valueArray.includes(option.value);
+            });
 
             return (
               <Select
@@ -393,14 +402,28 @@ export const CRS = () => {
                 value={selectedOption}
                 closeMenuOnSelect={false}
                 onChange={(newValue, actionMeta) => {
-                  if (actionMeta.action === 'select-option' || actionMeta.action === 'remove-value' || actionMeta.action === 'clear') {
-                    onChange(newValue != null ? newValue.map((option: OptionType) => { return option.value; }) : []);
+                  if (
+                    actionMeta.action === 'select-option' ||
+                    actionMeta.action === 'remove-value' ||
+                    actionMeta.action === 'clear'
+                  ) {
+                    onChange(
+                      newValue != null
+                        ? newValue.map((option: OptionType) => {
+                          return option.value;
+                        })
+                        : [],
+                    );
                   }
                 }}
                 onBlur={onBlur}
                 styles={{
-                  option: (provided) => { return { ...provided, color: 'black' }; },
-                  singleValue: (provided) => { return { ...provided, color: 'black' }; },
+                  option: (provided) => {
+                    return { ...provided, color: 'black' };
+                  },
+                  singleValue: (provided) => {
+                    return { ...provided, color: 'black' };
+                  },
                 }}
               />
             );
@@ -409,7 +432,7 @@ export const CRS = () => {
       </div>
 
       <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor={'Intake'}>
+        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'Intake'}>
           {'Intake'}
         </label>
         <select
@@ -427,8 +450,8 @@ export const CRS = () => {
         </select>
       </div>
       <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor={'LanguageProficiency'}>
-          {'Choose yout LanguageProficiency test'}
+        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'LanguageProficiency'}>
+          {'Select the language proficiency exam'}
         </label>
         <select
           className="w-full px-3 py-3 text-black font-normal text-base leading-6 border border-solid border-gray-300 bg-white"
@@ -445,7 +468,7 @@ export const CRS = () => {
         </select>
       </div>
       <div className="my-4">
-        <label className="text-lg font-medium leading-6 text-black" htmlFor={'Score'}>
+        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'Score'}>
           {'Test Score'}
         </label>
         <input
@@ -470,75 +493,148 @@ export const CRS = () => {
 
   const totalSections = 2;
 
+  const formProgress = ((currentSection + 1) / totalSections) * 100;
+
+  const [run, setRun] = useState(false);
+
+  const steps = [
+    {
+      target: '.step1',
+      content: 'Select your preferred field of study.',
+      disableBeacon: true,
+    },
+    {
+      target: '.step2',
+      content: 'Please specify the area of specialization you are interested in, such as Computer Science, Business Administration, etc.',
+      disableBeacon: true,
+    },
+    {
+      target: '.step3',
+      content: 'Rearrange the items in order of your preference by dragging and dropping them.',
+      disableBeacon: true,
+    },
+    {
+      target: '.step4',
+      content: 'Click on "Next" once you have entered the details. Providing more details improves the quality of the recommendations you shall receive.',
+      disableBeacon: true,
+    },
+  ];
+
+  useEffect(() => {
+    const isTour = localStorage.getItem('CRS_TOUR_DISABLE');
+    if (isTour === 'Yes') {
+      setRun(false);
+    } else {
+      setRun(true);
+    }
+  }, []);
+
+  // Callback function to handle the tour events
+  const handleJoyrideCallback = (data: any) => {
+    const { status, action } = data;
+    // Check if the tour is finished or skipped
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status) || action === 'close') {
+      localStorage.setItem('CRS_TOUR_DISABLE', 'Yes');
+      setRun(false); // Stops the tour
+    }
+  };
+
   return (
-    <div className="p-5 lg:px-[80px] lg:pt-[20px] mt-10 mb-10 m-auto max-w-screen-2xl" ref={formContainerRef}>
-      <div className="flex flex-col">
-        <div className="flex-1 flex flex-col md:flex-row">
-          <div className="flex-1">
-            <form
-              className=" shadow-hubspot-form-shadow border border-golden-yellow justify-between relative overflow-hidden bg-pale-sandal"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              {/* <div className='p-4 lg:pl-[60px] w-full lg:w-[95%] py-12 lg:pb-4 lg:pr-0 sm:p-12'><H2>{'Course Recommendation System'}</H2></div> */}
-              <div className="flex flex-col sm:flex-row justify-between p-4 lg:pl-[60px] w-full lg:w-[95%] py-12 lg:pb-16 lg:pr-0 sm:p-12">
-                <div className="w-full parent-allFields">
-                  <div>
-                    <H2 className='text-black'>Questionnaire</H2>
-                    <div className="allFields">
-                      <div className="formFields formFields-CRS">{renderCurrentSection()}</div>
-                    </div>
-                    <div className="flex justify-center">
-                      <div className="flex flex-row justify-between w-full mt-10">
-                        <button
-                          className={`bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold ${currentSection === 0 ? 'opacity-50 cursor-not-allowed' : ''
-                          }`}
-                          type="button"
-                          onClick={handlePreviousSection}
-                          disabled={currentSection === 0}
-                        >
-                          Back
-                        </button>
-
-                        {currentSection < totalSections - 1 && (
+    <div>
+      <Joyride
+        continuous
+        scrollToFirstStep
+        run={run}
+        scrollOffset={300}
+        showProgress
+        showSkipButton
+        disableOverlayClose
+        steps={steps}
+        callback={handleJoyrideCallback}
+        styles={{
+          options: {
+            zIndex: 100,
+          },
+          buttonNext: {
+            backgroundColor: '#D08420',
+          },
+          buttonBack: {
+            color: '#2A2B2D',
+          },
+        }}
+      />
+      <div className="p-5 lg:px-[80px] lg:pt-[20px] mt-10 mb-10 m-auto max-w-screen-2xl" ref={formContainerRef}>
+        <div className="flex flex-col">
+          <div className="flex-1 flex flex-col md:flex-row">
+            <div className="flex-1">
+              <form
+                className=" shadow-hubspot-form-shadow border border-golden-yellow justify-between relative overflow-hidden bg-pale-sandal"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <div className="absolute top-0 left-0 h-1 bg-golden-yellow" style={{ width: `${formProgress}%` }}></div>
+                {/* <div className='p-4 lg:pl-[60px] w-full lg:w-[95%] py-12 lg:pb-4 lg:pr-0 sm:p-12'><H2>{'Course Recommendation System'}</H2></div> */}
+                <div className="flex flex-col sm:flex-row justify-between p-4 lg:pl-[60px] w-full lg:w-[95%] py-12 lg:pb-16 lg:pr-0 sm:p-12">
+                  <div className="w-full parent-allFields">
+                    <div>
+                      <H2 className="text-black">Questionnaire</H2>
+                      <div className="allFields">
+                        <div className="formFields formFields-CRS">{renderCurrentSection()}</div>
+                      </div>
+                      <div className="priorityFields w-full sm:w-[40%]  sm:ml-8 sm:hidden">
+                        <Priority />
+                      </div>
+                      <div className="flex justify-center">
+                        <div className="flex flex-row justify-between w-full mt-10">
                           <button
-                            className="bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
-                            type="button"
-                            onClick={handleNextSection}
-                            disabled={!isDirty || !isValid || submitting || isLoading}
-                          >
-                            Next
-                          </button>
-                        )}
-
-                        {currentSection === totalSections - 1 && (
-                          <button
-                            className={`bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold ${!isDirty || !isValid || submitting || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                            className={`bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold ${
+                              currentSection === 0 ? 'opacity-50 cursor-not-allowed' : ''
                             }`}
-                            type="submit"
-                            disabled={!isDirty || !isValid || submitting || isLoading}
+                            type="button"
+                            onClick={handlePreviousSection}
+                            disabled={currentSection === 0}
                           >
-                            {renderSubmitButton()}
+                            Back
                           </button>
-                        )}
+
+                          {currentSection < totalSections - 1 && (
+                            <button
+                              className="bg-black step4 text-white px-4 py-3.5 min-w-[100px] text-sm font-bold"
+                              type="button"
+                              onClick={handleNextSection}
+                              disabled={!isDirty || !isValid || submitting || isLoading}
+                            >
+                              Next
+                            </button>
+                          )}
+
+                          {currentSection === totalSections - 1 && (
+                            <button
+                              className={`bg-black text-white px-4 py-3.5 min-w-[100px] text-sm font-bold ${
+                                !isDirty || !isValid || submitting || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                              }`}
+                              type="submit"
+                              disabled={!isDirty || !isValid || submitting || isLoading}
+                            >
+                              {renderSubmitButton()}
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="priorityFields w-full sm:w-[40%]  sm:ml-8">
-                  <Priority />
+                  <div className="step3 priorityFields w-full sm:w-[40%]  sm:ml-8 hidden sm:block">
+                    <Priority />
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
+          <div className="w-full py-10 table_container" ref={tableContainerRef}>
+            <GotData tableData={tableData} tableData2={tableData2} spin={spin} userRole={userRole} />
+          </div>
+          <SnackbarAlert open={isError} message="Oops! Looks like something went wrong. Please try again." />
         </div>
-        <div className="w-full py-10 table_container" ref={tableContainerRef}>
-          <GotData tableData={tableData} tableData2={tableData2} spin={spin} userRole={userRole} />
-        </div>
-        <SnackbarAlert
-          open={isError}
-          message="Oops! Looks like something went wrong. Please try again."
-        />
       </div>
     </div>
   );
