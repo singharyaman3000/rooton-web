@@ -600,7 +600,7 @@ export const CRS = () => {
                       <div className="allFields">
                         <div className="formFields formFields-CRS">{renderCurrentSection()}</div>
                       </div>
-                      <div className="priorityFields w-full sm:w-[40%]  sm:ml-8 sm:hidden">
+                      <div className="step3 priorityFields w-full sm:w-[40%]  sm:ml-8 sm:hidden">
                         <Priority />
                       </div>
                       <div className="flex justify-center">
