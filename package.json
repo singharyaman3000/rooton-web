@@ -36,7 +36,7 @@
     "next": "13.4.9",
     "next-pwa": "^5.6.0",
     "next-themes": "^0.2.1",
-    "postcss": "8.4.25",
+    "postcss": "^8.4.38",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-calendly": "^4.1.1",
@@ -78,5 +78,14 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.0.0",
     "react-markdown": "^9.0.1"
+  },
+  "overrides": {
+    "react-html-parser": {
+      "react": "^18.2.0"
+    },
+    "react-simple-snackbar": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
+    }
   }
 }
