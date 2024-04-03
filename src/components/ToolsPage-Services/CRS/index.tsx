@@ -221,7 +221,7 @@ export const CRS = () => {
         <Controller
           name="fieldOfStudy"
           control={control}
-          rules={{ required: 'FIeld of Study is required' }}
+          rules={{ required: 'Field of Study is required' }}
           render={({ field: { onChange, value, ...field } }) => {
             const selectedOption =
               fieldsOfStudy.find((c: OptionType) => {
@@ -430,25 +430,45 @@ export const CRS = () => {
           }}
         />
       </div>
-
       <div className="my-4">
         <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'Intake'}>
           {'Intake'}
         </label>
-        <select
-          className="w-full px-3 py-3 text-black font-normal text-base leading-6 border border-solid border-gray-300 bg-white"
-          {...register('Intake')}
-        >
-          <option value="">Select your Intake</option>
-          {intake.map((val) => {
+        <Controller
+          name="Intake"
+          control={control}
+          render={({ field }) => {
+            const { onChange, onBlur, value } = field;
+            const valueArray = value || [];
+            const selectedIntakes = intake
+              .filter((i) => {return valueArray.includes(i);})
+              .map((intakeValue) => {return { value: intakeValue, label: intakeValue };});
+
             return (
-              <option key={val} value={val} className="options">
-                {val}
-              </option>
+              <Select
+                isMulti
+                closeMenuOnSelect={false}
+                onBlur={onBlur}
+                onChange={(newValue) => {
+                  onChange(newValue != null ? newValue.map((option: OptionType) => {return option?.value;}) : []);
+                }}
+                options={intake.map((intakeValue) => {return { value: intakeValue, label: intakeValue };})}
+                value={selectedIntakes}
+                className="text-base leading-8"
+                classNamePrefix="select"
+                placeholder="Select your Intakes"
+                styles={{
+                  option: (provided) => {return { ...provided, color: 'black' };},
+                  multiValue: (provided) => {return { ...provided, color: 'black' };},
+                  control: (provided) => {return { ...provided, color: 'black' };},
+                  singleValue: (provided) => {return { ...provided, color: 'black' };},
+                }}
+              />
             );
-          })}
-        </select>
+          }}
+        />
       </div>
+
       <div className="my-4">
         <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'LanguageProficiency'}>
           {'Select the language proficiency exam'}
