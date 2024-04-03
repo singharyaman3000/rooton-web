@@ -13,6 +13,7 @@
 
 import React, { useState, useCallback, memo, useMemo, useEffect } from 'react';
 import {
+  Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel,
   TableContainer,
   Table,
   TableBody,
@@ -292,6 +293,148 @@ const CollapsibleRow = memo(
   },
 );
 
+function DownloadDialog({ open, onClose, tableData, onDownload }: any) {
+  const allColumns = {
+    'InstituteName': false,
+    'Title': false,
+    'FieldOfStudy': false,
+    'Level': false,
+    'ApplicationFee': false,
+    'FeeText': false,
+    'Seasons': false,
+    'Status': false,
+    'Deadline': false,
+    'Length': false,
+    'InstituteCategory': false,
+    'Percentage': false,
+    'Backlog': false,
+    'Gap': false,
+    'Campus': false,
+    'City': false,
+    'Province': false,
+    'IeltsOverall': false,
+    'PteOverall': false,
+    'TOEFLOverall': false,
+    'DuolingoOverall': false,
+    'GRE': false,
+    'GMAT': false,
+  };
+
+  const columnLabels: any = {
+    'FieldOfStudy': 'Field of Study',
+    'Title': 'Title',
+    'InstituteName': 'Institute Name',
+    'Level': 'Level',
+    'ApplicationFee': 'Application Fee',
+    'FeeText': 'Fee Text',
+    'Seasons': 'Semester',
+    'Status': 'Status',
+    'Deadline': 'Deadline',
+    'Length': 'Length',
+    'InstituteCategory': 'Institute Category',
+    'Percentage': 'Percentage',
+    'Backlog': 'Backlog',
+    'Gap': 'Gap',
+    'Campus': 'Campus',
+    'City': 'City',
+    'Province': 'Province',
+    'IeltsOverall': 'Ielts Overall',
+    'PteOverall': 'Pte Overall',
+    'TOEFLOverall': 'TOEFL Overall',
+    'DuolingoOverall': 'Duolingo Overall',
+    'GRE': 'GRE',
+    'GMAT': 'GMAT',
+  };
+
+  const [selectedColumns, setSelectedColumns] = useState<any>(allColumns);
+
+  const handleToggleColumn = (column: any) => {
+    setSelectedColumns({ ...selectedColumns, [column]: !selectedColumns[column] });
+  };
+
+  const handleSelectAll = () => {
+    const updatedColumns: any = {};
+    Object.keys(allColumns).forEach((column) => {
+      updatedColumns[column] = true;
+    });
+    setSelectedColumns(updatedColumns);
+  };
+
+  const handleDeselectAll = () => {
+    const updatedColumns: any = {};
+    Object.keys(allColumns).forEach((column) => {
+      updatedColumns[column] = false;
+    });
+    setSelectedColumns(updatedColumns);
+  };
+
+  const handleSubmit = () => {
+    onDownload(tableData, selectedColumns);
+    onClose();
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <div className='bg-[var(--pale-sandal)] pb-2'>
+        <DialogTitle className='font-bold py-2 flex justify-center text-center items-center'>Select columns to download</DialogTitle>
+        <div className='flex'>
+          <div className='flex justify-center items-center w-[50%]'>
+            <Button className='text-white bg-black hover:bg-[#333333] text-sm font-bold rounded-none md:px-4 py-3.5 min-w-[100px]' onClick={handleSelectAll}>Select All</Button>
+          </div>
+          <div className='flex justify-center items-center w-[50%]'>
+            <Button className='text-white bg-black hover:bg-[#333333] text-sm font-bold rounded-none md:px-4 py-3.5 min-w-[100px]' onClick={handleDeselectAll}>Deselect All</Button>
+          </div>
+        </div>
+      </div>
+      <DialogContent>
+        <FormGroup className='grid grid-cols-1 md:grid-cols-3 gap-0'>
+          {Object.keys(selectedColumns).length > 0
+            ? Object.keys(selectedColumns).map((column) => {return (
+              <FormControlLabel
+                key={column}
+                control={<Checkbox checked={selectedColumns[column]} onChange={() => {return handleToggleColumn(column);}} />}
+                label={columnLabels[column]}
+              />
+            );})
+            : <p>No columns available.</p>
+          }
+        </FormGroup>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} className='text-black text-sm font-bold md:px-4 py-3.5 min-w-[100px]'>Cancel</Button>
+        <Button onClick={handleSubmit} className='text-white bg-black text-sm font-bold hover:bg-[#333333] disabled:bg-[#707070] disabled:text-white rounded-none md:px-4 py-3.5 min-w-[100px]' disabled={Object.values(selectedColumns).every((val) => {return !val;})}>
+          Download
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+// Example component that utilizes the DownloadDialog
+function MyComponent({ tableData, open, onClose }: any) {
+
+  const handleDownload = (data: any, selectedColumns: any) => {
+    const selectedColumnLabels = Object.keys(selectedColumns).filter((column) => {return selectedColumns[column];});
+    const headerRow = selectedColumnLabels.join(',');
+    const csvContent = [
+      headerRow,
+      ...data.map((row: any) => {return selectedColumnLabels.map((label) => {return `"${row[label] || ''}"`;}).join(',');}),
+    ].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'Course.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  return (
+    <DownloadDialog open={open} onClose={onClose} tableData={tableData} onDownload={handleDownload} />
+  );
+}
+
 function convertToCSV(objArray: any) {
   // Check if the data is a string and parse it if so
   const array = typeof objArray === 'string' ? JSON.parse(objArray) : objArray;
@@ -321,17 +464,6 @@ function convertToCSV(objArray: any) {
   return str;
 }
 
-function downloadCSV(data: any, filename: string) {
-  const csvData = convertToCSV(data);
-  const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.setAttribute('download', filename);
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
 interface GotDataProps {
   tableData: any;
   tableData2: any;
@@ -348,10 +480,11 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
-  const [fileType, setFileType] = useState('');
   const { updateProfileOverlayState, updateProfileState, profileState } = useHeaderData();
-  const { logo_name } = useHeaderData();
   const [run, setRun] = useState(false);
+  const [csvData, setCsvData] = useState<unknown>([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [fileType, setFileType] = useState('');
 
   const portalId = '7535538';
   const formId = 'c4d218bc-6b53-4471-af8a-23dec8e26ab7';
@@ -475,23 +608,26 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
       )
       : [];
 
-  const handleFileDownload = () => {
+  const handleCSVIconClickFeedback = () => {
     if (fileType === 'Eligible') {
-      downloadCSV(tableData.table1, `${logo_name}'s Eligible Courses.csv`);
+      setCsvData(uniqueTableData1);
     } else if (fileType === 'NonEligible') {
-      downloadCSV(tableData2.table2, `${logo_name}'s Non Eligible Courses.csv`);
+      setCsvData(uniqueTableData2);
     }
     // Reset after download
+    setShowDialog(true);
     setFileType('');
     setShowFeedback(false);
   };
 
-  const handleFileDownloadWithoutFeedback = (type: string) => {
+  const handleCSVIconClick = (type: string) => {
+    // Depending on the type, set the appropriate data for MyComponent
     if (type === 'Eligible') {
-      downloadCSV(tableData.table1, `${logo_name}'s Eligible Courses.csv`);
+      setCsvData(uniqueTableData1);
     } else if (type === 'NonEligible') {
-      downloadCSV(tableData2.table2, `${logo_name}'s Non Eligible Courses.csv`);
+      setCsvData(uniqueTableData2);
     }
+    setShowDialog(true);
   };
 
   const steps = [
@@ -571,7 +707,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                 onClick={() => {
                   const feedback = localStorage.getItem('feedback');
                   if (feedback === 'Filled') {
-                    handleFileDownloadWithoutFeedback('Eligible');
+                    handleCSVIconClick('Eligible');
                   } else {
                     setShowFeedback(true);
                     setFileType('Eligible');
@@ -589,7 +725,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                 onClick={() => {
                   const feedback = localStorage.getItem('feedback');
                   if (feedback === 'Filled') {
-                    handleFileDownloadWithoutFeedback('NonEligible');
+                    handleCSVIconClick('NonEligible');
                   } else {
                     setShowFeedback(true);
                     setFileType('NonEligible');
@@ -601,6 +737,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                 <CSVIcon />
               </div>
             )}
+            <MyComponent tableData={csvData} open={showDialog} onClose={() => {return setShowDialog(false);}} />
           </div>
         )}
         {activeTab === 'eligible' && uniqueTableData1.length > 0 && (
@@ -728,7 +865,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
           return setShowFeedback(false);
         }}
         onFormSubmit={() => {
-          handleFileDownload();
+          handleCSVIconClickFeedback();
         }}
         portalId={portalId}
         formId={formId}
