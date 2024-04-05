@@ -411,7 +411,7 @@ function DownloadDialog({ open, onClose, tableData, onDownload }: any) {
 }
 
 // Example component that utilizes the DownloadDialog
-function MyComponent({ tableData, open, onClose }: any) {
+function MyComponent({ tableData, open, onClose, csvName }: any) {
 
   const handleDownload = (data: any, selectedColumns: any) => {
     const selectedColumnLabels = Object.keys(selectedColumns).filter((column) => {return selectedColumns[column];});
@@ -424,7 +424,7 @@ function MyComponent({ tableData, open, onClose }: any) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', 'Course.csv');
+    link.setAttribute('download', csvName);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -481,8 +481,10 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
   const [errorMessage, setErrorMessage] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
   const { updateProfileOverlayState, updateProfileState, profileState } = useHeaderData();
+  const { logo_name } = useHeaderData();
   const [run, setRun] = useState(false);
   const [csvData, setCsvData] = useState<unknown>([]);
+  const [csvFileName, setCsvFileName] = useState('');
   const [showDialog, setShowDialog] = useState(false);
   const [fileType, setFileType] = useState('');
 
@@ -611,8 +613,10 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
   const handleCSVIconClickFeedback = () => {
     if (fileType === 'Eligible') {
       setCsvData(uniqueTableData1);
+      setCsvFileName(`${logo_name}'s Eligible Courses.csv`);
     } else if (fileType === 'NonEligible') {
       setCsvData(uniqueTableData2);
+      setCsvFileName(`${logo_name}'s Non Eligible Courses.csv`);
     }
     // Reset after download
     setShowDialog(true);
@@ -624,8 +628,10 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
     // Depending on the type, set the appropriate data for MyComponent
     if (type === 'Eligible') {
       setCsvData(uniqueTableData1);
+      setCsvFileName(`${logo_name}'s Eligible Courses.csv`);
     } else if (type === 'NonEligible') {
       setCsvData(uniqueTableData2);
+      setCsvFileName(`${logo_name}'s Non Eligible Courses.csv`);
     }
     setShowDialog(true);
   };
@@ -737,7 +743,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                 <CSVIcon />
               </div>
             )}
-            <MyComponent tableData={csvData} open={showDialog} onClose={() => {return setShowDialog(false);}} />
+            <MyComponent tableData={csvData} open={showDialog} onClose={() => {return setShowDialog(false);}} csvName={csvFileName}/>
           </div>
         )}
         {activeTab === 'eligible' && uniqueTableData1.length > 0 && (
