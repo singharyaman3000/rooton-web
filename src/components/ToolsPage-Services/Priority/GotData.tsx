@@ -327,7 +327,7 @@ function DownloadDialog({ open, onClose, tableData, onDownload }: any) {
     'Level': 'Level',
     'ApplicationFee': 'Application Fee',
     'FeeText': 'Fee Text',
-    'Seasons': 'Semester',
+    'Seasons': 'Intakes',
     'Status': 'Status',
     'Deadline': 'Deadline',
     'Length': 'Length',
