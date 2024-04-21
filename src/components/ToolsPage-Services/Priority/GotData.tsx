@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -13,7 +15,14 @@
 
 import React, { useState, useCallback, memo, useMemo, useEffect } from 'react';
 import {
-  Dialog, DialogTitle, DialogContent, DialogActions, Button, Checkbox, FormGroup, FormControlLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
   TableContainer,
   Table,
   TableBody,
@@ -25,6 +34,7 @@ import {
   Collapse,
   Chip,
   Link,
+  TextField,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -44,6 +54,9 @@ import CSVIcon from '@/components/Icons/CSVIcon';
 import StepperPopup from '../Feedback';
 import { FaSync } from 'react-icons/fa';
 import Joyride, { STATUS } from 'react-joyride';
+import FilterDataDropDown from './FilterDataDropDown';
+import { sortDataByCriteria } from './utils';
+import AppliedFilters from './AppliedFilters';
 
 type CollapsibleRowProps = {
   row: any;
@@ -87,12 +100,12 @@ const CollapsibleRow = memo(
       }
       if (Role === 'Counselor') {
         switch (row.InstituteCategory) {
-        case 'Direct':
-          return styles.direct;
-        case 'In Direct':
-          return styles.indirect;
-        default:
-          return styles.noTieUp;
+          case 'Direct':
+            return styles.direct;
+          case 'In Direct':
+            return styles.indirect;
+          default:
+            return styles.noTieUp;
         }
       }
     }, [row.InstituteCategory]);
@@ -216,12 +229,14 @@ const CollapsibleRow = memo(
                           <CustomWidthTooltip title={visaPRStatus[rowId]?.visa.description} arrow>
                             <HelpIcon className="cursor-pointer" />
                           </CustomWidthTooltip>
-                          {profileState === 'UPDATED' && <FaSync
-                            className={'ml-2 cursor-pointer'}
-                            onClick={() => {
-                              return updateVisaPRStatus && updateVisaPRStatus('Visa', row, rowId);
-                            }}
-                          />}
+                          {profileState === 'UPDATED' && (
+                            <FaSync
+                              className={'ml-2 cursor-pointer'}
+                              onClick={() => {
+                                return updateVisaPRStatus && updateVisaPRStatus('Visa', row, rowId);
+                              }}
+                            />
+                          )}
                         </>
                       )}
                     </div>
@@ -253,12 +268,14 @@ const CollapsibleRow = memo(
                           <CustomWidthTooltip title={visaPRStatus[rowId]?.pr.description} arrow>
                             <HelpIcon className="cursor-pointer" />
                           </CustomWidthTooltip>
-                          {profileState === 'UPDATED' && <FaSync
-                            className={'ml-2 cursor-pointer'}
-                            onClick={() => {
-                              return updateVisaPRStatus && updateVisaPRStatus('PR', row, rowId);
-                            }}
-                          />}
+                          {profileState === 'UPDATED' && (
+                            <FaSync
+                              className={'ml-2 cursor-pointer'}
+                              onClick={() => {
+                                return updateVisaPRStatus && updateVisaPRStatus('PR', row, rowId);
+                              }}
+                            />
+                          )}
                         </>
                       )}
                     </div>
@@ -295,55 +312,55 @@ const CollapsibleRow = memo(
 
 function DownloadDialog({ open, onClose, tableData, onDownload }: any) {
   const allColumns = {
-    'InstituteName': false,
-    'Title': false,
-    'FieldOfStudy': false,
-    'Level': false,
-    'ApplicationFee': false,
-    'FeeText': false,
-    'Seasons': false,
-    'Status': false,
-    'Deadline': false,
-    'Length': false,
-    'InstituteCategory': false,
-    'Percentage': false,
-    'Backlog': false,
-    'Gap': false,
-    'Campus': false,
-    'City': false,
-    'Province': false,
-    'IeltsOverall': false,
-    'PteOverall': false,
-    'TOEFLOverall': false,
-    'DuolingoOverall': false,
-    'GRE': false,
-    'GMAT': false,
+    InstituteName: false,
+    Title: false,
+    FieldOfStudy: false,
+    Level: false,
+    ApplicationFee: false,
+    FeeText: false,
+    Seasons: false,
+    Status: false,
+    Deadline: false,
+    Length: false,
+    InstituteCategory: false,
+    Percentage: false,
+    Backlog: false,
+    Gap: false,
+    Campus: false,
+    City: false,
+    Province: false,
+    IeltsOverall: false,
+    PteOverall: false,
+    TOEFLOverall: false,
+    DuolingoOverall: false,
+    GRE: false,
+    GMAT: false,
   };
 
   const columnLabels: any = {
-    'FieldOfStudy': 'Field of Study',
-    'Title': 'Title',
-    'InstituteName': 'Institute Name',
-    'Level': 'Level',
-    'ApplicationFee': 'Application Fee',
-    'FeeText': 'Fee Text',
-    'Seasons': 'Intakes',
-    'Status': 'Status',
-    'Deadline': 'Deadline',
-    'Length': 'Length',
-    'InstituteCategory': 'Institute Category',
-    'Percentage': 'Percentage',
-    'Backlog': 'Backlog',
-    'Gap': 'Gap',
-    'Campus': 'Campus',
-    'City': 'City',
-    'Province': 'Province',
-    'IeltsOverall': 'Ielts Overall',
-    'PteOverall': 'Pte Overall',
-    'TOEFLOverall': 'TOEFL Overall',
-    'DuolingoOverall': 'Duolingo Overall',
-    'GRE': 'GRE',
-    'GMAT': 'GMAT',
+    FieldOfStudy: 'Field of Study',
+    Title: 'Title',
+    InstituteName: 'Institute Name',
+    Level: 'Level',
+    ApplicationFee: 'Application Fee',
+    FeeText: 'Fee Text',
+    Seasons: 'Intakes',
+    Status: 'Status',
+    Deadline: 'Deadline',
+    Length: 'Length',
+    InstituteCategory: 'Institute Category',
+    Percentage: 'Percentage',
+    Backlog: 'Backlog',
+    Gap: 'Gap',
+    Campus: 'Campus',
+    City: 'City',
+    Province: 'Province',
+    IeltsOverall: 'Ielts Overall',
+    PteOverall: 'Pte Overall',
+    TOEFLOverall: 'TOEFL Overall',
+    DuolingoOverall: 'Duolingo Overall',
+    GRE: 'GRE',
+    GMAT: 'GMAT',
   };
 
   const [selectedColumns, setSelectedColumns] = useState<any>(allColumns);
@@ -375,34 +392,64 @@ function DownloadDialog({ open, onClose, tableData, onDownload }: any) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <div className='bg-[var(--pale-sandal)] pb-2'>
-        <DialogTitle className='font-bold py-2 flex justify-center text-center items-center'>Select columns to download</DialogTitle>
-        <div className='flex'>
-          <div className='flex justify-center items-center w-[50%]'>
-            <Button className='text-white bg-black hover:bg-[#333333] text-sm font-bold rounded-none md:px-4 py-3.5 min-w-[100px]' onClick={handleSelectAll}>Select All</Button>
+      <div className="bg-[var(--pale-sandal)] pb-2">
+        <DialogTitle className="font-bold py-2 flex justify-center text-center items-center">
+          Select columns to download
+        </DialogTitle>
+        <div className="flex">
+          <div className="flex justify-center items-center w-[50%]">
+            <Button
+              className="text-white bg-black hover:bg-[#333333] text-sm font-bold rounded-none md:px-4 py-3.5 min-w-[100px]"
+              onClick={handleSelectAll}
+            >
+              Select All
+            </Button>
           </div>
-          <div className='flex justify-center items-center w-[50%]'>
-            <Button className='text-white bg-black hover:bg-[#333333] text-sm font-bold rounded-none md:px-4 py-3.5 min-w-[100px]' onClick={handleDeselectAll}>Deselect All</Button>
+          <div className="flex justify-center items-center w-[50%]">
+            <Button
+              className="text-white bg-black hover:bg-[#333333] text-sm font-bold rounded-none md:px-4 py-3.5 min-w-[100px]"
+              onClick={handleDeselectAll}
+            >
+              Deselect All
+            </Button>
           </div>
         </div>
       </div>
       <DialogContent>
-        <FormGroup className='grid grid-cols-1 md:grid-cols-3 gap-0'>
-          {Object.keys(selectedColumns).length > 0
-            ? Object.keys(selectedColumns).map((column) => {return (
-              <FormControlLabel
-                key={column}
-                control={<Checkbox checked={selectedColumns[column]} onChange={() => {return handleToggleColumn(column);}} />}
-                label={columnLabels[column]}
-              />
-            );})
-            : <p>No columns available.</p>
-          }
+        <FormGroup className="grid grid-cols-1 md:grid-cols-3 gap-0">
+          {Object.keys(selectedColumns).length > 0 ?
+            Object.keys(selectedColumns).map((column) => {
+              return (
+                <FormControlLabel
+                  key={column}
+                  control={
+                    <Checkbox
+                      checked={selectedColumns[column]}
+                      onChange={() => {
+                        return handleToggleColumn(column);
+                      }}
+                    />
+                  }
+                  label={columnLabels[column]}
+                />
+              );
+            })
+           : (
+            <p>No columns available.</p>
+          )}
         </FormGroup>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} className='text-black text-sm font-bold md:px-4 py-3.5 min-w-[100px]'>Cancel</Button>
-        <Button onClick={handleSubmit} className='text-white bg-black text-sm font-bold hover:bg-[#333333] disabled:bg-[#707070] disabled:text-white rounded-none md:px-4 py-3.5 min-w-[100px]' disabled={Object.values(selectedColumns).every((val) => {return !val;})}>
+        <Button onClick={onClose} className="text-black text-sm font-bold md:px-4 py-3.5 min-w-[100px]">
+          Cancel
+        </Button>
+        <Button
+          onClick={handleSubmit}
+          className="text-white bg-black text-sm font-bold hover:bg-[#333333] disabled:bg-[#707070] disabled:text-white rounded-none md:px-4 py-3.5 min-w-[100px]"
+          disabled={Object.values(selectedColumns).every((val) => {
+            return !val;
+          })}
+        >
           Download
         </Button>
       </DialogActions>
@@ -412,13 +459,20 @@ function DownloadDialog({ open, onClose, tableData, onDownload }: any) {
 
 // Example component that utilizes the DownloadDialog
 function MyComponent({ tableData, open, onClose, csvName }: any) {
-
   const handleDownload = (data: any, selectedColumns: any) => {
-    const selectedColumnLabels = Object.keys(selectedColumns).filter((column) => {return selectedColumns[column];});
+    const selectedColumnLabels = Object.keys(selectedColumns).filter((column) => {
+      return selectedColumns[column];
+    });
     const headerRow = selectedColumnLabels.join(',');
     const csvContent = [
       headerRow,
-      ...data.map((row: any) => {return selectedColumnLabels.map((label) => {return `"${row[label] || ''}"`;}).join(',');}),
+      ...data.map((row: any) => {
+        return selectedColumnLabels
+          .map((label) => {
+            return `"${row[label] || ''}"`;
+          })
+          .join(',');
+      }),
     ].join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -430,9 +484,7 @@ function MyComponent({ tableData, open, onClose, csvName }: any) {
     document.body.removeChild(link);
   };
 
-  return (
-    <DownloadDialog open={open} onClose={onClose} tableData={tableData} onDownload={handleDownload} />
-  );
+  return <DownloadDialog open={open} onClose={onClose} tableData={tableData} onDownload={handleDownload} />;
 }
 
 function convertToCSV(objArray: any) {
@@ -450,10 +502,10 @@ function convertToCSV(objArray: any) {
       const row = header
         .map((fieldName) => {
           return JSON.stringify(item[fieldName], (key, value) =>
-          // Convert null to empty string for CSV output
-          {
-            return value === null ? '' : value;
-          },
+            // Convert null to empty string for CSV output
+            {
+              return value === null ? '' : value;
+            },
           );
         })
         .join(',');
@@ -473,7 +525,7 @@ interface GotDataProps {
 
 export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, userRole }) => {
   const [expandedNotes, setExpandedNotes] = useState({});
-  const [activeTab, setActiveTab] = useState('eligible');
+  const [activeTab, setActiveTab] = useState<string>('');
   const [loading, setLoading] = useState({});
   const [visaPRStatus, setVisaPRStatus] = useState({});
   const [disabledButtons, setDisabledButtons] = useState({});
@@ -487,6 +539,10 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
   const [csvFileName, setCsvFileName] = useState('');
   const [showDialog, setShowDialog] = useState(false);
   const [fileType, setFileType] = useState('');
+  const [userInfo, setUserInfo] = useState({ message: '', code: null });
+  const [showAlert, setShowAlert] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterCriteria, setFilterCriteria] = useState<string[]>([]);
 
   const portalId = '7535538';
   const formId = 'c4d218bc-6b53-4471-af8a-23dec8e26ab7';
@@ -496,9 +552,14 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
   useEffect(() => {
     // Reseting visaPRStatus when tableData or tableData2 changes
     setVisaPRStatus({});
-
+    setShowAlert(false);
     // Reseting disabledButtons when tableData or tableData2 changes
     setDisabledButtons({});
+    if (tableData.table1.length !== 0 || tableData2.table2.length !== 0) {
+      setActiveTab('eligible');
+    }else{
+      setActiveTab('');
+    }
   }, [tableData, tableData2]);
 
   useEffect(() => {
@@ -506,7 +567,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
       const isTour = localStorage.getItem('CRS_TABLE_TOUR_DISABLE');
       if (isTour === 'Yes' && !spin) {
         setRun(false);
-      } else if(!spin) {
+      } else if (!spin) {
         setRun(true);
       }
     }
@@ -516,7 +577,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
   const handleJoyrideCallback = (data: any) => {
     const { status, action } = data;
     // Check if the tour is finished or skipped
-    if (!spin && [STATUS.FINISHED, STATUS.SKIPPED].includes(status) || action === 'close') {
+    if ((!spin && [STATUS.FINISHED, STATUS.SKIPPED].includes(status)) || action === 'close') {
       localStorage.setItem('CRS_TABLE_TOUR_DISABLE', 'Yes');
       setRun(false); // Stops the tour
     }
@@ -540,7 +601,8 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
       ask: action,
       email: localStorage.getItem('userEmail'),
     };
-
+    setUserInfo({ message: '', code: null });
+    setShowAlert(false);
     axios
       .post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/visa-pr-prob`, payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -562,19 +624,39 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
             },
           };
         });
+        setShowAlert(true);
       })
       .catch((error) => {
         setLoading((prev) => {
           return { ...prev, [`${action.toLowerCase()}_${rowId}`]: false };
         });
-        setSnackbarOpen(true);
-        setErrorMessage('Oops! Looks like something went wrong. Please try again.');
+        if (error.response) {
+          setUserInfo({
+            message: error?.response?.data?.detail,
+            code: error.response.status,
+          });
+        } else {
+          setSnackbarOpen(true);
+          setErrorMessage('Oops! Looks like something went wrong. Please try again.');
+        }
+        setShowAlert(true);
       })
       .finally(() => {
         setLoading((prev) => {
           return { ...prev, [`${action.toLowerCase()}_${rowId}`]: false };
         });
       });
+  };
+
+  const createdMessage = () => {
+    if (userInfo.code === 422) {
+      return { __html: `<strong>${userInfo.message}</strong>` };
+    }
+    return {
+      __html:
+        // eslint-disable-next-line quotes
+        "If you're not happy with the PR or Visa Probability, we encourage you to <strong>fully complete your profile information</strong> by ",
+    };
   };
 
   const toggleNotes = useCallback((id: any) => {
@@ -587,27 +669,44 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
     setActiveTab(tabName);
   }, []);
 
+  // useMemo for filtering data
+  const filteredData = useMemo(() => {
+    const searchTermFilteredData: any[] = tableData.table1.filter((item: any) => {
+      return item.InstituteName.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    sortDataByCriteria(searchTermFilteredData, filterCriteria);
+    return searchTermFilteredData;
+  }, [tableData.table1, searchTerm, filterCriteria]);
+
+  const filteredData2 = useMemo(() => {
+    const searchTermFilteredData: any[] = tableData2.table2.filter((item: any) => {
+      return item.InstituteName.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    sortDataByCriteria(searchTermFilteredData, filterCriteria);
+    return searchTermFilteredData;
+  }, [tableData2.table2, searchTerm, filterCriteria]);
+
   if (spin) return <Loader />;
 
   const uniqueTableData1 =
     tableData && tableData.table1
       ? Array.from(
-        new Map(
-          tableData.table1.map((item: any) => {
-            return [JSON.stringify(item), item];
-          }),
-        ).values(),
-      )
+          new Map(
+            tableData.table1.map((item: any) => {
+              return [JSON.stringify(item), item];
+            }),
+          ).values(),
+        )
       : [];
   const uniqueTableData2 =
     tableData2 && tableData2.table2
       ? Array.from(
-        new Map(
-          tableData2.table2.map((item: any) => {
-            return [JSON.stringify(item), item];
-          }),
-        ).values(),
-      )
+          new Map(
+            tableData2.table2.map((item: any) => {
+              return [JSON.stringify(item), item];
+            }),
+          ).values(),
+        )
       : [];
 
   const handleCSVIconClickFeedback = () => {
@@ -649,7 +748,8 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
     },
     {
       target: '.step03',
-      content: 'If you want more accurate Visa and Pr probablity, we suggest you fill the profile page details for best outcomes.',
+      content:
+        'If you want more accurate Visa and PR probablity, we suggest you fill the profile page details for best outcomes.',
       disableBeacon: true,
     },
     {
@@ -684,70 +784,129 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
             },
           }}
         />
-        {uniqueTableData1.length > 0 && (
-          <div className={`${styles.tabsContainer}`}>
-            <div className={`step01 ${styles.tabs}`}>
-              <button
-                type="button"
-                className={`${styles.tab_button} ${activeTab === 'eligible' ? `${styles.active}` : ''}`}
-                onClick={() => {
-                  return handleTabClick('eligible');
+        {uniqueTableData1.length >= 0 && (
+          <div className="flex flex-col  w-full gap-3 mb-4">
+            <div className={`${styles.tabsContainer}`}>
+              {activeTab.length !== 0 && (
+                <div className={`step01 ${styles.tabs} ${styles.marginElBottom}`}>
+                  <button
+                    type="button"
+                    className={`${styles.tab_button} ${activeTab === 'eligible' ? `${styles.active}` : ''}`}
+                    onClick={() => {
+                      setSearchTerm('');
+
+                      return handleTabClick('eligible');
+                    }}
+                  >
+                    Eligible
+                  </button>
+                  <div className={`${styles.divider}`}></div>
+                  <button
+                    type="button"
+                    className={`${styles.tab_button} ${activeTab === 'notEligible' ? `${styles.active}` : ''}`}
+                    onClick={() => {
+                      setSearchTerm('');
+                      return handleTabClick('notEligible');
+                    }}
+                  >
+                    Non Eligible
+                  </button>
+                </div>
+              )}
+              {activeTab === 'eligible' && uniqueTableData1.length > 0 && (
+                <div className="flex items-center gap-4">
+                  <FilterDataDropDown filterCriteria={filterCriteria} setfilterCriteria={setFilterCriteria} />
+                  <div className="">
+                    <TextField
+                      label="Search by Institute Name"
+                      variant="outlined"
+                      value={searchTerm}
+                      onChange={(e) => {
+                        return setSearchTerm(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div
+                    data-tooltip
+                    onClick={() => {
+                      const feedback = localStorage.getItem('feedback');
+                      if (feedback === 'Filled') {
+                        handleCSVIconClick('Eligible');
+                      } else {
+                        setShowFeedback(true);
+                        setFileType('Eligible');
+                      }
+                    }}
+                    aria-label="Download Eligible"
+                    className="relative step02 cursor-pointer"
+                  >
+                    <CSVIcon />
+                  </div>
+                </div>
+              )}
+              {activeTab === 'notEligible' && uniqueTableData2.length > 0 && (
+                <div className="flex items-center">
+                  <div className="relative ml-auto mr-4">
+                    <TextField
+                      label="Search by Institute Name"
+                      variant="outlined"
+                      value={searchTerm}
+                      onChange={(e) => {
+                        return setSearchTerm(e.target.value);
+                      }}
+                      className="w-full"
+                    />
+                  </div>
+                  <div
+                    data-tooltip
+                    onClick={() => {
+                      const feedback = localStorage.getItem('feedback');
+                      if (feedback === 'Filled') {
+                        handleCSVIconClick('NonEligible');
+                      } else {
+                        setShowFeedback(true);
+                        setFileType('NonEligible');
+                      }
+                    }}
+                    aria-label="Download Non Eligible"
+                    className="relative cursor-pointer"
+                  >
+                    <CSVIcon />
+                  </div>
+                </div>
+              )}
+              <MyComponent
+                tableData={csvData}
+                open={showDialog}
+                onClose={() => {
+                  return setShowDialog(false);
                 }}
-              >
-                Eligible
-              </button>
-              <div className={`${styles.divider}`}></div>
-              <button
-                type="button"
-                className={`${styles.tab_button} ${activeTab === 'notEligible' ? `${styles.active}` : ''}`}
-                onClick={() => {
-                  return handleTabClick('notEligible');
-                }}
-              >
-                Non Eligible
-              </button>
+                csvName={csvFileName}
+              />
             </div>
-            {activeTab === 'eligible' && uniqueTableData1.length > 0 && (
-              <div
-                data-tooltip
-                onClick={() => {
-                  const feedback = localStorage.getItem('feedback');
-                  if (feedback === 'Filled') {
-                    handleCSVIconClick('Eligible');
-                  } else {
-                    setShowFeedback(true);
-                    setFileType('Eligible');
-                  }
-                }}
-                aria-label="Download Eligible"
-                className="relative step02 cursor-pointer mr-4"
-              >
-                <CSVIcon />
-              </div>
-            )}
-            {activeTab === 'notEligible' && uniqueTableData2.length > 0 && (
-              <div
-                data-tooltip
-                onClick={() => {
-                  const feedback = localStorage.getItem('feedback');
-                  if (feedback === 'Filled') {
-                    handleCSVIconClick('NonEligible');
-                  } else {
-                    setShowFeedback(true);
-                    setFileType('NonEligible');
-                  }
-                }}
-                aria-label="Download Non Eligible"
-                className="relative cursor-pointer mr-4"
-              >
-                <CSVIcon />
-              </div>
-            )}
-            <MyComponent tableData={csvData} open={showDialog} onClose={() => {return setShowDialog(false);}} csvName={csvFileName}/>
+            <AppliedFilters filterCriteria={filterCriteria} setfilterCriteria={setFilterCriteria} />
           </div>
         )}
-        {activeTab === 'eligible' && uniqueTableData1.length > 0 && (
+        {activeTab === 'eligible' && (
           <div className="mt-2">
+            {showAlert && (
+              <Alert severity="info" color="warning" className="mb-4 step03">
+                <div className="text-primary-text">
+                  <span dangerouslySetInnerHTML={createdMessage()} />
+                  <Link
+                    underline="none"
+                    component="button"
+                    variant="body2"
+                    className="!mb-[3px]"
+                    onClick={() => {
+                      updateProfileOverlayState(true);
+                    }}
+                  >
+                    clicking here.
+                  </Link>
+                </div>
+              </Alert>
+            )}
             {/* <h1>Eligible</h1> */}
             <TableContainer component={Paper} className="border border-[#D2D2D2] tableContainer">
               <Table stickyHeader aria-label="collapsible table">
@@ -774,45 +933,37 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                     </TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody className='step04'>
-                  {uniqueTableData1.map((row, index) => {
-                    return (
-                      <CollapsibleRow
-                        key={`eligible-${index}`}
-                        row={row}
-                        toggleNotes={toggleNotes}
-                        expandedNotes={expandedNotes}
-                        rowId={`eligible-${index}`}
-                        Role={userRole}
-                        updateVisaPRStatus={updateVisaPRStatus}
-                        visaPRStatus={visaPRStatus}
-                        loading={loading}
-                        activeTab={activeTab}
-                        disabledButtons={disabledButtons}
-                        profileState={profileState}
-                      />
-                    );
-                  })}
-                </TableBody>
+                {filteredData.length > 0 && (
+                  <TableBody className="step04">
+                    {filteredData.map((row: any, index: number) => {
+                      return (
+                        <CollapsibleRow
+                          key={`eligible-${index}`}
+                          row={row}
+                          toggleNotes={toggleNotes}
+                          expandedNotes={expandedNotes}
+                          rowId={`eligible-${index}`}
+                          Role={userRole}
+                          updateVisaPRStatus={updateVisaPRStatus}
+                          visaPRStatus={visaPRStatus}
+                          loading={loading}
+                          activeTab={activeTab}
+                          disabledButtons={disabledButtons}
+                          profileState={profileState}
+                        />
+                      );
+                    })}
+                  </TableBody>
+                )}
               </Table>
             </TableContainer>
-            <Alert variant="outlined" severity="warning" className="mt-4 step03">
-              <div className="text-primary-text !font-bold">
-                If you&apos;re not happy with the PR or Visa Probability, we encourage you to fully complete your
-                profile information by{' '}
-                <Link
-                  underline="none"
-                  component="button"
-                  variant="body2"
-                  className="!mb-[3px]"
-                  onClick={() => {
-                    updateProfileOverlayState(true);
-                  }}
-                >
-                  clicking here.
-                </Link>
+            {filteredData.length === 0 && (
+              <div className="border flex items-center justify-center p-3 w-full">
+                <Alert severity="warning" sx={{ width: '350px' }}>
+                  Sorry, we couldn&apos;t find any courses for you!
+                </Alert>
               </div>
-            </Alert>
+            )}
           </div>
         )}
         {activeTab === 'notEligible' && (
@@ -838,7 +989,7 @@ export const GotData: React.FC<GotDataProps> = ({ tableData, tableData2, spin, u
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {uniqueTableData2.map((row, index) => {
+                    {filteredData2.map((row: any, index: number) => {
                       return (
                         <CollapsibleRow
                           key={`not-eligible-${index}`}

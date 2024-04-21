@@ -23,6 +23,7 @@ import getUserRole from '@/utils/userRole';
 import ToggleSwitch from './ToggleSwitch';
 import InfoIcon from '@mui/icons-material/Info';
 import Joyride, { STATUS } from 'react-joyride';
+import ShowPartnerCollegeCoursesToggle from './ShowPartnerCollegeCoursesToggle';
 
 interface OptionType {
   value: string;
@@ -52,7 +53,10 @@ export const CRS = () => {
     register,
     handleSubmit,
     control,
-    formState: { isDirty, isValid },
+    watch,
+    setError,
+    clearErrors,
+    formState: { isDirty, isValid, errors },
   } = useForm({
     mode: 'onChange',
   });
@@ -71,10 +75,13 @@ export const CRS = () => {
   const [isError, setIsError] = useState(false);
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
   const [isToggled, setIsToggled] = useState(false);
+  const [showPartneredCollegeCourses, setShowPartneredCollegeCourses] = React.useState<boolean>(false);
 
   const handleWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
     e.currentTarget.blur();
   };
+
+  const selectedExam = watch('LanguageProficiency');
 
   const handleSubmitForm = (formData: any) => {
     setIsError(false);
@@ -110,9 +117,10 @@ export const CRS = () => {
       level: levelString,
       dictionary,
       LanguageProficiency: formData.LanguageProficiency,
-      Score: formData.score,
+      Score: formData.score|| 0,
       email,
       toggle: isToggled,
+      partneredtoggle: showPartneredCollegeCourses,
     };
 
     axios
@@ -120,8 +128,6 @@ export const CRS = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       .then(async (response) => {
-        const role = await getUserRole();
-        setUserRole(role);
         setTableData({ table1: response.data.data.eligible || [] });
         setTableData2({ table2: response.data.data.noteligible || [] });
         setSubmitting(false);
@@ -270,7 +276,7 @@ export const CRS = () => {
         <label className="flex text-lg font-medium leading-6 text-black mb-2" htmlFor={'major'}>
           {'Preferred Area of Specialization'}
           <CustomWidthTooltip
-            title='If you’re unsure about your specialization, you’re welcome to leave this field blank'
+            title="If you’re unsure about your specialization, you’re welcome to leave this field blank"
             arrow
             placement="top"
           >
@@ -441,8 +447,12 @@ export const CRS = () => {
             const { onChange, onBlur, value } = field;
             const valueArray = value || [];
             const selectedIntakes = intake
-              .filter((i) => {return valueArray.includes(i);})
-              .map((intakeValue) => {return { value: intakeValue, label: intakeValue };});
+              .filter((i) => {
+                return valueArray.includes(i);
+              })
+              .map((intakeValue) => {
+                return { value: intakeValue, label: intakeValue };
+              });
 
             return (
               <Select
@@ -450,18 +460,34 @@ export const CRS = () => {
                 closeMenuOnSelect={false}
                 onBlur={onBlur}
                 onChange={(newValue) => {
-                  onChange(newValue != null ? newValue.map((option: OptionType) => {return option?.value;}) : []);
+                  onChange(
+                    newValue != null
+                      ? newValue.map((option: OptionType) => {
+                        return option?.value;
+                      })
+                      : [],
+                  );
                 }}
-                options={intake.map((intakeValue) => {return { value: intakeValue, label: intakeValue };})}
+                options={intake.map((intakeValue) => {
+                  return { value: intakeValue, label: intakeValue };
+                })}
                 value={selectedIntakes}
                 className="text-base leading-8"
                 classNamePrefix="select"
                 placeholder="Select your Intakes"
                 styles={{
-                  option: (provided) => {return { ...provided, color: 'black' };},
-                  multiValue: (provided) => {return { ...provided, color: 'black' };},
-                  control: (provided) => {return { ...provided, color: 'black' };},
-                  singleValue: (provided) => {return { ...provided, color: 'black' };},
+                  option: (provided) => {
+                    return { ...provided, color: 'black' };
+                  },
+                  multiValue: (provided) => {
+                    return { ...provided, color: 'black' };
+                  },
+                  control: (provided) => {
+                    return { ...provided, color: 'black' };
+                  },
+                  singleValue: (provided) => {
+                    return { ...provided, color: 'black' };
+                  },
                 }}
               />
             );
@@ -488,15 +514,39 @@ export const CRS = () => {
         </select>
       </div>
       <div className="my-4">
-        <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'Score'}>
-          {'Test Score'}
-        </label>
+        <div className="flex  gap-2">
+          <label className="flex mb-2 text-lg font-medium leading-6 text-black" htmlFor={'Score'}>
+            {'Test Score'}
+          </label>
+          <p className="text-red-500 text-md italic">
+            {selectedExam?.length !== 0
+              ? 'A score is required if an exam is selected.'
+              : errors.score?.message?.toString()}
+          </p>
+        </div>
         <input
           type="number"
-          {...register('score')}
+          {...register('score', {
+            required: selectedExam?.length !== 0 ? 'A score is required if an exam is selected.' : false,
+            valueAsNumber: true,
+          })}
           step={0.5}
           onWheel={handleWheel}
-          className="w-full px-3 py-3 text-black font-normal text-base leading-6 border border-solid border-gray-300 bg-white"
+          onFocus={() => {
+            if (selectedExam === '') {
+              setError('score', {
+                type: 'manual',
+                message: 'Please select a language proficiency exam first.',
+              });
+            } else {
+              clearErrors('score');
+            }
+          }}
+          // className="w-full px-3 py-3 text-black font-normal text-base leading-6 border border-solid border-gray-300 bg-white"
+          disabled={selectedExam === ''} // Disable input if no exam is selected
+          className={`w-full px-3 py-3 text-black font-normal text-base leading-6 border border-solid ${
+            selectedExam === '' ? 'border-gray-300' : 'border-gray-200'
+          } bg-white`}
         />
       </div>
     </>
@@ -525,7 +575,8 @@ export const CRS = () => {
     },
     {
       target: '.step2',
-      content: 'Please specify the area of specialization you are interested in, such as Computer Science, Business Administration, etc.',
+      content:
+        'Please specify the area of specialization you are interested in, such as Computer Science, Business Administration, etc.',
       disableBeacon: true,
     },
     {
@@ -535,13 +586,23 @@ export const CRS = () => {
     },
     {
       target: '.step4',
-      content: 'Click on "Next" once you have entered the details. Providing more details improves the quality of the recommendations you shall receive.',
+      content:
+        'Click on "Next" once you have entered the details. Providing more details improves the quality of the recommendations you shall receive.',
       disableBeacon: true,
     },
   ];
 
   useEffect(() => {
     const isTour = localStorage.getItem('CRS_TOUR_DISABLE');
+    getUserRole()
+      .then((role) => {
+        if (role === 'Counselor') {
+          setUserRole(role);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     if (isTour === 'Yes') {
       setRun(false);
     } else {
@@ -596,7 +657,15 @@ export const CRS = () => {
                 <div className="flex flex-col sm:flex-row justify-between p-4 lg:pl-[60px] w-full lg:w-[95%] py-12 lg:pb-16 lg:pr-0 sm:p-12">
                   <div className="w-full parent-allFields">
                     <div>
-                      <H2 className="text-black">Questionnaire</H2>
+                      <div className="flex flex-col items-start justify-between">
+                        <H2 className="text-black">Questionnaire</H2>
+                        {userRole === 'Counselor' && (
+                          <ShowPartnerCollegeCoursesToggle
+                            setShowPartneredCollegeCourses={setShowPartneredCollegeCourses}
+                            showPartneredCollegeCourses={showPartneredCollegeCourses}
+                          />
+                        )}
+                      </div>
                       <div className="allFields">
                         <div className="formFields formFields-CRS">{renderCurrentSection()}</div>
                       </div>

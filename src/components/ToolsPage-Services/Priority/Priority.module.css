@@ -220,6 +220,10 @@
   /* You can change the font family as per your design */
 }
 
+.marginElBottom{
+  margin-bottom: 0px !important;
+}
+
 .tab_button {
   padding: 10px 20px;
   cursor: pointer;
