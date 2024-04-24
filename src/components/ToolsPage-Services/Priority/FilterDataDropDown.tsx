@@ -21,7 +21,7 @@ const opposingGroups: {
   'Course Fee - from low to high': 'Course Fee - from high to low',
   'Course Fee - from high to low': 'Course Fee - from low to high',
   'Application Fee - from low to high': 'Application Fee - from high to low',
-  'Application Fee - from high to low': 'Application Fee - From low to high',
+  'Application Fee - from high to low': 'Application Fee - from low to high',
   'Duration - from low to high': 'Duration - from high to low',
   'Duration - from high to low': 'Duration - from low to high',
 };
