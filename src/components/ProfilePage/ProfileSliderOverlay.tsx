@@ -20,6 +20,9 @@ import { SpouseFields } from './Spouse';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
+import AgreementSigner from '@/utils/AgreementSigner';
+import { Modal, ModalDialog, ModalClose, Typography } from '@mui/joy';
+import VistoIcon from '../Icons/VistoIcon';
 
 const Loader = () => {
   return (
@@ -97,6 +100,11 @@ const ProfilePageComponent: React.FC<any> = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { updateProfileState } = useHeaderData();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const fetchProfileData = () => {
     const token = localStorage.getItem('token');
@@ -706,6 +714,13 @@ const ProfilePageComponent: React.FC<any> = () => {
               {loadingSave ? <Loader /> : saveStatus}
             </button>
             <button
+              onClick={toggleModal}
+              className="bg-[#000] text-white py-3 px-6 focus:outline-none w-[11rem] min-w-[11rem] max-w-[11rem] focus:shadow-outline mt-4"
+              type="button"
+            >
+              <div className='flex items-center justify-center gap-2 w-max'>Onboard to <VistoIcon /></div>
+            </button>
+            <button
               onClick={handleSaveAndNext}
               className="bg-[#000] text-white py-3 px-6 focus:outline-none w-[11rem] min-w-[11rem] max-w-[11rem] focus:shadow-outline mt-4 hidden lg:block"
               type="submit"
@@ -716,6 +731,13 @@ const ProfilePageComponent: React.FC<any> = () => {
           </div>
         </div>
       </div>
+      <Modal open={isModalOpen} onClose={toggleModal} className='custom-modal'>
+        <ModalDialog variant="soft">
+          <ModalClose />
+          <Typography component="h2">Sign Agreement</Typography>
+          <AgreementSigner mail={formData.email} />
+        </ModalDialog>
+      </Modal>
 
       <SnackbarAlert open={snackbarOpen} message={errorMessage} />
     </>

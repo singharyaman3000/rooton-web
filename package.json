@@ -10,11 +10,13 @@
     "start-stg": "next start --port 8014"
   },
   "dependencies": {
+    "@docuseal/react": "^1.0.38",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
     "@mui/icons-material": "^5.15.10",
+    "@mui/joy": "^5.0.0-beta.36",
     "@mui/material": "^5.15.11",
     "@types/google-map-react": "^2.1.10",
     "@types/node": "20.4.1",
