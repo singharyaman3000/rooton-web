@@ -28,6 +28,7 @@ import CECForm from '../Forms/CECForm';
 import PNPForm from '../Forms/PNPForm';
 import PGPorm from '../Forms/PGPForm';
 import SSForm from '../Forms/SSForm';
+import PricingSectionWrapper from './PageSections/PricingSection';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -67,6 +68,10 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     return i.attributes.unique_identifier_name === 'service-insights';
   });
 
+  const pricings = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+    return i.attributes.unique_identifier_name === 'our_plans';
+  });
+
   const testimonials = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-testimonial';
   });
@@ -79,6 +84,13 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     return i.attributes.unique_identifier_name === 'blogs';
   });
 
+  const pricingTypes = Object.keys(pricings?.attributes?.json_content?.pricingDetails || []);
+
+  const [activepType] = useState(pricingTypes[0] || '');
+
+  const pricingDetails = pricings?.attributes?.json_content?.pricingDetails;
+  const filteredPricings = pricingDetails?.[activepType] || [];
+
   const sectionsByPosition = [
     whyChooseOpen,
     eligibility,
@@ -86,6 +98,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     leadForm,
     ctaBanner2,
     insights,
+    pricings,
     testimonials,
     ctaBanner1,
     faqs,
@@ -217,6 +230,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       );
     case 'service-process':
       return <ProcessSection key="process" process={process} />;
+    case 'our_plans':
+      return <PricingSectionWrapper key="plans" filteredPricings={filteredPricings} />;
     case 'service-lead-form':
       if (leadForm) {
         return (

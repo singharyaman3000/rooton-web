@@ -25,7 +25,7 @@ export type IFaq = {
   description: string;
 };
 
-type TrainingType = {
+export type TrainingType = {
   id: string;
   title: string;
   description: string | null;

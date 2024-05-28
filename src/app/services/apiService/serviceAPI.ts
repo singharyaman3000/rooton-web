@@ -3,6 +3,7 @@ import { getServiceAPIUrl } from './apiUrl/servicePage';
 import { IMediaUrlData } from './interfaces';
 import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 import { IProcess } from '@/components/HomePage/OurProcess/interfaces';
+import { TrainingType, pricingPlansDetails } from './coachingContentsAPI';
 
 type IEligibility = {
   key: string;
@@ -36,6 +37,12 @@ export type ISubServiceJSONContent = {
   process?: IProcess[];
   lead_forms?: ILeadForm[];
   faq?: IFaq[];
+  trainingDetails?: {
+    [key: string]: TrainingType[];
+  };
+  pricingDetails: {
+    [key: string]: pricingPlansDetails[];
+  };
 };
 
 type ISubServiceAttributes = {
