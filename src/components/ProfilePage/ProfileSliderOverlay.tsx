@@ -734,7 +734,7 @@ const ProfilePageComponent: React.FC<any> = () => {
       <Modal open={isModalOpen} onClose={toggleModal} className='custom-modal'>
         <ModalDialog variant="soft">
           <ModalClose />
-          <Typography component="h2">Sign Agreement</Typography>
+          <Typography component="h2">Sign Retainer Agreement</Typography>
           <AgreementSigner mail={formData.email} />
         </ModalDialog>
       </Modal>
