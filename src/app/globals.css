@@ -1218,3 +1218,6 @@ input[type="number"] {
   cursor: text;
 }
 
+.custom-modal {
+  z-index: 99990 !important;
+}
