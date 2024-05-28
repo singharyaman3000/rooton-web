@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getUserDoc = async (): Promise<string | undefined> => {
+const getUserDoc = async (email: string): Promise<string | undefined> => {
   try {
     const token = localStorage.getItem('token');
 
@@ -10,7 +10,7 @@ const getUserDoc = async (): Promise<string | undefined> => {
       return undefined;
     }
 
-    const response = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/userDoc`, 'harish.jinagam@rooton.ca-sv' , {
+    const response = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/userDoc`, { docstring:`${email}-sv` } , {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data.Slug;

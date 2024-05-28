@@ -13,7 +13,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail }) => {
   const [userDoc, setUserDoc] = useState('');
 
   useEffect(() => {
-    getUserDoc()
+    getUserDoc(mail)
       .then((doc) => {
         if (doc) {
           setUserDoc(doc);
@@ -22,7 +22,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail }) => {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [mail]);
 
   const handleLoad = () =>{
     setLoading(false);
