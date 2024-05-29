@@ -10,7 +10,7 @@ function PricingSectionWrapper({ filteredPricings }: PricingSectionProps) {
   return (
     <div className="px-[24px] md:px-[48px] lg:px-[80px]  mt-20 !py-0 pt-10 md:pt-[100px] m-auto max-w-screen-2k">
       <h2
-        className={'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] mb-10'}
+        className={'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem]'}
       >
         Our Plans
       </h2>
