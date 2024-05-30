@@ -45,13 +45,15 @@ export type pricingPlansDetails = {
   validity: string;
   planDescription: string;
   lead_forms?: ILeadForm[];
+  pricingINR?: string;
+  pricingCAD?: string;
   url: string;
   ctapurchase: string;
-}
+};
 
 export type pricingPlans = {
   pricingPlans: pricingPlansDetails[];
-}
+};
 
 export type ISubServiceJSONContent = {
   eligibility?: IEligibility[];
@@ -90,7 +92,7 @@ type ICoachingServiceSContents = {
 
 export type IpricingDetails = {
   pricingDetails: pricingPlans[];
-}
+};
 
 export type IPricing = {
   title: string;
@@ -135,7 +137,7 @@ type IAttributes = {
   training: ITraining;
   our_plans: IPricing;
   blogs: {
-    data: IBlogCardData[]
+    data: IBlogCardData[];
   };
 };
 
@@ -150,8 +152,9 @@ export type ICoachingServicePageContent = {
 
 export const getCoachingServicePageContent = async (coachingId: string) => {
   try {
-    const res = await getFetch<ICoachingServicePageContent>
-    (getCoachingAPIUrl(coachingId), { next: { revalidate: 10 } });
+    const res = await getFetch<ICoachingServicePageContent>(getCoachingAPIUrl(coachingId), {
+      next: { revalidate: 10 },
+    });
     return res;
   } catch (error) {
     return { error };

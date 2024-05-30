@@ -1,12 +1,22 @@
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import PricingSection from '@/components/CoachingPage-Services/PricingSection';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface PricingSectionProps {
   filteredPricings: pricingPlansDetails[];
 }
 
 function PricingSectionWrapper({ filteredPricings }: PricingSectionProps) {
+  const [currentDomain, setCurrentDomain] = useState<string>('');
+
+  const handleGetDomain = () => {
+    setCurrentDomain(window.location.origin);
+  };
+
+  useEffect(()=>{
+    handleGetDomain();
+  },[]);
+
   return (
     <div className="px-[24px] md:px-[48px] lg:px-[80px]  mt-20 !py-0 pt-10 md:pt-[100px] m-auto max-w-screen-2k">
       <h2
@@ -14,18 +24,19 @@ function PricingSectionWrapper({ filteredPricings }: PricingSectionProps) {
       >
         Our Plans
       </h2>
-      <div className="flex flex-col gap-3 md:flex-row flex-block mx-auto w-full">
+      {currentDomain.length!==0 && <div className="flex flex-col gap-3 md:flex-row justify-evenly mx-auto w-full">
         {Array.isArray(filteredPricings) &&
           filteredPricings.map((pricing, index) => {
             return (
               <PricingSection
                 key={`${index.toString()}`}
                 our_plans={pricing}
+                domain={currentDomain}
                 onPricingCTAButtonClick={() => {}}
               />
             );
           })}
-      </div>
+      </div>}
     </div>
   );
 }
