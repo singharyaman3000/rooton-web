@@ -20,9 +20,8 @@ import { SpouseFields } from './Spouse';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
-import AgreementSigner from '@/utils/AgreementSigner';
-import { Modal, ModalDialog, ModalClose, Typography } from '@mui/joy';
 import VistoIcon from '../Icons/VistoIcon';
+import SignRetainerAgreementModal from './SignRetainerAgreementModal';
 
 const Loader = () => {
   return (
@@ -731,13 +730,12 @@ const ProfilePageComponent: React.FC<any> = () => {
           </div>
         </div>
       </div>
-      <Modal open={isModalOpen} onClose={toggleModal} className='custom-modal'>
-        <ModalDialog variant="soft">
-          <ModalClose />
-          <Typography component="h2">Sign Retainer Agreement</Typography>
-          <AgreementSigner mail={formData.email} />
-        </ModalDialog>
-      </Modal>
+      <SignRetainerAgreementModal
+        toggleModal={toggleModal}
+        docShorthand='sv'
+        email={formData.email}
+        isModalOpen={isModalOpen}
+      />
 
       <SnackbarAlert open={snackbarOpen} message={errorMessage} />
     </>

@@ -9,7 +9,7 @@ type TrainingCardProps = {
   our_plans: pricingPlansDetails;
   onPricingCTAButtonClick: () => void;
   redirectUrl?: string;
-  domain?:string;
+  domain?: string;
 };
 
 const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
@@ -73,7 +73,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
             {our_plans.validity && (
               <div className="pricing-text font-semibold mb-3">Validity: {our_plans.validity}</div>
             )}
-            {domain?.includes('rooton.in') && our_plans.pricingINR && (
+            {domain?.includes('rooton.in') && domain.includes('localhost') && our_plans.pricingINR && (
               <div className="pricing-text font-semibold mb-3">Pricing: {our_plans.pricingINR}</div>
             )}
             {domain?.includes('rooton.ca') && our_plans.pricingCAD && (

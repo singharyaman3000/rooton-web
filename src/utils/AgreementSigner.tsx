@@ -6,14 +6,15 @@ import getUserDoc from './docuFetch';
 
 interface AgreementSignerProps {
   mail: string;
+  docShorthand?: string;
 }
 
-const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail }) => {
+const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand }) => {
   const [isLoading, setLoading] = useState(true);
-  const [userDoc, setUserDoc] = useState('');
+  const [userDoc, setUserDoc] = useState('LenJpjSSHrii7L');
 
   useEffect(() => {
-    getUserDoc(mail)
+    getUserDoc(docShorthand || '')
       .then((doc) => {
         if (doc) {
           setUserDoc(doc);
@@ -22,20 +23,26 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail }) => {
       .catch((err) => {
         console.error(err);
       });
-  }, [mail]);
+  }, [docShorthand]);
 
-  const handleLoad = () =>{
+  const handleLoad = () => {
     setLoading(false);
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent:'center', flexDirection: 'row', overflowY:'scroll', overflowX:'hidden' }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        overflowY: 'scroll',
+        overflowX: 'hidden',
+      }}
+    >
       <div style={{ width: 'auto', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent:'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <h1>Retainer Agreement</h1>
-          {isLoading && (
-            <CircularLoader />
-          )}
+          {isLoading && <CircularLoader />}
         </div>
         <DocusealForm
           src={`https://docuseal.co/d/${userDoc}`}
