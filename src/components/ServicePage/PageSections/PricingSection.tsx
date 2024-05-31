@@ -49,13 +49,15 @@ function PricingSectionWrapper({ filteredPricings }: PricingSectionProps) {
         </div>
       )}
 
-      <SignRetainerAgreementModal
-        toggleModal={() => {
-          return setShowModal(false);
-        }}
-        email={email}
-        isModalOpen={showModal}
-      />
+      {email.length !== 0 && (
+        <SignRetainerAgreementModal
+          toggleModal={() => {
+            return setShowModal(false);
+          }}
+          email={email}
+          isModalOpen={showModal}
+        />
+      )}
     </div>
   );
 }
