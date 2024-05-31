@@ -1,7 +1,5 @@
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import PricingSection from '@/components/CoachingPage-Services/PricingSection';
-import SignRetainerAgreementModal from '@/components/ProfilePage/SignRetainerAgreementModal';
-import { useHeaderData } from '@/hooks/HeaderDataProvider';
 import React, { useEffect, useState } from 'react';
 
 interface PricingSectionProps {
@@ -10,9 +8,6 @@ interface PricingSectionProps {
 
 function PricingSectionWrapper({ filteredPricings }: PricingSectionProps) {
   const [currentDomain, setCurrentDomain] = useState<string>('');
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  const { email } = useHeaderData();
 
   const handleGetDomain = () => {
     setCurrentDomain(window.location.origin);
@@ -40,23 +35,10 @@ function PricingSectionWrapper({ filteredPricings }: PricingSectionProps) {
                   key={`${index.toString()}`}
                   our_plans={pricing}
                   domain={currentDomain}
-                  onPricingCTAButtonClick={() => {
-                    setShowModal(true);
-                  }}
                 />
               );
             })}
         </div>
-      )}
-
-      {email.length !== 0 && (
-        <SignRetainerAgreementModal
-          toggleModal={() => {
-            return setShowModal(false);
-          }}
-          email={email}
-          isModalOpen={showModal}
-        />
       )}
     </div>
   );

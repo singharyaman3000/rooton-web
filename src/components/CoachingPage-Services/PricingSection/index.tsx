@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import DropDownCaret from '@/components/Icons/DropDownCaret';
 import { trackEvent } from '../../../../gtag';
+import SignRetainerAgreementModal from '@/components/ProfilePage/SignRetainerAgreementModal';
+import { useHeaderData } from '@/hooks/HeaderDataProvider';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
-  onPricingCTAButtonClick: () => void;
+  onPricingCTAButtonClick?: () => void;
   redirectUrl?: string;
   domain?: string;
 };
@@ -18,12 +20,18 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
       return false;
     }),
   );
+  const [showModal, setShowModal] = useState(false);
+
+  const { email } = useHeaderData();
+
   const handleButtonClick = () => {
     // Check if there is a redirect URL and use it if no lead forms are present
     if (redirectUrl && (!our_plans.lead_forms || our_plans.lead_forms.length === 0)) {
       window.open(redirectUrl, '_blank'); // Open the URL in a new tab
-    } else {
+    } else if (onPricingCTAButtonClick) {
       onPricingCTAButtonClick();
+    } else {
+      setShowModal(true);
     }
   };
   return (
@@ -138,6 +146,13 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
           </div>
         </div>
       </div>
+      <SignRetainerAgreementModal
+        email={email}
+        isModalOpen={showModal}
+        toggleModal={() => {
+          setShowModal(false);
+        }}
+      />
     </div>
   );
 };

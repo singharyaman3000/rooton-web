@@ -1,8 +1,9 @@
 import AgreementSigner from '@/utils/AgreementSigner';
-import { Modal, ModalDialog, ModalClose } from '@mui/joy';
-import { Input } from '@mui/material';
+import { AppBar, Dialog, IconButton, Input, Slide, Toolbar } from '@mui/material';
+import { TransitionProps } from '@mui/material/transitions';
 import Image from 'next/image';
-import { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
+import CloseIcon from '../Icons/CloseIcon';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -10,6 +11,19 @@ interface SignRetainerAgreementModalProps {
   isModalOpen: boolean;
   docShorthand?: string;
 }
+
+// eslint-disable-next-line react/display-name
+const Transition = forwardRef(
+  (
+    props: TransitionProps & {
+      children: React.ReactElement;
+    },
+    ref: React.Ref<unknown>,
+  ) => {
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <Slide direction="up" ref={ref} {...props} />;
+  },
+);
 
 function SignRetainerAgreementModal({
   toggleModal,
@@ -34,74 +48,61 @@ function SignRetainerAgreementModal({
   }
 
   return (
-    <Modal
-      open={isModalOpen}
-      onClose={() => {
-        toggleModal();
-        setShowAgreementSigner(false);
-        setEmailValue('');
-      }}
-      sx={{
-        // Custom styles for full-screen on mobile and tablet
-        '& .MuiDialog-root': {
-          width: '100vw',
-          height: '100vh',
-          maxWidth: '100%', // Remove max-width restriction
-          maxHeight: 'none', // Remove max-height restriction
-          margin: 0,
-          borderRadius: 0,
-        },
-      }}
-    >
-      <ModalDialog variant="soft">
-        <ModalClose
-          onClick={() => {
-            setShowAgreementSigner(false);
-            setEmailValue('');
-          }}
-        />
-        <p className="font-bold text-3xl">Sign Retainer Agreement</p>
-        {emailValue.length !== 0 && showAgreementSigner && (
-          <AgreementSigner docShorthand={docShorthand} mail={emailValue} />
-        )}
-        {(!email || email.length === 0) && !showAgreementSigner && (
-          <div className="flex flex-col items-center justify-center gap-4 p-2">
-            <Image
-              src={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
-              alt="logo"
-              width={100}
-              height={100}
-            />
-            <p>Root On Immigrations & Consultants</p>
-            <Input
-              type="email"
-              className="w-full lg:w-[500px] mt-5"
-              onChange={(e) => {
-                if (checkEmailValue(e.target.value)) {
-                  setEmailValue(e.target.value);
-                }
-              }}
-              placeholder="Enter your email here."
-            />
-            {isValidEmail.status === false && <p className="text-red-500 w-full">{isValidEmail.message}</p>}
-            <button
-              type="button"
-              className="bg-[#FFCB70] hover:bg-[#f59723] w-full
+    <Dialog open={isModalOpen} onClose={toggleModal} TransitionComponent={Transition} fullScreen>
+      <AppBar sx={{ position: 'relative', backgroundColor: '#FFCB70', marginBottom: '20px' }}>
+        <Toolbar className="flex justify-between bg-[#FFCB70]">
+          <p className="font-bold text-xl md:text-2xl lg:text-3xl">Sign Retainer Agreement</p>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => {
+              toggleModal();
+              setShowAgreementSigner(false);
+            }}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      {showAgreementSigner && <AgreementSigner docShorthand={docShorthand} mail={emailValue} />}
+      {!showAgreementSigner && (
+        <div className="flex flex-col items-center justify-center gap-4 p-2">
+          <Image
+            src={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
+            alt="logo"
+            width={100}
+            height={100}
+          />
+          <p>Root On Immigrations & Consultants</p>
+          <Input
+            type="email"
+            className="w-full lg:w-[500px] mt-5"
+            onChange={(e) => {
+              if (checkEmailValue(e.target.value)) {
+                setEmailValue(e.target.value.trim());
+              }
+            }}
+            placeholder="Enter your email here."
+          />
+          {isValidEmail.status === false && <p className="text-red-500 w-full">{isValidEmail.message}</p>}
+          <button
+            type="button"
+            className="bg-[#FFCB70] hover:bg-[#f59723] w-full
               inline-flex justify-center whitespace-nowrap px-3.5 py-3
               text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
               focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
               transition-colors duration-150"
-              disabled={!isValidEmail.status}
-              onClick={() => {
-                setShowAgreementSigner(true);
-              }}
-            >
-              Submit
-            </button>
-          </div>
-        )}
-      </ModalDialog>
-    </Modal>
+            disabled={!isValidEmail.status}
+            onClick={() => {
+              setShowAgreementSigner(true);
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      )}
+    </Dialog>
   );
 }
 
