@@ -40,7 +40,7 @@ type ServicePageProps = {
 export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
-  const [showLeadForm, setShowLeadForm] = useState(false);
+  // const [showLeadForm, setShowLeadForm] = useState(false);
   const [showPricingLeadForm, setShowPricingLeadForm] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<number>(0);
   const [currentDomain, setCurrentDomain] = useState<string>('');
@@ -145,14 +145,14 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
   const handleCTAButtonClick = (source: string, delayDuration = 0) => {
     setCtaClickSource(source);
     setShowPricingLeadForm(false);
-    setShowLeadForm(true);
+    // setShowLeadForm(true);
     setShowBookAnAppointment(true);
     scrollToLeadForm(delayDuration);
   };
 
   const handlePricingCTAButtonClick = (index: number, delayDuration = 0) => {
     setShowPricingLeadForm(true);
-    setShowLeadForm(false);
+    // setShowLeadForm(false);
     setShowBookAnAppointment(false);
     setSelectedPlan(index);
     scrollToPricingLeadForm(delayDuration);
