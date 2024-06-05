@@ -310,7 +310,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 onPricingCTAButtonClick={() => {
                   return handlePricingCTAButtonClick(selectedPlan);
                 }}
-                isBookAppointment={isBookAppointment}
+                isBookAppointment={false}
               />
             </CoachingPageWrapper>
           )}
