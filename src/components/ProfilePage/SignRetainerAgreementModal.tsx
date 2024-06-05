@@ -57,7 +57,6 @@ function SignRetainerAgreementModal({
             color="inherit"
             onClick={() => {
               toggleModal();
-              setShowAgreementSigner(false);
             }}
             aria-label="close"
           >
@@ -65,9 +64,9 @@ function SignRetainerAgreementModal({
           </IconButton>
         </Toolbar>
       </AppBar>
-      {showAgreementSigner && <AgreementSigner docShorthand={docShorthand} mail={emailValue} />}
+      {showAgreementSigner && <AgreementSigner toggleModal={toggleModal} docShorthand={docShorthand} mail={emailValue} />}
       {!showAgreementSigner && (
-        <div className="flex flex-col items-center justify-center gap-4 p-2">
+        <div className="flex flex-col items-center justify-center gap-4 p-2 w-full md:w-1/2 mx-auto">
           <Image
             src={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
             alt="logo"
@@ -88,7 +87,7 @@ function SignRetainerAgreementModal({
           {isValidEmail.status === false && <p className="text-red-500 w-full">{isValidEmail.message}</p>}
           <button
             type="button"
-            className="bg-[#FFCB70] hover:bg-[#f59723] w-full
+            className="bg-[#FFCB70] hover:bg-[#f59723] w-full md:w-[200px]
               inline-flex justify-center whitespace-nowrap px-3.5 py-3
               text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
               focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600

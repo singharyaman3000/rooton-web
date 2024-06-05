@@ -9,7 +9,7 @@ import { useHeaderData } from '@/hooks/HeaderDataProvider';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
-  onPricingCTAButtonClick?: () => void;
+  onPricingCTAButtonClick: () => void;
   redirectUrl?: string;
   domain?: string;
 };
@@ -28,7 +28,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
     // Check if there is a redirect URL and use it if no lead forms are present
     if (redirectUrl && (!our_plans.lead_forms || our_plans.lead_forms.length === 0)) {
       window.open(redirectUrl, '_blank'); // Open the URL in a new tab
-    } else if (onPricingCTAButtonClick) {
+    } else if (our_plans.lead_forms && our_plans.lead_forms.length > 0) {
       onPricingCTAButtonClick();
     } else {
       setShowModal(true);
@@ -82,7 +82,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
             {our_plans.validity && (
               <div className="pricing-text font-semibold mb-3">Validity: {our_plans.validity}</div>
             )}
-            {(domain?.includes('rooton.in') || domain?.includes('localhost')) && our_plans.pricingINR && (
+            {!domain?.includes('rooton.ca') && our_plans.pricingINR && (
               <div className="pricing-text font-semibold mb-3">Pricing: {our_plans.pricingINR}</div>
             )}
             {domain?.includes('rooton.ca') && our_plans.pricingCAD && (
@@ -150,6 +150,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
       <SignRetainerAgreementModal
         email={email}
         isModalOpen={showModal}
+        docShorthand="sv"
         toggleModal={() => {
           setShowModal(false);
         }}

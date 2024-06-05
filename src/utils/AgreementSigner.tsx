@@ -7,25 +7,32 @@ import getUserDoc from './docuFetch';
 interface AgreementSignerProps {
   mail: string;
   docShorthand?: string;
+  toggleModal: () => void;
 }
 
-const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand }) => {
+const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, docShorthand }) => {
   const [isLoading, setLoading] = useState(true);
   const [userDoc, setUserDoc] = useState('LenJpjSSHrii7L');
 
   useEffect(() => {
-    getUserDoc(docShorthand || '')
+    getUserDoc(docShorthand || '', mail)
       .then((doc) => {
         if (doc) {
           setUserDoc(doc);
+        }else{
+          // eslint-disable-next-line no-alert
+          alert('Something went wrong. Please try again later');
+          toggleModal();
         }
       })
       .catch((err) => {
         console.error(err);
+
       });
   }, [docShorthand]);
 
-  const handleLoad = () => {
+  const handleLoad = (detail: { error: unknown; }) => {
+    console.log(detail.error);
     setLoading(false);
   };
 
