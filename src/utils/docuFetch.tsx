@@ -10,7 +10,7 @@ const getUserDoc = async (): Promise<string | undefined> => {
       return undefined;
     }
 
-    const response = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/userDoc`, 'harish.jinagam@rooton.ca-sv' , {
+    const response = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/userDoc`, { email:'harish.jinagam@rooton.ca', serveDoc:'sp' } , {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data.Slug;
