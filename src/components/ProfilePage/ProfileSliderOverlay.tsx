@@ -20,8 +20,8 @@ import { SpouseFields } from './Spouse';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
-import VistoIcon from '../Icons/VistoIcon';
-import SignRetainerAgreementModal from './SignRetainerAgreementModal';
+// import VistoIcon from '../Icons/VistoIcon';
+// import SignRetainerAgreementModal from './SignRetainerAgreementModal';
 
 const Loader = () => {
   return (
@@ -99,11 +99,11 @@ const ProfilePageComponent: React.FC<any> = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { updateProfileState } = useHeaderData();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  // const toggleModal = () => {
+  //   setIsModalOpen(!isModalOpen);
+  // };
 
   const fetchProfileData = () => {
     const token = localStorage.getItem('token');
@@ -712,13 +712,13 @@ const ProfilePageComponent: React.FC<any> = () => {
             >
               {loadingSave ? <Loader /> : saveStatus}
             </button>
-            <button
+            {/* <button
               onClick={toggleModal}
               className="bg-[#000] text-white py-3 px-6 focus:outline-none w-[11rem] min-w-[11rem] max-w-[11rem] focus:shadow-outline mt-4"
               type="button"
             >
               <div className='flex items-center justify-center gap-2 w-max'>Onboard to <VistoIcon /></div>
-            </button>
+            </button> */}
             <button
               onClick={handleSaveAndNext}
               className="bg-[#000] text-white py-3 px-6 focus:outline-none w-[11rem] min-w-[11rem] max-w-[11rem] focus:shadow-outline mt-4 hidden lg:block"
@@ -730,12 +730,12 @@ const ProfilePageComponent: React.FC<any> = () => {
           </div>
         </div>
       </div>
-      <SignRetainerAgreementModal
+      {/* <SignRetainerAgreementModal
         toggleModal={toggleModal}
         docShorthand='sv'
         email={formData.email}
         isModalOpen={isModalOpen}
-      />
+      /> */}
 
       <SnackbarAlert open={snackbarOpen} message={errorMessage} />
     </>
