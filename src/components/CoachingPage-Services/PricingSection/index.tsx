@@ -61,7 +61,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
               </div>
               <div className="font-semibold text-sm h-[70px] pricing-text mb-5">{our_plans.planDescription}</div>
               <button
-                disabled
+                // disabled
                 className="bg-[#FFCB70] hover:bg-[#f59723] w-full
               inline-flex justify-center whitespace-nowrap px-3.5 py-3
               text-[17px] font-bold text-black hover:text-white focus-visible:outline-none

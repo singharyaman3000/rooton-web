@@ -28,7 +28,6 @@ import CECForm from '../Forms/CECForm';
 import PNPForm from '../Forms/PNPForm';
 import PGPorm from '../Forms/PGPForm';
 import SSForm from '../Forms/SSForm';
-import { CoachingPageWrapper } from '../CoachingPage-Services/Wrapper';
 import PricingLeadFormSection from '../CoachingPage-Services/PricingSection/LeadFormSection';
 import PricingSection from '../CoachingPage-Services/PricingSection';
 
@@ -296,9 +295,9 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return <ProcessSection key="process" process={process} />;
     case 'our_plans':
       return (
-        <div className="px-[24px] md:px-[48px] lg:px-[80px]  mt-20 !py-0 pt-10 md:pt-[100px] m-auto max-w-screen-2k">
+        <div className=" mt-20 !py-0 pt-10 md:pt-[100px] m-auto max-w-screen-2k">
           {pricingLeadForms?.[selectedPlan] && (
-            <CoachingPageWrapper
+            <ServicePageWrapper
               className={`${
                 showPricingLeadForm ? 'block' : 'hidden'
               } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k `}
@@ -310,20 +309,21 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 onPricingCTAButtonClick={() => {
                   return handlePricingCTAButtonClick(selectedPlan);
                 }}
-                isBookAppointment={showLeadForm}
+                isBookAppointment={isBookAppointment}
               />
-            </CoachingPageWrapper>
+            </ServicePageWrapper>
           )}
-          <h2
-            className={
-              'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem]'
-            }
-          >
+          <div className="px-[24px] md:px-[48px] lg:px-[80px] ">
+            <h2
+              className={
+                'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem]'
+              }
+            >
               Our Plans
-          </h2>
-          {currentDomain.length !== 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
-              {Array.isArray(filteredPricings) &&
+            </h2>
+            {currentDomain.length !== 0 && (
+              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
+                {Array.isArray(filteredPricings) &&
                   filteredPricings.map((pricing, index) => {
                     return (
                       <PricingSection
@@ -337,8 +337,10 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                       />
                     );
                   })}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
+
         </div>
       );
     case 'service-lead-form':
