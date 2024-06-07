@@ -322,7 +322,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
               Our Plans
             </h2>
             {currentDomain.length !== 0 && (
-              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-full border">
+              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-full">
                 {Array.isArray(filteredPricings) &&
                   filteredPricings.map((pricing, index) => {
                     return (
