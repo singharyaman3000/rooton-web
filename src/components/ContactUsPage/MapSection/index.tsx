@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IAddressData, IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import NextImage from '@/components/UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
@@ -29,7 +29,6 @@ type MapSectionPropType = {
 
 const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
   const addressData = footerData?.attributes?.addresses?.data ?? [];
-  // eslint-disable-next-line no-unused-vars
   const [selectedAddress, setAddress] = useState<IAddressData>(addressData[0]);
   const locationData = {
     center: { lat: selectedAddress?.attributes?.latitude, lng: selectedAddress?.attributes?.longitude },
@@ -39,6 +38,19 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
   const coordinates = addressData?.map(({ id, attributes }) => {
     return { id, lat: attributes.latitude, lng: attributes.longitude };
   });
+
+  const getDomainIndex = () => {
+    if (typeof window !== 'undefined') {
+      const domain = window?.location?.origin;
+      return domain.includes('rooton.ca') ? 0 : 1;
+    }
+    return 0;
+  };
+
+  useEffect(() => {
+    const index = getDomainIndex();
+    setAddress(addressData[index]);
+  }, []);
 
   return (
     <section className="flex flex-col lg:flex-row">
@@ -57,7 +69,11 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
       {/* Address section */}
       <div className="bg-pale-yellow blog-bg flex flex-col items-center p-6 lg:px-10 lg:py-8 w-full lg:w-1/2">
         <h2 className="self-start text-[28px] lg:text-[40px] font-bold mb-6 lg:mb-5 xl:pl-10">Contact Information</h2>
-        <div className="flex contact-us-address flex-col gap-5 w-full items-center lg:items-start">
+        <div
+          className={`flex contact-us-address flex-col gap-5 w-full items-center lg:items-start ${
+            getDomainIndex() === 0 ? '' : 'flex-col-reverse'
+          }`}
+        >
           {addressData.map((address) => {
             const { id, attributes } = address;
             return (
