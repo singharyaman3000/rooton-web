@@ -4,34 +4,21 @@ import React, { useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import DropDownCaret from '@/components/Icons/DropDownCaret';
 import { trackEvent } from '../../../../gtag';
-import SignRetainerAgreementModal from '@/components/ProfilePage/SignRetainerAgreementModal';
-import { useHeaderData } from '@/hooks/HeaderDataProvider';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
   onPricingCTAButtonClick: () => void;
   redirectUrl?: string;
-  domain?: string;
 };
 
-const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
-  const [expanded, setExpanded] = useState<boolean[]>(
-    our_plans.features.map(() => {
-      return false;
-    }),
-  );
-  const [showModal, setShowModal] = useState(false);
-
-  const { email } = useHeaderData();
-
+const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl }) => {
+  const [expanded, setExpanded] = useState<boolean[]>(our_plans.features.map(() => {return false;}));
   const handleButtonClick = () => {
     // Check if there is a redirect URL and use it if no lead forms are present
     if (redirectUrl && (!our_plans.lead_forms || our_plans.lead_forms.length === 0)) {
       window.open(redirectUrl, '_blank'); // Open the URL in a new tab
-    } else if (our_plans.lead_forms && our_plans.lead_forms.length > 0) {
-      onPricingCTAButtonClick();
     } else {
-      setShowModal(true);
+      onPricingCTAButtonClick();
     }
   };
   return (
@@ -56,17 +43,16 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
         <div className="">
           <div className="px-6 pb-6 ">
             <div className="mb-5 md:text-xs sm:text-xs">
-              <div className="flex justify-center items-baseline mb-5">
+              <div className="flex items-center justify-center items-baseline mb-5">
                 {our_plans.price && <div className="pricing-text font-bold text-4xl pt-8">${our_plans.price}</div>}
               </div>
               <div className="font-semibold text-sm h-[70px] pricing-text mb-5">{our_plans.planDescription}</div>
               <button
-                disabled
                 className="bg-[#FFCB70] hover:bg-[#f59723] w-full
               inline-flex justify-center whitespace-nowrap px-3.5 py-3
               text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
               focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
-              transition-colors duration-150 cursor-not-allowed"
+              transition-colors duration-150"
                 onClick={() => {
                   trackEvent({
                     action: 'Coaching Plans',
@@ -79,15 +65,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
                 {our_plans.ctapurchase}
               </button>
             </div>
-            {our_plans.validity && (
-              <div className="pricing-text font-semibold mb-3">Validity: {our_plans.validity}</div>
-            )}
-            {!domain?.includes('rooton.ca') && our_plans.pricingINR && (
-              <div className="pricing-text font-semibold mb-3">Pricing: {our_plans.pricingINR}</div>
-            )}
-            {domain?.includes('rooton.ca') && our_plans.pricingCAD && (
-              <div className="pricing-text font-semibold mb-3">Pricing: {our_plans.pricingCAD}</div>
-            )}
+            <div className="pricing-text font-medium font-semibold mb-3">Validity: {our_plans.validity}</div>
             <div className="pricing-text font-medium mb-3">Includes:</div>
             <ul className="pricing-text text-sm space-y-3 grow">
               {our_plans.features.map((feature, index) => {
@@ -147,14 +125,6 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
           </div>
         </div>
       </div>
-      <SignRetainerAgreementModal
-        email={email}
-        isModalOpen={showModal}
-        docShorthand="sv"
-        toggleModal={() => {
-          setShowModal(false);
-        }}
-      />
     </div>
   );
 };

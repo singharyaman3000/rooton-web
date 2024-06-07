@@ -324,7 +324,7 @@ export const CoachingServicePageComponent = ({ response, isBookAppointment }: Co
                 onPricingCTAButtonClick={() => {
                   return handlePricingCTAButtonClick(selectedPlan);
                 }}
-                isBookAppointment={false}
+                isBookAppointment={isBookAppointment}
               />
             </CoachingPageWrapper>
           )}
