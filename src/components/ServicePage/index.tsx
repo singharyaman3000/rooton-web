@@ -29,7 +29,7 @@ import PNPForm from '../Forms/PNPForm';
 import PGPorm from '../Forms/PGPForm';
 import SSForm from '../Forms/SSForm';
 import PricingLeadFormSection from '../CoachingPage-Services/PricingSection/LeadFormSection';
-import PricingSection from '../CoachingPage-Services/PricingSection';
+import PlanCard from './PageSections/PlanCard';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -37,9 +37,9 @@ type ServicePageProps = {
 };
 
 export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
-  const [showBookAnAppointment, setShowBookAnAppointment] = useState(isBookAppointment);
+  const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
-  const [showLeadForm, setShowLeadForm] = useState(false);
+  // const [showLeadForm, setShowLeadForm] = useState(false);
   const [showPricingLeadForm, setShowPricingLeadForm] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<number>(0);
   const [currentDomain, setCurrentDomain] = useState<string>('');
@@ -144,14 +144,14 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
   const handleCTAButtonClick = (source: string, delayDuration = 0) => {
     setCtaClickSource(source);
     setShowPricingLeadForm(false);
-    setShowLeadForm(false);
+    // setShowLeadForm(false);
     setShowBookAnAppointment(true);
     scrollToLeadForm(delayDuration);
   };
 
   const handlePricingCTAButtonClick = (index: number, delayDuration = 0) => {
     setShowPricingLeadForm(true);
-    setShowLeadForm(true);
+    // setShowLeadForm(true);
     setShowBookAnAppointment(false);
     setSelectedPlan(index);
     scrollToPricingLeadForm(delayDuration);
@@ -171,7 +171,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           formId={formId}
           meetingLink={meetingLink}
           title={formTitle}
-          isBookAppointment={showBookAnAppointment}
+          isBookAppointment={isBookAppointment}
           initScroll={() => {
             return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
           }}
@@ -185,7 +185,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           formId={formId}
           meetingLink={meetingLink}
           title={formTitle}
-          isBookAppointment={showBookAnAppointment}
+          isBookAppointment={isBookAppointment}
           initScroll={() => {
             return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
           }}
@@ -199,7 +199,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           formId={formId}
           meetingLink={meetingLink}
           title={formTitle}
-          isBookAppointment={showBookAnAppointment}
+          isBookAppointment={isBookAppointment}
           initScroll={() => {
             return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
           }}
@@ -213,7 +213,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           formId={formId}
           meetingLink={meetingLink}
           title={formTitle}
-          isBookAppointment={showBookAnAppointment}
+          isBookAppointment={isBookAppointment}
           initScroll={() => {
             return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
           }}
@@ -227,7 +227,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           formId={formId}
           meetingLink={meetingLink}
           title={formTitle}
-          isBookAppointment={showBookAnAppointment}
+          isBookAppointment={isBookAppointment}
           initScroll={() => {
             return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
           }}
@@ -241,7 +241,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           formId={formId}
           meetingLink={meetingLink}
           title={formTitle}
-          isBookAppointment={showBookAnAppointment}
+          isBookAppointment={isBookAppointment}
           initScroll={() => {
             return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
           }}
@@ -255,7 +255,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
           formId={formId}
           meetingLink={meetingLink}
           title={formTitle}
-          isBookAppointment={showBookAnAppointment}
+          isBookAppointment={isBookAppointment}
           initScroll={() => {
             return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
           }}
@@ -309,7 +309,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 onPricingCTAButtonClick={() => {
                   return handlePricingCTAButtonClick(selectedPlan);
                 }}
-                isBookAppointment={isBookAppointment}
+                isBookAppointment={false}
               />
             </ServicePageWrapper>
           )}
@@ -326,7 +326,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 {Array.isArray(filteredPricings) &&
                   filteredPricings.map((pricing, index) => {
                     return (
-                      <PricingSection
+                      <PlanCard
                         key={`${index.toString()}`}
                         our_plans={pricing}
                         redirectUrl={pricing.url}

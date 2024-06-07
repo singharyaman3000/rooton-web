@@ -14,7 +14,7 @@ type TrainingCardProps = {
   domain?: string;
 };
 
-const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
+const PlanCard : React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
   const [expanded, setExpanded] = useState<boolean[]>(
     our_plans.features.map(() => {
       return false;
@@ -36,20 +36,20 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
   };
   return (
     <div className="flex flex-row relative my-5">
-      <div className="pricing-card ml-[2px] shadow-xl mr-[30px] min-w-[350px] w-full xl:max-w-[436px]">
+      <div className="pricing-card mx-auto shadow-xl  min-w-[350px] w-full xl:max-w-[436px]">
         {our_plans.popular && (
           <div className="absolute top-0 right-[-2.6rem] mr-6 -mt-4">
             <div
               className="inline-flex items-center text-xs font-semibold
-             py-1.5 px-3 bg-[#f59723] text-white rounded-full shadow-sm shadow-slate-950/5"
+               py-1.5 px-3 bg-[#f59723] text-white rounded-full shadow-sm shadow-slate-950/5"
             >
-              Most Popular
+                Most Popular
             </div>
           </div>
         )}
         <div
           className="planName-heading text-black justify-center
-         items-center text-center font-extrabold text-2xl py-3.5"
+           items-center text-center font-extrabold text-2xl py-3.5"
         >
           {our_plans.planName}
         </div>
@@ -63,10 +63,10 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
               <button
                 disabled
                 className="bg-[#FFCB70] hover:bg-[#f59723] w-full
-              inline-flex justify-center whitespace-nowrap px-3.5 py-3
-              text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
-              focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
-              transition-colors duration-150 cursor-not-allowed"
+                inline-flex justify-center whitespace-nowrap px-3.5 py-3
+                text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
+                focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
+                transition-colors duration-150 cursor-not-allowed"
                 onClick={() => {
                   trackEvent({
                     action: 'Coaching Plans',
@@ -95,7 +95,7 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
                 const subFeatures = feature.slice(1);
 
                 return (
-                  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
                   <li
                     key={feature[0]}
                     className="flex flex-col text-base font-medium cursor-pointer"
@@ -159,4 +159,4 @@ const PricingSection: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTABu
   );
 };
 
-export default PricingSection;
+export default PlanCard;
