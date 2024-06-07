@@ -12,9 +12,16 @@ type TrainingCardProps = {
   onPricingCTAButtonClick: () => void;
   redirectUrl?: string;
   domain?: string;
+  position?: number;
 };
 
-const PlanCard : React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
+const PlanCard: React.FC<TrainingCardProps> = ({
+  our_plans,
+  onPricingCTAButtonClick,
+  redirectUrl,
+  domain,
+  position,
+}) => {
   const [expanded, setExpanded] = useState<boolean[]>(
     our_plans.features.map(() => {
       return false;
@@ -35,15 +42,15 @@ const PlanCard : React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonC
     }
   };
   return (
-    <div className="flex flex-row relative my-5">
-      <div className="pricing-card mx-auto shadow-xl  min-w-[350px] w-full xl:max-w-[436px]">
+    <div className="flex flex-row relative my-5 border">
+      <div className={`pricing-card   shadow-xl  min-w-[350px] w-full xl:max-w-[436px] ${position === 1 && 'mx-auto'} ${position===2 && 'ml-auto'}`}>
         {our_plans.popular && (
           <div className="absolute top-0 right-[-2.6rem] mr-6 -mt-4">
             <div
               className="inline-flex items-center text-xs font-semibold
                py-1.5 px-3 bg-[#f59723] text-white rounded-full shadow-sm shadow-slate-950/5"
             >
-                Most Popular
+              Most Popular
             </div>
           </div>
         )}
@@ -95,7 +102,7 @@ const PlanCard : React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonC
                 const subFeatures = feature.slice(1);
 
                 return (
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+                  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
                   <li
                     key={feature[0]}
                     className="flex flex-col text-base font-medium cursor-pointer"
