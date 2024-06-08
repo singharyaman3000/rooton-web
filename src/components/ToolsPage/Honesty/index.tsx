@@ -94,7 +94,7 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
               return (
                 <HonestyCard
                   // eslint-disable-next-line react/no-array-index-key
-                  key={index.toString()}
+                  key={whyRootOn.title+index.toString()}
                   title={whyRootOn.title}
                   unique_identifier_name={whyRootOn.unique_identifier_name}
                   value={whyRootOn.value}

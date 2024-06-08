@@ -217,7 +217,7 @@ export const CRS = () => {
             Preferred Field Of Study
             <span className="text-[#ff0000]">*</span>
           </label>
-          <div className="flex mb-1 hidden">
+          <div className="mb-1 hidden">
             <ToggleSwitch isToggled={isToggled} onToggle={setIsToggled} />
             <label className="ml-2 text-lg font-small leading-6 text-black" htmlFor="fieldOfStudy">
               Fast Results (Experimental)
