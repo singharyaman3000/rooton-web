@@ -43,7 +43,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({
   };
   return (
     <div className="flex flex-row relative my-5">
-      <div className={`pricing-card   shadow-xl  min-w-[350px] w-full xl:max-w-[436px] ${position === 1 && 'mx-auto'} ${position===2 && 'ml-auto'}`}>
+      <div className={`pricing-card   shadow-xl w-full xl:max-w-[436px] ${position === 1 && 'mx-auto'} ${position===2 && 'ml-auto'}`}>
         {our_plans.popular && (
           <div className="absolute top-0 right-[-2.6rem] mr-6 -mt-4">
             <div
