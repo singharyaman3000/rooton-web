@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IAddressData, IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import NextImage from '@/components/UIElements/NextImage';
 import { appendAssetUrl } from '@/utils';
@@ -28,16 +28,9 @@ type MapSectionPropType = {
 };
 
 const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
-  const addressData = footerData?.attributes?.addresses?.data ?? [];
-  const [selectedAddress, setAddress] = useState<IAddressData>(addressData[0]);
-  const locationData = {
-    center: { lat: selectedAddress?.attributes?.latitude, lng: selectedAddress?.attributes?.longitude },
-    zoom: 10,
-  };
-
-  const coordinates = addressData?.map(({ id, attributes }) => {
-    return { id, lat: attributes.latitude, lng: attributes.longitude };
-  });
+  const addressData = useMemo(() => {
+    return footerData?.attributes?.addresses?.data ?? [];
+  }, [footerData]);
 
   const getDomainIndex = () => {
     if (typeof window !== 'undefined') {
@@ -47,10 +40,41 @@ const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
     return 0;
   };
 
+  const [selectedAddress, setAddress] = useState<IAddressData>(addressData[getDomainIndex()]);
+
+  const getLocationData = (address: IAddressData) => {
+    return {
+      center: { lat: address?.attributes?.latitude, lng: address?.attributes?.longitude },
+      zoom: 10,
+    };
+  };
+
+  const [locationData, setLocationData] = useState(getLocationData(selectedAddress));
+
+  const getCoordinates = (addresses: IAddressData[]) => {
+    return addresses.map(({ id, attributes }) => {
+      return {
+        id,
+        lat: attributes.latitude,
+        lng: attributes.longitude,
+      };
+    });
+  };
+
+  const [coordinates, setCoordinates] = useState(getCoordinates(addressData));
+
   useEffect(() => {
     const index = getDomainIndex();
     setAddress(addressData[index]);
-  }, []);
+  }, [addressData]);
+
+  useEffect(() => {
+    setLocationData(getLocationData(selectedAddress));
+  }, [selectedAddress]);
+
+  useEffect(() => {
+    setCoordinates(getCoordinates(addressData));
+  }, [addressData]);
 
   return (
     <section className="flex flex-col lg:flex-row">
