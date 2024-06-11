@@ -1,7 +1,7 @@
 'use client';
 
 import { IServicePageContent, ISubServicesContent } from '@/app/services/apiService/serviceAPI';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { ServicePageWrapper } from './Wrapper';
@@ -28,6 +28,8 @@ import CECForm from '../Forms/CECForm';
 import PNPForm from '../Forms/PNPForm';
 import PGPorm from '../Forms/PGPForm';
 import SSForm from '../Forms/SSForm';
+import PricingLeadFormSection from '../CoachingPage-Services/PricingSection/LeadFormSection';
+import PlanCard from './PageSections/PlanCard';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -37,7 +39,19 @@ type ServicePageProps = {
 export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
+  const [showPricingLeadForm, setShowPricingLeadForm] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<number>(0);
+  const [currentDomain, setCurrentDomain] = useState<string>('');
   const leadFormRef = useRef<HTMLDivElement>(null);
+  const pricingFormRef = useRef<HTMLDivElement>(null);
+
+  const handleGetDomain = () => {
+    setCurrentDomain(window.location.origin);
+  };
+
+  useEffect(() => {
+    handleGetDomain();
+  }, []);
 
   const whyChooseOpen = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-reason';
@@ -67,6 +81,10 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     return i.attributes.unique_identifier_name === 'service-insights';
   });
 
+  const pricings = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
+    return i.attributes.unique_identifier_name === 'our_plans';
+  });
+
   const testimonials = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-testimonial';
   });
@@ -79,6 +97,14 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     return i.attributes.unique_identifier_name === 'blogs';
   });
 
+  const pricingTypes = Object.keys(pricings?.attributes?.json_content?.pricingDetails || []);
+
+  const [activepType] = useState(pricingTypes[0] || '');
+
+  const pricingDetails = pricings?.attributes?.json_content?.pricingDetails;
+  const filteredPricings = pricingDetails?.[activepType] || [];
+  const pricingLeadForms = pricings?.attributes?.json_content?.pricingDetails?.pricingPlans;
+
   const sectionsByPosition = [
     whyChooseOpen,
     eligibility,
@@ -86,6 +112,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     leadForm,
     ctaBanner2,
     insights,
+    pricings,
     testimonials,
     ctaBanner1,
     faqs,
@@ -105,87 +132,133 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     }, timeoutDuration);
   };
 
+  const scrollToPricingLeadForm = (timeoutDuration = 0) => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: pricingFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
+        behavior: 'smooth',
+      });
+    }, timeoutDuration);
+  };
   const handleCTAButtonClick = (source: string, delayDuration = 0) => {
     setCtaClickSource(source);
+    setShowPricingLeadForm(false);
     setShowBookAnAppointment(true);
     scrollToLeadForm(delayDuration);
   };
 
-  const nonHubSpotFormSelector = (formIdentifier: string,
-    formId: string, meetingLink:
-      Record<string, string>,
-    formTitle: string) => {
+  const handlePricingCTAButtonClick = (index: number, delayDuration = 0) => {
+    setShowPricingLeadForm(true);
+    setShowBookAnAppointment(false);
+    setSelectedPlan(index);
+    scrollToPricingLeadForm(delayDuration);
+  };
+
+  const nonHubSpotFormSelector = (
+    formIdentifier: string,
+    formId: string,
+    meetingLink: Record<string, string>,
+    formTitle: string,
+  ) => {
     switch (formIdentifier) {
     case 'federal-skilled-worker-program':
-      return <FSWForm leadFormRef={leadFormRef}
-        formId={formId}
-        meetingLink={meetingLink}
-        title={formTitle}
-        isBookAppointment={isBookAppointment}
-        initScroll={() => {
-          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-        }}
-        scrollToTop={scrollToLeadForm} />;
+      return (
+        <FSWForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     case 'federal-skilled-trades':
-      return <FSTPForm leadFormRef={leadFormRef}
-        formId={formId}
-        meetingLink={meetingLink}
-        title={formTitle}
-        isBookAppointment={isBookAppointment}
-        initScroll={() => {
-          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-        }}
-        scrollToTop={scrollToLeadForm} />;
+      return (
+        <FSTPForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     case 'quebec-immigration':
-      return <QSWPForm leadFormRef={leadFormRef}
-        formId={formId}
-        meetingLink={meetingLink}
-        title={formTitle}
-        isBookAppointment={isBookAppointment}
-        initScroll={() => {
-          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-        }}
-        scrollToTop={scrollToLeadForm} />;
+      return (
+        <QSWPForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     case 'canadian-experience-class':
-      return <CECForm leadFormRef={leadFormRef}
-        formId={formId}
-        meetingLink={meetingLink}
-        title={formTitle}
-        isBookAppointment={isBookAppointment}
-        initScroll={() => {
-          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-        }}
-        scrollToTop={scrollToLeadForm} />;
+      return (
+        <CECForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     case 'provincial-nominee-program':
-      return <PNPForm leadFormRef={leadFormRef}
-        formId={formId}
-        meetingLink={meetingLink}
-        title={formTitle}
-        isBookAppointment={isBookAppointment}
-        initScroll={() => {
-          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-        }}
-        scrollToTop={scrollToLeadForm} />;
+      return (
+        <PNPForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     case 'parents-and-grandparents-sponsorship':
-      return <PGPorm leadFormRef={leadFormRef}
-        formId={formId}
-        meetingLink={meetingLink}
-        title={formTitle}
-        isBookAppointment={isBookAppointment}
-        initScroll={() => {
-          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-        }}
-        scrollToTop={scrollToLeadForm} />;
+      return (
+        <PGPorm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     case 'spouse-visa-canada':
-      return <SSForm leadFormRef={leadFormRef}
-        formId={formId}
-        meetingLink={meetingLink}
-        title={formTitle}
-        isBookAppointment={isBookAppointment}
-        initScroll={() => {
-          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-        }}
-        scrollToTop={scrollToLeadForm} />;
+      return (
+        <SSForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     default:
       return <div></div>;
     }
@@ -217,11 +290,63 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       );
     case 'service-process':
       return <ProcessSection key="process" process={process} />;
+    case 'our_plans':
+      return (
+        <div className=" mt-20 !py-0 pt-10 md:pt-[100px] m-auto max-w-screen-2k">
+          {pricingLeadForms?.[selectedPlan] && (
+            <ServicePageWrapper
+              className={`${
+                showPricingLeadForm ? 'block' : 'hidden'
+              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k `}
+            >
+              <PricingLeadFormSection
+                PricingleadForm={pricingLeadForms?.[selectedPlan]}
+                PricingleadFormRef={pricingFormRef}
+                scrollToTop={scrollToPricingLeadForm}
+                onPricingCTAButtonClick={() => {
+                  return handlePricingCTAButtonClick(selectedPlan);
+                }}
+                isBookAppointment={false}
+              />
+            </ServicePageWrapper>
+          )}
+          <div className="px-[24px] md:px-[48px] lg:px-[80px] ">
+            <h2
+              className={
+                'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem]'
+              }
+            >
+              Our Plans
+            </h2>
+            {currentDomain.length !== 0 && (
+              <div
+                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${filteredPricings?.length > 3 ? 'xl2:grid-cols-4 gap-5' : 'lg:gap-16'} mx-auto w-full`}
+              >
+                {Array.isArray(filteredPricings) &&
+                  filteredPricings.map((pricing, index) => {
+                    return (
+                      <PlanCard
+                        key={`${index.toString()}`}
+                        our_plans={pricing}
+                        redirectUrl={pricing.url}
+                        domain={currentDomain}
+                        onPricingCTAButtonClick={() => {
+                          return handlePricingCTAButtonClick(index);
+                        }}
+                      />
+                    );
+                  })}
+              </div>
+            )}
+          </div>
+        </div>
+      );
     case 'service-lead-form':
       if (leadForm) {
         return (
           <ServicePageWrapper
-            className={`${showBookAnAppointment ? 'block' : 'hidden'
+            className={`${
+              showBookAnAppointment ? 'block' : 'hidden'
             } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k`}
             key="lead-form"
           >
@@ -272,7 +397,10 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return (
         <div key="testimonials" className="m-auto max-w-screen-2k">
           <Testimonials
-            apiUrl={TESTIMONIAL_API_SERVICE.replace('<service_type>', response?.data.attributes.unique_identifier_name)}
+            apiUrl={TESTIMONIAL_API_SERVICE.replace(
+              '<service_type>',
+              response?.data.attributes.unique_identifier_name,
+            )}
             title={SERVICES_TITLE.testimonial.title}
             subTitle={SERVICES_TITLE.testimonial.subtitle}
           />
