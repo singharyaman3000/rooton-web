@@ -316,24 +316,26 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem]'
               }
             >
-                Our Plans
+              Our Plans
             </h2>
             {currentDomain.length !== 0 && (
-              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl2:grid-cols-4 gap-4 mx-auto w-full">
+              <div
+                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${filteredPricings?.length > 3 ? 'xl2:grid-cols-4 gap-5' : 'lg:gap-16'} mx-auto w-full`}
+              >
                 {Array.isArray(filteredPricings) &&
-                    filteredPricings.map((pricing, index) => {
-                      return (
-                        <PlanCard
-                          key={`${index.toString()}`}
-                          our_plans={pricing}
-                          redirectUrl={pricing.url}
-                          domain={currentDomain}
-                          onPricingCTAButtonClick={() => {
-                            return handlePricingCTAButtonClick(index);
-                          }}
-                        />
-                      );
-                    })}
+                  filteredPricings.map((pricing, index) => {
+                    return (
+                      <PlanCard
+                        key={`${index.toString()}`}
+                        our_plans={pricing}
+                        redirectUrl={pricing.url}
+                        domain={currentDomain}
+                        onPricingCTAButtonClick={() => {
+                          return handlePricingCTAButtonClick(index);
+                        }}
+                      />
+                    );
+                  })}
               </div>
             )}
           </div>
