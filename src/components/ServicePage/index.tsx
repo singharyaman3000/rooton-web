@@ -326,7 +326,6 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                         <PlanCard
                           key={`${index.toString()}`}
                           our_plans={pricing}
-                          position={index % 3}
                           redirectUrl={pricing.url}
                           domain={currentDomain}
                           onPricingCTAButtonClick={() => {

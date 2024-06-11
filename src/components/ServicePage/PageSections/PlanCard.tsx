@@ -12,7 +12,6 @@ type TrainingCardProps = {
   onPricingCTAButtonClick: () => void;
   redirectUrl?: string;
   domain?: string;
-  position?: number;
 };
 
 const PlanCard: React.FC<TrainingCardProps> = ({
@@ -20,7 +19,6 @@ const PlanCard: React.FC<TrainingCardProps> = ({
   onPricingCTAButtonClick,
   redirectUrl,
   domain,
-  position,
 }) => {
   const [expanded, setExpanded] = useState<boolean[]>(
     our_plans.features.map(() => {
@@ -42,8 +40,8 @@ const PlanCard: React.FC<TrainingCardProps> = ({
     }
   };
   return (
-    <div className="flex flex-row relative my-5">
-      <div className={`pricing-card   shadow-xl w-full  ${position === 1 && 'mx-auto'} ${position===2 && 'ml-auto'}`}>
+    <div className="flex flex-row relative my-5 w-full">
+      <div className={'pricing-card   shadow-xl w-full mx-auto'}>
         {our_plans.popular && (
           <div className="absolute top-0 right-[-2.6rem] mr-6 -mt-4">
             <div
