@@ -3,6 +3,7 @@ import { getCoachingAPIUrl } from './apiUrl/servicePage';
 import { IMediaUrlData } from './interfaces';
 import { IBlogCardData } from '@/components/UIElements/Cards/BlogCard';
 import { IProcess } from '@/components/HomePage/OurProcess/interfaces';
+import { IMeetingData } from './serviceAPI';
 
 type IEligibility = {
   key: string;
@@ -18,6 +19,14 @@ export type ILeadForm = {
   formId?: string;
   url?: string;
 };
+
+export type ILeadFormServices = {
+   type?: 'form' | 'meeting';
+  region?: string;
+  portalId?: string;
+  formId?: string;
+  url?: IMeetingData;
+}
 
 export type IFaq = {
   title: string;
@@ -45,6 +54,21 @@ export type pricingPlansDetails = {
   validity: string;
   planDescription: string;
   lead_forms?: ILeadForm[];
+  pricingINR?: string;
+  pricingCAD?: string;
+  url: string;
+  ctapurchase: string;
+};
+
+export type pricingPlansDetailsForServices = {
+  planName?: string;
+  price: number;
+  yearly: boolean;
+  popular?: boolean;
+  features: string[][];
+  validity: string;
+  planDescription: string;
+  lead_forms?: ILeadFormServices[];
   pricingINR?: string;
   pricingCAD?: string;
   url: string;

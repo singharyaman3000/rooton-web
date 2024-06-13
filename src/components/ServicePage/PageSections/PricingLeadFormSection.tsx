@@ -1,8 +1,8 @@
-import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
-import { H2 } from '@/components/H2';
-import { RefObject, useState } from 'react';
-import LeadFormStepper from './LeadFormStepper';
 import NextImage from '@/components/UIElements/NextImage';
+import React, { RefObject, useState } from 'react';
+import { H2 } from '@/components/H2';
+import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
+import LeadFormStepper from '@/components/CoachingPage-Services/LeadFormStepper';
 
 type LeadFormSectionProps = {
   PricingleadForm: pricingPlansDetails;
@@ -15,7 +15,6 @@ type LeadFormSectionProps = {
 const PricingLeadFormSection = ({
   PricingleadForm,
   PricingleadFormRef,
-  scrollToTop,
   onPricingCTAButtonClick,
   isBookAppointment,
 }: LeadFormSectionProps) => {
@@ -42,7 +41,6 @@ const PricingLeadFormSection = ({
           <H2>{'Evaluate yourself' ?? ''}</H2>
           <div className="" id="lead-form">
             <LeadFormStepper
-              scrollToTop={scrollToTop}
               initScroll={onPricingCTAButtonClick}
               isBookAppointment={isBookAppointment}
               onProgress={(progress) => {
@@ -65,7 +63,6 @@ const PricingLeadFormSection = ({
               portalId={(PricingleadForm?.lead_forms && PricingleadForm?.lead_forms[0].portalId) ?? ''}
               formId={(PricingleadForm?.lead_forms && PricingleadForm?.lead_forms[0].formId) ?? ''}
               target="PricingLeadForm"
-              singlePageForm
             />
           </div>
         </div>

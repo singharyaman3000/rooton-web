@@ -1,5 +1,5 @@
 import AgreementSigner from '@/utils/AgreementSigner';
-import { AppBar, Dialog, IconButton, Input, Slide, Toolbar } from '@mui/material';
+import { AppBar, Dialog, IconButton, Input, Slide, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import Image from 'next/image';
 import React, { forwardRef, useState } from 'react';
@@ -36,6 +36,8 @@ function SignRetainerAgreementModal({
     typeof email !== 'undefined' && email.length > 0,
   );
   const [isValidEmail, setIsValidEmail] = useState({ status: true, message: '' });
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   function checkEmailValue(emailToBeTested: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,7 +49,7 @@ function SignRetainerAgreementModal({
     return false;
   }
 
-  return (
+  if (isSmallScreen) return (
     <Dialog open={isModalOpen} onClose={toggleModal} TransitionComponent={Transition} fullScreen>
       <AppBar sx={{ position: 'relative', backgroundColor: '#FFCB70', marginBottom: '20px' }}>
         <Toolbar className="flex justify-between bg-[#FFCB70]">

@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import DropDownCaret from '@/components/Icons/DropDownCaret';
 import { trackEvent } from '../../../../gtag';
-// import SignRetainerAgreementModal from '@/components/ProfilePage/SignRetainerAgreementModal';
-// import { useHeaderData } from '@/hooks/HeaderDataProvider';
+import SignRetainerAgreementModal from '@/components/ProfilePage/SignRetainerAgreementModal';
+import { useHeaderData } from '@/hooks/HeaderDataProvider';
+import AgreementSigner from '@/utils/AgreementSigner';
+import { Modal, ModalDialog, ModalClose, Typography } from '@mui/joy';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
@@ -14,20 +17,16 @@ type TrainingCardProps = {
   domain?: string;
 };
 
-const PlanCard: React.FC<TrainingCardProps> = ({
-  our_plans,
-  onPricingCTAButtonClick,
-  redirectUrl,
-  domain,
-}) => {
+const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
   const [expanded, setExpanded] = useState<boolean[]>(
     our_plans.features.map(() => {
       return false;
     }),
   );
-  // const [showModal, setShowModal] = useState(false);
-
-  // const { email } = useHeaderData();
+  const [showModal, setShowModal] = useState(false);
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+  const { email } = useHeaderData();
 
   const handleButtonClick = () => {
     // Check if there is a redirect URL and use it if no lead forms are present
@@ -36,7 +35,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({
     } else if (our_plans.lead_forms && our_plans.lead_forms.length > 0) {
       onPricingCTAButtonClick();
     } else {
-      // setShowModal(true);
+      setShowModal(true);
     }
   };
   return (
@@ -66,12 +65,12 @@ const PlanCard: React.FC<TrainingCardProps> = ({
               </div>
               <div className="font-semibold text-sm h-[70px] pricing-text mb-5">{our_plans.planDescription}</div>
               <button
-                disabled
+                // disabled
                 className="bg-[#FFCB70] hover:bg-[#f59723] w-full
                 inline-flex justify-center whitespace-nowrap px-3.5 py-3
                 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
                 focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
-                transition-colors duration-150 cursor-not-allowed"
+                transition-colors duration-150 cursor-pointer"
                 onClick={() => {
                   trackEvent({
                     action: 'Coaching Plans',
@@ -152,14 +151,37 @@ const PlanCard: React.FC<TrainingCardProps> = ({
           </div>
         </div>
       </div>
-      {/* <SignRetainerAgreementModal
+      <SignRetainerAgreementModal
         email={email}
         isModalOpen={showModal}
         docShorthand="sv"
         toggleModal={() => {
           setShowModal(false);
         }}
-      /> */}
+      />
+      {isLargeScreen && (
+        <Modal
+          open={showModal}
+          onClose={() => {
+            setShowModal(false);
+          }}
+          className="custom-modal"
+        >
+          <ModalDialog variant="soft">
+            <ModalClose />
+            <Typography component="h2" style={{ width: '100vh' }}>
+              Sign Retainer Agreement
+            </Typography>
+            <AgreementSigner
+              mail={email}
+              docShorthand='sv'
+              toggleModal={() => {
+                return setShowModal(false);
+              }}
+            />
+          </ModalDialog>
+        </Modal>
+      )}
     </div>
   );
 };
