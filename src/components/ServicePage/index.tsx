@@ -144,7 +144,6 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     setCtaClickSource(source);
     setShowPricingLeadForm(false);
     setShowBookAnAppointment(true);
-    console.log(pricingLeadForms?.[selectedPlan].ctapurchase);
     scrollToLeadForm(delayDuration);
   };
 
@@ -152,7 +151,6 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     setShowPricingLeadForm(true);
     setShowBookAnAppointment(false);
     setSelectedPlan(index);
-    console.log(pricingLeadForms?.[selectedPlan].ctapurchase);
     scrollToPricingLeadForm(delayDuration);
   };
 

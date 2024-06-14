@@ -7,7 +7,7 @@ import { trackEvent } from '../../../../gtag';
 import SignRetainerAgreementModal from '@/components/ProfilePage/SignRetainerAgreementModal';
 import { useHeaderData } from '@/hooks/HeaderDataProvider';
 import AgreementSigner from '@/utils/AgreementSigner';
-import { Modal, ModalDialog, ModalClose, Typography } from '@mui/joy';
+import { Modal, ModalDialog, ModalClose } from '@mui/joy';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { getShortHand } from './functions';
 
@@ -170,9 +170,9 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
         >
           <ModalDialog variant="soft">
             <ModalClose />
-            <Typography component="h2" style={{ width: '100vh' }}>
+            {/* <Typography component="h2" style={{ width: '100vh' }}>
               Sign Retainer Agreement
-            </Typography>
+            </Typography> */}
             <AgreementSigner
               mail={email}
               docShorthand={getShortHand()}

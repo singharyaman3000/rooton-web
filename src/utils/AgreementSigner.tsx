@@ -5,7 +5,7 @@ import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from './docuFetch';
 
 interface AgreementSignerProps {
-  mail: string;
+  mail?: string;
   docShorthand?: string;
   toggleModal: () => void;
 }
@@ -15,11 +15,11 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
   const [userDoc, setUserDoc] = useState('');
 
   useEffect(() => {
-    getUserDoc(docShorthand || '', mail)
+    getUserDoc(docShorthand || '', mail || '')
       .then((doc) => {
         if (doc) {
           setUserDoc(doc);
-        }else{
+        } else {
           // eslint-disable-next-line no-alert
           alert('Something went wrong. Please try again later');
           toggleModal();
@@ -27,11 +27,10 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
       })
       .catch((err) => {
         console.error(err);
-
       });
   }, [docShorthand]);
 
-  const handleLoad = (detail: { error: unknown; }) => {
+  const handleLoad = (detail: { error: unknown }) => {
     console.log(detail.error);
     setLoading(false);
   };
@@ -47,9 +46,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
       }}
     >
       <div style={{ width: 'auto', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {isLoading && <CircularLoader />}
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>{isLoading && <CircularLoader />}</div>
         <DocusealForm
           src={`https://docuseal.co/d/${userDoc}`}
           email={mail}
