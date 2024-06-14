@@ -323,7 +323,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
             </h2>
             {currentDomain.length !== 0 && (
               <div
-                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${filteredPricings?.length > 3 ? 'xl2:grid-cols-4 gap-5' : 'gap-5 lg:gap-10 xl:gap-16'} mx-auto w-full`}
+                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${filteredPricings?.length > 3 ? 'xl2:grid-cols-4 gap-5' : 'lg:gap-16'} mx-auto w-full`}
               >
                 {Array.isArray(filteredPricings) &&
                   filteredPricings.map((pricing, index) => {
