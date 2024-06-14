@@ -2,7 +2,7 @@ import NextImage from '@/components/UIElements/NextImage';
 import React, { RefObject, useState } from 'react';
 import { H2 } from '@/components/H2';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
-import LeadFormStepper from '@/components/CoachingPage-Services/LeadFormStepper';
+import LeadFormStepper from '@/components/ToolsPage-Services/LeadFormStepper';
 
 type LeadFormSectionProps = {
   PricingleadForm: pricingPlansDetails;

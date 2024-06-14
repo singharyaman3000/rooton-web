@@ -9,6 +9,7 @@ import { useHeaderData } from '@/hooks/HeaderDataProvider';
 import AgreementSigner from '@/utils/AgreementSigner';
 import { Modal, ModalDialog, ModalClose, Typography } from '@mui/joy';
 import { useMediaQuery, useTheme } from '@mui/material';
+import { getShortHand } from './functions';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
@@ -39,7 +40,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
     }
   };
   return (
-    <div className="flex flex-row relative my-5 w-full">
+    <div className="flex flex-row relative w-full">
       <div className={'pricing-card   shadow-xl w-full mx-auto'}>
         {our_plans.popular && (
           <div className="absolute top-0 right-[-2.6rem] mr-6 -mt-4">
@@ -63,7 +64,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
               <div className="flex justify-center items-baseline mb-5">
                 {our_plans.price && <div className="pricing-text font-bold text-4xl pt-8">${our_plans.price}</div>}
               </div>
-              <div className="font-semibold text-sm h-[70px] pricing-text mb-5">{our_plans.planDescription}</div>
+              <div className="font-semibold text-sm pricing-text mb-5">{our_plans.planDescription}</div>
               <button
                 // disabled
                 className="bg-[#FFCB70] hover:bg-[#f59723] w-full
@@ -154,7 +155,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
       <SignRetainerAgreementModal
         email={email}
         isModalOpen={showModal}
-        docShorthand="sv"
+        docShorthand={getShortHand()}
         toggleModal={() => {
           setShowModal(false);
         }}
@@ -174,7 +175,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
             </Typography>
             <AgreementSigner
               mail={email}
-              docShorthand='sv'
+              docShorthand={getShortHand()}
               toggleModal={() => {
                 return setShowModal(false);
               }}

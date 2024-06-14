@@ -12,7 +12,7 @@ interface AgreementSignerProps {
 
 const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, docShorthand }) => {
   const [isLoading, setLoading] = useState(true);
-  const [userDoc, setUserDoc] = useState('LenJpjSSHrii7L');
+  const [userDoc, setUserDoc] = useState('');
 
   useEffect(() => {
     getUserDoc(docShorthand || '', mail)
@@ -48,7 +48,6 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
     >
       <div style={{ width: 'auto', textAlign: 'center' }}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <h1>Retainer Agreement</h1>
           {isLoading && <CircularLoader />}
         </div>
         <DocusealForm

@@ -144,6 +144,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     setCtaClickSource(source);
     setShowPricingLeadForm(false);
     setShowBookAnAppointment(true);
+    console.log(pricingLeadForms?.[selectedPlan].ctapurchase);
     scrollToLeadForm(delayDuration);
   };
 
@@ -151,6 +152,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     setShowPricingLeadForm(true);
     setShowBookAnAppointment(false);
     setSelectedPlan(index);
+    console.log(pricingLeadForms?.[selectedPlan].ctapurchase);
     scrollToPricingLeadForm(delayDuration);
   };
 
@@ -304,9 +306,12 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 PricingleadFormRef={pricingFormRef}
                 scrollToTop={scrollToPricingLeadForm}
                 onPricingCTAButtonClick={() => {
+                  if (pricingLeadForms?.[selectedPlan].ctapurchase?.toLowerCase() === 'book an appointment now'){
+                    return handleCTAButtonClick(CONSULTATION_TYPES.PAID);
+                  }
                   return handlePricingCTAButtonClick(selectedPlan);
                 }}
-                isBookAppointment={false}
+                isBookAppointment={isBookAppointment}
               />
             </ServicePageWrapper>
           )}
@@ -320,7 +325,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
             </h2>
             {currentDomain.length !== 0 && (
               <div
-                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${filteredPricings?.length > 3 ? 'xl2:grid-cols-4 gap-5' : 'lg:gap-16'} mx-auto w-full`}
+                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${filteredPricings?.length > 3 ? 'xl2:grid-cols-4 gap-5' : 'gap-5 lg:gap-10 xl:gap-16'} mx-auto w-full`}
               >
                 {Array.isArray(filteredPricings) &&
                   filteredPricings.map((pricing, index) => {

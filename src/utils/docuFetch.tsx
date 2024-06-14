@@ -12,7 +12,7 @@ const getUserDoc = async (docShorthand: string, email: string): Promise<string |
 
     const response = await axios.post(
       `${process.env.NEXT_SERVER_API_BASE_URL}/api/userDoc`,
-      { serveDoc: `${docShorthand}`, email },
+      { serveDoc: docShorthand, email },
       {
         headers: { Authorization: `Bearer ${token}` },
       },
