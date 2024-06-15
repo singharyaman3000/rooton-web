@@ -21,7 +21,7 @@ type TrainingCardProps = {
 const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
   const [expanded, setExpanded] = useState<boolean[]>(
     our_plans.features.map(() => {
-      return false;
+      return true;
     }),
   );
   const [showModal, setShowModal] = useState(false);
@@ -64,9 +64,8 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
               <div className="flex justify-center items-baseline mb-5">
                 {our_plans.price && <div className="pricing-text font-bold text-4xl pt-8">${our_plans.price}</div>}
               </div>
-              <div className="font-semibold text-sm pricing-text mb-5">{our_plans.planDescription}</div>
+              <div className="font-semibold text-sm pricing-text mb-5 min-h-[40px]">{our_plans.planDescription}</div>
               <button
-                // disabled
                 className="bg-[#FFCB70] hover:bg-[#f59723] w-full
                 inline-flex justify-center whitespace-nowrap px-3.5 py-3
                 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
@@ -163,16 +162,15 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
       {isLargeScreen && (
         <Modal
           open={showModal}
-          onClose={() => {
-            setShowModal(false);
+          onClose={(_event: React.MouseEvent<HTMLButtonElement>, reason: string) => {
+            if (reason === 'closeClick') {
+              setShowModal(false);
+            }
           }}
           className="custom-modal"
         >
           <ModalDialog variant="soft">
             <ModalClose />
-            {/* <Typography component="h2" style={{ width: '100vh' }}>
-              Sign Retainer Agreement
-            </Typography> */}
             <AgreementSigner
               mail={email}
               docShorthand={getShortHand()}

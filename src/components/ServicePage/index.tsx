@@ -29,7 +29,6 @@ import PNPForm from '../Forms/PNPForm';
 import PGPorm from '../Forms/PGPForm';
 import SSForm from '../Forms/SSForm';
 import PlanCard from './PageSections/PlanCard';
-import PricingLeadFormSection from './PageSections/PricingLeadFormSection';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -39,11 +38,8 @@ type ServicePageProps = {
 export const ServicePageComponent = ({ response, isBookAppointment }: ServicePageProps) => {
   const [showBookAnAppointment, setShowBookAnAppointment] = useState(false);
   const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
-  const [showPricingLeadForm, setShowPricingLeadForm] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<number>(0);
   const [currentDomain, setCurrentDomain] = useState<string>('');
   const leadFormRef = useRef<HTMLDivElement>(null);
-  const pricingFormRef = useRef<HTMLDivElement>(null);
 
   const handleGetDomain = () => {
     setCurrentDomain(window.location.origin);
@@ -103,7 +99,6 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
 
   const pricingDetails = pricings?.attributes?.json_content?.pricingDetails;
   const filteredPricings = pricingDetails?.[activepType] || [];
-  const pricingLeadForms = pricings?.attributes?.json_content?.pricingDetails?.pricingPlans;
 
   const sectionsByPosition = [
     whyChooseOpen,
@@ -132,26 +127,10 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     }, timeoutDuration);
   };
 
-  const scrollToPricingLeadForm = (timeoutDuration = 0) => {
-    setTimeout(() => {
-      window.scrollTo({
-        top: pricingFormRef.current!.getBoundingClientRect().top - 150 + window.pageYOffset,
-        behavior: 'smooth',
-      });
-    }, timeoutDuration);
-  };
   const handleCTAButtonClick = (source: string, delayDuration = 0) => {
     setCtaClickSource(source);
-    setShowPricingLeadForm(false);
     setShowBookAnAppointment(true);
     scrollToLeadForm(delayDuration);
-  };
-
-  const handlePricingCTAButtonClick = (index: number, delayDuration = 0) => {
-    setShowPricingLeadForm(true);
-    setShowBookAnAppointment(false);
-    setSelectedPlan(index);
-    scrollToPricingLeadForm(delayDuration);
   };
 
   const nonHubSpotFormSelector = (
@@ -293,30 +272,10 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'our_plans':
       return (
         <div className=" mt-20 !py-0 pt-10 md:pt-[100px] m-auto max-w-screen-2k">
-          {pricingLeadForms?.[selectedPlan] && (
-            <ServicePageWrapper
-              className={`${
-                showPricingLeadForm ? 'block' : 'hidden'
-              } p-5 lg:px-[80px] lg:pt-[84] mt-20 m-auto max-w-screen-2k `}
-            >
-              <PricingLeadFormSection
-                PricingleadForm={pricingLeadForms?.[selectedPlan]}
-                PricingleadFormRef={pricingFormRef}
-                scrollToTop={scrollToPricingLeadForm}
-                onPricingCTAButtonClick={() => {
-                  if (pricingLeadForms?.[selectedPlan].ctapurchase?.toLowerCase() === 'book an appointment now'){
-                    return handleCTAButtonClick(CONSULTATION_TYPES.PAID);
-                  }
-                  return handlePricingCTAButtonClick(selectedPlan);
-                }}
-                isBookAppointment={isBookAppointment}
-              />
-            </ServicePageWrapper>
-          )}
           <div className="px-[24px] md:px-[48px] lg:px-[80px] ">
             <h2
               className={
-                'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem]'
+                'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] mb-5'
               }
             >
               Our Plans
@@ -334,7 +293,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                         redirectUrl={pricing.url}
                         domain={currentDomain}
                         onPricingCTAButtonClick={() => {
-                          return handlePricingCTAButtonClick(index);
+                          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
                         }}
                       />
                     );
