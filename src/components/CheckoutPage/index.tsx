@@ -18,7 +18,7 @@ interface ICheckoutProps {
   planDetails: { planName: string; planPrice: number };
 }
 
-function Checkout({ currentLoggedInUser }: ICheckoutProps) {
+function Checkout({ currentLoggedInUser, planDetails }: ICheckoutProps) {
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
   useEffect(() => {
     if (!currentLoggedInUser || typeof currentLoggedInUser === 'undefined') {
@@ -48,7 +48,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col lg:flex-row gap-10">
       {!currentUser || typeof currentUser === 'undefined' ? (
         <div className="w-full lg:w-1/2">
-          <LoadingUI/>
+          <LoadingUI />
         </div>
       ) : (
         <div className="w-full lg:w-1/2 overflow-auto h-full">
@@ -163,7 +163,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
         </div>
       )}
       <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20">
-        <CheckoutCart />
+        <CheckoutCart planDetails={planDetails} />
       </div>
     </div>
   );

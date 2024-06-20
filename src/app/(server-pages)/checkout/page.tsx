@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function CheckoutPage() {
+export default async function CheckoutPage({ searchParams }: {searchParams: { planName: string, planPrice: number }}) {
   return (
-    <Checkout/>
+    <Checkout planDetails={searchParams}/>
   );
 }

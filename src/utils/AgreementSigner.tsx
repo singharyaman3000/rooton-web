@@ -58,7 +58,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
           // withTitle={false}
           completedButton={{
             title: 'Pay Now',
-            url: `${process.env.NEXT_APP_BASE_URL}/checkout?data=${encrypt(JSON.stringify(planDetails))}`,
+            url: `${process.env.NEXT_APP_BASE_URL}/checkout?plan=${encrypt(JSON.stringify(planDetails))}`,
           }}
           onLoad={handleLoad}
           logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
