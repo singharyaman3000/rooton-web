@@ -3,14 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { DocusealForm } from '@docuseal/react';
 import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from './docuFetch';
+import { encrypt } from './actions/checkout';
 
 interface AgreementSignerProps {
   mail?: string;
   docShorthand?: string;
   toggleModal: () => void;
+  planDetails: {
+    planName: string;
+    planPrice: number;
+  };
 }
 
-const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, docShorthand }) => {
+const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, docShorthand, planDetails }) => {
   const [isLoading, setLoading] = useState(true);
   const [userDoc, setUserDoc] = useState('');
 
@@ -28,7 +33,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
       .catch((err) => {
         console.error(err);
       });
-  }, [docShorthand]);
+  }, [docShorthand, mail, toggleModal]);
 
   const handleLoad = (detail: { error: unknown }) => {
     console.log(detail.error);
@@ -51,7 +56,10 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
           src={`https://docuseal.co/d/${userDoc}`}
           email={mail}
           // withTitle={false}
-          // completedButton={{ title: 'Pay Now', url: 'https://google.com' }}
+          completedButton={{
+            title: 'Pay Now',
+            url: `${process.env.NEXT_APP_BASE_URL}/checkout?data=${encrypt(JSON.stringify(planDetails))}`,
+          }}
           onLoad={handleLoad}
           logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
         />

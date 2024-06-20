@@ -1,7 +1,7 @@
 'use client';
 
 import { IServicePageContent, ISubServicesContent } from '@/app/services/apiService/serviceAPI';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Testimonials from '../HomePage/Testimonials';
 import BookAnAppointmentButton from './BookAnAppointmentButton';
 import { ServicePageWrapper } from './Wrapper';
@@ -29,6 +29,8 @@ import PNPForm from '../Forms/PNPForm';
 import PGPorm from '../Forms/PGPForm';
 import SSForm from '../Forms/SSForm';
 import PlanCard from './PageSections/PlanCard';
+import SectionHeadings from '../UIElements/SectionHeadings';
+import SliderNav from '../UIElements/Slider/sliderNav';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -40,6 +42,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
   const [ctaClickSource, setCtaClickSource] = useState(CONSULTATION_TYPES.FREE);
   const [currentDomain, setCurrentDomain] = useState<string>('');
   const leadFormRef = useRef<HTMLDivElement>(null);
+  const [activeCard, setActiveCard] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const handleGetDomain = () => {
     setCurrentDomain(window.location.origin);
@@ -80,6 +84,8 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
   const pricings = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'our_plans';
   });
+
+  const pricingTitle = pricings?.attributes?.title;
 
   const testimonials = response?.data?.attributes?.sub_services_contents?.data?.find((i) => {
     return i.attributes.unique_identifier_name === 'service-testimonial';
@@ -132,6 +138,61 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     setShowBookAnAppointment(true);
     scrollToLeadForm(delayDuration);
   };
+
+  const [isLeftNavDisabled, setIsLeftNavDisabled] = useState(false);
+  const [isRightNavDisabled, setIsRightNavDisabled] = useState(false);
+
+  const checkNavigationArrows = useCallback(() => {
+    if (scrollContainerRef.current) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current;
+      const isScrollAtStart = scrollLeft === 0;
+      const isScrollAtEnd = scrollLeft >= scrollWidth - clientWidth;
+
+      setIsLeftNavDisabled(isScrollAtStart);
+      setIsRightNavDisabled(isScrollAtEnd);
+    }
+  }, []);
+
+  const SCROLL_DISTANCE = 400;
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -SCROLL_DISTANCE, behavior: 'smooth' });
+      setTimeout(checkNavigationArrows, 200);
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: SCROLL_DISTANCE, behavior: 'smooth' });
+      setTimeout(checkNavigationArrows, 200);
+    }
+  };
+
+  useEffect(() => {
+    checkNavigationArrows();
+    window.addEventListener('resize', checkNavigationArrows);
+
+    return () => {
+      window.removeEventListener('resize', checkNavigationArrows);
+    };
+  }, [checkNavigationArrows]);
+
+  const handleScroll = () => {
+    const scrollPosition = scrollContainerRef.current?.scrollLeft ?? 0;
+    const cardWidth = 400;
+    const newIndex = Math.round(scrollPosition / cardWidth);
+    setActiveCard(newIndex);
+  };
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    scrollContainer?.addEventListener('scroll', handleScroll);
+
+    return () => {
+      scrollContainer?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const nonHubSpotFormSelector = (
     formIdentifier: string,
@@ -271,26 +332,59 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return <ProcessSection key="process" process={process} />;
     case 'our_plans':
       return (
-        <div className=" mt-20 !py-0 pt-10 md:pt-[100px] m-auto max-w-screen-2k">
-          <div className="px-[24px] md:px-[48px] lg:px-[80px] ">
-            <h2
-              className={
-                'max-w-[340px] md:max-w-none md:text-5xl gradient-text text-primary-text font-extrabold not-italic !leading-[1.42] tracking-[normal] text-[1.75rem] mb-5'
-              }
-            >
-              Our Plans
-            </h2>
-            {currentDomain.length !== 0 && (
+        <>
+          <style jsx>{`
+            .scrollable-container {
+              display: flex;
+              overflow-x: auto;
+            }
+            .scrollable-container::-webkit-scrollbar {
+              display: none;
+            }
+            .scrollable-container {
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+            }
+          `}</style>
+          <div className="mt-20 m-auto max-w-screen-2k ">
+            <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
+              <div className="md:max-w-[70%] xl:max-w-none px-[24px] md:px-[48px] lg:px-[80px]">
+                <SectionHeadings title={''} subTitle={pricingTitle || ''} />
+              </div>
+              <div className="items-center hidden md:flex md:mb-[8px]">
+                <div>
+                  <SliderNav
+                    handleOnClick={scrollLeft}
+                    cssClass="mr-[16px] bg-[#f3f3f3]"
+                    leftNav
+                    disable={isLeftNavDisabled}
+                  />
+                  <SliderNav handleOnClick={scrollRight} cssClass="bg-[#f3f3f3] " disable={isRightNavDisabled} />
+                </div>
+              </div>
+            </div>
+            <div className="px-[24px] md:px-[48px] lg:px-[80px]   !py-0 pt-10 md:pt-[100px] fgx">
+              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
               <div
-                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${filteredPricings?.length > 3 ? 'xl2:grid-cols-4 gap-5' : 'lg:gap-16'} mx-auto w-full`}
+                ref={scrollContainerRef}
+                className="scrollable-container"
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowLeft') {
+                    scrollLeft();
+                  } else if (event.key === 'ArrowRight') {
+                    scrollRight();
+                  }
+                }}
               >
                 {Array.isArray(filteredPricings) &&
                   filteredPricings.map((pricing, index) => {
+                    const leadFormsPresent = pricing.lead_forms && pricing.lead_forms.length > 0;
+                    const redirectUrl = !leadFormsPresent ? pricing.url : undefined;
                     return (
                       <PlanCard
                         key={`${index.toString()}`}
                         our_plans={pricing}
-                        redirectUrl={pricing.url}
+                        redirectUrl={redirectUrl}
                         domain={currentDomain}
                         onPricingCTAButtonClick={() => {
                           return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
@@ -299,9 +393,15 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                     );
                   })}
               </div>
-            )}
+              <div className="carousel-dots">
+                {Array.isArray(filteredPricings) &&
+                  filteredPricings.map((_, index) => {
+                    return <span key={''} className={`dot ${index === activeCard ? 'active' : ''}`} />;
+                  })}
+              </div>
+            </div>
           </div>
-        </div>
+        </>
       );
     case 'service-lead-form':
       if (leadForm) {

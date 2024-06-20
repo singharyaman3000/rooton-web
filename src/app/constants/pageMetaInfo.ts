@@ -75,4 +75,9 @@ export const metaInfo = {
     description:
       '',
   },
+  checkout:{
+    title: 'Checkout | Root On',
+    description:
+      '',
+  },
 } satisfies Record<string, IMetaInfo>;

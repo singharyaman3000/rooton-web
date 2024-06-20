@@ -40,8 +40,8 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
     }
   };
   return (
-    <div className="flex flex-row relative w-full">
-      <div className={'pricing-card   shadow-xl w-full mx-auto'}>
+    <div className="flex flex-row relative my-5">
+      <div className="pricing-card ml-[2px] shadow-xl mr-[30px] min-w-[350px] w-full xl:max-w-[436px]">
         {our_plans.popular && (
           <div className="absolute top-0 right-[-2.6rem] mr-6 -mt-4">
             <div
@@ -130,9 +130,9 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
                       <ul className="pricing-text text-sm space-y-4 grow ml-5 font-normal">
                         {subFeatures.map((subFeature) => {
                           return (
-                            <li key={subFeature} className="flex mt-[8px] items-center">
+                            <li key={subFeature} className="flex mt-[8px] items-start">
                               <svg
-                                className="w-2 h-2 text-[#f59723] mr-3 shrink-0"
+                                className="w-2 h-2 text-[#f59723] mr-3 shrink-0 mt-[8px]"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
@@ -158,6 +158,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
         toggleModal={() => {
           setShowModal(false);
         }}
+        planDetails={{ planName: our_plans.planName || '', planPrice: our_plans.price || 0 }}
       />
       {isLargeScreen && (
         <Modal
@@ -172,6 +173,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
           <ModalDialog variant="soft">
             <ModalClose />
             <AgreementSigner
+              planDetails={{ planName: our_plans.planName || '', planPrice: our_plans.price || 0 }}
               mail={email}
               docShorthand={getShortHand()}
               toggleModal={() => {

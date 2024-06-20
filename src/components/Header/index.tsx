@@ -89,7 +89,8 @@ export default function Header() {
     path.includes('verification-email') ||
     path.includes('googleauth') ||
     path.includes('forgot-password') ||
-    path.includes('reset-password');
+    path.includes('reset-password') ||
+    path.includes('checkout');
 
   const scrollToServiceListing = () => {
     if (path === '/' || (path.split('/').length < 3 && params.lang)) {

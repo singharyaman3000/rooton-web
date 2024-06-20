@@ -10,6 +10,10 @@ interface SignRetainerAgreementModalProps {
   email: string;
   isModalOpen: boolean;
   docShorthand?: string;
+  planDetails:{
+    planName: string;
+    planPrice: number;
+  }
 }
 
 // eslint-disable-next-line react/display-name
@@ -30,6 +34,7 @@ function SignRetainerAgreementModal({
   email,
   isModalOpen,
   docShorthand,
+  planDetails,
 }: SignRetainerAgreementModalProps) {
   const [emailValue, setEmailValue] = useState(email);
   const [showAgreementSigner, setShowAgreementSigner] = useState<boolean>(
@@ -66,7 +71,7 @@ function SignRetainerAgreementModal({
           </IconButton>
         </Toolbar>
       </AppBar>
-      {showAgreementSigner && <AgreementSigner toggleModal={toggleModal} docShorthand={docShorthand} mail={emailValue} />}
+      {showAgreementSigner && <AgreementSigner planDetails={planDetails} toggleModal={toggleModal} docShorthand={docShorthand} mail={emailValue} />}
       {!showAgreementSigner && (
         <div className="flex flex-col items-center justify-center gap-4 p-2 w-full md:w-1/2 mx-auto">
           <Image
