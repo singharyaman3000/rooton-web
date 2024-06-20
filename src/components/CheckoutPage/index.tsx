@@ -94,7 +94,7 @@ function Checkout({ currentLoggedInUser, planDetails }: ICheckoutProps) {
                 className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
               >
-                Shipping Address
+                Billing Address
               </h1>
               <FormTextInput
                 placeholder="Enter here.."
