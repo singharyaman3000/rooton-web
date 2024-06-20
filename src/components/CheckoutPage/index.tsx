@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { H2 } from '../H2';
 import { FormTextInput } from '../Forms/components/FormTextInput';
 import { FormDropdown } from '../Forms/components/FormDropDown';
 import CheckoutCart from './CheckoutCart';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import LoadingUI from '../LoadingUI';
+import style from '../SignUpPage/SignUpPage.module.css';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -52,21 +52,18 @@ function Checkout({ currentLoggedInUser, planDetails }: ICheckoutProps) {
         </div>
       ) : (
         <div className="w-full lg:w-1/2 overflow-auto h-full">
-          <form action="" className="flex flex-col items-center w-full gap-3 mb-10" onSubmit={submitHandler}>
+          <form
+            action=""
+            className="flex flex-col items-center w-full gap-3 mb-10 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border"
+            onSubmit={submitHandler}
+          >
             <div className="w-full flex flex-col gap-3 mb-6">
-              <H2>CONTACT</H2>
-              <FormTextInput
-                placeholder="ex: john_doe@example.com"
-                type="email"
-                required
-                value={currentUser?.email || ''}
-                field={{ label: 'Email', name: 'email' }}
-                className={inputStyle}
-                invalidFormat={false}
-              />
-            </div>
-            <div className="w-full flex flex-col gap-3">
-              <H2>SHIPPING ADDRESS</H2>
+              <h1
+                className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
+            overflow-visible justify-center !mb-0`}
+              >
+                Contact Information
+              </h1>
               <FormTextInput
                 placeholder="John"
                 required
@@ -82,6 +79,23 @@ function Checkout({ currentLoggedInUser, planDetails }: ICheckoutProps) {
                 className={inputStyle}
                 invalidFormat={false}
               />
+              <FormTextInput
+                placeholder="ex: john_doe@example.com"
+                type="email"
+                required
+                value={currentUser?.email || ''}
+                field={{ label: 'Email', name: 'email' }}
+                className={inputStyle}
+                invalidFormat={false}
+              />
+            </div>
+            <div className="w-full flex flex-col gap-3">
+              <h1
+                className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
+            overflow-visible justify-center !mb-0`}
+              >
+                Shipping Address
+              </h1>
               <FormTextInput
                 placeholder="Enter here.."
                 field={{ label: 'Address', name: 'address' }}
@@ -156,7 +170,10 @@ function Checkout({ currentLoggedInUser, planDetails }: ICheckoutProps) {
                 invalidFormat={false}
               />
             </div>
-            <button className="w-full text-lg font-bold bg-golden-yellow p-2 rounded-md my-5" type="submit">
+            <button
+              className={`${style.button_width} bg-toggle-dark-bg text-primary-white py-3 px-6 focus:outline-none focus:shadow-outline`}
+              type="submit"
+            >
               Pay Now
             </button>
           </form>
