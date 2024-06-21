@@ -55,7 +55,6 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     // print all the data received from form
     const form = e.currentTarget;
     const formData = new FormData(form);
