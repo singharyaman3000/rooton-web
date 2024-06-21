@@ -7,6 +7,8 @@ import CheckoutCart from './CheckoutCart';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import LoadingUI from '../LoadingUI';
 import style from '../SignUpPage/SignUpPage.module.css';
+import { decrypt } from '@/utils/actions/checkout';
+import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -15,11 +17,30 @@ const selectStyle =
 
 interface ICheckoutProps {
   currentLoggedInUser?: IUserDetails | null;
-  planDetails: { planName: string; planPrice: number };
 }
 
-function Checkout({ currentLoggedInUser, planDetails }: ICheckoutProps) {
+function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
+  const [planDetails, setPlanDetails] = useState<{ details: pricingPlansDetails; serviceName: string }>();
+
+  const decodedToken = async () => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramValue = urlParams.get('token');
+
+      if (paramValue) {
+        const token = await decrypt(paramValue);
+        if (token) {
+          setPlanDetails(JSON.parse(token));
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    decodedToken();
+  }, []);
+
   useEffect(() => {
     if (!currentLoggedInUser || typeof currentLoggedInUser === 'undefined') {
       if (localStorage.getItem('token')) {
@@ -179,9 +200,11 @@ function Checkout({ currentLoggedInUser, planDetails }: ICheckoutProps) {
           </form>
         </div>
       )}
-      <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20">
-        <CheckoutCart planDetails={planDetails} />
-      </div>
+      {planDetails && (
+        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 mb-10">
+          <CheckoutCart planDetails={planDetails} />
+        </div>
+      )}
     </div>
   );
 }

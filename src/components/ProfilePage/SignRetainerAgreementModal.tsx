@@ -4,6 +4,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import Image from 'next/image';
 import React, { forwardRef, useState } from 'react';
 import CloseIcon from '../Icons/CloseIcon';
+import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -11,8 +12,8 @@ interface SignRetainerAgreementModalProps {
   isModalOpen: boolean;
   docShorthand?: string;
   planDetails:{
-    planName: string;
-    planPrice: number;
+    details: pricingPlansDetails;
+    serviceName: string;
   }
 }
 

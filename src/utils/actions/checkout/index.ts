@@ -1,23 +1,26 @@
-
 'use server';
 
 import crypto from 'crypto';
 
 // You should securely store this key and keep it secret
-const ENCRYPTION_KEY = 'my_super_secret_key'; // Must be 256 bits (32 characters)
+const ENCRYPTION_KEY = crypto
+  .createHash('sha256')
+  .update(String('your-encryption-key-here'))
+  .digest('base64')
+  .substr(0, 32); // Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16
 
-function encrypt(text:string) {
+function encrypt(text: string) {
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
   let encrypted = cipher.update(text);
 
   encrypted = Buffer.concat([encrypted, cipher.final()]);
 
-  return `${iv.toString('hex') }:${ encrypted.toString('hex')}`;
+  return `${iv.toString('hex')}:${encrypted.toString('hex')}`;
 }
 
-function decrypt(text:string) {
+function decrypt(text: string) {
   const textParts = text.split(':');
   const firstPart = textParts.shift();
   if (firstPart === undefined) {

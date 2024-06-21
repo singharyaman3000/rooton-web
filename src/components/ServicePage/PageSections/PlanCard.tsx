@@ -13,12 +13,19 @@ import { getShortHand } from './functions';
 
 type TrainingCardProps = {
   our_plans: pricingPlansDetails;
+  serviceName: string;
   onPricingCTAButtonClick: () => void;
   redirectUrl?: string;
   domain?: string;
 };
 
-const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonClick, redirectUrl, domain }) => {
+const PlanCard: React.FC<TrainingCardProps> = ({
+  our_plans,
+  onPricingCTAButtonClick,
+  redirectUrl,
+  domain,
+  serviceName,
+}) => {
   const [expanded, setExpanded] = useState<boolean[]>(
     our_plans.features.map(() => {
       return true;
@@ -158,7 +165,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
         toggleModal={() => {
           setShowModal(false);
         }}
-        planDetails={{ planName: our_plans.planName || '', planPrice: our_plans.price || 0 }}
+        planDetails={{ details: our_plans, serviceName }}
       />
       {isLargeScreen && (
         <Modal
@@ -173,7 +180,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({ our_plans, onPricingCTAButtonCl
           <ModalDialog variant="soft">
             <ModalClose />
             <AgreementSigner
-              planDetails={{ planName: our_plans.planName || '', planPrice: our_plans.price || 0 }}
+              planDetails={{ details: our_plans, serviceName }}
               mail={email}
               docShorthand={getShortHand()}
               toggleModal={() => {

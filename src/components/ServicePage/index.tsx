@@ -386,6 +386,7 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                         our_plans={pricing}
                         redirectUrl={redirectUrl}
                         domain={currentDomain}
+                        serviceName={response.data?.attributes?.title}
                         onPricingCTAButtonClick={() => {
                           return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
                         }}

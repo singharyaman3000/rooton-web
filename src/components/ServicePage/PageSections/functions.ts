@@ -23,18 +23,20 @@ const map = [
 export const getShortHand = () => {
   const value = map.find((item) => {
     // Select the span within the h1
-    const spanElement = document.querySelector('h1.banner-text span');
+    if (typeof document !== 'undefined') {
+      const spanElement = document.querySelector('h1.banner-text span');
 
-    if (spanElement) {
-      // Get the text content of the span
-      const spanText = spanElement.textContent;
-      // Return true if the span text matches the key
-      if (item.key.toLowerCase() === spanText?.toLowerCase()) {
-        return true;
+      if (spanElement) {
+        // Get the text content of the span
+        const spanText = spanElement.textContent;
+        // Return true if the span text matches the key
+        if (item.key.toLowerCase() === spanText?.toLowerCase()) {
+          return true;
+        }
+
+        // Return false if the span element is not found
+        return false;
       }
-
-      // Return false if the span element is not found
-      return false;
     }
     return false;
   });
