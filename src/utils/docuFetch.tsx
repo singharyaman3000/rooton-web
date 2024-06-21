@@ -3,10 +3,16 @@ import axios from 'axios';
 const getUserDoc = async (docShorthand: string, email: string): Promise<string | undefined> => {
   try {
     const token = localStorage.getItem('token');
+    console.log(docShorthand, email);
+
+    const dataToBeSent = {
+      serveDoc: docShorthand,
+      email: typeof email === 'undefined' ? '' : email,
+    };
 
     const response = await axios.post(
       `${process.env.NEXT_SERVER_API_BASE_URL}/api/userDoc`,
-      { serveDoc: docShorthand, email },
+      dataToBeSent,
       {
         headers: { Authorization: token ? `Bearer ${token}` : null },
       },

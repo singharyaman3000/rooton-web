@@ -84,7 +84,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     });
 
     if (window) {
-      if (!window.location.origin.includes('rooton.ca')) {
+      if (window.location.origin.includes('rooton.ca')) {
         handleStripPayment(planDetails?.details.stripePriceID || '', email || '')
           .then((res) => {
             if (res.status) {
