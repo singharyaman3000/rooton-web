@@ -90,7 +90,9 @@ export default function Header() {
     path.includes('googleauth') ||
     path.includes('forgot-password') ||
     path.includes('reset-password') ||
-    path.includes('checkout');
+    path.includes('checkout') ||
+    path.includes('payment-success') ||
+    path.includes('payment-error');
 
   const scrollToServiceListing = () => {
     if (path === '/' || (path.split('/').length < 3 && params.lang)) {
@@ -122,7 +124,10 @@ export default function Header() {
       path.includes('profile') ||
       pathArray.includes('privacy-policy') ||
       pathArray.includes('disclaimer') ||
-      pathArray.includes('terms-and-conditions')
+      pathArray.includes('terms-and-conditions') ||
+      path.includes('checkout') ||
+      path.includes('payment-success') ||
+      path.includes('payment-error')
     ) {
       currentTab = '';
     } else if (

@@ -98,7 +98,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   };
 
   return (
-    <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col lg:flex-row gap-10">
+    <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col-reverse lg:flex-row gap-10">
       {(!currentUser || typeof currentUser === 'undefined') && localStorage.getItem('token') ? (
         <div className="w-full lg:w-1/2">
           <LoadingUI />
@@ -201,7 +201,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
         </div>
       )}
       {planDetails && (
-        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 mb-10">
+        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8">
           <CheckoutCart planDetails={planDetails} />
         </div>
       )}

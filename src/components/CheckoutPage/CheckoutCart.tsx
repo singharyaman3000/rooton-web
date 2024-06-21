@@ -47,8 +47,8 @@ function CheckoutCart({ planDetails }: CheckoutCartProps) {
 
   if (!planDetails) return null;
   return (
-    <div className="w-full p-2 my-4 rounded-md">
-      <div className="flex flex-col gap-3 py-4">
+    <div className="w-full rounded-md">
+      <div className="flex flex-col gap-3 pb-4">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-3">
             <Image
@@ -56,6 +56,7 @@ function CheckoutCart({ planDetails }: CheckoutCartProps) {
               alt={planDetails.details.planName || ''}
               width={100}
               height={100}
+              className='hidden sm:block'
             />
             <h1
               className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
@@ -78,9 +79,9 @@ function CheckoutCart({ planDetails }: CheckoutCartProps) {
             <p>{getPriceBasedOnDomain().subTotal}</p>
           </div>
         )}
-        <div className="flex items-center justify-between">
+        <div className="flex justify-between">
           <p>Taxes:</p>
-          <p>{getPriceBasedOnDomain().taxes || 'Taxes will be calculated on the next step.'}</p>
+          <p>{getPriceBasedOnDomain().taxes || 'Calculated at next step'}</p>
         </div>
       </div>
       <Divider color={theme === 'dark' ? 'white' : 'black'} />

@@ -22,8 +22,7 @@ export const metaInfo = {
   },
   profile: {
     title: 'Profile | Root On',
-    description:
-      '',
+    description: '',
   },
   contactUs: {
     title: 'Canada Immigration Consultant in Montreal | Root On',
@@ -52,32 +51,34 @@ export const metaInfo = {
   },
   email: {
     title: 'Email Verification | Root On',
-    description:
-      '',
+    description: '',
   },
   google_auth: {
     title: 'Google Authentication | Root On',
-    description:
-      '',
+    description: '',
   },
   forgot_password: {
     title: 'Forgot Password | Root On',
-    description:
-      '',
+    description: '',
   },
   reset_password: {
     title: 'Reset Password | Root On',
-    description:
-      '',
+    description: '',
   },
   error: {
     title: 'Error | Root On',
-    description:
-      '',
+    description: '',
   },
-  checkout:{
+  checkout: {
     title: 'Checkout | Root On',
-    description:
-      '',
+    description: '',
+  },
+  payment_error: {
+    title: 'Payment Error | Root On',
+    description: '',
+  },
+  payment_success: {
+    title: 'Payment Success | Root On',
+    description: '',
   },
 } satisfies Record<string, IMetaInfo>;
