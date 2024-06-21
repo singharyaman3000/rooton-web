@@ -42,8 +42,8 @@ export const FormDropdown: React.FC<PropsType> = ({
       <select
         value={inputValue}
         onChange={
-          onChange ||
           ((e) => {
+            onChange?.(e);
             return setInputValue(e.target.value);
           })
         }

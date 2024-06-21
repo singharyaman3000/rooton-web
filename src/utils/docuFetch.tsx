@@ -3,7 +3,6 @@ import axios from 'axios';
 const getUserDoc = async (docShorthand: string, email: string): Promise<string | undefined> => {
   try {
     const token = localStorage.getItem('token');
-    console.log(docShorthand, email);
 
     const dataToBeSent = {
       serveDoc: docShorthand,

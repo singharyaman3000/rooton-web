@@ -84,7 +84,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     });
 
     if (window) {
-      if (window.location.origin.includes('rooton.ca')) {
+      if (!window.location.origin.includes('rooton.ca')) {
         handleStripPayment(planDetails?.details.stripePriceID || '', email || '')
           .then((res) => {
             if (res.status) {
@@ -162,7 +162,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 value={country || ''}
                 options={countryOptions}
                 onChange={(e) => {
-                  return setCountry(e.target.value);
+                  return setCountry(e.currentTarget.value);
                 }}
                 label="Country"
                 className={selectStyle}
