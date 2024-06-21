@@ -57,6 +57,7 @@ export type pricingPlansDetails = {
   pricingINR?: string;
   pricingCAD?: string;
   url: string;
+  stripePriceID?: string;
   ctapurchase: string;
 };
 

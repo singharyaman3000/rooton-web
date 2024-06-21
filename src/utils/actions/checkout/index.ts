@@ -1,6 +1,7 @@
 'use server';
 
 import crypto from 'crypto';
+import Stripe from 'stripe';
 
 // You should securely store this key and keep it secret
 const ENCRYPTION_KEY = crypto
@@ -10,7 +11,7 @@ const ENCRYPTION_KEY = crypto
   .substr(0, 32); // Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16
 
-function encrypt(text: string) {
+async function encrypt(text: string) {
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
   let encrypted = cipher.update(text);
@@ -20,7 +21,7 @@ function encrypt(text: string) {
   return `${iv.toString('hex')}:${encrypted.toString('hex')}`;
 }
 
-function decrypt(text: string) {
+async function decrypt(text: string) {
   const textParts = text.split(':');
   const firstPart = textParts.shift();
   if (firstPart === undefined) {
@@ -37,4 +38,39 @@ function decrypt(text: string) {
   return decrypted.toString();
 }
 
-export { encrypt, decrypt };
+async function handleStripPayment(
+  priceId: string,
+  email: string,
+): Promise<{ status: boolean; payment_url: string | null, error: string | null }> {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    apiVersion: '2024-04-10', // Ensure you specify the correct API version
+  });
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      customer_email: email,
+      automatic_tax: {
+        enabled: true,
+      },
+      billing_address_collection: 'required',
+      customer_creation: 'if_required',
+      invoice_creation: {
+        enabled: true,
+      },
+      mode: 'payment',
+      success_url: 'https://app.rooton.ca',
+      cancel_url: 'http://localhost:3000',
+    });
+
+    return { status: true, payment_url: session.url, error: null };
+  } catch (error) {
+    return { status: false, payment_url: null, error: JSON.stringify(error) };
+  }
+}
+export { encrypt, decrypt, handleStripPayment };

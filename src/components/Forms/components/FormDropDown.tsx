@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, useState } from 'react';
 import { OptionType } from './model';
 
 type PropsType = {
-  options: OptionType[] | undefined;
+  options: OptionType[] | string[] | undefined;
   value: string;
   label: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
@@ -56,7 +56,14 @@ export const FormDropdown: React.FC<PropsType> = ({
         <option disabled value="">
           Please Select
         </option>
-        {options?.map((option) => {
+        {options?.map((option, index) => {
+          if (typeof option === 'string') {
+            return (
+              <option key={option + index.toString()} value={option}>
+                {option}
+              </option>
+            );
+          }
           return (
             <option key={option.id} value={option.value}>
               {option.value}
@@ -64,7 +71,11 @@ export const FormDropdown: React.FC<PropsType> = ({
           );
         })}
       </select>
-      {isError && <p className="hs-main-font-element hs-error-msg text-[#ff0000]">Please select an option from the dropdown menu.</p>}
+      {isError && (
+        <p className="hs-main-font-element hs-error-msg text-[#ff0000]">
+          Please select an option from the dropdown menu.
+        </p>
+      )}
     </div>
   );
 };

@@ -7,8 +7,10 @@ import CheckoutCart from './CheckoutCart';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import LoadingUI from '../LoadingUI';
 import style from '../SignUpPage/SignUpPage.module.css';
-import { decrypt } from '@/utils/actions/checkout';
+import { decrypt, handleStripPayment } from '@/utils/actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
+import { city } from '../ProfilePage/profileCIty';
+import { useRouter } from 'next/navigation';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -19,9 +21,24 @@ interface ICheckoutProps {
   currentLoggedInUser?: IUserDetails | null;
 }
 
+const getCityOptions = (country: string) => {
+  const countryData = city.find((item) => {
+    return item.country === country;
+  });
+  return countryData ? countryData.cities : [];
+};
+
 function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
   const [planDetails, setPlanDetails] = useState<{ details: pricingPlansDetails; serviceName: string }>();
+  const [country, setCountry] = useState<string>(currentLoggedInUser?.countryOfCitizenship || '');
+
+  const countryOptions = city.map((item) => {
+    return item.country;
+  });
+  const cityOptions = getCityOptions(country || '');
+
+  const router = useRouter();
 
   const decodedToken = async () => {
     if (typeof window !== 'undefined') {
@@ -47,6 +64,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
         getCurrentUserDetails().then((data) => {
           if (data) {
             setCurrentUser(data);
+            setCountry(data?.countryOfCitizenship || '');
           }
         });
       }
@@ -58,10 +76,25 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     // print all the data received from form
     const form = e.currentTarget;
     const formData = new FormData(form);
-
+    let email = '';
     formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
+      if (key === 'email') {
+        email = value as string;
+      }
     });
+
+    if (window) {
+      if (!window.location.origin.includes('rooton.ca')) {
+        handleStripPayment(planDetails?.details.stripePriceID || '', email || '')
+          .then((res) => {
+            if (res.status) {
+              router.push(res.payment_url || '');
+            } else {
+              console.log(JSON.parse(res.error || ''));
+            }
+          });
+      }
+    }
   };
 
   return (
@@ -126,54 +159,22 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               <FormDropdown
                 name="countryOfCitizenship"
                 required
-                value={currentUser?.countryOfCitizenship?.toLowerCase() || ''}
-                options={[
-                  { id: 'c1', value: 'United States' },
-                  { id: 'c2', value: 'Canada' },
-                  { id: 'c3', value: 'Mexico' },
-                  { id: 'c4', value: 'India' },
-                  { id: 'c5', value: 'Australia' },
-                  { id: 'c6', value: 'China' },
-                  { id: 'c7', value: 'Russia' },
-                  { id: 'c8', value: 'Germany' },
-                  { id: 'c9', value: 'France' },
-                ]}
+                value={country || ''}
+                options={countryOptions}
+                onChange={(e) => {
+                  return setCountry(e.target.value);
+                }}
                 label="Country"
                 className={selectStyle}
               />
-              <FormTextInput
+              {/* <FormTextInput
                 placeholder="City"
                 field={{ label: 'City', name: 'city' }}
                 value=""
                 className={inputStyle}
                 invalidFormat={false}
-              />
-              <FormDropdown
-                name="state"
-                value=""
-                required
-                options={[
-                  { id: '1', value: 'Alabama' },
-                  { id: '2', value: 'Alaska' },
-                  { id: '3', value: 'Arizona' },
-                  { id: '4', value: 'Arkansas' },
-                  { id: '5', value: 'California' },
-                  { id: '6', value: 'Colorado' },
-                  { id: '7', value: 'Connecticut' },
-                  { id: '8', value: 'Delaware' },
-                  { id: '9', value: 'Florida' },
-                  { id: '10', value: 'Georgia' },
-                  { id: '11', value: 'Hawaii' },
-                  { id: '12', value: 'Idaho' },
-                  { id: '13', value: 'Illinois' },
-                  { id: '14', value: 'Indiana' },
-                  { id: '15', value: 'Iowa' },
-                  { id: '16', value: 'Kansas' },
-                  { id: '17', value: 'Kentucky' },
-                ]}
-                label="State"
-                className={selectStyle}
-              />
+              /> */}
+              <FormDropdown name="city" value="" required options={cityOptions} label="City" className={selectStyle} />
               <FormTextInput
                 placeholder="Zip Code"
                 field={{ label: 'Zip Code', name: 'zip_code' }}
