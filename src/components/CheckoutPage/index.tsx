@@ -83,16 +83,15 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
       }
     });
 
-    if (window) {
-      if (!window.location.origin.includes('rooton.ca')) {
-        handleStripPayment(planDetails?.details.stripePriceID || '', email || '')
-          .then((res) => {
-            if (res.status) {
-              router.push(res.payment_url || '');
-            } else {
-              console.log(JSON.parse(res.error || ''));
-            }
-          });
+    if (typeof window !== 'undefined') {
+      if (window.location.origin.includes('rooton.ca')) {
+        handleStripPayment(planDetails?.details.stripePriceID || '', email || '').then((res) => {
+          if (res.status) {
+            router.push(res.payment_url || '');
+          } else {
+            console.log(JSON.parse(res.error || ''));
+          }
+        });
       }
     }
   };
