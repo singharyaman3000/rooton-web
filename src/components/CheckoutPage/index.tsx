@@ -66,7 +66,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   return (
     <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col lg:flex-row gap-10">
-      {!currentUser || typeof currentUser === 'undefined' ? (
+      {(!currentUser || typeof currentUser === 'undefined') && localStorage.getItem('token') ? (
         <div className="w-full lg:w-1/2">
           <LoadingUI />
         </div>
@@ -126,7 +126,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               <FormDropdown
                 name="countryOfCitizenship"
                 required
-                value={currentUser?.countryOfCitizenship.toLowerCase() || ''}
+                value={currentUser?.countryOfCitizenship?.toLowerCase() || ''}
                 options={[
                   { id: 'c1', value: 'United States' },
                   { id: 'c2', value: 'Canada' },
