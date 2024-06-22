@@ -5,6 +5,7 @@ import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from './docuFetch';
 import { encrypt } from './actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
+import { useParams } from 'next/navigation';
 
 interface AgreementSignerProps {
   mail?: string;
@@ -17,6 +18,7 @@ interface AgreementSignerProps {
 }
 
 const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, docShorthand, planDetails }) => {
+  const params = useParams();
   const [isLoading, setLoading] = useState(true);
   const [userDoc, setUserDoc] = useState('');
   const [encryptedData, setEncryptedData] = useState('');
@@ -44,6 +46,13 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
     setLoading(false);
   };
 
+  const getCompletedRedirectUrl = () => {
+    if (params.lang) {
+      return `${process.env.NEXT_API_BASE_URL}/${params.lang}/checkout?token=${encryptedData}`;
+    }
+    return `${process.env.NEXT_API_BASE_URL}/checkout?token=${encryptedData}`;
+  };
+
   return (
     <div
       style={{
@@ -59,7 +68,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
         <DocusealForm
           src={`https://docuseal.co/d/${userDoc}`}
           email={mail}
-          completedRedirectUrl={`${process.env.NEXT_APP_BASE_URL}/checkout?token=${encryptedData}`}
+          completedRedirectUrl={getCompletedRedirectUrl()}
           onLoad={handleLoad}
           logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
         />
