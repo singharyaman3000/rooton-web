@@ -38,13 +38,23 @@ async function decrypt(text: string) {
   return decrypted.toString();
 }
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: '2024-04-10', // Ensure you specify the correct API version
+});
+
 async function handleStripPayment(
   priceId: string,
   email: string,
-): Promise<{ status: boolean; payment_url: string | null, error: string | null }> {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2024-04-10', // Ensure you specify the correct API version
-  });
+  name: string,
+  token: string | undefined,
+  lang: string | undefined,
+): Promise<{ status: boolean; payment_url: string | null; error: string | null }> {
+  let successUrl = 'http://localhost:3000/payment-success?session_id={CHECKOUT_SESSION_ID}';
+  let cancelUrl = `http://localhost:3000/checkout?token=${token}`;
+  if (lang) {
+    successUrl = `http://localhost:3000/${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
+    cancelUrl = `http://localhost:3000/${lang}/checkout?token=${token}`;
+  }
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -64,8 +74,8 @@ async function handleStripPayment(
         enabled: true,
       },
       mode: 'payment',
-      success_url: 'https://app.rooton.ca',
-      cancel_url: 'http://localhost:3000',
+      success_url: successUrl,
+      cancel_url: cancelUrl,
     });
 
     return { status: true, payment_url: session.url, error: null };
@@ -73,4 +83,13 @@ async function handleStripPayment(
     return { status: false, payment_url: null, error: JSON.stringify(error) };
   }
 }
-export { encrypt, decrypt, handleStripPayment };
+
+async function handleStripePaymentSuccess(sessionId: string) {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    return session;
+  } catch (error) {
+    return error;
+  }
+}
+export { encrypt, decrypt, handleStripPayment, handleStripePaymentSuccess };

@@ -27,10 +27,9 @@ const ErrorPage = () => {
             />
           </svg>
         </div>
-        <h2 className="text-2xl font-semibold mb-2">₹1,18,355</h2>
         <p className="text-lg font-semibold mb-4 text-red-600">Payment Failed!</p>
         <p className="text-gray-600 mb-6">
-          Hey, seems like there was some trouble. We are there with you. Just hold back.
+          Unfortunately, your payment could not be processed. Please try again or contact support.
         </p>
         <p className="text-sm text-gray-500 mb-8">Payment ID: 283848, 24 Oct,2020-11:55 PM</p>
       </div>
