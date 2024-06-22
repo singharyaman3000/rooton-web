@@ -26,6 +26,12 @@ const SuccessPage = () => {
     }
   }, []);
 
+  const getTotalCadAmount = () => {
+    const amountTotalCents = session?.amount_total ?? 0;
+    const amountTotalDollars = amountTotalCents / 100;
+    return amountTotalDollars.toFixed(2);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
       <div className="bg-white p-8 rounded-lg shadow-lg text-center w-full max-w-md mx-auto">
@@ -65,9 +71,7 @@ const SuccessPage = () => {
               </svg>
             </div>
             <h2 className="text-2xl font-semibold mb-2">
-              {session?.currency === 'cad'
-                ? `CAD $ ${session?.amount_total?.toFixed(2)}`
-                : `₹ ${session?.amount_total?.toFixed(2)}`}
+              {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${session?.amount_total?.toFixed(2)}`}
             </h2>
             <p className="text-lg font-semibold mb-4">Payment Successful!</p>
             <p className="text-gray-600 mb-6">The payment has been done successfully.</p>
