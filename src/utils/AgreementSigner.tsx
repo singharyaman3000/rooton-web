@@ -48,9 +48,9 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
 
   const getCompletedRedirectUrl = () => {
     if (params.lang) {
-      return `${process.env.NEXT_API_BASE_URL}/${params.lang}/checkout?token=${encryptedData}`;
+      return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${encryptedData}`;
     }
-    return `${process.env.NEXT_API_BASE_URL}/checkout?token=${encryptedData}`;
+    return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${encryptedData}`;
   };
 
   return (
