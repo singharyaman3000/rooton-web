@@ -49,11 +49,11 @@ async function handleStripPayment(
   token: string | undefined,
   lang: string | undefined,
 ): Promise<{ status: boolean; payment_url: string | null; error: string | null }> {
-  let successUrl = 'http://localhost:3000/payment-success?session_id={CHECKOUT_SESSION_ID}';
-  let cancelUrl = `http://localhost:3000/checkout?token=${token}`;
+  let successUrl = `${process.env.NEXT_APP_BASE_URL}payment-success?session_id={CHECKOUT_SESSION_ID}`;
+  let cancelUrl = `${process.env.NEXT_APP_BASE_URL}checkout?token=${token}`;
   if (lang) {
-    successUrl = `http://localhost:3000/${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
-    cancelUrl = `http://localhost:3000/${lang}/checkout?token=${token}`;
+    successUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
+    cancelUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/checkout?token=${token}`;
   }
 
   try {
