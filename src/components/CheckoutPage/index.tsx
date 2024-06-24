@@ -98,9 +98,10 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   useEffect(() => {
     if (selectedState) {
-      const cityList = City.getCitiesOfState(selectedState.countryCode, selectedState.isoCode)?.length > 0
-        ? City.getCitiesOfState(selectedState.countryCode, selectedState.isoCode)
-        : [selectedState];
+      const cityList =
+        City.getCitiesOfState(selectedState.countryCode, selectedState.isoCode)?.length > 0
+          ? City.getCitiesOfState(selectedState.countryCode, selectedState.isoCode)
+          : [selectedState];
       setCities(cityList);
       setSelectedCity({ name: '' });
     }
@@ -201,77 +202,79 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   invalidFormat={false}
                 />
               </div>
-              <div className="w-full flex flex-col gap-3">
-                <h1
-                  className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
+              {window && !window.location.origin.includes('rooton.ca') && (
+                <div className="w-full flex flex-col gap-3">
+                  <h1
+                    className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
-                >
-                Billing Address
-                </h1>
-                <FormTextInput
-                  placeholder="Enter here.."
-                  field={{ label: 'Address', name: 'address' }}
-                  value=""
-                  className={inputStyle}
-                  invalidFormat={false}
-                />
-                <FormDropdown
-                  name="countryOfCitizenship"
-                  required
-                  value={selectedCountry?.name || ''}
-                  options={Country?.getAllCountries().map((countryData) => {
-                    return countryData?.name || '';
-                  })}
-                  onChange={(e) => {
-                    return handleCountryChange(e.currentTarget.value);
-                  }}
-                  label="Country"
-                  className={selectStyle}
-                />
-                <FormDropdown
-                  name="state"
-                  value={selectedState?.name || ''}
-                  required
-                  options={states?.map((stateData) => {
-                    return stateData?.name || '';
-                  })}
-                  onChange={(e) => {
-                    return handleStateChange(e.currentTarget.value);
-                  }}
-                  label="Province/State"
-                  className={selectStyle}
-                />
-                <FormDropdown
-                  name="city"
-                  required
-                  value={selectedCity?.name || ''}
-                  options={cities?.map((cityData) => {
-                    return cityData?.name || '';
-                  })}
-                  onChange={(e) => {
-                    return setSelectedCity(
-                      findCityListByName(e.currentTarget.value, selectedState?.countryCode, selectedState?.isoCode),
-                    );
-                  }}
-                  label="City"
-                  className={selectStyle}
-                />
-                <FormTextInput
-                  placeholder="Zip Code"
-                  field={{ label: 'Zip Code', name: 'zip_code' }}
-                  value=""
-                  className={inputStyle}
-                  invalidFormat={false}
-                />
-                <FormTextInput
-                  placeholder="Phone Number"
-                  type="phone"
-                  field={{ label: 'Phone Number', name: 'Phone' }}
-                  value={currentUser?.Phone || ''}
-                  className={inputStyle}
-                  invalidFormat={false}
-                />
-              </div>
+                  >
+                  Billing Address
+                  </h1>
+                  <FormTextInput
+                    placeholder="Enter here.."
+                    field={{ label: 'Address', name: 'address' }}
+                    value=""
+                    className={inputStyle}
+                    invalidFormat={false}
+                  />
+                  <FormDropdown
+                    name="countryOfCitizenship"
+                    required
+                    value={selectedCountry?.name || ''}
+                    options={Country?.getAllCountries().map((countryData) => {
+                      return countryData?.name || '';
+                    })}
+                    onChange={(e) => {
+                      return handleCountryChange(e.currentTarget.value);
+                    }}
+                    label="Country"
+                    className={selectStyle}
+                  />
+                  <FormDropdown
+                    name="state"
+                    value={selectedState?.name || ''}
+                    required
+                    options={states?.map((stateData) => {
+                      return stateData?.name || '';
+                    })}
+                    onChange={(e) => {
+                      return handleStateChange(e.currentTarget.value);
+                    }}
+                    label="Province/State"
+                    className={selectStyle}
+                  />
+                  <FormDropdown
+                    name="city"
+                    required
+                    value={selectedCity?.name || ''}
+                    options={cities?.map((cityData) => {
+                      return cityData?.name || '';
+                    })}
+                    onChange={(e) => {
+                      return setSelectedCity(
+                        findCityListByName(e.currentTarget.value, selectedState?.countryCode, selectedState?.isoCode),
+                      );
+                    }}
+                    label="City"
+                    className={selectStyle}
+                  />
+                  <FormTextInput
+                    placeholder="Zip Code"
+                    field={{ label: 'Zip Code', name: 'zip_code' }}
+                    value=""
+                    className={inputStyle}
+                    invalidFormat={false}
+                  />
+                  <FormTextInput
+                    placeholder="Phone Number"
+                    type="phone"
+                    field={{ label: 'Phone Number', name: 'Phone' }}
+                    value={currentUser?.Phone || ''}
+                    className={inputStyle}
+                    invalidFormat={false}
+                  />
+                </div>
+              )}
               <button
                 className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
                 type="submit"

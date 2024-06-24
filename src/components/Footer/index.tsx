@@ -134,6 +134,9 @@ export default function Footer() {
             <Link className="basis-[47%] order-5" href={params.lang ? `/${params.lang}/sitemap` : '/sitemap'}>
               Sitemap
             </Link>
+            <Link className="basis-[47%] order-5" href={params.lang ? `/${params.lang}/checkout` : '/checkout'}>
+              Pay Now
+            </Link>
           </div>
         </div>
       </div>
