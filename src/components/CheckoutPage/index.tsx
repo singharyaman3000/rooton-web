@@ -1,5 +1,6 @@
 'use client';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { FormTextInput } from '../Forms/components/FormTextInput';
 import { FormDropdown } from '../Forms/components/FormDropDown';
@@ -9,8 +10,8 @@ import LoadingUI from '../LoadingUI';
 import style from '../SignUpPage/SignUpPage.module.css';
 import { decrypt, handleStripPayment } from '@/utils/actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
-import { city } from '../ProfilePage/profileCIty';
 import { useParams, useRouter } from 'next/navigation';
+import { Country, State, City } from 'country-state-city';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -21,24 +22,38 @@ interface ICheckoutProps {
   currentLoggedInUser?: IUserDetails | null;
 }
 
-const getCityOptions = (country: string) => {
-  const countryData = city.find((item) => {
-    return item.country === country;
+const findCountryListByName = (name: string) => {
+  return Country.getAllCountries().find((list: any) => {
+    return list.name === name;
   });
-  return countryData ? countryData.cities : [];
+};
+
+const findStateListByName = (name: string, isoCode: string) => {
+  return State.getStatesOfCountry(isoCode).find((list: any) => {
+    return list.name === name;
+  });
+};
+
+const findCityListByName = (name: string, countryCode: string, isoCode: string) => {
+  return City?.getCitiesOfState(countryCode, isoCode).find((list: any) => {
+    return list.name === name;
+  });
 };
 
 function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const params = useParams();
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
   const [planDetails, setPlanDetails] = useState<{ details: pricingPlansDetails; serviceName: string }>();
-  const [country, setCountry] = useState<string>(currentLoggedInUser?.countryOfCitizenship || '');
   const [token, setToken] = useState<string>('');
 
-  const countryOptions = city.map((item) => {
-    return item.country;
-  });
-  const cityOptions = getCityOptions(country || '');
+  const [selectedCountry, setSelectedCountry] = useState<any>(
+    findCountryListByName(currentLoggedInUser?.countryOfCitizenship || ''),
+  );
+  const [selectedState, setSelectedState] = useState<any>(null);
+  const [selectedCity, setSelectedCity] = useState<any>(null);
+
+  const [states, setStates] = useState<any[]>([]);
+  const [cities, setCities] = useState<any[]>([]);
 
   const router = useRouter();
 
@@ -66,12 +81,40 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
         getCurrentUserDetails().then((data) => {
           if (data) {
             setCurrentUser(data);
-            setCountry(data?.countryOfCitizenship || '');
+            setSelectedCountry(findCountryListByName(data?.countryOfCitizenship || ''));
           }
         });
       }
     }
   }, [currentLoggedInUser]);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      setStates(State.getStatesOfCountry(selectedCountry.isoCode));
+      setSelectedState({ name: '' });
+      setSelectedCity({ name: '' });
+    }
+  }, [selectedCountry]);
+
+  useEffect(() => {
+    if (selectedState) {
+      const cityList = City.getCitiesOfState(selectedState.countryCode, selectedState.isoCode)?.length > 0
+        ? City.getCitiesOfState(selectedState.countryCode, selectedState.isoCode)
+        : [selectedState];
+      setCities(cityList);
+      setSelectedCity({ name: '' });
+    }
+  }, [selectedState]);
+
+  const handleCountryChange = (countryName: string) => {
+    const country = findCountryListByName(countryName);
+    setSelectedCountry(country);
+  };
+
+  const handleStateChange = (stateName: string) => {
+    const state = findStateListByName(stateName, selectedCountry?.isoCode);
+    setSelectedState(state);
+  };
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -175,22 +218,44 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 <FormDropdown
                   name="countryOfCitizenship"
                   required
-                  value={country || ''}
-                  options={countryOptions}
+                  value={selectedCountry?.name || ''}
+                  options={Country?.getAllCountries().map((countryData) => {
+                    return countryData?.name || '';
+                  })}
                   onChange={(e) => {
-                    return setCountry(e.currentTarget.value);
+                    return handleCountryChange(e.currentTarget.value);
                   }}
                   label="Country"
                   className={selectStyle}
                 />
-                {/* <FormTextInput
-                placeholder="City"
-                field={{ label: 'City', name: 'city' }}
-                value=""
-                className={inputStyle}
-                invalidFormat={false}
-              /> */}
-                <FormDropdown name="city" value="" required options={cityOptions} label="City" className={selectStyle} />
+                <FormDropdown
+                  name="state"
+                  value={selectedState?.name || ''}
+                  required
+                  options={states?.map((stateData) => {
+                    return stateData?.name || '';
+                  })}
+                  onChange={(e) => {
+                    return handleStateChange(e.currentTarget.value);
+                  }}
+                  label="Province/State"
+                  className={selectStyle}
+                />
+                <FormDropdown
+                  name="city"
+                  required
+                  value={selectedCity?.name || ''}
+                  options={cities?.map((cityData) => {
+                    return cityData?.name || '';
+                  })}
+                  onChange={(e) => {
+                    return setSelectedCity(
+                      findCityListByName(e.currentTarget.value, selectedState?.countryCode, selectedState?.isoCode),
+                    );
+                  }}
+                  label="City"
+                  className={selectStyle}
+                />
                 <FormTextInput
                   placeholder="Zip Code"
                   field={{ label: 'Zip Code', name: 'zip_code' }}
@@ -208,7 +273,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 />
               </div>
               <button
-                className={`${style.button_width} bg-toggle-dark-bg text-primary-white py-3 px-6 focus:outline-none focus:shadow-outline`}
+                className={`${style.button_width} bg-toggle-dark-bg text-primary-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
                 type="submit"
               >
               Pay Now

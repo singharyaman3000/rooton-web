@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from 'react';
+import React, { ChangeEventHandler, useState, useEffect } from 'react';
 import { OptionType } from './model';
 
 type PropsType = {
@@ -24,6 +24,10 @@ export const FormDropdown: React.FC<PropsType> = ({
   const [isError, setIsError] = useState(false);
   const [inputValue, setInputValue] = useState(value);
 
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
+
   const handleBlur = () => {
     setIsError(required && !inputValue);
   };
@@ -40,20 +44,18 @@ export const FormDropdown: React.FC<PropsType> = ({
         </div>
       </div>
       <select
-        value={inputValue}
-        onChange={
-          ((e) => {
-            onChange?.(e);
-            return setInputValue(e.target.value);
-          })
-        }
+        value={inputValue || ''}
+        onChange={(e) => {
+          onChange?.(e);
+          setInputValue(e.target.value);
+        }}
         onBlur={handleBlur}
         onFocus={handleFocus}
         required={required}
         name={name}
         className={className}
       >
-        <option disabled value="">
+        <option value="" disabled>
           Please Select
         </option>
         {options?.map((option, index) => {
