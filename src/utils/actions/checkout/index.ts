@@ -73,6 +73,7 @@ async function handleStripPayment(
       invoice_creation: {
         enabled: true,
       },
+
       mode: 'payment',
       success_url: successUrl,
       cancel_url: cancelUrl,
@@ -87,6 +88,11 @@ async function handleStripPayment(
 async function handleStripePaymentSuccess(sessionId: string) {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
+    if (session.payment_status === 'paid') {
+      const invoicedata = await stripe.invoices.retrieve(session.invoice as string||'');
+      console.log(invoicedata);
+    }
+
     return session;
   } catch (error) {
     return error;

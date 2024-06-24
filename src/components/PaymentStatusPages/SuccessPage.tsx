@@ -16,6 +16,7 @@ const SuccessPage = () => {
       if (paramValue) {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
+            console.log(data);
             setSession(data);
           }
           setLoading(false);
