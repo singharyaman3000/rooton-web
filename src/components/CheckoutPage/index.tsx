@@ -273,7 +273,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 />
               </div>
               <button
-                className={`${style.button_width} bg-toggle-dark-bg text-primary-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
+                className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
                 type="submit"
               >
               Pay Now

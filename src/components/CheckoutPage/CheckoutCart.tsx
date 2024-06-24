@@ -59,7 +59,7 @@ function CheckoutCart({ planDetails }: CheckoutCartProps) {
               className='hidden sm:block'
             />
             <h1
-              className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
+              className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
             >
               {ReactHtmlParser(planDetails.serviceName) || ''}
