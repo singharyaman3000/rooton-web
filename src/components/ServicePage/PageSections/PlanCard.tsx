@@ -241,8 +241,7 @@ const PlanCard: React.FC<TrainingCardProps> = ({
                         if (!isAlreadySigned) setShowAgreementSigner(true);
                         else {
                           setRedirectToCheckout(true);
-                          setShowModal(false);
-                          setEmailValue('');
+                          setShowAgreementSigner(true);
                         }
                       });
                     } else {

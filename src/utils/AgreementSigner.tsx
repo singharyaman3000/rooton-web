@@ -38,26 +38,26 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({
     }
   });
 
+  const getCompletedRedirectUrl = useCallback(() => {
+    if (params.lang) {
+      return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${encryptedData}`;
+    }
+    return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${encryptedData}`;
+  }, [params.lang, encryptedData]);
+
   const handleLoad = async (detail: { error: unknown }) => {
     const data = await encrypt(JSON.stringify(planDetails));
     setEncryptedData(data);
     console.log(detail.error);
     setLoading(false);
-  };
-
-  const getCompletedRedirectUrl =useCallback(() => {
-    if (params.lang) {
-      return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${encryptedData}`;
-    }
-    return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${encryptedData}`;
-  },[params.lang, encryptedData]);
-
-  useEffect(() => {
     if (redirectToCheckout) {
       const url = getCompletedRedirectUrl();
       window.location.href = url;
-      return;
     }
+  };
+
+  useEffect(() => {
+
     getUserDoc(docShorthand || '', mail || '')
       .then((doc) => {
         if (doc) {

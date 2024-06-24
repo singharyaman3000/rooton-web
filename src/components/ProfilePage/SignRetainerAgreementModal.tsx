@@ -128,9 +128,9 @@ function SignRetainerAgreementModal({
                   checkWhetherDocAlreadySigned(emailValue, docShorthand || '').then((isAlreadySigned) => {
                     if (!isAlreadySigned) setShowAgreementSigner(true);
                     else {
+                      setShowAgreementSigner(true);
                       setRedirectToCheckout(true);
-                      toggleModal();
-                      setEmailValue('');
+
                     }
                   });
                 } else {
