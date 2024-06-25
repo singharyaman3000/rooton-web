@@ -1,17 +1,21 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-lonely-if */
+
 'use client';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { FormTextInput } from '../Forms/components/FormTextInput';
 import { FormDropdown } from '../Forms/components/FormDropDown';
-import CheckoutCart from './CheckoutCart';
+import CheckoutCart, { extractNumbers } from './CheckoutCart';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import LoadingUI from '../LoadingUI';
 import style from '../SignUpPage/SignUpPage.module.css';
-import { decrypt, handleStripPayment } from '@/utils/actions/checkout';
+import { createRazorpayOrder, decrypt, handleCustomStripePayment, handleStripPayment, verifyRazorpayPaymentStatus } from '@/utils/actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
 import { Country, State, City } from 'country-state-city';
+import Script from 'next/script';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -45,6 +49,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
   const [planDetails, setPlanDetails] = useState<{ details: pricingPlansDetails; serviceName: string }>();
   const [token, setToken] = useState<string>('');
+  const [customAmount, setCustomAmount] = useState<string>('');
 
   const [selectedCountry, setSelectedCountry] = useState<any>(
     findCountryListByName(currentLoggedInUser?.countryOfCitizenship || ''),
@@ -117,7 +122,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     setSelectedState(state);
   };
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // print all the data received from form
     const form = e.currentTarget;
@@ -142,21 +147,113 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     const name = `${firstName} ${lastName}`.trim();
     if (typeof window !== 'undefined') {
       if (window.location.origin.includes('rooton.ca')) {
-        handleStripPayment(planDetails?.details.stripePriceID || '', email || '', name, token, params?.lang).then(
-          (res) => {
-            if (res.status) {
-              router.push(res.payment_url || '');
-            } else {
-              console.log(JSON.parse(res.error || ''));
+        if (planDetails) {
+          handleStripPayment(planDetails?.details.stripePriceID || '', email || '', name, token, params?.lang).then(
+            (res) => {
+              if (res.status) {
+                router.push(res.payment_url || '');
+              } else {
+                console.log(JSON.parse(res.error || ''));
+              }
+            },
+          );
+        } else {
+          handleCustomStripePayment(customAmount, email || '');
+        }
+      } else {
+        if (planDetails) {
+          const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
+          const orderId = await createRazorpayOrder(inrTaxedPrice, email || '');
+          if (orderId) {
+            const options = {
+              key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+              currency: 'INR',
+              name: planDetails?.serviceName,
+              description: planDetails?.details.planDescription,
+              order_id: orderId,
+              async handler(response: any) {
+                const data = {
+                  orderCreationId: orderId,
+                  razorpayPaymentId: response.razorpay_payment_id,
+                  razorpaySignature: response.razorpay_signature,
+                };
+                const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
+                if (paymentVerificationStatus) {
+                  alert('Payment Successful');
+                } else {
+                  alert('Payment Failed');
+                }
+              },
+              prefill: {
+                name,
+                email,
+              },
+              theme: {
+                color: '#3399cc',
+              },
+            };
+            try {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              const paymentObject = new window.Razorpay(options);
+              paymentObject.on('payment.failed', (response: any) => {
+                alert(response.error.description);
+              });
+              paymentObject.open();
+            } catch (error) {
+              console.log(error);
             }
-          },
-        );
+          }
+        }else{
+          const orderId = await createRazorpayOrder(parseFloat(customAmount), email || '');
+          if (orderId) {
+            const options = {
+              key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+              currency: 'INR',
+              name: 'Custom Plan',
+              description: '',
+              order_id: orderId,
+              async handler(response: any) {
+                const data = {
+                  orderCreationId: orderId,
+                  razorpayPaymentId: response.razorpay_payment_id,
+                  razorpaySignature: response.razorpay_signature,
+                };
+                const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
+                if (paymentVerificationStatus) {
+                  alert('Payment Successful');
+                } else {
+                  alert('Payment Failed');
+                }
+              },
+              prefill: {
+                name,
+                email,
+              },
+              theme: {
+                color: '#3399cc',
+              },
+            };
+            try {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              const paymentObject = new window.Razorpay(options);
+              paymentObject.on('payment.failed', (response: any) => {
+                alert(response.error.description);
+              });
+              paymentObject.open();
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
       }
     }
   };
 
   return (
     <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col-reverse lg:flex-row gap-10">
+      <Script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js" />
       {(!currentUser || typeof currentUser === 'undefined') &&
       typeof localStorage !== 'undefined' &&
       localStorage.getItem('token') ? (
@@ -202,6 +299,29 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   invalidFormat={false}
                 />
               </div>
+              {!planDetails && (
+                <div className="w-full flex flex-col gap-3 mb-6">
+                  <h1
+                    className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
+            overflow-visible justify-center !mb-0`}
+                  >
+                  Custom Amount
+                  </h1>
+                  <FormTextInput
+                    placeholder="Enter Custom amount here."
+                    required
+                    field={{ label: 'Custom Amount', name: 'customAmount' }}
+                    value={customAmount || ''}
+                    className={inputStyle}
+                    invalidFormat={false}
+                    onChange={(e) => {
+                      if (Number.isNaN(parseFloat(e.target.value))) return;
+                      console.log(e.target.value);
+                      setCustomAmount(e.target.value);
+                    }}
+                  />
+                </div>
+              )}
               {window && !window.location.origin.includes('rooton.ca') && (
                 <div className="w-full flex flex-col gap-3">
                   <h1
@@ -287,6 +407,11 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
       {planDetails && (
         <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8">
           <CheckoutCart planDetails={planDetails} />
+        </div>
+      )}
+      {!planDetails && (
+        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8">
+          <CheckoutCart customAmount={customAmount} />
         </div>
       )}
     </div>

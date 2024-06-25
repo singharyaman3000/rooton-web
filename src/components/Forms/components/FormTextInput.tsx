@@ -54,8 +54,9 @@ export const FormTextInput: React.FC<PropType> = (props) => {
         value={inputValue}
         type="text"
         onChange={
-          onChange ||
+
           ((e) => {
+            onChange?.(e);
             return setInputValue(e.target.value);
           })
         }

@@ -7,21 +7,20 @@ import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsA
 import style from '../SignUpPage/SignUpPage.module.css';
 
 export interface CheckoutCartProps {
-  planDetails: { details: pricingPlansDetails; serviceName: string } | undefined;
+  planDetails?: { details: pricingPlansDetails; serviceName: string } | undefined;
+  customAmount?: string;
 }
-
-function CheckoutCart({ planDetails }: CheckoutCartProps) {
+export const extractNumbers = (pricingString: string): number => {
+  const numberPattern = /[\d,]+(?:\.\d+)?/; // This pattern matches numbers, including those with commas and decimal points
+  const match = pricingString.match(numberPattern);
+  if (match) {
+    // Remove any commas from the number string and convert it to a number
+    return parseFloat(match[0].replace(/,/g, ''));
+  }
+  throw new Error('No number found in the string');
+};
+function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
   const { theme } = useTheme();
-
-  const extractNumbers = (pricingString: string): number => {
-    const numberPattern = /[\d,]+(?:\.\d+)?/; // This pattern matches numbers, including those with commas and decimal points
-    const match = pricingString.match(numberPattern);
-    if (match) {
-      // Remove any commas from the number string and convert it to a number
-      return parseFloat(match[0].replace(/,/g, ''));
-    }
-    throw new Error('No number found in the string');
-  };
 
   const getPriceBasedOnDomain = () => {
     let index = 0;
@@ -30,22 +29,39 @@ function CheckoutCart({ planDetails }: CheckoutCartProps) {
       index = domain.includes('rooton.ca') ? 0 : 1;
     }
     if (index === 1) {
-      const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
-      const inrObject = {
-        totalPrice: `₹ ${inrTaxedPrice.toFixed(2)}`,
-        subTotal: `₹ ${(inrTaxedPrice / 1.18).toFixed(2)}`,
-        taxes: `₹ ${(inrTaxedPrice - inrTaxedPrice / 1.18).toFixed(2)}`,
+      if (planDetails) {
+        const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
+        const inrObject = {
+          totalPrice: `₹ ${inrTaxedPrice.toFixed(2)}`,
+          subTotal: `₹ ${(inrTaxedPrice / 1.18).toFixed(2)}`,
+          taxes: `₹ ${(inrTaxedPrice - inrTaxedPrice / 1.18).toFixed(2)}`,
+        };
+        return inrObject;
+      }
+      const parsedAmount = parseFloat(customAmount || '0');
+      return {
+        totalPrice: `₹ ${parsedAmount.toFixed(2)}`,
+        subTotal: `₹ ${(parsedAmount / 1.18).toFixed(2)}`,
+        taxes: `₹ ${(parsedAmount - parsedAmount / 1.18).toFixed(2)}`,
       };
-      return inrObject;
     }
+    if (planDetails) {
+      const cadTaxedPrice = extractNumbers(planDetails?.details?.pricingCAD || '');
+      const cadObject = {
+        totalPrice: `CAD$ ${cadTaxedPrice.toFixed(2)}`,
+        subTotal: `CAD$ ${(cadTaxedPrice / 1.18).toFixed(2)}`,
+        taxes: `CAD$ ${(cadTaxedPrice - cadTaxedPrice / 1.18).toFixed(2)}`,
+      };
+      return cadObject;
+    }
+    const parsedAmount = parseFloat(customAmount || '0');
     return {
-      totalPrice: `CAD$ ${extractNumbers(planDetails?.details?.pricingCAD || '').toFixed(2)}`,
-      subTotal: undefined,
-      taxes: undefined,
+      totalPrice: `CAD$ ${parsedAmount.toFixed(2)}`,
+      subTotal: `CAD$ ${(parsedAmount / 1.18).toFixed(2)}`,
+      taxes: `CAD$ ${(parsedAmount - parsedAmount / 1.18).toFixed(2)}`,
     };
   };
 
-  if (!planDetails) return null;
   return (
     <div className="w-full rounded-md">
       <div className="flex flex-col gap-3 pb-4">
@@ -53,24 +69,35 @@ function CheckoutCart({ planDetails }: CheckoutCartProps) {
           <div className="flex items-center gap-3">
             <Image
               src={'/images/servicePage/my-project-44@3x.png'}
-              alt={planDetails.details.planName || ''}
+              alt={planDetails?.details.planName || 'Custom Plan'}
               width={100}
               height={100}
-              className='hidden sm:block'
+              className="hidden sm:block"
             />
-            <h1
-              className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
+            {planDetails ? (
+              <h1
+                className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
-            >
-              {ReactHtmlParser(planDetails.serviceName) || ''}
-            </h1>
+              >
+                {ReactHtmlParser(planDetails.serviceName) || ''}
+              </h1>
+            ) : (
+              <h1
+                className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
+            overflow-visible justify-center !mb-0`}
+              >
+                Custom Plan
+              </h1>
+            )}
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between py-2">
-        <p>Plan Type</p>
-        <p>{planDetails.details.planName}</p>
-      </div>
+      {planDetails && (
+        <div className="flex items-center justify-between py-2">
+          <p>Plan Type</p>
+          <p>{planDetails.details.planName}</p>
+        </div>
+      )}
       <Divider color={theme === 'dark' ? 'white' : 'black'} />
       <div className="flex flex-col gap-2 py-4">
         {getPriceBasedOnDomain().subTotal && (

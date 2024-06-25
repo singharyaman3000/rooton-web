@@ -2,6 +2,8 @@
 
 import crypto from 'crypto';
 import Stripe from 'stripe';
+import Razorpay from 'razorpay';
+import axios from 'axios';
 
 // You should securely store this key and keep it secret
 const ENCRYPTION_KEY = crypto
@@ -89,7 +91,7 @@ async function handleStripePaymentSuccess(sessionId: string) {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     if (session.payment_status === 'paid') {
-      const invoicedata = await stripe.invoices.retrieve(session.invoice as string||'');
+      const invoicedata = await stripe.invoices.retrieve((session.invoice as string) || '');
       console.log(invoicedata);
     }
 
@@ -98,4 +100,62 @@ async function handleStripePaymentSuccess(sessionId: string) {
     return error;
   }
 }
-export { encrypt, decrypt, handleStripPayment, handleStripePaymentSuccess };
+
+async function handleCustomStripePayment(amount: string, email: string) {
+  return `hello world ${email} ${amount}`;
+}
+
+async function createRazorpayOrder(amount: number, email: string): Promise<string | null> {
+  try {
+    // create order
+    const instance = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID!,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+
+    const order = await instance.orders.create({
+      amount: amount * 100,
+      currency: 'INR',
+      receipt: 'receipt#1',
+      notes: {
+        email,
+      },
+    });
+    return order.id;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+async function verifyRazorpayPaymentStatus(data: {
+  orderCreationId: string;
+  razorpayPaymentId: string;
+  razorpaySignature: string;
+}): Promise<boolean> {
+  try {
+    const response = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/verify_payment`, data);
+    if (response.status === 200) {
+      return response.data.status;
+    }
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+// async function handleRazorpayPaymentSuccess(){
+
+// }
+
+export {
+  encrypt,
+  decrypt,
+  handleStripPayment,
+  handleStripePaymentSuccess,
+  handleCustomStripePayment,
+  createRazorpayOrder,
+  verifyRazorpayPaymentStatus,
+  // handleRazorpayPaymentSuccess,
+};
