@@ -101,8 +101,50 @@ async function handleStripePaymentSuccess(sessionId: string) {
   }
 }
 
-async function handleCustomStripePayment(amount: string, email: string) {
-  return `hello world ${email} ${amount}`;
+async function handleCustomStripePayment(
+  price: string,
+  email: string,
+  lang: string | undefined,
+): Promise<{ status: boolean; payment_url: string | null; error: string | null }> {
+  let successUrl = `${process.env.NEXT_APP_BASE_URL}payment-success?session_id={CHECKOUT_SESSION_ID}`;
+  let cancelUrl = `${process.env.NEXT_APP_BASE_URL}checkout`;
+  if (lang) {
+    successUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
+    cancelUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/checkout`;
+  }
+
+  try {
+    const amountToCharge = parseFloat(price) * 100;
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            unit_amount: amountToCharge,
+            currency:'cad',
+            product:'prod_QMDytbiHmiNsgY',
+          },
+          quantity: 1,
+        },
+      ],
+      customer_email: email,
+      automatic_tax: {
+        enabled: true,
+      },
+      billing_address_collection: 'required',
+      customer_creation: 'if_required',
+      invoice_creation: {
+        enabled: true,
+      },
+
+      mode: 'payment',
+      success_url: successUrl,
+      cancel_url: cancelUrl,
+    });
+
+    return { status: true, payment_url: session.url, error: null };
+  } catch (error) {
+    return { status: false, payment_url: null, error: JSON.stringify(error) };
+  }
 }
 
 async function createRazorpayOrder(amount: number, email: string): Promise<string | null> {

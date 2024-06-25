@@ -16,7 +16,8 @@ const SuccessPage = () => {
       if (paramValue) {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
-            console.log(data);
+            // const invoicedata = await stripe.invoices.retrieve(data?.invoice);
+            // console.log(invoicedata)
             setSession(data);
           }
           setLoading(false);

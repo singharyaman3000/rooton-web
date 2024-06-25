@@ -158,7 +158,15 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
             },
           );
         } else {
-          handleCustomStripePayment(customAmount, email || '');
+          handleCustomStripePayment(customAmount, email || '', params?.lang).then(
+            (res) => {
+              if (res.status) {
+                router.push(res.payment_url || '');
+              } else {
+                console.log(JSON.parse(res.error || ''));
+              }
+            },
+          );
         }
       } else {
         if (planDetails) {
