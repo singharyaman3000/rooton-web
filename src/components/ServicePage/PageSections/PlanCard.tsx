@@ -62,6 +62,17 @@ const PlanCard: React.FC<TrainingCardProps> = ({
       onPricingCTAButtonClick();
     } else {
       setShowModal(true);
+      setEmailValue(email);
+      setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
+      if (email.length > 0) {
+        checkWhetherDocAlreadySigned(email, getShortHand() || '').then((isAlreadySigned) => {
+          if (!isAlreadySigned) setShowAgreementSigner(true);
+          else {
+            setShowAgreementSigner(true);
+            setRedirectToCheckout(true);
+          }
+        });
+      }
     }
   };
   return (
@@ -240,8 +251,8 @@ const PlanCard: React.FC<TrainingCardProps> = ({
                       checkWhetherDocAlreadySigned(emailValue, getShortHand() || '').then((isAlreadySigned) => {
                         if (!isAlreadySigned) setShowAgreementSigner(true);
                         else {
-                          setRedirectToCheckout(true);
                           setShowAgreementSigner(true);
+                          setRedirectToCheckout(true);
                         }
                       });
                     } else {

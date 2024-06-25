@@ -5,7 +5,7 @@ import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from './docuFetch';
 import { encrypt } from './actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import { createDoc } from './actions/docuseal';
 
@@ -32,11 +32,8 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({
   const [userDoc, setUserDoc] = useState('');
   const [encryptedData, setEncryptedData] = useState('');
   const [currentLoggedInUser, setCurrentLoggedInUser] = useState<IUserDetails | null>(null);
-  getCurrentUserDetails().then((details) => {
-    if (details) {
-      setCurrentLoggedInUser(details);
-    }
-  });
+
+  const router = useRouter();
 
   const getCompletedRedirectUrl = useCallback(() => {
     if (params.lang) {
@@ -52,11 +49,16 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({
     setLoading(false);
     if (redirectToCheckout) {
       const url = getCompletedRedirectUrl();
-      window.location.href = url;
+      router.push(url);
     }
   };
 
   useEffect(() => {
+    getCurrentUserDetails().then((details) => {
+      if (details) {
+        setCurrentLoggedInUser(details);
+      }
+    });
 
     getUserDoc(docShorthand || '', mail || '')
       .then((doc) => {
@@ -101,6 +103,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({
               }
             });
           }}
+          allowToResubmit={false}
           completedRedirectUrl={getCompletedRedirectUrl()}
           onLoad={handleLoad}
           logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}

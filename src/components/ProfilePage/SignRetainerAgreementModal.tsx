@@ -2,7 +2,7 @@ import AgreementSigner from '@/utils/AgreementSigner';
 import { AppBar, Dialog, IconButton, Input, Slide, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import Image from 'next/image';
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import CloseIcon from '../Icons/CloseIcon';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { checkWhetherDocAlreadySigned } from '@/utils/actions/docuseal';
@@ -56,6 +56,20 @@ function SignRetainerAgreementModal({
     setIsValidEmail({ status: false, message: 'Please enter a valid email address' });
     return false;
   }
+
+  useEffect(() => {
+    setEmailValue(email);
+    setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
+    if (email.length > 0) {
+      checkWhetherDocAlreadySigned(email, docShorthand || '').then((isAlreadySigned) => {
+        if (!isAlreadySigned) setShowAgreementSigner(true);
+        else {
+          setShowAgreementSigner(true);
+          setRedirectToCheckout(true);
+        }
+      });
+    }
+  },[email, docShorthand]);
 
   if (isSmallScreen)
     return (
