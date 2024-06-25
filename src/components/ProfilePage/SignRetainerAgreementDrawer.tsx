@@ -5,7 +5,6 @@ import Image from 'next/image';
 import React, { forwardRef, useEffect, useState } from 'react';
 import CloseIcon from '../Icons/CloseIcon';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
-import { checkWhetherDocAlreadySigned } from '@/utils/actions/docuseal';
 
 interface SignRetainerAgreementDrawerProps {
   toggleModal: () => void;
@@ -45,7 +44,6 @@ function SignRetainerAgreementDrawer({
   const [isValidEmail, setIsValidEmail] = useState({ status: true, message: '' });
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [redirectToCheckout, setRedirectToCheckout] = useState<boolean>(false);
 
   function checkEmailValue(emailToBeTested: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,16 +58,7 @@ function SignRetainerAgreementDrawer({
   useEffect(() => {
     setEmailValue(email);
     setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
-    if (email.length > 0) {
-      checkWhetherDocAlreadySigned(email, docShorthand || '').then((isAlreadySigned) => {
-        if (!isAlreadySigned) setShowAgreementSigner(true);
-        else {
-          setShowAgreementSigner(true);
-          setRedirectToCheckout(true);
-        }
-      });
-    }
-  }, [email, docShorthand]);
+  }, [email]);
 
   if (isSmallScreen)
     return (
@@ -106,7 +95,6 @@ function SignRetainerAgreementDrawer({
             }}
             docShorthand={docShorthand}
             mail={emailValue}
-            redirectToCheckout={redirectToCheckout}
           />
         )}
         {!showAgreementSigner && (
@@ -139,13 +127,7 @@ function SignRetainerAgreementDrawer({
               disabled={!isValidEmail.status}
               onClick={() => {
                 if (emailValue.length > 0) {
-                  checkWhetherDocAlreadySigned(emailValue, docShorthand || '').then((isAlreadySigned) => {
-                    if (!isAlreadySigned) setShowAgreementSigner(true);
-                    else {
-                      setShowAgreementSigner(true);
-                      setRedirectToCheckout(true);
-                    }
-                  });
+                  setShowAgreementSigner(true);
                 } else {
                   setIsValidEmail({ status: false, message: 'Please enter an email to proceed.' });
                 }

@@ -15,7 +15,7 @@ import { createRazorpayOrder, decrypt, handleCustomStripePayment, handleStripPay
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
 import { Country, State, City } from 'country-state-city';
-import Script from 'next/script';
+import { cleanseServiceName } from './functions';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -130,6 +130,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     let email = '';
     let firstName = '';
     let lastName = '';
+    let phone = '';
     formData.forEach((value, key) => {
       if (key === 'email') {
         email = value as string;
@@ -141,6 +142,10 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
       if (key === 'LastName') {
         lastName = value as string;
+      }
+
+      if(key === 'Phone'){
+        phone = value as string;
       }
     });
 
@@ -176,8 +181,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
               currency: 'INR',
-              amount:inrTaxedPrice*100,
-              name: planDetails?.serviceName,
+              amount: inrTaxedPrice * 100,
+              name: cleanseServiceName(planDetails?.serviceName || ''),
               description: planDetails?.details.planDescription,
               order_id: orderId,
               async handler(response: any) {
@@ -196,9 +201,10 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               prefill: {
                 name,
                 email,
+                contact:phone,
               },
               theme: {
-                color: '#3399cc',
+                color: '#f59723',
               },
             };
             try {
@@ -219,7 +225,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
               currency: 'INR',
-              amount: parseFloat(customAmount)*100,
+              amount: parseFloat(customAmount) * 100,
               name: 'Custom Plan',
               description: '',
               order_id: orderId,
@@ -229,6 +235,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   razorpayPaymentId: response.razorpay_payment_id,
                   razorpaySignature: response.razorpay_signature,
                 };
+                console.log(typeof data);
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
                   alert('Payment Successful');
@@ -239,9 +246,10 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               prefill: {
                 name,
                 email,
+                contact: phone,
               },
               theme: {
-                color: '#3399cc',
+                color: '#f59723',
               },
             };
             try {
@@ -263,7 +271,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   return (
     <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col-reverse lg:flex-row gap-10">
-      <Script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js" />
+
       {(!currentUser || typeof currentUser === 'undefined') &&
       typeof localStorage !== 'undefined' &&
       localStorage.getItem('token') ? (
@@ -311,12 +319,12 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               </div>
               {!planDetails && (
                 <div className="w-full flex flex-col gap-3 mb-6">
-                  <h1
+                  {/* <h1
                     className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
                   >
                   Custom Amount
-                  </h1>
+                  </h1> */}
                   <FormTextInput
                     placeholder="Enter Custom amount here."
                     required

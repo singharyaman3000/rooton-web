@@ -4,8 +4,6 @@ import AgreementSigner from '@/utils/AgreementSigner';
 import { Modal, ModalDialog, ModalClose } from '@mui/joy';
 import { Input, useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
-import { checkWhetherDocAlreadySigned } from '@/utils/actions/docuseal';
-import { getShortHand } from '../ServicePage/PageSections/functions';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -32,7 +30,6 @@ function SignRetainerAgreementModal({
   const [isValidEmail, setIsValidEmail] = useState({ status: true, message: '' });
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
-  const [redirectToCheckout, setRedirectToCheckout] = useState<boolean>(false);
 
   function checkEmailValue(emailToBeTested: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,16 +44,7 @@ function SignRetainerAgreementModal({
   useEffect(() => {
     setEmailValue(email);
     setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
-    if (email.length > 0) {
-      checkWhetherDocAlreadySigned(email, docShorthand || '').then((isAlreadySigned) => {
-        if (!isAlreadySigned) setShowAgreementSigner(true);
-        else {
-          setShowAgreementSigner(true);
-          setRedirectToCheckout(true);
-        }
-      });
-    }
-  }, [email, docShorthand]);
+  }, [email]);
 
   if (isLargeScreen)
     return (
@@ -65,6 +53,7 @@ function SignRetainerAgreementModal({
         onClose={(_event: React.MouseEvent<HTMLButtonElement>, reason: string) => {
           if (reason === 'closeClick') {
             toggleModal();
+            setEmailValue('');
           }
         }}
         className="custom-modal"
@@ -75,9 +64,8 @@ function SignRetainerAgreementModal({
             <AgreementSigner
               planDetails={planDetails}
               mail={emailValue}
-              docShorthand={getShortHand()}
+              docShorthand={docShorthand}
               toggleModal={toggleModal}
-              redirectToCheckout={redirectToCheckout}
             />
           ) : (
             <div className="flex flex-col items-center justify-center gap-4 p-2 w-full md:w-1/2 mx-auto">
@@ -109,13 +97,7 @@ function SignRetainerAgreementModal({
                 disabled={!isValidEmail.status}
                 onClick={() => {
                   if (emailValue.length > 0) {
-                    checkWhetherDocAlreadySigned(emailValue, getShortHand() || '').then((isAlreadySigned) => {
-                      if (!isAlreadySigned) setShowAgreementSigner(true);
-                      else {
-                        setShowAgreementSigner(true);
-                        setRedirectToCheckout(true);
-                      }
-                    });
+                    setShowAgreementSigner(true);
                   } else {
                     setIsValidEmail({ status: false, message: 'Please enter an email to proceed.' });
                   }

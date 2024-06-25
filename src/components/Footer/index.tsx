@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 import FooterLogo from './FooterLogo';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
@@ -13,8 +15,10 @@ import SocialMediaLinks from '../ContactUsPage/SocialMediaLinks';
 
 export default function Footer() {
   const params = useParams();
+  const pathname = usePathname();
   const { headerFooterData } = useHeaderFooterContext();
   const currentYear = new Date().getFullYear();
+  const router = useRouter();
 
   return (
     <footer
@@ -134,9 +138,18 @@ export default function Footer() {
             <Link className="basis-[47%] order-5" href={params.lang ? `/${params.lang}/sitemap` : '/sitemap'}>
               Sitemap
             </Link>
-            <Link className="basis-[47%] order-5" href={params.lang ? `/${params.lang}/checkout` : '/checkout'}>
+            <div
+              className="basis-[47%] order-5 cursor-pointer"
+              onClick={() => {
+                if (pathname === '/checkout') {
+                  window.location.href = `${params.lang ? `/${params.lang}/checkout` : '/checkout'}`;
+                  return;
+                }
+                router.push(`${params.lang ? `/${params.lang}/checkout` : '/checkout'}`);
+              }}
+            >
               Pay Now
-            </Link>
+            </div>
           </div>
         </div>
       </div>

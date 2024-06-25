@@ -7,7 +7,7 @@ import { encrypt } from './actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
-import { createDoc } from './actions/docuseal';
+import { checkWhetherDocAlreadySigned, createDoc } from './actions/docuseal';
 
 interface AgreementSignerProps {
   mail?: string;
@@ -17,7 +17,6 @@ interface AgreementSignerProps {
     details: pricingPlansDetails;
     serviceName: string;
   };
-  redirectToCheckout: boolean;
 }
 
 const AgreementSigner: React.FC<AgreementSignerProps> = ({
@@ -25,32 +24,33 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({
   mail,
   docShorthand,
   planDetails,
-  redirectToCheckout,
 }) => {
+  const router = useRouter();
   const params = useParams();
   const [isLoading, setLoading] = useState(true);
   const [userDoc, setUserDoc] = useState('');
   const [encryptedData, setEncryptedData] = useState('');
   const [currentLoggedInUser, setCurrentLoggedInUser] = useState<IUserDetails | null>(null);
 
-  const router = useRouter();
-
-  const getCompletedRedirectUrl = useCallback(() => {
+  const getCompletedRedirectUrl = useCallback((data?:string) => {
     if (params.lang) {
-      return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${encryptedData}`;
+      return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${data || encryptedData}`;
     }
-    return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${encryptedData}`;
+    return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${data || encryptedData}`;
   }, [params.lang, encryptedData]);
 
   const handleLoad = async (detail: { error: unknown }) => {
     const data = await encrypt(JSON.stringify(planDetails));
     setEncryptedData(data);
     console.log(detail.error);
-    setLoading(false);
-    if (redirectToCheckout) {
-      const url = getCompletedRedirectUrl();
-      router.push(url);
+    if (!detail.error) {
+      checkWhetherDocAlreadySigned(currentLoggedInUser?.email || mail || '', docShorthand || '').then((isAlreadySigned)=>{
+        if(isAlreadySigned){
+          router.push(getCompletedRedirectUrl(data));
+        }
+      });
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({
       .catch((err) => {
         console.error(err);
       });
-  }, [docShorthand, mail, toggleModal, redirectToCheckout, getCompletedRedirectUrl]);
+  }, [docShorthand, mail, toggleModal, getCompletedRedirectUrl]);
 
   return (
     <div

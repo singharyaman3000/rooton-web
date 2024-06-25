@@ -164,6 +164,7 @@ async function createRazorpayOrder(amount: number, email: string): Promise<strin
     const order = await instance.orders.create(options);
     return order.id;
   } catch (error) {
+    console.log(error);
     return null;
   }
 }
