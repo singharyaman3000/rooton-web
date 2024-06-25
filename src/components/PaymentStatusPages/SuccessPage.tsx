@@ -1,11 +1,13 @@
 'use client';
 
-import { handleStripePaymentSuccess } from '@/utils/actions/checkout';
+import { handleStripePaymentInvoice, handleStripePaymentSuccess } from '@/utils/actions/checkout';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 const SuccessPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [session, setSession] = useState<any>();
+  const [invoiceURL, setInvoiceURL] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,9 +18,8 @@ const SuccessPage = () => {
       if (paramValue) {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
-            // const invoicedata = await stripe.invoices.retrieve(data?.invoice);
-            // console.log(invoicedata)
             setSession(data);
+            console.log(data);
           }
           setLoading(false);
         });
@@ -27,6 +28,19 @@ const SuccessPage = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (session) {
+      const invoiceId = session?.invoice;
+      if (invoiceId) {
+        handleStripePaymentInvoice(invoiceId).then((data) => {
+          if (data) {
+            setInvoiceURL(data);
+          }
+        });
+      }
+    }
+  }, [session]);
 
   const getTotalCadAmount = () => {
     const amountTotalCents = session?.amount_total ?? 0;
@@ -83,6 +97,7 @@ const SuccessPage = () => {
             </p>
           </>
         )}
+        <Link href={invoiceURL} target='_blank' className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">View Invoice</Link>
       </div>
     </div>
   );

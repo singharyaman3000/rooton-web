@@ -89,14 +89,18 @@ async function handleStripPayment(
 async function handleStripePaymentSuccess(sessionId: string) {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    if (session.payment_status === 'paid') {
-      const invoicedata = await stripe.invoices.retrieve((session.invoice as string) || '');
-      console.log(invoicedata);
-    }
-
     return session;
   } catch (error) {
     return error;
+  }
+}
+
+async function handleStripePaymentInvoice(invoiceId: string) {
+  try {
+    const invoicedata = await stripe.invoices.retrieve((invoiceId as string) || '');
+    return invoicedata.hosted_invoice_url;
+  } catch (error) {
+    return null;
   }
 }
 
@@ -201,6 +205,7 @@ export {
   handleStripPayment,
   handleStripePaymentSuccess,
   handleCustomStripePayment,
+  handleStripePaymentInvoice,
   createRazorpayOrder,
   verifyRazorpayPaymentStatus,
   // handleRazorpayPaymentSuccess,
