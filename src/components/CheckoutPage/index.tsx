@@ -168,6 +168,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
               currency: 'INR',
+              amount:inrTaxedPrice*100,
               name: planDetails?.serviceName,
               description: planDetails?.details.planDescription,
               order_id: orderId,
@@ -210,6 +211,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
               currency: 'INR',
+              amount: parseFloat(customAmount)*100,
               name: 'Custom Plan',
               description: '',
               order_id: orderId,
@@ -316,7 +318,6 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                     invalidFormat={false}
                     onChange={(e) => {
                       if (Number.isNaN(parseFloat(e.target.value))) return;
-                      console.log(e.target.value);
                       setCustomAmount(e.target.value);
                     }}
                   />

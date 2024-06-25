@@ -3,7 +3,6 @@
 import crypto from 'crypto';
 import Stripe from 'stripe';
 import Razorpay from 'razorpay';
-import axios from 'axios';
 
 // You should securely store this key and keep it secret
 const ENCRYPTION_KEY = crypto
@@ -109,21 +108,20 @@ async function createRazorpayOrder(amount: number, email: string): Promise<strin
   try {
     // create order
     const instance = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID!,
+      key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
-
-    const order = await instance.orders.create({
+    const options = {
       amount: amount * 100,
       currency: 'INR',
       receipt: 'receipt#1',
       notes: {
         email,
       },
-    });
+    };
+    const order = await instance.orders.create(options);
     return order.id;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
@@ -134,9 +132,15 @@ async function verifyRazorpayPaymentStatus(data: {
   razorpaySignature: string;
 }): Promise<boolean> {
   try {
-    const response = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/verify_payment`, data);
+    const response = await fetch(`${process.env.NEXT_SERVER_API_BASE_URL}/api/verify_payment`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
     if (response.status === 200) {
-      return response.data.status;
+      return response.json();
     }
     return false;
   } catch (error) {
