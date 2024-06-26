@@ -196,10 +196,33 @@ async function verifyRazorpayPaymentStatus(data: {
   }
 }
 
-// async function handleRazorpayPaymentSuccess(){
+async function handleRazorpayPaymentRedirection(lang:string, paymentId:string,isSuccess:boolean):Promise<string>{
+  let successUrl = `${process.env.NEXT_APP_BASE_URL}payment-success?payment_id=${paymentId}`;
+  let cancelUrl = `${process.env.NEXT_APP_BASE_URL}checkout`;
+  if (lang) {
+    successUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/payment-success?payment_id=${paymentId}`;
+    cancelUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/checkout`;
+  }
 
-// }
+  if(isSuccess){
+    return successUrl;
+  }
+  return cancelUrl;
+}
 
+async function handleRazorpayPaymentInvoice(paymentId: string) {
+  try {
+    const instance = new Razorpay({
+      key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+    const paymentDetails = await instance.payments.fetch(paymentId);
+    return paymentDetails;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 export {
   encrypt,
   decrypt,
@@ -209,5 +232,6 @@ export {
   handleStripePaymentInvoice,
   createRazorpayOrder,
   verifyRazorpayPaymentStatus,
-  // handleRazorpayPaymentSuccess,
+  handleRazorpayPaymentRedirection,
+  handleRazorpayPaymentInvoice,
 };

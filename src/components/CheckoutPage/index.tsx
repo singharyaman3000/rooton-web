@@ -11,7 +11,7 @@ import CheckoutCart, { extractNumbers } from './CheckoutCart';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import LoadingUI from '../LoadingUI';
 import style from '../SignUpPage/SignUpPage.module.css';
-import { createRazorpayOrder, decrypt, handleCustomStripePayment, handleStripPayment, verifyRazorpayPaymentStatus } from '@/utils/actions/checkout';
+import { createRazorpayOrder, decrypt, handleCustomStripePayment, handleRazorpayPaymentRedirection, handleStripPayment, verifyRazorpayPaymentStatus } from '@/utils/actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
 import { Country, State, City } from 'country-state-city';
@@ -192,7 +192,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               order_id: orderId,
               modal: {
                 confirm_close: true,
-                backdropclose:true,
+                backdropclose: true,
               },
               async handler(response: any) {
                 const data = {
@@ -202,9 +202,15 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 };
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
-                  alert('Payment Successful');
+                  setIsSnackBarOpen(true);
+                  setMessage('Payment Successful, You\'ll be redirected soon.');
+                  const url = await handleRazorpayPaymentRedirection(params?.lang || '', response.razorpay_payment_id, true);
+                  router.push(url);
                 } else {
-                  alert('Payment Failed');
+                  setIsSnackBarOpen(true);
+                  setMessage('Something went wrong. Please try again later');
+                  const url = await handleRazorpayPaymentRedirection(params?.lang || '', response.razorpay_payment_id, false);
+                  router.push(url);
                 }
               },
               prefill: {
@@ -213,7 +219,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 contact: phone,
               },
               theme: {
-                backdrop_color: '#FFFFFF10',
+                color: '#f59723',
               },
             };
             try {
@@ -249,9 +255,13 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 if (paymentVerificationStatus) {
                   setIsSnackBarOpen(true);
                   setMessage('Payment Successful, You\'ll be redirected soon.');
+                  const url = await handleRazorpayPaymentRedirection(params?.lang || '', response.razorpay_payment_id, true);
+                  router.push(url);
                 } else {
                   setIsSnackBarOpen(true);
                   setMessage('Something went wrong. Please try again later');
+                  const url = await handleRazorpayPaymentRedirection(params?.lang || '', response.razorpay_payment_id, false);
+                  router.push(url);
                 }
               },
               prefill: {
