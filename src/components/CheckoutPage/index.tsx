@@ -17,6 +17,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Country, State, City } from 'country-state-city';
 import { cleanseServiceName } from './functions';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
+import { AlertColor } from '@mui/material';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -53,6 +54,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [customAmount, setCustomAmount] = useState<string>('');
   const [isSnackBarOpen, setIsSnackBarOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const [type, setType] = useState<AlertColor | undefined>('error');
 
   const [selectedCountry, setSelectedCountry] = useState<any>(
     findCountryListByName(currentLoggedInUser?.countryOfCitizenship || ''),
@@ -202,6 +204,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 };
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
+                  setType('success');
                   setIsSnackBarOpen(true);
                   setMessage('Payment Successful, You\'ll be redirected soon.');
                   const url = await handleRazorpayPaymentRedirection(params?.lang || '', response.razorpay_payment_id, true);
@@ -228,6 +231,9 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               const paymentObject = new window.Razorpay(options);
               paymentObject.on('payment.failed', (response: any) => {
                 alert(response.error.description);
+                setType('success');
+                setIsSnackBarOpen(true);
+                setMessage(response.error.description);
               });
               paymentObject.open();
             } catch (error) {
@@ -253,6 +259,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 };
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
+                  setType('success');
                   setIsSnackBarOpen(true);
                   setMessage('Payment Successful, You\'ll be redirected soon.');
                   const url = await handleRazorpayPaymentRedirection(params?.lang || '', response.razorpay_payment_id, true);
@@ -278,6 +285,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               // @ts-ignore
               const paymentObject = new window.Razorpay(options);
               paymentObject.on('payment.failed', (response: any) => {
+                setType('success');
                 setIsSnackBarOpen(true);
                 setMessage(response.error.description);
               });
@@ -454,7 +462,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           <CheckoutCart customAmount={customAmount} />
         </div>
       )}
-      <SnackbarAlert open={isSnackBarOpen} message={message} />
+      <SnackbarAlert open={isSnackBarOpen} message={message} type={type}/>
     </div>
   );
 }
