@@ -7,7 +7,7 @@ import Razorpay from 'razorpay';
 // You should securely store this key and keep it secret
 const ENCRYPTION_KEY = crypto
   .createHash('sha256')
-  .update(String('your-encryption-key-here'))
+  .update(String(process.env.ENCRYPTION_KEY))
   .digest('base64')
   .substr(0, 32); // Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16

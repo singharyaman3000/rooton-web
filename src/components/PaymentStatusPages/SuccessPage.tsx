@@ -62,7 +62,7 @@ const SuccessPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
       <div className="bg-white p-8 rounded-lg shadow-lg text-center w-full max-w-md mx-auto">
         {loading ? (
           <div className="animate-pulse">
@@ -102,13 +102,15 @@ const SuccessPage = () => {
             <h2 className="text-2xl font-semibold mb-2">
               {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${(session?.amount || 0) / 100}`}
             </h2>
-            <p className="text-lg font-semibold mb-4">Payment Successful!</p>
+            <p className="text-black text-lg font-semibold mb-4">Payment Successful!</p>
             <p className="text-gray-600 mb-6">The payment has been done successfully.</p>
             <p className="text-gray-600 mb-6">Thanks for being there with us.</p>
-            <p className="text-sm text-gray-500 mb-8">
-              Payment ID: {session?.payment_intent || session?.id || 'N/A'},{' '}
-              {new Date((session?.created || session.created_at || 0) * 1000)?.toLocaleString()}
-            </p>
+            {session && (
+              <p className="text-sm text-gray-500 mb-8">
+                Payment ID: {session?.payment_intent || session?.id || 'N/A'}, <br />
+                {new Date((session?.created || session?.created_at || 0) * 1000)?.toLocaleString()}
+              </p>
+            )}
           </>
         )}
         {invoiceURL && (
