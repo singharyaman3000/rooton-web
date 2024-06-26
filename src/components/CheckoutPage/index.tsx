@@ -16,6 +16,7 @@ import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsA
 import { useParams, useRouter } from 'next/navigation';
 import { Country, State, City } from 'country-state-city';
 import { cleanseServiceName } from './functions';
+import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -50,6 +51,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [planDetails, setPlanDetails] = useState<{ details: pricingPlansDetails; serviceName: string }>();
   const [token, setToken] = useState<string>('');
   const [customAmount, setCustomAmount] = useState<string>('');
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
 
   const [selectedCountry, setSelectedCountry] = useState<any>(
     findCountryListByName(currentLoggedInUser?.countryOfCitizenship || ''),
@@ -158,7 +161,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               if (res.status) {
                 router.push(res.payment_url || '');
               } else {
-                console.log(JSON.parse(res.error || ''));
+                setIsSnackBarOpen(true);
+                setMessage('Something went wrong. Please try again later');
               }
             },
           );
@@ -168,7 +172,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               if (res.status) {
                 router.push(res.payment_url || '');
               } else {
-                console.log(JSON.parse(res.error || ''));
+                setIsSnackBarOpen(true);
+                setMessage('Something went wrong. Please try again later');
               }
             },
           );
@@ -220,7 +225,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               });
               paymentObject.open();
             } catch (error) {
-              console.log(error);
+              setIsSnackBarOpen(true);
+              setMessage('Something went wrong. Please try again later');
             }
           }
         }else{
@@ -239,12 +245,13 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   razorpayPaymentId: response.razorpay_payment_id,
                   razorpaySignature: response.razorpay_signature,
                 };
-                console.log(typeof data);
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
-                  alert('Payment Successful');
+                  setIsSnackBarOpen(true);
+                  setMessage('Payment Successful, You\'ll be redirected soon.');
                 } else {
-                  alert('Payment Failed');
+                  setIsSnackBarOpen(true);
+                  setMessage('Something went wrong. Please try again later');
                 }
               },
               prefill: {
@@ -261,11 +268,13 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               // @ts-ignore
               const paymentObject = new window.Razorpay(options);
               paymentObject.on('payment.failed', (response: any) => {
-                alert(response.error.description);
+                setIsSnackBarOpen(true);
+                setMessage(response.error.description);
               });
               paymentObject.open();
             } catch (error) {
-              console.log(error);
+              setIsSnackBarOpen(true);
+              setMessage('Something went wrong. Please try again later');
             }
           }
         }
@@ -435,6 +444,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           <CheckoutCart customAmount={customAmount} />
         </div>
       )}
+      <SnackbarAlert open={isSnackBarOpen} message={message} />
     </div>
   );
 }
