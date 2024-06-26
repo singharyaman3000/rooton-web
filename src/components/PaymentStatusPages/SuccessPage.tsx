@@ -99,7 +99,7 @@ const SuccessPage = () => {
                 />
               </svg>
             </div>
-            <h2 className="text-2xl font-semibold mb-2">
+            <h2 className=" text-black text-2xl font-semibold mb-2">
               {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${(session?.amount || 0) / 100}`}
             </h2>
             <p className="text-black text-lg font-semibold mb-4">Payment Successful!</p>
