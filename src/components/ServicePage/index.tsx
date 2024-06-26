@@ -334,18 +334,18 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
       return (
         <>
           <style jsx>{`
-            .scrollable-container {
-              display: flex;
-              overflow-x: auto;
-            }
-            .scrollable-container::-webkit-scrollbar {
-              display: none;
-            }
-            .scrollable-container {
-              scrollbar-width: none;
-              -ms-overflow-style: none;
-            }
-          `}</style>
+              .scrollable-container {
+                display: flex;
+                overflow-x: auto;
+              }
+              .scrollable-container::-webkit-scrollbar {
+                display: none;
+              }
+              .scrollable-container {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+              }
+            `}</style>
           <div className="mt-20 m-auto max-w-screen-2k ">
             <div className="flex items-end justify-between md:pr-[48px] lg:pr-[80px]">
               <div className="md:max-w-[70%] xl:max-w-none px-[24px] md:px-[48px] lg:px-[80px]">
@@ -377,28 +377,33 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
                 }}
               >
                 {Array.isArray(filteredPricings) &&
-                  filteredPricings.map((pricing, index) => {
-                    const leadFormsPresent = pricing.lead_forms && pricing.lead_forms.length > 0;
-                    const redirectUrl = !leadFormsPresent ? pricing.url : undefined;
-                    return (
-                      <PlanCard
-                        key={`${index.toString()}`}
-                        our_plans={pricing}
-                        redirectUrl={redirectUrl}
-                        domain={currentDomain}
-                        serviceName={response.data?.attributes?.title}
-                        onPricingCTAButtonClick={() => {
-                          return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
-                        }}
-                      />
-                    );
-                  })}
+                    filteredPricings.map((pricing, index) => {
+                      const leadFormsPresent = pricing.lead_forms && pricing.lead_forms.length > 0;
+                      const redirectUrl = !leadFormsPresent ? pricing.url : undefined;
+                      return (
+                        <PlanCard
+                          key={`${index.toString()}`}
+                          our_plans={pricing}
+                          redirectUrl={redirectUrl}
+                          domain={currentDomain}
+                          serviceName={response.data?.attributes?.title}
+                          onPricingCTAButtonClick={() => {
+                            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+                          }}
+                        />
+                      );
+                    })}
               </div>
               <div className="carousel-dots">
                 {Array.isArray(filteredPricings) &&
-                  filteredPricings.map((_, index) => {
-                    return <span key={''} className={`dot ${index === activeCard ? 'active' : ''}`} />;
-                  })}
+                    filteredPricings.map((_, index) => {
+                      return (
+                        <span
+                          key={_.planName + index.toString()}
+                          className={`dot ${index === activeCard ? 'active' : ''}`}
+                        />
+                      );
+                    })}
               </div>
             </div>
           </div>

@@ -185,6 +185,10 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               name: cleanseServiceName(planDetails?.serviceName || ''),
               description: planDetails?.details.planDescription,
               order_id: orderId,
+              modal: {
+                confirm_close: true,
+                backdropclose:true,
+              },
               async handler(response: any) {
                 const data = {
                   orderCreationId: orderId,
@@ -201,10 +205,11 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               prefill: {
                 name,
                 email,
-                contact:phone,
+                contact: phone,
               },
               theme: {
                 color: '#f59723',
+                backdrop_color: '#FFFFFF10',
               },
             };
             try {

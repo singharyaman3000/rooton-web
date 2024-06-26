@@ -8,6 +8,7 @@ import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsA
 import { useParams, useRouter } from 'next/navigation';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import { checkWhetherDocAlreadySigned, createDoc } from './actions/docuseal';
+import SnackbarAlert from '@/components/ToolsPage-Services/Snackbar';
 
 interface AgreementSignerProps {
   mail?: string;
@@ -19,36 +20,41 @@ interface AgreementSignerProps {
   };
 }
 
-const AgreementSigner: React.FC<AgreementSignerProps> = ({
-  toggleModal,
-  mail,
-  docShorthand,
-  planDetails,
-}) => {
+const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, docShorthand, planDetails }) => {
   const router = useRouter();
   const params = useParams();
   const [isLoading, setLoading] = useState(true);
   const [userDoc, setUserDoc] = useState('');
   const [encryptedData, setEncryptedData] = useState('');
   const [currentLoggedInUser, setCurrentLoggedInUser] = useState<IUserDetails | null>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const getCompletedRedirectUrl = useCallback((data?:string) => {
-    if (params.lang) {
-      return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${data || encryptedData}`;
-    }
-    return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${data || encryptedData}`;
-  }, [params.lang, encryptedData]);
+  const getCompletedRedirectUrl = useCallback(
+    (data?: string) => {
+      if (params.lang) {
+        return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${data || encryptedData}`;
+      }
+      return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${data || encryptedData}`;
+    },
+    [params.lang, encryptedData],
+  );
 
   const handleLoad = async (detail: { error: unknown }) => {
     const data = await encrypt(JSON.stringify(planDetails));
     setEncryptedData(data);
-    console.log(detail.error);
+    if (detail.error) {
+      setErrorMessage('Something went wrong. Please try again later');
+      setSnackbarOpen(true);
+    }
     if (!detail.error) {
-      checkWhetherDocAlreadySigned(currentLoggedInUser?.email || mail || '', docShorthand || '').then((isAlreadySigned)=>{
-        if(isAlreadySigned){
-          router.push(getCompletedRedirectUrl(data));
-        }
-      });
+      checkWhetherDocAlreadySigned(currentLoggedInUser?.email || mail || '', docShorthand || '').then(
+        (isAlreadySigned) => {
+          if (isAlreadySigned) {
+            router.push(getCompletedRedirectUrl(data));
+          }
+        },
+      );
     }
     setLoading(false);
   };
@@ -109,6 +115,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({
           logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
         />
       </div>
+      <SnackbarAlert open={snackbarOpen} message={errorMessage} />
     </div>
   );
 };
