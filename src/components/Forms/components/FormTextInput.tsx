@@ -10,22 +10,27 @@ type PropType = {
   autoComplete?: boolean;
   value: string;
   invalidFormat?: boolean;
+  className?: string;
 };
 
 export const FormTextInput: React.FC<PropType> = (props) => {
-  const { field,
+  const {
+    field,
     onChange,
     value,
     type,
     placeholder = '',
+    className = '',
     required = false,
     autoComplete = false,
-    invalidFormat = true } = props;
+    invalidFormat = true,
+  } = props;
 
   const [isError, setIsError] = useState(false);
+  const [inputValue, setInputValue] = useState(value);
 
   const handleBlur = () => {
-    setIsError(required && !value.trim());
+    setIsError(required && !inputValue.trim());
   };
 
   const handleFocus = () => {
@@ -38,17 +43,24 @@ export const FormTextInput: React.FC<PropType> = (props) => {
 
   return (
     <div className="hs-form-field">
-      <div className='flex flex-row'>
+      <div className="flex flex-row">
         <label className="hs-main-font-element" placeholder={placeholder} htmlFor={field.name}>
           {field.label}
-          {required && <span className="hs-form-required">*</span>}
+          {required && <span className={'hs-form-required text-[#FF0000]'}>*</span>}
         </label>
       </div>
       <input
         id={field.name}
-        value={value}
+        value={inputValue}
         type="text"
-        onChange={onChange}
+        onChange={
+
+          ((e) => {
+            onChange?.(e);
+            return setInputValue(e.target.value);
+          })
+        }
+        className={className}
         onBlur={handleBlur}
         onFocus={handleFocus}
         placeholder={placeholder}
@@ -56,12 +68,12 @@ export const FormTextInput: React.FC<PropType> = (props) => {
         name={field.name}
         required={required}
       />
-      {required && isError && <p className="hs-main-font-element hs-error-msg">Please complete this required field.</p>}
+      {required && isError && <p className="hs-main-font-element hs-error-msg text-[#ff0000]">Please complete this required field.</p>}
       {type === 'email' && showCustomError() && (
-        <p className="hs-main-font-element hs-error-msg">Email must be formatted correctly.</p>
+        <p className="hs-main-font-element hs-error-msg text-[#ff0000]">Email must be formatted correctly.</p>
       )}
       {type === 'phone' && showCustomError() && (
-        <p className="hs-main-font-element hs-error-msg">
+        <p className="hs-main-font-element hs-error-msg text-[#ff0000]">
           Please enter a valid telephone number and ensure that it contains only numerical characters.
         </p>
       )}

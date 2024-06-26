@@ -9,6 +9,7 @@ import { UserProvider } from '@/components/LoginInPage/UserData';
 import { HeaderDataProvider } from '@/hooks/HeaderDataProvider';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Metrics from './metrics';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: metaInfo.home.title,
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </UserProvider>
         </ThemeSwitchProvider>
       </body>
+      <Script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js" />
     </html>
   );
 }

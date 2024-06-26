@@ -31,6 +31,8 @@ export default function RTONLanguageDropDown({ scrolledEnough, isFixed }: RTONLa
   const onLanguageChange = (selectedLanguage: ILanguageData) => {
     handleClose();
     let nextRoute = '';
+    const queryParams = window.location.search;
+
     if (params.lang) {
       if (selectedLanguage.attributes.code === 'en') {
         nextRoute = getDetraslatedURL(path, params.lang);
@@ -42,6 +44,7 @@ export default function RTONLanguageDropDown({ scrolledEnough, isFixed }: RTONLa
     }
 
     if (nextRoute) {
+      nextRoute += queryParams; // Append the current query parameters to the new route
       window.location.href = nextRoute;
     }
   };

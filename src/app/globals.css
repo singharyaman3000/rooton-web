@@ -38,10 +38,10 @@
   --golden-honey: #f0c236;
   --smoky-steel: #979797;
   --light-gray: #717171;
-  --platinum:  #e5e5e5;
+  --platinum: #e5e5e5;
   --hubspot-meeting-background: #f5f8fa;
   --services-tab-color: #000;
-  
+
   --language-dropdown-shadow: 0 2px 60px 0 rgba(0, 0, 0, 0.5);
   --preloader-overlay: hsl(252deg 9% 6% / 18%), hsl(252deg 3% 16% / 19%), hsl(0deg 2% 5% / 15%);
   --hubspot-form-shadow: 0 22px 60px 0 rgba(0, 0, 0, 0.1);
@@ -702,18 +702,22 @@ body {
   font-weight: 600;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .huform .hs-richtext.hs-main-font-element > h2 {
     font-size: 18px;
   }
 }
-
 
 .huform .hs-form-field label,
 .huform .hs-main-font-element {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.67;
+  color: #000;
+}
+
+[data-theme='dark'] .hs-form-field label,
+.hs-main-font-element {
   color: #000;
 }
 
@@ -845,7 +849,7 @@ body {
 
 .huform .hs-form-booleancheckbox span:not(.hs-form-required):before,
 .huform .hs-form-checkbox span:before,
-#custom-single-checkbox span::before ,
+#custom-single-checkbox span::before,
 .huform .hs-form-radio-display span::before {
   content: '';
   background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="19" height="19" rx="0" fill="white"/><rect x="0.5" y="0.5" width="19" height="19" rx="0" stroke="%23B3B3BD"/></svg>');
@@ -1044,7 +1048,7 @@ heading {
 }
 
 @media screen and (min-width: 1024px) {
-  #contact-us-section-wrapper>div:last-of-type {
+  #contact-us-section-wrapper > div:last-of-type {
     padding-left: 0;
     padding-right: 0;
   }
@@ -1176,7 +1180,7 @@ heading {
 }
 
 .login-background {
-  background: #F1F1F0;
+  background: #f1f1f0;
 }
 
 [data-theme='dark'] .login-background {
@@ -1197,13 +1201,13 @@ heading {
 }
 
 /* Hide HTML5 Up and Down arrows. */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield; /* Firefox */
 }
 
@@ -1217,5 +1221,3 @@ input[type="number"] {
 .transparent-button:disabled {
   cursor: text;
 }
-
-
