@@ -151,7 +151,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
     const name = `${firstName} ${lastName}`.trim();
     if (typeof window !== 'undefined') {
-      if (!window.location.origin.includes('rooton.ca')) {
+      if (window.location.origin.includes('rooton.ca')) {
         if (planDetails) {
           handleStripPayment(planDetails?.details.stripePriceID || '', email || '', name, token, params?.lang).then(
             (res) => {
@@ -208,7 +208,6 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 contact: phone,
               },
               theme: {
-                color: '#f59723',
                 backdrop_color: '#FFFFFF10',
               },
             };
