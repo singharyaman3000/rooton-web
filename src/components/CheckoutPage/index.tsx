@@ -209,6 +209,9 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 };
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
+                  setType('success');
+                  setIsSnackBarOpen(true);
+                  setMessage('Payment Successful, You\'ll be redirected soon.');
                   const url = await handleRazorpayPaymentRedirection(
                     params?.lang || '',
                     response.razorpay_payment_id,
@@ -247,6 +250,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               });
               paymentObject.open();
             } catch (error) {
+              setType('error');
               setIsSnackBarOpen(true);
               setMessage('Something went wrong. Please try again later');
             }
@@ -269,6 +273,9 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 };
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
+                  setType('success');
+                  setIsSnackBarOpen(true);
+                  setMessage('Payment Successful, You\'ll be redirected soon.');
                   const url = await handleRazorpayPaymentRedirection(
                     params?.lang || '',
                     response.razorpay_payment_id,
@@ -307,6 +314,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               });
               paymentObject.open();
             } catch (error) {
+              setType('error');
               setIsSnackBarOpen(true);
               setMessage('Something went wrong. Please try again later');
             }
