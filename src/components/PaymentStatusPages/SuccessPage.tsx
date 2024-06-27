@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  confirmPayment,
   handleRazorpayPaymentInvoice,
   handleStripePaymentInvoice,
   handleStripePaymentSuccess,
@@ -24,8 +25,12 @@ const SuccessPage = () => {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
             setSession(data);
+            confirmPayment('stripe', data.customer_email || '', paramValue).then((result)=>{
+              if(result){
+                setLoading(false);
+              }
+            });
           }
-          setLoading(false);
         });
       } else if (paymentId) {
         handleRazorpayPaymentInvoice(paymentId).then((data) => {

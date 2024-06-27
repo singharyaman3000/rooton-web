@@ -87,7 +87,8 @@ async function handleStripPayment(
   }
 }
 
-async function handleStripePaymentSuccess(sessionId: string) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function handleStripePaymentSuccess(sessionId: string):Promise<any> {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     return session;
