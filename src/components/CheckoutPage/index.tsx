@@ -366,9 +366,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   className={inputStyle}
                   invalidFormat={false}
                 />
-              </div>
-              {!planDetails && (
-                <div className="w-full flex flex-col gap-3 mb-6">
+                {!planDetails && (
                   <FormTextInput
                     placeholder="Enter Custom amount here."
                     required
@@ -381,8 +379,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                       setCustomAmount(e.target.value);
                     }}
                   />
-                </div>
-              )}
+                )}
+              </div>
               {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
                 <div className="w-full flex flex-col gap-3">
                   <h1
