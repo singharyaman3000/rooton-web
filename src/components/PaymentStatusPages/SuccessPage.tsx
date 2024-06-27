@@ -41,17 +41,10 @@ const SuccessPage = () => {
   }, []);
 
   useEffect(() => {
-    if (session) {
-      const invoiceId = session?.invoice;
-      if (invoiceId) {
-        handleStripePaymentInvoice(invoiceId).then((data) => {
-          if (data) {
-            setInvoiceURL(data);
-          } else {
-            setInvoiceURL(null);
-          }
-        });
-      }
+    if (session && session.invoice) {
+      handleStripePaymentInvoice(session.invoice).then((data) => {
+        setInvoiceURL(data || null);
+      });
     }
   }, [session]);
 
