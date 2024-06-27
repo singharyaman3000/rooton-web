@@ -717,8 +717,8 @@ body {
   color: #000;
 }
 
-[data-theme='dark'] .hs-form-field label,
-.hs-main-font-element {
+[data-theme='dark'] .hs-form-field label:not(.hs-error-msg),
+[data-theme='dark'] .hs-main-font-element:not(.hs-error-msg) {
   color: #000;
 }
 

@@ -423,7 +423,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                     onChange={(e) => {
                       return handleStateChange(e.currentTarget.value);
                     }}
-                    label="Province/State"
+                    label="State"
                     className={selectStyle}
                   />
                   <FormDropdown
