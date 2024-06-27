@@ -35,7 +35,7 @@ const SuccessPage = () => {
           setLoading(false);
         });
       } else {
-        setLoading(false); // No session_id found
+        window.location.href = '/';
       }
     }
   }, []);
