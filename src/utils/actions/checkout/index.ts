@@ -3,6 +3,7 @@
 import crypto from 'crypto';
 import Stripe from 'stripe';
 import Razorpay from 'razorpay';
+import axios from 'axios';
 
 // You should securely store this key and keep it secret
 const ENCRYPTION_KEY = crypto
@@ -123,8 +124,8 @@ async function handleCustomStripePayment(
         {
           price_data: {
             unit_amount: amountToCharge,
-            currency:'cad',
-            product:'prod_QMDytbiHmiNsgY',
+            currency: 'cad',
+            product: 'prod_QMDytbiHmiNsgY',
           },
           quantity: 1,
         },
@@ -194,7 +195,40 @@ async function verifyRazorpayPaymentStatus(data: {
   }
 }
 
-async function handleRazorpayPaymentRedirection(lang:string, paymentId:string,isSuccess:boolean):Promise<string>{
+async function confirmPayment(
+  mode: string,
+  email: string,
+  session_id?: string,
+  order_id?: string,
+  payment_id?: string,
+): Promise<boolean> {
+  try {
+    if (mode === 'stripe') {
+      const res = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/${mode}`, {
+        email,
+        session_id,
+      });
+      if (res.status === 200) {
+        return true;
+      }
+    } else if (mode === 'razorpay') {
+      const res = await axios.post(`${process.env.NEXT_SERVER_API_BASE_URL}/api/${mode}`, {
+        email,
+        order_id,
+        payment_id,
+      });
+      if (res.status === 200) {
+        return true;
+      }
+    }
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+async function handleRazorpayPaymentRedirection(lang: string, paymentId: string, isSuccess: boolean): Promise<string> {
   let successUrl = `${process.env.NEXT_API_BASE_URL_IN}payment-success?payment_id=${paymentId}`;
   let cancelUrl = `${process.env.NEXT_API_BASE_URL_IN}checkout`;
   if (lang) {
@@ -202,7 +236,7 @@ async function handleRazorpayPaymentRedirection(lang:string, paymentId:string,is
     cancelUrl = `${process.env.NEXT_API_BASE_URL_IN}${lang}/checkout`;
   }
 
-  if(isSuccess){
+  if (isSuccess) {
     return successUrl;
   }
   return cancelUrl;
@@ -231,4 +265,5 @@ export {
   verifyRazorpayPaymentStatus,
   handleRazorpayPaymentRedirection,
   handleRazorpayPaymentInvoice,
+  confirmPayment,
 };

@@ -4,6 +4,7 @@ import AgreementSigner from '@/utils/AgreementSigner';
 import { Modal, ModalDialog, ModalClose } from '@mui/joy';
 import { Input, useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
+import { H2 } from '../H2';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -68,14 +69,14 @@ function SignRetainerAgreementModal({
               toggleModal={toggleModal}
             />
           ) : (
-            <div className="flex flex-col items-center justify-center gap-4 p-2 w-full md:w-1/2 mx-auto">
+            <div className="flex flex-col items-center justify-center gap-4 p-2 w-full mx-auto">
               <Image
                 src={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
                 alt="logo"
                 width={100}
                 height={100}
               />
-              <p>Root On Immigrations & Consultants</p>
+              <H2 className='text-center'>Root On Immigrations & Consultants</H2>
               <Input
                 type="email"
                 className="w-full lg:w-[500px] mt-5"

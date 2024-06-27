@@ -75,7 +75,7 @@ export const FormTextInput: React.FC<PropType> = (props) => {
       {type === 'email' && showCustomError() && (
         <p className="hs-main-font-element hs-error-msg text-[#ff0000]">Email must be formatted correctly.</p>
       )}
-      {type==='email' && value.length > 0 && validationFn && !validationFn(inputValue) && <p className="hs-main-font-element hs-error-msg text-[#ff0000]">Please enter a valid email address.</p>}
+      {type==='email' && inputValue.length > 0 && validationFn && !validationFn(inputValue) && <p className="hs-main-font-element hs-error-msg text-[#ff0000]">Please enter a valid email address.</p>}
       {type === 'phone' && showCustomError() && (
         <p className="hs-main-font-element hs-error-msg text-[#ff0000]">
           Please enter a valid telephone number and ensure that it contains only numerical characters.
