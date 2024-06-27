@@ -3,7 +3,6 @@
 import crypto from 'crypto';
 import Stripe from 'stripe';
 import Razorpay from 'razorpay';
-import { getAppBaseUrl } from '@/utils';
 
 // You should securely store this key and keep it secret
 const ENCRYPTION_KEY = crypto
@@ -51,11 +50,11 @@ async function handleStripPayment(
   token: string | undefined,
   lang: string | undefined,
 ): Promise<{ status: boolean; payment_url: string | null; error: string | null }> {
-  let successUrl = `${getAppBaseUrl()}payment-success?session_id={CHECKOUT_SESSION_ID}`;
-  let cancelUrl = `${getAppBaseUrl()}checkout?token=${token}`;
+  let successUrl = `${process.env.NEXT_APP_BASE_URL}payment-success?session_id={CHECKOUT_SESSION_ID}`;
+  let cancelUrl = `${process.env.NEXT_APP_BASE_URL}checkout?token=${token}`;
   if (lang) {
-    successUrl = `${getAppBaseUrl()}${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
-    cancelUrl = `${getAppBaseUrl()}${lang}/checkout?token=${token}`;
+    successUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
+    cancelUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/checkout?token=${token}`;
   }
 
   try {
@@ -110,11 +109,11 @@ async function handleCustomStripePayment(
   email: string,
   lang: string | undefined,
 ): Promise<{ status: boolean; payment_url: string | null; error: string | null }> {
-  let successUrl = `${getAppBaseUrl()}payment-success?session_id={CHECKOUT_SESSION_ID}`;
-  let cancelUrl = `${getAppBaseUrl()}checkout`;
+  let successUrl = `${process.env.NEXT_APP_BASE_URL}payment-success?session_id={CHECKOUT_SESSION_ID}`;
+  let cancelUrl = `${process.env.NEXT_APP_BASE_URL}checkout`;
   if (lang) {
-    successUrl = `${getAppBaseUrl()}${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
-    cancelUrl = `${getAppBaseUrl()}${lang}/checkout`;
+    successUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
+    cancelUrl = `${process.env.NEXT_APP_BASE_URL}${lang}/checkout`;
   }
 
   try {
@@ -169,7 +168,6 @@ async function createRazorpayOrder(amount: number, email: string): Promise<strin
     const order = await instance.orders.create(options);
     return order.id;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
@@ -192,17 +190,16 @@ async function verifyRazorpayPaymentStatus(data: {
     }
     return false;
   } catch (error) {
-    console.log(error);
     return false;
   }
 }
 
 async function handleRazorpayPaymentRedirection(lang:string, paymentId:string,isSuccess:boolean):Promise<string>{
-  let successUrl = `${getAppBaseUrl()}payment-success?payment_id=${paymentId}`;
-  let cancelUrl = `${getAppBaseUrl()}checkout`;
+  let successUrl = `${process.env.NEXT_API_BASE_URL_IN}payment-success?payment_id=${paymentId}`;
+  let cancelUrl = `${process.env.NEXT_API_BASE_URL_IN}checkout`;
   if (lang) {
-    successUrl = `${getAppBaseUrl()}${lang}/payment-success?payment_id=${paymentId}`;
-    cancelUrl = `${getAppBaseUrl()}${lang}/checkout`;
+    successUrl = `${process.env.NEXT_API_BASE_URL_IN}${lang}/payment-success?payment_id=${paymentId}`;
+    cancelUrl = `${process.env.NEXT_API_BASE_URL_IN}${lang}/checkout`;
   }
 
   if(isSuccess){
@@ -220,7 +217,6 @@ async function handleRazorpayPaymentInvoice(paymentId: string) {
     const paymentDetails = await instance.payments.fetch(paymentId);
     return paymentDetails;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
