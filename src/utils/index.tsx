@@ -151,3 +151,28 @@ export const valueNotPresent = (arr: Record<string, string>[], keys: string[]) =
     });
   });
 };
+
+export const getAppBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    const { hostname } = window.location;
+    const domainParts = hostname.split('.');
+
+    if (hostname.includes('rooton.ca')) {
+      if (domainParts.length > 2) {
+        return 'https://dev.rooton.ca/';
+      }
+      return 'https://rooton.ca/';
+    }
+
+    if (hostname.includes('rooton.in')) {
+      if (domainParts.length > 2) {
+        return 'https://dev.rooton.in/';
+      }
+      return 'https://rooton.in/';
+    }
+    return process.env.NEXT_APP_BASE_URL;
+  }
+
+  return process.env.NEXT_APP_BASE_URL;
+};
+
