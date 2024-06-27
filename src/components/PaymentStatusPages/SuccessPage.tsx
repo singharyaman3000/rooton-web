@@ -1,25 +1,36 @@
 'use client';
 
-import { handleStripePaymentInvoice, handleStripePaymentSuccess } from '@/utils/actions/checkout';
+import {
+  handleRazorpayPaymentInvoice,
+  handleStripePaymentInvoice,
+  handleStripePaymentSuccess,
+} from '@/utils/actions/checkout';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 const SuccessPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [session, setSession] = useState<any>();
-  const [invoiceURL, setInvoiceURL] = useState('');
+  const [invoiceURL, setInvoiceURL] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const paramValue = urlParams.get('session_id');
+      const paymentId = urlParams.get('payment_id');
 
       if (paramValue) {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
             setSession(data);
-            console.log(data);
+          }
+          setLoading(false);
+        });
+      } else if (paymentId) {
+        handleRazorpayPaymentInvoice(paymentId).then((data) => {
+          if (data) {
+            setSession(data);
           }
           setLoading(false);
         });
@@ -36,6 +47,8 @@ const SuccessPage = () => {
         handleStripePaymentInvoice(invoiceId).then((data) => {
           if (data) {
             setInvoiceURL(data);
+          } else {
+            setInvoiceURL(null);
           }
         });
       }
@@ -49,7 +62,7 @@ const SuccessPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 blogs-listing">
       <div className="bg-white p-8 rounded-lg shadow-lg text-center w-full max-w-md mx-auto">
         {loading ? (
           <div className="animate-pulse">
@@ -86,18 +99,29 @@ const SuccessPage = () => {
                 />
               </svg>
             </div>
-            <h2 className="text-2xl font-semibold mb-2">
-              {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${session?.amount_total?.toFixed(2)}`}
+            <h2 className=" text-black text-2xl font-semibold mb-2">
+              {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${(session?.amount || 0) / 100}`}
             </h2>
-            <p className="text-lg font-semibold mb-4">Payment Successful!</p>
+            <p className="text-black text-lg font-semibold mb-4">Payment Successful!</p>
             <p className="text-gray-600 mb-6">The payment has been done successfully.</p>
             <p className="text-gray-600 mb-6">Thanks for being there with us.</p>
-            <p className="text-sm text-gray-500 mb-8">
-              Payment ID: {session?.payment_intent}, {new Date((session?.created || 0) * 1000)?.toLocaleString()}
-            </p>
+            {session && (
+              <p className="text-sm text-gray-500 mb-8">
+                Payment ID: {session?.payment_intent || session?.id || 'N/A'}, <br />
+                {new Date((session?.created || session?.created_at || 0) * 1000)?.toLocaleString()}
+              </p>
+            )}
           </>
         )}
-        <Link href={invoiceURL} target='_blank' className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">View Invoice</Link>
+        {invoiceURL && (
+          <Link
+            href={invoiceURL}
+            target="_blank"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+          >
+            View Invoice
+          </Link>
+        )}
       </div>
     </div>
   );

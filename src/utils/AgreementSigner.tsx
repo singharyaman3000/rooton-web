@@ -9,6 +9,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import { checkWhetherDocAlreadySigned, createDoc } from './actions/docuseal';
 import SnackbarAlert from '@/components/ToolsPage-Services/Snackbar';
+import { getAppBaseUrl } from '.';
 
 interface AgreementSignerProps {
   mail?: string;
@@ -33,9 +34,9 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
   const getCompletedRedirectUrl = useCallback(
     (data?: string) => {
       if (params.lang) {
-        return `${process.env.NEXT_APP_BASE_URL}/${params.lang}/checkout?token=${data || encryptedData}`;
+        return `${getAppBaseUrl()}${params.lang}/checkout?token=${data || encryptedData}`;
       }
-      return `${process.env.NEXT_APP_BASE_URL}/checkout?token=${data || encryptedData}`;
+      return `${getAppBaseUrl()}checkout?token=${data || encryptedData}`;
     },
     [params.lang, encryptedData],
   );

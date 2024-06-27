@@ -4,7 +4,7 @@ import React from 'react';
 
 const ErrorPage = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 blogs-listing">
       <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-md mx-auto">
         <div className="flex justify-center mb-4">
           <svg

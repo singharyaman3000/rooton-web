@@ -7,7 +7,7 @@ import Razorpay from 'razorpay';
 // You should securely store this key and keep it secret
 const ENCRYPTION_KEY = crypto
   .createHash('sha256')
-  .update(String('your-encryption-key-here'))
+  .update(String(process.env.ENCRYPTION_KEY))
   .digest('base64')
   .substr(0, 32); // Must be 256 bits (32 characters)
 const IV_LENGTH = 16; // For AES, this is always 16
@@ -168,7 +168,6 @@ async function createRazorpayOrder(amount: number, email: string): Promise<strin
     const order = await instance.orders.create(options);
     return order.id;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
@@ -191,15 +190,36 @@ async function verifyRazorpayPaymentStatus(data: {
     }
     return false;
   } catch (error) {
-    console.log(error);
     return false;
   }
 }
 
-// async function handleRazorpayPaymentSuccess(){
+async function handleRazorpayPaymentRedirection(lang:string, paymentId:string,isSuccess:boolean):Promise<string>{
+  let successUrl = `${process.env.NEXT_API_BASE_URL_IN}payment-success?payment_id=${paymentId}`;
+  let cancelUrl = `${process.env.NEXT_API_BASE_URL_IN}checkout`;
+  if (lang) {
+    successUrl = `${process.env.NEXT_API_BASE_URL_IN}${lang}/payment-success?payment_id=${paymentId}`;
+    cancelUrl = `${process.env.NEXT_API_BASE_URL_IN}${lang}/checkout`;
+  }
 
-// }
+  if(isSuccess){
+    return successUrl;
+  }
+  return cancelUrl;
+}
 
+async function handleRazorpayPaymentInvoice(paymentId: string) {
+  try {
+    const instance = new Razorpay({
+      key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+    const paymentDetails = await instance.payments.fetch(paymentId);
+    return paymentDetails;
+  } catch (error) {
+    return null;
+  }
+}
 export {
   encrypt,
   decrypt,
@@ -209,5 +229,6 @@ export {
   handleStripePaymentInvoice,
   createRazorpayOrder,
   verifyRazorpayPaymentStatus,
-  // handleRazorpayPaymentSuccess,
+  handleRazorpayPaymentRedirection,
+  handleRazorpayPaymentInvoice,
 };

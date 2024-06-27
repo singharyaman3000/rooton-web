@@ -49,16 +49,16 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
       const cadTaxedPrice = extractNumbers(planDetails?.details?.pricingCAD || '');
       const cadObject = {
         totalPrice: `CAD$ ${cadTaxedPrice.toFixed(2)}`,
-        subTotal: `CAD$ ${(cadTaxedPrice / 1.18).toFixed(2)}`,
-        taxes: `CAD$ ${(cadTaxedPrice - cadTaxedPrice / 1.18).toFixed(2)}`,
+        subTotal: `CAD$ ${cadTaxedPrice.toFixed(2)}`,
+        taxes: null,
       };
       return cadObject;
     }
     const parsedAmount = parseFloat(customAmount || '0');
     return {
       totalPrice: `CAD$ ${parsedAmount.toFixed(2)}`,
-      subTotal: `CAD$ ${(parsedAmount / 1.18).toFixed(2)}`,
-      taxes: `CAD$ ${(parsedAmount - parsedAmount / 1.18).toFixed(2)}`,
+      subTotal: `CAD$ ${parsedAmount.toFixed(2)}`,
+      taxes: null,
     };
   };
 

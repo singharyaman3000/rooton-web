@@ -11,11 +11,20 @@ import CheckoutCart, { extractNumbers } from './CheckoutCart';
 import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/checkoutPageAPI';
 import LoadingUI from '../LoadingUI';
 import style from '../SignUpPage/SignUpPage.module.css';
-import { createRazorpayOrder, decrypt, handleCustomStripePayment, handleStripPayment, verifyRazorpayPaymentStatus } from '@/utils/actions/checkout';
+import {
+  createRazorpayOrder,
+  decrypt,
+  handleCustomStripePayment,
+  handleRazorpayPaymentRedirection,
+  handleStripPayment,
+  verifyRazorpayPaymentStatus,
+} from '@/utils/actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
 import { Country, State, City } from 'country-state-city';
 import { cleanseServiceName } from './functions';
+import SnackbarAlert from '../ToolsPage-Services/Snackbar';
+import { AlertColor } from '@mui/material';
 
 const inputStyle =
   'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
@@ -50,6 +59,9 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [planDetails, setPlanDetails] = useState<{ details: pricingPlansDetails; serviceName: string }>();
   const [token, setToken] = useState<string>('');
   const [customAmount, setCustomAmount] = useState<string>('');
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
+  const [type, setType] = useState<AlertColor | undefined>('error');
 
   const [selectedCountry, setSelectedCountry] = useState<any>(
     findCountryListByName(currentLoggedInUser?.countryOfCitizenship || ''),
@@ -144,7 +156,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
         lastName = value as string;
       }
 
-      if(key === 'Phone'){
+      if (key === 'Phone') {
         phone = value as string;
       }
     });
@@ -158,20 +170,20 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               if (res.status) {
                 router.push(res.payment_url || '');
               } else {
-                console.log(JSON.parse(res.error || ''));
+                setIsSnackBarOpen(true);
+                setMessage('Something went wrong. Please try again later');
               }
             },
           );
         } else {
-          handleCustomStripePayment(customAmount, email || '', params?.lang).then(
-            (res) => {
-              if (res.status) {
-                router.push(res.payment_url || '');
-              } else {
-                console.log(JSON.parse(res.error || ''));
-              }
-            },
-          );
+          handleCustomStripePayment(customAmount, email || '', params?.lang).then((res) => {
+            if (res.status) {
+              router.push(res.payment_url || '');
+            } else {
+              setIsSnackBarOpen(true);
+              setMessage('Something went wrong. Please try again later');
+            }
+          });
         }
       } else {
         if (planDetails) {
@@ -187,7 +199,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               order_id: orderId,
               modal: {
                 confirm_close: true,
-                backdropclose:true,
+                backdropclose: true,
               },
               async handler(response: any) {
                 const data = {
@@ -197,54 +209,25 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 };
                 const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
                 if (paymentVerificationStatus) {
-                  alert('Payment Successful');
+                  setType('success');
+                  setIsSnackBarOpen(true);
+                  setMessage('Payment Successful, You\'ll be redirected soon.');
+                  const url = await handleRazorpayPaymentRedirection(
+                    params?.lang || '',
+                    response.razorpay_payment_id,
+                    true,
+                  );
+                  router.push(url);
                 } else {
-                  alert('Payment Failed');
-                }
-              },
-              prefill: {
-                name,
-                email,
-                contact: phone,
-              },
-              theme: {
-                backdrop_color: '#FFFFFF10',
-              },
-            };
-            try {
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              const paymentObject = new window.Razorpay(options);
-              paymentObject.on('payment.failed', (response: any) => {
-                alert(response.error.description);
-              });
-              paymentObject.open();
-            } catch (error) {
-              console.log(error);
-            }
-          }
-        }else{
-          const orderId = await createRazorpayOrder(parseFloat(customAmount), email || '');
-          if (orderId) {
-            const options = {
-              key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-              currency: 'INR',
-              amount: parseFloat(customAmount) * 100,
-              name: 'Custom Plan',
-              description: '',
-              order_id: orderId,
-              async handler(response: any) {
-                const data = {
-                  orderCreationId: orderId,
-                  razorpayPaymentId: response.razorpay_payment_id,
-                  razorpaySignature: response.razorpay_signature,
-                };
-                console.log(typeof data);
-                const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
-                if (paymentVerificationStatus) {
-                  alert('Payment Successful');
-                } else {
-                  alert('Payment Failed');
+                  setType('error');
+                  setIsSnackBarOpen(true);
+                  setMessage('Something went wrong. Please try again later');
+                  const url = await handleRazorpayPaymentRedirection(
+                    params?.lang || '',
+                    response.razorpay_payment_id,
+                    false,
+                  );
+                  router.push(url);
                 }
               },
               prefill: {
@@ -261,11 +244,79 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               // @ts-ignore
               const paymentObject = new window.Razorpay(options);
               paymentObject.on('payment.failed', (response: any) => {
-                alert(response.error.description);
+                setType('error');
+                setIsSnackBarOpen(true);
+                setMessage(response.error.description);
               });
               paymentObject.open();
             } catch (error) {
-              console.log(error);
+              setType('error');
+              setIsSnackBarOpen(true);
+              setMessage('Something went wrong. Please try again later');
+            }
+          }
+        } else {
+          const orderId = await createRazorpayOrder(parseFloat(customAmount), email || '');
+          if (orderId) {
+            const options = {
+              key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+              currency: 'INR',
+              amount: parseFloat(customAmount) * 100,
+              name: 'Custom Plan',
+              description: '',
+              order_id: orderId,
+              async handler(response: any) {
+                const data = {
+                  orderCreationId: orderId,
+                  razorpayPaymentId: response.razorpay_payment_id,
+                  razorpaySignature: response.razorpay_signature,
+                };
+                const paymentVerificationStatus = await verifyRazorpayPaymentStatus(data);
+                if (paymentVerificationStatus) {
+                  setType('success');
+                  setIsSnackBarOpen(true);
+                  setMessage('Payment Successful, You\'ll be redirected soon.');
+                  const url = await handleRazorpayPaymentRedirection(
+                    params?.lang || '',
+                    response.razorpay_payment_id,
+                    true,
+                  );
+                  router.push(url);
+                } else {
+                  setType('error');
+                  setIsSnackBarOpen(true);
+                  setMessage('Something went wrong. Please try again later');
+                  const url = await handleRazorpayPaymentRedirection(
+                    params?.lang || '',
+                    response.razorpay_payment_id,
+                    false,
+                  );
+                  router.push(url);
+                }
+              },
+              prefill: {
+                name,
+                email,
+                contact: phone,
+              },
+              theme: {
+                color: '#f59723',
+              },
+            };
+            try {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              const paymentObject = new window.Razorpay(options);
+              paymentObject.on('payment.failed', (response: any) => {
+                setType('error');
+                setIsSnackBarOpen(true);
+                setMessage(response.error.description);
+              });
+              paymentObject.open();
+            } catch (error) {
+              setType('error');
+              setIsSnackBarOpen(true);
+              setMessage('Something went wrong. Please try again later');
             }
           }
         }
@@ -275,7 +326,6 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   return (
     <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col-reverse lg:flex-row gap-10">
-
       {(!currentUser || typeof currentUser === 'undefined') &&
       typeof localStorage !== 'undefined' &&
       localStorage.getItem('token') ? (
@@ -320,15 +370,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   className={inputStyle}
                   invalidFormat={false}
                 />
-              </div>
-              {!planDetails && (
-                <div className="w-full flex flex-col gap-3 mb-6">
-                  {/* <h1
-                    className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
-            overflow-visible justify-center !mb-0`}
-                  >
-                  Custom Amount
-                  </h1> */}
+                {!planDetails && (
                   <FormTextInput
                     placeholder="Enter Custom amount here."
                     required
@@ -341,9 +383,9 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                       setCustomAmount(e.target.value);
                     }}
                   />
-                </div>
-              )}
-              {window && !window.location.origin.includes('rooton.ca') && (
+                )}
+              </div>
+              {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
                 <div className="w-full flex flex-col gap-3">
                   <h1
                     className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
@@ -435,6 +477,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           <CheckoutCart customAmount={customAmount} />
         </div>
       )}
+      <SnackbarAlert open={isSnackBarOpen} message={message} type={type} />
     </div>
   );
 }
