@@ -2,6 +2,7 @@
 
 import { NumberFormatter } from '@/utils';
 import {
+  confirmPayment,
   handleRazorpayPaymentInvoice,
   handleStripePaymentInvoice,
   handleStripePaymentSuccess,
@@ -25,8 +26,12 @@ const SuccessPage = () => {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
             setSession(data);
+            confirmPayment('stripe', data.customer_email || '', paramValue).then((result)=>{
+              if(result){
+                setLoading(false);
+              }
+            });
           }
-          setLoading(false);
         });
       } else if (paymentId) {
         handleRazorpayPaymentInvoice(paymentId).then((data) => {
@@ -36,23 +41,16 @@ const SuccessPage = () => {
           setLoading(false);
         });
       } else {
-        setLoading(false); // No session_id found
+        window.location.href = '/';
       }
     }
   }, []);
 
   useEffect(() => {
-    if (session) {
-      const invoiceId = session?.invoice;
-      if (invoiceId) {
-        handleStripePaymentInvoice(invoiceId).then((data) => {
-          if (data) {
-            setInvoiceURL(data);
-          } else {
-            setInvoiceURL(null);
-          }
-        });
-      }
+    if (session && session.invoice) {
+      handleStripePaymentInvoice(session.invoice).then((data) => {
+        setInvoiceURL(data || null);
+      });
     }
   }, [session]);
 

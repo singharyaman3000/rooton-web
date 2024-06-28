@@ -12,6 +12,7 @@ import { IUserDetails, getCurrentUserDetails } from '@/app/services/apiService/c
 import LoadingUI from '../LoadingUI';
 import style from '../SignUpPage/SignUpPage.module.css';
 import {
+  confirmPayment,
   createRazorpayOrder,
   decrypt,
   handleCustomStripePayment,
@@ -88,6 +89,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [customAmount, setCustomAmount] = useState<string>('');
   const [isSnackBarOpen, setIsSnackBarOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
   const [type, setType] = useState<AlertColor | undefined>('error');
 
   const [selectedCountry, setSelectedCountry] = useState<any>(
@@ -112,6 +114,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           setPlanDetails(JSON.parse(decryptedValue));
         }
       }
+      setLoading(false);
     }
   };
 
@@ -186,19 +189,23 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     if (typeof window !== 'undefined') {
       if (window.location.origin.includes('rooton.ca')) {
         if (planDetails) {
-          handleStripPayment(planDetails?.details.stripePriceID || '', email || '', token, params?.lang).then((res) => {
-            if (res.status) {
-              router.push(res.payment_url || '');
-            } else {
-              setIsSnackBarOpen(true);
-              setMessage('Something went wrong. Please try again later');
-            }
-          });
+          handleStripPayment(planDetails?.details.stripePriceID || '', email || '', token, params?.lang).then(
+            (res) => {
+              if (res.status) {
+                router.push(res.payment_url || '');
+              } else {
+                setType('error');
+                setIsSnackBarOpen(true);
+                setMessage('Something went wrong. Please try again later');
+              }
+            },
+          );
         } else {
           handleCustomStripePayment(customAmount, email || '', params?.lang).then((res) => {
             if (res.status) {
               router.push(res.payment_url || '');
             } else {
+              setType('error');
               setIsSnackBarOpen(true);
               setMessage('Something went wrong. Please try again later');
             }
@@ -233,6 +240,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   setType('success');
                   setIsSnackBarOpen(true);
                   setMessage('Payment Successful, You\'ll be redirected soon.');
+                  await confirmPayment('razorpay', email, undefined, orderId, response.razorpay_payment_id);
                   const url = await handleRazorpayPaymentRedirection(
                     params?.lang || '',
                     response.razorpay_payment_id,
@@ -294,6 +302,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   setType('success');
                   setIsSnackBarOpen(true);
                   setMessage('Payment Successful, You\'ll be redirected soon.');
+                  await confirmPayment('razorpay', email, undefined, orderId, response.razorpay_payment_id);
                   const url = await handleRazorpayPaymentRedirection(
                     params?.lang || '',
                     response.razorpay_payment_id,
@@ -339,159 +348,161 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   return (
     <div className="min-h-screen mt-[80px] py-2 px-4 w-full lg:w-5/6 lg:mx-auto lg:mt-[150px] flex flex-col-reverse lg:flex-row gap-10">
-      {(!currentUser || typeof currentUser === 'undefined') &&
-      typeof localStorage !== 'undefined' &&
-      localStorage.getItem('token') ? (
-          <div className="w-full lg:w-1/2">
-            <LoadingUI />
-          </div>
-        ) : (
-          <div className="w-full lg:w-1/2 overflow-auto h-full">
-            <form
-              action=""
-              className="flex flex-col items-center w-full gap-3 mb-10 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border"
-              onSubmit={submitHandler}
-            >
-              <div className="w-full flex flex-col gap-3 mb-6">
+      {loading ? (
+        <div className="w-full lg:w-1/2">
+          <LoadingUI />
+        </div>
+      ) : (
+        <div className="w-full lg:w-1/2 overflow-auto h-full">
+          <form
+            action=""
+            className="flex flex-col items-center w-full gap-3 mb-10 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border"
+            onSubmit={submitHandler}
+          >
+            <div className="w-full flex flex-col gap-3 mb-6">
+              <h1
+                className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
+            overflow-visible justify-center !mb-0`}
+              >
+                Billing Information
+              </h1>
+              <FormTextInput
+                placeholder="John"
+                required
+                field={{ label: 'Name or Business Name', name: 'FullName' }}
+                value={`${currentUser?.Firstname || ''} ${currentUser?.Lastname || ''}`.trim()}
+                className={inputStyle}
+                invalidFormat={false}
+              />
+              <FormTextInput
+                placeholder="ex: john_doe@example.com"
+                type="email"
+                required
+                validationFn={(email: string) => {
+                  const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                  return regex.test(email);
+                }}
+                value={currentUser?.email || ''}
+                field={{ label: 'Email', name: 'email' }}
+                className={inputStyle}
+                invalidFormat={false}
+              />
+              {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
+                <FormTextInput
+                  placeholder="Doe"
+                  field={{ label: 'GST Number', name: 'GSTNumber' }}
+                  value=""
+                  className={inputStyle}
+                  invalidFormat={false}
+                />
+              )}
+              {!planDetails && (
+                <>
+                  <FormTextInput
+                    placeholder="Enter Custom amount here."
+                    required
+                    field={{ label: 'Amount', name: 'customAmount' }}
+                    value={customAmount || ''}
+                    className={inputStyle}
+                    invalidFormat={false}
+                    onChange={(e) => {
+                      if (Number.isNaN(parseFloat(e.target.value))) return;
+                      setCustomAmount(e.target.value);
+                    }}
+                  />
+                  <FormDropdown
+                    name="serviceType"
+                    required
+                    value=''
+                    options={visaTypes}
+                    label="Service Type"
+                    className={selectStyle}
+                  />
+                </>
+              )}
+            </div>
+            {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
+              <div className="w-full flex flex-col gap-3">
                 <h1
                   className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
                 >
-                Billing Information
+                  Billing Address
                 </h1>
                 <FormTextInput
-                  placeholder="John"
+                  placeholder="Enter here.."
+                  field={{ label: 'Address', name: 'address' }}
+                  value=""
+                  className={inputStyle}
+                  invalidFormat={false}
+                />
+                <FormDropdown
+                  name="countryOfCitizenship"
                   required
-                  field={{ label: 'Name or Business Name', name: 'FullName' }}
-                  value={`${currentUser?.Firstname || ''} ${currentUser?.Lastname || ''}`.trim()}
+                  value={selectedCountry?.name || ''}
+                  options={Country?.getAllCountries().map((countryData) => {
+                    return countryData?.name || '';
+                  })}
+                  onChange={(e) => {
+                    return handleCountryChange(e.currentTarget.value);
+                  }}
+                  label="Country"
+                  className={selectStyle}
+                />
+                <FormDropdown
+                  name="state"
+                  value={selectedState?.name || ''}
+                  required
+                  options={states?.map((stateData) => {
+                    return stateData?.name || '';
+                  })}
+                  onChange={(e) => {
+                    return handleStateChange(e.currentTarget.value);
+                  }}
+                  label="State"
+                  className={selectStyle}
+                />
+                <FormDropdown
+                  name="city"
+                  required
+                  value={selectedCity?.name || ''}
+                  options={cities?.map((cityData) => {
+                    return cityData?.name || '';
+                  })}
+                  onChange={(e) => {
+                    return setSelectedCity(
+                      findCityListByName(e.currentTarget.value, selectedState?.countryCode, selectedState?.isoCode),
+                    );
+                  }}
+                  label="City"
+                  className={selectStyle}
+                />
+                <FormTextInput
+                  placeholder="Zip Code"
+                  field={{ label: 'Zip Code', name: 'zip_code' }}
+                  value=""
                   className={inputStyle}
                   invalidFormat={false}
                 />
                 <FormTextInput
-                  placeholder="ex: john_doe@example.com"
-                  type="email"
-                  required
-                  value={currentUser?.email || ''}
-                  field={{ label: 'Email', name: 'email' }}
+                  placeholder="Phone Number"
+                  type="phone"
+                  field={{ label: 'Phone Number', name: 'Phone' }}
+                  value={currentUser?.Phone || ''}
                   className={inputStyle}
                   invalidFormat={false}
                 />
-                {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
-                  <FormTextInput
-                    placeholder="Doe"
-                    field={{ label: 'GST Number', name: 'GSTNumber' }}
-                    value=""
-                    className={inputStyle}
-                    invalidFormat={false}
-                  />
-                )}
-                {!planDetails && (
-                  <>
-                    <FormTextInput
-                      placeholder="Enter Custom amount here."
-                      required
-                      field={{ label: 'Amount', name: 'customAmount' }}
-                      value={customAmount || ''}
-                      className={inputStyle}
-                      invalidFormat={false}
-                      onChange={(e) => {
-                        if (Number.isNaN(parseFloat(e.target.value))) return;
-                        setCustomAmount(e.target.value);
-                      }}
-                    />
-                    <FormDropdown
-                      name="serviceType"
-                      required
-                      value=''
-                      options={visaTypes}
-                      label="Service Type"
-                      className={selectStyle}
-                    />
-                  </>
-                )}
               </div>
-              {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
-                <div className="w-full flex flex-col gap-3">
-                  <h1
-                    className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
-            overflow-visible justify-center !mb-0`}
-                  >
-                  Billing Address
-                  </h1>
-                  <FormTextInput
-                    placeholder="Enter here.."
-                    field={{ label: 'Address', name: 'address' }}
-                    value=""
-                    className={inputStyle}
-                    invalidFormat={false}
-                  />
-                  <FormDropdown
-                    name="countryOfCitizenship"
-                    required
-                    value={selectedCountry?.name || ''}
-                    options={Country?.getAllCountries().map((countryData) => {
-                      return countryData?.name || '';
-                    })}
-                    onChange={(e) => {
-                      return handleCountryChange(e.currentTarget.value);
-                    }}
-                    label="Country"
-                    className={selectStyle}
-                  />
-                  <FormDropdown
-                    name="state"
-                    value={selectedState?.name || ''}
-                    required
-                    options={states?.map((stateData) => {
-                      return stateData?.name || '';
-                    })}
-                    onChange={(e) => {
-                      return handleStateChange(e.currentTarget.value);
-                    }}
-                    label="State"
-                    className={selectStyle}
-                  />
-                  <FormDropdown
-                    name="city"
-                    required
-                    value={selectedCity?.name || ''}
-                    options={cities?.map((cityData) => {
-                      return cityData?.name || '';
-                    })}
-                    onChange={(e) => {
-                      return setSelectedCity(
-                        findCityListByName(e.currentTarget.value, selectedState?.countryCode, selectedState?.isoCode),
-                      );
-                    }}
-                    label="City"
-                    className={selectStyle}
-                  />
-                  <FormTextInput
-                    placeholder="Zip Code"
-                    field={{ label: 'Zip Code', name: 'zip_code' }}
-                    value=""
-                    className={inputStyle}
-                    invalidFormat={false}
-                  />
-                  <FormTextInput
-                    placeholder="Phone Number"
-                    type="phone"
-                    field={{ label: 'Phone Number', name: 'Phone' }}
-                    value={currentUser?.Phone || ''}
-                    className={inputStyle}
-                    invalidFormat={false}
-                  />
-                </div>
-              )}
-              <button
-                className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
-                type="submit"
-              >
+            )}
+            <button
+              className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
+              type="submit"
+            >
               Pay Now
-              </button>
-            </form>
-          </div>
-        )}
+            </button>
+          </form>
+        </div>
+      )}
       {planDetails && (
         <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 border border-solid">
           <CheckoutCart planDetails={planDetails} />
