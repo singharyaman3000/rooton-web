@@ -23,7 +23,7 @@ import {
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
 import { Country, State, City } from 'country-state-city';
-import { cleanseServiceName } from './functions';
+import { checkForNumber, cleanseServiceName, extractNumbersFromInput } from './functions';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 import { AlertColor } from '@mui/material';
 
@@ -84,7 +84,7 @@ const visaTypes = [
 function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const params = useParams();
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
-  const [planDetails, setPlanDetails] = useState<{ details: pricingPlansDetails; serviceName: string }>();
+  const [planDetails, setPlanDetails] = useState<{ details?: pricingPlansDetails; serviceName: string }>();
   const [token, setToken] = useState<string>('');
   const [customAmount, setCustomAmount] = useState<string>('');
   const [isSnackBarOpen, setIsSnackBarOpen] = useState<boolean>(false);
@@ -189,7 +189,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     if (typeof window !== 'undefined') {
       if (window.location.origin.includes('rooton.ca')) {
         if (planDetails) {
-          handleStripPayment(planDetails?.details.stripePriceID || '', email || '', token, params?.lang).then(
+          handleStripPayment(planDetails?.details?.stripePriceID || '', email || '', token, params?.lang).then(
             (res) => {
               if (res.status) {
                 router.push(res.payment_url || '');
@@ -223,7 +223,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               currency: 'INR',
               amount: amountToBePaid * 100,
               name: cleanseServiceName(planDetails?.serviceName || ''),
-              description: planDetails?.details.planDescription,
+              description: planDetails?.details?.planDescription,
               order_id: orderId,
               modal: {
                 confirm_close: true,
@@ -389,14 +389,14 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               />
               {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
                 <FormTextInput
-                  placeholder="Doe"
+                  placeholder="Enter here."
                   field={{ label: 'GST Number', name: 'GSTNumber' }}
                   value=""
                   className={inputStyle}
                   invalidFormat={false}
                 />
               )}
-              {!planDetails && (
+              {!planDetails?.details && (
                 <>
                   <FormTextInput
                     placeholder="Enter Custom amount here."
@@ -406,8 +406,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                     className={inputStyle}
                     invalidFormat={false}
                     onChange={(e) => {
-                      if (Number.isNaN(parseFloat(e.target.value))) return;
-                      setCustomAmount(e.target.value);
+                      if (checkForNumber(e.target.value)) return;
+                      setCustomAmount(extractNumbersFromInput(e.target.value));
                     }}
                   />
                   <FormDropdown
@@ -417,6 +417,12 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                     options={visaTypes}
                     label="Service Type"
                     className={selectStyle}
+                    onChange={(e) => {
+                      setPlanDetails((prev)=>{return {
+                        ...prev,
+                        serviceName: e.target.value,
+                      };});
+                    }}
                   />
                 </>
               )}
@@ -503,12 +509,12 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           </form>
         </div>
       )}
-      {planDetails && (
+      {planDetails?.details && (
         <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 md:mb-10 border border-solid">
           <CheckoutCart planDetails={planDetails} />
         </div>
       )}
-      {!planDetails && (
+      {!planDetails?.details && (
         <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 md:mb-10 border border-solid">
           <CheckoutCart customAmount={customAmount} />
         </div>

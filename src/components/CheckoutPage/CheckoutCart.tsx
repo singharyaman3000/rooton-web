@@ -8,7 +8,7 @@ import style from '../SignUpPage/SignUpPage.module.css';
 import { NumberFormatter } from '@/utils';
 
 export interface CheckoutCartProps {
-  planDetails?: { details: pricingPlansDetails; serviceName: string } | undefined;
+  planDetails?: { details?: pricingPlansDetails; serviceName: string } | undefined;
   customAmount?: string;
 }
 export const extractNumbers = (pricingString: string): number => {
@@ -22,7 +22,6 @@ export const extractNumbers = (pricingString: string): number => {
 };
 function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
   const { theme } = useTheme();
-
   const getPriceBasedOnDomain = () => {
     let index = 0;
     if (typeof window !== 'undefined') {
@@ -30,8 +29,13 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
       index = domain.includes('rooton.ca') ? 0 : 1;
     }
     if (index === 1) {
-      if (planDetails) {
-        const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
+      if (planDetails?.details) {
+        let inrTaxedPrice = 0;
+        try {
+          inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
+        } catch (error) {
+          inrTaxedPrice = 0;
+        }
         const inrObject = {
           subTotal: `₹ ${NumberFormatter(inrTaxedPrice)}`,
           taxes: `₹ ${NumberFormatter(inrTaxedPrice * 0.18)}`,
@@ -46,7 +50,7 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
         totalPrice: `₹ ${NumberFormatter(parsedAmount + parsedAmount * 0.18)}`,
       };
     }
-    if (planDetails) {
+    if (planDetails?.details) {
       const cadTaxedPrice = extractNumbers(planDetails?.details?.pricingCAD || '');
       const cadObject = {
         totalPrice: `CAD$ ${NumberFormatter(cadTaxedPrice)}`,
@@ -70,12 +74,12 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
           <div className="flex items-center gap-3">
             <Image
               src={'/images/servicePage/my-project-44@3x.png'}
-              alt={planDetails?.details.planName || 'Custom Plan'}
+              alt={planDetails?.details?.planName || 'Custom Plan'}
               width={100}
               height={100}
               className="hidden sm:block"
             />
-            {planDetails ? (
+            {planDetails?.details ? (
               <h1
                 className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
@@ -87,7 +91,7 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
                 className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
               >
-                Personalized Plan
+                Personalized Plan- {planDetails?.serviceName}
               </h1>
             )}
           </div>
@@ -96,7 +100,7 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
       {planDetails && (
         <div className="flex items-center justify-between py-2">
           <p>Plan Type</p>
-          <p>{planDetails.details.planName}</p>
+          <p>{planDetails?.details?.planName}</p>
         </div>
       )}
       <Divider color={theme === 'dark' ? 'white' : 'black'} />

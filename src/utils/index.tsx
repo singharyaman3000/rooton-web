@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { IHomePageData } from '@/app/services/apiService/homeAPI';
 import { ICoachingPage_Data } from '@/app/services/apiService/CoachingAPI';
