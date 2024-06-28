@@ -1,5 +1,6 @@
 'use client';
 
+import { NumberFormatter } from '@/utils';
 import {
   handleRazorpayPaymentInvoice,
   handleStripePaymentInvoice,
@@ -58,7 +59,7 @@ const SuccessPage = () => {
   const getTotalCadAmount = () => {
     const amountTotalCents = session?.amount_total ?? 0;
     const amountTotalDollars = amountTotalCents / 100;
-    return amountTotalDollars.toFixed(2);
+    return NumberFormatter(amountTotalDollars);
   };
 
   return (
@@ -100,7 +101,7 @@ const SuccessPage = () => {
               </svg>
             </div>
             <h2 className=" text-black text-2xl font-semibold mb-2">
-              {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${(session?.amount || 0) / 100}`}
+              {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${NumberFormatter((session?.amount || 0) / 100)}`}
             </h2>
             <p className="text-black text-lg font-semibold mb-4">Payment Successful!</p>
             <p className="text-gray-600 mb-6">The payment has been done successfully.</p>

@@ -5,6 +5,7 @@ import { Divider } from '@mui/material';
 import { useTheme } from 'next-themes';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import style from '../SignUpPage/SignUpPage.module.css';
+import { NumberFormatter } from '@/utils';
 
 export interface CheckoutCartProps {
   planDetails?: { details: pricingPlansDetails; serviceName: string } | undefined;
@@ -32,32 +33,32 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
       if (planDetails) {
         const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
         const inrObject = {
-          totalPrice: `₹ ${inrTaxedPrice.toFixed(2)}`,
-          subTotal: `₹ ${(inrTaxedPrice / 1.18).toFixed(2)}`,
-          taxes: `₹ ${(inrTaxedPrice - inrTaxedPrice / 1.18).toFixed(2)}`,
+          subTotal: `₹ ${NumberFormatter(inrTaxedPrice)}`,
+          taxes: `₹ ${NumberFormatter(inrTaxedPrice * 0.18)}`,
+          totalPrice: `₹ ${NumberFormatter(inrTaxedPrice + inrTaxedPrice * 0.18)}`,
         };
         return inrObject;
       }
       const parsedAmount = parseFloat(customAmount || '0');
       return {
-        totalPrice: `₹ ${parsedAmount.toFixed(2)}`,
-        subTotal: `₹ ${(parsedAmount / 1.18).toFixed(2)}`,
-        taxes: `₹ ${(parsedAmount - parsedAmount / 1.18).toFixed(2)}`,
+        subTotal: `₹ ${NumberFormatter(parsedAmount)}`,
+        taxes: `₹ ${NumberFormatter(parsedAmount * 0.18)}`,
+        totalPrice: `₹ ${NumberFormatter(parsedAmount + parsedAmount * 0.18)}`,
       };
     }
     if (planDetails) {
       const cadTaxedPrice = extractNumbers(planDetails?.details?.pricingCAD || '');
       const cadObject = {
-        totalPrice: `CAD$ ${cadTaxedPrice.toFixed(2)}`,
-        subTotal: `CAD$ ${cadTaxedPrice.toFixed(2)}`,
+        totalPrice: `CAD$ ${NumberFormatter(cadTaxedPrice)}`,
+        subTotal: `CAD$ ${NumberFormatter(cadTaxedPrice)}`,
         taxes: null,
       };
       return cadObject;
     }
     const parsedAmount = parseFloat(customAmount || '0');
     return {
-      totalPrice: `CAD$ ${parsedAmount.toFixed(2)}`,
-      subTotal: `CAD$ ${parsedAmount.toFixed(2)}`,
+      totalPrice: `CAD$ ${NumberFormatter(parsedAmount)}`,
+      subTotal: `CAD$ ${NumberFormatter(parsedAmount)}`,
       taxes: null,
     };
   };
@@ -86,7 +87,7 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
                 className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
               >
-                Custom Plan
+                Personalized Plan
               </h1>
             )}
           </div>

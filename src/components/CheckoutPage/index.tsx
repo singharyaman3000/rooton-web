@@ -53,6 +53,33 @@ const findCityListByName = (name: string, countryCode: string, isoCode: string) 
   });
 };
 
+const visaTypes = [
+  'Study Visa',
+  'Work Permit Inside Canada (Initial & Extension)',
+  'Closed Work Permit (LMIA Based)',
+  'Visitor Visa',
+  'Super Visa',
+  'Study Permit Extension',
+  'Post-graduation Work Permit',
+  'CAQ Extension',
+  'Bridging Open Work Permit',
+  'TRV for Inside Canada Permit',
+  'Co-op Work Permit',
+  'Spousal Open Work Permit',
+  'Parents and Grandparents',
+  'Spousal Sponsorship',
+  'Express Entry - FSW (Federal Skilled Worker)',
+  'Express Entry - CEC (Canadian Experience Class)',
+  'Express Entry - FSTP (Federal Skilled Trades Program)',
+  'Provincial Nominee Program (PNP)',
+  'Quebec Skilled Worker Program (QSWP) Service',
+  'Start-up Visa',
+  'Self - Employed',
+  'Investors',
+  'Entrepreneurs',
+  'Others',
+];
+
 function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const params = useParams();
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
@@ -140,20 +167,15 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     const form = e.currentTarget;
     const formData = new FormData(form);
     let email = '';
-    let firstName = '';
-    let lastName = '';
+    let name = '';
     let phone = '';
     formData.forEach((value, key) => {
       if (key === 'email') {
         email = value as string;
       }
 
-      if (key === 'FirstName') {
-        firstName = value as string;
-      }
-
-      if (key === 'LastName') {
-        lastName = value as string;
+      if (key === 'FullName') {
+        name = value as string;
       }
 
       if (key === 'Phone') {
@@ -161,20 +183,17 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
       }
     });
 
-    const name = `${firstName} ${lastName}`.trim();
     if (typeof window !== 'undefined') {
       if (window.location.origin.includes('rooton.ca')) {
         if (planDetails) {
-          handleStripPayment(planDetails?.details.stripePriceID || '', email || '', name, token, params?.lang).then(
-            (res) => {
-              if (res.status) {
-                router.push(res.payment_url || '');
-              } else {
-                setIsSnackBarOpen(true);
-                setMessage('Something went wrong. Please try again later');
-              }
-            },
-          );
+          handleStripPayment(planDetails?.details.stripePriceID || '', email || '', token, params?.lang).then((res) => {
+            if (res.status) {
+              router.push(res.payment_url || '');
+            } else {
+              setIsSnackBarOpen(true);
+              setMessage('Something went wrong. Please try again later');
+            }
+          });
         } else {
           handleCustomStripePayment(customAmount, email || '', params?.lang).then((res) => {
             if (res.status) {
@@ -188,12 +207,14 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
       } else {
         if (planDetails) {
           const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
-          const orderId = await createRazorpayOrder(inrTaxedPrice, email || '');
+          const gstTaxes = (inrTaxedPrice ?? 0) * 0.18;
+          const amountToBePaid = Number((inrTaxedPrice + gstTaxes).toFixed(2));
+          const orderId = await createRazorpayOrder(amountToBePaid, email || '');
           if (orderId) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
               currency: 'INR',
-              amount: inrTaxedPrice * 100,
+              amount: amountToBePaid * 100,
               name: cleanseServiceName(planDetails?.serviceName || ''),
               description: planDetails?.details.planDescription,
               order_id: orderId,
@@ -243,11 +264,6 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               const paymentObject = new window.Razorpay(options);
-              paymentObject.on('payment.failed', (response: any) => {
-                setType('error');
-                setIsSnackBarOpen(true);
-                setMessage(response.error.description);
-              });
               paymentObject.open();
             } catch (error) {
               setType('error');
@@ -256,13 +272,15 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
             }
           }
         } else {
-          const orderId = await createRazorpayOrder(parseFloat(customAmount), email || '');
+          const gstTaxes = (customAmount as unknown as number | undefined ?? 0) * 0.18;;
+          const amountToBePaid = Number((parseFloat(customAmount) + gstTaxes).toFixed(2));
+          const orderId = await createRazorpayOrder(amountToBePaid, email || '');
           if (orderId) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
               currency: 'INR',
-              amount: parseFloat(customAmount) * 100,
-              name: 'Custom Plan',
+              amount: amountToBePaid * 100,
+              name: 'Personalized Plan',
               description: '',
               order_id: orderId,
               async handler(response: any) {
@@ -307,11 +325,6 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               const paymentObject = new window.Razorpay(options);
-              paymentObject.on('payment.failed', (response: any) => {
-                setType('error');
-                setIsSnackBarOpen(true);
-                setMessage(response.error.description);
-              });
               paymentObject.open();
             } catch (error) {
               setType('error');
@@ -344,20 +357,13 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   className={`${style.heading_page} text-black xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
                 >
-                Contact Information
+                Billing Information
                 </h1>
                 <FormTextInput
                   placeholder="John"
                   required
-                  field={{ label: 'First Name', name: 'Firstname' }}
-                  value={currentUser?.Firstname || ''}
-                  className={inputStyle}
-                  invalidFormat={false}
-                />
-                <FormTextInput
-                  placeholder="Doe"
-                  field={{ label: 'Last Name', name: 'Lastname' }}
-                  value={currentUser?.Lastname || ''}
+                  field={{ label: 'Name or Business Name', name: 'FullName' }}
+                  value={`${currentUser?.Firstname || ''} ${currentUser?.Lastname || ''}`.trim()}
                   className={inputStyle}
                   invalidFormat={false}
                 />
@@ -370,19 +376,38 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   className={inputStyle}
                   invalidFormat={false}
                 />
-                {!planDetails && (
+                {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
                   <FormTextInput
-                    placeholder="Enter Custom amount here."
-                    required
-                    field={{ label: 'Custom Amount', name: 'customAmount' }}
-                    value={customAmount || ''}
+                    placeholder="Doe"
+                    field={{ label: 'GST Number', name: 'GSTNumber' }}
+                    value=""
                     className={inputStyle}
                     invalidFormat={false}
-                    onChange={(e) => {
-                      if (Number.isNaN(parseFloat(e.target.value))) return;
-                      setCustomAmount(e.target.value);
-                    }}
                   />
+                )}
+                {!planDetails && (
+                  <>
+                    <FormTextInput
+                      placeholder="Enter Custom amount here."
+                      required
+                      field={{ label: 'Amount', name: 'customAmount' }}
+                      value={customAmount || ''}
+                      className={inputStyle}
+                      invalidFormat={false}
+                      onChange={(e) => {
+                        if (Number.isNaN(parseFloat(e.target.value))) return;
+                        setCustomAmount(e.target.value);
+                      }}
+                    />
+                    <FormDropdown
+                      name="serviceType"
+                      required
+                      value=''
+                      options={visaTypes}
+                      label="Service Type"
+                      className={selectStyle}
+                    />
+                  </>
                 )}
               </div>
               {typeof window !== 'undefined' && !window.location.origin.includes('rooton.ca') && (
@@ -468,12 +493,12 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           </div>
         )}
       {planDetails && (
-        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8">
+        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 border border-solid">
           <CheckoutCart planDetails={planDetails} />
         </div>
       )}
       {!planDetails && (
-        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8">
+        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 border border-solid">
           <CheckoutCart customAmount={customAmount} />
         </div>
       )}

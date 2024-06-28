@@ -46,7 +46,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 async function handleStripPayment(
   priceId: string,
   email: string,
-  name: string,
   token: string | undefined,
   lang: string | undefined,
 ): Promise<{ status: boolean; payment_url: string | null; error: string | null }> {
