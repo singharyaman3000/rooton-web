@@ -504,12 +504,12 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
         </div>
       )}
       {planDetails && (
-        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 border border-solid">
+        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 md:mb-10 border border-solid">
           <CheckoutCart planDetails={planDetails} />
         </div>
       )}
       {!planDetails && (
-        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 border border-solid">
+        <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 md:mb-10 border border-solid">
           <CheckoutCart customAmount={customAmount} />
         </div>
       )}
