@@ -56,39 +56,41 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   const router = useRouter();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const decodedToken = async () => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const paramValue = urlParams.get('token');
-      const emailParam = urlParams.get('email');
-      if (emailParam) {
-        setEmailInputValue(emailParam);
+  useEffect(() => {
+    async function fetchData() {
+      let userDetails = currentLoggedInUser;
+      if (!userDetails) {
+        const storedToken = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        if (storedToken) {
+          userDetails = await getCurrentUserDetails();
+          setCurrentUser(userDetails);
+        }
       }
-      setToken(paramValue || '');
-      if (paramValue) {
-        const decryptedValue = await decrypt(paramValue);
+
+      if (userDetails) {
+        setSelectedCountry(findCountryListByName(userDetails.countryOfCitizenship || ''));
+      }
+
+      const urlParams =
+        typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+      const tokenParam = urlParams.get('token');
+      const emailParam = urlParams.get('email');
+
+      if (tokenParam) {
+        setToken(tokenParam);
+        const decryptedValue = await decrypt(tokenParam);
         if (decryptedValue) {
           setPlanDetails(JSON.parse(decryptedValue));
         }
       }
-    }
-  };
-
-  useEffect(() => {
-    if (!currentLoggedInUser || typeof currentLoggedInUser === 'undefined') {
-      if (typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
-        getCurrentUserDetails().then((data) => {
-          if (data) {
-            setCurrentUser(data);
-            setSelectedCountry(findCountryListByName(data?.countryOfCitizenship || ''));
-          }
-        });
+      if (emailParam) {
+        setEmailInputValue(emailParam);
       }
-    }
-    decodedToken();
-    setLoading(false);
 
+      setLoading(false);
+    }
+
+    fetchData();
   }, [currentLoggedInUser]);
 
   useEffect(() => {
