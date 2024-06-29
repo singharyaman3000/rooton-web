@@ -22,7 +22,7 @@ import {
 } from '@/utils/actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
-import { checkForNumber, cleanseServiceName, extractNumbersFromInput, findCityListByName, findCountryListByName, findStateListByName } from './functions';
+import { checkForGSTNumber, checkForNumber, cleanseServiceName, extractNumbersFromInput, findCityListByName, findCountryListByName, findStateListByName } from './functions';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 import { AlertColor } from '@mui/material';
 import { inputStyle, selectStyle, visaTypes } from './constants';
@@ -356,7 +356,10 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   placeholder="Enter here."
                   field={{ label: 'GST Number', name: 'GSTNumber' }}
                   value=""
+                  type='gst'
+                  allUpperCase
                   className={inputStyle}
+                  validationFn={checkForGSTNumber}
                   invalidFormat={false}
                 />
               )}
@@ -417,6 +420,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   placeholder="Enter here.."
                   field={{ label: 'Address', name: 'address' }}
                   value=""
+                  required
                   className={inputStyle}
                   invalidFormat={false}
                 />

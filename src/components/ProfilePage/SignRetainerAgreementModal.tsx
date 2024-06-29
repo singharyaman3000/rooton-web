@@ -55,6 +55,7 @@ function SignRetainerAgreementModal({
           if (reason === 'closeClick') {
             toggleModal();
             setEmailValue('');
+            setIsValidEmail({ status: true, message: '' });
           }
         }}
         className="custom-modal"
@@ -71,16 +72,17 @@ function SignRetainerAgreementModal({
           ) : (
             <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border">
               <FormTextInput
-                field={{ label: '', name: 'email' }}
+                field={{ label: 'Email', name: 'email' }}
                 value={emailValue}
                 type="email"
+                required
                 className="border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-[500px]"
                 onChange={(e) => {
                   if (checkEmailValue(e.target.value)) {
                     setEmailValue(e.target.value.trim());
                   }
                 }}
-                placeholder="Enter your email here."
+                placeholder="Ex: john.doe@example.com"
               />
               {isValidEmail.status === false && <p className="text-[#FF0000] w-full">{isValidEmail.message}</p>}
               <button
