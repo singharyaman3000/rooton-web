@@ -34,11 +34,11 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
   const getCompletedRedirectUrl = useCallback(
     (data?: string) => {
       if (params.lang) {
-        return `${getAppBaseUrl()}${params.lang}/checkout?token=${data || encryptedData}`;
+        return `${getAppBaseUrl()}${params.lang}/checkout?token=${data || encryptedData}&email=${mail || ''}`;
       }
-      return `${getAppBaseUrl()}checkout?token=${data || encryptedData}`;
+      return `${getAppBaseUrl()}checkout?token=${data || encryptedData}&email=${mail || ''}`;
     },
-    [params.lang, encryptedData],
+    [params.lang, encryptedData,mail],
   );
 
   const handleLoad = async (detail: { error: unknown }) => {

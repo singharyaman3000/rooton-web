@@ -22,68 +22,20 @@ import {
 } from '@/utils/actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
-import { Country, State, City } from 'country-state-city';
-import { checkForNumber, cleanseServiceName, extractNumbersFromInput } from './functions';
+import { checkForGSTNumber, checkForNumber, cleanseServiceName, extractNumbersFromInput, findCityListByName, findCountryListByName, findStateListByName } from './functions';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 import { AlertColor } from '@mui/material';
-
-const inputStyle =
-  'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
-const selectStyle =
-  'w-full border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[55px] py-2 px-3 text-gray-700 leading-6 focus:outline-none focus:shadow-outline';
+import { inputStyle, selectStyle, visaTypes } from './constants';
+import { Country, State, City } from 'country-state-city';
 
 interface ICheckoutProps {
   currentLoggedInUser?: IUserDetails | null;
 }
 
-const findCountryListByName = (name: string) => {
-  return Country.getAllCountries().find((list: any) => {
-    return list.name === name;
-  });
-};
-
-const findStateListByName = (name: string, isoCode: string) => {
-  return State.getStatesOfCountry(isoCode).find((list: any) => {
-    return list.name === name;
-  });
-};
-
-const findCityListByName = (name: string, countryCode: string, isoCode: string) => {
-  return City?.getCitiesOfState(countryCode, isoCode).find((list: any) => {
-    return list.name === name;
-  });
-};
-
-const visaTypes = [
-  'Study Visa',
-  'Work Permit Inside Canada (Initial & Extension)',
-  'Closed Work Permit (LMIA Based)',
-  'Visitor Visa',
-  'Super Visa',
-  'Study Permit Extension',
-  'Post-graduation Work Permit',
-  'CAQ Extension',
-  'Bridging Open Work Permit',
-  'TRV for Inside Canada Permit',
-  'Co-op Work Permit',
-  'Spousal Open Work Permit',
-  'Parents and Grandparents',
-  'Spousal Sponsorship',
-  'Express Entry - FSW (Federal Skilled Worker)',
-  'Express Entry - CEC (Canadian Experience Class)',
-  'Express Entry - FSTP (Federal Skilled Trades Program)',
-  'Provincial Nominee Program (PNP)',
-  'Quebec Skilled Worker Program (QSWP) Service',
-  'Start-up Visa',
-  'Self - Employed',
-  'Investors',
-  'Entrepreneurs',
-  'Others',
-];
-
 function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const params = useParams();
   const [currentUser, setCurrentUser] = useState(currentLoggedInUser);
+  const [emailInputValue, setEmailInputValue] = useState<string | undefined>(undefined);
   const [planDetails, setPlanDetails] = useState<{ details?: pricingPlansDetails; serviceName: string }>();
   const [token, setToken] = useState<string>('');
   const [customAmount, setCustomAmount] = useState<string>('');
@@ -91,6 +43,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
   const [message, setMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [type, setType] = useState<AlertColor | undefined>('error');
+  const [amountError, setAmountError] = useState<{status:boolean, message:string}>({ status:false, message:'' });
 
   const [selectedCountry, setSelectedCountry] = useState<any>(
     findCountryListByName(currentLoggedInUser?.countryOfCitizenship || ''),
@@ -103,10 +56,15 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
 
   const router = useRouter();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const decodedToken = async () => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const paramValue = urlParams.get('token');
+      const emailParam = urlParams.get('email');
+      if (emailParam) {
+        setEmailInputValue(emailParam);
+      }
       setToken(paramValue || '');
       if (paramValue) {
         const decryptedValue = await decrypt(paramValue);
@@ -114,13 +72,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           setPlanDetails(JSON.parse(decryptedValue));
         }
       }
-      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    decodedToken();
-  }, []);
 
   useEffect(() => {
     if (!currentLoggedInUser || typeof currentLoggedInUser === 'undefined') {
@@ -133,6 +86,9 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
         });
       }
     }
+    decodedToken();
+    setLoading(false);
+
   }, [currentLoggedInUser]);
 
   useEffect(() => {
@@ -172,6 +128,8 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
     let email = '';
     let name = '';
     let phone = '';
+    let address= '';
+    let gst = '';
     formData.forEach((value, key) => {
       if (key === 'email') {
         email = value as string;
@@ -184,11 +142,17 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
       if (key === 'Phone') {
         phone = value as string;
       }
+      if(key==='address'){
+        address=value as string;
+      }
+      if (key === 'GSTNumber') {
+        gst = value as string;
+      }
     });
 
     if (typeof window !== 'undefined') {
       if (window.location.origin.includes('rooton.ca')) {
-        if (planDetails) {
+        if (planDetails?.details) {
           handleStripPayment(planDetails?.details?.stripePriceID || '', email || '', token, params?.lang).then(
             (res) => {
               if (res.status) {
@@ -212,11 +176,11 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
           });
         }
       } else {
-        if (planDetails) {
+        if (planDetails?.details) {
           const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
           const gstTaxes = (inrTaxedPrice ?? 0) * 0.18;
           const amountToBePaid = Number((inrTaxedPrice + gstTaxes).toFixed(2));
-          const orderId = await createRazorpayOrder(amountToBePaid, email || '');
+          const orderId = await createRazorpayOrder(amountToBePaid, email || '',name,cleanseServiceName(planDetails?.serviceName || ''),address,gst);
           if (orderId) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -280,9 +244,9 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
             }
           }
         } else {
-          const gstTaxes = (customAmount as unknown as number | undefined ?? 0) * 0.18;;
+          const gstTaxes = ((customAmount as unknown as number | undefined) ?? 0) * 0.18;
           const amountToBePaid = Number((parseFloat(customAmount) + gstTaxes).toFixed(2));
-          const orderId = await createRazorpayOrder(amountToBePaid, email || '');
+          const orderId = await createRazorpayOrder(amountToBePaid, email || '',name,cleanseServiceName(planDetails?.serviceName || ''),address,gst);
           if (orderId) {
             const options = {
               key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -370,7 +334,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 placeholder="John"
                 required
                 field={{ label: 'Name or Business Name', name: 'FullName' }}
-                value={`${currentUser?.Firstname || ''} ${currentUser?.Lastname || ''}`.trim()}
+                value={`${currentUser?.Firstname || ''} ${currentUser?.Lastname || ''}` || ''}
                 className={inputStyle}
                 invalidFormat={false}
               />
@@ -378,11 +342,11 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                 placeholder="ex: john_doe@example.com"
                 type="email"
                 required
-                validationFn={(email: string) => {
+                validationFn={(emailToBeTested: string) => {
                   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                  return regex.test(email);
+                  return regex.test(emailToBeTested);
                 }}
-                value={currentUser?.email || ''}
+                value={emailInputValue || currentUser?.email || ''}
                 field={{ label: 'Email', name: 'email' }}
                 className={inputStyle}
                 invalidFormat={false}
@@ -392,7 +356,10 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   placeholder="Enter here."
                   field={{ label: 'GST Number', name: 'GSTNumber' }}
                   value=""
+                  type='gst'
+                  allUpperCase
                   className={inputStyle}
+                  validationFn={checkForGSTNumber}
                   invalidFormat={false}
                 />
               )}
@@ -407,21 +374,35 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                     invalidFormat={false}
                     onChange={(e) => {
                       if (checkForNumber(e.target.value)) return;
+                      const amount = parseFloat(extractNumbersFromInput(e.target.value));
+                      if (amount * 1.18 > 500000) {
+                        setAmountError({ status: true, message: 'Amount should be less than 5,00,000' });
+                        return;
+                      }
+                      setAmountError({ status: false, message: '' });
+                      if(e.target.value.length<=1){
+                        setCustomAmount('');
+                        return;
+                      }
+
                       setCustomAmount(extractNumbersFromInput(e.target.value));
                     }}
                   />
+                  {amountError.status && <p className="text-[#FF0000]">{amountError.message}</p>}
                   <FormDropdown
                     name="serviceType"
                     required
-                    value=''
+                    value=""
                     options={visaTypes}
                     label="Service Type"
                     className={selectStyle}
                     onChange={(e) => {
-                      setPlanDetails((prev)=>{return {
-                        ...prev,
-                        serviceName: e.target.value,
-                      };});
+                      setPlanDetails((prev) => {
+                        return {
+                          ...prev,
+                          serviceName: e.target.value,
+                        };
+                      });
                     }}
                   />
                 </>
@@ -439,6 +420,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   placeholder="Enter here.."
                   field={{ label: 'Address', name: 'address' }}
                   value=""
+                  required
                   className={inputStyle}
                   invalidFormat={false}
                 />
@@ -516,7 +498,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
       )}
       {!planDetails?.details && (
         <div className="w-full lg:w-1/2 lg:sticky lg:h-full lg:top-20 login-background p-4 sm:p-8 md:mb-10 border border-solid">
-          <CheckoutCart customAmount={customAmount} />
+          <CheckoutCart customAmount={customAmount} planDetails={planDetails} />
         </div>
       )}
       <SnackbarAlert open={isSnackBarOpen} message={message} type={type} />

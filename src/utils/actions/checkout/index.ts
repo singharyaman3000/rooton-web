@@ -89,7 +89,7 @@ async function handleStripPayment(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function handleStripePaymentSuccess(sessionId: string):Promise<any> {
+async function handleStripePaymentSuccess(sessionId: string): Promise<any> {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     return session;
@@ -153,24 +153,44 @@ async function handleCustomStripePayment(
   }
 }
 
-async function createRazorpayOrder(amount: number, email: string): Promise<string | null> {
+async function createRazorpayOrder(
+  amount: number,
+  email: string,
+  customerName: string,
+  planName: string,
+  customerAddress?: string,
+  gst?: string,
+): Promise<string | null> {
   try {
-    // create order
+    // Initialize Razorpay instance
     const instance = new Razorpay({
       key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
-    const options = {
-      amount: amount * 100,
-      currency: 'INR',
-      receipt: 'receipt#1',
-      notes: {
-        email,
-      },
+
+    // Prepare notes object (optional additional data)
+    const notesObject = {
+      email,
+      name: customerName,
+      address: customerAddress || '', // Ensure address is not undefined
+      serviceName: planName,
+      ...gst ? { gst } : {},
     };
+
+    // Order options conforming to RazorpayOrderCreateRequestBody
+    const options = {
+      amount: amount * 100, // Converting to paise
+      currency: 'INR',
+      receipt: `receipt#${new Date().getTime()}`, // Example to generate a unique receipt ID
+      notes: notesObject,
+      payment_capture: '1', // Assuming auto-capture of payment
+    };
+
+    // Create order with Razorpay
     const order = await instance.orders.create(options);
     return order.id;
   } catch (error) {
+    console.error('Failed to create Razorpay order:', error);
     return null;
   }
 }
