@@ -23,7 +23,7 @@ type IPolicyData = {
   description: string;
 }
 
-interface IJSONContent {
+export interface IJSONContent {
   Policy: IPolicyData[];
 }
 
@@ -35,7 +35,7 @@ export type PrivatePolicyAttributesType = {
   title: string;
   title_description: string;
   updatedAt: string;
-  json_content: IJSONContent;
+  json_content: IJSONContent[];
   unique_identifier_name: string;
   description: string;
 };
