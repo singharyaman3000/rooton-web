@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import AgreementSigner from '@/utils/AgreementSigner';
 import { Modal, ModalDialog, ModalClose } from '@mui/joy';
-import { Input, useMediaQuery, useTheme } from '@mui/material';
-import Image from 'next/image';
-import { H2 } from '../H2';
+import { useMediaQuery, useTheme } from '@mui/material';
+import { FormTextInput } from '../Forms/components/FormTextInput';
+import style from '../SignUpPage/SignUpPage.module.css';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -61,7 +61,7 @@ function SignRetainerAgreementModal({
       >
         <ModalDialog variant="soft">
           <ModalClose />
-          {showAgreementSigner ? (
+          {showAgreementSigner && !(emailValue.length === 0) ? (
             <AgreementSigner
               planDetails={planDetails}
               mail={emailValue}
@@ -69,17 +69,12 @@ function SignRetainerAgreementModal({
               toggleModal={toggleModal}
             />
           ) : (
-            <div className="flex flex-col items-center justify-center gap-4 p-2 w-full mx-auto">
-              <Image
-                src={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
-                alt="logo"
-                width={100}
-                height={100}
-              />
-              <H2 className='text-center'>Root On Immigrations & Consultants</H2>
-              <Input
+            <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border">
+              <FormTextInput
+                field={{ label: '', name: 'email' }}
+                value={emailValue}
                 type="email"
-                className="w-full lg:w-[500px] mt-5"
+                className="border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-[500px]"
                 onChange={(e) => {
                   if (checkEmailValue(e.target.value)) {
                     setEmailValue(e.target.value.trim());
@@ -87,14 +82,10 @@ function SignRetainerAgreementModal({
                 }}
                 placeholder="Enter your email here."
               />
-              {isValidEmail.status === false && <p className="text-red-500 w-full">{isValidEmail.message}</p>}
+              {isValidEmail.status === false && <p className="text-[#FF0000] w-full">{isValidEmail.message}</p>}
               <button
                 type="button"
-                className="bg-[#FFCB70] hover:bg-[#f59723] w-full md:w-[200px]
-              inline-flex justify-center whitespace-nowrap px-3.5 py-3
-              text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
-              focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
-              transition-colors duration-150"
+                className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
                 disabled={!isValidEmail.status}
                 onClick={() => {
                   if (emailValue.length > 0) {

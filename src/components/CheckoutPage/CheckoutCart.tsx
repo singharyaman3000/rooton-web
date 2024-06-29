@@ -84,7 +84,7 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
                 className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
               >
-                {ReactHtmlParser(planDetails.serviceName) || ''}
+                {ReactHtmlParser(planDetails?.serviceName) || ''}
               </h1>
             ) : (
               <h1

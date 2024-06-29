@@ -128,8 +128,7 @@ export default function Footer() {
             </Link>
             <Link
               className="basis-[47%] order-4"
-              target="_blank"
-              href={'https://merchant.razorpay.com/policy/N4MfufxTo5bg1L/shipping'}
+              href={params.lang ? `/${params.lang}/shipping-policy` : '/shipping-policy'}
             >
               Shipping Policy
             </Link>
