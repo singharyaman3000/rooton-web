@@ -27,18 +27,18 @@ type MapSectionPropType = {
   footerData: IHeaderFooterData;
 };
 
+export const getDomainIndex = () => {
+  if (typeof window !== 'undefined') {
+    const domain = window?.location?.origin;
+    return domain.includes('rooton.ca') ? 0 : 1;
+  }
+  return 0;
+};
+
 const MapSection: React.FC<MapSectionPropType> = ({ footerData }) => {
   const addressData = useMemo(() => {
     return footerData?.attributes?.addresses?.data ?? [];
   }, [footerData]);
-
-  const getDomainIndex = () => {
-    if (typeof window !== 'undefined') {
-      const domain = window?.location?.origin;
-      return domain.includes('rooton.ca') ? 0 : 1;
-    }
-    return 0;
-  };
 
   const [selectedAddress, setAddress] = useState<IAddressData>(addressData[getDomainIndex()]);
 

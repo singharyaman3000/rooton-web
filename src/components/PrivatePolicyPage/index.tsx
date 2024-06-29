@@ -31,7 +31,7 @@ const PrivatePolicy = ({ response }: PrivatePolicyPageProps) => {
   const [selectedContent, setSelectedContent] = useState<IJSONContent | null>(null);
 
   useEffect(() => {
-    const currentDomain = window.location.hostname;
+    const currentDomain = window?.location?.hostname || '';
     if (currentDomain.includes('rooton.ca')) {
       setSelectedContent(response.data.attributes.json_content[0]);
     } else {
