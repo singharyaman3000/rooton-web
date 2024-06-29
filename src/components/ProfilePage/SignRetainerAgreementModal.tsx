@@ -17,6 +17,11 @@ interface SignRetainerAgreementModalProps {
   };
 }
 
+function checkEmailValue(emailToBeTested: string) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(emailToBeTested);
+}
+
 function SignRetainerAgreementModal({
   toggleModal,
   email,
@@ -28,19 +33,8 @@ function SignRetainerAgreementModal({
   const [showAgreementSigner, setShowAgreementSigner] = useState<boolean>(
     typeof email !== 'undefined' && email.length > 0,
   );
-  const [isValidEmail, setIsValidEmail] = useState({ status: true, message: '' });
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
-
-  function checkEmailValue(emailToBeTested: string) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(emailToBeTested)) {
-      setIsValidEmail({ status: true, message: '' });
-      return true;
-    }
-    setIsValidEmail({ status: false, message: 'Please enter a valid email address' });
-    return false;
-  }
 
   useEffect(() => {
     setEmailValue(email);
@@ -55,7 +49,6 @@ function SignRetainerAgreementModal({
           if (reason === 'closeClick') {
             toggleModal();
             setEmailValue('');
-            setIsValidEmail({ status: true, message: '' });
           }
         }}
         className="custom-modal"
@@ -63,14 +56,16 @@ function SignRetainerAgreementModal({
         <ModalDialog variant="soft">
           <ModalClose />
           {showAgreementSigner && !(emailValue.length === 0) ? (
-            <AgreementSigner
-              planDetails={planDetails}
-              mail={emailValue}
-              docShorthand={docShorthand}
-              toggleModal={toggleModal}
-            />
+            <div className="min-h-[200px] min-w-[400px]">
+              <AgreementSigner
+                planDetails={planDetails}
+                mail={emailValue}
+                docShorthand={docShorthand}
+                toggleModal={toggleModal}
+              />
+            </div>
           ) : (
-            <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border">
+            <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border min-h-[200px] min-w-[400px]">
               <FormTextInput
                 field={{ label: 'Email', name: 'email' }}
                 value={emailValue}
@@ -83,17 +78,16 @@ function SignRetainerAgreementModal({
                   }
                 }}
                 placeholder="Ex: john.doe@example.com"
+                validationFn={checkEmailValue}
+                invalidFormat={false}
               />
-              {isValidEmail.status === false && <p className="text-[#FF0000] w-full">{isValidEmail.message}</p>}
               <button
                 type="button"
                 className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
-                disabled={!isValidEmail.status}
+                disabled={!checkEmailValue(emailValue)}
                 onClick={() => {
                   if (emailValue.length > 0) {
                     setShowAgreementSigner(true);
-                  } else {
-                    setIsValidEmail({ status: false, message: 'Please enter an email to proceed.' });
                   }
                 }}
               >
