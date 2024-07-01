@@ -38,7 +38,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
       }
       return `${getAppBaseUrl()}checkout?token=${data || encryptedData}&email=${mail || ''}`;
     },
-    [params.lang, encryptedData,mail],
+    [params.lang, encryptedData, mail],
   );
 
   const handleLoad = async (detail: { error: unknown }) => {
@@ -88,33 +88,34 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'row',
-        overflowY: 'scroll',
-        overflowX: 'hidden',
+        maxHeight: '100vh',
       }}
     >
-      <div style={{ width: 'auto', textAlign: 'center' }}>
+      <div style={{ width: '100%', maxWidth: '800px', textAlign: 'center', overflow: 'hidden' }}>
         <div style={{ display: 'flex', justifyContent: 'center' }}>{isLoading && <CircularLoader />}</div>
-        <DocusealForm
-          src={`https://docuseal.co/d/${userDoc}`}
-          email={mail}
-          values={{
-            'First Name': currentLoggedInUser?.Firstname,
-            'Last Name': currentLoggedInUser?.Lastname,
-            Email: currentLoggedInUser?.email,
-          }}
-          onComplete={() => {
-            createDoc(mail || '', docShorthand || '', 'create').then((res) => {
-              if (!res) {
-                // eslint-disable-next-line no-alert
-                alert('Something went wrong. Please try again later');
-              }
-            });
-          }}
-          allowToResubmit={false}
-          completedRedirectUrl={getCompletedRedirectUrl()}
-          onLoad={handleLoad}
-          logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
-        />
+        <div style={{ maxHeight: '90vh', overflowY: 'auto' }}>
+          <DocusealForm
+            src={`https://docuseal.co/d/${userDoc}`}
+            email={mail}
+            values={{
+              'First Name': currentLoggedInUser?.Firstname,
+              'Last Name': currentLoggedInUser?.Lastname,
+              Email: currentLoggedInUser?.email,
+            }}
+            onComplete={() => {
+              createDoc(mail || '', docShorthand || '', 'create').then((res) => {
+                if (!res) {
+                  // eslint-disable-next-line no-alert
+                  alert('Something went wrong. Please try again later');
+                }
+              });
+            }}
+            allowToResubmit={false}
+            completedRedirectUrl={getCompletedRedirectUrl()}
+            onLoad={handleLoad}
+            logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
+          />
+        </div>
       </div>
       <SnackbarAlert open={snackbarOpen} message={errorMessage} />
     </div>
