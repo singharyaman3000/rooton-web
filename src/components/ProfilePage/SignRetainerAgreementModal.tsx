@@ -74,10 +74,10 @@ function SignRetainerAgreementModal({
         open={isModalOpen}
         onClose={(_event: React.MouseEvent<HTMLButtonElement>, reason: string) => {
           if (reason === 'closeClick') {
-            toggleModal();
             setEmailValue(email); // Reset to initial email state when the modal is closed
             setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0); // Reset to initial state
             setUserDoc(null); // Reset the document state
+            toggleModal();
           }
         }}
         className="custom-modal"
