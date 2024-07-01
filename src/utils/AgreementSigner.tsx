@@ -72,11 +72,10 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
-        overflow: 'hidden',
-        height: '100vh',
+        overflow:'hidden',
       }}
     >
-      <div style={{ width: '100%', maxWidth: '800px', textAlign: 'center', overflow: 'hidden', height: '100%' }}>
+      <div style={{ width: '100%', maxWidth: '800px', textAlign: 'center', overflowY: 'scroll', overflowX: 'hidden', height: '100%' }}>
         <div style={{ display: 'flex', justifyContent: 'center', height: '90vh' }}>
           {isLoading && <CircularLoader />}
           {!isLoading && (
