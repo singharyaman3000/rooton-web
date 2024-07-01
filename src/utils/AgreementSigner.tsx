@@ -88,7 +88,6 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
                   'Last Name': currentLoggedInUser?.Lastname,
                   Email: currentLoggedInUser?.email,
                 }}
-                withTitle={false}
                 onComplete={() => {
                   createDoc(mail || '', docShorthand || '', 'create').then((res) => {
                     if (!res) {
@@ -97,6 +96,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
                     }
                   });
                 }}
+                withTitle={false}
                 allowToResubmit={false}
                 completedRedirectUrl={getCompletedRedirectUrl()}
                 onLoad={handleLoad}

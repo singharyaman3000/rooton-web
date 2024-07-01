@@ -84,7 +84,7 @@ function SignRetainerAgreementModal({
       >
         <ModalDialog variant="soft">
           <ModalClose />
-          {showAgreementSigner && !(emailValue.length === 0) && userDoc ? (
+          {showAgreementSigner && !(emailValue.length === 0) && userDoc && userDoc?.length>0 ? (
             <div className="min-h-[200px] min-w-[400px]">
               <AgreementSigner
                 planDetails={planDetails}
