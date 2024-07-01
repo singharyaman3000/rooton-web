@@ -88,7 +88,6 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
                   'Last Name': currentLoggedInUser?.Lastname,
                   Email: currentLoggedInUser?.email,
                 }}
-                withTitle={false}
                 onComplete={() => {
                   createDoc(mail || '', docShorthand || '', 'create').then((res) => {
                     if (!res) {
@@ -97,6 +96,8 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
                     }
                   });
                 }}
+                withTitle={false}
+                allowToResubmit={false}
                 completedRedirectUrl={getCompletedRedirectUrl()}
                 onLoad={handleLoad}
                 logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
