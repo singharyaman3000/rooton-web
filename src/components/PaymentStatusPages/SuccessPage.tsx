@@ -69,7 +69,7 @@ const SuccessPage = () => {
         setInvoiceURL(data || null);
       });
     }
-  }, [session]);
+  }, [session, invoiceURL]);
 
   const getTotalCadAmount = () => {
     const amountTotalCents = session?.amount_total ?? 0;
