@@ -1,10 +1,13 @@
-import AgreementSigner from '@/utils/AgreementSigner';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { AppBar, Dialog, IconButton, Slide, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
-import React, { forwardRef, useEffect, useState } from 'react';
 import CloseIcon from '../Icons/CloseIcon';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { FormTextInput } from '../Forms/components/FormTextInput';
+import CircularLoader from '@/components/UIElements/CircularLoader';
+import getUserDoc from '@/utils/docuFetch';
+import AgreementSigner from '@/utils/AgreementSigner';
+import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 
 interface SignRetainerAgreementDrawerProps {
   toggleModal: () => void;
@@ -46,12 +49,41 @@ function SignRetainerAgreementDrawer({
   const [showAgreementSigner, setShowAgreementSigner] = useState<boolean>(
     typeof email !== 'undefined' && email.length > 0,
   );
+  const [isLoading, setLoading] = useState(false);
+  const [userDoc, setUserDoc] = useState<string | null>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   useEffect(() => {
     setEmailValue(email);
     setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
   }, [email]);
+
+  const loadDocument = async () => {
+    setLoading(true);
+    try {
+      const doc = await getUserDoc(docShorthand || '', emailValue);
+      if (doc) {
+        setUserDoc(doc);
+        setShowAgreementSigner(true);
+      } else {
+        setSnackbarOpen(true);
+        setErrorMessage('Something went wrong. Please try again later');
+        setEmailValue('');
+        setShowAgreementSigner(false);
+        toggleModal();
+
+      }
+    } catch (err) {
+      setSnackbarOpen(true);
+      setErrorMessage('Something went wrong. Please try again later');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (isSmallScreen)
     return (
@@ -60,6 +92,8 @@ function SignRetainerAgreementDrawer({
         onClose={() => {
           toggleModal();
           setEmailValue('');
+          setShowAgreementSigner(false);
+          setUserDoc(null); // Reset the document state
         }}
         TransitionComponent={Transition}
         fullScreen
@@ -73,6 +107,8 @@ function SignRetainerAgreementDrawer({
               onClick={() => {
                 toggleModal();
                 setEmailValue('');
+                setShowAgreementSigner(false);
+                setUserDoc(null); // Reset the document state
               }}
               aria-label="close"
             >
@@ -80,18 +116,14 @@ function SignRetainerAgreementDrawer({
             </IconButton>
           </Toolbar>
         </AppBar>
-        {showAgreementSigner && (
+        {showAgreementSigner && userDoc ? (
           <AgreementSigner
             planDetails={planDetails}
-            toggleModal={() => {
-              toggleModal();
-              setEmailValue('');
-            }}
             docShorthand={docShorthand}
             mail={emailValue}
+            userDoc={userDoc}
           />
-        )}
-        {!showAgreementSigner && (
+        ) : (
           <div className="flex flex-col justify-center gap-4 p-2 w-full mx-auto">
             <FormTextInput
               field={{ label: 'Email', name: 'email' }}
@@ -99,33 +131,22 @@ function SignRetainerAgreementDrawer({
               type="email"
               required
               className="border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-full"
-              onChange={(e) => {
-                if (checkEmailValue(e.target.value)) {
-                  setEmailValue(e.target.value.trim());
-                }
-              }}
+              onChange={(e) => {return setEmailValue(e.target.value.trim());}}
               invalidFormat={false}
               validationFn={checkEmailValue}
               placeholder="Ex: john.doe@example.com"
             />
             <button
               type="button"
-              className="bg-[#FFCB70] hover:bg-[#f59723] w-full md:w-[200px]
-              inline-flex justify-center whitespace-nowrap px-3.5 py-3
-              text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
-              focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
-              transition-colors duration-150"
-              disabled={!checkEmailValue(emailValue)}
-              onClick={() => {
-                if (emailValue.length > 0) {
-                  setShowAgreementSigner(true);
-                };
-              }}
+              className="bg-[#FFCB70] hover:bg-[#f59723] w-full md:w-[200px] inline-flex justify-center whitespace-nowrap px-3.5 py-3 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150"
+              disabled={!checkEmailValue(emailValue) || isLoading}
+              onClick={loadDocument}
             >
-              Submit
+              {isLoading ? <CircularLoader /> : 'Submit'}
             </button>
           </div>
         )}
+        <SnackbarAlert open={snackbarOpen} message={errorMessage} />
       </Dialog>
     );
 }

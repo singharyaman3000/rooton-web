@@ -5,6 +5,9 @@ import { Modal, ModalDialog, ModalClose } from '@mui/joy';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { FormTextInput } from '../Forms/components/FormTextInput';
 import style from '../SignUpPage/SignUpPage.module.css';
+import CircularLoader from '@/components/UIElements/CircularLoader';
+import getUserDoc from '@/utils/docuFetch';
+import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -33,15 +36,37 @@ function SignRetainerAgreementModal({
   const [showAgreementSigner, setShowAgreementSigner] = useState<boolean>(
     typeof email !== 'undefined' && email.length > 0,
   );
+  const [isLoading, setLoading] = useState(false);
+  const [userDoc, setUserDoc] = useState<string | null>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
 
   useEffect(() => {
-    if (isModalOpen) {
-      setEmailValue(email);
-      setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
+    setEmailValue(email);
+    setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
+  }, [email]);
+
+  const loadDocument = async () => {
+    setLoading(true);
+    try {
+      const doc = await getUserDoc(docShorthand || '', emailValue);
+      if (doc) {
+        setUserDoc(doc);
+        setShowAgreementSigner(true);
+      } else {
+        setSnackbarOpen(true);
+        setErrorMessage('Something went wrong. Please try again later');
+        toggleModal();
+      }
+    } catch (err) {
+      setSnackbarOpen(true);
+      setErrorMessage('Something went wrong. Please try again later');
+    } finally {
+      setLoading(false);
     }
-  }, [email, isModalOpen]);
+  };
 
   if (isLargeScreen)
     return (
@@ -52,19 +77,20 @@ function SignRetainerAgreementModal({
             toggleModal();
             setEmailValue(email); // Reset to initial email state when the modal is closed
             setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0); // Reset to initial state
+            setUserDoc(null); // Reset the document state
           }
         }}
         className="custom-modal"
       >
         <ModalDialog variant="soft">
           <ModalClose />
-          {showAgreementSigner && !(emailValue.length === 0) ? (
+          {showAgreementSigner && !(emailValue.length === 0) && userDoc ? (
             <div className="min-h-[200px] min-w-[400px]">
               <AgreementSigner
                 planDetails={planDetails}
                 mail={emailValue}
                 docShorthand={docShorthand}
-                toggleModal={toggleModal}
+                userDoc={userDoc}
               />
             </div>
           ) : (
@@ -84,18 +110,15 @@ function SignRetainerAgreementModal({
               />
               <button
                 type="button"
-                className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline`}
-                disabled={!checkEmailValue(emailValue)}
-                onClick={() => {
-                  if (emailValue.length > 0) {
-                    setShowAgreementSigner(true);
-                  }
-                }}
+                className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline flex items-center justify-center`}
+                disabled={!checkEmailValue(emailValue) || isLoading}
+                onClick={loadDocument}
               >
-                Submit
+                {isLoading ? <CircularLoader /> : 'Submit'}
               </button>
             </div>
           )}
+          <SnackbarAlert open={snackbarOpen} message={errorMessage} />
         </ModalDialog>
       </Modal>
     );
