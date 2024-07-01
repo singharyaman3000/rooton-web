@@ -127,7 +127,7 @@ async function handleCustomStripePayment(
           price_data: {
             unit_amount: amountToCharge,
             currency: 'cad',
-            product: 'prod_QMDytbiHmiNsgY',
+            product: 'prod_QOaBKDN7jsTatJ',
           },
           quantity: 1,
         },
