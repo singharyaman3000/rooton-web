@@ -90,10 +90,10 @@ function SignRetainerAgreementDrawer({
       <Dialog
         open={isModalOpen}
         onClose={() => {
-          toggleModal();
           setEmailValue('');
           setShowAgreementSigner(false);
           setUserDoc(null); // Reset the document state
+          toggleModal();
         }}
         TransitionComponent={Transition}
         fullScreen
