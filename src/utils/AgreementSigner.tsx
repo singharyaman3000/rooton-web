@@ -47,7 +47,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
       setSnackbarOpen(true);
     }
     if (!detail.error) {
-      checkWhetherDocAlreadySigned(currentLoggedInUser?.email || mail || '', docShorthand || '').then(
+      checkWhetherDocAlreadySigned( mail || currentLoggedInUser?.email || '', docShorthand || '').then(
         (isAlreadySigned) => {
           if (isAlreadySigned) {
             router.push(getCompletedRedirectUrl(data));
@@ -97,7 +97,6 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
                     }
                   });
                 }}
-                allowToResubmit={false}
                 completedRedirectUrl={getCompletedRedirectUrl()}
                 onLoad={handleLoad}
                 logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
