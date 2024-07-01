@@ -42,6 +42,11 @@ const SuccessPage = () => {
       if (paramValue) {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
+            if(data.invoice){
+              handleStripePaymentInvoice(data.invoice).then((value: string | null | undefined) => {
+                setInvoiceURL(value || null);
+              });
+            }
             setSession(data);
             confirmPayment('stripe', data.customer_email || '', paramValue).then((result) => {
               if (result) {
@@ -62,14 +67,6 @@ const SuccessPage = () => {
       }
     }
   }, []);
-
-  useEffect(() => {
-    if (session && session.invoice) {
-      handleStripePaymentInvoice(session.invoice).then((data) => {
-        setInvoiceURL(data || null);
-      });
-    }
-  }, [session]);
 
   const getTotalCadAmount = () => {
     const amountTotalCents = session?.amount_total ?? 0;
