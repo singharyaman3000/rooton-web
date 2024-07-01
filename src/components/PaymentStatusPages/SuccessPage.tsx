@@ -67,9 +67,10 @@ const SuccessPage = () => {
     if (session && session.invoice) {
       handleStripePaymentInvoice(session.invoice).then((data) => {
         setInvoiceURL(data || null);
+        window.location.reload();
       });
     }
-  }, [session, invoiceURL]);
+  }, [session]);
 
   const getTotalCadAmount = () => {
     const amountTotalCents = session?.amount_total ?? 0;
