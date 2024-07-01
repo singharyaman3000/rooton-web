@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { DocusealForm } from '@docuseal/react';
 import CircularLoader from '@/components/UIElements/CircularLoader';
-import getUserDoc from './docuFetch';
 import { encrypt } from './actions/checkout';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import { useParams, useRouter } from 'next/navigation';
@@ -14,18 +13,17 @@ import { getAppBaseUrl } from '.';
 interface AgreementSignerProps {
   mail?: string;
   docShorthand?: string;
-  toggleModal: () => void;
   planDetails: {
     details: pricingPlansDetails;
     serviceName: string;
   };
+  userDoc: string;
 }
 
-const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, docShorthand, planDetails }) => {
+const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, planDetails, userDoc }) => {
   const router = useRouter();
   const params = useParams();
-  const [isLoading, setLoading] = useState(true);
-  const [userDoc, setUserDoc] = useState('');
+  const [isLoading, setLoading] = useState(!(userDoc?.length > 0));
   const [encryptedData, setEncryptedData] = useState('');
   const [currentLoggedInUser, setCurrentLoggedInUser] = useState<IUserDetails | null>(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -34,11 +32,11 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
   const getCompletedRedirectUrl = useCallback(
     (data?: string) => {
       if (params.lang) {
-        return `${getAppBaseUrl()}${params.lang}/checkout?token=${data || encryptedData}`;
+        return `${getAppBaseUrl()}${params.lang}/checkout?token=${data || encryptedData}&email=${mail || ''}`;
       }
-      return `${getAppBaseUrl()}checkout?token=${data || encryptedData}`;
+      return `${getAppBaseUrl()}checkout?token=${data || encryptedData}&email=${mail || ''}`;
     },
-    [params.lang, encryptedData],
+    [params.lang, encryptedData, mail],
   );
 
   const handleLoad = async (detail: { error: unknown }) => {
@@ -49,7 +47,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
       setSnackbarOpen(true);
     }
     if (!detail.error) {
-      checkWhetherDocAlreadySigned(currentLoggedInUser?.email || mail || '', docShorthand || '').then(
+      checkWhetherDocAlreadySigned( mail || currentLoggedInUser?.email || '', docShorthand || '').then(
         (isAlreadySigned) => {
           if (isAlreadySigned) {
             router.push(getCompletedRedirectUrl(data));
@@ -66,55 +64,47 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ toggleModal, mail, do
         setCurrentLoggedInUser(details);
       }
     });
-
-    getUserDoc(docShorthand || '', mail || '')
-      .then((doc) => {
-        if (doc) {
-          setUserDoc(doc);
-        } else {
-          // eslint-disable-next-line no-alert
-          alert('Something went wrong. Please try again later');
-          toggleModal();
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [docShorthand, mail, toggleModal, getCompletedRedirectUrl]);
+  }, []);
 
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
-        flexDirection: 'row',
-        overflowY: 'scroll',
-        overflowX: 'hidden',
+        flexDirection: 'column',
+        overflow:'hidden',
       }}
     >
-      <div style={{ width: 'auto', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>{isLoading && <CircularLoader />}</div>
-        <DocusealForm
-          src={`https://docuseal.co/d/${userDoc}`}
-          email={mail}
-          values={{
-            'First Name': currentLoggedInUser?.Firstname,
-            'Last Name': currentLoggedInUser?.Lastname,
-            Email: currentLoggedInUser?.email,
-          }}
-          onComplete={() => {
-            createDoc(mail || '', docShorthand || '', 'create').then((res) => {
-              if (!res) {
-                // eslint-disable-next-line no-alert
-                alert('Something went wrong. Please try again later');
-              }
-            });
-          }}
-          allowToResubmit={false}
-          completedRedirectUrl={getCompletedRedirectUrl()}
-          onLoad={handleLoad}
-          logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
-        />
+      <div style={{ width: '100%', maxWidth: '800px', textAlign: 'center', overflowY: 'scroll', overflowX: 'hidden', height: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', height: '90vh' }}>
+          {isLoading && <CircularLoader />}
+          {!isLoading && (
+            <div style={{ width: '100%' }}>
+              <DocusealForm
+                src={`https://docuseal.co/d/${userDoc}`}
+                email={mail}
+                values={{
+                  'First Name': currentLoggedInUser?.Firstname,
+                  'Last Name': currentLoggedInUser?.Lastname,
+                  Email: currentLoggedInUser?.email,
+                }}
+                onComplete={() => {
+                  createDoc(mail || '', docShorthand || '', 'create').then((res) => {
+                    if (!res) {
+                      // eslint-disable-next-line no-alert
+                      alert('Something went wrong. Please try again later');
+                    }
+                  });
+                }}
+                withTitle={false}
+                allowToResubmit={false}
+                completedRedirectUrl={getCompletedRedirectUrl()}
+                onLoad={handleLoad}
+                logo={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
+              />
+            </div>
+          )}
+        </div>
       </div>
       <SnackbarAlert open={snackbarOpen} message={errorMessage} />
     </div>

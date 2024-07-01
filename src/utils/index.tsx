@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { IHomePageData } from '@/app/services/apiService/homeAPI';
 import { ICoachingPage_Data } from '@/app/services/apiService/CoachingAPI';
@@ -174,5 +175,16 @@ export const getAppBaseUrl = () => {
   }
 
   return process.env.NEXT_APP_BASE_URL;
+};
+
+export const NumberFormatter = (number: number) => {
+  if (typeof window !== 'undefined') {
+    const { hostname } = window.location;
+    if (hostname.includes('rooton.ca')) {
+      return number.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    return number.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  return number.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 

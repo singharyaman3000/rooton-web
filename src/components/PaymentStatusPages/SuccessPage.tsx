@@ -1,18 +1,37 @@
 'use client';
 
+import { NumberFormatter } from '@/utils';
 import {
+  confirmPayment,
   handleRazorpayPaymentInvoice,
   handleStripePaymentInvoice,
   handleStripePaymentSuccess,
 } from '@/utils/actions/checkout';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useWindowSize } from 'react-use';
+import Confetti from 'react-confetti';
 
 const SuccessPage = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [session, setSession] = useState<any>();
   const [invoiceURL, setInvoiceURL] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [active, setActive] = useState(true);
+
+  const { width, height } = useWindowSize();
+
+  useEffect(() => {
+    // Set a timer to disable confetti after 4 seconds
+    const timer = setTimeout(() => {
+      setActive(false);
+    }, 6000); // 6000 milliseconds = 6 seconds
+
+    // Clean up the timer when the component is unmounted
+    return () => {
+      return clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -23,9 +42,18 @@ const SuccessPage = () => {
       if (paramValue) {
         handleStripePaymentSuccess(paramValue).then((data) => {
           if (data) {
+            if(data.invoice){
+              handleStripePaymentInvoice(data.invoice).then((value: string | null | undefined) => {
+                setInvoiceURL(value || null);
+              });
+            }
             setSession(data);
+            confirmPayment('stripe', data.customer_email || '', paramValue).then((result) => {
+              if (result) {
+                setLoading(false);
+              }
+            });
           }
-          setLoading(false);
         });
       } else if (paymentId) {
         handleRazorpayPaymentInvoice(paymentId).then((data) => {
@@ -35,30 +63,15 @@ const SuccessPage = () => {
           setLoading(false);
         });
       } else {
-        setLoading(false); // No session_id found
+        window.location.href = '/';
       }
     }
   }, []);
 
-  useEffect(() => {
-    if (session) {
-      const invoiceId = session?.invoice;
-      if (invoiceId) {
-        handleStripePaymentInvoice(invoiceId).then((data) => {
-          if (data) {
-            setInvoiceURL(data);
-          } else {
-            setInvoiceURL(null);
-          }
-        });
-      }
-    }
-  }, [session]);
-
   const getTotalCadAmount = () => {
     const amountTotalCents = session?.amount_total ?? 0;
     const amountTotalDollars = amountTotalCents / 100;
-    return amountTotalDollars.toFixed(2);
+    return NumberFormatter(amountTotalDollars);
   };
 
   return (
@@ -100,7 +113,9 @@ const SuccessPage = () => {
               </svg>
             </div>
             <h2 className=" text-black text-2xl font-semibold mb-2">
-              {session?.currency === 'cad' ? `CAD $ ${getTotalCadAmount()}` : `₹ ${(session?.amount || 0) / 100}`}
+              {session?.currency === 'cad'
+                ? `CAD $ ${getTotalCadAmount()}`
+                : `₹ ${NumberFormatter((session?.amount || 0) / 100)}`}
             </h2>
             <p className="text-black text-lg font-semibold mb-4">Payment Successful!</p>
             <p className="text-gray-600 mb-6">The payment has been done successfully.</p>
@@ -111,9 +126,40 @@ const SuccessPage = () => {
                 {new Date((session?.created || session?.created_at || 0) * 1000)?.toLocaleString()}
               </p>
             )}
+            {active && (
+              <>
+                <Confetti
+                  width={width}
+                  height={height}
+                  numberOfPieces={800}
+                  gravity={0.025}
+                  wind={0.1}
+                  initialVelocityX={20}
+                  initialVelocityY={20}
+                  recycle={false}
+                  run={active}
+                  tweenDuration={6000}
+                  confettiSource={{ x: 0, y: height - 10, w: 10, h: 10 }} // From the left bottom corner
+                />
+                <Confetti
+                  width={width}
+                  height={height}
+                  numberOfPieces={800}
+                  gravity={0.025}
+                  wind={-0.1} // Wind blowing to the left for confetti coming from the right
+                  initialVelocityX={-20}
+                  initialVelocityY={20}
+                  recycle={false}
+                  run={active}
+                  tweenDuration={6000}
+                  confettiSource={{ x: width, y: height - 10, w: 10, h: 10 }} // From the right bottom corner
+                />
+              </>
+            )}
           </>
         )}
-        {invoiceURL && (
+
+        {invoiceURL && invoiceURL.length > 0 && (
           <Link
             href={invoiceURL}
             target="_blank"

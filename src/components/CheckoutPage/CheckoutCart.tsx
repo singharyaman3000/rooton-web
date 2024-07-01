@@ -5,9 +5,10 @@ import { Divider } from '@mui/material';
 import { useTheme } from 'next-themes';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import style from '../SignUpPage/SignUpPage.module.css';
+import { NumberFormatter } from '@/utils';
 
 export interface CheckoutCartProps {
-  planDetails?: { details: pricingPlansDetails; serviceName: string } | undefined;
+  planDetails?: { details?: pricingPlansDetails; serviceName: string } | undefined;
   customAmount?: string;
 }
 export const extractNumbers = (pricingString: string): number => {
@@ -21,7 +22,6 @@ export const extractNumbers = (pricingString: string): number => {
 };
 function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
   const { theme } = useTheme();
-
   const getPriceBasedOnDomain = () => {
     let index = 0;
     if (typeof window !== 'undefined') {
@@ -29,35 +29,40 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
       index = domain.includes('rooton.ca') ? 0 : 1;
     }
     if (index === 1) {
-      if (planDetails) {
-        const inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
+      if (planDetails?.details) {
+        let inrTaxedPrice = 0;
+        try {
+          inrTaxedPrice = extractNumbers(planDetails?.details?.pricingINR || '');
+        } catch (error) {
+          inrTaxedPrice = 0;
+        }
         const inrObject = {
-          totalPrice: `₹ ${inrTaxedPrice.toFixed(2)}`,
-          subTotal: `₹ ${(inrTaxedPrice / 1.18).toFixed(2)}`,
-          taxes: `₹ ${(inrTaxedPrice - inrTaxedPrice / 1.18).toFixed(2)}`,
+          subTotal: `₹ ${NumberFormatter(inrTaxedPrice)}`,
+          taxes: `₹ ${NumberFormatter(inrTaxedPrice * 0.18)}`,
+          totalPrice: `₹ ${NumberFormatter(inrTaxedPrice + inrTaxedPrice * 0.18)}`,
         };
         return inrObject;
       }
       const parsedAmount = parseFloat(customAmount || '0');
       return {
-        totalPrice: `₹ ${parsedAmount.toFixed(2)}`,
-        subTotal: `₹ ${(parsedAmount / 1.18).toFixed(2)}`,
-        taxes: `₹ ${(parsedAmount - parsedAmount / 1.18).toFixed(2)}`,
+        subTotal: `₹ ${NumberFormatter(parsedAmount)}`,
+        taxes: `₹ ${NumberFormatter(parsedAmount * 0.18)}`,
+        totalPrice: `₹ ${NumberFormatter(parsedAmount + parsedAmount * 0.18)}`,
       };
     }
-    if (planDetails) {
+    if (planDetails?.details) {
       const cadTaxedPrice = extractNumbers(planDetails?.details?.pricingCAD || '');
       const cadObject = {
-        totalPrice: `CAD$ ${cadTaxedPrice.toFixed(2)}`,
-        subTotal: `CAD$ ${cadTaxedPrice.toFixed(2)}`,
+        totalPrice: `CAD$ ${NumberFormatter(cadTaxedPrice)}`,
+        subTotal: `CAD$ ${NumberFormatter(cadTaxedPrice)}`,
         taxes: null,
       };
       return cadObject;
     }
     const parsedAmount = parseFloat(customAmount || '0');
     return {
-      totalPrice: `CAD$ ${parsedAmount.toFixed(2)}`,
-      subTotal: `CAD$ ${parsedAmount.toFixed(2)}`,
+      totalPrice: `CAD$ ${NumberFormatter(parsedAmount)}`,
+      subTotal: `CAD$ ${NumberFormatter(parsedAmount)}`,
       taxes: null,
     };
   };
@@ -69,24 +74,24 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
           <div className="flex items-center gap-3">
             <Image
               src={'/images/servicePage/my-project-44@3x.png'}
-              alt={planDetails?.details.planName || 'Custom Plan'}
+              alt={planDetails?.details?.planName || 'Custom Plan'}
               width={100}
               height={100}
               className="hidden sm:block"
             />
-            {planDetails ? (
+            {planDetails?.details ? (
               <h1
                 className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
               >
-                {ReactHtmlParser(planDetails.serviceName) || ''}
+                {ReactHtmlParser(planDetails?.serviceName) || ''}
               </h1>
             ) : (
               <h1
                 className={`${style.heading_page} text-primary-font-color xs-mb-24 sm-mb-32
             overflow-visible justify-center !mb-0`}
               >
-                Custom Plan
+                Personalized Plan- {planDetails?.serviceName}
               </h1>
             )}
           </div>
@@ -95,7 +100,7 @@ function CheckoutCart({ planDetails, customAmount }: CheckoutCartProps) {
       {planDetails && (
         <div className="flex items-center justify-between py-2">
           <p>Plan Type</p>
-          <p>{planDetails.details.planName}</p>
+          <p>{planDetails?.details?.planName}</p>
         </div>
       )}
       <Divider color={theme === 'dark' ? 'white' : 'black'} />

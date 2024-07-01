@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import AgreementSigner from '@/utils/AgreementSigner';
 import { Modal, ModalDialog, ModalClose } from '@mui/joy';
-import { Input, useMediaQuery, useTheme } from '@mui/material';
-import Image from 'next/image';
+import { useMediaQuery, useTheme } from '@mui/material';
+import { FormTextInput } from '../Forms/components/FormTextInput';
+import style from '../SignUpPage/SignUpPage.module.css';
+import CircularLoader from '@/components/UIElements/CircularLoader';
+import getUserDoc from '@/utils/docuFetch';
+import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -14,6 +18,11 @@ interface SignRetainerAgreementModalProps {
     details: pricingPlansDetails;
     serviceName: string;
   };
+}
+
+function checkEmailValue(emailToBeTested: string) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(emailToBeTested);
 }
 
 function SignRetainerAgreementModal({
@@ -27,24 +36,37 @@ function SignRetainerAgreementModal({
   const [showAgreementSigner, setShowAgreementSigner] = useState<boolean>(
     typeof email !== 'undefined' && email.length > 0,
   );
-  const [isValidEmail, setIsValidEmail] = useState({ status: true, message: '' });
+  const [isLoading, setLoading] = useState(false);
+  const [userDoc, setUserDoc] = useState<string | null>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
-
-  function checkEmailValue(emailToBeTested: string) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(emailToBeTested)) {
-      setIsValidEmail({ status: true, message: '' });
-      return true;
-    }
-    setIsValidEmail({ status: false, message: 'Please enter a valid email address' });
-    return false;
-  }
 
   useEffect(() => {
     setEmailValue(email);
     setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0);
   }, [email]);
+
+  const loadDocument = async () => {
+    setLoading(true);
+    try {
+      const doc = await getUserDoc(docShorthand || '', emailValue);
+      if (doc) {
+        setUserDoc(doc);
+        setShowAgreementSigner(true);
+      } else {
+        setSnackbarOpen(true);
+        setErrorMessage('Something went wrong. Please try again later');
+        toggleModal();
+      }
+    } catch (err) {
+      setSnackbarOpen(true);
+      setErrorMessage('Something went wrong. Please try again later');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (isLargeScreen)
     return (
@@ -52,61 +74,51 @@ function SignRetainerAgreementModal({
         open={isModalOpen}
         onClose={(_event: React.MouseEvent<HTMLButtonElement>, reason: string) => {
           if (reason === 'closeClick') {
+            setEmailValue(email); // Reset to initial email state when the modal is closed
+            setShowAgreementSigner(typeof email !== 'undefined' && email.length > 0); // Reset to initial state
+            setUserDoc(null); // Reset the document state
             toggleModal();
-            setEmailValue('');
           }
         }}
         className="custom-modal"
       >
         <ModalDialog variant="soft">
           <ModalClose />
-          {showAgreementSigner ? (
-            <AgreementSigner
-              planDetails={planDetails}
-              mail={emailValue}
-              docShorthand={docShorthand}
-              toggleModal={toggleModal}
-            />
+          {showAgreementSigner && !(emailValue.length === 0) && userDoc && userDoc?.length>0 ? (
+            <div className="min-h-[200px] min-w-[400px]">
+              <AgreementSigner
+                planDetails={planDetails}
+                mail={emailValue}
+                docShorthand={docShorthand}
+                userDoc={userDoc}
+              />
+            </div>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-4 p-2 w-full md:w-1/2 mx-auto">
-              <Image
-                src={`${process.env.NEXT_API_BASE_URL}/uploads/exclusively_for_canada_81878f24db.png`}
-                alt="logo"
-                width={100}
-                height={100}
-              />
-              <p>Root On Immigrations & Consultants</p>
-              <Input
+            <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border min-h-[200px] min-w-[400px]">
+              <FormTextInput
+                field={{ label: 'Email', name: 'email' }}
+                value={emailValue}
                 type="email"
-                className="w-full lg:w-[500px] mt-5"
+                required
+                className="border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-[500px]"
                 onChange={(e) => {
-                  if (checkEmailValue(e.target.value)) {
-                    setEmailValue(e.target.value.trim());
-                  }
+                  setEmailValue(e.target.value.trim());
                 }}
-                placeholder="Enter your email here."
+                placeholder="Ex: john.doe@example.com"
+                validationFn={checkEmailValue}
+                invalidFormat={false}
               />
-              {isValidEmail.status === false && <p className="text-red-500 w-full">{isValidEmail.message}</p>}
               <button
                 type="button"
-                className="bg-[#FFCB70] hover:bg-[#f59723] w-full md:w-[200px]
-              inline-flex justify-center whitespace-nowrap px-3.5 py-3
-              text-[17px] font-bold text-black hover:text-white focus-visible:outline-none
-              focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600
-              transition-colors duration-150"
-                disabled={!isValidEmail.status}
-                onClick={() => {
-                  if (emailValue.length > 0) {
-                    setShowAgreementSigner(true);
-                  } else {
-                    setIsValidEmail({ status: false, message: 'Please enter an email to proceed.' });
-                  }
-                }}
+                className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline flex items-center justify-center`}
+                disabled={!checkEmailValue(emailValue) || isLoading}
+                onClick={loadDocument}
               >
-                Submit
+                {isLoading ? <CircularLoader /> : 'Submit'}
               </button>
             </div>
           )}
+          <SnackbarAlert open={snackbarOpen} message={errorMessage} />
         </ModalDialog>
       </Modal>
     );
