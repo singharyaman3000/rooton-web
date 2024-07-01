@@ -7,6 +7,9 @@ const { getToolsToolServicesServerData } = require('./src/app/services/apiServic
 const { getPolicyServerData } = require('./src/app/services/apiService/policyServerAPI');
 
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   env: {
     NEXT_API_BASE_URL: process.env.NEXT_API_BASE_URL,
     NEXT_ASSETS_BASEURL: process.env.NEXT_ASSETS_BASEURL,
@@ -45,10 +48,12 @@ const nextConfig = {
     });
 
     const policyServices = Array.isArray(policy_apiData)
-      ? policy_apiData.map((policy) => {return {
-        policyName: policy.attributes.unique_identifier_name ?? '',
-        policyId: policy.id ?? '',
-      };})
+      ? policy_apiData.map((policy) => {
+        return {
+          policyName: policy.attributes.unique_identifier_name ?? '',
+          policyId: policy.id ?? '',
+        };
+      })
       : [];
 
     coaching_apiData[0]?.attributes.coaching_page_contents.data?.forEach((coaching) => {

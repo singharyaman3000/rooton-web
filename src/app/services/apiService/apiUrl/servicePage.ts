@@ -1,10 +1,8 @@
 const SERVICE_API =
-  '/api/sub-services/<service-id>?populate[0]=media_url&populate[1]=sub_services_co' +
-  'ntents.media_url&populate[2]=blogs.media_url';
+  '/api/sub-services/<service-id>?populate[0]=media_url&populate[1]=sub_services_contents.media_url&populate[2]=blogs.media_url';
 
 const COACHING_SERVICE_API =
-  '/api/coaching-services/<service-id>?populate[0]=media_url&populate[1]=coaching_s' +
-  'ervice_contents.media_url&populate[2]=blogs.media_url';
+  '/api/coaching-services/<service-id>?populate[0]=media_url&populate[1]=coaching_service_contents.media_url&populate[2]=blogs.media_url';
 
 const TOOLS_SERVICE_API =
   '/api/tools/<service-id>?populate[0]=media_url&populate[1]=tools_contents.media_url&populate[2]=blogs.media_url';

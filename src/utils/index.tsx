@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { IHeaderFooterData } from '@/app/services/apiService/headerFooterAPI';
 import { IHomePageData } from '@/app/services/apiService/homeAPI';
 import { ICoachingPage_Data } from '@/app/services/apiService/CoachingAPI';
@@ -151,3 +152,39 @@ export const valueNotPresent = (arr: Record<string, string>[], keys: string[]) =
     });
   });
 };
+
+export const getAppBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    const { hostname } = window.location;
+    const domainParts = hostname.split('.');
+
+    if (hostname.includes('rooton.ca')) {
+      if (domainParts.length > 2) {
+        return 'https://dev.rooton.ca/';
+      }
+      return 'https://rooton.ca/';
+    }
+
+    if (hostname.includes('rooton.in')) {
+      if (domainParts.length > 2) {
+        return 'https://dev.rooton.in/';
+      }
+      return 'https://rooton.in/';
+    }
+    return process.env.NEXT_APP_BASE_URL;
+  }
+
+  return process.env.NEXT_APP_BASE_URL;
+};
+
+export const NumberFormatter = (number: number) => {
+  if (typeof window !== 'undefined') {
+    const { hostname } = window.location;
+    if (hostname.includes('rooton.ca')) {
+      return number.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    return number.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  return number.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+

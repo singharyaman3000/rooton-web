@@ -20,6 +20,7 @@ const PricingLeadFormSection = ({
   isBookAppointment,
 }: LeadFormSectionProps) => {
   const [formStepperProgress, setFormStepperProgress] = useState(0);
+
   if (PricingleadForm) {
     return (
       <div

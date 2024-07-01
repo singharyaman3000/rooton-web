@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 import FooterLogo from './FooterLogo';
 import { useHeaderFooterContext } from '@/providers/headerFooterDataProvider';
@@ -10,11 +12,20 @@ import { appendAssetUrl } from '@/utils';
 import HtmlParser from 'react-html-parser';
 import FooterGrid from './FooterGrid';
 import SocialMediaLinks from '../ContactUsPage/SocialMediaLinks';
+import { getDomainIndex } from '../ContactUsPage/MapSection';
 
 export default function Footer() {
   const params = useParams();
+  const pathname = usePathname();
   const { headerFooterData } = useHeaderFooterContext();
   const currentYear = new Date().getFullYear();
+  const router = useRouter();
+
+  function getCompanyName() {
+    return getDomainIndex() === 0
+      ? 'Root On Immigration Consultants, Inc. or its affiliates.'
+      : 'Root On Immigration Consultants Private Limited';
+  }
 
   return (
     <footer
@@ -57,7 +68,7 @@ export default function Footer() {
           <div className=" flex flex-col gap-8 mb-7 lg:mb-0">
             <div className=" m-auto lg:m-0">
               <p className=" text-center lg:text-left text-sm mb-2">
-                Copyright © {currentYear} Root On Immigration Consultants, Inc. or its affiliates.
+                Copyright © {currentYear} {getCompanyName()}
               </p>
               <p className=" text-center lg:text-left text-sm">All Rights Reserved.</p>
             </div>
@@ -124,8 +135,7 @@ export default function Footer() {
             </Link>
             <Link
               className="basis-[47%] order-4"
-              target="_blank"
-              href={'https://merchant.razorpay.com/policy/N4MfufxTo5bg1L/shipping'}
+              href={params.lang ? `/${params.lang}/shipping-policy` : '/shipping-policy'}
             >
               Shipping Policy
             </Link>
@@ -134,11 +144,23 @@ export default function Footer() {
             <Link className="basis-[47%] order-5" href={params.lang ? `/${params.lang}/sitemap` : '/sitemap'}>
               Sitemap
             </Link>
+            <div
+              className="basis-[47%] order-5 cursor-pointer"
+              onClick={() => {
+                if (pathname === '/checkout') {
+                  window.location.href = `${params.lang ? `/${params.lang}/checkout` : '/checkout'}`;
+                  return;
+                }
+                router.push(`${params.lang ? `/${params.lang}/checkout` : '/checkout'}`);
+              }}
+            >
+              Pay Now
+            </div>
           </div>
         </div>
       </div>
       <div
-        className="
+        className={`
         mt-[10px]
         py-5
         px-6
@@ -152,7 +174,10 @@ export default function Footer() {
         lg:justify-between
         lg:gap-0
         z-10
-    "
+        ${
+    getDomainIndex() === 0 ? '' : 'flex-col-reverse'
+    }
+    `}
       >
         {headerFooterData?.[0]?.attributes.addresses.data?.map((address) => {
           return (
