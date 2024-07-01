@@ -47,7 +47,7 @@ const AgreementSigner: React.FC<AgreementSignerProps> = ({ mail, docShorthand, p
       setSnackbarOpen(true);
     }
     if (!detail.error) {
-      checkWhetherDocAlreadySigned(currentLoggedInUser?.email || mail || '', docShorthand || '').then(
+      checkWhetherDocAlreadySigned( mail || currentLoggedInUser?.email || '', docShorthand || '').then(
         (isAlreadySigned) => {
           if (isAlreadySigned) {
             router.push(getCompletedRedirectUrl(data));
