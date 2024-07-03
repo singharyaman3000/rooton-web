@@ -82,7 +82,7 @@ function SignRetainerAgreementModal({
         }}
         className="custom-modal"
       >
-        <ModalDialog variant="soft">
+        <ModalDialog variant="outlined">
           <ModalClose />
           {showAgreementSigner && !(emailValue.length === 0) && userDoc && userDoc?.length > 0 ? (
             <div className="min-h-[200px] min-w-[400px]">
@@ -94,12 +94,12 @@ function SignRetainerAgreementModal({
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border min-h-[200px] min-w-[400px]">
+            <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 min-h-[200px] min-w-[300px]">
+              <p className='font-semibold text-xl'>Enter your Email Address</p>
               <FormTextInput
-                field={{ label: 'Enter your Email Address', name: 'email' }}
+                field={{ label: '', name: 'email' }}
                 value={emailValue}
                 type="email"
-                required
                 className="border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-[500px]"
                 onChange={(e) => {
                   setEmailValue(e.target.value.trim());

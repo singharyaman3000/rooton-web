@@ -105,10 +105,10 @@ function SignRetainerAgreementDrawer({
               edge="start"
               color="info"
               onClick={() => {
-                toggleModal();
                 setEmailValue(email || '');
                 setShowAgreementSigner(false);
                 setUserDoc(null); // Reset the document state
+                toggleModal();
               }}
               aria-label="close"
             >
