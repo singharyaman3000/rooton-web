@@ -8,6 +8,7 @@ import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from '@/utils/docuFetch';
 import AgreementSigner from '@/utils/AgreementSigner';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
+import Link from 'next/link';
 
 interface SignRetainerAgreementDrawerProps {
   toggleModal: () => void;
@@ -71,10 +72,9 @@ function SignRetainerAgreementDrawer({
       } else {
         setSnackbarOpen(true);
         setErrorMessage('Something went wrong. Please try again later');
-        setEmailValue('');
+        setEmailValue(email || '');
         setShowAgreementSigner(false);
         toggleModal();
-
       }
     } catch (err) {
       setSnackbarOpen(true);
@@ -90,7 +90,7 @@ function SignRetainerAgreementDrawer({
       <Dialog
         open={isModalOpen}
         onClose={() => {
-          setEmailValue('');
+          setEmailValue(email || '');
           setShowAgreementSigner(false);
           setUserDoc(null); // Reset the document state
           toggleModal();
@@ -99,14 +99,14 @@ function SignRetainerAgreementDrawer({
         fullScreen
       >
         <AppBar sx={{ position: 'relative', backgroundColor: '#FFCB70', marginBottom: '20px' }}>
-          <Toolbar className="flex justify-between bg-[#FFCB70]">
+          <Toolbar className="flex justify-between bg-[#f59723]">
             <p className="font-bold text-xl md:text-2xl lg:text-3xl">Sign Retainer Agreement</p>
             <IconButton
               edge="start"
-              color="inherit"
+              color="info"
               onClick={() => {
                 toggleModal();
-                setEmailValue('');
+                setEmailValue(email || '');
                 setShowAgreementSigner(false);
                 setUserDoc(null); // Reset the document state
               }}
@@ -117,12 +117,7 @@ function SignRetainerAgreementDrawer({
           </Toolbar>
         </AppBar>
         {showAgreementSigner && userDoc ? (
-          <AgreementSigner
-            planDetails={planDetails}
-            docShorthand={docShorthand}
-            mail={emailValue}
-            userDoc={userDoc}
-          />
+          <AgreementSigner planDetails={planDetails} docShorthand={docShorthand} mail={emailValue} userDoc={userDoc} />
         ) : (
           <div className="flex flex-col justify-center gap-4 p-2 w-full mx-auto">
             <FormTextInput
@@ -131,7 +126,9 @@ function SignRetainerAgreementDrawer({
               type="email"
               required
               className="border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-full"
-              onChange={(e) => {return setEmailValue(e.target.value.trim());}}
+              onChange={(e) => {
+                return setEmailValue(e.target.value.trim());
+              }}
               invalidFormat={false}
               validationFn={checkEmailValue}
               placeholder="Ex: john.doe@example.com"
@@ -144,6 +141,12 @@ function SignRetainerAgreementDrawer({
             >
               {isLoading ? <CircularLoader /> : 'Submit'}
             </button>
+            <p className="w-full text-center">
+              Need help singing in?{' '}
+              <Link href="/login">
+                <strong>Click here!</strong>
+              </Link>
+            </p>
           </div>
         )}
         <SnackbarAlert open={snackbarOpen} message={errorMessage} />

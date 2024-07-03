@@ -4,10 +4,10 @@ import AgreementSigner from '@/utils/AgreementSigner';
 import { Modal, ModalDialog, ModalClose } from '@mui/joy';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { FormTextInput } from '../Forms/components/FormTextInput';
-import style from '../SignUpPage/SignUpPage.module.css';
 import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from '@/utils/docuFetch';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
+import Link from 'next/link';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -84,7 +84,7 @@ function SignRetainerAgreementModal({
       >
         <ModalDialog variant="soft">
           <ModalClose />
-          {showAgreementSigner && !(emailValue.length === 0) && userDoc && userDoc?.length>0 ? (
+          {showAgreementSigner && !(emailValue.length === 0) && userDoc && userDoc?.length > 0 ? (
             <div className="min-h-[200px] min-w-[400px]">
               <AgreementSigner
                 planDetails={planDetails}
@@ -96,7 +96,7 @@ function SignRetainerAgreementModal({
           ) : (
             <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 bg-pale-sandal border-golden-yellow border min-h-[200px] min-w-[400px]">
               <FormTextInput
-                field={{ label: 'Email', name: 'email' }}
+                field={{ label: 'Enter your Email Address', name: 'email' }}
                 value={emailValue}
                 type="email"
                 required
@@ -110,12 +110,20 @@ function SignRetainerAgreementModal({
               />
               <button
                 type="button"
-                className={`${style.button_width} bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline flex items-center justify-center`}
+                className={
+                  'w-full bg-[#000] text-white mt-2 py-3 px-6 focus:outline-none focus:shadow-outline flex items-center justify-center'
+                }
                 disabled={!checkEmailValue(emailValue) || isLoading}
                 onClick={loadDocument}
               >
                 {isLoading ? <CircularLoader /> : 'Submit'}
               </button>
+              <p>
+                Need help singing in?{' '}
+                <Link href="/login">
+                  <strong>Click here!</strong>
+                </Link>
+              </p>
             </div>
           )}
           <SnackbarAlert open={snackbarOpen} message={errorMessage} />
