@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import AgreementSigner from '@/utils/AgreementSigner';
-import { Modal, ModalDialog, ModalClose } from '@mui/joy';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { Modal, ModalDialog } from '@mui/joy';
+import { IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { FormTextInput } from '../Forms/components/FormTextInput';
 import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from '@/utils/docuFetch';
 import SnackbarAlert from '../ToolsPage-Services/Snackbar';
 import Link from 'next/link';
+import CloseIcon from '../Icons/CloseIcon';
 
 interface SignRetainerAgreementModalProps {
   toggleModal: () => void;
@@ -82,8 +83,23 @@ function SignRetainerAgreementModal({
         }}
         className="custom-modal"
       >
-        <ModalDialog variant="outlined">
-          <ModalClose />
+        <ModalDialog variant="outlined" sx={{ padding: 0 }}>
+          <Toolbar className="flex justify-between bg-[#f59723] text-black">
+            <p className="font-bold text-xl md:text-2xl lg:text-3xl">Sign Retainer Agreement</p>
+            <IconButton
+              edge="start"
+              color="info"
+              onClick={() => {
+                setEmailValue(email || '');
+                setShowAgreementSigner(false);
+                setUserDoc(null); // Reset the document state
+                toggleModal();
+              }}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+          </Toolbar>
           {showAgreementSigner && !(emailValue.length === 0) && userDoc && userDoc?.length > 0 ? (
             <div className="min-h-[200px] min-w-[400px]">
               <AgreementSigner
@@ -94,8 +110,8 @@ function SignRetainerAgreementModal({
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center w-full gap-3 p-4 sm:p-8 min-h-[200px] min-w-[300px]">
-              <p className='font-semibold text-xl'>Enter your Email Address</p>
+            <div className="flex flex-col items-center w-full gap-3 p-6 min-h-[200px] min-w-[300px]">
+              <p className="font-semibold text-xl">Enter your Email Address</p>
               <FormTextInput
                 field={{ label: '', name: 'email' }}
                 value={emailValue}
@@ -119,7 +135,7 @@ function SignRetainerAgreementModal({
                 {isLoading ? <CircularLoader /> : 'Submit'}
               </button>
               <p>
-                Need help singing in?{' '}
+                Need help signing in?{' '}
                 <Link href="/login">
                   <strong>Click here!</strong>
                 </Link>
