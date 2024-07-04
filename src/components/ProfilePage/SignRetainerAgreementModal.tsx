@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { pricingPlansDetails } from '@/app/services/apiService/coachingContentsAPI';
 import AgreementSigner from '@/utils/AgreementSigner';
 import { Modal, ModalDialog } from '@mui/joy';
-import { AppBar, IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material';
+import { IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { FormTextInput } from '../Forms/components/FormTextInput';
 import CircularLoader from '@/components/UIElements/CircularLoader';
 import getUserDoc from '@/utils/docuFetch';
@@ -84,24 +84,22 @@ function SignRetainerAgreementModal({
         className="custom-modal"
       >
         <ModalDialog variant="outlined" sx={{ padding: 0 }}>
-          <AppBar sx={{ position: 'relative', backgroundColor: 'transparent', marginBottom: '20px', paddingRight: '0 !important' }}>
-            <Toolbar className="flex justify-between planName-heading">
-              <p className="text-xl md:text-2xl">Sign Retainer Agreement</p>
-              <IconButton
-                edge="start"
-                color="info"
-                onClick={() => {
-                  setEmailValue(email || '');
-                  setShowAgreementSigner(false);
-                  setUserDoc(null);
-                  toggleModal();
-                }}
-                aria-label="close"
-              >
-                <CloseIcon height={18} width={18} />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
+          <Toolbar className="flex justify-between planName-heading">
+            <p className="text-xl md:text-2xl">Sign Retainer Agreement</p>
+            <IconButton
+              edge="start"
+              color="info"
+              onClick={() => {
+                setEmailValue(email || '');
+                setShowAgreementSigner(false);
+                setUserDoc(null);
+                toggleModal();
+              }}
+              aria-label="close"
+            >
+              <CloseIcon height={18} width={18} />
+            </IconButton>
+          </Toolbar>
           {showAgreementSigner && !(emailValue.length === 0) && userDoc && userDoc?.length > 0 ? (
             <div className="min-h-[200px] min-w-[400px]">
               <AgreementSigner
@@ -112,7 +110,7 @@ function SignRetainerAgreementModal({
               />
             </div>
           ) : (
-            <div className="flex flex-col w-full gap-3 pt-0 p-6 min-h-[200px] min-w-[300px]">
+            <div className="flex flex-col w-full gap-3 p-6 min-h-[200px] min-w-[300px]">
               <FormTextInput
                 field={{
                   label: `${email.length > 0 ? 'Confirm your Email Address' : 'Enter your Email Address'}`,
