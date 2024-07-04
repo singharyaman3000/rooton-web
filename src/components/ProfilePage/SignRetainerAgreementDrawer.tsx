@@ -99,8 +99,8 @@ function SignRetainerAgreementDrawer({
         fullScreen
       >
         <AppBar sx={{ position: 'relative', backgroundColor: '#FFCB70', marginBottom: '20px' }}>
-          <Toolbar className="flex justify-between bg-[#f59723]">
-            <p className="font-bold text-xl md:text-2xl lg:text-3xl">Sign Retainer Agreement</p>
+          <Toolbar className="flex justify-between planName-heading">
+            <p className="text-xl md:text-2xl">Sign Retainer Agreement</p>
             <IconButton
               edge="start"
               color="info"
@@ -112,7 +112,7 @@ function SignRetainerAgreementDrawer({
               }}
               aria-label="close"
             >
-              <CloseIcon />
+              <CloseIcon width={18} height={18} />
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -121,11 +121,11 @@ function SignRetainerAgreementDrawer({
         ) : (
           <div className="flex flex-col justify-center gap-4 p-2 w-full mx-auto">
             <FormTextInput
-              field={{ label: 'Email', name: 'email' }}
+              field={{ label: `${email.length > 0 ? 'Confirm your Email Address' : 'Enter your Email Address'}`, name: 'email' }}
               value={emailValue}
               type="email"
               required
-              className="border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-full"
+              className="mt-2 border-2 bg-white border-[#ccccd3] hover:border-[#000] focus:border-[#000] text-[16px] h-[24px] py-6 px-6 text-gray-700 leading-6 focus:outline-none focus:shadow-outline w-full"
               onChange={(e) => {
                 return setEmailValue(e.target.value.trim());
               }}
@@ -135,7 +135,7 @@ function SignRetainerAgreementDrawer({
             />
             <button
               type="button"
-              className="bg-[#FFCB70] hover:bg-[#f59723] w-full md:w-[200px] inline-flex justify-center whitespace-nowrap px-3.5 py-3 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150"
+              className="bg-[#000] text-white w-full md:w-[200px] inline-flex justify-center whitespace-nowrap px-3.5 py-3 text-[17px] font-bold text-black hover:text-white focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150"
               disabled={!checkEmailValue(emailValue) || isLoading}
               onClick={loadDocument}
             >
