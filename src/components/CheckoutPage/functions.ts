@@ -8,28 +8,30 @@ function cleanseServiceName(serviceName: string) {
   return stringToBeReturned;
 }
 
-function checkForNumber(stringToBeChecked: string) {
-  const latestAddition = stringToBeChecked.charAt(stringToBeChecked.length - 1);
-  return Number.isNaN(parseFloat(latestAddition));
-}
-
 function checkForGSTNumber(gstNumber: string) {
   const gstRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
   return gstRegex.test(gstNumber);
 }
 
-function extractNumbersFromInput(inputString: string) {
-  // Use a regular expression to match all digits in the string
-  const matches = inputString.match(/\d+/g);
+const checkForNumber = (value:string) => {
+  // Allow numbers and one decimal point
+  return !/^\d*\.?\d*$/.test(value);
+};
 
-  // If there are no digits, return an empty string
-  if (matches === null) {
-    return '';
+const extractNumbersFromInput = (value:string) => {
+  // Remove all characters except numbers and the first decimal point
+  const numberWithDecimal = value.replace(/[^0-9.]/g, '');
+  const decimalIndex = numberWithDecimal.indexOf('.');
+
+  if (decimalIndex !== -1) {
+    // Allow only one decimal point
+    const integerPart = numberWithDecimal.slice(0, decimalIndex).replace(/\./g, '');
+    const decimalPart = numberWithDecimal.slice(decimalIndex + 1).replace(/\./g, '');
+    return `${integerPart}.${decimalPart}`;
   }
 
-  // Join all matched digit strings into one string
-  return matches.join('');
-}
+  return numberWithDecimal;
+};
 
 const findCountryListByName = (name: string) => {
   return Country.getAllCountries().find((list: any) => {

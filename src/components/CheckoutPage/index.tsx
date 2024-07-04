@@ -358,7 +358,7 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                   placeholder="Enter here."
                   field={{ label: 'GST Number', name: 'GSTNumber' }}
                   value=""
-                  type='gst'
+                  type="gst"
                   allUpperCase
                   className={inputStyle}
                   validationFn={checkForGSTNumber}
@@ -376,20 +376,23 @@ function Checkout({ currentLoggedInUser }: ICheckoutProps) {
                     invalidFormat={false}
                     onChange={(e) => {
                       if (checkForNumber(e.target.value)) return;
-                      const amount = parseFloat(extractNumbersFromInput(e.target.value));
-                      if (amount * 1.18 > 500000) {
+                      const inputValue = extractNumbersFromInput(e.target.value);
+                      const amount = parseFloat(inputValue);
+
+                      if (amount * 1.18 > 500000 && window && !window.location.origin.includes('rooton.ca')) {
                         setAmountError({ status: true, message: 'Amount should be less than 5,00,000' });
                         return;
                       }
                       setAmountError({ status: false, message: '' });
-                      if(e.target.value.length<=1){
+                      if (inputValue.length <= 1) {
                         setCustomAmount('');
                         return;
                       }
 
-                      setCustomAmount(extractNumbersFromInput(e.target.value));
+                      setCustomAmount(inputValue);
                     }}
                   />
+
                   {amountError.status && <p className="text-[#FF0000]">{amountError.message}</p>}
                   <FormDropdown
                     name="serviceType"
