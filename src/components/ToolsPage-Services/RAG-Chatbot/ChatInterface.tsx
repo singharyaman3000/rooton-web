@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 // ChatInterface.jsx
-import React, { useState } from 'react';
-import { Container, Box, Paper, Typography, TextField, Button } from '@mui/material';
+import { KeyboardEvent, useState } from 'react';
+import { Container, Box, Paper, Typography } from '@mui/material';
+import AutoGrowingTextarea from './AutoGrowingTextarea';
+import { IoIosSend } from 'react-icons/io';
 
 const initialConversation = [
   { speaker: 'You', message: 'Hey, how are you doing today?', timestamp: '2024-07-19T10:00:00Z' },
@@ -38,7 +41,7 @@ const ChatInterface = () => {
     }
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       handleSend();
@@ -47,11 +50,17 @@ const ChatInterface = () => {
 
   return (
     <Container>
-      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" bgcolor="gray.100">
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        bgcolor="#fddba2"
+        padding={2}
+      >
         <Paper
-          elevation={3}
-          className=" shadow-hubspot-form-shadow border border-golden-yellow justify-between relative bg-pale-sandal"
-          sx={{ width: '100%', maxHeight: '60vh', overflowY: 'auto', p: 2, mb: 2, backgroundColor: '#fddba2' }}
+          className="border border-golden-yellow"
+          sx={{ width: '100%', maxHeight: '60vh', overflowY: 'auto', p: 2, mb: 2 }}
         >
           {conversation.map((chat, index) => {
             return (
@@ -79,24 +88,21 @@ const ChatInterface = () => {
             );
           })}
         </Paper>
-        <Box display="flex" width="100%">
-          <TextField
-            fullWidth
-            multiline
-            minRows={2}
-            maxRows={4}
-            variant="outlined"
-            placeholder="Type your message..."
+        <Box display="flex" width="100%" p={1} bgcolor={'white'} flexDirection={'row'} justifyContent={'space-between'} alignItems={'flex-end'}>
+          <AutoGrowingTextarea
             value={newMessage}
-            onChange={(e) => {
-              return setNewMessage(e.target.value);
+            onChange={(event) => {
+              setNewMessage(event.target.value);
             }}
             onKeyDown={handleKeyPress}
-            sx={{ mr: 2 }}
           />
-          <Button variant="contained" color="primary" onClick={handleSend}>
-            Send
-          </Button>
+          <button
+            className=" flex items-center justify-center rounded-full font-bold"
+            onClick={handleSend}
+            type="button"
+          >
+            <IoIosSend size={24}/>
+          </button>
         </Box>
       </Box>
     </Container>
