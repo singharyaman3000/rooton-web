@@ -13,6 +13,7 @@ import SOWPBuilder from './BuilderSOWP';
 import { CRS } from './CRS';
 import { useParams } from 'next/navigation';
 import DynamicBannerSection from '@/components/AboutUsPage/DynamicBannerSection';
+import RAGChatbot from './RAG-Chatbot';
 
 type ToolsServicePageProps = {
   response: IToolServicePageContent;
@@ -54,7 +55,7 @@ export const ToolsServicePageComponent = ({ response }: ToolsServicePageProps) =
     case 'canada-course-recommendation-tool':
       return <CRS />;
     default:
-      return null; // Return null or any default component if needed
+      return <RAGChatbot/>; // Return null or any default component if needed
     }
   };
 

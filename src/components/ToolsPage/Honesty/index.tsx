@@ -68,7 +68,6 @@ const Honesty = ({ json_content, title, sub_title, description }: IHonesty) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
   return (
     <div className="relative pt-[30px] md:pt-[73px] lg:mt-[50px]">
       <Container>
