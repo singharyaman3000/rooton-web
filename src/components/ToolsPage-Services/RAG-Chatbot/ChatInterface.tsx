@@ -58,13 +58,16 @@ const ChatInterface = () => {
         bgcolor="#fddba2"
         padding={2}
       >
-        <Paper
-          className="border border-golden-yellow"
-          sx={{ width: '100%', maxHeight: '60vh', overflowY: 'auto', p: 2, mb: 2 }}
-        >
+        <Paper className="hideScrollBar" sx={{ width: '100%', maxHeight: '60vh', overflowY: 'auto', p: 2, mb: 2 }}>
           {conversation.map((chat, index) => {
             return (
-              <Box key={chat.speaker + index.toString()} mb={2} textAlign={chat.speaker === 'You' ? 'right' : 'left'}>
+              <Box
+                key={chat.speaker + index.toString()}
+                mb={2}
+                textAlign={chat.speaker === 'You' ? 'right' : 'left'}
+                ml={chat.speaker === 'You' ? 'auto' : 0}
+                maxWidth={'80%'}
+              >
                 {chat.speaker !== 'You' && (
                   <Typography variant="subtitle2" color="textSecondary">
                     {chat.speaker}
@@ -74,12 +77,16 @@ const ChatInterface = () => {
                   variant="outlined"
                   sx={{
                     display: 'inline-block',
-                    p: 1,
-                    bgcolor: chat.speaker === 'You' ? 'primary.main' : 'grey.200',
+                    p: 2,
+                    bgcolor: chat.speaker === 'You' ? 'orange' : 'white',
+                    borderRadius: 1,
+                    border: chat.speaker === 'You' ? 'golden-yellow' : '1px solid black',
                     color: chat.speaker === 'You' ? 'white' : 'black',
                   }}
                 >
-                  <Typography variant="body1">{chat.message}</Typography>
+                  <Typography fontSize={17} variant="body1">
+                    {chat.message}
+                  </Typography>
                 </Paper>
                 <Typography variant="caption" color="textSecondary" display="block" mt={0.5}>
                   {new Date(chat.timestamp).toLocaleString()}
@@ -88,7 +95,15 @@ const ChatInterface = () => {
             );
           })}
         </Paper>
-        <Box display="flex" width="100%" p={1} bgcolor={'white'} flexDirection={'row'} justifyContent={'space-between'} alignItems={'flex-end'}>
+        <Box
+          display="flex"
+          width="100%"
+          p={1}
+          bgcolor={'white'}
+          flexDirection={'row'}
+          justifyContent={'space-between'}
+          alignItems={'flex-end'}
+        >
           <AutoGrowingTextarea
             value={newMessage}
             onChange={(event) => {
@@ -97,11 +112,11 @@ const ChatInterface = () => {
             onKeyDown={handleKeyPress}
           />
           <button
-            className=" flex items-center justify-center rounded-full font-bold"
+            className=" flex items-center justify-center bg-black h-9 w-9 text-white rounded-full font-bold"
             onClick={handleSend}
             type="button"
           >
-            <IoIosSend size={24}/>
+            <IoIosSend size={24} />
           </button>
         </Box>
       </Box>
