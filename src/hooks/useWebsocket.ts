@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // useWebSocket.js
+import { IMessage } from '@/components/ToolsPage-Services/RAG-Chatbot/constants';
 import { useEffect, useRef, useState } from 'react';
 
 const useWebSocket = (url:string) => {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {

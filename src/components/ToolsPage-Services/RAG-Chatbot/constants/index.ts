@@ -1,3 +1,8 @@
+interface IMessage {
+    speaker: string;
+    message: string;
+    timestamp: string;
+}
 const initialConversation = [
   { speaker: 'You', message: 'Hey, how are you doing today?', timestamp: '2024-07-19T10:00:00Z' },
   { speaker: 'Person B', message: 'I\'m doing well, thanks! How about you?', timestamp: '2024-07-19T10:01:00Z' },
@@ -19,3 +24,5 @@ const initialConversation = [
 ];
 
 export { initialConversation };
+export type { IMessage };
+

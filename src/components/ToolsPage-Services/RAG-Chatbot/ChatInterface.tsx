@@ -1,22 +1,51 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-// ChatInterface.jsx
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Container, Box, Paper, Typography } from '@mui/material';
 import AutoGrowingTextarea from './AutoGrowingTextarea';
 import { IoIosSend } from 'react-icons/io';
-import { initialConversation } from './constants';
+import { getConversationMessages } from './functions';
+import { IMessage } from './constants';
+import { GridLoader } from 'react-spinners';
+import useWebSocket from '@/hooks/useWebsocket';
 
 const ChatInterface = () => {
-  const [conversation, setConversation] = useState(initialConversation);
+  const [conversation, setConversation] = useState<IMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(()=>{
+  const { messages, sendMessage } = useWebSocket('ws://localhost:8080');
+
+  const scrollToBottom = () => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
+  };
+
+  useEffect(() => {
+    getConversationMessages('session-1')
+      .then((data) => {
+        setConversation(data);
+        setIsLoading(false);
+        scrollToBottom();
+      })
+      .catch(() => {
+        setConversation([]);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    scrollToBottom();
   }, [conversation]);
+
+  useEffect(() => {
+    if (messages) {
+      setConversation([...conversation, ...messages]);
+    }
+  }, [ messages]);
 
   const handleSend = () => {
     if (newMessage.trim()) {
@@ -26,6 +55,7 @@ const ChatInterface = () => {
         timestamp: new Date().toISOString(),
       };
       setConversation([...conversation, newMessageObj]);
+      sendMessage(newMessageObj);
       setNewMessage('');
     }
   };
@@ -39,51 +69,51 @@ const ChatInterface = () => {
 
   return (
     <Container>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        bgcolor="#fddba2"
-        padding={2}
-      >
-        <Paper className="hideScrollBar" ref={chatContainerRef} sx={{ width: '100%', maxHeight: '60vh', overflowY: 'auto', p: 2, mb: 2 }}>
-          {conversation.map((chat, index) => {
-            return (
-              <Box
-                key={chat.speaker + index.toString()}
-                mb={2}
-                textAlign={chat.speaker === 'You' ? 'right' : 'left'}
-                ml={chat.speaker === 'You' ? 'auto' : 0}
-                maxWidth={'80%'}
-              >
-                {chat.speaker !== 'You' && (
-                  <Typography variant="subtitle2" color="textSecondary">
-                    {chat.speaker}
-                  </Typography>
-                )}
-                <Paper
-                  variant="outlined"
-                  sx={{
-                    display: 'inline-block',
-                    p: 2,
-                    bgcolor: chat.speaker === 'You' ? 'orange' : 'white',
-                    borderRadius: 1,
-                    border: chat.speaker === 'You' ? 'golden-yellow' : '1px solid black',
-                    color: chat.speaker === 'You' ? 'white' : 'black',
-                  }}
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" paddingY={2}>
+        {isLoading ? (
+          <div className="flex flex-col items-center gap-5 justify-center w-full h-[230px]">
+            <GridLoader />
+            <p>Loading conversation...</p>
+          </div>
+        ) : (
+          <div className="w-full max-h-[60vh] overflow-y-scroll lg:p-2 mb-2 hideScrollBar" ref={chatContainerRef}>
+            {conversation?.map((chat, index) => {
+              return (
+                <Box
+                  key={chat.speaker + index.toString()}
+                  mb={2}
+                  textAlign={chat.speaker === 'You' ? 'right' : 'left'}
+                  ml={chat.speaker === 'You' ? 'auto' : 0}
+                  maxWidth={'90%'}
                 >
-                  <Typography fontSize={17} variant="body1">
-                    {chat.message}
+                  {chat.speaker !== 'You' && (
+                    <Typography variant="subtitle2" color="textSecondary">
+                      {chat.speaker}
+                    </Typography>
+                  )}
+                  <Paper
+                    variant="outlined"
+                    sx={{
+                      display: 'inline-block',
+                      p: 1,
+                      bgcolor: chat.speaker === 'You' ? 'orange' : 'white',
+                      borderRadius: chat.speaker === 'You' ? '16px 16px 0 16px' : '16px 16px 16px 0',
+                      border: chat.speaker === 'You' ? '1px solid golden-yellow' : '1px solid black',
+                      color: chat.speaker === 'You' ? 'white' : 'black',
+                    }}
+                  >
+                    <Typography fontSize={17} variant="body1">
+                      {chat.message}
+                    </Typography>
+                  </Paper>
+                  <Typography variant="caption" color="textSecondary" display="block" mt={0.5}>
+                    {new Date(chat.timestamp).toLocaleString()}
                   </Typography>
-                </Paper>
-                <Typography variant="caption" color="textSecondary" display="block" mt={0.5}>
-                  {new Date(chat.timestamp).toLocaleString()}
-                </Typography>
-              </Box>
-            );
-          })}
-        </Paper>
+                </Box>
+              );
+            })}
+          </div>
+        )}
         <Box
           display="flex"
           width="100%"
@@ -101,7 +131,7 @@ const ChatInterface = () => {
             onKeyDown={handleKeyPress}
           />
           <button
-            className=" flex items-center justify-center bg-black h-9 w-9 text-white rounded-full font-bold"
+            className="flex items-center justify-center bg-black h-9 w-9 text-white rounded-full font-bold"
             onClick={handleSend}
             type="button"
           >
