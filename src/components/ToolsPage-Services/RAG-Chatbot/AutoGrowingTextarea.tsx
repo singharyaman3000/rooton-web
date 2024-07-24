@@ -35,6 +35,8 @@ const AutoGrowingTextarea: React.FC<AutoGrowingTextareaProps> = ({ value, onChan
         padding: '8px',
         boxSizing: 'border-box',
         overflow: 'auto', // Allow scrolling
+        whiteSpace: 'pre-wrap', // Preserve whitespace formatting
+        fontFamily: 'monospace', // Use a monospace font for better alignment
       }}
       className="active:outline-none focus-visible:outline-none focus:outline-none"
     />

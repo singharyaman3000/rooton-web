@@ -1,7 +1,7 @@
 interface IMessage {
-    speaker: string;
-    message: string;
-    timestamp: string;
+  speaker: string;
+  message: string;
+  timestamp: string;
 }
 const initialConversation = [
   { speaker: 'You', message: 'Hey, how are you doing today?', timestamp: '2024-07-19T10:00:00Z' },
@@ -23,6 +23,19 @@ const initialConversation = [
   { speaker: 'You', message: 'You too!', timestamp: '2024-07-19T10:08:00Z' },
 ];
 
-export { initialConversation };
+const introductoryMessage = {
+  speaker: 'Immigration Expert',
+  message: `Hey there, I'm Immibot!
+            I help people immigrate to Canada:
+
+            > Find a suitable immigration program for you
+            > Schedule a meeting with a verified professional
+            > Answer any questions you have on immigration
+
+            Get started by asking a question or selecting one of the options below!`,
+  timestamp: '2024-07-19T10:00:00Z',
+};
+
+export { initialConversation, introductoryMessage };
 export type { IMessage };
 
