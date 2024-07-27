@@ -9,6 +9,7 @@ import { IMessage } from './constants';
 import { GridLoader } from 'react-spinners';
 import useWebSocket from '@/hooks/useWebsocket';
 import RobotThinkingIndicator from './RobotThinkingIndicator';
+import ReactMarkdown from 'react-markdown';
 
 const ChatInterface = () => {
   const [conversation, setConversation] = useState<IMessage[]>([]);
@@ -74,7 +75,7 @@ const ChatInterface = () => {
   };
 
   return (
-    <Container>
+    <Container className="shadow-hubspot-form-shadow border border-golden-yellow bg-pale-sandal">
       {isRAGReady ? (
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" paddingY={2}>
           {isLoading ? (
@@ -104,14 +105,14 @@ const ChatInterface = () => {
                         display: 'inline-block',
                         p: 1,
                         bgcolor: chat.speaker === 'You' ? 'orange' : 'white',
-                        borderRadius: chat.speaker === 'You' ? '16px 16px 0 16px' : '16px 16px 16px 0',
+                        borderRadius: chat.speaker === 'You' ? '16px 0 16px 16px' : '0 16px 16px 16px',
                         border: chat.speaker === 'You' ? '1px solid golden-yellow' : '1px solid black',
                         color: chat.speaker === 'You' ? 'white' : 'black',
                       }}
                     >
-                      <Typography fontSize={17} variant="body1">
+                      <ReactMarkdown className="whitespace-pre-wrap">
                         {chat.message}
-                      </Typography>
+                      </ReactMarkdown>
                     </Paper>
                     <Typography variant="caption" color="textSecondary" display="block" mt={0.5}>
                       {new Date(chat.timestamp).toLocaleString()}

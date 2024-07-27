@@ -10,7 +10,7 @@ function RAGChatbot() {
         <p className="typewriter-effect">How to get work?</p>
       </div>
       {/* chat container */}
-      <div className=" shadow-hubspot-form-shadow border border-golden-yellow justify-between relative overflow-hidden bg-pale-sandal">
+      <div className="justify-between relative overflow-hidden ">
         <ChatInterface />
       </div>
     </div>
