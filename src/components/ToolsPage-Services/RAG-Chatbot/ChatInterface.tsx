@@ -118,7 +118,7 @@ const ChatInterface = () => {
                         color: chat.speaker === 'human' ? 'white' : 'black',
                       }}
                     >
-                      <MessageBox message={chat.message} />
+                      <MessageBox message={chat.message} speaker={chat.speaker} />
                     </Paper>
                   </Box>
                 );
