@@ -54,8 +54,11 @@ export const ToolsServicePageComponent = ({ response }: ToolsServicePageProps) =
 
     case 'canada-course-recommendation-tool':
       return <CRS />;
-    default:
+    case 'pr-pathway-pilot':
       return <RAGChatbot/>; // Return null or any default component if needed
+    default:
+      return null; // Return null or any default component if needed
+
     }
   };
 
