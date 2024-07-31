@@ -4,23 +4,26 @@ import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Container, Box, Paper, Typography } from '@mui/material';
 import AutoGrowingTextarea from './AutoGrowingTextarea';
 import { IoIosSend } from 'react-icons/io';
-import { getConversationMessages } from './functions';
+import { getConversationMessages, getSessionId } from './functions';
 import { IMessage } from './constants';
 import { GridLoader } from 'react-spinners';
 import useWebSocket from '@/hooks/useWebsocket';
 import RobotThinkingIndicator from './RobotThinkingIndicator';
-import ReactMarkdown from 'react-markdown';
+import MessageBox from './MessageBox';
+import { H2 } from '@/components/H2';
 
 const ChatInterface = () => {
   const [conversation, setConversation] = useState<IMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isRobotTyping, setIsRobotTyping] = useState(false);
+  const [sesssionId, setSessionId] = useState<string>('');
+  const [webSocketConnectionResponse, setWebSocketConnectionResponse] = useState<string>('');
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  const { message, isRAGReady, sendMessage } = useWebSocket(
-    'ws://localhost:8080/ws?session_id=38d231eb-deea-4b23-b75f-a85b549f6c4e',
+  const { message, isRAGReady, retryCount, sendMessage, retryConnection } = useWebSocket(
+    sesssionId ? `ws://localhost:8080/ws?session_id=${sesssionId}` : null,
   );
 
   const scrollToBottom = () => {
@@ -30,7 +33,13 @@ const ChatInterface = () => {
   };
 
   useEffect(() => {
-    getConversationMessages('session-1')
+    const token = localStorage.getItem('token');
+    getSessionId({ token }).then((data) => {
+      if (data) {
+        setSessionId(data);
+      }
+    });
+    getConversationMessages({ token })
       .then((data) => {
         setConversation(data);
         setIsLoading(false);
@@ -56,9 +65,8 @@ const ChatInterface = () => {
   const handleSend = () => {
     if (newMessage.trim()) {
       const newMessageObj = {
-        speaker: 'You',
+        speaker: 'human',
         message: newMessage,
-        timestamp: new Date().toISOString(),
       };
       setConversation([...conversation, newMessageObj]);
       sendMessage(newMessageObj);
@@ -90,13 +98,13 @@ const ChatInterface = () => {
                   <Box
                     key={chat.speaker + index.toString()}
                     mb={2}
-                    textAlign={chat.speaker === 'You' ? 'right' : 'left'}
-                    ml={chat.speaker === 'You' ? 'auto' : 0}
+                    textAlign={chat.speaker === 'human' ? 'right' : 'left'}
+                    ml={chat.speaker === 'human' ? 'auto' : 0}
                     maxWidth={'90%'}
                   >
-                    {chat.speaker !== 'You' && (
+                    {chat.speaker !== 'human' && (
                       <Typography variant="subtitle2" color="textSecondary">
-                        {chat.speaker}
+                        Immigration Expert
                       </Typography>
                     )}
                     <Paper
@@ -104,19 +112,14 @@ const ChatInterface = () => {
                       sx={{
                         display: 'inline-block',
                         p: 1,
-                        bgcolor: chat.speaker === 'You' ? 'orange' : 'white',
-                        borderRadius: chat.speaker === 'You' ? '16px 0 16px 16px' : '0 16px 16px 16px',
-                        border: chat.speaker === 'You' ? '1px solid golden-yellow' : '1px solid black',
-                        color: chat.speaker === 'You' ? 'white' : 'black',
+                        bgcolor: chat.speaker === 'human' ? 'orange' : 'white',
+                        borderRadius: chat.speaker === 'human' ? '16px 0 16px 16px' : '0 16px 16px 16px',
+                        border: chat.speaker === 'human' ? '1px solid golden-yellow' : '1px solid black',
+                        color: chat.speaker === 'human' ? 'white' : 'black',
                       }}
                     >
-                      <ReactMarkdown className="whitespace-pre-wrap">
-                        {chat.message}
-                      </ReactMarkdown>
+                      <MessageBox message={chat.message} />
                     </Paper>
-                    <Typography variant="caption" color="textSecondary" display="block" mt={0.5}>
-                      {new Date(chat.timestamp).toLocaleString()}
-                    </Typography>
                   </Box>
                 );
               })}
@@ -149,7 +152,24 @@ const ChatInterface = () => {
           </Box>
         </Box>
       ) : (
-        <p>Robot is not ready</p>
+        <div className="flex flex-col items-center justify-center py-4">
+          {retryCount === 0 ? <H2>Initialising the connection!</H2> : <H2>The Chatbot is not ready!</H2>}
+          <div className="flex flex-col items-center gap-3">
+            <p>{webSocketConnectionResponse}</p>
+            {retryCount > 0 && (
+              <button
+                type="button"
+                className="flex items-center justify-center bg-black text-white font-bold p-2 mt-5"
+                onClick={() => {
+                  const response = retryConnection();
+                  setWebSocketConnectionResponse(response);
+                }}
+              >
+                Try again!
+              </button>
+            )}
+          </div>
+        </div>
       )}
     </Container>
   );
