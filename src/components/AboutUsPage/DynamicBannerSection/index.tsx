@@ -1,6 +1,7 @@
 import HtmlParser from 'react-html-parser';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import Image from 'next/image';
 import NextImage from '@/components/UIElements/NextImage';
 
 interface DynamicBannerSectionProps {
@@ -96,6 +97,8 @@ const DynamicBannerSection = ({
               altText={heroText}
               title={heroText}
             />
+            <Image alt="" priority fill src="/images/overlay/banner-overlay.png" style={{ objectFit: 'cover' }} />
+            <Image alt="" priority fill src="/images/overlay/banner-overlay.png" style={{ objectFit: 'cover' }} />
           </picture>
         </div>
       </div>
