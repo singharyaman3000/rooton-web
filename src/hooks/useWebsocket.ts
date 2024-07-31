@@ -27,7 +27,6 @@ const useWebSocket = (url: string | null) => {
 
     // Handle WebSocket connection open event
     socketRef.current.onopen = () => {
-      console.log('Connected to WebSocket server', url);
       setIsRAGReady(true);
       setRetryCount(0); // Reset retry count on successful connection
     };
@@ -40,7 +39,6 @@ const useWebSocket = (url: string | null) => {
 
     // Handle WebSocket close event
     socketRef.current.onclose = () => {
-      console.log('WebSocket connection closed');
       setIsRAGReady(false);
     };
   }, [url]);

@@ -17,6 +17,19 @@ const introductoryMessage = {
   timestamp: '2024-07-19T10:00:00Z',
 };
 
-export { introductoryMessage };
+const sentences = [
+  'What are the different immigration pathways to Canada?',
+  'How long does the immigration process take?',
+  'What documents are needed for immigration applications?',
+  'What is the Express Entry system?',
+  'How much does it cost to immigrate to Canada?',
+  'Can I bring my family with me?',
+  'What are the language requirements for immigration?',
+  'What is the Provincial Nominee Program?',
+  'Do I need a job offer to immigrate?',
+  'How can I check my immigration application status?',
+];
+
+export { sentences, introductoryMessage };
 export type { IMessage };
 
