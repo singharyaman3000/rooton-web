@@ -22,7 +22,7 @@ const ChatInterface = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const { message, isRAGReady, retryCount, sendMessage, retryConnection } = useWebSocket(
-    sesssionId ? `ws://localhost:8080/ws?session_id=${sesssionId}` : null,
+    sesssionId ? `ws://${process.env.NEXT_SERVER_API_BASE_URL}/ws?session_id=${sesssionId}` : null,
   );
 
   const scrollToBottom = () => {
