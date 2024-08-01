@@ -12,13 +12,21 @@ const TypewriterEffect: React.FC = () => {
 
     if (!isDeleting && charIndex < sentences[currentSentenceIndex].length) {
       timeout = setTimeout(() => {
-        setDisplayedText((prev) => {return prev + sentences[currentSentenceIndex][charIndex];});
-        setCharIndex((prev) => {return prev + 1;});
+        setDisplayedText((prev) => {
+          return prev + sentences[currentSentenceIndex][charIndex];
+        });
+        setCharIndex((prev) => {
+          return prev + 1;
+        });
       }, 100); // Typing speed
     } else if (isDeleting && charIndex > 0) {
       timeout = setTimeout(() => {
-        setDisplayedText((prev) => {return prev.slice(0, -1);});
-        setCharIndex((prev) => {return prev - 1;});
+        setDisplayedText((prev) => {
+          return prev.slice(0, -1);
+        });
+        setCharIndex((prev) => {
+          return prev - 1;
+        });
       }, 40); // Deleting speed
     } else if (!isDeleting && charIndex === sentences[currentSentenceIndex].length) {
       timeout = setTimeout(() => {
@@ -26,18 +34,26 @@ const TypewriterEffect: React.FC = () => {
       }, 2000); // Delay before starting to delete
     } else if (isDeleting && charIndex === 0) {
       setIsDeleting(false);
-      setCurrentSentenceIndex((prev) => {return (prev + 1) % sentences.length;});
+      setCurrentSentenceIndex((prev) => {
+        return (prev + 1) % sentences.length;
+      });
     }
 
-    return () => {return clearTimeout(timeout);};
+    return () => {
+      return clearTimeout(timeout);
+    };
   }, [charIndex, isDeleting, currentSentenceIndex]);
 
   // Calculate the maximum height for the text
-  const maxHeight = `${Math.max(...sentences.map((sentence) => {return sentence.length;})) }px`;
+  const maxHeight = `${Math.max(
+    ...sentences.map((sentence) => {
+      return sentence.length;
+    }),
+  )}px`;
 
   return (
-    <div style={{ height: maxHeight, overflow: 'hidden' }}>
-      <p className="hidden md:flex font-semibold text-xl">{displayedText}</p>
+    <div style={{ height: maxHeight, overflow: 'hidden' }} className="hidden md:flex md:items-center">
+      <p className=" font-semibold text-xl">{displayedText}</p>
     </div>
   );
 };

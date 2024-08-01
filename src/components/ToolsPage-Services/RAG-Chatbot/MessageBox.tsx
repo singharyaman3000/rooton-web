@@ -8,7 +8,7 @@ interface IMessageBoxProps {
 function MessageBox({ message, speaker }: IMessageBoxProps) {
   // const formattedMessage = message.replace('\n\n', '\n');
 
-  return <ReactMarkdown className={`whitespace-pre-wrap text-sm ${speaker==='human'?'text-left':''}`}>{message}</ReactMarkdown>;
+  return <ReactMarkdown className={`whitespace-pre-wrap text-sm ${speaker==='human'?'text-left':''} w-full`}>{message}</ReactMarkdown>;
 }
 
 export default MessageBox;

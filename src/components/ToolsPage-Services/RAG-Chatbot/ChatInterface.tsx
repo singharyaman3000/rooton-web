@@ -10,7 +10,6 @@ import { GridLoader } from 'react-spinners';
 import useWebSocket from '@/hooks/useWebsocket';
 import RobotThinkingIndicator from './RobotThinkingIndicator';
 import MessageBox from './MessageBox';
-import { H2 } from '@/components/H2';
 
 const ChatInterface = () => {
   const [conversation, setConversation] = useState<IMessage[]>([]);
@@ -152,8 +151,15 @@ const ChatInterface = () => {
           </Box>
         </Box>
       ) : (
-        <div className="flex flex-col items-center justify-center py-4">
-          {retryCount === 0 ? <H2>Initialising the connection!</H2> : <H2>The Chatbot is not ready!</H2>}
+        <div className="flex flex-col items-center justify-center py-4 text-center">
+          {retryCount === 0 ? (
+            <div className="">
+              <GridLoader />
+              <p className="text-xl md:text-2xl font-bold">Initialising the connection!</p>
+            </div>
+          ) : (
+            <p className="text-xl md:text-2xl font-bold">The Chatbot is not ready!</p>
+          )}
           <div className="flex flex-col items-center gap-3">
             <p>{webSocketConnectionResponse}</p>
             {retryCount > 0 && (

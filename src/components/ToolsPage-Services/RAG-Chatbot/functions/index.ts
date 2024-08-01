@@ -51,6 +51,9 @@ export async function getConversationMessages({ token }: { token: string | null 
         },
       );
       console.log(conversation);
+      if(conversation.length === 0) {
+        conversation.push(introductoryMessage);
+      }
       return conversation;
     }
     return [introductoryMessage];
