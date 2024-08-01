@@ -21,6 +21,33 @@ export async function getSessionId({ token }: { token: string | null }): Promise
   }
 }
 
+export async function resetSessionId({ token }: { token: string | null }): Promise<string | null> {
+  try {
+    if (!token) {
+      console.error('No token found in localStorage');
+      return null;
+    }
+
+    // Sending the request with headers correctly set
+    const response = await axios.put(
+      'http://localhost:8080/api/user/session/update',
+      {}, // No data payload, so we send an empty object
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+
+    if (response.status === 200) {
+      return response.data.session_id;
+    }
+
+    return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export async function getConversationMessages({ token }: { token: string | null }): Promise<IMessage[]> {
   try {
     if (!token) {
@@ -50,7 +77,6 @@ export async function getConversationMessages({ token }: { token: string | null 
           };
         },
       );
-      console.log(conversation);
       if(conversation.length === 0) {
         conversation.push(introductoryMessage);
       }

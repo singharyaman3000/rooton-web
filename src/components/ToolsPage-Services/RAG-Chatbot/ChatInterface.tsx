@@ -1,17 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { Dispatch, KeyboardEvent, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Container, Box, Paper, Typography } from '@mui/material';
 import AutoGrowingTextarea from './AutoGrowingTextarea';
 import { IoIosSend } from 'react-icons/io';
-import { getConversationMessages, getSessionId } from './functions';
+import { getConversationMessages, getSessionId, resetSessionId } from './functions';
 import { IMessage } from './constants';
 import { GridLoader } from 'react-spinners';
 import useWebSocket from '@/hooks/useWebsocket';
 import RobotThinkingIndicator from './RobotThinkingIndicator';
 import MessageBox from './MessageBox';
 
-const ChatInterface = () => {
+interface IChatInterfaceProps {
+  resetChat: boolean;
+  setResetChat: Dispatch<SetStateAction<boolean>>;
+}
+
+const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   const [conversation, setConversation] = useState<IMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +27,7 @@ const ChatInterface = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const { message, isRAGReady, retryCount, sendMessage, retryConnection } = useWebSocket(
-    sesssionId ? `ws://${process.env.NEXT_SERVER_API_BASE_URL}/ws?session_id=${sesssionId}` : null,
+    sesssionId ? `ws://localhost:8080/ws?session_id=${sesssionId}` : null,
   );
 
   const scrollToBottom = () => {
@@ -73,6 +78,24 @@ const ChatInterface = () => {
     }
   };
 
+  useEffect(() => {
+    if (resetChat) {
+      const token = localStorage.getItem('token');
+      setIsLoading(true);
+      resetSessionId({ token }).then((data) => {
+        if (data) {
+          setSessionId(data);
+          getConversationMessages({ token }).then((messages) => {
+            setConversation(messages);
+            scrollToBottom();
+          });
+          setIsLoading(false);
+          setResetChat(false);
+        }
+      });
+    }
+  }, [resetChat]);
+
   const handleKeyPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
@@ -111,9 +134,8 @@ const ChatInterface = () => {
                       sx={{
                         display: 'inline-block',
                         p: 1,
-                        bgcolor: chat.speaker === 'human' ? 'orange' : 'white',
+                        bgcolor: chat.speaker === 'human' ? '#F59723' : 'white',
                         borderRadius: chat.speaker === 'human' ? '16px 0 16px 16px' : '0 16px 16px 16px',
-                        border: chat.speaker === 'human' ? '1px solid golden-yellow' : '1px solid black',
                         color: chat.speaker === 'human' ? 'white' : 'black',
                       }}
                     >
