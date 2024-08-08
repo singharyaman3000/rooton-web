@@ -31,6 +31,7 @@ import SSForm from '../Forms/SSForm';
 import PlanCard from './PageSections/PlanCard';
 import SectionHeadings from '../UIElements/SectionHeadings';
 import SliderNav from '../UIElements/Slider/sliderNav';
+import StudyVisaForm from '../Forms/StudyVisaForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -201,6 +202,20 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     formTitle: string,
   ) => {
     switch (formIdentifier) {
+    case 'canada-study-visa':
+      return (
+        <StudyVisaForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
     case 'federal-skilled-worker-program':
       return (
         <FSWForm
