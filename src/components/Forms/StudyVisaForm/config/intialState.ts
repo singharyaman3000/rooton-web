@@ -1,0 +1,38 @@
+export const initialStates = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  mobilephone: '',
+  country_of_residence: '',
+
+  have_you_appeared_for_ielts_toefl_pte_duolingo_celpip_cael_: '',
+  desired_test_date: '',
+  overall_score_in__ielts_pte_toefl_: '',
+  what_is_your_preferred_intake_: '',
+  what_is_your_preferred_intake_1: '',
+  what_is_your_preferred_intake_2: '',
+  what_is_your_preferred_intake_3: '',
+
+  what_type_of_study_program_are_you_interested_in_taking_in_canada_: '',
+  what_type_of_study_program_are_you_interested_in_taking_in_canada__1: '',
+  what_type_of_study_program_are_you_interested_in_taking_in_canada__2: '',
+  what_type_of_study_program_are_you_interested_in_taking_in_canada__3: '',
+  what_type_of_study_program_are_you_interested_in_taking_in_canada__4: '',
+  what_type_of_study_program_are_you_interested_in_taking_in_canada__5: '',
+  what_type_of_study_program_are_you_interested_in_taking_in_canada__6: '',
+
+  current_occupation: '',
+  marital_status_rooton_web: '',
+  do_you_have_any_immediate_family_members__close_friends_or_extended_family_in_canada_: '',
+  do_you_have_any_previous_visa_refusals_in_any_country_: '',
+  please_provide_details: '',
+
+  how_can_root_on_help_you_: '',
+  how_can_root_on_help_you_1: '',
+  how_can_root_on_help_you_2: '',
+  how_can_root_on_help_you_3: '',
+  how_can_root_on_help_you_4: '',
+  how_can_root_on_help_you_5: '',
+  preferred_consultation_type_: '',
+  i_consent_to_receive_email_communications_from_root_on_regarding_my_canadian_immigration_inquiry_: 'Yes',
+};
