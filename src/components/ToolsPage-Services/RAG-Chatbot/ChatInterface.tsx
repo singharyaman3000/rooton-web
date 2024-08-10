@@ -27,7 +27,7 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const { message, isRAGReady, retryCount, sendMessage, retryConnection } = useWebSocket(
-    sesssionId ? `ws://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/ws?session_id=${sesssionId}` : null,
+    sesssionId ? `wss://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/ws?session_id=${sesssionId}` : null,
   );
 
   const scrollToBottom = () => {
