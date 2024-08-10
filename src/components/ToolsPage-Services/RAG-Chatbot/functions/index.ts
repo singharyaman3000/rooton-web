@@ -9,7 +9,7 @@ export async function getSessionId({ token }: { token: string | null }): Promise
       console.error('No token found in localStorage');
       return null;
     }
-    const response = await axios.get('http://localhost:8080/api/user/session', {
+    const response = await axios.get(`https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/api/user/session`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (response.status === 200) {
@@ -30,7 +30,7 @@ export async function resetSessionId({ token }: { token: string | null }): Promi
 
     // Sending the request with headers correctly set
     const response = await axios.put(
-      'http://localhost:8080/api/user/session/update',
+      `https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/api/user/session/update`,
       {}, // No data payload, so we send an empty object
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -54,7 +54,7 @@ export async function getConversationMessages({ token }: { token: string | null 
       console.error('No token found in localStorage');
       return [introductoryMessage];
     }
-    const response = await axios.get('http://localhost:8080/api/user/conversation', {
+    const response = await axios.get(`https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/api/user/conversation`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (response.status === 200) {
@@ -77,7 +77,7 @@ export async function getConversationMessages({ token }: { token: string | null 
           };
         },
       );
-      if(conversation.length === 0) {
+      if (conversation.length === 0) {
         conversation.push(introductoryMessage);
       }
       return conversation;
