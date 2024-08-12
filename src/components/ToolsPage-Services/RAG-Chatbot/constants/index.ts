@@ -28,12 +28,12 @@ const sentences = [
 ];
 
 const webSocketAPIUrl =
-  process.env.NEXT_APP_ENVIRONMNET === 'production'
+  process.env.NEXT_APP_ENVIRONMENT === 'production'
     ? `https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`
     : `http://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`;
 
 const websocketUrl =
-  process.env.NEXT_APP_ENVIRONMNET === 'production'
+  process.env.NEXT_APP_ENVIRONMENT === 'production'
     ? `wss://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`
     : `ws://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`;
 
