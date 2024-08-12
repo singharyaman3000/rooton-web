@@ -5,7 +5,7 @@ import { Container, Box, Paper, Typography } from '@mui/material';
 import AutoGrowingTextarea from './AutoGrowingTextarea';
 import { IoIosSend } from 'react-icons/io';
 import { getConversationMessages, getSessionId, resetSessionId } from './functions';
-import { IMessage } from './constants';
+import { IMessage, websocketUrl } from './constants';
 import { GridLoader } from 'react-spinners';
 import useWebSocket from '@/hooks/useWebsocket';
 import RobotThinkingIndicator from './RobotThinkingIndicator';
@@ -27,7 +27,7 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const { message, isRAGReady, retryCount, sendMessage, retryConnection } = useWebSocket(
-    sesssionId ? `wss://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/ws?session_id=${sesssionId}` : null,
+    sesssionId ? `${websocketUrl}/ws?session_id=${sesssionId}` : null,
   );
 
   const scrollToBottom = () => {
@@ -36,23 +36,38 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
     }
   };
 
-  useEffect(() => {
+   useEffect(() => {
     const token = localStorage.getItem('token');
-    getSessionId({ token }).then((data) => {
-      if (data) {
-        setSessionId(data);
-      }
-    });
-    getConversationMessages({ token })
-      .then((data) => {
-        setConversation(data);
-        setIsLoading(false);
-        scrollToBottom();
-      })
-      .catch(() => {
-        setConversation([]);
-        setIsLoading(false);
+
+    const fetchSessionAndMessages = () => {
+      getSessionId({ token }).then((data) => {
+        if (data) {
+          setSessionId(data);
+        }
       });
+
+      getConversationMessages({ token })
+        .then((data) => {
+          setConversation(data);
+          setIsLoading(false);
+          scrollToBottom();
+        })
+        .catch(() => {
+          setConversation([]);
+          setIsLoading(false);
+        });
+    };
+
+    fetchSessionAndMessages();
+
+    const intervalId = setInterval(() => {
+      retryConnection()
+    }, 4 * 60 * 1000); // 4 minutes in milliseconds
+
+    // Cleanup function to clear the interval on component unmount
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   useEffect(() => {

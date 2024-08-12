@@ -1,7 +1,7 @@
 'use server';
 
 import axios from 'axios';
-import { IMessage, introductoryMessage } from '../constants';
+import { IMessage, introductoryMessage, webSocketAPIUrl } from '../constants';
 
 export async function getSessionId({ token }: { token: string | null }): Promise<string | null> {
   try {
@@ -9,7 +9,7 @@ export async function getSessionId({ token }: { token: string | null }): Promise
       console.error('No token found in localStorage');
       return null;
     }
-    const response = await axios.get(`https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/api/user/session`, {
+    const response = await axios.get(`${webSocketAPIUrl}/api/user/session`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (response.status === 200) {
@@ -30,7 +30,7 @@ export async function resetSessionId({ token }: { token: string | null }): Promi
 
     // Sending the request with headers correctly set
     const response = await axios.put(
-      `https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/api/user/session/update`,
+      `${webSocketAPIUrl}/api/user/session/update`,
       {}, // No data payload, so we send an empty object
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -54,9 +54,11 @@ export async function getConversationMessages({ token }: { token: string | null 
       console.error('No token found in localStorage');
       return [introductoryMessage];
     }
-    const response = await axios.get(`https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}/api/user/conversation`, {
-      headers: { Authorization: `Bearer ${token}` },
+
+    const response = await axios.get(`${webSocketAPIUrl}/api/user/conversation/`, {
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     });
+
     if (response.status === 200) {
       const conversation = response.data.conversation.map(
         (message: {
@@ -82,8 +84,12 @@ export async function getConversationMessages({ token }: { token: string | null 
       }
       return conversation;
     }
+
     return [introductoryMessage];
   } catch (error) {
+    // Log the error details
+    console.error('Error fetching conversation messages:', error);
+
     return [introductoryMessage];
   }
 }

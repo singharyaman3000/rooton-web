@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IMessage } from '@/components/ToolsPage-Services/RAG-Chatbot/constants';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -46,23 +45,32 @@ const useWebSocket = (url: string | null) => {
   useEffect(() => {
     if (url) {
       connectWebSocket();
-    }
 
-    // Cleanup on component unmount
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-    };
+      const heartbeatInterval = setInterval(
+        () => {
+          if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+            socketRef.current.send(JSON.stringify({ type: 'ping' }));
+          }
+        },
+        4 * 60 * 1000,
+      ); // 4 minutes in milliseconds
+
+      return () => {
+        clearInterval(heartbeatInterval);
+        if (socketRef.current) {
+          socketRef.current.close();
+        }
+      };
+    }
   }, [connectWebSocket, url]);
 
   const retryConnection = () => {
     let information = '';
-    if (!isRAGReady && retryCount < 5) {
+    if (retryCount < 5) {
       information = 'Reattempting to connect to our Expert!';
       setRetryCount(retryCount + 1);
       connectWebSocket();
-    } else if (retryCount >= 5) {
+    } else {
       information = 'Max retries reached, could not connect to our Expert!';
     }
     return information;
