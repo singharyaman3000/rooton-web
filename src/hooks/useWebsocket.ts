@@ -38,7 +38,7 @@ const useWebSocket = (url: string | null) => {
 
     // Handle WebSocket close event
     socketRef.current.onclose = () => {
-      setIsRAGReady(false);
+      retryConnection();
     };
   }, [url]);
 
@@ -46,17 +46,7 @@ const useWebSocket = (url: string | null) => {
     if (url) {
       connectWebSocket();
 
-      const heartbeatInterval = setInterval(
-        () => {
-          if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-            socketRef.current.send(JSON.stringify({ type: 'ping' }));
-          }
-        },
-        4 * 60 * 1000,
-      ); // 4 minutes in milliseconds
-
       return () => {
-        clearInterval(heartbeatInterval);
         if (socketRef.current) {
           socketRef.current.close();
         }
