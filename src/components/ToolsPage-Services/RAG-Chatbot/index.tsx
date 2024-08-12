@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ChatInterface from './ChatInterface';
 import TypewriterEffect from './TypeWriterEffect';
+import { Container } from '@mui/material';
 
 function RAGChatbot() {
   const [resetChat, setResetChat] = useState(false);
@@ -14,10 +15,10 @@ function RAGChatbot() {
         <TypewriterEffect />
       </div>
       {/* chat container */}
-      <div className="justify-between relative overflow-hidden w-[90%] mx-auto">
+      <Container className="justify-between relative overflow-hidden w-[90%] mx-auto">
         <button
           type="button"
-          className="flex items-center justify-center bg-black px-3 py-1 text-white font-bold mb-2 mr-3 ml-auto"
+          className="flex items-center justify-center bg-black px-3 py-1 text-white font-bold mb-2 ml-auto"
           onClick={() => {
             return setResetChat(true);
           }}
@@ -25,7 +26,7 @@ function RAGChatbot() {
           Reset Chat
         </button>
         <ChatInterface resetChat={resetChat} setResetChat={setResetChat} />
-      </div>
+      </Container>
     </div>
   );
 }
