@@ -38,7 +38,7 @@ const useWebSocket = (url: string | null) => {
 
     // Handle WebSocket close event
     socketRef.current.onclose = () => {
-      retryConnection();
+      socketRef.current = new WebSocket(url || '');
     };
   }, [url]);
 
@@ -52,6 +52,8 @@ const useWebSocket = (url: string | null) => {
         }
       };
     }
+
+    return () => {};
   }, [connectWebSocket, url]);
 
   const retryConnection = () => {
@@ -66,7 +68,7 @@ const useWebSocket = (url: string | null) => {
     return information;
   };
 
-  const sendMessage = (messageFromUser: any) => {
+  const sendMessage = (messageFromUser: { speaker: string; message: string }) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       socketRef.current.send(JSON.stringify(messageFromUser));
     }

@@ -27,18 +27,15 @@ const sentences = [
   'How can I check my immigration application status?',
 ];
 
-
 const webSocketAPIUrl =
   process.env.NEXT_APP_ENVIRONMNET === 'production'
     ? `https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`
-    : `https://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`;
+    : `http://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`;
 
-    
 const websocketUrl =
   process.env.NEXT_APP_ENVIRONMNET === 'production'
     ? `wss://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`
-    : `wss://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`;
+    : `ws://${process.env.NEXT_PUBLIC_RAG_CHATBOT_WS_URL}`;
 
 export { sentences, introductoryMessage, websocketUrl, webSocketAPIUrl };
 export type { IMessage };
-

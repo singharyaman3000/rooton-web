@@ -36,7 +36,7 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
 
     const fetchSessionAndMessages = () => {
@@ -60,9 +60,12 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
 
     fetchSessionAndMessages();
 
-    const intervalId = setInterval(() => {
-      retryConnection()
-    }, 4 * 60 * 1000); // 4 minutes in milliseconds
+    const intervalId = setInterval(
+      () => {
+        retryConnection();
+      },
+      4 * 60 * 1000,
+    ); // 4 minutes in milliseconds
 
     // Cleanup function to clear the interval on component unmount
     return () => {
