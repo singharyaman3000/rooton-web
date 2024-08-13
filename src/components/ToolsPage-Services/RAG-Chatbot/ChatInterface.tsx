@@ -39,38 +39,22 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    const fetchSessionAndMessages = () => {
-      getSessionId({ token }).then((data) => {
-        if (data) {
-          setSessionId(data);
-        }
+    getSessionId({ token }).then((data) => {
+      if (data) {
+        setSessionId(data);
+      }
+    });
+
+    getConversationMessages({ token })
+      .then((data) => {
+        setConversation(data);
+        setIsLoading(false);
+        scrollToBottom();
+      })
+      .catch(() => {
+        setConversation([]);
+        setIsLoading(false);
       });
-
-      getConversationMessages({ token })
-        .then((data) => {
-          setConversation(data);
-          setIsLoading(false);
-          scrollToBottom();
-        })
-        .catch(() => {
-          setConversation([]);
-          setIsLoading(false);
-        });
-    };
-
-    fetchSessionAndMessages();
-
-    const intervalId = setInterval(
-      () => {
-        retryConnection();
-      },
-      4 * 60 * 1000,
-    ); // 4 minutes in milliseconds
-
-    // Cleanup function to clear the interval on component unmount
-    return () => {
-      clearInterval(intervalId);
-    };
   }, []);
 
   useEffect(() => {

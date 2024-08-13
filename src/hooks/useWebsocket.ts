@@ -42,6 +42,7 @@ const useWebSocket = (url: string | null) => {
     };
   }, [url]);
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (url) {
       connectWebSocket();
@@ -52,8 +53,6 @@ const useWebSocket = (url: string | null) => {
         }
       };
     }
-
-    return () => {};
   }, [connectWebSocket, url]);
 
   const retryConnection = () => {
