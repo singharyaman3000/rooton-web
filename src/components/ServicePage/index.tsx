@@ -33,6 +33,8 @@ import SectionHeadings from '../UIElements/SectionHeadings';
 import SliderNav from '../UIElements/Slider/sliderNav';
 import StudyVisaForm from '../Forms/StudyVisaForm';
 import SOWPForm from '../Forms/SOWPForm';
+import WPInsideCanadaForm from '../Forms/WPInsideCanadaForm';
+import CLosedWPForm from '../Forms/CLosedWPForm';
 
 type ServicePageProps = {
   response: IServicePageContent;
@@ -220,6 +222,34 @@ export const ServicePageComponent = ({ response, isBookAppointment }: ServicePag
     case 'spousal-open-work-permit':
       return (
         <SOWPForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
+    case 'lmia-exempt-work-permits':
+      return (
+        <WPInsideCanadaForm
+          leadFormRef={leadFormRef}
+          formId={formId}
+          meetingLink={meetingLink}
+          title={formTitle}
+          isBookAppointment={isBookAppointment}
+          initScroll={() => {
+            return handleCTAButtonClick(CONSULTATION_TYPES.FREE);
+          }}
+          scrollToTop={scrollToLeadForm}
+        />
+      );
+    case 'lmia-work-permit-canada':
+      return (
+        <CLosedWPForm
           leadFormRef={leadFormRef}
           formId={formId}
           meetingLink={meetingLink}
