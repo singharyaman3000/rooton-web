@@ -10,6 +10,7 @@ import { GridLoader } from 'react-spinners';
 import useWebSocket from '@/hooks/useWebsocket';
 import RobotThinkingIndicator from './RobotThinkingIndicator';
 import MessageBox from './MessageBox';
+import { useHeaderData } from '@/hooks/HeaderDataProvider';
 
 interface IChatInterfaceProps {
   resetChat: boolean;
@@ -29,6 +30,8 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   const { message, isRAGReady, retryCount, sendMessage, retryConnection } = useWebSocket(
     sesssionId ? `${websocketUrl}/ws?session_id=${sesssionId}` : null,
   );
+
+  const { logo_name } = useHeaderData();
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
@@ -107,7 +110,7 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   };
 
   return (
-    <Container className="shadow-hubspot-form-shadow border border-golden-yellow bg-pale-sandal">
+    <Container className="shadow-hubspot-form-shadow border border-[#C0C0C0] bg-[#E5E4E2]">
       {isRAGReady ? (
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" paddingY={2}>
           {isLoading ? (
@@ -131,12 +134,19 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
                         Immigration Expert
                       </Typography>
                     )}
+                    {chat.speaker === 'human' && (
+                      <Typography variant="subtitle2" color="textSecondary">
+                        {logo_name}
+                      </Typography>
+                    )}
                     <Paper
                       variant="outlined"
                       sx={{
                         display: 'inline-block',
                         p: 1,
-                        bgcolor: chat.speaker === 'human' ? '#F59723' : 'white',
+                        border: '0',
+                        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+                        bgcolor: chat.speaker === 'human' ? '#ffc766' : 'white',
                         borderRadius: chat.speaker === 'human' ? '16px 0 16px 16px' : '0 16px 16px 16px',
                         color: chat.speaker === 'human' ? 'white' : 'black',
                       }}
