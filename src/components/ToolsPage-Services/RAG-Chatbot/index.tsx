@@ -15,7 +15,7 @@ function RAGChatbot() {
         <TypewriterEffect />
       </div>
       {/* chat container */}
-      <Container className="justify-between relative overflow-hidden mx-auto">
+      <Container className="justify-between relative overflow-hidden mx-auto p-0">
         <button
           type="button"
           className="flex items-center justify-center bg-black px-3 py-1 text-white font-bold mb-2 ml-auto"

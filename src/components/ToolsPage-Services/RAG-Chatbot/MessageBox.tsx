@@ -1,4 +1,4 @@
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'markdown-to-jsx';
 
 interface IMessageBoxProps {
   message: string;
@@ -6,14 +6,12 @@ interface IMessageBoxProps {
 }
 
 function MessageBox({ message, speaker }: IMessageBoxProps) {
-  // const formattedMessage = message.replace('\n\n', '\n');
-
   return (
-    <ReactMarkdown
-      className={`whitespace-pre-wrap text-sm ${speaker === 'human' ? 'text-left text-black' : ''} w-full`}
+    <Markdown
+      className={`whitespace-pre-wrap1 text-sm ${speaker === 'human' ? 'text-left text-black' : ''} w-full`}
     >
       {message}
-    </ReactMarkdown>
+    </Markdown>
   );
 }
 

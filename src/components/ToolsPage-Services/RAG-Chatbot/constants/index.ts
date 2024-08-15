@@ -5,13 +5,15 @@ interface IMessage {
 
 const introductoryMessage = {
   speaker: 'Immigration Expert',
-  message: `Hey there, I'm an Immigration expert!
-            I help people immigrate to Canada:
-            > Find a suitable immigration program for you
-            > Schedule a meeting with a verified professional
-            > Answer any questions you have on immigration
+  message: `Hey there, I'm an **Immigration expert**!  
+I help people immigrate to Canada:
 
-            Get started by asking a question or selecting one of the options below!`,
+&nbsp;&nbsp;&nbsp;&nbsp;- **Find a suitable immigration program for you**  
+&nbsp;&nbsp;&nbsp;&nbsp;- **Schedule a meeting with a verified professional**  
+&nbsp;&nbsp;&nbsp;&nbsp;- **Answer any questions you have on immigration**
+
+<br/>
+Get started by asking a question or selecting one of the options below!`,
 };
 
 const sentences = [
