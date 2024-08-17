@@ -4,10 +4,9 @@ import { Dispatch, KeyboardEvent, SetStateAction, useEffect, useRef, useState } 
 import { Container, Box, Paper, Typography } from '@mui/material';
 import AutoGrowingTextarea from './AutoGrowingTextarea';
 import { IoIosSend } from 'react-icons/io';
-import { getConversationMessages, getSessionId, resetSessionId } from './functions';
-import { IMessage, websocketUrl } from './constants';
+import { getConversationMessages, getSessionId, resetSessionId, sendMessage } from './functions';
+import { IMessage } from './constants';
 import { GridLoader } from 'react-spinners';
-import useWebSocket from '@/hooks/useWebsocket';
 import RobotThinkingIndicator from './RobotThinkingIndicator';
 import MessageBox from './MessageBox';
 import { useHeaderData } from '@/hooks/HeaderDataProvider';
@@ -23,13 +22,9 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isRobotTyping, setIsRobotTyping] = useState(false);
   const [sesssionId, setSessionId] = useState<string>('');
-  const [webSocketConnectionResponse, setWebSocketConnectionResponse] = useState<string>('');
+  const [isRAGReady, setIsRAGReady] = useState<boolean>(false);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
-  const { message, isRAGReady, retryCount, sendMessage, retryConnection } = useWebSocket(
-    sesssionId ? `${websocketUrl}/ws?session_id=${sesssionId}` : null,
-  );
 
   const { logo_name } = useHeaderData();
 
@@ -45,6 +40,7 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
     getSessionId({ token }).then((data) => {
       if (data) {
         setSessionId(data);
+        setIsRAGReady(true);
       }
     });
 
@@ -64,13 +60,6 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
     scrollToBottom();
   }, [conversation]);
 
-  useEffect(() => {
-    if (message) {
-      setConversation([...conversation, message]);
-      setIsRobotTyping(false);
-    }
-  }, [message]);
-
   const handleSend = () => {
     if (newMessage.trim()) {
       const newMessageObj = {
@@ -78,24 +67,34 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
         message: newMessage,
       };
       setConversation([...conversation, newMessageObj]);
-      sendMessage(newMessageObj);
+      const token = localStorage.getItem('token');
+      sendMessage({ message: newMessage, session_id : sesssionId, token }).then((data) => {
+        if (data) {
+          setIsRobotTyping(false);
+          setConversation([...conversation, data]);
+          scrollToBottom();
+        }
+      });
       setNewMessage('');
     }
   };
 
   useEffect(() => {
     if (resetChat) {
+      setIsRAGReady(false);
       const token = localStorage.getItem('token');
       setIsLoading(true);
       resetSessionId({ token }).then((data) => {
         if (data) {
           setSessionId(data);
+          setIsRAGReady(true);
           getConversationMessages({ token }).then((messages) => {
             setConversation(messages);
+            setIsLoading(false);
+            setResetChat(false);
+            setIsRobotTyping(false);
             scrollToBottom();
           });
-          setIsLoading(false);
-          setResetChat(false);
         }
       });
     }
@@ -186,28 +185,9 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
         </Box>
       ) : (
         <div className="flex flex-col items-center justify-center py-4 text-center">
-          {retryCount === 0 ? (
-            <div className="">
-              <GridLoader />
-              <p className="text-xl md:text-2xl font-bold">Initialising the connection!</p>
-            </div>
-          ) : (
-            <p className="text-xl md:text-2xl font-bold">The Chatbot is not ready!</p>
-          )}
-          <div className="flex flex-col items-center gap-3">
-            <p>{webSocketConnectionResponse}</p>
-            {retryCount > 0 && (
-              <button
-                type="button"
-                className="flex items-center justify-center bg-black text-white font-bold p-2 mt-5"
-                onClick={() => {
-                  const response = retryConnection();
-                  setWebSocketConnectionResponse(response);
-                }}
-              >
-                Try again!
-              </button>
-            )}
+          <div className="">
+            <GridLoader />
+            <p className="text-xl md:text-2xl font-bold">Initialising the connection!</p>
           </div>
         </div>
       )}

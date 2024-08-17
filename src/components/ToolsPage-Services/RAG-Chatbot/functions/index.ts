@@ -93,3 +93,48 @@ export async function getConversationMessages({ token }: { token: string | null 
     return [introductoryMessage];
   }
 }
+
+export async function sendMessage({
+  message,
+  session_id,
+  token,
+}: {
+  message: string;
+  session_id: string | null;
+  token: string | null;
+}): Promise<IMessage | null> {
+  try {
+    if (!token) {
+      console.error('No token found in localStorage');
+      return null;
+    }
+    if (!session_id) {
+      console.error('No session_id provided.');
+      return null;
+    }
+
+    const response = await axios.post(
+      `${webSocketAPIUrl}/api/chat/`,
+      {
+        session_id,
+        message,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      console.log(response.data);
+      return { speaker: 'RAG', message: response.data };
+    }
+
+    return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
