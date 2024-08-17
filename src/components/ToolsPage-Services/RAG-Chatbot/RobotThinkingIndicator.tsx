@@ -42,7 +42,7 @@ function RobotThinkingIndicator() {
           p: 2,
           bgcolor: 'white',
           borderRadius: '0 16px 16px 16px',
-          border: '1px solid black',
+          border: 'none',
           color: 'black',
         }}
       >
