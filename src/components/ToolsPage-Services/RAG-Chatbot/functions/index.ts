@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 'use server';
 
 import axios from 'axios';
@@ -114,7 +116,7 @@ export async function sendMessage({
     }
 
     const response = await axios.post(
-      `${webSocketAPIUrl}/api/chat/`,
+      `${webSocketAPIUrl}/api/chat`,
       {
         session_id,
         message,
@@ -128,8 +130,7 @@ export async function sendMessage({
     );
 
     if (response.status === 200) {
-      console.log(response.data);
-      return { speaker: 'RAG', message: response.data };
+      return { speaker: 'RAG', message: response.data.response };
     }
 
     return null;

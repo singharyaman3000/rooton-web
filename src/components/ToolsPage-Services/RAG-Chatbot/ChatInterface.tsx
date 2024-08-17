@@ -21,7 +21,7 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isRobotTyping, setIsRobotTyping] = useState(false);
-  const [sesssionId, setSessionId] = useState<string>('');
+  const [sessionId, setSessionId] = useState<string>('');
   const [isRAGReady, setIsRAGReady] = useState<boolean>(false);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -66,15 +66,18 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
         speaker: 'human',
         message: newMessage,
       };
-      setConversation([...conversation, newMessageObj]);
+
+      setConversation((prevConversation) => {return [...prevConversation, newMessageObj];});
+
       const token = localStorage.getItem('token');
-      sendMessage({ message: newMessage, session_id : sesssionId, token }).then((data) => {
+      sendMessage({ message: newMessage, session_id: sessionId, token }).then((data) => {
         if (data) {
+          setConversation((prevConversation) => {return [...prevConversation, data];});
           setIsRobotTyping(false);
-          setConversation([...conversation, data]);
           scrollToBottom();
         }
       });
+
       setNewMessage('');
     }
   };
