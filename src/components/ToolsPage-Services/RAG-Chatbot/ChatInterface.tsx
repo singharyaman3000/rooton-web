@@ -14,9 +14,11 @@ import { useHeaderData } from '@/hooks/HeaderDataProvider';
 interface IChatInterfaceProps {
   resetChat: boolean;
   setResetChat: Dispatch<SetStateAction<boolean>>;
+  setDisplayToast: Dispatch<SetStateAction<boolean>>;
+  setToastMessage: Dispatch<SetStateAction<string>>;
 }
 
-const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
+const ChatInterface = ({ resetChat, setResetChat, setDisplayToast, setToastMessage }: IChatInterfaceProps) => {
   const [conversation, setConversation] = useState<IMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +43,9 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
       if (data) {
         setSessionId(data);
         setIsRAGReady(true);
+      }else{
+        setDisplayToast(true);
+        setToastMessage('Session ID not found. Please try again.');
       }
     });
 
@@ -53,6 +58,8 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
       .catch(() => {
         setConversation([]);
         setIsLoading(false);
+        setDisplayToast(true);
+        setToastMessage('Failed to load the conversation history. Please try again.');
       });
   }, []);
 
@@ -75,6 +82,18 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
           setConversation((prevConversation) => {return [...prevConversation, data];});
           setIsRobotTyping(false);
           scrollToBottom();
+        }else{
+          setDisplayToast(true);
+          setToastMessage('Failed to send message. Please try again.');
+          setIsRobotTyping(false);
+          setConversation((prevConversation) => {
+            // Check if the array is not empty to avoid removing from an empty array
+            if (prevConversation.length > 0) {
+              // Return a new array that has every element except the last one
+              return prevConversation.slice(0, -1);
+            }
+            return prevConversation; // Return the original array if it's empty
+          });
         }
       });
 
@@ -98,6 +117,9 @@ const ChatInterface = ({ resetChat, setResetChat }: IChatInterfaceProps) => {
             setIsRobotTyping(false);
             scrollToBottom();
           });
+        }else{
+          setDisplayToast(true);
+          setToastMessage('Failed to reset the conversation. Please try again.');
         }
       });
     }

@@ -2,9 +2,13 @@ import { useState } from 'react';
 import ChatInterface from './ChatInterface';
 import TypewriterEffect from './TypeWriterEffect';
 import { Container } from '@mui/material';
+import ToastMessage from '@/components/UIElements/ToastMessage';
 
 function RAGChatbot() {
   const [resetChat, setResetChat] = useState(false);
+  const [displayToast, setDisplayToast] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>('');
+
   return (
     <div className="flex flex-col w-full gap-4 p-5 lg:px-[80px] lg:pt-[20px] mb-10 m-auto max-w-screen-2xl">
       {/* Header */}
@@ -25,8 +29,9 @@ function RAGChatbot() {
         >
           Reset Chat
         </button>
-        <ChatInterface resetChat={resetChat} setResetChat={setResetChat} />
+        <ChatInterface resetChat={resetChat} setResetChat={setResetChat} setDisplayToast={setDisplayToast} setToastMessage={setToastMessage} />
       </Container>
+      {displayToast ? <ToastMessage message={toastMessage} setShowToast={setDisplayToast} durationInSeconds={5} /> : null}
     </div>
   );
 }
